@@ -50,17 +50,6 @@
         </li>
       {% endfor %}
 
-      {% if shop.customer_accounts_enabled %}
-        <li class="zenkai-menu__item zenkai-menu__item--secondary">
-          <a href="{{ routes.account_url }}" class="zenkai-menu__link">
-            {% if customer %}
-              {{ 'layout.customer.account' | t }}
-            {% else %}
-              {{ 'layout.customer.log_in' | t }}
-            {% endif %}
-          </a>
-        </li>
-      {% endif %}
     </ul>
   </nav>
 </div>
