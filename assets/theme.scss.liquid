@@ -112,145 +112,7 @@
   }
 }
 
-/* ==========================================================================
-   ZENKAI MOBILE NAVIGATION - FULL SCREEN OVERLAY
-   Modern, premium mobile menu for streetwear brand
-   ========================================================================== */
-
-@media screen and (max-width: 768px) {
-  /* Hide the floating thumb menu button (we use header hamburger instead) */
-  .site-nav__thumb-menu {
-    display: none !important;
-  }
-
-  /* Remove body padding that was for thumb menu */
-  body {
-    padding-bottom: 0 !important;
-  }
-
-  /* Sticky Header */
-  .site-header {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: #ffffff;
-  }
-
-  /* Offset for fixed header - add space at top of content */
-  .header-wrapper {
-    margin-bottom: 60px;
-  }
-
-  /* When header is in overlay mode (over hero), transparent background */
-  .header-wrapper--overlay .site-header {
-    background: transparent;
-  }
-
-  .header-wrapper--overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0.2) 60%,
-      transparent 100%
-    );
-  }
-
-  /* Show hamburger in header */
-  .header-item--icons {
-    display: flex !important;
-    align-items: center;
-  }
-
-  .site-nav__link--icon.js-toggle-slide-nav.hide {
-    display: inline-flex !important;
-  }
-
-  .site-nav__link--icon.js-toggle-slide-nav {
-    padding: 10px;
-  }
-
-  /* ===== FULL-SCREEN OVERLAY MENU ===== */
-  .slide-nav__overflow--thumb {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding-top: 80px; /* Space below header */
-    background: rgba(0, 0, 0, 0.97) !important;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease !important;
-    display: block !important;
-    overflow-y: auto;
-    z-index: 999 !important;
-    border-radius: 0 !important;
-  }
-
-  .slide-nav__overflow--thumb.js-menu--is-open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Menu content - remove transform animation (this was the bug!) */
-  .slide-nav__wrapper {
-    transform: none !important;
-    background: transparent !important;
-    width: 100%;
-    padding: 20px;
-    border-radius: 0 !important;
-  }
-
-  /* Navigation links */
-  .slide-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .slide-nav__link,
-  .slide-nav__sublist-link {
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 18px 20px;
-    color: #ffffff !important;
-    text-align: center;
-    display: block;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .slide-nav__link:hover,
-  .slide-nav__sublist-link:hover {
-    color: #0066FF !important;
-  }
-
-  /* Submenu styling */
-  .slide-nav__dropdown {
-    background: transparent !important;
-  }
-
-  .slide-nav__sublist-link {
-    font-size: 18px;
-    font-weight: 400;
-  }
-
-  /* Submenu toggle button */
-  .js-toggle-submenu {
-    color: #ffffff !important;
-  }
-
-  .js-toggle-submenu .icon {
-    fill: #ffffff;
-  }
-}
+/* Old mobile nav CSS removed - now using zenkai-mobile-menu system at end of file */
 
 
 .clearfix {
@@ -10606,6 +10468,261 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 .site-footer {
   border-top: 3px solid $colorAccent;
+}
+
+
+/* ==========================================================================
+   ZENKAI MOBILE MENU SYSTEM
+   Complete replacement for broken slide-nav on mobile
+   Uses unique class names to avoid all conflicts
+   ========================================================================== */
+
+/* Hide original slide-nav completely on mobile */
+@media screen and (max-width: 768px) {
+  .slide-nav__overflow,
+  .slide-nav__overflow--thumb,
+  .slide-nav__overflow--slide,
+  .site-nav__thumb-menu {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Zenkai Overlay - Full screen dark background */
+.zenkai-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.97);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.zenkai-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Zenkai Menu Container */
+.zenkai-menu {
+  padding: 100px 20px 40px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.zenkai-menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Menu Items */
+.zenkai-menu__item {
+  position: relative;
+}
+
+.zenkai-menu__item--secondary {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Menu Links */
+.zenkai-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 18px 20px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+.zenkai-menu__link:hover,
+.zenkai-menu__link:focus {
+  color: #0066FF;
+  outline: none;
+}
+
+.zenkai-menu__link--sub {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  padding: 14px 20px;
+}
+
+/* Toggle button (with chevron) */
+.zenkai-menu__toggle {
+  justify-content: center;
+  gap: 12px;
+}
+
+.zenkai-menu__chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+/* Submenu */
+.zenkai-submenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.97);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(30px);
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 100px 20px 40px;
+  list-style: none;
+  margin: 0;
+}
+
+.zenkai-submenu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.zenkai-submenu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zenkai-submenu__back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.zenkai-submenu__back:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.zenkai-submenu__back svg {
+  stroke: currentColor;
+}
+
+.zenkai-submenu__title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.zenkai-submenu__title:hover {
+  color: #0066FF;
+}
+
+/* Hamburger button styling */
+.js-zenkai-toggle {
+  position: relative;
+  z-index: 10001;
+}
+
+.js-zenkai-toggle .icon-close {
+  display: none;
+}
+
+.js-zenkai-toggle.is-active .icon-hamburger {
+  display: none;
+}
+
+.js-zenkai-toggle.is-active .icon-close {
+  display: block;
+}
+
+/* Mobile header fixes */
+@media screen and (max-width: 768px) {
+  /* Sticky header */
+  .site-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #ffffff;
+  }
+
+  /* Content offset for fixed header */
+  .header-wrapper {
+    margin-bottom: 60px;
+  }
+
+  /* Overlay header transparency */
+  .header-wrapper--overlay .site-header {
+    background: transparent;
+  }
+
+  .header-wrapper--overlay {
+    margin-bottom: 0;
+  }
+
+  /* Ensure icons container shows */
+  .header-item--icons {
+    display: flex !important;
+    align-items: center;
+  }
+
+  /* Remove body padding from old thumb menu */
+  body {
+    padding-bottom: 0 !important;
+  }
+}
+
+/* Hide zenkai menu on desktop */
+@media screen and (min-width: 769px) {
+  .zenkai-overlay {
+    display: none !important;
+  }
+
+  .js-zenkai-toggle {
+    display: none !important;
+  }
 }
 
 

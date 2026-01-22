@@ -1,0 +1,137 @@
+{% comment %}
+  ZENKAI MOBILE MENU
+  A clean, full-screen overlay mobile menu for premium streetwear experience.
+  Uses unique class names (zenkai-*) to avoid conflicts with original theme.
+{% endcomment %}
+
+<div id="zenkai-mobile-overlay" class="zenkai-overlay" aria-hidden="true">
+  <nav class="zenkai-menu" role="navigation" aria-label="Mobile navigation">
+    <ul class="zenkai-menu__list">
+      {%- unless main_menu.links[0].url == routes.root_url -%}
+        <li class="zenkai-menu__item">
+          <a href="{{ routes.root_url }}" class="zenkai-menu__link">
+            {{ 'general.drawers.home' | t }}
+          </a>
+        </li>
+      {%- endunless -%}
+
+      {% for link in main_menu.links %}
+        <li class="zenkai-menu__item">
+          {% if link.links != blank %}
+            <button type="button" class="zenkai-menu__link zenkai-menu__toggle" data-submenu="{{ link.title | handleize }}">
+              {{ link.title }}
+              <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </button>
+            <ul class="zenkai-submenu" data-submenu-id="{{ link.title | handleize }}">
+              <li class="zenkai-submenu__header">
+                <button type="button" class="zenkai-submenu__back">
+                  <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none"/>
+                  </svg>
+                  Back
+                </button>
+                <a href="{{ link.url }}" class="zenkai-submenu__title">{{ link.title }}</a>
+              </li>
+              {% for childlink in link.links %}
+                <li class="zenkai-menu__item">
+                  <a href="{{ childlink.url }}" class="zenkai-menu__link zenkai-menu__link--sub">
+                    {{ childlink.title | escape }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <a href="{{ link.url }}" class="zenkai-menu__link">
+              {{ link.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      {% if shop.customer_accounts_enabled %}
+        <li class="zenkai-menu__item zenkai-menu__item--secondary">
+          <a href="{{ routes.account_url }}" class="zenkai-menu__link">
+            {% if customer %}
+              {{ 'layout.customer.account' | t }}
+            {% else %}
+              {{ 'layout.customer.log_in' | t }}
+            {% endif %}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+
+<script>
+(function() {
+  var overlay = document.getElementById('zenkai-mobile-overlay');
+  var toggleButtons = document.querySelectorAll('.js-zenkai-toggle');
+  var submenuToggles = overlay.querySelectorAll('.zenkai-menu__toggle');
+  var backButtons = overlay.querySelectorAll('.zenkai-submenu__back');
+
+  function openMenu() {
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    toggleButtons.forEach(function(btn) { btn.classList.add('is-active'); });
+  }
+
+  function closeMenu() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    toggleButtons.forEach(function(btn) { btn.classList.remove('is-active'); });
+    // Close all submenus
+    overlay.querySelectorAll('.zenkai-submenu.is-open').forEach(function(sub) {
+      sub.classList.remove('is-open');
+    });
+  }
+
+  // Toggle button click
+  toggleButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (overlay.classList.contains('is-open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  });
+
+  // Submenu toggle
+  submenuToggles.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = this.getAttribute('data-submenu');
+      var submenu = overlay.querySelector('[data-submenu-id="' + targetId + '"]');
+      if (submenu) {
+        submenu.classList.add('is-open');
+      }
+    });
+  });
+
+  // Back button
+  backButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      this.closest('.zenkai-submenu').classList.remove('is-open');
+    });
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+      closeMenu();
+    }
+  });
+
+  // Close when clicking on overlay background
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      closeMenu();
+    }
+  });
+})();
+</script>

@@ -20,17 +20,16 @@
       </a>
     {% endif %}
 
-    {% if menu_alignment == 'left'
-       or menu_alignment == 'left-center'
-       or menu_alignment == 'right' %}
-      <button
-        type="button"
-        class="site-nav__link site-nav__link--icon js-toggle-slide-nav{% if menu_alignment == 'left' or menu_alignment == 'left-center' or menu_alignment == 'right' %} medium-up--hide{% endif %}">
-        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 64 64"><path d="M7 15h51M7 32h43M7 49h51"/></svg>
-        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/></svg>
-        <span class="icon__fallback-text">{{ 'general.drawers.navigation' | t }}</span>
-      </button>
-    {% endif %}
+    {% comment %} Mobile hamburger menu - always show on mobile {% endcomment %}
+    <button
+      type="button"
+      class="site-nav__link site-nav__link--icon js-zenkai-toggle medium-up--hide"
+      aria-label="Menu"
+      aria-expanded="false">
+      <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 64 64"><path d="M7 15h51M7 32h43M7 49h51"/></svg>
+      <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/></svg>
+      <span class="icon__fallback-text">{{ 'general.drawers.navigation' | t }}</span>
+    </button>
 
     {% unless settings.cart_type == 'sticky' %}
       <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon site-nav__link--cart js-drawer-open-cart js-no-transition" aria-controls="CartDrawer" data-icon="{{ settings.cart_icon }}">

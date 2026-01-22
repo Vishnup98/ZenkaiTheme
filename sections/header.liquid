@@ -32,7 +32,9 @@
 {% endcomment %}
 {%- assign mobile_menu_style = 'thumb' -%}
 
-{% include 'slide-nav' %}
+{% comment %} Original slide-nav disabled - using new Zenkai mobile menu {% endcomment %}
+{% comment %}{% include 'slide-nav' %}{% endcomment %}
+{% include 'zenkai-mobile-menu' %}
 {% if settings.cart_type == 'sticky' %}
   {% include 'sticky-cart' %}
 {% endif %}
