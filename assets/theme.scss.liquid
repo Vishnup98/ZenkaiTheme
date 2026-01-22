@@ -10505,6 +10505,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -10524,6 +10525,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 .zenkai-overlay.is-open {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 /* Staggered animation for menu items */
@@ -10602,13 +10604,13 @@ $marqueeAnimationSpeedMobile: 6.6s;
   height: 14px;
 }
 
-/* Menu Container - Centered content */
+/* Menu Container - Top-aligned content */
 .zenkai-menu {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 70px 40px 50px;
+  justify-content: flex-start;
+  min-height: auto;
+  padding: 90px 40px 50px;
   max-width: 400px;
   margin: 0 auto;
   position: relative;
@@ -10839,10 +10841,9 @@ $marqueeAnimationSpeedMobile: 6.6s;
     position: relative !important;
   }
 
-  /* Content offset for fixed header */
-  body {
-    padding-top: 70px !important;
-    padding-bottom: 0 !important;
+  /* Content offset for fixed header - use margin on content, not body padding */
+  .main-content {
+    margin-top: 70px;
   }
 
   /* Overlay header transparency */
