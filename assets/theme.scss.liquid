@@ -10490,7 +10490,9 @@ $marqueeAnimationSpeedMobile: 6.6s;
   }
 }
 
-/* Zenkai Overlay - Full screen dark background */
+/* ==========================================================================
+   ZENKAI MENU OVERLAY - Premium full-screen menu
+   ========================================================================== */
 .zenkai-overlay {
   position: fixed;
   top: 0;
@@ -10499,11 +10501,11 @@ $marqueeAnimationSpeedMobile: 6.6s;
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.97);
+  background: rgba(10, 10, 10, 0.98);
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -10513,10 +10515,48 @@ $marqueeAnimationSpeedMobile: 6.6s;
   visibility: visible;
 }
 
-/* Zenkai Menu Container */
+/* Close Button - Top Right */
+.zenkai-menu__close {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.zenkai-menu__close:hover,
+.zenkai-menu__close:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  outline: none;
+}
+
+.zenkai-menu__close svg {
+  stroke: currentColor;
+}
+
+/* Menu Container - Centered content */
 .zenkai-menu {
-  padding: 100px 20px 40px;
-  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 100px 30px 60px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -10531,55 +10571,62 @@ $marqueeAnimationSpeedMobile: 6.6s;
   position: relative;
 }
 
-.zenkai-menu__item--secondary {
-  margin-top: 30px;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Menu Links */
+/* Menu Links - Large, elegant typography */
 .zenkai-menu__link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
-  padding: 18px 20px;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  padding: 22px 10px;
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #ffffff !important;
   text-decoration: none;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
   text-align: center;
 }
 
 .zenkai-menu__link:hover,
 .zenkai-menu__link:focus {
   color: #0066FF !important;
+  transform: translateX(5px);
   outline: none;
 }
 
 .zenkai-menu__link--sub {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
-  letter-spacing: 0.05em;
-  padding: 14px 20px;
+  letter-spacing: 0.1em;
+  padding: 16px 10px;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.zenkai-menu__link--sub:hover {
+  color: #ffffff !important;
 }
 
 /* Toggle button (with chevron) */
 .zenkai-menu__toggle {
+  display: flex;
   justify-content: center;
-  gap: 12px;
+  align-items: center;
+  gap: 15px;
 }
 
 .zenkai-menu__chevron {
   flex-shrink: 0;
+  stroke: currentColor;
   transition: transform 0.2s ease;
+  opacity: 0.6;
+}
+
+.zenkai-menu__toggle:hover .zenkai-menu__chevron {
+  opacity: 1;
+  transform: translateX(3px);
 }
 
 /* Submenu */
@@ -10591,15 +10638,15 @@ $marqueeAnimationSpeedMobile: 6.6s;
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.97);
+  background: rgba(10, 10, 10, 0.98);
   z-index: 10000;
   opacity: 0;
   visibility: hidden;
   transform: translateX(30px);
-  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 100px 20px 40px;
+  padding: 100px 30px 60px;
   list-style: none;
   margin: 0;
 }
@@ -10614,30 +10661,30 @@ $marqueeAnimationSpeedMobile: 6.6s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .zenkai-submenu__back {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  gap: 10px;
+  padding: 12px 18px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7) !important;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 4px;
+  color: #ffffff !important;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .zenkai-submenu__back:hover {
-  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.7);
   color: #ffffff;
 }
 
@@ -10646,9 +10693,9 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 .zenkai-submenu__title {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #ffffff;
   text-decoration: none;
@@ -10658,45 +10705,16 @@ $marqueeAnimationSpeedMobile: 6.6s;
   color: #0066FF;
 }
 
-/* Hamburger button styling - friendly touch target (min 44x44px per Apple HIG) */
-.js-zenkai-toggle {
-  position: relative;
-  z-index: 10001;
-  min-width: 48px;
-  min-height: 48px;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
-}
-
-.js-zenkai-toggle .icon {
-  width: 24px;
-  height: 24px;
+/* Hide MENU button when menu is open (close button takes over) */
+.zenkai-header-menu.is-active {
+  opacity: 0;
   pointer-events: none;
-  stroke: currentColor;
 }
 
-/* When menu is open, ensure X icon is white (visible on dark overlay) */
-.js-zenkai-toggle.is-active {
-  color: #ffffff !important;
-}
-
-.js-zenkai-toggle .icon-close {
-  display: none !important;
-}
-
-.js-zenkai-toggle.is-active .icon-hamburger {
-  display: none !important;
-}
-
-.js-zenkai-toggle.is-active .icon-close {
-  display: block !important;
-}
-
-/* Mobile header fixes */
+/* ==========================================================================
+   ZENKAI MOBILE HEADER - CENTERED LOGO + MENU
+   Premium streetwear aesthetic
+   ========================================================================== */
 @media screen and (max-width: 768px) {
   /* Sticky header */
   .site-header {
@@ -10710,7 +10728,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
   /* Content offset for fixed header */
   .header-wrapper {
-    margin-bottom: 60px;
+    margin-bottom: 70px;
   }
 
   /* Overlay header transparency */
@@ -10722,32 +10740,36 @@ $marqueeAnimationSpeedMobile: 6.6s;
     margin-bottom: 0;
   }
 
-  /* Mobile header layout alignment */
+  /* CENTERED header layout */
   .header-layout {
     display: flex !important;
     align-items: center;
-    justify-content: space-between;
-    min-height: 60px;
-    padding: 0 15px;
+    justify-content: center;
+    gap: 15px;
+    min-height: 70px;
+    padding: 12px 20px;
   }
 
   .header-item--logo {
     flex: 0 0 auto;
+    order: 1;
   }
 
-  /* Ensure icons container shows and aligns right */
   .header-item--icons {
-    display: flex !important;
-    align-items: center;
-    gap: 5px;
-    margin-left: auto;
+    flex: 0 0 auto;
+    order: 2;
+    margin-left: 0;
+  }
+
+  /* Hide desktop navigation items on mobile */
+  .header-item--navigation {
+    display: none !important;
   }
 
   .site-nav--icons,
   .site-nav__icons {
     display: flex !important;
     align-items: center;
-    gap: 5px;
   }
 
   /* Remove body padding from old thumb menu */
@@ -10756,13 +10778,58 @@ $marqueeAnimationSpeedMobile: 6.6s;
   }
 }
 
+/* ==========================================================================
+   ZENKAI MENU BUTTON - Transparent button with text
+   ========================================================================== */
+.zenkai-header-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  background: transparent;
+  border: 1.5px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.zenkai-header-menu:hover,
+.zenkai-header-menu:focus {
+  border-color: rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+/* When header is overlaid on image, use white border */
+.header-wrapper--overlay .zenkai-header-menu {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+.header-wrapper--overlay .zenkai-header-menu:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.zenkai-header-menu__icon {
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+
+.zenkai-header-menu__text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
 /* Hide zenkai menu on desktop */
 @media screen and (min-width: 769px) {
   .zenkai-overlay {
     display: none !important;
   }
 
-  .js-zenkai-toggle {
+  .zenkai-header-menu {
     display: none !important;
   }
 }
