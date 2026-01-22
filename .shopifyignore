@@ -1,0 +1,2 @@
+# Ignore generated assets that Shopify manages
+assets/theme.js
