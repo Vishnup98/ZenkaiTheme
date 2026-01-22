@@ -10501,13 +10501,24 @@ $marqueeAnimationSpeedMobile: 6.6s;
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 10, 10, 0.98);
+  background: linear-gradient(165deg, #0a0a0a 0%, #141414 50%, #0d0d0d 100%);
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.zenkai-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top right, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .zenkai-overlay.is-open {
@@ -10515,38 +10526,80 @@ $marqueeAnimationSpeedMobile: 6.6s;
   visibility: visible;
 }
 
+/* Staggered animation for menu items */
+.zenkai-overlay.is-open .zenkai-menu__item {
+  animation: menuFadeIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(1) { animation-delay: 0.1s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(2) { animation-delay: 0.15s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(3) { animation-delay: 0.2s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(4) { animation-delay: 0.25s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(5) { animation-delay: 0.3s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(6) { animation-delay: 0.35s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(7) { animation-delay: 0.4s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(8) { animation-delay: 0.45s; }
+
+@keyframes menuFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Close Button - Top Right */
 .zenkai-menu__close {
   position: fixed;
-  top: 25px;
-  right: 25px;
+  top: 20px;
+  right: 20px;
   z-index: 10001;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 22px;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  gap: 8px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 0;
   color: #ffffff;
   font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: closeButtonFade 0.4s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.zenkai-overlay.is-open .zenkai-menu__close {
+  opacity: 1;
+}
+
+@keyframes closeButtonFade {
+  to { opacity: 1; }
 }
 
 .zenkai-menu__close:hover,
 .zenkai-menu__close:focus {
-  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
   outline: none;
+}
+
+.zenkai-menu__close:active {
+  transform: scale(0.97);
 }
 
 .zenkai-menu__close svg {
   stroke: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
 /* Menu Container - Centered content */
@@ -10555,9 +10608,10 @@ $marqueeAnimationSpeedMobile: 6.6s;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  padding: 80px 30px 40px;
-  max-width: 500px;
+  padding: 70px 40px 50px;
+  max-width: 400px;
   margin: 0 auto;
+  position: relative;
 }
 
 .zenkai-menu__list {
@@ -10571,40 +10625,72 @@ $marqueeAnimationSpeedMobile: 6.6s;
   position: relative;
 }
 
+/* Subtle separator between items */
+.zenkai-menu__item + .zenkai-menu__item {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 /* Menu Links - Clean, elegant typography (sized to fit without scrolling) */
 .zenkai-menu__link {
   display: block;
   width: 100%;
-  padding: 16px 10px;
-  font-size: 22px;
+  padding: 18px 15px;
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   text-decoration: none;
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.25s ease;
+  transition: all 0.3s ease;
   text-align: center;
+  position: relative;
+}
+
+/* Hover underline effect */
+.zenkai-menu__link::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.zenkai-menu__link:hover::after,
+.zenkai-menu__link:focus::after {
+  width: 40px;
 }
 
 .zenkai-menu__link:hover,
 .zenkai-menu__link:focus {
-  color: #0066FF !important;
+  color: #ffffff !important;
   outline: none;
 }
 
+.zenkai-menu__link:active {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
 .zenkai-menu__link--sub {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
-  letter-spacing: 0.08em;
-  padding: 14px 10px;
-  color: rgba(255, 255, 255, 0.7) !important;
+  letter-spacing: 0.1em;
+  padding: 14px 15px;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.zenkai-menu__link--sub::after {
+  display: none;
 }
 
 .zenkai-menu__link--sub:hover {
-  color: #ffffff !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 /* Toggle button (with chevron) */
@@ -10612,19 +10698,25 @@ $marqueeAnimationSpeedMobile: 6.6s;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+}
+
+.zenkai-menu__toggle::after {
+  display: none;
 }
 
 .zenkai-menu__chevron {
   flex-shrink: 0;
   stroke: currentColor;
-  transition: transform 0.2s ease;
-  opacity: 0.6;
+  transition: all 0.25s ease;
+  opacity: 0.4;
+  width: 16px;
+  height: 16px;
 }
 
 .zenkai-menu__toggle:hover .zenkai-menu__chevron {
-  opacity: 1;
-  transform: translateX(3px);
+  opacity: 0.8;
+  transform: translateX(4px);
 }
 
 /* Submenu */
@@ -10636,17 +10728,28 @@ $marqueeAnimationSpeedMobile: 6.6s;
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 10, 10, 0.98);
+  background: linear-gradient(165deg, #0a0a0a 0%, #141414 50%, #0d0d0d 100%);
   z-index: 10000;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(30px);
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transform: translateX(20px);
+  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 100px 30px 60px;
+  padding: 80px 40px 60px;
   list-style: none;
   margin: 0;
+}
+
+.zenkai-submenu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top right, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .zenkai-submenu.is-open {
@@ -10659,48 +10762,56 @@ $marqueeAnimationSpeedMobile: 6.6s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 25px;
-  margin-bottom: 25px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .zenkai-submenu__back {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
-  font-size: 11px;
-  font-weight: 600;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff !important;
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .zenkai-submenu__back:hover {
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
+}
+
+.zenkai-submenu__back:active {
+  transform: scale(0.97);
 }
 
 .zenkai-submenu__back svg {
   stroke: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
 .zenkai-submenu__title {
-  font-size: 24px;
-  font-weight: 300;
-  letter-spacing: 0.12em;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
+  transition: color 0.25s ease;
 }
 
 .zenkai-submenu__title:hover {
-  color: #0066FF;
+  color: #ffffff;
 }
 
 /* Hide MENU button when menu is open (close button takes over) */
@@ -10714,8 +10825,8 @@ $marqueeAnimationSpeedMobile: 6.6s;
    Premium streetwear aesthetic
    ========================================================================== */
 @media screen and (max-width: 768px) {
-  /* Sticky header */
-  .site-header {
+  /* Sticky header - stays fixed on scroll */
+  .header-wrapper {
     position: fixed !important;
     top: 0;
     left: 0;
@@ -10724,28 +10835,35 @@ $marqueeAnimationSpeedMobile: 6.6s;
     background: #ffffff;
   }
 
+  .site-header {
+    position: relative !important;
+  }
+
   /* Content offset for fixed header */
-  .header-wrapper {
-    margin-bottom: 70px;
+  body {
+    padding-top: 70px !important;
+    padding-bottom: 0 !important;
   }
 
   /* Overlay header transparency */
-  .header-wrapper--overlay .site-header {
+  .header-wrapper--overlay {
     background: transparent;
   }
 
-  .header-wrapper--overlay {
-    margin-bottom: 0;
+  .header-wrapper--overlay + .main-content,
+  .header-wrapper--overlay ~ .main-content {
+    margin-top: -70px;
+    padding-top: 0;
   }
 
-  /* CENTERED header layout */
+  /* CENTERED header layout - BOTTOM ALIGNED */
   .header-layout {
     display: flex !important;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     min-height: 70px;
-    padding: 12px 20px;
+    padding: 15px 20px;
   }
 
   .header-item--logo {
@@ -10767,12 +10885,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .site-nav--icons,
   .site-nav__icons {
     display: flex !important;
-    align-items: center;
-  }
-
-  /* Remove body padding from old thumb menu */
-  body {
-    padding-bottom: 0 !important;
+    align-items: flex-end;
   }
 }
 
