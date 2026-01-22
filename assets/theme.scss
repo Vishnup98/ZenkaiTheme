@@ -10221,5 +10221,252 @@ a.accent-link {
   opacity: 0.6;
 }
 
+/*================ ZENKAI BRAND IDENTITY ================*/
+
+// ========== ACCENT LINE SYSTEM ==========
+// Signature blue lines throughout the site
+
+// Section dividers - subtle gradient line
+.index-section {
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, $colorAccent 20%, $colorAccent 80%, transparent 100%);
+    margin-top: 0;
+    opacity: 0.6;
+  }
+
+  // No line after last section or before footer
+  &:last-of-type::after {
+    display: none;
+  }
+}
+
+// Remove duplicate underline from section headers (keep just the accent line)
+.section-header__title::after {
+  width: 60px;
+  height: 3px;
+  margin: 15px auto 0;
+  opacity: 1;
+}
+
+// ========== TESTIMONIALS STYLING ==========
+// Premium dark cards with blue accent
+
+.testimonials-wrapper {
+  background: transparent;
+}
+
+.testimonials-slider__text {
+  background: rgba(26, 26, 26, 0.95);
+  border-left: 4px solid $colorAccent;
+  padding: 30px 35px;
+  margin: 10px 15px 30px;
+  border-radius: 0 8px 8px 0;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  .rte-setting {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+// Quote icon - make it pop
+.quote-icon {
+  opacity: 0.4 !important;
+
+  svg {
+    fill: $colorAccent !important;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+// Author attribution
+.testimonials-slider__text cite {
+  color: $colorAccent;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.05em;
+}
+
+// Testimonial navigation dots
+.testimonials-slider .slick-dots li button {
+  background: rgba(0, 102, 255, 0.3);
+}
+
+.testimonials-slider .slick-dots li.slick-active button {
+  background: $colorAccent;
+}
+
+// ========== BUTTON ENHANCEMENTS ==========
+// Blue glow on hover
+
+.btn {
+  position: relative;
+  transition: all 0.25s ease;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+  }
+}
+
+// Secondary/outline buttons
+.btn--secondary,
+.btn--tertiary {
+  &:hover {
+    border-color: $colorAccent;
+    color: $colorAccent;
+    box-shadow: 0 0 15px rgba(0, 102, 255, 0.25);
+  }
+}
+
+// ========== PRODUCT CARD HOVER ==========
+// Lift effect with accent border
+
+.grid-product {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+
+    .grid-product__content {
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .grid-product__image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: $colorAccent;
+    }
+  }
+}
+
+.grid-product__image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-product__content {
+  transition: box-shadow 0.3s ease;
+}
+
+// ========== COLLECTION CARD ACCENTS ==========
+// Top border accent on featured collections
+
+.collection-item__link {
+  position: relative;
+  display: block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $colorAccent;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    z-index: 2;
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+// ========== DARK SECTION ENHANCEMENTS ==========
+// Make alt sections feel premium
+
+.index-section--alt {
+  background-color: #1a1a1a;
+  color: #ffffff;
+
+  // Ensure text is readable
+  .section-header__title,
+  .section-header__description,
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+
+  // Links in dark sections
+  a:not(.btn) {
+    color: $colorAccent;
+
+    &:hover {
+      color: lighten($colorAccent, 15%);
+    }
+  }
+
+  // Section divider on dark bg
+  &::after {
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.2) 80%, transparent 100%);
+  }
+
+  // Button adjustments for dark bg
+  .btn {
+    &:hover {
+      box-shadow: 0 0 25px rgba(0, 102, 255, 0.5);
+    }
+  }
+}
+
+// ========== NEWSLETTER SECTION ==========
+// Already uses alt colors, enhance it
+
+.newsletter-section {
+  .newsletter-form__input {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      border-color: $colorAccent;
+      box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+    }
+  }
+}
+
+// ========== HEADER ACCENT ==========
+// Subtle blue line under header on scroll
+
+.site-header.is-sticky {
+  border-bottom: 2px solid $colorAccent;
+}
+
+// ========== ANNOUNCEMENT BAR ==========
+// Add accent touch
+
+.announcement-bar {
+  border-bottom: 2px solid $colorAccent;
+}
+
+// ========== FOOTER ENHANCEMENTS ==========
+
+.site-footer {
+  border-top: 3px solid $colorAccent;
+}
+
 
 
