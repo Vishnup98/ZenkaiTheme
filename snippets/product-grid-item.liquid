@@ -184,11 +184,15 @@
           {% if product.price_varies %}
             {% assign price = product.price_min | money %}
             <span {% if on_sale %}class="sale-price"{% endif %}>
-              {{ 'products.general.from_text_html' | t: price: price }}
+              {% if on_sale %}
+                {{ price }}
+              {% else %}
+                {{ 'products.general.from_text_html' | t: price: price }}
+              {% endif %}
             </span>
           {% else %}
             <span {% if on_sale %}class="sale-price"{% endif %}>
-              {{ product.price  | money }}
+              {{ product.price | money }}
             </span>
           {% endif %}
         </div>
