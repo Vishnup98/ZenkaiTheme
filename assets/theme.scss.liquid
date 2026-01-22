@@ -10824,7 +10824,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 /* ==========================================================================
    ZENKAI MOBILE HEADER - CENTERED LOGO + MENU
-   Premium streetwear aesthetic - compact 40px dark header
+   Premium streetwear aesthetic - 55px dark header
    ========================================================================== */
 @media screen and (max-width: 768px) {
   /* Sticky header - semi-transparent black */
@@ -10837,15 +10837,32 @@ $marqueeAnimationSpeedMobile: 6.6s;
     background: rgba(0, 0, 0, 0.85);
   }
 
-  .site-header {
+  /* Force ALL elements inside header to be transparent - eliminates white bar */
+  .site-header,
+  .site-header .page-width {
     position: relative !important;
     padding: 0 !important;
+    margin: 0 !important;
     background: transparent !important;
   }
 
-  /* Content offset - match 40px header */
+  /* Announcement bar - blend with dark header */
+  .announcement,
+  .announcement__wrapper {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .announcement__text {
+    padding: 5px 15px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.15em !important;
+  }
+
+  /* Content offset - header height */
   .main-content {
-    margin-top: 40px;
+    margin-top: 55px;
   }
 
   /* Overlay header - fully transparent */
@@ -10855,18 +10872,18 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
   .header-wrapper--overlay + .main-content,
   .header-wrapper--overlay ~ .main-content {
-    margin-top: -40px;
+    margin-top: -55px;
     padding-top: 0;
   }
 
-  /* Compact header layout - 40px height */
+  /* Header layout - 55px for good touch targets */
   .header-layout {
     display: flex !important;
     align-items: center;
     justify-content: center;
     gap: 15px;
-    min-height: 40px;
-    padding: 8px 15px;
+    min-height: 55px;
+    padding: 12px 15px;
   }
 
   .header-item--logo {
@@ -10891,9 +10908,9 @@ $marqueeAnimationSpeedMobile: 6.6s;
     align-items: center;
   }
 
-  /* Smaller logo to fit 40px header */
+  /* Logo sizing for 55px header */
   .site-header__logo img {
-    max-height: 22px !important;
+    max-height: 28px !important;
     width: auto !important;
   }
 
