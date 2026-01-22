@@ -121,9 +121,10 @@
 /* Using !important to override inline styles from section template */
 .background-media-text--background_image_text_c8AXa4 {
   position: relative !important;
-  min-height: 90vh !important;
+  min-height: 80vh !important;
   height: auto !important;
   padding-bottom: 0 !important;
+  background-color: #f5f5f5 !important;
 }
 
 .background-media-text--background_image_text_c8AXa4 .background-media-text__image {
@@ -132,7 +133,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-size: cover;
+  background-size: contain !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
 }
 
 .background-media-text--background_image_text_c8AXa4 .background-media-text__inner {
@@ -204,8 +207,9 @@
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__image {
     height: 100% !important;
-    background-size: cover !important;
-    background-position: center center !important;
+    background-size: contain !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
   }
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__inner {
