@@ -357,9 +357,16 @@ $colorBtnPrimaryBgTransition: background 0.15s ease;
 
 $colorBtnPrimaryActive: lighten($colorBtnPrimary, 20%);
 
-$colorCartDot: #676767;
+$colorCartDot: #0066FF;
 
 $colorCartDotText: #fff;
+
+// Accent colors
+$colorAccent: #0066FF;
+
+$colorAccentText: #ffffff;
+
+$colorAccentHover: darken($colorAccent, 10%);
 
 // Text link colors
 
@@ -10137,6 +10144,81 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .product__media {
     touch-action: pinch-zoom !important;
   }
+}
+
+/*================ Accent Color Applications ================*/
+
+// Button hover states with accent
+.btn:hover,
+.btn:focus {
+  background-color: $colorAccent;
+  color: $colorAccentText;
+  border-color: $colorAccent;
+}
+
+// Sale tags with accent
+.grid-product__tag--sale {
+  background-color: $colorAccent;
+  color: $colorAccentText;
+}
+
+// Accent links
+a.accent-link {
+  color: $colorAccent;
+
+  &:hover {
+    color: $colorAccentHover;
+  }
+}
+
+// Section header accent underline
+.section-header__title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  background-color: $colorAccent;
+  margin: 12px auto 0;
+}
+
+// Cart trust element styles
+.cart-trust {
+  padding: 12px 0;
+  margin: 12px 0;
+  border-top: 1px solid rgba($colorBorder, 0.15);
+  border-bottom: 1px solid rgba($colorBorder, 0.15);
+}
+
+.cart-trust__wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.cart-trust__icon {
+  flex-shrink: 0;
+  color: $colorAccent;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.cart-trust__content {
+  flex: 1;
+}
+
+.cart-trust__text {
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0 0 3px;
+  opacity: 0.9;
+}
+
+.cart-trust__author {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
 }
 
 

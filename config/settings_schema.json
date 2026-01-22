@@ -64,6 +64,23 @@
       },
       {
         "type": "header",
+        "content": "Accent color"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent color",
+        "default": "#0066FF",
+        "info": "Used for highlights, hover states, and call-to-action elements"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_text",
+        "label": "Accent text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
         "content": "Alternate sections"
       },
       {
