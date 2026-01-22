@@ -10383,11 +10383,10 @@ p {
 
 // ========== 4. PRODUCT GRID ==========
 // 2-column mobile (4px gap), 4-column desktop (20px gap)
+// ONLY for homepage featured collections - not collection pages
 
-// Override float-based grid with CSS Grid
-.grid--uniform[data-aos="overflow__animation"],
-.collection-grid .grid--uniform,
-.grid[data-product-container] {
+// Override float-based grid with CSS Grid (homepage sliders only)
+.index-section .grid--uniform[data-aos="overflow__animation"] {
   display: grid;
   float: none;
   margin-left: 0;
@@ -10406,9 +10405,7 @@ p {
 
 // Desktop: 4 columns, 20px gap
 @include media-query($medium-up) {
-  .grid--uniform[data-aos="overflow__animation"],
-  .collection-grid .grid--uniform,
-  .grid[data-product-container] {
+  .index-section .grid--uniform[data-aos="overflow__animation"] {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
@@ -10497,8 +10494,9 @@ p {
 // Mobile hero adjustments
 @include media-query($small) {
   .background-media-text {
-    height: 100vh;
-    min-height: 100vh;
+    height: 100svh;
+    height: 90vh; // Fallback for browsers without svh support
+    min-height: 500px;
     position: relative;
   }
 
@@ -10511,9 +10509,13 @@ p {
     height: 100%;
   }
 
+  .background-media-text__inner {
+    padding: 20px 20px 100px; // Extra bottom padding for mobile sticky nav
+  }
+
   .background-media-text__text {
     h1, h2, .h1 {
-      font-size: 2rem;
+      font-size: 1.75rem;
     }
   }
 }
