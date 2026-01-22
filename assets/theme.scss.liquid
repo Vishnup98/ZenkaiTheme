@@ -10840,52 +10840,65 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .site-header {
     position: relative !important;
     padding: 0 !important;
+    min-height: auto !important;
+    height: auto !important;
   }
 
   .site-header .page-width {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding: 0 15px !important;
+  }
+
+  /* Compact header layout */
+  .header-layout {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+    gap: 15px;
+    min-height: 50px !important;
+    padding: 8px 15px !important;
+    height: auto !important;
+  }
+
+  .header-item--logo {
+    flex: 0 0 auto;
+    order: 1;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .header-item--icons {
+    flex: 0 0 auto;
+    order: 2;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .site-header__logo {
     margin: 0 !important;
   }
 
-  /* Content offset for fixed header - use margin on content, not body padding */
-  .main-content {
-    margin-top: 70px;
+  .site-header__logo a {
+    display: block !important;
   }
 
-  /* Overlay header transparency */
+  /* Content offset for fixed header */
+  .main-content {
+    margin-top: 80px;
+  }
+
+  /* Overlay header - transparent */
   .header-wrapper--overlay {
     background: transparent;
   }
 
+  .site-header[data-overlay="true"] {
+    background: transparent !important;
+  }
+
   .header-wrapper--overlay + .main-content,
   .header-wrapper--overlay ~ .main-content {
-    margin-top: -70px;
+    margin-top: 0;
     padding-top: 0;
-  }
-
-  /* CENTERED header layout - BOTTOM ALIGNED */
-  .header-layout {
-    display: flex !important;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 20px;
-    min-height: 70px;
-    padding: 15px 20px;
-  }
-
-  .header-item--logo {
-    flex: 0 0 auto;
-    order: 1;
-  }
-
-  .header-item--icons {
-    flex: 0 0 auto;
-    order: 2;
-    margin-left: 0;
   }
 
   /* Hide desktop navigation items on mobile */
@@ -10896,7 +10909,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .site-nav--icons,
   .site-nav__icons {
     display: flex !important;
-    align-items: flex-end;
+    align-items: center !important;
   }
 }
 
