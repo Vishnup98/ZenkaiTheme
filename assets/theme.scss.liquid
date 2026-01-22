@@ -10886,12 +10886,17 @@ $marqueeAnimationSpeedMobile: 6.6s;
     margin-top: 80px;
   }
 
-  /* Overlay header - transparent */
+  /* Overlay header - FULLY transparent, no gaps */
   .header-wrapper--overlay {
-    background: transparent;
+    background: transparent !important;
   }
 
-  .site-header[data-overlay="true"] {
+  .header-wrapper--overlay .announcement {
+    margin-bottom: 0 !important;
+  }
+
+  .header-wrapper--overlay .site-header {
+    margin-top: 0 !important;
     background: transparent !important;
   }
 
