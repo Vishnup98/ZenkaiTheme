@@ -136,5 +136,17 @@ document.addEventListener('DOMContentLoaded', function() {
       closeMenu();
     }
   });
+
+  // Scroll detection for header background on homepage
+  var headerWrapper = document.querySelector('.header-wrapper--overlay');
+  if (headerWrapper) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        headerWrapper.classList.add('is-scrolled');
+      } else {
+        headerWrapper.classList.remove('is-scrolled');
+      }
+    }, { passive: true });
+  }
 });
 </script>

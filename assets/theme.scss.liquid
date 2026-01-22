@@ -10919,6 +10919,18 @@ $marqueeAnimationSpeedMobile: 6.6s;
     background: transparent !important;
   }
 
+  /* Scrolled state - semi-transparent dark background */
+  .header-wrapper--overlay.is-scrolled {
+    background: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
+  }
+
+  .header-wrapper--overlay.is-scrolled .announcement__wrapper {
+    background: transparent !important;
+  }
+
   /* Hide desktop navigation items on mobile */
   .header-item--navigation {
     display: none !important;
