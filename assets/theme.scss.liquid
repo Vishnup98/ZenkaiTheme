@@ -10824,37 +10824,47 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 /* ==========================================================================
    ZENKAI MOBILE HEADER - CENTERED LOGO + MENU
-   Simple sticky header with white background
+   Premium streetwear aesthetic
    ========================================================================== */
 @media screen and (max-width: 768px) {
-  /* Sticky header - white background */
+  /* Sticky header - stays fixed on scroll */
   .header-wrapper {
     position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
-    background: #ffffff !important;
+    z-index: 1000;
+    background: #ffffff;
   }
 
-  /* Let site-header keep normal styling */
   .site-header {
     position: relative !important;
   }
 
-  /* Content offset for header + announcement */
+  /* Content offset for fixed header - use margin on content, not body padding */
   .main-content {
-    margin-top: 90px;
+    margin-top: 70px;
   }
 
-  /* Header layout - centered logo + menu */
+  /* Overlay header transparency */
+  .header-wrapper--overlay {
+    background: transparent;
+  }
+
+  .header-wrapper--overlay + .main-content,
+  .header-wrapper--overlay ~ .main-content {
+    margin-top: -70px;
+    padding-top: 0;
+  }
+
+  /* CENTERED header layout - BOTTOM ALIGNED */
   .header-layout {
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 20px !important;
-    min-height: 60px !important;
-    padding: 10px 20px !important;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 20px;
+    min-height: 70px;
+    padding: 15px 20px;
   }
 
   .header-item--logo {
@@ -10865,27 +10875,18 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .header-item--icons {
     flex: 0 0 auto;
     order: 2;
+    margin-left: 0;
   }
 
-  /* Hide desktop nav on mobile */
+  /* Hide desktop navigation items on mobile */
   .header-item--navigation {
     display: none !important;
   }
 
-  /* Logo - good size for touch */
-  .site-header__logo img {
-    max-height: 40px !important;
-    width: auto !important;
-  }
-
-  /* Overlay pages - transparent header */
-  .header-wrapper--overlay {
-    background: transparent !important;
-  }
-
-  .header-wrapper--overlay + .main-content,
-  .header-wrapper--overlay ~ .main-content {
-    margin-top: 0;
+  .site-nav--icons,
+  .site-nav__icons {
+    display: flex !important;
+    align-items: flex-end;
   }
 }
 
