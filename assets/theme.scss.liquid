@@ -10658,10 +10658,24 @@ $marqueeAnimationSpeedMobile: 6.6s;
   color: #0066FF;
 }
 
-/* Hamburger button styling */
+/* Hamburger button styling - friendly touch target (min 44x44px per Apple HIG) */
 .js-zenkai-toggle {
   position: relative;
   z-index: 10001;
+  min-width: 48px;
+  min-height: 48px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.js-zenkai-toggle .icon {
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
 }
 
 .js-zenkai-toggle .icon-close {

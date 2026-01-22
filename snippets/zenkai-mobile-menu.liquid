@@ -66,7 +66,7 @@
 </div>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   var overlay = document.getElementById('zenkai-mobile-overlay');
   var toggleButtons = document.querySelectorAll('.js-zenkai-toggle');
   var submenuToggles = overlay.querySelectorAll('.zenkai-menu__toggle');
@@ -76,14 +76,20 @@
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    toggleButtons.forEach(function(btn) { btn.classList.add('is-active'); });
+    toggleButtons.forEach(function(btn) {
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-expanded', 'true');
+    });
   }
 
   function closeMenu() {
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    toggleButtons.forEach(function(btn) { btn.classList.remove('is-active'); });
+    toggleButtons.forEach(function(btn) {
+      btn.classList.remove('is-active');
+      btn.setAttribute('aria-expanded', 'false');
+    });
     // Close all submenus
     overlay.querySelectorAll('.zenkai-submenu.is-open').forEach(function(sub) {
       sub.classList.remove('is-open');
@@ -133,5 +139,5 @@
       closeMenu();
     }
   });
-})();
+});
 </script>
