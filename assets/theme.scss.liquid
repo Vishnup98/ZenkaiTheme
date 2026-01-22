@@ -10824,47 +10824,49 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 /* ==========================================================================
    ZENKAI MOBILE HEADER - CENTERED LOGO + MENU
-   Premium streetwear aesthetic
+   Premium streetwear aesthetic - compact 40px dark header
    ========================================================================== */
 @media screen and (max-width: 768px) {
-  /* Sticky header - stays fixed on scroll */
+  /* Sticky header - semi-transparent black */
   .header-wrapper {
     position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    background: #ffffff;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
   }
 
   .site-header {
     position: relative !important;
+    padding: 0 !important;
+    background: transparent !important;
   }
 
-  /* Content offset for fixed header - use margin on content, not body padding */
+  /* Content offset - match 40px header */
   .main-content {
-    margin-top: 70px;
+    margin-top: 40px;
   }
 
-  /* Overlay header transparency */
+  /* Overlay header - fully transparent */
   .header-wrapper--overlay {
     background: transparent;
   }
 
   .header-wrapper--overlay + .main-content,
   .header-wrapper--overlay ~ .main-content {
-    margin-top: -70px;
+    margin-top: -40px;
     padding-top: 0;
   }
 
-  /* CENTERED header layout - BOTTOM ALIGNED */
+  /* Compact header layout - 40px height */
   .header-layout {
     display: flex !important;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    gap: 20px;
-    min-height: 70px;
-    padding: 15px 20px;
+    gap: 15px;
+    min-height: 40px;
+    padding: 8px 15px;
   }
 
   .header-item--logo {
@@ -10886,7 +10888,28 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .site-nav--icons,
   .site-nav__icons {
     display: flex !important;
-    align-items: flex-end;
+    align-items: center;
+  }
+
+  /* Smaller logo to fit 40px header */
+  .site-header__logo img {
+    max-height: 22px !important;
+    width: auto !important;
+  }
+
+  .site-header__logo {
+    margin: 0 !important;
+  }
+
+  /* White text/icons on dark header */
+  .site-header__logo a,
+  .zenkai-header-menu,
+  .zenkai-header-menu__text {
+    color: #ffffff !important;
+  }
+
+  .zenkai-header-menu__icon {
+    stroke: #ffffff !important;
   }
 }
 
