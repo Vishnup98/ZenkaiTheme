@@ -6452,7 +6452,7 @@ this.$container.find('.you-save').addClass('hide');
     var slideCount = 0;
     var defaults = {
       accessibility: true,
-      arrows: false,
+      arrows: true,
       dots: true,
       autoplay: false,
       touchThreshold: 20,

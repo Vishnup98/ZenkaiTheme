@@ -10374,18 +10374,20 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 // ========== TESTIMONIALS STYLING ==========
-// Premium dark cards with blue accent
+// Premium streetwear - white/neutral accents
 
 .testimonials-wrapper {
   background: transparent;
+  position: relative;
+  padding: 0 50px; // Space for arrows
 }
 
 .testimonials-slider__text {
   background: rgba(26, 26, 26, 0.95);
-  border-left: 4px solid $colorAccent;
+  border-left: 4px solid rgba(255, 255, 255, 0.3); // Subtle white border
   padding: 30px 35px;
   margin: 10px 15px 30px;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0;
   color: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 
@@ -10396,32 +10398,79 @@ $marqueeAnimationSpeedMobile: 6.6s;
   }
 }
 
-// Quote icon - make it pop
+// Quote icon - subtle white
 .quote-icon {
-  opacity: 0.4 !important;
+  opacity: 1 !important;
 
   svg {
-    fill: $colorAccent !important;
+    fill: rgba(255, 255, 255, 0.15) !important; // Very subtle white
     width: 35px;
     height: 35px;
   }
 }
 
-// Author attribution
+// Author attribution - muted white
 .testimonials-slider__text cite {
-  color: $colorAccent;
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 600;
   font-style: normal;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 
-// Testimonial navigation dots
-.testimonials-slider .slick-dots li button {
-  background: rgba(0, 102, 255, 0.3);
+// Navigation arrows
+.testimonials-wrapper .slick-prev,
+.testimonials-wrapper .slick-next {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  z-index: 10;
+  transition: background 0.2s ease;
+
+  &:before {
+    color: #fff;
+    opacity: 0.8;
+    font-size: 20px;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 }
 
-.testimonials-slider .slick-dots li.slick-active button {
-  background: $colorAccent;
+.testimonials-wrapper .slick-prev {
+  left: 0;
+}
+
+.testimonials-wrapper .slick-next {
+  right: 0;
+}
+
+// Navigation dots - larger and white
+.testimonials-slider .slick-dots {
+  margin-top: 25px;
+
+  li {
+    margin: 0 6px;
+
+    button {
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 0;
+      transition: background 0.2s ease;
+
+      &:before {
+        display: none;
+      }
+    }
+
+    &.slick-active button {
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
 }
 
 // ========== BUTTON ENHANCEMENTS ==========
