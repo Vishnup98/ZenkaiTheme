@@ -10833,13 +10833,22 @@ $marqueeAnimationSpeedMobile: 6.6s;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 100;
     background: #ffffff;
   }
 
   .site-header {
     position: relative !important;
+    padding: 0 !important;
+  }
+
+  .site-header .page-width {
     padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .site-header__logo {
+    margin: 0 !important;
   }
 
   /* Content offset for fixed header - use margin on content, not body padding */
