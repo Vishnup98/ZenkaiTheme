@@ -10908,10 +10908,10 @@ $marqueeAnimationSpeedMobile: 6.6s;
     padding-top: 0 !important;
   }
 
-  .header-wrapper--overlay + .main-content,
-  .header-wrapper--overlay ~ .main-content {
-    margin-top: 0;
-    padding-top: 0;
+  /* Use body class - sibling selector doesn't work due to wrapper div */
+  body.template-index .main-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   /* Target parent wrapper for overlay pages */
