@@ -113,12 +113,12 @@
 }
 
 /* ==========================================================================
-   ZENKAI MOBILE NAVIGATION - TOP NAV PATTERN
-   Hamburger top-left, cart top-right, no floating bottom pill
+   ZENKAI MOBILE NAVIGATION - FULL SCREEN OVERLAY
+   Modern, premium mobile menu for streetwear brand
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
-  /* Hide the floating thumb menu completely */
+  /* Hide the floating thumb menu button (we use header hamburger instead) */
   .site-nav__thumb-menu {
     display: none !important;
   }
@@ -128,26 +128,26 @@
     padding-bottom: 0 !important;
   }
 
-  /* Show the hamburger button in header (normally hidden when thumb style) */
-  .site-nav__link--icon.js-toggle-slide-nav.hide {
-    display: inline-flex !important;
-  }
-
-  /* Ensure header icons container is visible on mobile */
-  .header-item--icons {
-    display: flex !important;
-    align-items: center;
-  }
-
-  /* Make header sticky on mobile for easy nav access */
+  /* Sticky Header */
   .site-header {
-    position: sticky;
+    position: fixed !important;
     top: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     background: #ffffff;
   }
 
-  /* When header is in overlay mode (over hero), add a subtle background bar */
+  /* Offset for fixed header - add space at top of content */
+  .header-wrapper {
+    margin-bottom: 60px;
+  }
+
+  /* When header is in overlay mode (over hero), transparent background */
+  .header-wrapper--overlay .site-header {
+    background: transparent;
+  }
+
   .header-wrapper--overlay {
     background: linear-gradient(
       to bottom,
@@ -157,43 +157,98 @@
     );
   }
 
-  .header-wrapper--overlay .site-header {
-    background: transparent;
+  /* Show hamburger in header */
+  .header-item--icons {
+    display: flex !important;
+    align-items: center;
   }
 
-  /* Give the logo area a subtle backdrop for visibility */
-  .header-wrapper--overlay .header-item--logo {
-    padding: 5px 10px;
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.2);
+  .site-nav__link--icon.js-toggle-slide-nav.hide {
+    display: inline-flex !important;
   }
 
-  /* Style the mobile hamburger button */
   .site-nav__link--icon.js-toggle-slide-nav {
     padding: 10px;
   }
 
-  /* Reposition slide-nav menu for top nav style */
+  /* ===== FULL-SCREEN OVERLAY MENU ===== */
   .slide-nav__overflow--thumb {
     position: fixed !important;
-    top: 60px !important;
-    bottom: auto !important;
+    top: 0 !important;
     left: 0 !important;
     right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: none !important;
     margin: 0 !important;
-    max-width: 100% !important;
-    max-height: calc(100vh - 60px) !important;
-    border-radius: 0;
+    padding-top: 80px; /* Space below header */
+    background: rgba(0, 0, 0, 0.97) !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
+    display: block !important;
+    overflow-y: auto;
+    z-index: 999 !important;
+    border-radius: 0 !important;
   }
 
-  /* Fix transform animation for top-down menu */
+  .slide-nav__overflow--thumb.js-menu--is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Menu content - remove transform animation (this was the bug!) */
   .slide-nav__wrapper {
-    transform: translateY(-100%);
-    border-radius: 0;
+    transform: none !important;
+    background: transparent !important;
+    width: 100%;
+    padding: 20px;
+    border-radius: 0 !important;
   }
 
-  .slide-nav__overflow--thumb.js-menu--is-open .slide-nav__wrapper {
-    transform: translateY(0);
+  /* Navigation links */
+  .slide-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .slide-nav__link,
+  .slide-nav__sublist-link {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 18px 20px;
+    color: #ffffff !important;
+    text-align: center;
+    display: block;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .slide-nav__link:hover,
+  .slide-nav__sublist-link:hover {
+    color: #0066FF !important;
+  }
+
+  /* Submenu styling */
+  .slide-nav__dropdown {
+    background: transparent !important;
+  }
+
+  .slide-nav__sublist-link {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  /* Submenu toggle button */
+  .js-toggle-submenu {
+    color: #ffffff !important;
+  }
+
+  .js-toggle-submenu .icon {
+    fill: #ffffff;
   }
 }
 
