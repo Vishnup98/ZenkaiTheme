@@ -7,29 +7,182 @@
 */
 
 
+/* ==========================================================================
+   ZENKAI PREMIUM STREETWEAR HERO STYLES
+   Immersive overlay layout - text floats on image, no white box
+   ========================================================================== */
+
+/* Desktop: Text overlay on image with gradient scrim */
+.background-media-text--background_image_text_feh6JW {
+  position: relative;
+  min-height: 80vh;
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center center;
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__inner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 60px 40px;
+  /* Gradient scrim for text readability */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__aligner {
+  margin: 0;
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__text {
+  background: transparent !important;
+  color: #ffffff;
+  text-align: left;
+  width: auto;
+  max-width: 600px;
+  padding: 0;
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.2em;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__text .h1 {
+  color: #ffffff;
+  line-height: 1.25;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.background-media-text--background_image_text_feh6JW .background-media-text__text .btn {
+  margin-top: 10px;
+}
+
+/* Mobile: Immersive hero with text overlay at bottom */
 @media screen and (max-width: 768px) {
   .background-media-text--background_image_text_feh6JW {
-    display: block !important;
-    height: auto !important;
-    min-height: 100vh !important;
+    min-height: 85vh;
+    height: 85vh;
     padding-bottom: 0 !important;
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__image {
-    height: 50vh !important; /* or 70vh if you want even more image space */
-    min-height: 50vh !important;
-    background-size: cover !important;
-    background-position: center center !important;
+    height: 100% !important;
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__inner {
-    display: block !important;
-    padding: 2rem 1rem;
-    text-align: center;
+    padding: 30px 20px;
+    padding-bottom: 40px; /* Clean bottom spacing, no thumb menu */
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text {
-    margin-top: 1.5rem;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+  }
+
+  .background-media-text--background_image_text_feh6JW .background-media-text__text .h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+}
+
+/* ==========================================================================
+   ZENKAI MOBILE NAVIGATION - TOP NAV PATTERN
+   Hamburger top-left, cart top-right, no floating bottom pill
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+  /* Hide the floating thumb menu completely */
+  .site-nav__thumb-menu {
+    display: none !important;
+  }
+
+  /* Remove body padding that was for thumb menu */
+  body {
+    padding-bottom: 0 !important;
+  }
+
+  /* Show the hamburger button in header (normally hidden when thumb style) */
+  .site-nav__link--icon.js-toggle-slide-nav.hide {
+    display: inline-flex !important;
+  }
+
+  /* Ensure header icons container is visible on mobile */
+  .header-item--icons {
+    display: flex !important;
+    align-items: center;
+  }
+
+  /* Make header sticky on mobile for easy nav access */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
+  }
+
+  /* When header is in overlay mode (over hero), add a subtle background bar */
+  .header-wrapper--overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.2) 60%,
+      transparent 100%
+    );
+  }
+
+  .header-wrapper--overlay .site-header {
+    background: transparent;
+  }
+
+  /* Give the logo area a subtle backdrop for visibility */
+  .header-wrapper--overlay .header-item--logo {
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* Style the mobile hamburger button */
+  .site-nav__link--icon.js-toggle-slide-nav {
+    padding: 10px;
+  }
+
+  /* Reposition slide-nav menu for top nav style */
+  .slide-nav__overflow--thumb {
+    bottom: auto;
+    top: 60px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .slide-nav__wrapper {
+    border-radius: 0;
   }
 }
 

@@ -53,15 +53,6 @@
     font-size: {{ settings.type_navigation_size }}px;
   }
 
-  {% if mobile_menu_style == 'thumb' %}
-    body {
-      {% comment %}
-        Thumb menu button height + padding + 40
-      {% endcomment %}
-      padding-bottom: 148px;
-    }
-  {% endif %}
-
   {% if mobile_menu_style == 'top' %}
     body.screen-layer-open {
       {% comment %}
@@ -163,7 +154,7 @@
           {% comment %}
             Center mobile logo if icons are not visible
           {% endcomment %}
-          <div class="header-item header-item--icons{% if mobile_logo_only %} small--hide{% endif %}">
+          <div class="header-item header-item--icons">
             {% include 'header-icons' %}
           </div>
         </div>
@@ -177,35 +168,6 @@
     </header>
   </div>
 
-  {% if mobile_menu_style == 'thumb' %}
-    {%- if main_menu != blank -%}
-      <div class="site-nav__thumb-menu site-nav__thumb-menu--inactive">
-        <button
-          type="button"
-          class="btn site-nav__thumb-button js-toggle-slide-nav">
-          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 64 64"><path d="M7 15h51M7 32h43M7 49h51"/></svg>
-          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/></svg>
-          <span class="icon-menu-label">{{ 'general.drawers.navigation' | t }}</span>
-        </button>
-
-        <a href="{{ routes.cart_url }}" class="site-nav__thumb-cart js-drawer-open-cart js-no-transition" aria-controls="CartDrawer" data-icon="{{ settings.cart_icon }}">
-          <span class="cart-link">
-            {%- if settings.cart_icon == 'cart' -%}
-              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-cart" viewBox="0 0 64 64"><path d="M14 17.44h46.79l-7.94 25.61H20.96l-9.65-35.1H3"/><circle cx="27" cy="53" r="2"/><circle cx="47" cy="53" r="2"/></svg>
-            {%- else -%}
-              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-bag" viewBox="0 0 64 64"><g fill="none" stroke="#000" stroke-width="2"><path d="M25 26c0-15.79 3.57-20 8-20s8 4.21 8 20"/><path d="M14.74 18h36.51l3.59 36.73h-43.7z"/></g></svg>
-            {%- endif -%}
-            <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
-            <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}">
-              <span class="cart-link__count" aria-hidden="true">
-                {{ cart.item_count }}
-              </span>
-            </span>
-          </span>
-        </a>
-      </div>
-    {%- endif -%}
-  {% endif %}
 </div>
 
 {% if section.settings.header_search_enable %}
