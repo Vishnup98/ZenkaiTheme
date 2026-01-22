@@ -1,0 +1,19 @@
+{% unless template == 'index' or template == 'cart' %}
+<nav class="breadcrumbs" aria-label="Breadcrumbs">
+  <a href="/">Home</a>
+  {% if template contains 'product' %}
+    {% if collection %}
+      <span>/</span>
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+    {% endif %}
+    <span>/</span>
+    <span>{{ product.title }}</span>
+  {% elsif template contains 'collection' %}
+    <span>/</span>
+    <span>{{ collection.title }}</span>
+  {% elsif template contains 'page' %}
+    <span>/</span>
+    <span>{{ page.title }}</span>
+  {% endif %}
+</nav>
+{% endunless %}

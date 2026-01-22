@@ -1,0 +1,497 @@
+{% comment %}
+  Better‑converting price styles - Optimized for above-fold cart button
+  Paste this at the very top of sections/product-template.liquid
+{% endcomment %}
+<style>
+  /* Optimized layout for above-fold cart visibility */
+  @media (min-width: 768px) {
+    /* Ensure product details start at top of viewport */
+    .product-single__meta {
+      padding-top: 0;
+    }
+    
+    /* Compact header spacing */
+    .product-single__header {
+      margin-bottom: 1rem;
+    }
+    
+    /* Thumbnail navigation - make it horizontal and compact */
+    .product__thumbs {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+    
+    .product__thumb-item {
+      flex: 0 0 60px;
+      height: 60px;
+    }
+  }
+
+  /* Mobile optimizations - even more critical */
+  @media (max-width: 767px) {
+    /* Stack layout with minimal spacing */
+    .product-single__header {
+      margin-bottom: 0.5rem; /* Reduced from 0.75rem */
+    }
+    
+    /* Compact the title */
+    .h2.product-single__title {
+      font-size: 1.25rem !important; /* Smaller than 1.5rem */
+      line-height: 1.15 !important;
+      margin-bottom: 0.375rem !important;
+    }
+  }
+
+  /* flex container to align baselines */
+  .product-single__prices {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  /* original price: smaller, muted, thick centered strike */
+  .product-single__prices .product__price--compare {
+    font-size: 1rem;
+    color: #aaa;
+    font-weight: 400;
+    position: relative;
+  }
+  .product-single__prices .product__price--compare::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #666;
+    transform: translateY(-50%);
+  }
+
+  /* sale price: more compact */
+  .product-single__prices .product__price.sale-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #d62f2f;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  .product-single__prices .product__price.sale-price:hover {
+    transform: scale(1.05);
+  }
+
+  /* "You save" badge */
+  .product-single__prices .you-save {
+    font-size: 0.875rem;
+    color: #d62f2f;
+    font-weight: 600;
+    background: #fdecea;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    align-self: flex-start;
+  }
+
+  /* Compact trust bar for above-fold optimization */
+  .zenkai-trust-bar {
+    background: #f8f8f8;
+    padding: 0.75rem 0;
+    margin: 1.5rem -20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .zenkai-trust-bar__inner {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3rem;
+    padding-right: 3rem;
+    animation: scrollTrust 12s linear infinite;
+    width: fit-content;
+  }
+
+  .zenkai-trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    color: #666;
+    flex-shrink: 0;
+  }
+
+  .zenkai-trust-bar__icon {
+    font-size: 1.25rem;
+  }
+
+  /* Compact trust badges - now in a 2x2 grid */
+  .zenkai-trust-badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+  
+  /* Custom product navigation dots with unique class names */
+  .zenkai-photo-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0;
+  }
+  
+  .zenkai-photo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .zenkai-photo-dot.is-active {
+    background: #333;
+  }
+  
+  .zenkai-photo-dot:hover {
+    background: #666;
+  }
+
+  .zenkai-trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem;
+    background: #f8f8f8;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    color: #333;
+  }
+
+  .zenkai-trust-badge__icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  /* Image gallery optimizations */
+  .product__main-photos {
+    position: relative;
+  }
+
+  .zenkai-zoom-hint {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product__main-photos:hover .zenkai-zoom-hint {
+    opacity: 1;
+  }
+
+  /* Hide shipping calculated at checkout text */
+  .product__policies small {
+    display: none !important;
+  }
+
+  /* Above-fold visibility indicator (development helper) */
+  .above-fold-indicator {
+    position: fixed;
+    top: 100vh;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: red;
+    z-index: 9999;
+    pointer-events: none;
+    display: none; /* Enable during development to see fold line */
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 767px) {
+    /* Consolidate and compact price display on mobile */
+    .product-single__prices {
+      margin-bottom: 0.5rem; /* Reduced from 1rem */
+    }
+    
+    /* Smaller sale price on mobile */
+    .product-single__prices .product__price.sale-price {
+      font-size: 1.25rem; /* Reduced from 1.5rem */
+    }
+    
+    /* More compact "You Save" badge */
+    .product-single__prices .you-save {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.375rem;
+    }
+    
+    /* Smaller compare price */
+    .product-single__prices .product__price--compare {
+      font-size: 0.875rem; /* Reduced from 1rem */
+    }
+    
+    .zenkai-trust-bar__inner {
+      animation-duration: 12s;
+    }
+    
+    .zenkai-trust-bar__item {
+      font-size: 0.8125rem;
+    }
+
+    .zenkai-trust-bar {
+      margin: 1rem -15px;
+      padding: 0.625rem 0;
+    }
+
+    .zenkai-trust-badges {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    
+    .zenkai-trust-badge {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+
+  /* Trust Bar Animation */
+  @keyframes scrollTrust {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Pause animation on hover */
+  .zenkai-trust-bar:hover .zenkai-trust-bar__inner {
+    animation-play-state: paused;
+  }
+</style>
+
+<div
+  id="ProductSection-{{ section_id }}"
+  class="product-section"
+  data-section-id="{{ section_id }}"
+  data-section-type="product-template"
+  {% if isModal %}data-subsection{% endif %}
+  data-variant-type="{{ variant_type }}"
+  {% if inventory_enable %}data-inventory="true" data-inventory-threshold="{{ inventory_threshold }}"{% endif %}
+  {% if inventory_transfers_enable %}data-incoming-inventory="true"{% endif %}
+  {% if product_image_type == 'stacked' %}data-images-stacked="true"{% endif %}
+  data-video-style="{{ video_style }}"
+  {% unless isModal %}data-enable-history-state="true"{% endunless %}
+>
+  {% include 'product-template-variables' %}
+
+  <div class="page-content">
+    <div class="page-width">
+      <!-- Compact Breadcrumb Navigation -->
+      <nav aria-label="breadcrumb" style="margin-bottom: 0.75rem;">
+        <ol style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; list-style: none; padding: 0; margin: 0;">
+          <li>
+            <a href="/" style="color: #666; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#666'">Home</a>
+          </li>
+          <li style="color: #999;">›</li>
+          <li>
+            <a href="/collections/all" style="color: #666; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#666'">All Products</a>
+          </li>
+          <li style="color: #999;">›</li>
+          <li style="color: #333;">{{ product.title | truncate: 30 }}</li>
+        </ol>
+      </nav>
+      
+      <div class="grid">
+
+        <!-- Product Images - Constrained Height -->
+        <div class="grid__item {{ product_image_width }}">
+          {% include 'product-images',
+            section_id: section_id,
+            isModal: isModal,
+            video_looping: video_looping,
+            video_style: video_style
+          %}
+          <!-- Add zoom hint -->
+          <div class="zenkai-zoom-hint">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+              <line x1="11" y1="8" x2="11" y2="14"/>
+              <line x1="8" y1="11" x2="14" y2="11"/>
+            </svg>
+            Click to zoom
+          </div>
+        </div>
+
+        <!-- Product Details - Optimized for Above-Fold Cart Button -->
+        <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
+          <div class="product-single__meta">
+
+            <!-- Compact Header -->
+            <div class="product-single__header small--text-center">
+              {% if settings.vendor_enable %}
+                <div class="product-single__vendor" style="font-size: 0.875rem; margin-bottom: 0.25rem;">{{ product.vendor }}</div>
+              {% endif %}
+
+              {% if isModal %}
+                <p class="h2 product-single__title" style="margin-bottom: 0.5rem; font-size: 1.5rem; line-height: 1.2;">{{ product.title }}</p>
+              {% else %}
+                <h1 class="h2 product-single__title" style="margin-bottom: 0.5rem; font-size: 1.5rem; line-height: 1.2;">{{ product.title }}</h1>
+              {% endif %}
+
+              {% if settings.enable_product_reviews %}
+                {% if isModal %}
+                  {% assign review_link = product.url | within: collection | append: '#Reviews-' | append: product.id %}
+                {% else %}
+                  {% assign review_link = '#Reviews-' | append: product.id %}
+                {% endif %}
+                <a href="{{ review_link }}" class="product-single__review-link" style="margin-bottom: 0.75rem; display: inline-block;">
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </a>
+              {% endif %}
+
+              <!-- Prices -->
+              <div class="product-single__prices" data-price-wrapper>
+                {% if current_variant.compare_at_price > current_variant.price %}
+                  <span
+                    class="product__price product__price--compare"
+                    data-product-price-compare>
+                    {{ current_variant.compare_at_price | money }}
+                  </span>
+                {% endif %}
+                <span
+                  class="product__price{% if current_variant.compare_at_price > current_variant.price %} sale-price{% endif %}"
+                  data-product-price>
+                  {{ current_variant.price | money }}
+                </span>
+                {% if current_variant.compare_at_price > current_variant.price %}
+                  <span class="you-save">
+                    Save {{ current_variant.compare_at_price | minus: current_variant.price | money }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Inventory with urgency (compact) -->
+            {% if inventory_enable or inventory_transfers_enable %}
+              {% assign tracked = product.variants | where: 'inventory_management', 'shopify' %}
+              <script>
+                window.inventories = window.inventories || {};
+                window.inventories['{{ section_id }}'] = {};
+                {% for v in tracked %}
+                  window.inventories['{{ section_id }}'][{{ v.id }}] = {
+                    quantity: {{ v.inventory_quantity | default: 0 }},
+                    incoming: {{ v.incoming | default: false | json }},
+                    next_incoming_date: {{ v.next_incoming_date | date: '%Y-%m-%d' | json }}
+                  };
+                {% endfor %}
+              </script>
+
+              {% assign inv_vis = false %}
+              {% if inventory_enable and current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity <= inventory_threshold and current_variant.inventory_quantity >= 0 %}
+                {% assign inv_vis = true %}
+              {% endif %}
+              {% if current_variant.inventory_quantity == 0 %}
+                {% assign inv_vis = false %}
+              {% endif %}
+
+              {% if inventory_enable %}
+                <p data-product-inventory class="product__inventory {% unless inv_vis %}hide{% endunless %}" style="color: #d62f2f; font-weight: 600; font-size: 0.875rem; margin: 0.5rem 0;">
+                  {% if current_variant.available %}
+                    {% if current_variant.inventory_quantity <= 5 %}
+                      🔥 Only {{ current_variant.inventory_quantity }} left in stock!
+                    {% else %}
+                      {{ 'products.product.stock_label' | t: count: current_variant.inventory_quantity }}
+                    {% endif %}
+                  {% endif %}
+                </p>
+              {% endif %}
+            {% endif %}
+
+            <!-- Product Form - THE STAR OF THE SHOW -->
+            {% unless isModal %}
+              {% include 'product-form',
+                section_id: section_id,
+                variant_type: variant_type,
+                variant_labels_enable: variant_labels_enable,
+                quantity_enable: quantity_enable,
+                enable_payment_button: enable_payment_button
+              %}
+            {% else %}
+              <div id="ProductFormPlaceholder-{{ section_id }}" data-url="{{ product.url | within: collection }}" data-template="{{ product.template_suffix }}" class="product-form-holder">
+                {% if product.options.size > 0 %}
+                  {% for i in (1..product.options.size) %}
+                    <div class="placeholder-content" style="min-height:86px;max-width:66%;"></div>
+                  {% endfor %}
+                {% endif %}
+                <div class="placeholder-content" style="min-height:86px;"></div>
+              </div>
+            {% endunless %}
+
+            <!-- Consolidated Trust & Shipping Badges -->
+            <div class="zenkai-trust-badges" style="margin-bottom: 1rem;">
+              <div class="zenkai-trust-badge">
+                <span class="zenkai-trust-badge__icon">🔒</span>
+                <div>
+                  <strong style="font-size: 0.8125rem;">Secure Checkout</strong>
+                  <div style="font-size: 0.6875rem; opacity: 0.8;">SSL Encrypted</div>
+                </div>
+              </div>
+              {% if product_shipping_callout != blank %}
+                <div class="zenkai-trust-badge">
+                  <span class="zenkai-trust-badge__icon">🚚</span>
+                  <div>
+                    <strong style="font-size: 0.8125rem;">{{ product_shipping_callout }}</strong>
+                    <div style="font-size: 0.6875rem; opacity: 0.8;">Shipped from the US</div>
+                  </div>
+                </div>
+              {% endif %}
+              <div class="zenkai-trust-badge">
+                <span class="zenkai-trust-badge__icon">💌</span>
+                <div>
+                  <strong style="font-size: 0.8125rem;">$5 Off First Order</strong>
+                  <div style="font-size: 0.6875rem; opacity: 0.8;">With email signup</div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Additional Content moved below fold -->
+            {% if settings.additional_content_style == 'expandable' %}
+              {% include 'product-additional-content', section_id: section_id %}
+            {% else %}
+              {% include 'product-additional-tabs', section_id: section_id %}
+            {% endif %}
+
+            <!-- Social Sharing -->
+            {% if social_enable %}
+              {% include 'social-sharing',
+                share_title: product.title,
+                share_permalink: product.url,
+                share_image: product
+              %}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Above-fold indicator (for development) -->
+<div class="above-fold-indicator"></div>

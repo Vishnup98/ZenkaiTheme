@@ -1,0 +1,16 @@
+<div class="collection-search" style="margin: 2rem 0; text-align: center;">
+  <p style="font-size: 1.2rem; margin-bottom: 1rem;">Find your favorite characters</p>
+  <form action="/search" method="get" role="search" style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+    <input type="hidden" name="type" value="product">
+    <input type="hidden" name="constraint" value="{{ collection.handle }}">
+    <input
+      type="search"
+      name="q"
+      placeholder="Search this collection..."
+      style="padding: 0.75rem 1rem; width: 70vw; max-width: 400px; font-size: 1rem; border: 1px solid #ddd; border-radius: 9999px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.05);"
+    >
+    <button type="submit" style="padding: 0.75rem 1.25rem; font-size: 1rem; background: #000; color: #fff; border: none; border-radius: 9999px; cursor: pointer;">
+      Search
+    </button>
+  </form>
+</div>

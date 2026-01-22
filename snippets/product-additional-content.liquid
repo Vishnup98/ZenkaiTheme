@@ -1,0 +1,380 @@
+{%- assign blockId = block.id -%}
+{% if product %}
+  {%- assign blockId = block.id | append: product.id -%}
+{% endif %}
+
+{%- assign has_custom_tabs = false -%}
+{% for tag in product.tags %}
+  {% if tag contains '_tab' %}
+    {%- assign has_custom_tabs = true -%}
+  {% endif %}
+{% endfor %}
+
+<!-- Zenkai Custom Accordion -->
+<style>
+  /* Custom Accordion Styles */
+  .zenkai-accordion {
+    margin: 2rem 0;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .zenkai-accordion__item {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .zenkai-accordion__trigger {
+    width: 100%;
+    padding: 1.25rem 0;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+    transition: color 0.2s ease;
+  }
+
+  .zenkai-accordion__trigger:hover {
+    color: #000;
+  }
+
+  .zenkai-accordion__icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .zenkai-accordion__icon::before,
+  .zenkai-accordion__icon::after {
+    content: "";
+    position: absolute;
+    background: #333;
+    transition: all 0.3s ease;
+  }
+
+  .zenkai-accordion__icon::before {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .zenkai-accordion__icon::after {
+    width: 2px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .zenkai-accordion__trigger.is-active .zenkai-accordion__icon {
+    transform: rotate(45deg);
+  }
+
+  .zenkai-accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .zenkai-accordion__content.is-active {
+    max-height: 1000px;
+  }
+
+  .zenkai-accordion__inner {
+    padding: 0 0 1.5rem 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #666;
+  }
+
+  .zenkai-accordion__inner ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .zenkai-accordion__inner li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Highlight benefits */
+  .zenkai-benefit-highlight {
+    background: #f0f8ff;
+    border-left: 3px solid #2196f3;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .zenkai-benefit-highlight strong {
+    color: #1976d2;
+  }
+
+  /* FAQ styling */
+  .zenkai-faq-item {
+    margin-bottom: 1rem;
+  }
+
+  .zenkai-faq-question {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  .zenkai-faq-answer {
+    color: #666;
+    padding-left: 1rem;
+  }
+</style>
+
+<div class="zenkai-accordion">
+  <!-- Description Tab (Closed by default) -->
+  <div class="zenkai-accordion__item">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-description-{{ section_id }}">
+      <span>Description</span>
+      <span class="zenkai-accordion__icon"></span>
+    </button>
+    <div id="zenkai-description-{{ section_id }}" class="zenkai-accordion__content">
+      <div class="zenkai-accordion__inner rte">
+        {% if product.description %}
+          {{ product.description }}
+        {% else %}
+          {{ 'home_page.onboarding.product_description' | t }}
+        {% endif %}
+        
+        <div class="zenkai-benefit-highlight">
+          <strong>Premium Quality Guarantee:</strong> We use only the finest materials and printing techniques. If you're not completely satisfied with the quality, we'll make it right.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Size & Fit Tab -->
+  <div class="zenkai-accordion__item">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-size-{{ section_id }}">
+      <span>Size & Fit Guide</span>
+      <span class="zenkai-accordion__icon"></span>
+    </button>
+    <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content">
+      <div class="zenkai-accordion__inner">
+        <p><strong>True to Size:</strong> Our pieces are designed to fit as expected. Order your regular size for the perfect fit.</p>
+      
+        
+        <p><strong>Fabric & Care:</strong></p>
+        <ul>
+          <li>Premium cotton blend for comfort and durability</li>
+          <li>Pre-shrunk to maintain size after washing</li>
+          <li>Machine wash cold, tumble dry low</li>
+          <li>Gets softer with each wear</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shipping & Returns Tab -->
+  <div class="zenkai-accordion__item">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-shipping-{{ section_id }}">
+      <span>Shipping Policy</span>
+      <span class="zenkai-accordion__icon"></span>
+    </button>
+    <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content">
+      <div class="zenkai-accordion__inner">
+        <p><strong>🚀 Fast Production & Shipping:</strong></p>
+        <ul>
+          <li>Made to order in 2–5 business days</li>
+          <li>U.S. Shipping: 3–7 business days</li>
+          <li>Track your order every step of the way</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Tab -->
+  <div class="zenkai-accordion__item">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-faq-{{ section_id }}">
+      <span>Frequently Asked Questions</span>
+      <span class="zenkai-accordion__icon"></span>
+    </button>
+    <div id="zenkai-faq-{{ section_id }}" class="zenkai-accordion__content">
+      <div class="zenkai-accordion__inner">
+        <div class="zenkai-faq-item">
+          <div class="zenkai-faq-question">Q: How long will my order take?</div>
+          <div class="zenkai-faq-answer">A: Each piece is made to order. Production takes 1-4 business days, plus 3-6 days for U.S. shipping. Total: 4-10 business days. Usually on the shorter end.</div>
+        </div>
+        
+        <div class="zenkai-faq-item">
+          <div class="zenkai-faq-question">Q: What if it doesn't fit?</div>
+          <div class="zenkai-faq-answer">A: No worries! We offer full store credit if it doesn't fit—and you keep the item. Just contact us within 14 days.</div>
+        </div>
+        
+        <div class="zenkai-faq-item">
+          <div class="zenkai-faq-question">Q: How do I get the $5 email discount?</div>
+          <div class="zenkai-faq-answer">A: Simply enter your email in the popup or footer signup. You'll receive your discount code instantly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand Story Tab -->
+  <div class="zenkai-accordion__item">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
+      <span>The Zenkai Story</span>
+      <span class="zenkai-accordion__icon"></span>
+    </button>
+    <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
+      <div class="zenkai-accordion__inner">
+        <p><strong>You outgrew the loud prints and low-quality merch—but you never outgrew the stories.</strong></p>
+        <p>Zenkai was born from that tension: the desire to express who you are now, while honoring who you've always been.</p>
+        <p>We create subtle, premium streetwear for the generation that grew up with these stories and never let go. Clean designs with deep roots. References that speak volumes to those who get it, while staying understated enough for everyday wear.</p>
+        <p>This isn't nostalgia. It's evolution.</p>
+        <p style="margin-top: 1rem;"><em>Built on trust. Soaked in nostalgia.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include any custom tabs from product tags -->
+  {% for tag in product.tags %}
+    {% if tag contains '_tab' %}
+      {%- assign include_page_handle = tag | split: '_' -%}
+      {%- assign include_page = pages[include_page_handle.last] -%}
+      {% if include_page.title != blank %}
+        <div class="zenkai-accordion__item">
+          <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-custom-{{ include_page_handle.last }}-{{ section_id }}">
+            <span>{{ include_page.title }}</span>
+            <span class="zenkai-accordion__icon"></span>
+          </button>
+          <div id="zenkai-custom-{{ include_page_handle.last }}-{{ section_id }}" class="zenkai-accordion__content">
+            <div class="zenkai-accordion__inner rte">
+              {{ include_page.content }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  <!-- Include global content pages if set in theme settings -->
+  {% if settings.product_content_1 != blank %}
+    <div class="zenkai-accordion__item">
+      <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-content-1-{{ section_id }}">
+        <span>{{ pages[settings.product_content_1].title }}</span>
+        <span class="zenkai-accordion__icon"></span>
+      </button>
+      <div id="zenkai-content-1-{{ section_id }}" class="zenkai-accordion__content">
+        <div class="zenkai-accordion__inner rte">
+          {{ pages[settings.product_content_1].content }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if settings.product_content_2 != blank %}
+    <div class="zenkai-accordion__item">
+      <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-content-2-{{ section_id }}">
+        <span>{{ pages[settings.product_content_2].title }}</span>
+        <span class="zenkai-accordion__icon"></span>
+      </button>
+      <div id="zenkai-content-2-{{ section_id }}" class="zenkai-accordion__content">
+        <div class="zenkai-accordion__inner rte">
+          {{ pages[settings.product_content_2].content }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if settings.product_content_3 != blank %}
+    <div class="zenkai-accordion__item">
+      <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-content-3-{{ section_id }}">
+        <span>{{ pages[settings.product_content_3].title }}</span>
+        <span class="zenkai-accordion__icon"></span>
+      </button>
+      <div id="zenkai-content-3-{{ section_id }}" class="zenkai-accordion__content">
+        <div class="zenkai-accordion__inner rte">
+          {{ pages[settings.product_content_3].content }}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Contact Form if enabled -->
+  {% if settings.product_contact %}
+    {% form 'contact' %}
+      <div class="zenkai-accordion__item">
+        <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-contact-{{ section_id }}">
+          <span>{{ settings.product_contact_title }}</span>
+          <span class="zenkai-accordion__icon"></span>
+        </button>
+        <div id="zenkai-contact-{{ section_id }}" class="zenkai-accordion__content">
+          <div class="zenkai-accordion__inner">
+            <div class="form-vertical">
+              <input type="hidden" name="contact[product]" value="Product question for: {{ shop.secure_url }}/admin/products/{{ product.id }}">
+
+              <div class="grid grid--small">
+                <div class="grid__item medium-up--one-half">
+                  <label for="ContactFormName-{{ blockId }}">{{ 'contact.form.name' | t }}</label>
+                  <input type="text" id="ContactFormName-{{ blockId }}" class="input-full" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                </div>
+
+                <div class="grid__item medium-up--one-half">
+                  <label for="ContactFormEmail-{{ blockId }}">{{ 'contact.form.email' | t }}</label>
+                  <input type="email" id="ContactFormEmail-{{ blockId }}" class="input-full" name="contact[email]" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+                </div>
+              </div>
+
+              {% if settings.product_contact_show_phone %}
+                <label for="ContactFormPhone-{{ blockId }}">{{ 'contact.form.phone' | t }}</label>
+                <input type="tel" id="ContactFormPhone-{{ blockId }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+              {% endif %}
+
+              <label for="ContactFormMessage-{{ blockId }}">{{ 'contact.form.message' | t }}</label>
+              <textarea rows="5" id="ContactFormMessage-{{ blockId }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+              <button type="submit" class="btn">
+                {{ 'contact.form.send' | t }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% if form.posted_successfully? %}
+        <p class="note note--success">
+          {{ 'contact.form.post_success' | t }}
+        </p>
+      {% endif %}
+
+      {% if form.errors %}
+        {{ form.errors | default_errors }}
+      {% endif %}
+    {% endform %}
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accordionTriggers = document.querySelectorAll('.zenkai-accordion__trigger');
+    
+    accordionTriggers.forEach(trigger => {
+      trigger.addEventListener('click', function() {
+        const isActive = this.classList.contains('is-active');
+        const content = this.nextElementSibling;
+        
+        if (isActive) {
+          this.classList.remove('is-active');
+          this.setAttribute('aria-expanded', 'false');
+          content.classList.remove('is-active');
+        } else {
+          this.classList.add('is-active');
+          this.setAttribute('aria-expanded', 'true');
+          content.classList.add('is-active');
+        }
+      });
+    });
+  });
+</script>

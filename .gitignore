@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Shopify CLI
+.shopify/
+
+# Node modules (if using build tools)
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
