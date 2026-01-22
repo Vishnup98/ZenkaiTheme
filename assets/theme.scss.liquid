@@ -10824,75 +10824,37 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 /* ==========================================================================
    ZENKAI MOBILE HEADER - CENTERED LOGO + MENU
-   Premium streetwear aesthetic - 60px dark header with good touch targets
+   Simple sticky header with white background
    ========================================================================== */
 @media screen and (max-width: 768px) {
-  /* Sticky header - semi-transparent black */
+  /* Sticky header - white background */
   .header-wrapper {
     position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(0, 0, 0, 0.85) !important;
+    background: #ffffff !important;
   }
 
-  /* Site header - transparent, no padding */
+  /* Let site-header keep normal styling */
   .site-header {
     position: relative !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background: transparent !important;
-  }
-
-  .site-header .page-width {
-    padding: 0 15px !important;
-    margin: 0 !important;
-    background: transparent !important;
-  }
-
-  /* Announcement bar - WHITE TEXT on dark header */
-  .announcement {
-    background: transparent !important;
-  }
-
-  .announcement__wrapper {
-    background: transparent !important;
-    margin: 0 !important;
-  }
-
-  .announcement__text,
-  .announcement__link,
-  .announcement a {
-    color: #ffffff !important;
-    padding: 8px 15px !important;
-    font-size: 11px !important;
   }
 
   /* Content offset for header + announcement */
   .main-content {
-    margin-top: 80px;
+    margin-top: 90px;
   }
 
-  /* Overlay header - transparent */
-  .header-wrapper--overlay {
-    background: transparent !important;
-  }
-
-  .header-wrapper--overlay + .main-content,
-  .header-wrapper--overlay ~ .main-content {
-    margin-top: -80px;
-    padding-top: 0;
-  }
-
-  /* Header layout - BIGGER touch targets */
+  /* Header layout - centered logo + menu */
   .header-layout {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 20px !important;
     min-height: 60px !important;
-    padding: 15px 20px !important;
+    padding: 10px 20px !important;
   }
 
   .header-item--logo {
@@ -10903,54 +10865,27 @@ $marqueeAnimationSpeedMobile: 6.6s;
   .header-item--icons {
     flex: 0 0 auto;
     order: 2;
-    margin: 0 !important;
   }
 
-  /* Hide desktop navigation */
+  /* Hide desktop nav on mobile */
   .header-item--navigation {
     display: none !important;
   }
 
-  /* Nav icons container */
-  .site-nav--icons,
-  .site-nav__icons {
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  /* Logo - BIGGER (35px) */
-  .header-item--logo .site-header__logo,
-  .site-header__logo {
-    margin: 0 !important;
-  }
-
-  .site-header__logo img,
-  .header-item--logo img {
-    max-height: 35px !important;
+  /* Logo - good size for touch */
+  .site-header__logo img {
+    max-height: 40px !important;
     width: auto !important;
   }
 
-  /* Logo link - WHITE */
-  .site-header__logo a {
-    color: #ffffff !important;
+  /* Overlay pages - transparent header */
+  .header-wrapper--overlay {
+    background: transparent !important;
   }
 
-  /* MENU button - BIGGER and WHITE */
-  .zenkai-header-menu {
-    padding: 15px 10px !important;
-    min-height: 44px !important;
-  }
-
-  .zenkai-header-menu,
-  .zenkai-header-menu__text {
-    color: #ffffff !important;
-    font-size: 13px !important;
-  }
-
-  .zenkai-header-menu__icon {
-    stroke: #ffffff !important;
-    width: 22px !important;
-    height: 22px !important;
+  .header-wrapper--overlay + .main-content,
+  .header-wrapper--overlay ~ .main-content {
+    margin-top: 0;
   }
 }
 
