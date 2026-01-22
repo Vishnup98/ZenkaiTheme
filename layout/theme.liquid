@@ -93,6 +93,11 @@
   {% include 'critical-css' %}
   {% include 'load-css' %}
 
+  <!-- Lo-Fi Premium Streetwear: Barlow Condensed -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
   <script src="{{ 'vendor-v2.js' | asset_url | split: '?' | first }}" defer="defer"></script>
   {%- if shop.enabled_currencies.size > 1 -%}
     <link rel="stylesheet" href="{{ 'currency-flags.css' | asset_url }}">
