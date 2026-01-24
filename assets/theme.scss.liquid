@@ -9496,9 +9496,10 @@ $loaderIconSize: 100px;
   background-position: center;
   transition: transform 0.5s ease;
 
-  // ZENKAI: Fallback for mobile - show images from top (config now set to top center)
+  // ZENKAI: Force top positioning on mobile to prevent cropping heads/important content
+  // Must use !important because Liquid outputs inline style="background-position:..."
   @include media-query($small) {
-    background-position: top center;
+    background-position: top center !important;
   }
 
   &:after {
