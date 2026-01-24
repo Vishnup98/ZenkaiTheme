@@ -58,10 +58,12 @@
 }
 
 .background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.2em;
-  font-size: 14px;
+  color: #ffffff; /* ZENKAI: Full white for better contrast */
+  letter-spacing: 0.12em; /* ZENKAI: Reduced from 0.2em for readability */
+  font-size: 13px;
+  font-weight: 500; /* ZENKAI: Slightly bolder */
   margin-bottom: 12px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); /* ZENKAI: Better separation from bg */
 }
 
 .background-media-text--background_image_text_feh6JW .background-media-text__text .h1 {
@@ -83,8 +85,8 @@
 /* ZENKAI: Tightened for aggressive mobile optimization */
 @media screen and (max-width: 768px) {
   .background-media-text--background_image_text_feh6JW {
-    min-height: 70vh; /* Reduced from 85vh - less scroll needed */
-    height: 70vh;
+    min-height: 60vh; /* Reduced from 70vh - show Best Sellers faster */
+    height: 60vh;
     padding-bottom: 0 !important;
   }
 
@@ -103,9 +105,12 @@
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
-    font-size: 11px; /* Slightly smaller */
-    letter-spacing: 0.2em;
+    font-size: 11px;
+    letter-spacing: 0.1em; /* ZENKAI: Reduced for readability */
     margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text .h1 {
@@ -9490,6 +9495,11 @@ $loaderIconSize: 100px;
   background-repeat: no-repeat;
   background-position: center;
   transition: transform 0.5s ease;
+
+  // ZENKAI: Show image from top on mobile to prevent cropping heads/important content
+  @include media-query($small) {
+    background-position: top center;
+  }
 
   &:after {
     @include overlay();
