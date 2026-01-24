@@ -8843,6 +8843,20 @@ $label-bottom-margin: 12px;
   }
 }
 
+// ZENKAI: Mobile product images - use portrait aspect ratio to prevent cropping
+// Override the inline padding-bottom (natural aspect ratio) with a taller container
+@include media-query($small) {
+  .product-slide .image-wrap[style*="padding-bottom"] {
+    padding-bottom: 125% !important; // 4:5 portrait ratio - matches Instagram/product photography
+  }
+
+  // Also fix background-image based product images (hover images)
+  .product-slide .grid__image-ratio {
+    padding-bottom: 125% !important;
+    background-position: top center !important;
+  }
+}
+
 // Product title/price
 
 .grid-product__meta {
