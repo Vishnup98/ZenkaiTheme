@@ -8827,8 +8827,7 @@ $label-bottom-margin: 12px;
   }
 }
 
-// ZENKAI: Fix product image positioning in natural aspect ratio containers
-// Images need absolute positioning to fill the padding-bottom aspect ratio box
+// ZENKAI: Product grid images - 4:5 portrait ratio on mobile
 .product-slide .image-wrap {
   position: relative;
 
@@ -8839,20 +8838,17 @@ $label-bottom-margin: 12px;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center; // Show from top to prevent cropping heads/important content
+    object-position: top center;
   }
 }
 
-// ZENKAI: Mobile product images - use portrait aspect ratio to prevent cropping
-// Override the inline padding-bottom (natural aspect ratio) with a taller container
 @include media-query($small) {
-  .product-slide .image-wrap[style*="padding-bottom"] {
-    padding-bottom: 125% !important; // 4:5 portrait ratio - matches Instagram/product photography
-  }
-
-  // Also fix background-image based product images (hover images)
+  .product-slide .image-wrap[style*="padding-bottom"],
   .product-slide .grid__image-ratio {
     padding-bottom: 125% !important;
+  }
+
+  .product-slide .grid__image-ratio {
     background-position: top center !important;
   }
 }
