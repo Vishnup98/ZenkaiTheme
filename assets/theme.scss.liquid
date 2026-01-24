@@ -8827,6 +8827,22 @@ $label-bottom-margin: 12px;
   }
 }
 
+// ZENKAI: Fix product image positioning in natural aspect ratio containers
+// Images need absolute positioning to fill the padding-bottom aspect ratio box
+.product-slide .image-wrap {
+  position: relative;
+
+  img.grid-product__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center; // Show from top to prevent cropping heads/important content
+  }
+}
+
 // Product title/price
 
 .grid-product__meta {
