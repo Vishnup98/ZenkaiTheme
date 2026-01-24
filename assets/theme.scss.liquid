@@ -80,10 +80,11 @@
 }
 
 /* Mobile: Immersive hero with text overlay at bottom */
+/* ZENKAI: Tightened for aggressive mobile optimization */
 @media screen and (max-width: 768px) {
   .background-media-text--background_image_text_feh6JW {
-    min-height: 85vh;
-    height: 85vh;
+    min-height: 70vh; /* Reduced from 85vh - less scroll needed */
+    height: 70vh;
     padding-bottom: 0 !important;
   }
 
@@ -92,8 +93,8 @@
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__inner {
-    padding: 30px 20px;
-    padding-bottom: 40px; /* Clean bottom spacing, no thumb menu */
+    padding: 20px 16px; /* Tightened from 30px 20px */
+    padding-bottom: 28px; /* Tightened from 40px, still thumb-safe */
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text {
@@ -102,13 +103,15 @@
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
-    font-size: 12px;
-    letter-spacing: 0.25em;
+    font-size: 11px; /* Slightly smaller */
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
   }
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text .h1 {
-    font-size: 28px;
-    line-height: 1.3;
+    font-size: 26px; /* Slightly smaller from 28px */
+    line-height: 1.25;
+    margin-bottom: 12px;
   }
 }
 
@@ -194,6 +197,7 @@
 }
 
 /* Mobile: Aspect ratio sized container with cover */
+/* ZENKAI: Tightened for aggressive mobile optimization */
 @media screen and (max-width: 768px) {
   .background-media-text--background_image_text_c8AXa4 {
     min-height: auto !important;
@@ -210,8 +214,8 @@
   }
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__inner {
-    padding: 30px 20px;
-    padding-bottom: 40px;
+    padding: 20px 16px; /* Tightened from 30px 20px */
+    padding-bottom: 28px; /* Tightened from 40px */
   }
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__text {
@@ -220,13 +224,20 @@
   }
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__text .subheading {
-    font-size: 12px;
-    letter-spacing: 0.25em;
+    font-size: 11px; /* Tightened from 12px */
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
   }
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__text .h1 {
-    font-size: 28px;
-    line-height: 1.3;
+    font-size: 24px; /* Tightened from 28px */
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .background-media-text--background_image_text_c8AXa4 .background-media-text__text .rte {
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
 
@@ -495,7 +506,7 @@ $page-width: 1300px;
 
 $borderWidth: 2px;
 
-$page-width-gutter-small: 30px;
+$page-width-gutter-small: 20px; // ZENKAI: Tightened from 30px for mobile density
 
 $page-width-gutter-large: $gutter;
 
@@ -635,9 +646,9 @@ $contentTopMarginSmall: 40px;
 
 // Section header & collection image
 
-$sectionHeaderBottom: 60px;
+$sectionHeaderBottom: 32px; // ZENKAI: Tightened from 60px
 
-$sectionHeaderBottomSmall: 40px;
+$sectionHeaderBottomSmall: 20px; // ZENKAI: Tightened from 40px for mobile
 
 // Slideshow colors
 
@@ -841,9 +852,9 @@ $colorDrawerText: {{ settings.color_drawer_text | default: '#fff' }};
 
 /*================ Misc sizing vars ================*/
 
-$indexSectionMarginSmall: 60px;
+$indexSectionMarginSmall: 32px; // ZENKAI: Aggressive tightening from 60px for mobile
 
-$indexSectionMarginLarge: 120px;
+$indexSectionMarginLarge: 56px; // ZENKAI: Tightened from 120px for desktop
 
 /*================ Buttons ================*/
 
@@ -6324,7 +6335,7 @@ $shareButtonHeight: 18px;
 }
 
 .index-section--overflow-scroller {
-  margin-bottom: 30px;
+  margin-bottom: 16px; /* ZENKAI: Tightened from 30px */
 }
 
 .index-section--small {
@@ -9413,9 +9424,10 @@ $loaderIconSize: 100px;
       align-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 0 -20px;
+  margin: 0 -6px; /* ZENKAI: Tightened from -20px for mobile */
 
   @include media-query($medium-up) {
+    margin: 0 -20px; /* Restore desktop margin */
     margin-bottom: -$grid-gutter;
   }
 }
@@ -9424,8 +9436,8 @@ $loaderIconSize: 100px;
   position: relative;
   overflow: hidden;
   width: 40%;
-  width: calc(50% - 20px);
-  margin: 0 (20px / 2) 20px;
+  width: calc(50% - 12px); /* ZENKAI: Tightened from 20px gap */
+  margin: 0 6px 12px; /* ZENKAI: Tightened from 10px 20px */
 
   @include media-query($medium-up) {
     margin: 0 ($grid-gutter / 2) $grid-gutter;
@@ -10470,6 +10482,116 @@ $marqueeAnimationSpeedMobile: 6.6s;
     &.slick-active button {
       background: rgba(255, 255, 255, 0.9);
     }
+  }
+}
+
+// ZENKAI: Mobile-specific testimonials tightening
+@media screen and (max-width: 768px) {
+  .testimonials-wrapper {
+    padding: 0 20px; // Tightened from 50px
+  }
+
+  .testimonials-slider__text {
+    padding: 20px 16px; // Tightened from 30px 35px
+    margin: 6px 8px 16px; // Tightened from 10px 15px 30px
+
+    .rte-setting {
+      font-size: 14px; // Slightly smaller
+    }
+  }
+
+  .quote-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .testimonials-slider__text cite {
+    font-size: 12px;
+  }
+
+  .testimonials-slider .slick-dots {
+    margin-top: 16px; // Tightened from 25px
+  }
+
+  .testimonials-wrapper .slick-prev,
+  .testimonials-wrapper .slick-next {
+    width: 36px; // Smaller arrows
+    height: 36px;
+  }
+}
+
+// ========== EXTRA SMALL SCREENS (<375px) ==========
+// ZENKAI: iPhone SE and smaller devices - maximum density
+@media screen and (max-width: 374px) {
+  // Tighter page padding
+  .page-width,
+  .page-full-width {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  // Section margins even tighter
+  .index-section {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  // Hero adjustments
+  .background-media-text--background_image_text_feh6JW {
+    min-height: 65vh;
+    height: 65vh;
+  }
+
+  .background-media-text--background_image_text_feh6JW .background-media-text__inner {
+    padding: 16px 12px;
+    padding-bottom: 24px;
+  }
+
+  .background-media-text--background_image_text_feh6JW .background-media-text__text .h1 {
+    font-size: 22px;
+  }
+
+  // Brand story adjustments
+  .background-media-text--background_image_text_c8AXa4 .background-media-text__inner {
+    padding: 16px 12px;
+    padding-bottom: 24px;
+  }
+
+  .background-media-text--background_image_text_c8AXa4 .background-media-text__text .h1 {
+    font-size: 20px;
+  }
+
+  .background-media-text--background_image_text_c8AXa4 .background-media-text__text .rte {
+    font-size: 13px;
+  }
+
+  // Testimonials even tighter
+  .testimonials-wrapper {
+    padding: 0 12px;
+  }
+
+  .testimonials-slider__text {
+    padding: 16px 12px;
+    margin: 4px 6px 12px;
+  }
+
+  // Collection grid tighter
+  .skrim__item {
+    width: calc(50% - 8px);
+    margin: 0 4px 8px;
+  }
+
+  .skrim-grid {
+    margin: 0 -4px;
+  }
+
+  // Section headers
+  .section-header {
+    margin-bottom: 16px;
+  }
+
+  .section-header__title {
+    font-size: 20px;
   }
 }
 
