@@ -9496,10 +9496,9 @@ $loaderIconSize: 100px;
   background-position: center;
   transition: transform 0.5s ease;
 
-  // ZENKAI: Show image from top on mobile to prevent cropping heads/important content
-  // Using !important to override inline styles from Liquid template focal_point setting
+  // ZENKAI: Fallback for mobile - show images from top (config now set to top center)
   @include media-query($small) {
-    background-position: top center !important;
+    background-position: top center;
   }
 
   &:after {

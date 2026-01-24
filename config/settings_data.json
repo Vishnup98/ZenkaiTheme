@@ -266,35 +266,35 @@
             "settings": {
               "collection": "frontpage",
               "image": "shopify://shop_images/creative_4.png",
-              "focal_point": "center center"
+              "focal_point": "top center"
             }
           },
           "1543003878234-3": {
             "type": "collection",
             "settings": {
               "collection": "tees",
-              "focal_point": "center center"
+              "focal_point": "top center"
             }
           },
           "collection_NNbtg4": {
             "type": "collection",
             "settings": {
               "collection": "all-hoodies",
-              "focal_point": "center center"
+              "focal_point": "top center"
             }
           },
           "1543003878234-1": {
             "type": "collection",
             "settings": {
               "collection": "all-hats",
-              "focal_point": "center center"
+              "focal_point": "top center"
             }
           },
           "collection_bUwnWc": {
             "type": "collection",
             "settings": {
               "collection": "sweatshirts",
-              "focal_point": "center center"
+              "focal_point": "top center"
             }
           }
         },
