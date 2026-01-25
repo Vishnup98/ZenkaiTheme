@@ -1588,10 +1588,10 @@
       ".site-nav__thumb-button {padding: 4px 16px !important; border-radius: 9999px !important; font-size: 12px !important; line-height: 1.2 !important; display: flex !important; align-items: center; gap: 6px !important; height: auto !important; min-height: unset !important;}",
       ".site-nav__thumb-button .icon {width: 16px !important; height: 16px !important;}",
       ".site-nav__thumb-button .icon-menu-label {font-size: 12px !important; margin: 0 !important;}",
-      "button.add-to-cart {background-color: #9CAF88; color: #ffffff; border: none; padding: 0.75em 1.5em; border-radius: 6px; font-size: 1rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(156, 175, 136, 0.2); transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; cursor: pointer;}",
-      " /* Hover & Focus */button.add-to-cart:hover,button.add-to-cart:focus {background-color: #7A8F70; box-shadow: 0 6px 12px rgba(156, 175, 136, 0.3); outline: none;}",
-      " /* Active Click Feedback */button.add-to-cart:active {background-color: #6B8560; transform: scale(0.98);}",
-      " /* Focus Outline for Keyboard Users */button.add-to-cart:focus-visible {outline: 2px solid #9CAF88; outline-offset: 2px;}",
+      "button.add-to-cart {background-color: #5E9B4A; color: #ffffff; border: none; padding: 0.75em 1.5em; border-radius: 6px; font-size: 1rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(94, 155, 74, 0.25); transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; cursor: pointer;}",
+      " /* Hover & Focus */button.add-to-cart:hover,button.add-to-cart:focus {background-color: #4A8A3A; box-shadow: 0 6px 12px rgba(94, 155, 74, 0.35); outline: none;}",
+      " /* Active Click Feedback */button.add-to-cart:active {background-color: #3D7A2D; transform: scale(0.98);}",
+      " /* Focus Outline for Keyboard Users */button.add-to-cart:focus-visible {outline: 2px solid #5E9B4A; outline-offset: 2px;}",
       " /* Disabled State */button.add-to-cart:disabled {background-color: #cccccc; color: #666666; cursor: not-allowed; box-shadow: none; transform: none;}"
     ]
   }
