@@ -4219,7 +4219,14 @@ $color-blankstate-background: #f4f4f4;
   background: $colorAnnouncement;
 
   @include media-query($medium-up) {
-    padding: 6px 0;
+    padding: 3px 0;
+    color: #ffffff;
+  }
+
+  @include media-query($medium-up) {
+    a, a:hover {
+      color: #ffffff;
+    }
   }
 }
 
@@ -11252,7 +11259,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
   /* Crop whitespace from bottom of product images */
   .product-image-main {
-    margin-bottom: -30px;
+    margin-bottom: -35px;
   }
 }
 
