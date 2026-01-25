@@ -11334,6 +11334,15 @@ $marqueeAnimationSpeedMobile: 6.6s;
   }
 }
 
+/* Fallback: Non-overlay pages get dusty rose header with visible menu */
+.header-wrapper:not(.header-wrapper--overlay) {
+  background: #D4A5A5 !important;
+}
+
+.header-wrapper:not(.header-wrapper--overlay) .zenkai-header-menu {
+  color: #ffffff;
+}
+
 /* ==========================================================================
    ZENKAI PREMIUM PRODUCT DISPLAY
    ========================================================================== */

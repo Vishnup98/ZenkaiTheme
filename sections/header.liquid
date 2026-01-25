@@ -41,13 +41,8 @@
 
 {%- assign template_name = template | replace: '.', ' ' | truncatewords: 2, '' | handle -%}
 
-{%- assign overlay_header = false -%}
-{% if template_name == 'index' and section.settings.sticky_index %}
-  {%- assign overlay_header = true -%}
-{% endif %}
-{% if template_name == 'collection' and collection.image and section.settings.sticky_collection %}
-  {%- assign overlay_header = true -%}
-{% endif %}
+{%- comment -%} Always enable overlay header for consistent experience {%- endcomment -%}
+{%- assign overlay_header = true -%}
 
 {% style %}
   .slide-nav,
@@ -78,14 +73,9 @@
     data-header-style="{{ section.settings.header_style }}"
     class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}">
 
+    {% comment %} Show announcement bar on all pages {% endcomment %}
     {% if section.settings.show_announcement %}
-      {% if section.settings.show_announcement_home_only %}
-        {% if template == 'index' %}
-          {% include 'announcement-bar' %}
-        {% endif %}
-      {% else %}
-        {% include 'announcement-bar' %}
-      {% endif %}
+      {% include 'announcement-bar' %}
     {% endif %}
 
     {% comment %}
@@ -96,7 +86,7 @@
     {%- assign mobile_logo_only = true -%}
 
     <header
-      class="site-header{% if section.settings.logo_hide_mobile %}{% unless template_name == 'index' %} small--hide{% endunless %}{% endif %}"
+      class="site-header"
       data-overlay="{{ overlay_header }}">
       <div class="page-width">
         <div
