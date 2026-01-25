@@ -4,7 +4,8 @@
       <a href="{{ section.settings.announcement_link }}" class="announcement__link">
     {% endif %}
 
-    <div class="announcement__text" data-text="{{ section.settings.announcement_text | strip_html | handle }}">
+    <div class="announcement__text announcement__text--rotating"
+         data-rotating-messages='["Free Shipping Over $55", "Premium Quality Materials", "Made to Order in 2-5 Days"]'>
       {{ section.settings.announcement_text | strip_html }}
     </div>
 
@@ -13,3 +14,33 @@
     {% endif %}
   </div>
 </div>
+
+<script>
+(function() {
+  const textEl = document.querySelector('.announcement__text--rotating');
+  if (!textEl) return;
+
+  const messages = JSON.parse(textEl.dataset.rotatingMessages || '[]');
+  if (messages.length < 2) return;
+
+  let currentIndex = 0;
+
+  function rotateMessage() {
+    textEl.style.opacity = '0';
+
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % messages.length;
+      textEl.textContent = messages[currentIndex];
+      textEl.style.opacity = '1';
+    }, 300);
+  }
+
+  setInterval(rotateMessage, 4000);
+})();
+</script>
+
+<style>
+.announcement__text--rotating {
+  transition: opacity 0.3s ease;
+}
+</style>
