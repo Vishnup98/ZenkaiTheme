@@ -11163,14 +11163,14 @@ $marqueeAnimationSpeedMobile: 6.6s;
    Premium streetwear aesthetic
    ========================================================================== */
 @media screen and (max-width: 768px) {
-  /* Sticky header - stays fixed on scroll */
+  /* Sticky header - solid dusty rose, fixed at top */
   .header-wrapper {
     position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    background: #D4A5A5;
+    background: #D4A5A5 !important;
   }
 
   .site-header {
@@ -11222,50 +11222,8 @@ $marqueeAnimationSpeedMobile: 6.6s;
     margin-top: 80px;
   }
 
-  /* Overlay header - FULLY transparent, no gaps */
-  .header-wrapper--overlay,
-  .header-wrapper--overlay .site-header,
-  .header-wrapper--overlay .page-width,
-  .header-wrapper--overlay .header-layout,
-  .header-wrapper--overlay .header-item,
-  .header-wrapper--overlay .header-item--logo,
-  .header-wrapper--overlay .header-item--icons {
-    background: transparent !important;
-    background-color: transparent !important;
-  }
-
-  .header-wrapper--overlay .announcement {
-    margin-bottom: 0 !important;
-  }
-
-  .header-wrapper--overlay .site-header,
-  .header-wrapper--overlay .header-layout {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  /* Use body class - sibling selector doesn't work due to wrapper div */
-  body.template-index .main-content {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-
-  /* Target parent wrapper for overlay pages */
-  [data-section-type="header-section"] {
-    background: transparent !important;
-  }
-
-  /* Scrolled state - solid dusty rose for pastel palette */
-  .header-wrapper--overlay.is-scrolled {
-    background: #D4A5A5 !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: background 0.3s ease;
-  }
-
-  .header-wrapper--overlay.is-scrolled .announcement__wrapper {
-    background: transparent !important;
-  }
+  /* No overlay styles needed - solid header on all pages */
+  /* Content gets margin-top: 80px from .main-content rule above */
 
   /* Hide desktop navigation items on mobile */
   .header-item--navigation {
@@ -11295,6 +11253,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   background: transparent;
   border: none;
   font-family: inherit;
+  color: #ffffff !important;
   cursor: pointer;
   transition: opacity 0.2s ease;
   -webkit-tap-highlight-color: transparent;
@@ -11306,10 +11265,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   outline: none;
 }
 
-/* When header is overlaid on image, use white text */
-.header-wrapper--overlay .zenkai-header-menu {
-  color: #ffffff;
-}
+/* Menu button always white on dusty rose background */
 
 .zenkai-header-menu__icon {
   flex-shrink: 0;
@@ -11334,14 +11290,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   }
 }
 
-/* Fallback: Non-overlay pages get dusty rose header with visible menu */
-.header-wrapper:not(.header-wrapper--overlay) {
-  background: #D4A5A5 !important;
-}
-
-.header-wrapper:not(.header-wrapper--overlay) .zenkai-header-menu {
-  color: #ffffff;
-}
+/* Overlay fallback styles removed - using solid header everywhere */
 
 /* ==========================================================================
    ZENKAI PREMIUM PRODUCT DISPLAY

@@ -41,8 +41,8 @@
 
 {%- assign template_name = template | replace: '.', ' ' | truncatewords: 2, '' | handle -%}
 
-{%- comment -%} Always enable overlay header for consistent experience {%- endcomment -%}
-{%- assign overlay_header = true -%}
+{%- comment -%} Solid sticky header - no overlay, content starts below {%- endcomment -%}
+{%- assign overlay_header = false -%}
 
 {% style %}
   .slide-nav,
