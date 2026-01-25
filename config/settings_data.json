@@ -107,7 +107,7 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "show_newsletter": true,
+          "show_newsletter": false,
           "newsletter_title": "Sign up for exclusive access to early drops",
           "newsletter_richtext": "",
           "show_locale_selector": true,
@@ -434,7 +434,7 @@
           "enable_product": true,
           "enable_collection": true,
           "title": "On social",
-          "description": "<p>Email us yours at admin@zenkaiclothing.com for a 10% off coupon code</p>"
+          "description": ""
         }
       },
       "collection-header": {
