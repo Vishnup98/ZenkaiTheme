@@ -61,7 +61,7 @@
 
         {% if section.settings.video_url contains 'vimeo.com' %}
           <button type="button" id="VimeoTrigger-{{ section.id }}" class="vimeo-mobile-trigger medium-up--hide">
-            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#323232" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#3D3632" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
           </button>
         {% endif %}
 
@@ -86,7 +86,7 @@
                 <div class="hero__link appear-delay{% cycle '','-2','-4','-6','-8' %}">
                   <a href="{{ link_href }}" class="btn btn--inverse">
                     {%- if link_href contains 'youtube.com/watch' or link_href contains 'youtu.be/' -%}
-                      <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#323232" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
+                      <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#3D3632" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
                     {%- endif -%}
                     {{ section.settings.link_text }}
                   </a>
