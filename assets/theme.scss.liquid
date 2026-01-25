@@ -7108,7 +7108,7 @@ iframe.zoid-component-frame {
 }
 
 .product__photo-dots {
-  margin-top: 10px;
+  margin-top: 0;
 
   .slick-dots {
     position: static;
@@ -11243,6 +11243,11 @@ $marqueeAnimationSpeedMobile: 6.6s;
   /* Hide product zoom button on mobile */
   .product__photo-zoom {
     display: none !important;
+  }
+
+  /* Remove extra padding on carousel dots (was for zoom button) */
+  .product__main-photos .slick-dots {
+    padding: 0 !important;
   }
 }
 
