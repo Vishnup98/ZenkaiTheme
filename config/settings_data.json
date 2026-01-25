@@ -10,13 +10,13 @@
 {
   "current": {
     "color_body_bg": "#ffffff",
-    "color_body_text": "#1a1a1a",
+    "color_body_text": "#3D3632",
     "color_button": "#2d2d2d",
     "color_button_text": "#ffffff",
-    "color_sale_price": "#333029",
+    "color_sale_price": "#3D3632",
     "color_sale_tag": "#cb6c61",
-    "color_cart_dot": "#0066FF",
-    "color_accent": "#0066FF",
+    "color_cart_dot": "#9CAF88",
+    "color_accent": "#9CAF88",
     "color_accent_text": "#ffffff",
     "color_alt_bg": "#FAF8F5",
     "color_alt_text": "#2D2A26",
@@ -557,10 +557,10 @@
     },
     "content_for_index": [
       "background_image_text_feh6JW",
-      "trust_bar_section",
       "featured_collection_slider_NqdwdL",
       "testimonials_homepage",
       "featured_collection_slider_XJfWth",
+      "trust_bar_section",
       "background_image_text_c8AXa4",
       "1543003878234"
     ],

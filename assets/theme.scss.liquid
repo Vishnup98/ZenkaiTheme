@@ -76,7 +76,7 @@
 
 .background-media-text--background_image_text_feh6JW .background-media-text__text .btn {
   margin-top: 10px;
-  background-color: #0066FF !important;
+  background-color: #9CAF88 !important;
   color: #ffffff !important;
   border: none;
 }
@@ -196,7 +196,7 @@
 
 .background-media-text--background_image_text_c8AXa4 .background-media-text__text .btn {
   margin-top: 10px;
-  background-color: #0066FF !important;
+  background-color: #9CAF88 !important;
   color: #ffffff !important;
   border: none;
 }
@@ -10643,20 +10643,20 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, #0066FF 0%, #0052cc 100%);
-  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+  background: linear-gradient(135deg, #9CAF88 0%, #7A8F70 100%);
+  box-shadow: 0 4px 15px rgba(156, 175, 136, 0.3);
   border: none;
 
   &:hover,
   &:focus {
-    box-shadow: 0 6px 25px rgba(0, 102, 255, 0.45);
+    box-shadow: 0 6px 25px rgba(156, 175, 136, 0.45);
     transform: translateY(-3px);
-    background: linear-gradient(135deg, #0073ff 0%, #0059db 100%);
+    background: linear-gradient(135deg, #A8BA95 0%, #8A9F80 100%);
   }
 
   &:active {
     transform: translateY(-1px);
-    box-shadow: 0 3px 12px rgba(0, 102, 255, 0.35);
+    box-shadow: 0 3px 12px rgba(156, 175, 136, 0.35);
   }
 }
 
@@ -10666,7 +10666,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   &:hover {
     border-color: $colorAccent;
     color: $colorAccent;
-    box-shadow: 0 0 15px rgba(0, 102, 255, 0.2);
+    box-shadow: 0 0 15px rgba(156, 175, 136, 0.2);
     transform: translateY(-2px);
   }
 }
@@ -10761,7 +10761,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   // Button adjustments for cream bg
   .btn {
     &:hover {
-      box-shadow: 0 0 20px rgba(0, 102, 255, 0.35);
+      box-shadow: 0 0 20px rgba(156, 175, 136, 0.35);
     }
   }
 }
@@ -10781,7 +10781,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
     &:focus {
       border-color: $colorAccent;
-      box-shadow: 0 0 10px rgba(0, 102, 255, 0.2);
+      box-shadow: 0 0 10px rgba(156, 175, 136, 0.2);
     }
   }
 }
@@ -11354,8 +11354,45 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 .grid-product__price {
   font-weight: 600;
-  color: #1c1d1d;
+  color: #3D3632;
 }
 
+// ========== MOBILE CRO OPTIMIZATIONS ==========
+// 90% of traffic is mobile - optimize for thumb tapping and scroll depth
+
+// Larger hero CTA for better touch target
+@media screen and (max-width: 768px) {
+  .background-media-text .btn {
+    padding: 18px 40px;
+    font-size: 16px;
+    min-width: 180px;
+  }
+}
+
+// Taller collection cards on mobile - more impactful, easier to tap
+@media screen and (max-width: 768px) {
+  .collection-item__bg {
+    min-height: 180px;
+  }
+}
+
+// Brand story readability - better line spacing on mobile
+@media screen and (max-width: 768px) {
+  .background-media-text__text {
+    line-height: 1.75;
+  }
+
+  .background-media-text__text p + p {
+    margin-top: 1rem;
+  }
+}
+
+// Section breathing room on mobile
+@media screen and (max-width: 768px) {
+  .index-section {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+}
 
 
