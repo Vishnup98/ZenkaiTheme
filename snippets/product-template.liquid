@@ -75,7 +75,7 @@
   .product-single__prices .product__price.sale-price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #d62f2f;
+    color: #C97070;
     line-height: 1;
     transition: transform 0.2s ease;
   }
@@ -86,9 +86,9 @@
   /* "You save" badge */
   .product-single__prices .you-save {
     font-size: 0.875rem;
-    color: #d62f2f;
+    color: #C97070;
     font-weight: 600;
-    background: #fdecea;
+    background: #F5D6C6;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     align-self: flex-start;
@@ -96,7 +96,7 @@
 
   /* Compact trust bar for above-fold optimization */
   .zenkai-trust-bar {
-    background: #f8f8f8;
+    background: #F5F8F3;
     padding: 0.75rem 0;
     margin: 1.5rem -20px;
     overflow: hidden;
@@ -153,11 +153,11 @@
   }
   
   .zenkai-photo-dot.is-active {
-    background: #333;
+    background: #9CAF88;
   }
-  
+
   .zenkai-photo-dot:hover {
-    background: #666;
+    background: #7A8F70;
   }
 
   .zenkai-trust-badge {
@@ -165,7 +165,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.625rem;
-    background: #f8f8f8;
+    background: #F5F8F3;
     border-radius: 8px;
     font-size: 0.8125rem;
     color: #333;
@@ -304,11 +304,11 @@
       <nav aria-label="breadcrumb" style="margin-bottom: 0.75rem;">
         <ol style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; list-style: none; padding: 0; margin: 0;">
           <li>
-            <a href="/" style="color: #666; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#666'">Home</a>
+            <a href="/" style="color: #666; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#D4A5A5'" onmouseout="this.style.color='#666'">Home</a>
           </li>
           <li style="color: #999;">›</li>
           <li>
-            <a href="/collections/all" style="color: #666; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#666'">All Products</a>
+            <a href="/collections/all" style="color: #666; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#D4A5A5'" onmouseout="this.style.color='#666'">All Products</a>
           </li>
           <li style="color: #999;">›</li>
           <li style="color: #333;">{{ product.title | truncate: 30 }}</li>
@@ -410,7 +410,7 @@
               {% endif %}
 
               {% if inventory_enable %}
-                <p data-product-inventory class="product__inventory {% unless inv_vis %}hide{% endunless %}" style="color: #d62f2f; font-weight: 600; font-size: 0.875rem; margin: 0.5rem 0;">
+                <p data-product-inventory class="product__inventory {% unless inv_vis %}hide{% endunless %}" style="color: #C97070; font-weight: 600; font-size: 0.875rem; margin: 0.5rem 0;">
                   {% if current_variant.available %}
                     {% if current_variant.inventory_quantity <= 5 %}
                       🔥 Only {{ current_variant.inventory_quantity }} left in stock!

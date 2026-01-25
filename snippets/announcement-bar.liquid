@@ -1,4 +1,4 @@
-<div class="announcement">
+<div class="announcement" style="background: #D4A5A5;">
   <div class="announcement__wrapper">
     {% if section.settings.announcement_link != blank %}
       <a href="{{ section.settings.announcement_link }}" class="announcement__link">
@@ -42,5 +42,14 @@
 <style>
 .announcement__text--rotating {
   transition: opacity 0.3s ease;
+}
+/* Dusty Rose Announcement Bar */
+.announcement {
+  background: #D4A5A5 !important;
+}
+.announcement__text,
+.announcement__link,
+.announcement__text--rotating {
+  color: #ffffff !important;
 }
 </style>
