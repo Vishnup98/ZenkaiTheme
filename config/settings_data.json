@@ -100,7 +100,7 @@
           "main_menu_link_list": "main-menu",
           "show_announcement": true,
           "show_announcement_home_only": false,
-          "announcement_text": "Free Shipping Over $55",
+          "announcement_text": "🚚 FREE SHIPPING. Always.",
           "announcement_link": "/"
         }
       },
@@ -138,7 +138,7 @@
           "enable_video_looping": true,
           "product_video_style": "muted",
           "enable_payment_button": true,
-          "product_shipping_callout": "FREE SHIPPING OVER $55",
+          "product_shipping_callout": "FREE SHIPPING. Always.",
           "variant_type": "button",
           "variant_labels_enable": true,
           "sku_enable": false,
