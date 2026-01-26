@@ -631,6 +631,21 @@
         "type": "shopify://apps/alia/blocks/customer-app-frame/51f1d398-3e41-44da-b81e-defd5804b292",
         "disabled": false,
         "settings": {}
+      },
+      "10115289292966514107": {
+        "type": "shopify://apps/wiser-ai-upsell-cross-sell/blocks/wiser-block/3f966edc-9a4a-465c-a4df-436d2a39160d",
+        "disabled": false,
+        "settings": {}
+      },
+      "10434560723743799785": {
+        "type": "shopify://apps/wiser-ai-upsell-cross-sell/blocks/wiser-popup-block/3f966edc-9a4a-465c-a4df-436d2a39160d",
+        "disabled": false,
+        "settings": {}
+      },
+      "5639393805199886848": {
+        "type": "shopify://apps/wiser-ai-upsell-cross-sell/blocks/wiser-cart-drawer-block/3f966edc-9a4a-465c-a4df-436d2a39160d",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
@@ -1588,10 +1603,10 @@
       ".site-nav__thumb-button {padding: 4px 16px !important; border-radius: 9999px !important; font-size: 12px !important; line-height: 1.2 !important; display: flex !important; align-items: center; gap: 6px !important; height: auto !important; min-height: unset !important;}",
       ".site-nav__thumb-button .icon {width: 16px !important; height: 16px !important;}",
       ".site-nav__thumb-button .icon-menu-label {font-size: 12px !important; margin: 0 !important;}",
-      "button.add-to-cart {background-color: #5E9B4A; color: #ffffff; border: none; padding: 0.75em 1.5em; border-radius: 6px; font-size: 1rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(94, 155, 74, 0.25); transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; cursor: pointer;}",
-      " /* Hover & Focus */button.add-to-cart:hover,button.add-to-cart:focus {background-color: #4A8A3A; box-shadow: 0 6px 12px rgba(94, 155, 74, 0.35); outline: none;}",
-      " /* Active Click Feedback */button.add-to-cart:active {background-color: #3D7A2D; transform: scale(0.98);}",
-      " /* Focus Outline for Keyboard Users */button.add-to-cart:focus-visible {outline: 2px solid #5E9B4A; outline-offset: 2px;}",
+      "button.add-to-cart {background-color: #5e9b4a; color: #ffffff; border: none; padding: 0.75em 1.5em; border-radius: 6px; font-size: 1rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 6px rgba(94, 155, 74, 0.25); transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; cursor: pointer;}",
+      " /* Hover & Focus */button.add-to-cart:hover,button.add-to-cart:focus {background-color: #4a8a3a; box-shadow: 0 6px 12px rgba(94, 155, 74, 0.35); outline: none;}",
+      " /* Active Click Feedback */button.add-to-cart:active {background-color: #3d7a2d; transform: scale(0.98);}",
+      " /* Focus Outline for Keyboard Users */button.add-to-cart:focus-visible {outline: 2px solid #5e9b4a; outline-offset: 2px;}",
       " /* Disabled State */button.add-to-cart:disabled {background-color: #cccccc; color: #666666; cursor: not-allowed; box-shadow: none; transform: none;}"
     ]
   }
