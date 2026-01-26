@@ -281,6 +281,148 @@
   .zenkai-trust-bar:hover .zenkai-trust-bar__inner {
     animation-play-state: paused;
   }
+
+  /* ============================================
+     FREE SHIPPING BADGE SYSTEM
+     Accent color: #E89B3E (gold/bronze)
+     ============================================ */
+
+  .zenkai-free-shipping {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: inherit;
+  }
+
+  .zenkai-free-shipping__icon {
+    font-size: 1rem;
+  }
+
+  /* INLINE BADGE - Next to price */
+  .zenkai-free-shipping--inline {
+    background: linear-gradient(135deg, #E89B3E 0%, #D4893A 100%);
+    color: #FFFFFF;
+    padding: 0.25rem 0.625rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(232, 155, 62, 0.3);
+    animation: subtle-pulse 2s ease-in-out infinite;
+  }
+
+  .zenkai-free-shipping--inline .zenkai-free-shipping__icon {
+    font-size: 0.875rem;
+  }
+
+  /* CALLOUT BANNER - Near buy button */
+  .zenkai-free-shipping--callout {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(232, 155, 62, 0.15) 0%, rgba(232, 155, 62, 0.08) 100%);
+    border: 2px solid #E89B3E;
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    margin: 1rem 0;
+    gap: 0.75rem;
+  }
+
+  .zenkai-free-shipping--callout .zenkai-free-shipping__icon {
+    font-size: 1.5rem;
+  }
+
+  .zenkai-free-shipping--callout .zenkai-free-shipping__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .zenkai-free-shipping--callout .zenkai-free-shipping__headline {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #E89B3E;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .zenkai-free-shipping--callout .zenkai-free-shipping__subtext {
+    font-size: 0.8125rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  /* TRUST BADGE variant - Enhanced shipping badge */
+  .zenkai-trust-badge--shipping {
+    background: linear-gradient(135deg, rgba(232, 155, 62, 0.12) 0%, rgba(232, 155, 62, 0.06) 100%);
+    border: 1px solid rgba(232, 155, 62, 0.3);
+  }
+
+  /* Cart free shipping banner */
+  .zenkai-cart-shipping {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #E89B3E 0%, #D4893A 100%);
+    color: #FFFFFF;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin: 0.75rem 0;
+    text-align: center;
+  }
+
+  .zenkai-cart-shipping__icon {
+    font-size: 1.125rem;
+  }
+
+  /* Subtle pulse animation */
+  @keyframes subtle-pulse {
+    0%, 100% {
+      box-shadow: 0 2px 4px rgba(232, 155, 62, 0.3);
+    }
+    50% {
+      box-shadow: 0 2px 8px rgba(232, 155, 62, 0.5);
+    }
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 767px) {
+    .zenkai-free-shipping--inline {
+      font-size: 0.6875rem;
+      padding: 0.1875rem 0.5rem;
+    }
+
+    .zenkai-free-shipping--inline .zenkai-free-shipping__icon {
+      font-size: 0.75rem;
+    }
+
+    .zenkai-free-shipping--callout {
+      padding: 0.75rem;
+      margin: 0.75rem 0;
+    }
+
+    .zenkai-free-shipping--callout .zenkai-free-shipping__icon {
+      font-size: 1.25rem;
+    }
+
+    .zenkai-free-shipping--callout .zenkai-free-shipping__headline {
+      font-size: 0.9375rem;
+    }
+
+    .zenkai-free-shipping--callout .zenkai-free-shipping__subtext {
+      font-size: 0.75rem;
+    }
+
+    .zenkai-cart-shipping {
+      font-size: 0.8125rem;
+      padding: 0.625rem 0.75rem;
+    }
+  }
 </style>
 
 <div
@@ -384,6 +526,12 @@
                   </span>
                 {% endif %}
               </div>
+
+              <!-- Free Shipping Badge - Near Price -->
+              <div class="zenkai-free-shipping zenkai-free-shipping--inline" style="margin-top: 0.5rem;">
+                <span class="zenkai-free-shipping__icon">🚚</span>
+                <span class="zenkai-free-shipping__text"><strong>FREE SHIPPING</strong></span>
+              </div>
             </div>
 
             <!-- Inventory with urgency (compact) -->
@@ -451,15 +599,13 @@
                   <div style="font-size: 0.6875rem; opacity: 0.8;">SSL Encrypted</div>
                 </div>
               </div>
-              {% if product_shipping_callout != blank %}
-                <div class="zenkai-trust-badge">
-                  <span class="zenkai-trust-badge__icon">🚚</span>
-                  <div>
-                    <strong style="font-size: 0.8125rem;">{{ product_shipping_callout }}</strong>
-                    <div style="font-size: 0.6875rem; opacity: 0.8;">Shipped from the US</div>
-                  </div>
+              <div class="zenkai-trust-badge zenkai-trust-badge--shipping">
+                <span class="zenkai-trust-badge__icon">🚚</span>
+                <div>
+                  <strong style="font-size: 0.8125rem;">FREE SHIPPING</strong>
+                  <div style="font-size: 0.6875rem; opacity: 0.8;">Always. Ships from USA.</div>
                 </div>
-              {% endif %}
+              </div>
               <div class="zenkai-trust-badge">
                 <span class="zenkai-trust-badge__icon">💌</span>
                 <div>

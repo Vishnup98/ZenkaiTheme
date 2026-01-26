@@ -267,9 +267,10 @@
                   <span data-cart-subtotal>{{ cart.total_price | money }}</span>
                 </div>
 
-                <p class="cart__note">
-                  {{ 'cart.general.shipping_at_checkout' | t }}
-                </p>
+                <div class="zenkai-cart-shipping" style="margin-bottom: 1rem;">
+                  <span class="zenkai-cart-shipping__icon">🚚</span>
+                  <span>FREE SHIPPING on this order!</span>
+                </div>
 
                 {% if settings.cart_terms_conditions_enable %}
                   <p class="cart__note cart__note--terms">

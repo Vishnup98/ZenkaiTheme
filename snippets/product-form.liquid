@@ -70,6 +70,15 @@
     </div>
   {% endif %}
 
+  <!-- Free Shipping Callout - Near Buy Button -->
+  <div class="zenkai-free-shipping zenkai-free-shipping--callout">
+    <span class="zenkai-free-shipping__icon">🚚</span>
+    <div class="zenkai-free-shipping__content">
+      <span class="zenkai-free-shipping__headline">FREE SHIPPING. Always.</span>
+      <span class="zenkai-free-shipping__subtext">No minimum order required</span>
+    </div>
+  </div>
+
   {% unless product.empty? %}
     <div class="hide" aria-hidden="true" data-variant-json>
       {{ product.variants | json }}

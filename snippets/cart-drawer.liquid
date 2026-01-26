@@ -185,9 +185,10 @@
           </div>
         </div>
 
-        <p class="cart__note text-center">
-          {{ 'cart.general.shipping_at_checkout' | t }}
-        </p>
+        <div class="zenkai-cart-shipping">
+          <span class="zenkai-cart-shipping__icon">🚚</span>
+          <span>FREE SHIPPING on this order!</span>
+        </div>
 
         {% comment %} Trust testimonial element {% endcomment %}
         {% render 'cart-trust-testimonial' %}
