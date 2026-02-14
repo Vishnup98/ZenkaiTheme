@@ -272,6 +272,49 @@
                   <span>FREE SHIPPING on this order!</span>
                 </div>
 
+                <!-- ZENKAI: Cart Cross-Sell Section - Mobile Optimized -->
+                {% if cart.item_count > 0 %}
+                  {% assign cross_sell_collection = collections['best-sellers'] | default: collections['all'] %}
+                  {% if cross_sell_collection.products.size > 0 %}
+                    <div class="zenkai-cart-cross-sell">
+                      <h4 class="zenkai-cart-cross-sell__title">Complete Your Look</h4>
+                      <div class="zenkai-cart-cross-sell__scroll">
+                        {% assign shown_products = 0 %}
+                        {% for product in cross_sell_collection.products limit: 8 %}
+                          {% assign already_in_cart = false %}
+                          {% for item in cart.items %}
+                            {% if item.product.id == product.id %}
+                              {% assign already_in_cart = true %}
+                              {% break %}
+                            {% endif %}
+                          {% endfor %}
+                          {% unless already_in_cart %}
+                            {% if shown_products < 4 %}
+                              <div class="zenkai-cart-cross-sell__item">
+                                <a href="{{ product.url }}" class="zenkai-cart-cross-sell__link">
+                                  <div class="zenkai-cart-cross-sell__image">
+                                    {% if product.featured_image %}
+                                      <img
+                                        src="{{ product.featured_image | img_url: '150x150', crop: 'center' }}"
+                                        alt="{{ product.title | escape }}"
+                                        loading="lazy">
+                                    {% endif %}
+                                  </div>
+                                  <div class="zenkai-cart-cross-sell__info">
+                                    <span class="zenkai-cart-cross-sell__name">{{ product.title | truncate: 30 }}</span>
+                                    <span class="zenkai-cart-cross-sell__price">{{ product.price | money }}</span>
+                                  </div>
+                                </a>
+                              </div>
+                              {% assign shown_products = shown_products | plus: 1 %}
+                            {% endif %}
+                          {% endunless %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+
                 {% if settings.cart_terms_conditions_enable %}
                   <p class="cart__note cart__note--terms">
                     <input type="checkbox" id="CartPageAgree" />

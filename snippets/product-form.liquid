@@ -70,6 +70,25 @@
     </div>
   {% endif %}
 
+  <!-- Scarcity Indicator - Mobile Conversion Booster -->
+  {% if current_variant.inventory_management == 'shopify' and current_variant.inventory_policy == 'deny' %}
+    {% if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 10 %}
+      <div class="zenkai-scarcity{% if current_variant.inventory_quantity <= 3 %} zenkai-scarcity--urgent{% endif %}" data-scarcity-indicator>
+        <span class="zenkai-scarcity__icon">🔥</span>
+        <div class="zenkai-scarcity__content">
+          <span class="zenkai-scarcity__headline">
+            {% if current_variant.inventory_quantity <= 3 %}
+              Only {{ current_variant.inventory_quantity }} left!
+            {% else %}
+              Low Stock – {{ current_variant.inventory_quantity }} remaining
+            {% endif %}
+          </span>
+          <span class="zenkai-scarcity__subtext">Order soon before it's gone</span>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
   <!-- Free Shipping Callout - Near Buy Button -->
   <div class="zenkai-free-shipping zenkai-free-shipping--callout">
     <span class="zenkai-free-shipping__icon">🚚</span>
