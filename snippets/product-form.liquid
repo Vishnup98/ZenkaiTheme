@@ -6,7 +6,8 @@
 {% endif %}
 {%- assign zenkai_has_size_option = false -%}
 {% for option in product.options_with_values %}
-  {% if option.name | downcase contains 'size' %}
+  {%- assign zenkai_option_name_downcase = option.name | downcase -%}
+  {% if zenkai_option_name_downcase contains 'size' %}
     {%- assign zenkai_has_size_option = true -%}
     {% break %}
   {% endif %}
