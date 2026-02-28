@@ -332,22 +332,22 @@
     display: inline-flex;
     align-items: center;
     margin: 0 0 0.55rem;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: var(--zenkai-muted);
+    padding: 0.4rem 0.75rem;
+    border: 1px solid rgba(183, 131, 56, 0.16);
+    border-radius: 999px;
+    background: #f3e6d2;
+    color: var(--zenkai-dark);
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.35;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.15em;
+    text-decoration: none;
     cursor: pointer;
   }
 
   #ProductSection-{{ section_id }} .variant__label-note:hover,
   #ProductSection-{{ section_id }} .variant__label-note:focus {
-    color: var(--zenkai-ink);
+    background: #eedabf;
+    color: var(--zenkai-dark);
   }
 
   #ProductSection-{{ section_id }} .variant-input-wrap {
@@ -949,6 +949,10 @@
     </div>
   </div>
 
+  {% unless isModal %}
+    {% include 'zenkai-size-guide-modal', section_id: section_id %}
+  {% endunless %}
+
   {% if zenkai_mobile_sticky_atc %}
     {% unless isModal %}
       <div class="zenkai-sticky-atc" data-sticky-atc hidden>
@@ -978,6 +982,7 @@
       }
 
       var ctaLabel = section.getAttribute('data-product-cta-default') || {{ zenkai_cta_text | json }};
+      var sizeGuideModalId = 'SizeGuideModal-{{ section_id }}';
       var mainButton = section.querySelector('[data-add-to-cart]');
       var mainButtonText = section.querySelector('[data-add-to-cart-text]');
       var stickySentinel = section.querySelector('[data-sticky-sentinel]');
@@ -1052,6 +1057,15 @@
       }
 
       syncAll();
+
+      if (!section.getAttribute('data-size-guide-modal-bound') && window.theme && window.theme.Modals) {
+        var sizeGuideModal = document.getElementById(sizeGuideModalId);
+
+        if (sizeGuideModal) {
+          new window.theme.Modals(sizeGuideModalId, 'size-guide-{{ section_id }}');
+          section.setAttribute('data-size-guide-modal-bound', 'true');
+        }
+      }
 
       if (selectSource) {
         selectSource.addEventListener('change', function() {

@@ -173,14 +173,13 @@
     </button>
     <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content is-active">
       <div class="zenkai-accordion__inner">
-        <p><strong>Built to feel easy to wear, not like loud novelty merch.</strong></p>
+        <p><strong>Standard fit with an easy everyday feel.</strong></p>
         <ul>
-          <li>Use the size chart before you place your order</li>
           <li>If you like a roomier fit, size up</li>
-          <li>Made to feel clean and wearable in real life, not costume-y</li>
+          <li>Use the size guide above before placing your order</li>
         </ul>
         <div class="zenkai-utility-note">
-          <strong>Quick note:</strong> because each piece is printed for you, checking the fit guide before checkout matters.
+          <strong>Quick note:</strong> printed to order, so all sales are final. Check the size guide before checkout.
         </div>
       </div>
     </div>
@@ -408,31 +407,5 @@
       });
     });
 
-    document.addEventListener('click', function(event) {
-      const triggerButton = event.target.closest('[data-zenkai-open-accordion]');
-
-      if (!triggerButton) {
-        return;
-      }
-
-      event.preventDefault();
-
-      const contentId = triggerButton.getAttribute('data-zenkai-open-accordion');
-      const accordionTrigger = document.querySelector('.zenkai-accordion__trigger[aria-controls="' + contentId + '"]');
-
-      if (!accordionTrigger) {
-        return;
-      }
-
-      setAccordionState(accordionTrigger, true);
-
-      const accordionItem = accordionTrigger.closest('.zenkai-accordion__item') || accordionTrigger;
-      window.setTimeout(function() {
-        accordionItem.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }, 120);
-    });
   });
 </script>

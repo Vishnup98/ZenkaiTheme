@@ -206,24 +206,8 @@
       },
       "product-sections": {
         "type": "product-sections",
-        "blocks": {
-          "product-testimonials": {
-            "type": "testimonials",
-            "settings": {
-              "title": "What people notice",
-              "align_text": "center",
-              "round_images": false,
-              "alt": true,
-              "testimonial_1": "<p>Wore this out and someone caught the reference right away. Exactly the reaction I wanted.</p>",
-              "author_1": "J.B.",
-              "testimonial_2": "<p>Clean enough to wear anywhere, but the right people still notice it fast.</p>",
-              "author_2": "A.A."
-            }
-          }
-        },
-        "block_order": [
-          "product-testimonials"
-        ],
+        "blocks": {},
+        "block_order": [],
         "settings": {}
       },
       "page-sections-template": {

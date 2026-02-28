@@ -9,51 +9,57 @@
 
 <div class="sections-wrapper page-blocks">
   {% for block in section.blocks %}
-    <div {{ block.shopify_attributes }}>
-      <div class="{% unless flush_sections contains block.type %}index-section{% endunless %}{% if block.settings.alt %}{% unless no_alt contains block.type %} index-section--alt{% endunless %}{% endif %}">
-        {% case block.type %}
+    {%- assign skip_product_testimonial_block = false -%}
+    {% if template contains 'product' and block.type == 'testimonials' %}
+      {%- assign skip_product_testimonial_block = true -%}
+    {% endif %}
+    {% unless skip_product_testimonial_block %}
+      <div {{ block.shopify_attributes }}>
+        <div class="{% unless flush_sections contains block.type %}index-section{% endunless %}{% if block.settings.alt %}{% unless no_alt contains block.type %} index-section--alt{% endunless %}{% endif %}">
+          {% case block.type %}
 
-          {% when 'contact-form' %}
-            {% include 'page-block-contact-form' %}
+            {% when 'contact-form' %}
+              {% include 'page-block-contact-form' %}
 
-          {% when 'custom-html' %}
-            {% include 'page-block-custom-html' %}
+            {% when 'custom-html' %}
+              {% include 'page-block-custom-html' %}
 
-          {% when 'background-image-text' %}
-            {% include 'page-block-background-image-text' %}
+            {% when 'background-image-text' %}
+              {% include 'page-block-background-image-text' %}
 
-          {% when 'hero-video' %}
-            {% include 'page-block-hero-video' %}
+            {% when 'hero-video' %}
+              {% include 'page-block-hero-video' %}
 
-          {% when 'image-hero' %}
-            {% include 'page-block-image-hero' %}
+            {% when 'image-hero' %}
+              {% include 'page-block-image-hero' %}
 
-          {% when 'rich-text'%}
-            {% include 'page-block-rich-text' %}
+            {% when 'rich-text'%}
+              {% include 'page-block-rich-text' %}
 
-          {% when 'text-and-image' %}
-            {% include 'page-block-text-and-image' %}
+            {% when 'text-and-image' %}
+              {% include 'page-block-text-and-image' %}
 
-          {% when 'text-columns' %}
-            {% include 'page-block-text-columns' %}
+            {% when 'text-columns' %}
+              {% include 'page-block-text-columns' %}
 
-          {% when 'testimonials' %}
-            {% include 'page-block-testimonials' %}
+            {% when 'testimonials' %}
+              {% include 'page-block-testimonials' %}
 
-          {% when 'map' %}
-            {% include 'page-block-map' %}
+            {% when 'map' %}
+              {% include 'page-block-map' %}
 
-          {% when 'marquee' %}
-            {% include 'page-block-marquee' %}
+            {% when 'marquee' %}
+              {% include 'page-block-marquee' %}
 
-          {% when 'featured-collection' %}
-            {% include 'page-block-featured-collection' %}
+            {% when 'featured-collection' %}
+              {% include 'page-block-featured-collection' %}
 
-          {% when 'collection-slider' %}
-            {% include 'page-block-featured-collection-slider' %}
+            {% when 'collection-slider' %}
+              {% include 'page-block-featured-collection-slider' %}
 
-        {% endcase %}
+          {% endcase %}
+        </div>
       </div>
-    </div>
+    {% endunless %}
   {% endfor %}
 </div>

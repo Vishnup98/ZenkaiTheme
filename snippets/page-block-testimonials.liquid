@@ -1,9 +1,3 @@
-{%- assign zenkai_product_messages = false -%}
-{% if template contains 'product' %}
-  {%- assign zenkai_product_messages = true -%}
-{% endif %}
-
-{% unless zenkai_product_messages %}
 <div class="page-width text-{{ block.settings.align_text }}">
   {% if block.settings.title != blank %}
     <header class="section-header" data-aos>
@@ -86,4 +80,3 @@
     {% endif %}
   </div>
 </div>
-{% endunless %}

@@ -1,0 +1,112 @@
+<style>
+  #SizeGuideModal-{{ section_id }} .modal__centered {
+    max-width: 560px;
+  }
+
+  #SizeGuideModal-{{ section_id }} .modal__centered-content {
+    padding: 1.15rem;
+    border-radius: 18px;
+    background: #ffffff;
+    text-align: left;
+    box-shadow: none;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__title {
+    margin: 0 0 0.75rem;
+    color: #171922;
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__lead {
+    margin: 0 0 0.8rem;
+    color: #171922;
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__list li {
+    position: relative;
+    margin-bottom: 0.6rem;
+    padding-left: 1.05rem;
+    color: #5e6270;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__list li:last-child {
+    margin-bottom: 0;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__list li::before {
+    content: "";
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 999px;
+    background: #b78338;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__note {
+    margin-top: 0.9rem;
+    padding: 0.8rem 0.9rem;
+    border-radius: 14px;
+    background: #f4efe6;
+    color: #171922;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__note strong {
+    color: #171922;
+  }
+
+  @media (max-width: 767px) {
+    #SizeGuideModal-{{ section_id }} .modal__centered {
+      padding: 0 16px;
+    }
+
+    #SizeGuideModal-{{ section_id }} .modal__centered-content {
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    #SizeGuideModal-{{ section_id }} .zenkai-size-guide-modal__title {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<div id="SizeGuideModal-{{ section_id }}" class="modal modal--solid">
+  <div class="modal__inner">
+    <div class="modal__centered page-width text-center">
+      <div class="modal__centered-content">
+        <h2 class="zenkai-size-guide-modal__title">Fit and size guide</h2>
+        <p class="zenkai-size-guide-modal__lead">Built to feel easy to wear, not like loud novelty merch.</p>
+        <ul class="zenkai-size-guide-modal__list">
+          <li>Use the size chart before you place your order</li>
+          <li>If you like a roomier fit, size up</li>
+          <li>Made to feel clean and wearable in real life, not costume-y</li>
+        </ul>
+        <div class="zenkai-size-guide-modal__note">
+          <strong>Quick note:</strong> because each piece is printed for you, checking the fit guide before checkout matters.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn--tertiary btn--circle modal__close js-modal-close text-link">
+    <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><path d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/></svg>
+    <span class="icon__fallback-text">{{ 'general.accessibility.close_modal' | t }}</span>
+  </button>
+</div>
