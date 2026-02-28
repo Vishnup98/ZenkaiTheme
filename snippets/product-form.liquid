@@ -1,13 +1,12 @@
-{%- assign zenkai_cta_text = product_cta_text | default: 'Claim Yours' -%}
-{%- assign zenkai_cta_note = product_cta_note | default: 'Made to order. Production starts as soon as you reserve your size.' -%}
-{%- assign zenkai_urgency_chip = product_urgency_chip | default: 'Printed to order in the USA' -%}
+{%- assign zenkai_cta_text = product_cta_text | default: 'Add to Cart' -%}
+{%- assign zenkai_cta_subcopy = product_cta_subcopy | default: product_cta_note | default: 'Free U.S. shipping. Printed to order.' -%}
 {%- assign zenkai_secondary_checkout = false -%}
 {% if show_dynamic_checkout_secondary %}
   {%- assign zenkai_secondary_checkout = true -%}
 {% endif %}
 
 {% capture form_id %}AddToCartForm-{{ section_id }}{% endcapture %}
-{% form 'product', product, id: form_id, class: 'product-single__form small--text-center' %}
+{% form 'product', product, id: form_id, class: 'product-single__form zenkai-product-form small--text-center' %}
   <input type="hidden" name="data-product-id" value="{{ product.id }}">
   {% unless product.has_only_default_variant %}
     {% for option in product.options_with_values %}
@@ -48,7 +47,6 @@
   {% endif %}
 
   <div class="zenkai-product-actions" data-product-form-anchor>
-    <p class="zenkai-form-chip">{{ zenkai_urgency_chip }}</p>
     <button
       {% if product.empty? %}type="button"{% else %}type="submit"{% endif %}
       name="add"
@@ -68,7 +66,7 @@
         {% endif %}
       </span>
     </button>
-    <p class="zenkai-cta-note">{{ zenkai_cta_note }}</p>
+    <p class="zenkai-cta-subcopy">{{ zenkai_cta_subcopy }}</p>
   </div>
 
   {% if enable_dynamic_buttons %}

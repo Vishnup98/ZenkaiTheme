@@ -1,25 +1,34 @@
 {% include 'product-template-variables' %}
 
-{%- assign zenkai_identity_eyebrow = product_identity_eyebrow | default: 'For the ones who never really moved on.' -%}
-{%- assign zenkai_subheadline = product_subheadline | default: 'A clean everyday piece for people who still remember exactly how that era felt.' -%}
-{%- assign zenkai_cta_text = product_cta_text | default: 'Claim Yours' -%}
-{%- assign zenkai_cta_note = product_cta_note | default: 'Made to order. Production starts as soon as you reserve your size.' -%}
-{%- assign zenkai_benefit_1 = product_benefit_1 | default: 'Subtle reference that the right people catch' -%}
-{%- assign zenkai_benefit_2 = product_benefit_2 | default: 'Clean, premium feel instead of loud novelty merch' -%}
-{%- assign zenkai_benefit_3 = product_benefit_3 | default: 'Easy to wear daily, but loaded with meaning' -%}
-{%- assign zenkai_urgency_chip = product_urgency_chip | default: 'Printed to order in the USA' -%}
-{%- assign zenkai_guarantee_note = product_guarantee_note | default: 'Secure checkout' -%}
-{%- assign zenkai_proof_style = product_proof_style | default: 'customer_messages' -%}
-{%- assign zenkai_proof_heading = product_proof_heading | default: 'Actual customer message' -%}
-{%- assign zenkai_proof_message = product_proof_message | default: '' -%}
-{%- assign zenkai_proof_author = product_proof_author | default: '' -%}
+{%- assign zenkai_signal_hook = product_signal_hook | default: product_identity_eyebrow | default: 'The ones who get it, get it.' -%}
+{%- assign zenkai_social_subheadline = product_social_subheadline | default: product_subheadline | default: 'A subtle reference that gets noticed by the right people.' -%}
+{%- assign zenkai_cta_text = product_cta_text | default: 'Add to Cart' -%}
+{%- assign zenkai_cta_subcopy = product_cta_subcopy | default: product_cta_note | default: 'Free U.S. shipping. Printed to order.' -%}
+{%- assign zenkai_outcome_1 = product_outcome_1 | default: product_benefit_1 | default: 'The right people notice immediately' -%}
+{%- assign zenkai_outcome_2 = product_outcome_2 | default: product_benefit_2 | default: 'Subtle enough for everyday wear' -%}
+{%- assign zenkai_outcome_3 = product_outcome_3 | default: product_benefit_3 | default: 'The kind of shirt that starts conversations at the right events' -%}
+{%- assign zenkai_context_heading = product_context_heading | default: 'Where this hits' -%}
+{%- assign zenkai_context_1 = product_context_1 | default: 'At card shows, the right people catch it fast' -%}
+{%- assign zenkai_context_2 = product_context_2 | default: 'At conventions, it reads clean before it reads fandom' -%}
+{%- assign zenkai_context_3 = product_context_3 | default: 'Day to day, it still just looks good' -%}
+{%- assign zenkai_proof_quote_1 = product_proof_quote_1 | default: product_proof_message | default: 'Wore it out and someone caught the reference almost immediately.' -%}
+{%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 | default: product_proof_author | default: 'Recent buyer' -%}
+{%- assign zenkai_proof_quote_2 = product_proof_quote_2 | default: 'Exactly the kind of subtle design I wanted. It gets noticed by the right people.' -%}
+{%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 | default: 'Show floor regular' -%}
 {%- assign zenkai_current_variant_label = current_variant.title -%}
 {%- assign zenkai_mobile_sticky_atc = true -%}
 {%- assign zenkai_secondary_checkout = false -%}
 {%- assign zenkai_hide_mobile_breadcrumbs = true -%}
-{%- assign zenkai_show_inline_message = false -%}
 {%- assign zenkai_rating_count = product.metafields.junip.rating_count | default: 0 | plus: 0 -%}
 {%- assign zenkai_show_review_summary = false -%}
+{%- assign zenkai_show_review_summary_first = true -%}
+{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 62 | plus: 0 -%}
+{%- assign zenkai_sticky_atc_trigger_ratio = product_sticky_atc_trigger_ratio | default: 18 | plus: 0 -%}
+{%- assign zenkai_show_hero_review_summary = false -%}
+{%- assign zenkai_show_hero_proof_line = false -%}
+{%- assign zenkai_render_primary_quote_card = true -%}
+{%- assign zenkai_render_secondary_quote_card = false -%}
+{%- assign zenkai_show_social_proof_panel = false -%}
 
 {% if product.has_only_default_variant or zenkai_current_variant_label == 'Default Title' %}
   {%- assign zenkai_current_variant_label = 'Ready to order' -%}
@@ -37,59 +46,117 @@
   {%- assign zenkai_secondary_checkout = true -%}
 {% endif %}
 
+{% if product_show_review_summary_first == false %}
+  {%- assign zenkai_show_review_summary_first = false -%}
+{% endif %}
+
 {% if shop.metafields.junip.onsite_enabled and zenkai_rating_count > 0 %}
   {%- assign zenkai_show_review_summary = true -%}
 {% endif %}
 
-{% if zenkai_proof_style == 'customer_messages' and zenkai_proof_message != blank %}
-  {%- assign zenkai_show_inline_message = true -%}
+{% if zenkai_show_review_summary and zenkai_show_review_summary_first %}
+  {%- assign zenkai_show_hero_review_summary = true -%}
+{% elsif zenkai_proof_quote_1 != blank %}
+  {%- assign zenkai_show_hero_proof_line = true -%}
+  {%- assign zenkai_render_primary_quote_card = false -%}
+{% endif %}
+
+{% if zenkai_render_primary_quote_card and zenkai_proof_quote_1 != blank %}
+  {%- assign zenkai_show_social_proof_panel = true -%}
+{% endif %}
+
+{% if zenkai_proof_quote_2 != blank and zenkai_proof_quote_2 != zenkai_proof_quote_1 %}
+  {%- assign zenkai_render_secondary_quote_card = true -%}
+  {%- assign zenkai_show_social_proof_panel = true -%}
 {% endif %}
 
 <style>
+  #ProductSection-{{ section_id }} {
+    --zenkai-page-bg: #faf7f1;
+    --zenkai-surface: #ffffff;
+    --zenkai-surface-alt: #f4efe6;
+    --zenkai-ink: #171922;
+    --zenkai-muted: #5e6270;
+    --zenkai-dark: #151823;
+    --zenkai-dark-hover: #0f121a;
+    --zenkai-brass: #b78338;
+    --zenkai-brass-soft: #f3e6d2;
+    --zenkai-border: rgba(21, 24, 35, 0.1);
+  }
+
   #ProductSection-{{ section_id }} .page-content {
-    padding-top: 4px;
+    padding-top: 10px;
+    padding-bottom: 0;
+    background: var(--zenkai-page-bg);
+  }
+
+  #ProductSection-{{ section_id }} .page-width {
+    position: relative;
   }
 
   #ProductSection-{{ section_id }} .product-single__meta {
     padding-left: 36px;
   }
 
+  #ProductSection-{{ section_id }} .product-single__sticky {
+    top: 28px;
+  }
+
   .zenkai-breadcrumb {
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
   }
 
   .zenkai-breadcrumb__list {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    list-style: none;
+    gap: 0.45rem;
     margin: 0;
     padding: 0;
-    font-size: 0.8125rem;
-    color: #6f7785;
+    list-style: none;
+    color: var(--zenkai-muted);
+    font-size: 0.75rem;
+    line-height: 1.2;
   }
 
   .zenkai-breadcrumb__link {
-    color: #6f7785;
+    color: var(--zenkai-muted);
     text-decoration: none;
   }
 
   .zenkai-breadcrumb__link:hover,
   .zenkai-breadcrumb__link:focus {
-    color: #151823;
+    color: var(--zenkai-ink);
   }
 
   .zenkai-breadcrumb--mobile-hidden {
     display: block;
   }
 
+  #ProductSection-{{ section_id }} .product__main-photos-wrapper {
+    border: 1px solid var(--zenkai-border);
+    border-radius: 18px;
+    background: var(--zenkai-surface);
+    overflow: hidden;
+    box-shadow: 0 18px 36px rgba(21, 24, 35, 0.06);
+  }
+
+  #ProductSection-{{ section_id }} .product__photo-dots {
+    margin-top: 0.55rem;
+  }
+
+  #ProductSection-{{ section_id }} .product__thumbs .product__thumb {
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--zenkai-surface);
+  }
+
   .zenkai-zoom-hint {
     position: absolute;
     right: 1rem;
     bottom: 1rem;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.45rem;
     padding: 0.5rem 0.75rem;
     border-radius: 999px;
     background: rgba(21, 24, 35, 0.8);
@@ -106,107 +173,85 @@
   }
 
   #ProductSection-{{ section_id }} .product-single__header {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    padding: 1.35rem 1.45rem 1.2rem;
+    border: 1px solid var(--zenkai-border);
+    border-radius: 18px;
+    background: var(--zenkai-surface);
+    box-shadow: 0 14px 30px rgba(21, 24, 35, 0.05);
   }
 
-  .zenkai-identity-eyebrow {
-    margin: 0 0 0.5rem;
-    color: #8c7451;
-    font-size: 0.75rem;
+  .zenkai-signal-hook {
+    margin: 0 0 0.55rem;
+    color: var(--zenkai-brass);
+    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
   }
 
   #ProductSection-{{ section_id }} .product-single__title {
-    margin-bottom: 0.5rem !important;
-    color: #151823;
-    font-size: 2rem !important;
+    margin-bottom: 0.55rem !important;
+    color: var(--zenkai-ink);
+    font-size: 2.35rem !important;
     font-weight: 800;
-    line-height: 1.05 !important;
-    letter-spacing: -0.02em;
+    line-height: 0.98 !important;
+    letter-spacing: -0.03em;
   }
 
-  .zenkai-subheadline {
-    margin: 0 0 0.875rem;
-    color: #2b3345;
-    font-size: 1rem;
-    font-weight: 500;
+  .zenkai-social-subheadline {
+    margin: 0;
+    color: var(--zenkai-ink);
+    font-size: 1.03rem;
     line-height: 1.45;
   }
 
-  .zenkai-proof-strip {
+  .zenkai-hero-proof-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.9rem;
+    gap: 0.75rem;
+    margin-top: 0.95rem;
   }
 
-  .zenkai-proof-strip .junip-product-summary {
+  .zenkai-hero-proof-row .junip-product-summary {
     display: inline-flex;
     align-items: center;
   }
 
-  .zenkai-inline-proof {
-    width: 100%;
-    padding: 0.8rem 0.9rem;
-    border: 1px solid rgba(21, 24, 35, 0.08);
-    border-radius: 14px;
-    background: #f7f8fa;
-    text-align: left;
-  }
-
-  .zenkai-inline-proof__label {
+  .zenkai-hero-proof-copy,
+  .zenkai-hero-proof-line {
     display: inline-flex;
-    margin-bottom: 0.4rem;
-    padding: 0.2rem 0.55rem;
-    border-radius: 999px;
-    background: rgba(232, 155, 62, 0.14);
-    color: #916322;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .zenkai-inline-proof__message {
+    align-items: center;
+    gap: 0.45rem;
     margin: 0;
-    color: #151823;
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  .zenkai-inline-proof__author {
-    display: block;
-    margin-top: 0.45rem;
-    color: #5e6778;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-  }
-
-  .zenkai-proof-strip__copy,
-  .zenkai-proof-pill {
-    display: inline-flex;
-    align-items: center;
-    min-height: 32px;
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
-    background: #f5f6f8;
-    color: #151823;
-    font-size: 0.8125rem;
+    background: var(--zenkai-brass-soft);
+    color: var(--zenkai-ink);
+    font-size: 0.78rem;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.3;
   }
 
-  .zenkai-price-card {
-    padding: 0.875rem 1rem;
-    border: 1px solid rgba(21, 24, 35, 0.08);
-    border-radius: 14px;
-    background: linear-gradient(180deg, #fff 0%, #faf8f3 100%);
-    box-shadow: 0 10px 24px rgba(21, 24, 35, 0.06);
+  .zenkai-hero-proof-line::before {
+    content: "";
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: var(--zenkai-brass);
+    flex: 0 0 auto;
+  }
+
+  .zenkai-price-band {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.8rem 0.95rem;
+    border-radius: 16px;
+    background: var(--zenkai-surface-alt);
+    border: 1px solid rgba(183, 131, 56, 0.12);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices {
@@ -220,7 +265,7 @@
   #ProductSection-{{ section_id }} .product-single__prices .product__price--compare {
     position: relative;
     padding-right: 0;
-    color: #7b7e87;
+    color: rgba(23, 25, 34, 0.6);
     font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
@@ -233,106 +278,201 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: rgba(21, 24, 35, 0.45);
+    background: rgba(23, 25, 34, 0.4);
     transform: translateY(-50%);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .product__price {
     padding-right: 0;
-    color: #151823;
-    font-size: 1.75rem;
+    color: var(--zenkai-ink);
+    font-size: 1.9rem;
     font-weight: 800;
     line-height: 1;
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .product__price.sale-price {
-    color: #e89b3e;
+    color: var(--zenkai-brass);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .you-save {
     display: inline-flex;
     align-items: center;
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem 0.65rem;
     border-radius: 999px;
-    background: #fff0dc;
-    color: #a96414;
-    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--zenkai-brass);
+    font-size: 0.78rem;
     font-weight: 700;
+    line-height: 1.2;
   }
 
-  .zenkai-benefit-list {
-    list-style: none;
-    margin: 0.95rem 0 0;
+  .zenkai-conversion-stack {
+    margin-top: 1rem;
+  }
+
+  #ProductSection-{{ section_id }} .product-single__form {
+    margin: 0;
+    padding: 1.1rem 1.15rem;
+    border: 1px solid var(--zenkai-border);
+    border-radius: 18px;
+    background: var(--zenkai-surface);
+    box-shadow: 0 14px 30px rgba(21, 24, 35, 0.04);
+  }
+
+  #ProductSection-{{ section_id }} .variant-wrapper {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  #ProductSection-{{ section_id }} .variant-wrapper:last-of-type {
+    margin-bottom: 0.85rem;
+  }
+
+  #ProductSection-{{ section_id }} .variant__label {
+    display: block;
+    margin: 0 0 0.4rem;
+    color: var(--zenkai-ink);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  #ProductSection-{{ section_id }} .variant__label-info {
+    color: var(--zenkai-muted);
+    font-weight: 500;
+  }
+
+  #ProductSection-{{ section_id }} .variant__label-note {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 0.55rem;
     padding: 0;
+    border: 0;
+    background: none;
+    color: var(--zenkai-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
   }
 
-  .zenkai-benefit-list li {
-    position: relative;
-    padding-left: 1.35rem;
-    margin-bottom: 0.55rem;
-    color: #2b3345;
-    font-size: 0.9375rem;
-    line-height: 1.45;
+  #ProductSection-{{ section_id }} .variant__label-note:hover,
+  #ProductSection-{{ section_id }} .variant__label-note:focus {
+    color: var(--zenkai-ink);
   }
 
-  .zenkai-benefit-list li:last-child {
-    margin-bottom: 0;
+  #ProductSection-{{ section_id }} .variant-input-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0;
   }
 
-  .zenkai-benefit-list li::before {
-    content: "";
+  #ProductSection-{{ section_id }} .variant-input {
+    margin: 0;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input input {
     position: absolute;
-    top: 0.48rem;
-    left: 0;
-    width: 0.5rem;
-    height: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.1rem;
+    min-height: 2.95rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid rgba(21, 24, 35, 0.14);
+    border-radius: 10px;
+    background: var(--zenkai-surface-alt);
+    color: var(--zenkai-ink);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input input:checked + label {
+    border-color: var(--zenkai-dark);
+    background: var(--zenkai-dark);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(21, 24, 35, 0.14);
+  }
+
+  #ProductSection-{{ section_id }} .variant-input label:hover,
+  #ProductSection-{{ section_id }} .variant-input label:focus {
+    transform: translateY(-1px);
+    border-color: rgba(21, 24, 35, 0.28);
+  }
+
+  #ProductSection-{{ section_id }} .variant-input label.disabled,
+  #ProductSection-{{ section_id }} .variant-input .color-swatch.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  #ProductSection-{{ section_id }} .color-swatch {
+    min-width: 2.95rem;
+    min-height: 2.95rem;
     border-radius: 999px;
-    background: #e89b3e;
-    box-shadow: 0 0 0 4px rgba(232, 155, 62, 0.12);
+    background-size: cover;
+    background-position: center;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input input:checked + .color-swatch {
+    box-shadow: 0 0 0 2px var(--zenkai-surface), 0 0 0 4px var(--zenkai-dark);
   }
 
   .zenkai-product-actions {
-    margin-top: 0.85rem;
+    margin-top: 0.4rem;
   }
 
-  .zenkai-form-chip {
-    margin: 0 0 0.65rem;
-    padding: 0.4rem 0.75rem;
-    border-radius: 999px;
-    background: #151823;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .zenkai-primary-cta {
+  #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta {
+    width: 100%;
     min-height: 58px;
     border: 0;
-    border-radius: 14px;
+    border-radius: 12px;
+    background: var(--zenkai-dark) !important;
+    color: #fff !important;
     font-size: 1rem;
     font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    box-shadow: 0 12px 28px rgba(94, 155, 74, 0.22);
+    letter-spacing: 0.01em;
+    text-transform: none;
+    box-shadow: 0 18px 30px rgba(21, 24, 35, 0.16);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
   }
 
-  .zenkai-primary-cta:hover,
-  .zenkai-primary-cta:focus {
+  #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:hover,
+  #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:focus {
+    background: var(--zenkai-dark-hover) !important;
+    box-shadow: 0 20px 32px rgba(21, 24, 35, 0.2);
     transform: translateY(-1px);
   }
 
-  .zenkai-cta-note {
+  #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:disabled {
+    background: rgba(21, 24, 35, 0.35) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .zenkai-cta-subcopy {
     margin: 0.65rem 0 0;
-    color: #556074;
-    font-size: 0.875rem;
+    color: var(--zenkai-muted);
+    font-size: 0.86rem;
     line-height: 1.45;
+    text-align: center;
   }
 
   .zenkai-secondary-checkout {
     margin-top: 0.75rem;
-    opacity: 0.9;
   }
 
   .zenkai-secondary-checkout .shopify-payment-button__button {
@@ -340,46 +480,129 @@
     min-height: 48px !important;
   }
 
-  #ProductSection-{{ section_id }} .variant__label-note {
-    display: block;
-    margin-top: 0.2rem;
-    color: #6d7585;
-    font-size: 0.75rem;
-    font-weight: 500;
-    line-height: 1.35;
+  .zenkai-outcome-panel,
+  .zenkai-context-panel,
+  .zenkai-social-proof {
+    margin-top: 0.95rem;
+    padding: 1.05rem 1.1rem;
+    border-radius: 18px;
+    border: 1px solid var(--zenkai-border);
+    background: var(--zenkai-surface);
   }
 
-  #ProductSection-{{ section_id }} .variant__label-note--trigger {
+  .zenkai-outcome-panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 239, 230, 0.9) 100%);
+  }
+
+  .zenkai-panel-heading {
+    margin: 0 0 0.65rem;
+    color: var(--zenkai-ink);
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .zenkai-outcome-list,
+  .zenkai-context-list {
+    list-style: none;
+    margin: 0;
     padding: 0;
-    border: 0;
-    background: none;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.14em;
-    cursor: pointer;
   }
 
-  #ProductSection-{{ section_id }} .variant__label-note--trigger:hover,
-  #ProductSection-{{ section_id }} .variant__label-note--trigger:focus {
-    color: #151823;
+  .zenkai-outcome-list li,
+  .zenkai-context-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.65rem;
+    color: var(--zenkai-ink);
+    font-size: 0.94rem;
+    line-height: 1.5;
   }
 
-  .zenkai-reassurance-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.5rem;
-    margin: 1rem 0 1.25rem;
+  .zenkai-outcome-list li:last-child,
+  .zenkai-context-list li:last-child {
+    margin-bottom: 0;
   }
 
-  .zenkai-reassurance-item {
-    padding: 0.7rem 0.8rem;
-    border-radius: 12px;
-    background: #f5f6f8;
-    color: #151823;
-    font-size: 0.8125rem;
+  .zenkai-outcome-list li::before,
+  .zenkai-context-list li::before {
+    content: "";
+    position: absolute;
+    top: 0.48rem;
+    left: 0;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: var(--zenkai-brass);
+    box-shadow: 0 0 0 4px rgba(183, 131, 56, 0.12);
+  }
+
+  .zenkai-context-panel {
+    background: var(--zenkai-surface-alt);
+    border-color: rgba(183, 131, 56, 0.14);
+  }
+
+  .zenkai-context-panel .zenkai-panel-heading {
+    display: inline-flex;
+    margin-bottom: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--zenkai-ink);
+    font-size: 0.8rem;
     font-weight: 700;
-    line-height: 1.3;
-    text-align: center;
+    letter-spacing: 0.04em;
+  }
+
+  .zenkai-social-proof {
+    background: var(--zenkai-surface);
+  }
+
+  .zenkai-social-proof-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .zenkai-proof-card {
+    padding: 0.95rem;
+    border-radius: 16px;
+    background: var(--zenkai-surface-alt);
+    border: 1px solid rgba(183, 131, 56, 0.12);
+  }
+
+  .zenkai-proof-card__tag {
+    display: inline-flex;
+    margin-bottom: 0.55rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--zenkai-brass);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .zenkai-proof-card__quote {
+    margin: 0;
+    color: var(--zenkai-ink);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .zenkai-proof-card__meta {
+    display: block;
+    margin-top: 0.55rem;
+    color: var(--zenkai-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .zenkai-additional-content {
+    margin-top: 1rem;
   }
 
   #ProductSection-{{ section_id }} .product__policies small {
@@ -392,17 +615,18 @@
 
   .zenkai-sticky-atc {
     position: fixed;
-    right: 10px;
-    left: 10px;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+    right: 12px;
+    left: 12px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
     z-index: 40;
     display: none;
     align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.65rem;
-    border-radius: 14px;
-    background: rgba(21, 24, 35, 0.92);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+    gap: 0.7rem;
+    padding: 0.65rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(21, 24, 35, 0.94);
+    box-shadow: 0 20px 36px rgba(0, 0, 0, 0.24);
   }
 
   .zenkai-sticky-atc.is-visible {
@@ -417,18 +641,18 @@
   .zenkai-sticky-atc__price {
     display: block;
     color: #fff;
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     font-weight: 800;
     line-height: 1.1;
   }
 
   .zenkai-sticky-atc__variant {
     display: block;
-    margin-top: 0.1rem;
-    color: rgba(255, 255, 255, 0.76);
-    font-size: 0.7rem;
+    margin-top: 0.12rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.72rem;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.25;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -436,32 +660,27 @@
 
   .zenkai-sticky-atc__button {
     flex: 0 0 auto;
-    min-width: 138px;
+    min-width: 130px;
     min-height: 44px;
-    border-radius: 12px;
     border: 0;
-    font-size: 0.78rem;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--zenkai-dark);
+    font-size: 0.82rem;
     font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .above-fold-indicator {
-    position: fixed;
-    top: 100vh;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: red;
-    z-index: 9999;
-    pointer-events: none;
-    display: none;
+    letter-spacing: 0.02em;
+    text-transform: none;
   }
 
   @media (max-width: 767px) {
     #ProductSection-{{ section_id }} .product-single__meta {
       padding-left: 0;
-      margin-top: 0.65rem;
+      margin-top: 0.75rem;
+    }
+
+    #ProductSection-{{ section_id }} .page-content {
+      padding-top: 0;
+      padding-bottom: 84px;
     }
 
     .zenkai-breadcrumb {
@@ -474,80 +693,81 @@
       }
     {% endif %}
 
-    #ProductSection-{{ section_id }} .page-content {
-      padding-top: 0;
+    #ProductSection-{{ section_id }} .product__main-photos-wrapper {
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+      box-shadow: none;
     }
 
-    #ProductSection-{{ section_id }} .product__main-photos-wrapper {
-      margin-bottom: 0.1rem;
+    #ProductSection-{{ section_id }} .product__main-photos .product-image-main .image-wrap {
+      padding-bottom: min(94%, {{ zenkai_mobile_media_max_height }}vh) !important;
     }
 
     #ProductSection-{{ section_id }} .product__photo-dots {
-      margin-top: 0.15rem;
+      margin-top: 0.35rem;
+    }
+
+    #ProductSection-{{ section_id }} .product-single__header,
+    #ProductSection-{{ section_id }} .product-single__form,
+    .zenkai-outcome-panel,
+    .zenkai-context-panel,
+    .zenkai-social-proof {
+      padding: 0.95rem;
+      border-radius: 16px;
+      box-shadow: none;
+    }
+
+    .zenkai-signal-hook {
+      font-size: 0.72rem;
+      margin-bottom: 0.45rem;
     }
 
     #ProductSection-{{ section_id }} .product-single__title {
-      font-size: 1.45rem !important;
+      font-size: 1.85rem !important;
     }
 
-    .zenkai-subheadline {
-      margin-bottom: 0.7rem;
-      font-size: 0.95rem;
+    .zenkai-social-subheadline {
+      font-size: 0.96rem;
     }
 
     #ProductSection-{{ section_id }} .product-single__prices .product__price {
-      font-size: 1.45rem;
+      font-size: 1.62rem;
     }
 
     #ProductSection-{{ section_id }} .product-single__prices .product__price--compare {
+      font-size: 0.88rem;
+    }
+
+    #ProductSection-{{ section_id }} .variant__label,
+    .zenkai-panel-heading {
       font-size: 0.9rem;
     }
 
-    #ProductSection-{{ section_id }} .product-single__prices .you-save {
-      font-size: 0.75rem;
+    #ProductSection-{{ section_id }} .variant-input label {
+      min-width: 2.85rem;
+      min-height: 2.75rem;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.9rem;
     }
 
-    .zenkai-price-card {
-      padding: 0.7rem 0.8rem;
+    #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta {
+      min-height: 54px;
+      font-size: 0.96rem;
     }
 
-    .zenkai-proof-strip__copy,
-    .zenkai-proof-pill {
-      font-size: 0.75rem;
+    .zenkai-cta-subcopy {
+      font-size: 0.8rem;
     }
 
-    .zenkai-inline-proof {
-      padding: 0.7rem 0.75rem;
+    .zenkai-outcome-list li,
+    .zenkai-context-list li,
+    .zenkai-proof-card__quote {
+      font-size: 0.88rem;
     }
 
-    .zenkai-inline-proof__message {
-      font-size: 0.85rem;
-    }
-
-    .zenkai-benefit-list li {
-      font-size: 0.875rem;
-    }
-
-    .zenkai-form-chip {
-      font-size: 0.6875rem;
-    }
-
-    .zenkai-primary-cta {
-      min-height: 52px;
-      font-size: 0.95rem;
-    }
-
-    .zenkai-cta-note {
-      font-size: 0.8125rem;
-    }
-
-    .zenkai-reassurance-row {
+    .zenkai-social-proof-grid {
       grid-template-columns: 1fr;
-      margin-bottom: 1rem;
-    }
-
-    .zenkai-reassurance-item {
-      text-align: left;
     }
   }
 
@@ -564,6 +784,7 @@
   data-section-id="{{ section_id }}"
   data-section-type="product-template"
   data-product-cta-default="{{ zenkai_cta_text | escape }}"
+  data-sticky-trigger-ratio="{{ zenkai_sticky_atc_trigger_ratio }}"
   {% if isModal %}data-subsection{% endif %}
   data-variant-type="{{ variant_type }}"
   {% if inventory_enable %}data-inventory="true" data-inventory-threshold="{{ inventory_threshold }}"{% endif %}
@@ -581,10 +802,10 @@
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <a href="/collections/all" class="zenkai-breadcrumb__link">All Products</a>
+            <a href="/collections/all" class="zenkai-breadcrumb__link">All products</a>
           </li>
           <li aria-hidden="true">/</li>
-          <li>{{ product.title | truncate: 30 }}</li>
+          <li>{{ product.title | truncate: 34 }}</li>
         </ol>
       </nav>
 
@@ -604,7 +825,7 @@
               <line x1="11" y1="8" x2="11" y2="14"></line>
               <line x1="8" y1="11" x2="14" y2="11"></line>
             </svg>
-            Click to zoom
+            Zoom
           </div>
         </div>
 
@@ -615,7 +836,7 @@
                 <div class="product-single__vendor">{{ product.vendor }}</div>
               {% endif %}
 
-              <p class="zenkai-identity-eyebrow">{{ zenkai_identity_eyebrow }}</p>
+              <p class="zenkai-signal-hook">{{ zenkai_signal_hook }}</p>
 
               {% if isModal %}
                 <p class="h2 product-single__title">{{ product.title }}</p>
@@ -623,32 +844,20 @@
                 <h1 class="h2 product-single__title">{{ product.title }}</h1>
               {% endif %}
 
-              <p class="zenkai-subheadline">{{ zenkai_subheadline }}</p>
+              <p class="zenkai-social-subheadline">{{ zenkai_social_subheadline }}</p>
 
-              {% if zenkai_show_review_summary or zenkai_proof_style != 'none' %}
-                <div class="zenkai-proof-strip">
-                  {% if zenkai_show_review_summary %}
+              {% if zenkai_show_hero_review_summary or zenkai_show_hero_proof_line %}
+                <div class="zenkai-hero-proof-row">
+                  {% if zenkai_show_hero_review_summary %}
                     {% render 'junip-product-summary', product: product %}
-                    <span class="zenkai-proof-strip__copy">Trusted by fans who already grabbed theirs</span>
-                  {% elsif zenkai_show_inline_message %}
-                    <div class="zenkai-inline-proof">
-                      <span class="zenkai-inline-proof__label">{{ zenkai_proof_heading }}</span>
-                      <p class="zenkai-inline-proof__message">{{ zenkai_proof_message | strip_html | truncate: 110 }}</p>
-                      {% if zenkai_proof_author != blank %}
-                        <span class="zenkai-inline-proof__author">- {{ zenkai_proof_author }}</span>
-                      {% endif %}
-                    </div>
-                  {% elsif zenkai_proof_style == 'ugc_gallery' %}
-                    <span class="zenkai-proof-pill">Real customer photos below</span>
-                    <span class="zenkai-proof-pill">Made to be worn in the wild</span>
-                  {% else %}
-                    <span class="zenkai-proof-pill">Not loud merch. Just the reference.</span>
-                    <span class="zenkai-proof-pill">Easy to wear daily.</span>
+                    <span class="zenkai-hero-proof-copy">The kind of piece people notice in the wild</span>
+                  {% elsif zenkai_show_hero_proof_line %}
+                    <p class="zenkai-hero-proof-line">{{ zenkai_proof_quote_1 | strip_html | truncate: 88 }}</p>
                   {% endif %}
                 </div>
               {% endif %}
 
-              <div class="zenkai-price-card">
+              <div class="zenkai-price-band">
                 <div class="product-single__prices" data-price-wrapper>
                   {% if current_variant.compare_at_price > current_variant.price %}
                     <span class="product__price product__price--compare" data-product-price-compare>
@@ -667,56 +876,93 @@
                   {% endif %}
                 </div>
               </div>
-
-              <ul class="zenkai-benefit-list" role="list">
-                <li>{{ zenkai_benefit_1 }}</li>
-                <li>{{ zenkai_benefit_2 }}</li>
-                <li>{{ zenkai_benefit_3 }}</li>
-              </ul>
             </div>
 
-            {% unless isModal %}
-              {% include 'product-form',
-                section_id: section_id,
-                variant_type: variant_type,
-                variant_labels_enable: variant_labels_enable,
-                quantity_enable: quantity_enable,
-                enable_payment_button: enable_payment_button,
-                product_cta_text: zenkai_cta_text,
-                product_cta_note: zenkai_cta_note,
-                product_urgency_chip: zenkai_urgency_chip,
-                show_dynamic_checkout_secondary: zenkai_secondary_checkout
-              %}
-            {% else %}
-              <div id="ProductFormPlaceholder-{{ section_id }}" data-url="{{ product.url | within: collection }}" data-template="{{ product.template_suffix }}" class="product-form-holder">
-                {% if product.options.size > 0 %}
-                  {% for i in (1..product.options.size) %}
-                    <div class="placeholder-content" style="min-height: 86px; max-width: 66%;"></div>
-                  {% endfor %}
+            <div class="zenkai-conversion-stack">
+              {% unless isModal %}
+                {% include 'product-form',
+                  section_id: section_id,
+                  variant_type: variant_type,
+                  variant_labels_enable: variant_labels_enable,
+                  quantity_enable: quantity_enable,
+                  enable_payment_button: enable_payment_button,
+                  product_cta_text: zenkai_cta_text,
+                  product_cta_note: zenkai_cta_subcopy,
+                  product_cta_subcopy: zenkai_cta_subcopy,
+                  show_dynamic_checkout_secondary: zenkai_secondary_checkout
+                %}
+              {% else %}
+                <div id="ProductFormPlaceholder-{{ section_id }}" data-url="{{ product.url | within: collection }}" data-template="{{ product.template_suffix }}" class="product-form-holder">
+                  {% if product.options.size > 0 %}
+                    {% for i in (1..product.options.size) %}
+                      <div class="placeholder-content" style="min-height: 78px; max-width: 66%;"></div>
+                    {% endfor %}
+                  {% endif %}
+                  <div class="placeholder-content" style="min-height: 78px;"></div>
+                </div>
+              {% endunless %}
+
+              <section class="zenkai-outcome-panel" aria-label="What happens when you wear it">
+                <h2 class="zenkai-panel-heading">What happens when you wear it</h2>
+                <ul class="zenkai-outcome-list" role="list">
+                  <li>{{ zenkai_outcome_1 }}</li>
+                  <li>{{ zenkai_outcome_2 }}</li>
+                  <li>{{ zenkai_outcome_3 }}</li>
+                </ul>
+              </section>
+
+              {% if zenkai_show_social_proof_panel %}
+                <section class="zenkai-social-proof" aria-label="What buyers are saying">
+                  <h2 class="zenkai-panel-heading">What buyers notice first</h2>
+                  <div class="zenkai-social-proof-grid">
+                    {% if zenkai_render_primary_quote_card and zenkai_proof_quote_1 != blank %}
+                      <article class="zenkai-proof-card">
+                        <span class="zenkai-proof-card__tag">In the wild</span>
+                        <p class="zenkai-proof-card__quote">{{ zenkai_proof_quote_1 }}</p>
+                        {% if zenkai_proof_attribution_1 != blank %}
+                          <span class="zenkai-proof-card__meta">- {{ zenkai_proof_attribution_1 }}</span>
+                        {% endif %}
+                      </article>
+                    {% endif %}
+
+                    {% if zenkai_render_secondary_quote_card %}
+                      <article class="zenkai-proof-card">
+                        <span class="zenkai-proof-card__tag">Why it lands</span>
+                        <p class="zenkai-proof-card__quote">{{ zenkai_proof_quote_2 }}</p>
+                        {% if zenkai_proof_attribution_2 != blank %}
+                          <span class="zenkai-proof-card__meta">- {{ zenkai_proof_attribution_2 }}</span>
+                        {% endif %}
+                      </article>
+                    {% endif %}
+                  </div>
+                </section>
+              {% endif %}
+
+              <section class="zenkai-context-panel" aria-label="Where this hits">
+                <h2 class="zenkai-context-panel__heading zenkai-panel-heading">{{ zenkai_context_heading }}</h2>
+                <ul class="zenkai-context-list" role="list">
+                  <li>{{ zenkai_context_1 }}</li>
+                  <li>{{ zenkai_context_2 }}</li>
+                  <li>{{ zenkai_context_3 }}</li>
+                </ul>
+              </section>
+
+              <div class="zenkai-additional-content">
+                {% if settings.additional_content_style == 'expandable' %}
+                  {% include 'product-additional-content', section_id: section_id %}
+                {% else %}
+                  {% include 'product-additional-tabs', section_id: section_id %}
                 {% endif %}
-                <div class="placeholder-content" style="min-height: 86px;"></div>
               </div>
-            {% endunless %}
 
-            <div class="zenkai-reassurance-row" role="list">
-              <div class="zenkai-reassurance-item" role="listitem">Printed to order</div>
-              <div class="zenkai-reassurance-item" role="listitem">Free U.S. shipping</div>
-              <div class="zenkai-reassurance-item" role="listitem">{{ zenkai_guarantee_note }}</div>
+              {% if social_enable %}
+                {% include 'social-sharing',
+                  share_title: product.title,
+                  share_permalink: product.url,
+                  share_image: product
+                %}
+              {% endif %}
             </div>
-
-            {% if settings.additional_content_style == 'expandable' %}
-              {% include 'product-additional-content', section_id: section_id %}
-            {% else %}
-              {% include 'product-additional-tabs', section_id: section_id %}
-            {% endif %}
-
-            {% if social_enable %}
-              {% include 'social-sharing',
-                share_title: product.title,
-                share_permalink: product.url,
-                share_image: product
-              %}
-            {% endif %}
           </div>
         </div>
       </div>
@@ -752,6 +998,7 @@
       }
 
       var ctaLabel = section.getAttribute('data-product-cta-default') || {{ zenkai_cta_text | json }};
+      var thresholdRatio = parseFloat(section.getAttribute('data-sticky-trigger-ratio') || '18') / 100;
       var mainButton = section.querySelector('[data-add-to-cart]');
       var mainButtonText = section.querySelector('[data-add-to-cart-text]');
       var anchor = section.querySelector('[data-product-form-anchor]');
@@ -762,6 +1009,10 @@
       var stickyButton = section.querySelector('[data-sticky-atc-button]');
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
+
+      if (!thresholdRatio || thresholdRatio <= 0) {
+        thresholdRatio = 0.18;
+      }
 
       function getVariantLabel() {
         if (!selectSource || !selectSource.options.length) {
@@ -851,12 +1102,12 @@
           var observer = new IntersectionObserver(function(entries) {
             var entry = entries[0];
             var isVisible = entry && entry.isIntersecting;
-            var showSticky = !isVisible || (entry && entry.intersectionRatio < 0.35);
+            var showSticky = !isVisible || (entry && entry.intersectionRatio < thresholdRatio);
 
             sticky.hidden = !showSticky;
             sticky.classList.toggle('is-visible', showSticky);
           }, {
-            threshold: [0, 0.35]
+            threshold: [0, thresholdRatio, 1]
           });
 
           observer.observe(anchor);
@@ -884,5 +1135,3 @@
     }
   })();
 </script>
-
-<div class="above-fold-indicator"></div>

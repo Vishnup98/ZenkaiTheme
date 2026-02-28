@@ -2,13 +2,27 @@
   section_id: product.id,
 
   product_shipping_callout: section.settings.product_shipping_callout,
+  product_signal_hook: section.settings.product_signal_hook,
   product_identity_eyebrow: section.settings.product_identity_eyebrow,
+  product_social_subheadline: section.settings.product_social_subheadline,
   product_subheadline: section.settings.product_subheadline,
   product_cta_text: section.settings.product_cta_text,
+  product_cta_subcopy: section.settings.product_cta_subcopy,
   product_cta_note: section.settings.product_cta_note,
+  product_outcome_1: section.settings.product_outcome_1,
+  product_outcome_2: section.settings.product_outcome_2,
+  product_outcome_3: section.settings.product_outcome_3,
   product_benefit_1: section.settings.product_benefit_1,
   product_benefit_2: section.settings.product_benefit_2,
   product_benefit_3: section.settings.product_benefit_3,
+  product_context_heading: section.settings.product_context_heading,
+  product_context_1: section.settings.product_context_1,
+  product_context_2: section.settings.product_context_2,
+  product_context_3: section.settings.product_context_3,
+  product_proof_quote_1: section.settings.product_proof_quote_1,
+  product_proof_quote_2: section.settings.product_proof_quote_2,
+  product_proof_attribution_1: section.settings.product_proof_attribution_1,
+  product_proof_attribution_2: section.settings.product_proof_attribution_2,
   product_urgency_chip: section.settings.product_urgency_chip,
   product_guarantee_note: section.settings.product_guarantee_note,
   hide_mobile_breadcrumbs: section.settings.hide_mobile_breadcrumbs,
@@ -16,6 +30,9 @@
   product_proof_heading: section.settings.product_proof_heading,
   product_proof_message: section.settings.product_proof_message,
   product_proof_author: section.settings.product_proof_author,
+  product_mobile_media_max_height: section.settings.product_mobile_media_max_height,
+  product_sticky_atc_trigger_ratio: section.settings.product_sticky_atc_trigger_ratio,
+  product_show_review_summary_first: section.settings.product_show_review_summary_first,
   product_image_size: section.settings.product_image_size,
   product_image_type: section.settings.product_image_type,
   product_zoom_enable: section.settings.product_zoom_enable,
@@ -135,45 +152,129 @@
       },
       {
         "type": "text",
+        "id": "product_signal_hook",
+        "label": "Signal hook",
+        "default": "The ones who get it, get it."
+      },
+      {
+        "type": "text",
         "id": "product_identity_eyebrow",
         "label": "Identity eyebrow",
-        "default": "For the ones who never really moved on."
+        "default": "The ones who get it, get it."
+      },
+      {
+        "type": "textarea",
+        "id": "product_social_subheadline",
+        "label": "Social outcome subheadline",
+        "default": "A subtle reference that gets noticed by the right people."
       },
       {
         "type": "textarea",
         "id": "product_subheadline",
         "label": "Subheadline",
-        "default": "A clean everyday piece for people who still remember exactly how that era felt."
+        "default": "A subtle reference that gets noticed by the right people."
       },
       {
         "type": "text",
         "id": "product_cta_text",
         "label": "Primary CTA text",
-        "default": "Claim Yours"
+        "default": "Add to Cart"
+      },
+      {
+        "type": "text",
+        "id": "product_cta_subcopy",
+        "label": "CTA subcopy",
+        "default": "Free U.S. shipping. Printed to order."
       },
       {
         "type": "text",
         "id": "product_cta_note",
         "label": "CTA support note",
-        "default": "Made to order. Production starts as soon as you reserve your size."
+        "default": "Free U.S. shipping. Printed to order."
+      },
+      {
+        "type": "text",
+        "id": "product_outcome_1",
+        "label": "Outcome 1",
+        "default": "The right people notice immediately"
+      },
+      {
+        "type": "text",
+        "id": "product_outcome_2",
+        "label": "Outcome 2",
+        "default": "Subtle enough for everyday wear"
+      },
+      {
+        "type": "text",
+        "id": "product_outcome_3",
+        "label": "Outcome 3",
+        "default": "The kind of shirt that starts conversations at the right events"
       },
       {
         "type": "text",
         "id": "product_benefit_1",
         "label": "Benefit 1",
-        "default": "Subtle reference that the right people catch"
+        "default": "The right people notice immediately"
       },
       {
         "type": "text",
         "id": "product_benefit_2",
         "label": "Benefit 2",
-        "default": "Clean, premium feel instead of loud novelty merch"
+        "default": "Subtle enough for everyday wear"
       },
       {
         "type": "text",
         "id": "product_benefit_3",
         "label": "Benefit 3",
-        "default": "Easy to wear daily, but loaded with meaning"
+        "default": "The kind of shirt that starts conversations at the right events"
+      },
+      {
+        "type": "text",
+        "id": "product_context_heading",
+        "label": "Context section heading",
+        "default": "Where this hits"
+      },
+      {
+        "type": "text",
+        "id": "product_context_1",
+        "label": "Context 1",
+        "default": "At card shows, the right people catch it fast"
+      },
+      {
+        "type": "text",
+        "id": "product_context_2",
+        "label": "Context 2",
+        "default": "At conventions, it reads clean before it reads fandom"
+      },
+      {
+        "type": "text",
+        "id": "product_context_3",
+        "label": "Context 3",
+        "default": "Day to day, it still just looks good"
+      },
+      {
+        "type": "textarea",
+        "id": "product_proof_quote_1",
+        "label": "Proof quote 1",
+        "default": "Wore it out and someone caught the reference almost immediately."
+      },
+      {
+        "type": "text",
+        "id": "product_proof_attribution_1",
+        "label": "Proof attribution 1",
+        "default": "Recent buyer"
+      },
+      {
+        "type": "textarea",
+        "id": "product_proof_quote_2",
+        "label": "Proof quote 2",
+        "default": "Exactly the kind of subtle design I wanted. It gets noticed by the right people."
+      },
+      {
+        "type": "text",
+        "id": "product_proof_attribution_2",
+        "label": "Proof attribution 2",
+        "default": "Show floor regular"
       },
       {
         "type": "text",
@@ -217,19 +318,45 @@
         "type": "text",
         "id": "product_proof_heading",
         "label": "Inline proof label",
-        "default": "Actual customer message"
+        "default": "Seen in the wild"
       },
       {
         "type": "textarea",
         "id": "product_proof_message",
         "label": "Inline proof message",
-        "default": "Amazing, thank you so much! We love your designs."
+        "default": "Wore it out and someone caught the reference almost immediately."
       },
       {
         "type": "text",
         "id": "product_proof_author",
         "label": "Inline proof author",
-        "default": "A.A."
+        "default": "Recent buyer"
+      },
+      {
+        "type": "range",
+        "id": "product_mobile_media_max_height",
+        "label": "Mobile media max height",
+        "default": 62,
+        "min": 50,
+        "max": 80,
+        "step": 2,
+        "unit": "vh"
+      },
+      {
+        "type": "range",
+        "id": "product_sticky_atc_trigger_ratio",
+        "label": "Sticky CTA trigger",
+        "default": 18,
+        "min": 5,
+        "max": 40,
+        "step": 1,
+        "unit": "%"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_show_review_summary_first",
+        "label": "Prefer review summary in hero",
+        "default": true
       },
       {
         "type": "select",

@@ -12,64 +12,69 @@
 
 <!-- Zenkai Custom Accordion -->
 <style>
-  /* Custom Accordion Styles */
   .zenkai-accordion {
-    margin: 2rem 0;
-    border-top: 1px solid #e5e5e5;
+    margin: 0;
+    border: 1px solid rgba(21, 24, 35, 0.1);
+    border-radius: 18px;
+    background: #fff;
+    overflow: hidden;
   }
 
-  .zenkai-accordion__item {
-    border-bottom: 1px solid #e5e5e5;
+  .zenkai-accordion__item + .zenkai-accordion__item {
+    border-top: 1px solid rgba(21, 24, 35, 0.08);
   }
 
   .zenkai-accordion__trigger {
     width: 100%;
-    padding: 1.25rem 0;
+    padding: 1rem 1.1rem;
+    border: 0;
     background: none;
-    border: none;
-    font-size: 1rem;
-    font-weight: 600;
+    color: #171922;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.35;
     text-align: left;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #333;
     transition: color 0.2s ease;
   }
 
-  .zenkai-accordion__trigger:hover {
-    color: #000;
+  .zenkai-accordion__trigger:hover,
+  .zenkai-accordion__trigger:focus {
+    color: #151823;
   }
 
   .zenkai-accordion__icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     position: relative;
-    transition: transform 0.3s ease;
+    flex: 0 0 auto;
+    transition: transform 0.25s ease;
   }
 
   .zenkai-accordion__icon::before,
   .zenkai-accordion__icon::after {
     content: "";
     position: absolute;
-    background: #333;
-    transition: all 0.3s ease;
+    background: rgba(23, 25, 34, 0.72);
+    transition: all 0.25s ease;
   }
 
   .zenkai-accordion__icon::before {
-    width: 100%;
-    height: 2px;
     top: 50%;
     left: 0;
+    width: 100%;
+    height: 2px;
     transform: translateY(-50%);
   }
 
   .zenkai-accordion__icon::after {
-    width: 2px;
-    height: 100%;
     top: 0;
     left: 50%;
+    width: 2px;
+    height: 100%;
     transform: translateX(-50%);
   }
 
@@ -88,150 +93,167 @@
   }
 
   .zenkai-accordion__inner {
-    padding: 0 0 1.5rem 0;
-    font-size: 0.9375rem;
+    padding: 0 1.1rem 1rem;
+    color: #5e6270;
+    font-size: 0.9rem;
     line-height: 1.6;
-    color: #666;
+  }
+
+  .zenkai-accordion__inner p {
+    margin: 0 0 0.7rem;
+  }
+
+  .zenkai-accordion__inner p:last-child {
+    margin-bottom: 0;
   }
 
   .zenkai-accordion__inner ul {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .zenkai-accordion__inner li {
-    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.05rem;
+    margin-bottom: 0.55rem;
   }
 
-  /* Highlight benefits */
-  .zenkai-benefit-highlight {
-    background: #F5F6F8;
-    border-left: 3px solid #E89B3E;
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 0 4px 4px 0;
+  .zenkai-accordion__inner li:last-child {
+    margin-bottom: 0;
   }
 
-  .zenkai-benefit-highlight strong {
-    color: #D4893A;
+  .zenkai-accordion__inner li::before {
+    content: "";
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 999px;
+    background: #b78338;
   }
 
-  /* FAQ styling */
+  .zenkai-utility-note {
+    margin-top: 0.8rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 14px;
+    background: #f4efe6;
+    color: #171922;
+  }
+
+  .zenkai-utility-note strong {
+    color: #171922;
+  }
+
   .zenkai-faq-item {
-    margin-bottom: 1rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .zenkai-faq-item:last-child {
+    margin-bottom: 0;
   }
 
   .zenkai-faq-question {
-    font-weight: 600;
-    color: #151823;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
+    color: #171922;
+    font-weight: 700;
   }
 
   .zenkai-faq-answer {
-    color: #666;
-    padding-left: 1rem;
+    color: #5e6270;
   }
 </style>
 
 <div class="zenkai-accordion">
-  <!-- Why This Hits -->
   <div class="zenkai-accordion__item">
-    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-description-{{ section_id }}">
-      <span>Why This Hits</span>
+    <button type="button" class="zenkai-accordion__trigger is-active" aria-expanded="true" aria-controls="zenkai-size-{{ section_id }}">
+      <span>Fit, feel, and sizing</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
-    <div id="zenkai-description-{{ section_id }}" class="zenkai-accordion__content">
+    <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content is-active">
       <div class="zenkai-accordion__inner">
-        <p><strong>This is for the people who still carry the reference with them.</strong></p>
-        <p>Not as loud merch. Not as a costume. As something cleaner, sharper, and easy to wear in real life.</p>
-        <p>Each piece is designed to feel like an inside signal: subtle enough for everyday rotation, specific enough that the right people instantly understand what they are seeing.</p>
-        <div class="zenkai-benefit-highlight">
-          <strong>Why people buy it:</strong> They want the feeling and the memory without wearing something that looks cheap, obvious, or overdone.
-        </div>
-        <p>It should feel like a reference you recognize instantly, but everyone else just reads as a clean, understated design.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Fit, Feel & Fabric -->
-  <div class="zenkai-accordion__item">
-    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-size-{{ section_id }}">
-      <span>Fit, Feel &amp; Fabric</span>
-      <span class="zenkai-accordion__icon"></span>
-    </button>
-    <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content">
-      <div class="zenkai-accordion__inner">
-        <p><strong>Built for daily wear:</strong> The goal is a clean, comfortable piece you can actually keep in rotation, not a novelty print that sits in the drawer.</p>
+        <p><strong>Built to feel easy to wear, not like loud novelty merch.</strong></p>
         <ul>
           <li>Use the size chart before you place your order</li>
-          <li>Printed to feel wearable and understated, not loud</li>
-          <li>Follow the garment care instructions after delivery to keep the print looking clean</li>
+          <li>If you like a roomier fit, size up</li>
+          <li>Made to feel clean and wearable in real life, not costume-y</li>
         </ul>
+        <div class="zenkai-utility-note">
+          <strong>Quick note:</strong> because each piece is printed for you, checking the fit guide before checkout matters.
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Shipping & Production -->
   <div class="zenkai-accordion__item">
-    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-shipping-{{ section_id }}">
-      <span>Shipping &amp; Production</span>
+    <button type="button" class="zenkai-accordion__trigger is-active" aria-expanded="true" aria-controls="zenkai-shipping-{{ section_id }}">
+      <span>Shipping and production</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
-    <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content">
+    <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content is-active">
       <div class="zenkai-accordion__inner">
-        <p><strong>Every piece is made to order.</strong></p>
+        <p><strong>Every piece is printed to order in the U.S.</strong></p>
         <ul>
-          <li>Production typically starts within 2-5 business days</li>
-          <li>U.S. shipping usually lands in 3-7 business days after production</li>
-          <li>You will receive tracking as soon as it ships</li>
-          <li>Because it is printed for you, double-check your size before ordering</li>
+          <li>Production usually starts within 2 to 5 business days</li>
+          <li>Free U.S. shipping usually lands 3 to 7 business days after production</li>
+          <li>Tracking is sent as soon as your order ships</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- FAQ Tab -->
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-faq-{{ section_id }}">
-      <span>FAQ</span>
+      <span>Final sale and common questions</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-faq-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
         <div class="zenkai-faq-item">
-          <div class="zenkai-faq-question">Q: How long will my order take?</div>
-          <div class="zenkai-faq-answer">A: Each piece is made to order. Production takes 1-4 business days, plus 3-6 days for U.S. shipping. Total: 4-10 business days. Usually on the shorter end.</div>
-        </div>
-        
-        <div class="zenkai-faq-item">
-          <div class="zenkai-faq-question">Q: Can I return or exchange it if the size is off?</div>
-          <div class="zenkai-faq-answer">A: Because each piece is printed to order, all sales are final. Please review the size chart carefully before you place your order.</div>
+          <div class="zenkai-faq-question">How long will it take to arrive?</div>
+          <div class="zenkai-faq-answer">Most orders land in 5 to 10 business days total, depending on production timing and carrier speed.</div>
         </div>
 
         <div class="zenkai-faq-item">
-          <div class="zenkai-faq-question">Q: Is this meant to be loud, obvious merch?</div>
-          <div class="zenkai-faq-answer">A: No. The whole point is a cleaner nod. It is made for people who want the reference without wearing something that screams for attention.</div>
+          <div class="zenkai-faq-question">Can I return it if the size is off?</div>
+          <div class="zenkai-faq-answer">Each piece is printed to order, so all sales are final. Please use the size chart and fit notes before ordering.</div>
+        </div>
+
+        <div class="zenkai-faq-item">
+          <div class="zenkai-faq-question">Is this supposed to feel like loud merch?</div>
+          <div class="zenkai-faq-answer">No. The whole point is a cleaner nod that reads well in everyday settings and still lands with the right people.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Story Behind the Design -->
+  <div class="zenkai-accordion__item">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-description-{{ section_id }}">
+      <span>Why it gets noticed</span>
+      <span class="zenkai-accordion__icon"></span>
+    </button>
+    <div id="zenkai-description-{{ section_id }}" class="zenkai-accordion__content">
+      <div class="zenkai-accordion__inner">
+        <p><strong>This is for the people who still carry the reference with them.</strong></p>
+        <p>It is subtle enough to wear anywhere, but specific enough that the right person will catch it fast.</p>
+        <p>That is why it works so well at card shows, conventions, and everyday hangouts. It does not scream. It clicks.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
-      <span>Story Behind the Design</span>
+      <span>Story behind the design</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
-        <p><strong>You outgrew the loud prints and low-quality merch—but you never outgrew the stories.</strong></p>
-        <p>Zenkai was born from that tension: the desire to express who you are now, while honoring who you've always been.</p>
-        <p>We create subtle, premium streetwear for the generation that grew up with these stories and never let go. Clean designs with deep roots. References that speak volumes to those who get it, while staying understated enough for everyday wear.</p>
-        <p>This isn't nostalgia. It's evolution.</p>
+        <p><strong>You outgrew the loud prints, but you never outgrew the world that shaped you.</strong></p>
+        <p>Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
         {% if product.description %}
-          <div class="rte" style="margin-top: 1rem;">{{ product.description }}</div>
+          <div class="rte" style="margin-top: 0.8rem;">{{ product.description }}</div>
         {% endif %}
-        <p style="margin-top: 1rem;"><em>Built on trust. Soaked in nostalgia.</em></p>
       </div>
     </div>
   </div>
@@ -374,6 +396,10 @@
       trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       content.classList.toggle('is-active', isOpen);
     }
+
+    accordionTriggers.forEach(trigger => {
+      setAccordionState(trigger, trigger.classList.contains('is-active') || trigger.getAttribute('aria-expanded') === 'true');
+    });
     
     accordionTriggers.forEach(trigger => {
       trigger.addEventListener('click', function() {
