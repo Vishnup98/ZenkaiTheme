@@ -16,6 +16,11 @@
 {% endif %}
 
 <div class="variant-wrapper variant-wrapper--{{ variant_type }} js">
+  {%- assign is_size_option = false -%}
+  {%- assign option_name_downcase = option.name | downcase -%}
+  {% if option_name_downcase contains 'size' %}
+    {%- assign is_size_option = true -%}
+  {% endif %}
   <label class="variant__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}{% unless variant_labels_enable %} hidden-label{% endunless %}"
     for="ProductSelect-{{ section_id }}-option-{{ forloop.index0 }}">
     {{ option.name }}
@@ -30,6 +35,11 @@
       </span>
     {% endif %}
   </label>
+  {% if is_size_option %}
+    <button type="button" class="variant__label-note variant__label-note--trigger" data-zenkai-open-accordion="zenkai-size-{{ section_id }}">
+      Check the size guide before ordering.
+    </button>
+  {% endif %}
   {%- assign option_index = forloop.index -%}
   <fieldset class="variant-input-wrap"
     name="{{ option.name }}"

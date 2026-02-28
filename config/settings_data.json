@@ -139,6 +139,20 @@
           "product_video_style": "muted",
           "enable_payment_button": true,
           "product_shipping_callout": "FREE SHIPPING. Always.",
+          "product_identity_eyebrow": "For the ones who never really moved on.",
+          "product_subheadline": "A clean everyday piece for people who still remember exactly how that era felt.",
+          "product_cta_text": "Claim Yours",
+          "product_cta_note": "Made to order. Production starts as soon as you reserve your size.",
+          "product_benefit_1": "Subtle reference that the right people catch",
+          "product_benefit_2": "Clean, premium feel without looking like novelty merch",
+          "product_benefit_3": "Easy to wear daily, but loaded with meaning",
+          "product_urgency_chip": "Printed to order in the USA",
+          "product_guarantee_note": "Secure checkout",
+          "hide_mobile_breadcrumbs": true,
+          "product_proof_style": "customer_messages",
+          "product_proof_heading": "Actual customer message",
+          "product_proof_message": "Amazing, thank you so much! We love your designs.",
+          "product_proof_author": "A.A.",
           "variant_type": "button",
           "variant_labels_enable": true,
           "sku_enable": false,
@@ -146,7 +160,9 @@
           "inventory_threshold": 10,
           "inventory_transfers_enable": false,
           "quantity_enable": false,
-          "social_enable": true
+          "mobile_sticky_atc_enable": true,
+          "show_dynamic_checkout_secondary": false,
+          "social_enable": false
         }
       },
       "article-template": {
@@ -177,7 +193,7 @@
           "product-testimonials": {
             "type": "testimonials",
             "settings": {
-              "title": "Customer Reviews",
+              "title": "Real Customer Messages",
               "align_text": "center",
               "round_images": false,
               "alt": true,
@@ -431,7 +447,7 @@
         ],
         "settings": {
           "enable_home": true,
-          "enable_product": true,
+          "enable_product": false,
           "enable_collection": true,
           "title": "On social",
           "description": ""
@@ -577,7 +593,7 @@
       },
       "4293466245358296089": {
         "type": "shopify://apps/smartsize/blocks/app-embed/465a43e0-6a1a-4d30-b82e-fe6118568705",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "button_horizontal_aligment": "left",
           "button_horizontal_aligment_mobile": "left",
@@ -588,7 +604,7 @@
       },
       "22230382528836309": {
         "type": "shopify://apps/xb-sticky-add-to-cart/blocks/core_script/e9179814-5d2a-40d0-a03d-245bcb819e73",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       },
       "14429071373314833104": {

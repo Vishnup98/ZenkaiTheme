@@ -11,6 +11,11 @@
   product_benefit_3: section.settings.product_benefit_3,
   product_urgency_chip: section.settings.product_urgency_chip,
   product_guarantee_note: section.settings.product_guarantee_note,
+  hide_mobile_breadcrumbs: section.settings.hide_mobile_breadcrumbs,
+  product_proof_style: section.settings.product_proof_style,
+  product_proof_heading: section.settings.product_proof_heading,
+  product_proof_message: section.settings.product_proof_message,
+  product_proof_author: section.settings.product_proof_author,
   product_image_size: section.settings.product_image_size,
   product_image_type: section.settings.product_image_type,
   product_zoom_enable: section.settings.product_zoom_enable,
@@ -183,6 +188,50 @@
         "default": "Secure checkout"
       },
       {
+        "type": "checkbox",
+        "id": "hide_mobile_breadcrumbs",
+        "label": "Hide breadcrumbs on mobile",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_proof_style",
+        "label": "Inline proof style",
+        "default": "customer_messages",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "customer_messages",
+            "label": "Customer messages"
+          },
+          {
+            "value": "ugc_gallery",
+            "label": "UGC gallery"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "product_proof_heading",
+        "label": "Inline proof label",
+        "default": "Actual customer message"
+      },
+      {
+        "type": "textarea",
+        "id": "product_proof_message",
+        "label": "Inline proof message",
+        "default": "Amazing, thank you so much! We love your designs."
+      },
+      {
+        "type": "text",
+        "id": "product_proof_author",
+        "label": "Inline proof author",
+        "default": "A.A."
+      },
+      {
         "type": "select",
         "id": "variant_type",
         "label": "Variant picker style",
@@ -249,8 +298,8 @@
       {
         "type": "checkbox",
         "id": "social_enable",
-        "label": "Enable social sharing",
-        "default": true
+        "label": "Show share links on product page",
+        "default": false
       }
     ]
   }

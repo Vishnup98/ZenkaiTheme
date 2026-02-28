@@ -9,9 +9,15 @@
 {%- assign zenkai_benefit_3 = product_benefit_3 | default: 'Easy to wear daily, but loaded with meaning' -%}
 {%- assign zenkai_urgency_chip = product_urgency_chip | default: 'Printed to order in the USA' -%}
 {%- assign zenkai_guarantee_note = product_guarantee_note | default: 'Secure checkout' -%}
+{%- assign zenkai_proof_style = product_proof_style | default: 'customer_messages' -%}
+{%- assign zenkai_proof_heading = product_proof_heading | default: 'Actual customer message' -%}
+{%- assign zenkai_proof_message = product_proof_message | default: '' -%}
+{%- assign zenkai_proof_author = product_proof_author | default: '' -%}
 {%- assign zenkai_current_variant_label = current_variant.title -%}
 {%- assign zenkai_mobile_sticky_atc = true -%}
 {%- assign zenkai_secondary_checkout = false -%}
+{%- assign zenkai_hide_mobile_breadcrumbs = true -%}
+{%- assign zenkai_show_inline_message = false -%}
 {%- assign zenkai_rating_count = product.metafields.junip.rating_count | default: 0 | plus: 0 -%}
 {%- assign zenkai_show_review_summary = false -%}
 
@@ -23,6 +29,10 @@
   {%- assign zenkai_mobile_sticky_atc = false -%}
 {% endif %}
 
+{% if hide_mobile_breadcrumbs == false %}
+  {%- assign zenkai_hide_mobile_breadcrumbs = false -%}
+{% endif %}
+
 {% if show_dynamic_checkout_secondary %}
   {%- assign zenkai_secondary_checkout = true -%}
 {% endif %}
@@ -31,9 +41,13 @@
   {%- assign zenkai_show_review_summary = true -%}
 {% endif %}
 
+{% if zenkai_proof_style == 'customer_messages' and zenkai_proof_message != blank %}
+  {%- assign zenkai_show_inline_message = true -%}
+{% endif %}
+
 <style>
   #ProductSection-{{ section_id }} .page-content {
-    padding-top: 8px;
+    padding-top: 4px;
   }
 
   #ProductSection-{{ section_id }} .product-single__meta {
@@ -63,6 +77,10 @@
   .zenkai-breadcrumb__link:hover,
   .zenkai-breadcrumb__link:focus {
     color: #151823;
+  }
+
+  .zenkai-breadcrumb--mobile-hidden {
+    display: block;
   }
 
   .zenkai-zoom-hint {
@@ -128,6 +146,45 @@
   .zenkai-proof-strip .junip-product-summary {
     display: inline-flex;
     align-items: center;
+  }
+
+  .zenkai-inline-proof {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid rgba(21, 24, 35, 0.08);
+    border-radius: 14px;
+    background: #f7f8fa;
+    text-align: left;
+  }
+
+  .zenkai-inline-proof__label {
+    display: inline-flex;
+    margin-bottom: 0.4rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(232, 155, 62, 0.14);
+    color: #916322;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .zenkai-inline-proof__message {
+    margin: 0;
+    color: #151823;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .zenkai-inline-proof__author {
+    display: block;
+    margin-top: 0.45rem;
+    color: #5e6778;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
   }
 
   .zenkai-proof-strip__copy,
@@ -235,7 +292,7 @@
   }
 
   .zenkai-product-actions {
-    margin-top: 1rem;
+    margin-top: 0.85rem;
   }
 
   .zenkai-form-chip {
@@ -283,6 +340,30 @@
     min-height: 48px !important;
   }
 
+  #ProductSection-{{ section_id }} .variant__label-note {
+    display: block;
+    margin-top: 0.2rem;
+    color: #6d7585;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  #ProductSection-{{ section_id }} .variant__label-note--trigger {
+    padding: 0;
+    border: 0;
+    background: none;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.14em;
+    cursor: pointer;
+  }
+
+  #ProductSection-{{ section_id }} .variant__label-note--trigger:hover,
+  #ProductSection-{{ section_id }} .variant__label-note--trigger:focus {
+    color: #151823;
+  }
+
   .zenkai-reassurance-row {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -311,17 +392,17 @@
 
   .zenkai-sticky-atc {
     position: fixed;
-    right: 12px;
-    left: 12px;
-    bottom: 12px;
+    right: 10px;
+    left: 10px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
     z-index: 40;
     display: none;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border-radius: 16px;
-    background: rgba(21, 24, 35, 0.96);
-    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+    gap: 0.65rem;
+    padding: 0.6rem 0.65rem;
+    border-radius: 14px;
+    background: rgba(21, 24, 35, 0.92);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
   }
 
   .zenkai-sticky-atc.is-visible {
@@ -336,16 +417,16 @@
   .zenkai-sticky-atc__price {
     display: block;
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 800;
     line-height: 1.1;
   }
 
   .zenkai-sticky-atc__variant {
     display: block;
-    margin-top: 0.15rem;
+    margin-top: 0.1rem;
     color: rgba(255, 255, 255, 0.76);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     line-height: 1.2;
     white-space: nowrap;
@@ -355,11 +436,11 @@
 
   .zenkai-sticky-atc__button {
     flex: 0 0 auto;
-    min-width: 150px;
-    min-height: 48px;
+    min-width: 138px;
+    min-height: 44px;
     border-radius: 12px;
     border: 0;
-    font-size: 0.8125rem;
+    font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -380,11 +461,29 @@
   @media (max-width: 767px) {
     #ProductSection-{{ section_id }} .product-single__meta {
       padding-left: 0;
-      margin-top: 1rem;
+      margin-top: 0.65rem;
     }
 
     .zenkai-breadcrumb {
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    {% if zenkai_hide_mobile_breadcrumbs %}
+      .zenkai-breadcrumb--mobile-hidden {
+        display: none;
+      }
+    {% endif %}
+
+    #ProductSection-{{ section_id }} .page-content {
+      padding-top: 0;
+    }
+
+    #ProductSection-{{ section_id }} .product__main-photos-wrapper {
+      margin-bottom: 0.1rem;
+    }
+
+    #ProductSection-{{ section_id }} .product__photo-dots {
+      margin-top: 0.15rem;
     }
 
     #ProductSection-{{ section_id }} .product-single__title {
@@ -392,6 +491,7 @@
     }
 
     .zenkai-subheadline {
+      margin-bottom: 0.7rem;
       font-size: 0.95rem;
     }
 
@@ -408,12 +508,20 @@
     }
 
     .zenkai-price-card {
-      padding: 0.8rem;
+      padding: 0.7rem 0.8rem;
     }
 
     .zenkai-proof-strip__copy,
     .zenkai-proof-pill {
       font-size: 0.75rem;
+    }
+
+    .zenkai-inline-proof {
+      padding: 0.7rem 0.75rem;
+    }
+
+    .zenkai-inline-proof__message {
+      font-size: 0.85rem;
     }
 
     .zenkai-benefit-list li {
@@ -425,7 +533,7 @@
     }
 
     .zenkai-primary-cta {
-      min-height: 54px;
+      min-height: 52px;
       font-size: 0.95rem;
     }
 
@@ -466,7 +574,7 @@
 >
   <div class="page-content">
     <div class="page-width">
-      <nav aria-label="breadcrumb" class="zenkai-breadcrumb">
+      <nav aria-label="breadcrumb" class="zenkai-breadcrumb{% if zenkai_hide_mobile_breadcrumbs %} zenkai-breadcrumb--mobile-hidden{% endif %}">
         <ol class="zenkai-breadcrumb__list">
           <li>
             <a href="/" class="zenkai-breadcrumb__link">Home</a>
@@ -517,15 +625,28 @@
 
               <p class="zenkai-subheadline">{{ zenkai_subheadline }}</p>
 
-              <div class="zenkai-proof-strip">
-                {% if zenkai_show_review_summary %}
-                  {% render 'junip-product-summary', product: product %}
-                  <span class="zenkai-proof-strip__copy">Trusted by fans who already grabbed theirs</span>
-                {% else %}
-                  <span class="zenkai-proof-pill">Not loud merch. Just the reference.</span>
-                  <span class="zenkai-proof-pill">Easy to wear daily.</span>
-                {% endif %}
-              </div>
+              {% if zenkai_show_review_summary or zenkai_proof_style != 'none' %}
+                <div class="zenkai-proof-strip">
+                  {% if zenkai_show_review_summary %}
+                    {% render 'junip-product-summary', product: product %}
+                    <span class="zenkai-proof-strip__copy">Trusted by fans who already grabbed theirs</span>
+                  {% elsif zenkai_show_inline_message %}
+                    <div class="zenkai-inline-proof">
+                      <span class="zenkai-inline-proof__label">{{ zenkai_proof_heading }}</span>
+                      <p class="zenkai-inline-proof__message">{{ zenkai_proof_message | strip_html | truncate: 110 }}</p>
+                      {% if zenkai_proof_author != blank %}
+                        <span class="zenkai-inline-proof__author">- {{ zenkai_proof_author }}</span>
+                      {% endif %}
+                    </div>
+                  {% elsif zenkai_proof_style == 'ugc_gallery' %}
+                    <span class="zenkai-proof-pill">Real customer photos below</span>
+                    <span class="zenkai-proof-pill">Made to be worn in the wild</span>
+                  {% else %}
+                    <span class="zenkai-proof-pill">Not loud merch. Just the reference.</span>
+                    <span class="zenkai-proof-pill">Easy to wear daily.</span>
+                  {% endif %}
+                </div>
+              {% endif %}
 
               <div class="zenkai-price-card">
                 <div class="product-single__prices" data-price-wrapper>
@@ -728,13 +849,14 @@
       if (sticky && anchor) {
         if ('IntersectionObserver' in window) {
           var observer = new IntersectionObserver(function(entries) {
-            var isVisible = entries[0] && entries[0].isIntersecting;
-            var showSticky = !isVisible;
+            var entry = entries[0];
+            var isVisible = entry && entry.isIntersecting;
+            var showSticky = !isVisible || (entry && entry.intersectionRatio < 0.35);
 
             sticky.hidden = !showSticky;
             sticky.classList.toggle('is-visible', showSticky);
           }, {
-            threshold: 0
+            threshold: [0, 0.35]
           });
 
           observer.observe(anchor);

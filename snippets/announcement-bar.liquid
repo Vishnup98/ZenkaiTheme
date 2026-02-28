@@ -52,4 +52,19 @@
 .announcement__text--rotating {
   color: #ffffff !important;
 }
+{% if template contains 'product' %}
+  .announcement__wrapper {
+    min-height: 34px;
+  }
+
+  .announcement__text,
+  .announcement__link,
+  .announcement__text--rotating {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    line-height: 1.2;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+{% endif %}
 </style>

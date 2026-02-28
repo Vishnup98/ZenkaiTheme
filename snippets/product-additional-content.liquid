@@ -148,11 +148,7 @@
         <div class="zenkai-benefit-highlight">
           <strong>Why people buy it:</strong> They want the feeling and the memory without wearing something that looks cheap, obvious, or overdone.
         </div>
-        {% if product.description %}
-          <div class="rte">{{ product.description }}</div>
-        {% else %}
-          <div class="rte">{{ 'home_page.onboarding.product_description' | t }}</div>
-        {% endif %}
+        <p>It should feel like a reference you recognize instantly, but everyone else just reads as a clean, understated design.</p>
       </div>
     </div>
   </div>
@@ -232,6 +228,9 @@
         <p>Zenkai was born from that tension: the desire to express who you are now, while honoring who you've always been.</p>
         <p>We create subtle, premium streetwear for the generation that grew up with these stories and never let go. Clean designs with deep roots. References that speak volumes to those who get it, while staying understated enough for everyday wear.</p>
         <p>This isn't nostalgia. It's evolution.</p>
+        {% if product.description %}
+          <div class="rte" style="margin-top: 1rem;">{{ product.description }}</div>
+        {% endif %}
         <p style="margin-top: 1rem;"><em>Built on trust. Soaked in nostalgia.</em></p>
       </div>
     </div>
@@ -358,22 +357,56 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const accordionTriggers = document.querySelectorAll('.zenkai-accordion__trigger');
+
+    function setAccordionState(trigger, isOpen) {
+      if (!trigger) {
+        return;
+      }
+
+      const contentId = trigger.getAttribute('aria-controls');
+      const content = contentId ? document.getElementById(contentId) : trigger.nextElementSibling;
+
+      if (!content) {
+        return;
+      }
+
+      trigger.classList.toggle('is-active', isOpen);
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      content.classList.toggle('is-active', isOpen);
+    }
     
     accordionTriggers.forEach(trigger => {
       trigger.addEventListener('click', function() {
         const isActive = this.classList.contains('is-active');
-        const content = this.nextElementSibling;
-        
-        if (isActive) {
-          this.classList.remove('is-active');
-          this.setAttribute('aria-expanded', 'false');
-          content.classList.remove('is-active');
-        } else {
-          this.classList.add('is-active');
-          this.setAttribute('aria-expanded', 'true');
-          content.classList.add('is-active');
-        }
+        setAccordionState(this, !isActive);
       });
+    });
+
+    document.addEventListener('click', function(event) {
+      const triggerButton = event.target.closest('[data-zenkai-open-accordion]');
+
+      if (!triggerButton) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const contentId = triggerButton.getAttribute('data-zenkai-open-accordion');
+      const accordionTrigger = document.querySelector('.zenkai-accordion__trigger[aria-controls="' + contentId + '"]');
+
+      if (!accordionTrigger) {
+        return;
+      }
+
+      setAccordionState(accordionTrigger, true);
+
+      const accordionItem = accordionTrigger.closest('.zenkai-accordion__item') || accordionTrigger;
+      window.setTimeout(function() {
+        accordionItem.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 120);
     });
   });
 </script>

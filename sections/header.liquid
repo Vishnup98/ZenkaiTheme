@@ -68,6 +68,66 @@
   {% endif %}
 {% endstyle %}
 
+{% if template contains 'product' %}
+  {% style %}
+    @media only screen and (max-width: 768px) {
+      .site-header {
+        padding: 8px 0 6px;
+      }
+
+      .site-header .page-width {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .header-layout {
+        min-height: 52px;
+      }
+
+      .site-header__logo a,
+      .is-light .site-header__logo .logo--inverted {
+        max-width: 64px !important;
+      }
+
+      .header-item--logo,
+      .header-layout--left-center .header-item--logo,
+      .header-layout--left-center .header-item--icons {
+        flex-basis: 64px;
+      }
+
+      .zenkai-header-menu {
+        gap: 8px;
+      }
+
+      .zenkai-header-menu__text {
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+      }
+
+      .site-nav__thumb-cart {
+        height: 56px;
+        padding: 0 14px;
+      }
+
+      .site-nav__thumb-cart .icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .cart-link__bubble {
+        width: 28px;
+        height: 28px;
+        top: -8px;
+        right: -8px;
+      }
+
+      .cart-link__count {
+        font-size: 0.75rem;
+      }
+    }
+  {% endstyle %}
+{% endif %}
+
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
   <div
     data-header-style="{{ section.settings.header_style }}"
