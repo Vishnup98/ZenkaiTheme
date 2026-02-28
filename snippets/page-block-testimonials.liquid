@@ -3,88 +3,8 @@
   {%- assign zenkai_product_messages = true -%}
 {% endif %}
 
-{% if zenkai_product_messages %}
-  <style>
-    .zenkai-product-messages .section-header {
-      margin-bottom: 0.85rem;
-    }
-
-    .zenkai-product-messages .section-header__title {
-      font-size: clamp(1.45rem, 6vw, 2rem);
-      line-height: 1.05;
-    }
-
-    .zenkai-product-messages .grid {
-      row-gap: 0.75rem;
-    }
-
-    .zenkai-product-messages .zenkai-proof-card {
-      position: relative;
-      margin: 0;
-      padding: 0.95rem 1rem;
-      border: 1px solid rgba(21, 24, 35, 0.08);
-      border-radius: 16px;
-      background: #f4efe6;
-      box-shadow: none;
-      text-align: left;
-    }
-
-    .zenkai-product-messages .quote-icon {
-      display: none;
-    }
-
-    .zenkai-proof-card__label {
-      display: inline-flex;
-      margin-bottom: 0.55rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      color: #b78338;
-      font-size: 0.6875rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .zenkai-product-messages .rte-setting {
-      margin-bottom: 0.55rem;
-      color: #171922;
-      font-size: 0.98rem;
-      font-weight: 600;
-      line-height: 1.45;
-    }
-
-    .zenkai-product-messages cite {
-      display: block;
-      margin-top: 0;
-      color: #5e6270;
-      font-style: normal;
-      font-size: 0.8125rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-    }
-
-    @media (max-width: 767px) {
-      .zenkai-product-messages .page-width {
-        padding-top: 0;
-      }
-
-      .zenkai-product-messages .section-header__title {
-        font-size: 1.6rem;
-      }
-
-      .zenkai-product-messages .zenkai-proof-card {
-        padding: 0.9rem;
-      }
-
-      .zenkai-product-messages .rte-setting {
-        font-size: 0.95rem;
-      }
-    }
-  </style>
-{% endif %}
-
-<div class="page-width text-{{ block.settings.align_text }}{% if zenkai_product_messages %} zenkai-product-messages{% endif %}">
+{% unless zenkai_product_messages %}
+<div class="page-width text-{{ block.settings.align_text }}">
   {% if block.settings.title != blank %}
     <header class="section-header" data-aos>
       <h2 class="section-header__title appear-delay">
@@ -115,11 +35,8 @@
   <div class="grid">
     {% if column_1_enabled %}
       <div class="grid__item {{ grid_item_width }}" data-aos>
-        <blockquote class="testimonials-slider__text{% if zenkai_product_messages %} zenkai-proof-card{% endif %}">
+        <blockquote class="testimonials-slider__text">
           <span class="quote-icon"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-quote" viewBox="0 0 41 35"><path d="M10.208 17.711h6.124v16.332H0V21.684C0 8.184 5.444.956 16.332 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766zm24.498 0h6.124v16.332H24.498V21.684C24.498 8.184 29.942.956 40.83 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766z" fill="#000" fill-rule="evenodd"/></svg></span>
-          {% if zenkai_product_messages %}
-            <span class="zenkai-proof-card__label">Seen in the wild</span>
-          {% endif %}
           {% if block.settings.testimonial_1 != blank %}
             <div class="rte-setting text-spacing">{{ block.settings.testimonial_1 }}</div>
           {% endif %}
@@ -144,11 +61,8 @@
 
     {% if column_2_enabled %}
       <div class="grid__item {{ grid_item_width }}">
-        <blockquote class="testimonials-slider__text{% if zenkai_product_messages %} zenkai-proof-card{% endif %}">
+        <blockquote class="testimonials-slider__text">
           <span class="quote-icon"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-quote" viewBox="0 0 41 35"><path d="M10.208 17.711h6.124v16.332H0V21.684C0 8.184 5.444.956 16.332 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766zm24.498 0h6.124v16.332H24.498V21.684C24.498 8.184 29.942.956 40.83 0v6.125c-4.083 1.14-6.124 4.414-6.124 9.82v1.766z" fill="#000" fill-rule="evenodd"/></svg></span>
-          {% if zenkai_product_messages %}
-            <span class="zenkai-proof-card__label">Seen in the wild</span>
-          {% endif %}
           {% if block.settings.testimonial_2 != blank %}
             <div class="rte-setting text-spacing">{{ block.settings.testimonial_2 }}</div>
           {% endif %}
@@ -172,3 +86,4 @@
     {% endif %}
   </div>
 </div>
+{% endunless %}

@@ -1,11 +1,16 @@
+{%- assign zenkai_is_product_page = false -%}
+{% if template contains 'product' %}
+  {%- assign zenkai_is_product_page = true -%}
+{% endif %}
+
 <div class="announcement" style="background: #151823;">
   <div class="announcement__wrapper">
     {% if section.settings.announcement_link != blank %}
       <a href="{{ section.settings.announcement_link }}" class="announcement__link">
     {% endif %}
 
-    <div class="announcement__text announcement__text--rotating"
-         data-rotating-messages='["🚚 FREE SHIPPING. Always.", "Premium Quality Materials", "Made to Order in 2-5 Days"]'>
+    <div class="announcement__text{% unless zenkai_is_product_page %} announcement__text--rotating{% else %} announcement__text--static{% endunless %}"
+         {% unless zenkai_is_product_page %}data-rotating-messages='["🚚 FREE SHIPPING. Always.", "Premium Quality Materials", "Made to Order in 2-5 Days"]'{% endunless %}>
       {{ section.settings.announcement_text | strip_html }}
     </div>
 
@@ -54,17 +59,18 @@
 }
 {% if template contains 'product' %}
   .announcement__wrapper {
-    min-height: 34px;
+    min-height: 30px;
   }
 
   .announcement__text,
   .announcement__link,
-  .announcement__text--rotating {
-    font-size: 11px;
-    letter-spacing: 0.18em;
+  .announcement__text--rotating,
+  .announcement__text--static {
+    font-size: 10px;
+    letter-spacing: 0.16em;
     line-height: 1.2;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 {% endif %}
 </style>

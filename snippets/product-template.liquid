@@ -22,12 +22,11 @@
 {%- assign zenkai_rating_count = product.metafields.junip.rating_count | default: 0 | plus: 0 -%}
 {%- assign zenkai_show_review_summary = false -%}
 {%- assign zenkai_show_review_summary_first = true -%}
-{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 62 | plus: 0 -%}
+{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 54 | plus: 0 -%}
 {%- assign zenkai_sticky_atc_trigger_ratio = product_sticky_atc_trigger_ratio | default: 18 | plus: 0 -%}
 {%- assign zenkai_show_hero_review_summary = false -%}
-{%- assign zenkai_show_hero_proof_line = false -%}
-{%- assign zenkai_render_primary_quote_card = true -%}
-{%- assign zenkai_render_secondary_quote_card = false -%}
+{%- assign zenkai_primary_proof_quote = zenkai_proof_quote_1 -%}
+{%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_1 -%}
 {%- assign zenkai_show_social_proof_panel = false -%}
 
 {% if product.has_only_default_variant or zenkai_current_variant_label == 'Default Title' %}
@@ -56,17 +55,14 @@
 
 {% if zenkai_show_review_summary and zenkai_show_review_summary_first %}
   {%- assign zenkai_show_hero_review_summary = true -%}
-{% elsif zenkai_proof_quote_1 != blank %}
-  {%- assign zenkai_show_hero_proof_line = true -%}
-  {%- assign zenkai_render_primary_quote_card = false -%}
 {% endif %}
 
-{% if zenkai_render_primary_quote_card and zenkai_proof_quote_1 != blank %}
-  {%- assign zenkai_show_social_proof_panel = true -%}
+{% if zenkai_primary_proof_quote == blank and zenkai_proof_quote_2 != blank %}
+  {%- assign zenkai_primary_proof_quote = zenkai_proof_quote_2 -%}
+  {%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_2 -%}
 {% endif %}
 
-{% if zenkai_proof_quote_2 != blank and zenkai_proof_quote_2 != zenkai_proof_quote_1 %}
-  {%- assign zenkai_render_secondary_quote_card = true -%}
+{% if zenkai_primary_proof_quote != blank %}
   {%- assign zenkai_show_social_proof_panel = true -%}
 {% endif %}
 
@@ -141,7 +137,7 @@
   }
 
   #ProductSection-{{ section_id }} .product__photo-dots {
-    margin-top: 0.55rem;
+    margin-top: 0.4rem;
   }
 
   #ProductSection-{{ section_id }} .product__thumbs .product__thumb {
@@ -174,7 +170,7 @@
 
   #ProductSection-{{ section_id }} .product-single__header {
     margin-bottom: 0;
-    padding: 1.35rem 1.45rem 1.2rem;
+    padding: 1.15rem 1.2rem 1.05rem;
     border: 1px solid var(--zenkai-border);
     border-radius: 18px;
     background: var(--zenkai-surface);
@@ -218,8 +214,7 @@
     align-items: center;
   }
 
-  .zenkai-hero-proof-copy,
-  .zenkai-hero-proof-line {
+  .zenkai-hero-proof-copy {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -231,15 +226,6 @@
     font-size: 0.78rem;
     font-weight: 600;
     line-height: 1.3;
-  }
-
-  .zenkai-hero-proof-line::before {
-    content: "";
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 999px;
-    background: var(--zenkai-brass);
-    flex: 0 0 auto;
   }
 
   .zenkai-price-band {
@@ -559,13 +545,11 @@
   }
 
   .zenkai-social-proof-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
+    display: block;
   }
 
   .zenkai-proof-card {
-    padding: 0.95rem;
+    padding: 0.9rem;
     border-radius: 16px;
     background: var(--zenkai-surface-alt);
     border: 1px solid rgba(183, 131, 56, 0.12);
@@ -605,6 +589,12 @@
     margin-top: 1rem;
   }
 
+  .zenkai-sticky-sentinel {
+    width: 100%;
+    height: 1px;
+    margin-top: 0.1rem;
+  }
+
   #ProductSection-{{ section_id }} .product__policies small {
     display: none !important;
   }
@@ -621,8 +611,8 @@
     z-index: 40;
     display: none;
     align-items: center;
-    gap: 0.7rem;
-    padding: 0.65rem;
+    gap: 0.55rem;
+    padding: 0.625rem 0.75rem;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(21, 24, 35, 0.94);
@@ -641,7 +631,7 @@
   .zenkai-sticky-atc__price {
     display: block;
     color: #fff;
-    font-size: 0.94rem;
+    font-size: 0.9rem;
     font-weight: 800;
     line-height: 1.1;
   }
@@ -650,7 +640,7 @@
     display: block;
     margin-top: 0.12rem;
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
     line-height: 1.25;
     white-space: nowrap;
@@ -660,13 +650,13 @@
 
   .zenkai-sticky-atc__button {
     flex: 0 0 auto;
-    min-width: 130px;
-    min-height: 44px;
+    min-width: 118px;
+    min-height: 40px;
     border: 0;
     border-radius: 12px;
     background: #fff;
     color: var(--zenkai-dark);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: none;
@@ -675,12 +665,16 @@
   @media (max-width: 767px) {
     #ProductSection-{{ section_id }} .product-single__meta {
       padding-left: 0;
-      margin-top: 0.75rem;
+      margin-top: 0.55rem;
     }
 
     #ProductSection-{{ section_id }} .page-content {
       padding-top: 0;
-      padding-bottom: 84px;
+      padding-bottom: 112px;
+    }
+
+    .site-footer {
+      padding-bottom: 112px;
     }
 
     .zenkai-breadcrumb {
@@ -701,11 +695,11 @@
     }
 
     #ProductSection-{{ section_id }} .product__main-photos .product-image-main .image-wrap {
-      padding-bottom: min(94%, {{ zenkai_mobile_media_max_height }}vh) !important;
+      padding-bottom: min(86%, {{ zenkai_mobile_media_max_height }}vh) !important;
     }
 
     #ProductSection-{{ section_id }} .product__photo-dots {
-      margin-top: 0.35rem;
+      margin-top: 0.2rem;
     }
 
     #ProductSection-{{ section_id }} .product-single__header,
@@ -713,7 +707,7 @@
     .zenkai-outcome-panel,
     .zenkai-context-panel,
     .zenkai-social-proof {
-      padding: 0.95rem;
+      padding: 0.9rem;
       border-radius: 16px;
       box-shadow: none;
     }
@@ -766,8 +760,8 @@
       font-size: 0.88rem;
     }
 
-    .zenkai-social-proof-grid {
-      grid-template-columns: 1fr;
+    .zenkai-proof-card {
+      padding: 0.82rem;
     }
   }
 
@@ -846,14 +840,10 @@
 
               <p class="zenkai-social-subheadline">{{ zenkai_social_subheadline }}</p>
 
-              {% if zenkai_show_hero_review_summary or zenkai_show_hero_proof_line %}
+              {% if zenkai_show_hero_review_summary %}
                 <div class="zenkai-hero-proof-row">
-                  {% if zenkai_show_hero_review_summary %}
-                    {% render 'junip-product-summary', product: product %}
-                    <span class="zenkai-hero-proof-copy">The kind of piece people notice in the wild</span>
-                  {% elsif zenkai_show_hero_proof_line %}
-                    <p class="zenkai-hero-proof-line">{{ zenkai_proof_quote_1 | strip_html | truncate: 88 }}</p>
-                  {% endif %}
+                  {% render 'junip-product-summary', product: product %}
+                  <span class="zenkai-hero-proof-copy">The kind of piece people notice in the wild</span>
                 </div>
               {% endif %}
 
@@ -910,27 +900,17 @@
                   <li>{{ zenkai_outcome_3 }}</li>
                 </ul>
               </section>
+              <div class="zenkai-sticky-sentinel" data-sticky-sentinel aria-hidden="true"></div>
 
               {% if zenkai_show_social_proof_panel %}
-                <section class="zenkai-social-proof" aria-label="What buyers are saying">
-                  <h2 class="zenkai-panel-heading">What buyers notice first</h2>
+                <section class="zenkai-social-proof" aria-label="Seen in the wild">
+                  <h2 class="zenkai-panel-heading">Seen in the wild</h2>
                   <div class="zenkai-social-proof-grid">
-                    {% if zenkai_render_primary_quote_card and zenkai_proof_quote_1 != blank %}
+                    {% if zenkai_primary_proof_quote != blank %}
                       <article class="zenkai-proof-card">
-                        <span class="zenkai-proof-card__tag">In the wild</span>
-                        <p class="zenkai-proof-card__quote">{{ zenkai_proof_quote_1 }}</p>
-                        {% if zenkai_proof_attribution_1 != blank %}
-                          <span class="zenkai-proof-card__meta">- {{ zenkai_proof_attribution_1 }}</span>
-                        {% endif %}
-                      </article>
-                    {% endif %}
-
-                    {% if zenkai_render_secondary_quote_card %}
-                      <article class="zenkai-proof-card">
-                        <span class="zenkai-proof-card__tag">Why it lands</span>
-                        <p class="zenkai-proof-card__quote">{{ zenkai_proof_quote_2 }}</p>
-                        {% if zenkai_proof_attribution_2 != blank %}
-                          <span class="zenkai-proof-card__meta">- {{ zenkai_proof_attribution_2 }}</span>
+                        <p class="zenkai-proof-card__quote">{{ zenkai_primary_proof_quote }}</p>
+                        {% if zenkai_primary_proof_attribution != blank %}
+                          <span class="zenkai-proof-card__meta">- {{ zenkai_primary_proof_attribution }}</span>
                         {% endif %}
                       </article>
                     {% endif %}
@@ -998,10 +978,9 @@
       }
 
       var ctaLabel = section.getAttribute('data-product-cta-default') || {{ zenkai_cta_text | json }};
-      var thresholdRatio = parseFloat(section.getAttribute('data-sticky-trigger-ratio') || '18') / 100;
       var mainButton = section.querySelector('[data-add-to-cart]');
       var mainButtonText = section.querySelector('[data-add-to-cart-text]');
-      var anchor = section.querySelector('[data-product-form-anchor]');
+      var stickySentinel = section.querySelector('[data-sticky-sentinel]');
       var priceSource = section.querySelector('[data-product-price]');
       var selectSource = section.querySelector('[data-product-select]');
       var variantInputs = section.querySelectorAll('[data-variant-input]');
@@ -1009,10 +988,6 @@
       var stickyButton = section.querySelector('[data-sticky-atc-button]');
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
-
-      if (!thresholdRatio || thresholdRatio <= 0) {
-        thresholdRatio = 0.18;
-      }
 
       function getVariantLabel() {
         if (!selectSource || !selectSource.options.length) {
@@ -1063,6 +1038,19 @@
         syncMeta();
       }
 
+      function syncStickyVisibility(entry) {
+        if (!sticky || !stickySentinel) {
+          return;
+        }
+
+        var sentinelTop = stickySentinel.getBoundingClientRect().top;
+        var isIntersecting = entry ? entry.isIntersecting : false;
+        var showSticky = sentinelTop < 0 && !isIntersecting;
+
+        sticky.hidden = !showSticky;
+        sticky.classList.toggle('is-visible', showSticky);
+      }
+
       syncAll();
 
       if (selectSource) {
@@ -1097,23 +1085,27 @@
         });
       }
 
-      if (sticky && anchor) {
+      if (sticky && stickySentinel) {
         if ('IntersectionObserver' in window) {
           var observer = new IntersectionObserver(function(entries) {
-            var entry = entries[0];
-            var isVisible = entry && entry.isIntersecting;
-            var showSticky = !isVisible || (entry && entry.intersectionRatio < thresholdRatio);
-
-            sticky.hidden = !showSticky;
-            sticky.classList.toggle('is-visible', showSticky);
+            syncStickyVisibility(entries[0]);
           }, {
-            threshold: [0, thresholdRatio, 1]
+            threshold: [0, 1]
           });
 
-          observer.observe(anchor);
+          observer.observe(stickySentinel);
+          syncStickyVisibility();
+          window.addEventListener('resize', function() {
+            syncStickyVisibility();
+          });
         } else {
-          sticky.hidden = false;
-          sticky.classList.add('is-visible');
+          var onScroll = function() {
+            syncStickyVisibility();
+          };
+
+          window.addEventListener('scroll', onScroll, { passive: true });
+          window.addEventListener('resize', onScroll);
+          syncStickyVisibility();
         }
       }
 

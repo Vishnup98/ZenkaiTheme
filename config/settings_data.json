@@ -100,7 +100,7 @@
           "main_menu_link_list": "main-menu",
           "show_announcement": true,
           "show_announcement_home_only": false,
-          "announcement_text": "🚚 FREE SHIPPING. Always.",
+          "announcement_text": "Free U.S. shipping. Printed to order.",
           "announcement_link": "/"
         }
       },
@@ -167,7 +167,7 @@
           "product_proof_heading": "Seen in the wild",
           "product_proof_message": "Wore it out and someone caught the reference almost immediately.",
           "product_proof_author": "Recent buyer",
-          "product_mobile_media_max_height": 62,
+          "product_mobile_media_max_height": 54,
           "product_sticky_atc_trigger_ratio": 18,
           "product_show_review_summary_first": true,
           "variant_type": "button",

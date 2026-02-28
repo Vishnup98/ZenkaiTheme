@@ -80,6 +80,12 @@
       padding-top: 0;
     }
 
+    #Recommendations-{{ product.id }} .overflow-scroller {
+      padding: 0 16px 8px;
+      scroll-padding-left: 16px;
+      scroll-padding-right: 16px;
+    }
+
     #Recommendations-{{ product.id }} .section-header__title {
       font-size: 1.5rem;
     }
@@ -87,14 +93,18 @@
     #Recommendations-{{ product.id }} .grid {
       display: flex;
       flex-wrap: nowrap;
-      gap: 0.65rem;
+      gap: 12px;
       margin-left: 0;
+      width: max-content;
+      scroll-snap-type: x mandatory;
     }
 
     #Recommendations-{{ product.id }} .grid__item {
-      width: 72vw;
-      min-width: 72vw;
+      width: 58vw;
+      min-width: 58vw;
+      max-width: 240px;
       padding-left: 0;
+      scroll-snap-align: center;
     }
 
     #Recommendations-{{ product.id }} .grid-product__content {
