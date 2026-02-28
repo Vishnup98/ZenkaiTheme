@@ -594,11 +594,11 @@
       },
       "4293466245358296089": {
         "type": "shopify://apps/smartsize/blocks/app-embed/465a43e0-6a1a-4d30-b82e-fe6118568705",
-        "disabled": true,
+        "disabled": false,
         "settings": {
           "button_horizontal_aligment": "left",
           "button_horizontal_aligment_mobile": "left",
-          "smartsize_button_label": "--",
+          "smartsize_button_label": "View size guide",
           "smartsize_conversion_label_CM": "CM",
           "smartsize_conversion_label_IN": "INCHES"
         }
