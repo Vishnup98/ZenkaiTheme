@@ -35,11 +35,6 @@
       </span>
     {% endif %}
   </label>
-  {% if is_size_option %}
-    <button type="button" class="variant__label-note variant__label-note--size js-modal-open-size-guide-{{ section_id }}">
-      View size guide
-    </button>
-  {% endif %}
   {%- assign option_index = forloop.index -%}
   <fieldset class="variant-input-wrap"
     name="{{ option_drop.name }}"

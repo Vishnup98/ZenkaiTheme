@@ -4,6 +4,13 @@
 {% if show_dynamic_checkout_secondary %}
   {%- assign zenkai_secondary_checkout = true -%}
 {% endif %}
+{%- assign zenkai_has_size_option = false -%}
+{% for option in product.options_with_values %}
+  {% if option.name | downcase contains 'size' %}
+    {%- assign zenkai_has_size_option = true -%}
+    {% break %}
+  {% endif %}
+{% endfor %}
 
 {% capture form_id %}AddToCartForm-{{ section_id }}{% endcapture %}
 {% form 'product', product, id: form_id, class: 'product-single__form zenkai-product-form small--text-center' %}
@@ -17,6 +24,14 @@
       {% endif %}
     {% endfor %}
   {% endunless %}
+
+  {% if zenkai_has_size_option %}
+    <div class="zenkai-size-guide-trigger-row">
+      <button type="button" class="variant__label-note variant__label-note--size js-modal-open-size-guide-{{ section_id }}">
+        View size guide
+      </button>
+    </div>
+  {% endif %}
 
   <select name="id" id="ProductSelect-{{ section_id }}" class="product-single__variants no-js" data-product-select>
     {% for variant in product.variants %}
