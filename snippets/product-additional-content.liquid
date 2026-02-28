@@ -84,7 +84,7 @@
   }
 
   .zenkai-accordion__content.is-active {
-    max-height: 1000px;
+    max-height: 1400px;
   }
 
   .zenkai-accordion__inner {
@@ -123,7 +123,7 @@
 
   .zenkai-faq-question {
     font-weight: 600;
-    color: #8A7A9F;
+    color: #151823;
     margin-bottom: 0.5rem;
   }
 
@@ -134,62 +134,61 @@
 </style>
 
 <div class="zenkai-accordion">
-  <!-- Description Tab (Closed by default) -->
+  <!-- Why This Hits -->
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-description-{{ section_id }}">
-      <span>Description</span>
+      <span>Why This Hits</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-description-{{ section_id }}" class="zenkai-accordion__content">
-      <div class="zenkai-accordion__inner rte">
-        {% if product.description %}
-          {{ product.description }}
-        {% else %}
-          {{ 'home_page.onboarding.product_description' | t }}
-        {% endif %}
-        
+      <div class="zenkai-accordion__inner">
+        <p><strong>This is for the people who still carry the reference with them.</strong></p>
+        <p>Not as loud merch. Not as a costume. As something cleaner, sharper, and easy to wear in real life.</p>
+        <p>Each piece is designed to feel like an inside signal: subtle enough for everyday rotation, specific enough that the right people instantly understand what they are seeing.</p>
         <div class="zenkai-benefit-highlight">
-          <strong>Premium Quality Guarantee:</strong> We use only the finest materials and printing techniques. If you're not completely satisfied with the quality, we'll make it right.
+          <strong>Why people buy it:</strong> They want the feeling and the memory without wearing something that looks cheap, obvious, or overdone.
         </div>
+        {% if product.description %}
+          <div class="rte">{{ product.description }}</div>
+        {% else %}
+          <div class="rte">{{ 'home_page.onboarding.product_description' | t }}</div>
+        {% endif %}
       </div>
     </div>
   </div>
 
-  <!-- Size & Fit Tab -->
+  <!-- Fit, Feel & Fabric -->
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-size-{{ section_id }}">
-      <span>Size & Fit Guide</span>
+      <span>Fit, Feel &amp; Fabric</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
-        <p><strong>True to Size:</strong> Our pieces are designed to fit as expected. Order your regular size for the perfect fit.</p>
-      
-        
-        <p><strong>Fabric & Care:</strong></p>
+        <p><strong>Built for daily wear:</strong> The goal is a clean, comfortable piece you can actually keep in rotation, not a novelty print that sits in the drawer.</p>
         <ul>
-          <li>Premium cotton blend for comfort and durability</li>
-          <li>Pre-shrunk to maintain size after washing</li>
-          <li>Machine wash cold, tumble dry low</li>
-          <li>Gets softer with each wear</li>
+          <li>Use the size chart before you place your order</li>
+          <li>Printed to feel wearable and understated, not loud</li>
+          <li>Follow the garment care instructions after delivery to keep the print looking clean</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- Shipping & Returns Tab -->
+  <!-- Shipping & Production -->
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-shipping-{{ section_id }}">
-      <span>Shipping Policy</span>
+      <span>Shipping &amp; Production</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
-        <p><strong>🚀 Fast Production & Shipping:</strong></p>
+        <p><strong>Every piece is made to order.</strong></p>
         <ul>
-          <li>Made to order in 2–5 business days</li>
-          <li>U.S. Shipping: 3–7 business days</li>
-          <li>Track your order every step of the way</li>
+          <li>Production typically starts within 2-5 business days</li>
+          <li>U.S. shipping usually lands in 3-7 business days after production</li>
+          <li>You will receive tracking as soon as it ships</li>
+          <li>Because it is printed for you, double-check your size before ordering</li>
         </ul>
       </div>
     </div>
@@ -198,7 +197,7 @@
   <!-- FAQ Tab -->
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-faq-{{ section_id }}">
-      <span>Frequently Asked Questions</span>
+      <span>FAQ</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-faq-{{ section_id }}" class="zenkai-accordion__content">
@@ -209,17 +208,22 @@
         </div>
         
         <div class="zenkai-faq-item">
-          <div class="zenkai-faq-question">Q: How do I get the $5 email discount?</div>
-          <div class="zenkai-faq-answer">A: Simply enter your email in the popup or footer signup. You'll receive your discount code instantly.</div>
+          <div class="zenkai-faq-question">Q: Can I return or exchange it if the size is off?</div>
+          <div class="zenkai-faq-answer">A: Because each piece is printed to order, all sales are final. Please review the size chart carefully before you place your order.</div>
+        </div>
+
+        <div class="zenkai-faq-item">
+          <div class="zenkai-faq-question">Q: Is this meant to be loud, obvious merch?</div>
+          <div class="zenkai-faq-answer">A: No. The whole point is a cleaner nod. It is made for people who want the reference without wearing something that screams for attention.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Brand Story Tab -->
+  <!-- Story Behind the Design -->
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
-      <span>The Zenkai Story</span>
+      <span>Story Behind the Design</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">

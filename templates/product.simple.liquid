@@ -19,4 +19,9 @@
     soldOut: {{ 'products.product.sold_out' | t | json }},
     unavailable: {{ 'products.product.unavailable' | t | json }}
   };
+
+  var ctaOverride = document.querySelector('[data-product-cta-default]');
+  if (ctaOverride) {
+    theme.productStrings.addToCart = ctaOverride.getAttribute('data-product-cta-default');
+  }
 </script>

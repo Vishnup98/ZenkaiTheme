@@ -1,4 +1,8 @@
-<span
-  class="junip-product-review"
-  data-product-id="{{ product.id }}">
-</span>
+{%- assign rating_count = product.metafields.junip.rating_count | default: 0 | plus: 0 -%}
+
+{% if rating_count > 0 %}
+  <span
+    class="junip-product-review"
+    data-product-id="{{ product.id }}">
+  </span>
+{% endif %}

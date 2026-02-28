@@ -2,6 +2,15 @@
   section_id: product.id,
 
   product_shipping_callout: section.settings.product_shipping_callout,
+  product_identity_eyebrow: section.settings.product_identity_eyebrow,
+  product_subheadline: section.settings.product_subheadline,
+  product_cta_text: section.settings.product_cta_text,
+  product_cta_note: section.settings.product_cta_note,
+  product_benefit_1: section.settings.product_benefit_1,
+  product_benefit_2: section.settings.product_benefit_2,
+  product_benefit_3: section.settings.product_benefit_3,
+  product_urgency_chip: section.settings.product_urgency_chip,
+  product_guarantee_note: section.settings.product_guarantee_note,
   product_image_size: section.settings.product_image_size,
   product_image_type: section.settings.product_image_type,
   product_zoom_enable: section.settings.product_zoom_enable,
@@ -13,6 +22,8 @@
   inventory_threshold: section.settings.inventory_threshold,
   inventory_transfers_enable: section.settings.inventory_transfers_enable,
   enable_payment_button: section.settings.enable_payment_button,
+  mobile_sticky_atc_enable: section.settings.mobile_sticky_atc_enable,
+  show_dynamic_checkout_secondary: section.settings.show_dynamic_checkout_secondary,
   social_enable: section.settings.social_enable,
   video_looping: section.settings.enable_video_looping,
   video_style: section.settings.product_video_style
@@ -118,6 +129,60 @@
         "info": "E.g. Free shipping + returns"
       },
       {
+        "type": "text",
+        "id": "product_identity_eyebrow",
+        "label": "Identity eyebrow",
+        "default": "For the ones who never really moved on."
+      },
+      {
+        "type": "textarea",
+        "id": "product_subheadline",
+        "label": "Subheadline",
+        "default": "A clean everyday piece for people who still remember exactly how that era felt."
+      },
+      {
+        "type": "text",
+        "id": "product_cta_text",
+        "label": "Primary CTA text",
+        "default": "Claim Yours"
+      },
+      {
+        "type": "text",
+        "id": "product_cta_note",
+        "label": "CTA support note",
+        "default": "Made to order. Production starts as soon as you reserve your size."
+      },
+      {
+        "type": "text",
+        "id": "product_benefit_1",
+        "label": "Benefit 1",
+        "default": "Subtle reference that the right people catch"
+      },
+      {
+        "type": "text",
+        "id": "product_benefit_2",
+        "label": "Benefit 2",
+        "default": "Clean, premium feel instead of loud novelty merch"
+      },
+      {
+        "type": "text",
+        "id": "product_benefit_3",
+        "label": "Benefit 3",
+        "default": "Easy to wear daily, but loaded with meaning"
+      },
+      {
+        "type": "text",
+        "id": "product_urgency_chip",
+        "label": "Urgency chip",
+        "default": "Printed to order in the USA"
+      },
+      {
+        "type": "text",
+        "id": "product_guarantee_note",
+        "label": "Trust note",
+        "default": "Secure checkout"
+      },
+      {
         "type": "select",
         "id": "variant_type",
         "label": "Variant picker style",
@@ -168,6 +233,18 @@
         "type": "checkbox",
         "id": "quantity_enable",
         "label": "Show quantity field"
+      },
+      {
+        "type": "checkbox",
+        "id": "mobile_sticky_atc_enable",
+        "label": "Enable mobile sticky add-to-cart",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_dynamic_checkout_secondary",
+        "label": "Show dynamic checkout as a secondary button",
+        "default": false
       },
       {
         "type": "checkbox",

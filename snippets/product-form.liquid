@@ -1,3 +1,11 @@
+{%- assign zenkai_cta_text = product_cta_text | default: 'Claim Yours' -%}
+{%- assign zenkai_cta_note = product_cta_note | default: 'Made to order. Production starts as soon as you reserve your size.' -%}
+{%- assign zenkai_urgency_chip = product_urgency_chip | default: 'Printed to order in the USA' -%}
+{%- assign zenkai_secondary_checkout = false -%}
+{% if show_dynamic_checkout_secondary %}
+  {%- assign zenkai_secondary_checkout = true -%}
+{% endif %}
+
 {% capture form_id %}AddToCartForm-{{ section_id }}{% endcapture %}
 {% form 'product', product, id: form_id, class: 'product-single__form small--text-center' %}
   <input type="hidden" name="data-product-id" value="{{ product.id }}">
@@ -35,49 +43,39 @@
   {% endif %}
 
   {%- assign enable_dynamic_buttons = false -%}
-  {% if enable_payment_button and template != 'product.preorder' %}
+  {% if enable_payment_button and zenkai_secondary_checkout and template != 'product.preorder' %}
     {%- assign enable_dynamic_buttons = true -%}
   {% endif %}
 
-  {% if enable_dynamic_buttons %}
-    <div class="payment-buttons">
-  {% endif %}
-
+  <div class="zenkai-product-actions" data-product-form-anchor>
+    <p class="zenkai-form-chip">{{ zenkai_urgency_chip }}</p>
     <button
       {% if product.empty? %}type="button"{% else %}type="submit"{% endif %}
       name="add"
       data-add-to-cart
-      class="{% if enable_dynamic_buttons %}btn btn--tertiary{% else %}btn{% endif %} btn--full add-to-cart"
+      data-cta-label="{{ zenkai_cta_text | escape }}"
+      class="btn btn--full add-to-cart zenkai-primary-cta{% if enable_dynamic_buttons %} zenkai-primary-cta--with-secondary{% endif %}"
       {% unless current_variant.available %} disabled="disabled"{% endunless %}>
       <span data-add-to-cart-text>
         {% if current_variant.available %}
           {% if template == 'product.preorder' %}
             {{ 'products.product.preorder' | t }}
           {% else %}
-            {{ 'products.product.add_to_cart' | t }}
+            {{ zenkai_cta_text }}
           {% endif %}
         {% else %}
           {{ 'products.product.sold_out' | t }}
         {% endif %}
       </span>
     </button>
-
-    {% if enable_dynamic_buttons %}
-      {{ form | payment_button }}
-    {% endif %}
+    <p class="zenkai-cta-note">{{ zenkai_cta_note }}</p>
+  </div>
 
   {% if enable_dynamic_buttons %}
+    <div class="zenkai-secondary-checkout">
+      {{ form | payment_button }}
     </div>
   {% endif %}
-
-  <!-- Free Shipping Callout - Near Buy Button -->
-  <div class="zenkai-free-shipping zenkai-free-shipping--callout">
-    <span class="zenkai-free-shipping__icon">🚚</span>
-    <div class="zenkai-free-shipping__content">
-      <span class="zenkai-free-shipping__headline">FREE SHIPPING. Always.</span>
-      <span class="zenkai-free-shipping__subtext">No minimum order required</span>
-    </div>
-  </div>
 
   {% unless product.empty? %}
     <div class="hide" aria-hidden="true" data-variant-json>
