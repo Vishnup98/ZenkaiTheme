@@ -76,9 +76,9 @@
 
 .background-media-text--background_image_text_feh6JW .background-media-text__text .btn {
   margin-top: 10px;
-  background-color: #E89B3E !important;
-  color: #151823 !important;
-  border: none;
+  background-color: #151823 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #151823;
 }
 
 /* Mobile: Immersive hero with text overlay at bottom */
@@ -196,9 +196,9 @@
 
 .background-media-text--background_image_text_c8AXa4 .background-media-text__text .btn {
   margin-top: 10px;
-  background-color: #E89B3E !important;
-  color: #151823 !important;
-  border: none;
+  background-color: #151823 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #151823;
 }
 
 /* Mobile: Aspect ratio sized container with cover */
@@ -10640,65 +10640,120 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 // ========== BUTTON ENHANCEMENTS ==========
-// Primary buttons: premium gradient with strong shadow
+// One consistent CTA system: dark ink actions, restrained brass accents
 
-.btn {
+.btn,
+.rte .btn,
+.shopify-payment-button .shopify-payment-button__button--unbranded,
+.product-reviews .spr-button {
   position: relative;
-  transition: all 0.25s ease;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-.btn--primary {
-  background: linear-gradient(135deg, #E89B3E 0%, #D4893A 100%);
-  box-shadow: 0 4px 15px rgba(232, 155, 62, 0.3);
-  border: none;
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 6px 25px rgba(232, 155, 62, 0.45);
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, #F0A94E 0%, #E89B3E 100%);
-  }
-
-  &:active {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 12px rgba(232, 155, 62, 0.35);
-  }
+.btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password),
+.rte .btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password),
+.shopify-payment-button .shopify-payment-button__button--unbranded,
+.product-reviews .spr-button {
+  border-radius: 12px;
+  background: #151823;
+  color: #FFFFFF;
+  border: 1px solid #151823;
+  box-shadow: 0 6px 18px rgba(21, 24, 35, 0.10);
 }
 
-// Secondary/outline buttons - subtle styling
-.btn--secondary,
-.btn--tertiary {
-  &:hover {
-    border-color: #E89B3E;
-    color: #E89B3E;
-    box-shadow: 0 0 15px rgba(232, 155, 62, 0.2);
-    transform: translateY(-2px);
+.btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password):hover,
+.btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password):focus,
+.rte .btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password):hover,
+.rte .btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password):focus,
+.shopify-payment-button .shopify-payment-button__button--unbranded:hover:not([disabled]),
+.shopify-payment-button .shopify-payment-button__button--unbranded:focus:not([disabled]),
+.product-reviews .spr-button:hover,
+.product-reviews .spr-button:focus {
+  background: #0F121A;
+  color: #FFFFFF;
+  border-color: #0F121A;
+  box-shadow: 0 8px 20px rgba(21, 24, 35, 0.12);
+  transform: translateY(-1px);
+}
+
+.btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password):active,
+.rte .btn:not(.btn--secondary):not(.btn--tertiary):not(.btn--circle):not(.btn--password):active,
+.shopify-payment-button .shopify-payment-button__button--unbranded:active:not([disabled]),
+.product-reviews .spr-button:active {
+  background: #0B0D14;
+  border-color: #0B0D14;
+  box-shadow: 0 4px 12px rgba(21, 24, 35, 0.10);
+  transform: none;
+}
+
+.btn--secondary:not(.btn--circle),
+.rte .btn--secondary:not(.btn--circle) {
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: #171922;
+  border: 1px solid rgba(21, 24, 35, 0.14);
+  box-shadow: none;
+}
+
+.btn--secondary:not(.btn--circle):hover,
+.btn--secondary:not(.btn--circle):focus,
+.rte .btn--secondary:not(.btn--circle):hover,
+.rte .btn--secondary:not(.btn--circle):focus {
+  background: #FAF7F1;
+  color: #171922;
+  border-color: rgba(21, 24, 35, 0.22);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.btn--tertiary:not(.btn--circle),
+.rte .btn--tertiary:not(.btn--circle) {
+  border-radius: 12px;
+  background: #FAF7F1;
+  color: #171922;
+  border: 1px solid rgba(21, 24, 35, 0.10);
+  box-shadow: none;
+}
+
+.btn--tertiary:not(.btn--circle):hover,
+.btn--tertiary:not(.btn--circle):focus,
+.rte .btn--tertiary:not(.btn--circle):hover,
+.rte .btn--tertiary:not(.btn--circle):focus {
+  background: #F4EFE6;
+  color: #171922;
+  border-color: rgba(21, 24, 35, 0.18);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.btn--circle {
+  box-shadow: none;
+}
+
+@media screen and (max-width: 768px) {
+  .btn:not(.btn--circle):hover,
+  .btn:not(.btn--circle):focus,
+  .rte .btn:not(.btn--circle):hover,
+  .rte .btn:not(.btn--circle):focus,
+  .shopify-payment-button .shopify-payment-button__button--unbranded:hover:not([disabled]),
+  .shopify-payment-button .shopify-payment-button__button--unbranded:focus:not([disabled]),
+  .product-reviews .spr-button:hover,
+  .product-reviews .spr-button:focus {
+    transform: none;
   }
 }
 
 // ========== PRODUCT CARD HOVER ==========
-// Lift effect with accent border
+// Keep feedback subtle and avoid generic DTC lift effects
 
 .grid-product {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.25s ease;
 
   &:hover {
-    transform: translateY(-6px);
-
     .grid-product__content {
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-    }
-
-    .grid-product__image-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: $colorAccent;
+      box-shadow: 0 10px 24px rgba(21, 24, 35, 0.08);
     }
   }
 }
@@ -10709,7 +10764,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 .grid-product__content {
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.25s ease;
 }
 
 // ========== COLLECTION CARD ACCENTS ==========
@@ -10741,14 +10796,14 @@ $marqueeAnimationSpeedMobile: 6.6s;
 // Warm, premium feel with breathing room
 
 .index-section--alt {
-  background-color: #FAF8F5;  // Warm cream
-  color: #2D2A26;             // Dark brown for readability
+  background-color: #FAF7F1;
+  color: #171922;
 
   // Ensure text is readable on cream
   .section-header__title,
   .section-header__description,
   h1, h2, h3, h4, h5, h6 {
-    color: #2D2A26;
+    color: #171922;
   }
 
   // Links in cream sections
@@ -10768,7 +10823,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   // Button adjustments for cream bg
   .btn {
     &:hover {
-      box-shadow: 0 0 20px rgba(156, 175, 136, 0.35);
+      box-shadow: 0 8px 18px rgba(21, 24, 35, 0.10);
     }
   }
 }
@@ -10788,7 +10843,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
     &:focus {
       border-color: $colorAccent;
-      box-shadow: 0 0 10px rgba(156, 175, 136, 0.2);
+      box-shadow: 0 0 0 3px rgba(183, 131, 56, 0.12);
     }
   }
 }
@@ -11022,6 +11077,58 @@ $marqueeAnimationSpeedMobile: 6.6s;
   color: rgba(255, 255, 255, 0.6) !important;
 }
 
+.zenkai-menu__item--cta {
+  margin-bottom: 10px;
+}
+
+.zenkai-menu__item--utility {
+  margin-bottom: 12px;
+}
+
+.zenkai-menu__item--cta + .zenkai-menu__item--utility,
+.zenkai-menu__item--utility + .zenkai-menu__item {
+  border-top: none;
+}
+
+.zenkai-menu__link--cta,
+.zenkai-menu__link--utility {
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.zenkai-menu__link--cta::after,
+.zenkai-menu__link--utility::after {
+  display: none;
+}
+
+.zenkai-menu__link--cta {
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #FAF7F1;
+  color: #151823 !important;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+}
+
+.zenkai-menu__link--cta:hover,
+.zenkai-menu__link--cta:focus {
+  background: #FFFFFF;
+  color: #151823 !important;
+}
+
+.zenkai-menu__link--utility {
+  padding: 12px 8px;
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.zenkai-menu__link--utility:hover,
+.zenkai-menu__link--utility:focus {
+  color: #FFFFFF !important;
+}
+
 .zenkai-menu__link--sub {
   font-size: 15px;
   font-weight: 400;
@@ -11225,7 +11332,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
   /* Content offset for fixed header */
   .main-content {
-    margin-top: 90px;
+    margin-top: 78px;
   }
 
   /* No overlay styles needed - solid header on all pages */
@@ -11317,10 +11424,10 @@ $marqueeAnimationSpeedMobile: 6.6s;
    ZENKAI PREMIUM PRODUCT DISPLAY
    ========================================================================== */
 
-/* Premium sale badge color - warm rose for pastel palette */
+/* Premium sale badge color - restrained brass instead of dusty rose */
 .grid-product__tag--sale {
-  background-color: #C97070 !important;
-  color: #ffffff !important;
+  background-color: #F3E6D2 !important;
+  color: #151823 !important;
 }
 
 /* De-emphasize "from" in pricing, emphasize the price */
@@ -11333,7 +11440,105 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 .grid-product__price {
   font-weight: 600;
-  color: #3D3632;
+  color: #171922;
+}
+
+.collection-dropdowns {
+  gap: 12px;
+}
+
+.collection-dropdowns__item select {
+  background: #FAF7F1;
+  color: #171922;
+  border: 1px solid rgba(21, 24, 35, 0.12);
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.collection-dropdowns__item select:focus {
+  border-color: rgba(21, 24, 35, 0.22);
+}
+
+.zenkai-cart-shipping {
+  margin: 14px 0 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(21, 24, 35, 0.08);
+  border-radius: 12px;
+  background: rgba(244, 239, 230, 0.9);
+  color: #171922;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.cart-trust {
+  margin: 12px 0 16px;
+  padding: 14px;
+  border-left: 3px solid #B78338;
+  border-radius: 0 14px 14px 0;
+  background: rgba(244, 239, 230, 0.92);
+  color: #171922;
+}
+
+.cart-trust__wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cart-trust__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #B78338;
+}
+
+.cart-trust__content {
+  min-width: 0;
+}
+
+.cart-trust__eyebrow {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: #B78338;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cart-trust__text {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.cart-trust__author {
+  display: block;
+  margin-top: 6px;
+  color: #5E6270;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sticky-cart__item.btn,
+.cart__checkout--drawer {
+  color: #FFFFFF;
+  border-color: #151823;
+  background: #151823;
+  box-shadow: 0 6px 18px rgba(21, 24, 35, 0.10);
+}
+
+.sticky-cart__item.btn:hover,
+.sticky-cart__item.btn:focus,
+.cart__checkout--drawer:hover,
+.cart__checkout--drawer:focus {
+  color: #FFFFFF;
+  border-color: #0F121A;
+  background: #0F121A;
 }
 
 // ========== MOBILE CRO OPTIMIZATIONS ==========
