@@ -1,21 +1,14 @@
 <div class="trust-bar-section index-section">
   <div class="page-width">
     <div class="trust-bar">
-      <div class="trust-bar__item" style="color: #E89B3E; font-weight: 700;">
-        <span class="trust-bar__icon">🚚</span>
-        <span class="trust-bar__text">FREE SHIPPING. Always.</span>
+      <div class="trust-bar__item">
+        <span class="trust-bar__text">Free U.S. shipping</span>
       </div>
       <div class="trust-bar__item">
-        <span class="trust-bar__icon">⚡</span>
-        <span class="trust-bar__text">Made to Order in 2-5 Days</span>
+        <span class="trust-bar__text">Printed to order in 2-5 business days</span>
       </div>
       <div class="trust-bar__item">
-        <span class="trust-bar__icon">🇺🇸</span>
-        <span class="trust-bar__text">Shipped from USA</span>
-      </div>
-      <div class="trust-bar__item">
-        <span class="trust-bar__icon">🔒</span>
-        <span class="trust-bar__text">Secure Checkout</span>
+        <span class="trust-bar__text">Secure checkout</span>
       </div>
     </div>
   </div>
@@ -23,8 +16,10 @@
 
 <style>
 .trust-bar-section {
-  background: #F5F6F8;
-  padding: 18px 0;
+  background: #f4efe6;
+  padding: 12px 0;
+  border-top: 1px solid rgba(21, 24, 35, 0.08);
+  border-bottom: 1px solid rgba(21, 24, 35, 0.08);
 }
 
 .trust-bar {
@@ -32,31 +27,33 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 10px;
 }
 
 .trust-bar__item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #1A1A1F;
-}
-
-.trust-bar__icon {
-  font-size: 20px;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid rgba(21, 24, 35, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #171922;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
 }
 
 @media screen and (max-width: 768px) {
   .trust-bar {
-    gap: 15px 25px;
+    gap: 8px;
   }
 
   .trust-bar__item {
-    flex: 0 0 calc(50% - 15px);
-    justify-content: center;
-    font-size: 13px;
+    flex: 1 1 100%;
+    padding: 7px 10px;
+    font-size: 12px;
   }
 }
 </style>

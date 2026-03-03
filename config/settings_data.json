@@ -316,15 +316,15 @@
           }
         },
         "block_order": [
-          "1543003878234-0",
           "1543003878234-3",
           "collection_NNbtg4",
           "1543003878234-1",
-          "collection_bUwnWc"
+          "collection_bUwnWc",
+          "1543003878234-0"
         ],
         "custom_css": [],
         "settings": {
-          "title": "Our Collections",
+          "title": "Shop by category",
           "alt": true
         }
       },
@@ -477,7 +477,7 @@
         "type": "featured-collection-slider",
         "settings": {
           "title": "Best Sellers",
-          "description": "",
+          "description": "The pieces people ask about first.",
           "home_featured_products": "best-selling",
           "per_row": "small",
           "alt": false
@@ -486,8 +486,8 @@
       "featured_collection_slider_XJfWth": {
         "type": "featured-collection-slider",
         "settings": {
-          "title": "What's New",
-          "description": "",
+          "title": "Latest drops",
+          "description": "Fresh references, same subtle signal.",
           "home_featured_products": "whats-new",
           "per_row": "small",
           "alt": false
@@ -498,10 +498,10 @@
         "custom_css": [],
         "name": "Large image with text box",
         "settings": {
-          "subtitle": "Clean designs. Deep roots.",
-          "title": "Subtle streetwear for grown-up fans.",
+          "subtitle": "The ones who get it, get it.",
+          "title": "Subtle pieces that get noticed by the right people.",
           "text": "",
-          "button_label": "Shop Now",
+          "button_label": "Shop best sellers",
           "button_link": "shopify://collections/best-selling",
           "image": "shopify://shop_images/mockup_4_1b4c339e-55c9-4095-b658-a673305249f9.png",
           "desktop_size": -10,
@@ -516,7 +516,7 @@
         "settings": {
           "subtitle": "",
           "title": "You're Not Alone",
-          "text": "<p>You outgrew the loud prints and low-quality merch—but you never outgrew the stories.<br/><br/>Zenkai was born from that tension: the desire to express who you are <em>now</em>, while honoring who you've always been.<br/><br/>We design subtle, premium pieces that speak volumes to those who get it.<br/><strong>This isn't nostalgia. It's evolution.</strong></p>",
+          "text": "<p>You outgrew the loud prints, but not the stories that shaped you.<br/><br/>Zenkai exists for that exact tension: subtle, premium pieces that still land with the right people.<br/><strong>This isn't nostalgia. It's evolution.</strong></p>",
           "button_label": "",
           "button_link": "",
           "image": "shopify://shop_images/mockup_5.png",
@@ -543,13 +543,6 @@
               "author": "J.M."
             }
           },
-          "testimonial_3": {
-            "type": "testimonial",
-            "settings": {
-              "testimonial": "<p>Love Zenkai Clothing! They have merch I've never seen before & their Pokemon stuff keeps me coming back!</p>",
-              "author": "M.C."
-            }
-          },
           "testimonial_4": {
             "type": "testimonial",
             "settings": {
@@ -561,11 +554,10 @@
         "block_order": [
           "testimonial_1",
           "testimonial_2",
-          "testimonial_3",
           "testimonial_4"
         ],
         "settings": {
-          "title": "What Customers Say",
+          "title": "Seen in the wild",
           "align_text": "center",
           "round_images": false,
           "alt": true
@@ -575,11 +567,11 @@
     "content_for_index": [
       "background_image_text_feh6JW",
       "featured_collection_slider_NqdwdL",
+      "trust_bar_section",
       "testimonials_homepage",
       "featured_collection_slider_XJfWth",
-      "trust_bar_section",
-      "background_image_text_c8AXa4",
-      "1543003878234"
+      "1543003878234",
+      "background_image_text_c8AXa4"
     ],
     "blocks": {
       "13768625480086291342": {
