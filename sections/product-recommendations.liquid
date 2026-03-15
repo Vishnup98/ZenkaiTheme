@@ -35,6 +35,14 @@
 {%- endunless -%}
 
 <style>
+  #Recommendations-{{ product.id }} {
+    --zenkai-ink: #1a1b2e;
+    --zenkai-muted: #6b6f85;
+    --zenkai-accent: #5966cf;
+    --zenkai-surface: #ffffff;
+    --zenkai-border: rgba(26, 27, 46, 0.1);
+  }
+
   #Recommendations-{{ product.id }} .index-section {
     padding-top: 0.25rem;
   }
@@ -44,16 +52,16 @@
   }
 
   #Recommendations-{{ product.id }} .section-header__title {
-    color: #1a1b2e;
+    color: var(--zenkai-ink);
     font-size: clamp(1.45rem, 4vw, 1.95rem);
     line-height: 1.05;
   }
 
   #Recommendations-{{ product.id }} .grid-product__content {
     padding: 0.6rem;
-    border: 1px solid rgba(26, 27, 46, 0.08);
+    border: 1px solid var(--zenkai-border);
     border-radius: 16px;
-    background: #ffffff;
+    background: var(--zenkai-surface);
   }
 
   #Recommendations-{{ product.id }} .grid-product__meta {
@@ -61,18 +69,18 @@
   }
 
   #Recommendations-{{ product.id }} .grid-product__title {
-    color: #1a1b2e;
+    color: var(--zenkai-ink);
     font-size: 0.95rem;
     line-height: 1.35;
   }
 
   #Recommendations-{{ product.id }} .grid-product__price {
     font-size: 0.9rem;
-    color: #6b6f85;
+    color: var(--zenkai-muted);
   }
 
   #Recommendations-{{ product.id }} .sale-price {
-    color: #5966cf;
+    color: var(--zenkai-accent);
   }
 
   @media (max-width: 767px) {
@@ -198,11 +206,7 @@
                   {% else %}
                     {%- assign related_count = related_count | plus: 1 -%}
                     {% unless related_count > number_of_products %}
-                      {% if forloop.last and current_product_found %}
-                        {% include 'product-grid-item', no_modal: true %}
-                      {% else %}
-                        {% include 'product-grid-item', no_modal: true %}
-                      {% endif %}
+                      {% include 'product-grid-item', no_modal: true %}
                     {% endunless %}
                   {% endif %}
                 {% endfor %}

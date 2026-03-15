@@ -21,25 +21,24 @@
   {% if option_name_downcase contains 'size' %}
     {%- assign is_size_option = true -%}
   {% endif %}
-  <label class="variant__label{% if option_drop.name == 'Default' or option_drop.name == 'Title' %} hidden-label{% endif %}{% unless variant_labels_enable %} hidden-label{% endunless %}"
-    for="ProductSelect-{{ section_id }}-option-{{ forloop.index0 }}">
-    {{ option_drop.name }}
-    {% if is_color %}
-      <span class="variant__label-info">
-        &mdash;
-        <span
-          id="VariantColorLabel-{{ section_id }}-{{ forloop.index0 }}"
-          data-option-index="{{ color_option_index }}">
-          {{ option.selected_value }}
-        </span>
-      </span>
-    {% endif %}
-  </label>
   {%- assign option_index = forloop.index -%}
   <fieldset class="variant-input-wrap"
     name="{{ option_drop.name }}"
     data-index="option{{ option_index }}"
     id="ProductSelect-{{ section_id }}-option-{{ forloop.index0 }}">
+    <legend class="variant__label{% if option_drop.name == 'Default' or option_drop.name == 'Title' %} hidden-label{% endif %}{% unless variant_labels_enable %} hidden-label{% endunless %}">
+      {{ option_drop.name }}
+      {% if is_color %}
+        <span class="variant__label-info">
+          &mdash;
+          <span
+            id="VariantColorLabel-{{ section_id }}-{{ forloop.index0 }}"
+            data-option-index="{{ color_option_index }}">
+            {{ option.selected_value }}
+          </span>
+        </span>
+      {% endif %}
+    </legend>
     {% for value in option_drop.values %}
       {%- assign product_available = true -%}
       {% if product.options.size == 1 %}
@@ -57,6 +56,7 @@
           data-variant-input
           {% if is_color %}data-color-swatch{% endif %}
           class="variant__input-{{ section_id }}{% unless product_available %} disabled{% endunless %}"
+          {% unless product_available %}aria-disabled="true"{% endunless %}
           {% if is_color %} data-color-name="{{ value | escape }}"{% endif %}
           {% if is_color %} data-color-index="{{ color_option_index }}"{% endif %}
           id="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}">

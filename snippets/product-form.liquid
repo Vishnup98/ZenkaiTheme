@@ -37,7 +37,7 @@
   {% if quantity_enable %}
     <div class="product__quantity product__quantity--{{ variant_type }}">
       <label for="Quantity-{{ section_id }}" class="variant__label">{{ 'products.product.quantity' | t }}</label>
-      <input type="number" id="Quantity-{{ section_id }}" name="quantity" value="1" min="1">
+      <input type="number" id="Quantity-{{ section_id }}" name="quantity" value="1" min="1" max="99">
     </div>
   {% endif %}
 
@@ -52,6 +52,7 @@
       name="add"
       data-add-to-cart
       data-cta-label="{{ zenkai_cta_text | escape }}"
+      aria-live="polite"
       class="btn btn--full add-to-cart zenkai-primary-cta{% if enable_dynamic_buttons %} zenkai-primary-cta--with-secondary{% endif %}"
       {% unless current_variant.available %} disabled="disabled"{% endunless %}>
       <span data-add-to-cart-text>

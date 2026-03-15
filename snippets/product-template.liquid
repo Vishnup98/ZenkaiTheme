@@ -410,6 +410,12 @@
     border-color: rgba(26, 27, 46, 0.28);
   }
 
+  #ProductSection-{{ section_id }} .variant-input label:focus-visible,
+  #ProductSection-{{ section_id }} .variant-input input:focus-visible + label {
+    outline: 2px solid var(--zenkai-accent);
+    outline-offset: 2px;
+  }
+
   #ProductSection-{{ section_id }} .variant-input label.disabled,
   #ProductSection-{{ section_id }} .variant-input .color-swatch.disabled {
     opacity: 0.35;
@@ -422,10 +428,16 @@
     border-radius: 999px;
     background-size: cover;
     background-position: center;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
   }
 
   #ProductSection-{{ section_id }} .variant-input input:checked + .color-swatch {
     box-shadow: 0 0 0 2px var(--zenkai-surface), 0 0 0 4px var(--zenkai-dark);
+  }
+
+  #ProductSection-{{ section_id }} .variant-input input:focus-visible + .color-swatch {
+    outline: 2px solid var(--zenkai-accent);
+    outline-offset: 4px;
   }
 
   .zenkai-product-actions {
@@ -441,6 +453,7 @@
     color: #fff !important;
     font-size: 1rem;
     font-weight: 800;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     text-transform: none;
     box-shadow: 0 18px 30px rgba(26, 27, 46, 0.16);
@@ -466,8 +479,14 @@
     transform: none;
   }
 
+  #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:focus-visible {
+    outline: 2px solid var(--zenkai-accent);
+    outline-offset: 2px;
+  }
+
   .zenkai-cta-subcopy {
-    margin: 0.65rem 0 0;
+    margin: 0.65rem auto 0;
+    max-width: 300px;
     color: var(--zenkai-muted);
     font-size: 0.86rem;
     line-height: 1.45;
@@ -480,7 +499,7 @@
 
   .zenkai-secondary-checkout .shopify-payment-button__button {
     border-radius: 12px !important;
-    min-height: 48px !important;
+    min-height: 54px !important;
   }
 
   .zenkai-outcome-panel,
@@ -552,8 +571,8 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.7);
     color: var(--zenkai-ink);
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.88rem;
+    font-weight: 800;
     letter-spacing: 0.04em;
   }
 
@@ -572,24 +591,11 @@
     border: 1px solid rgba(89, 102, 207, 0.12);
   }
 
-  .zenkai-proof-card__tag {
-    display: inline-flex;
-    margin-bottom: 0.55rem;
-    padding: 0.18rem 0.5rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.85);
-    color: var(--zenkai-accent);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
   .zenkai-proof-card__quote {
     margin: 0;
     color: var(--zenkai-ink);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.45;
   }
 
@@ -609,7 +615,7 @@
   .zenkai-sticky-sentinel {
     width: 100%;
     height: 1px;
-    margin-top: 0.1rem;
+    margin-top: 0;
   }
 
   #ProductSection-{{ section_id }} .product__policies small {
@@ -677,6 +683,14 @@
     font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: none;
+    transition: background-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .zenkai-sticky-atc__button:hover,
+  .zenkai-sticky-atc__button:focus-visible {
+    background: var(--zenkai-accent-soft);
+    outline: 2px solid var(--zenkai-accent);
+    outline-offset: -2px;
   }
 
   .zenkai-sticky-atc__button:active {
@@ -766,7 +780,7 @@
     }
 
     .zenkai-context-panel .zenkai-panel-heading {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
     }
 
     #ProductSection-{{ section_id }} .variant-input label {
@@ -799,6 +813,15 @@
   @media (min-width: 768px) {
     .zenkai-sticky-atc {
       display: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ProductSection-{{ section_id }} *,
+    #ProductSection-{{ section_id }} *::before,
+    #ProductSection-{{ section_id }} *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
     }
   }
 </style>
@@ -843,15 +866,15 @@
             video_style: video_style
           %}
 
-          <div class="zenkai-zoom-hint">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <button type="button" class="zenkai-zoom-hint" aria-label="Zoom image">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
               <line x1="11" y1="8" x2="11" y2="14"></line>
               <line x1="8" y1="11" x2="14" y2="11"></line>
             </svg>
             Zoom
-          </div>
+          </button>
         </div>
 
         <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
@@ -1078,7 +1101,6 @@
           attributes: true,
           attributeFilter: ['disabled'],
           childList: true,
-          subtree: true,
           characterData: true
         });
       }
