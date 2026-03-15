@@ -22,7 +22,7 @@
 {%- assign zenkai_rating_count = product.metafields.junip.rating_count | default: 0 | plus: 0 -%}
 {%- assign zenkai_show_review_summary = false -%}
 {%- assign zenkai_show_review_summary_first = true -%}
-{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 54 | plus: 0 -%}
+{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 68 | plus: 0 -%}
 {%- assign zenkai_sticky_atc_trigger_ratio = product_sticky_atc_trigger_ratio | default: 18 | plus: 0 -%}
 {%- assign zenkai_show_hero_review_summary = false -%}
 {%- assign zenkai_primary_proof_quote = zenkai_proof_quote_1 -%}
@@ -722,7 +722,7 @@
     }
 
     #ProductSection-{{ section_id }} .product__main-photos .product-image-main .image-wrap {
-      padding-bottom: min(86%, {{ zenkai_mobile_media_max_height }}vh) !important;
+      padding-bottom: min(115%, {{ zenkai_mobile_media_max_height }}vh) !important;
     }
 
     #ProductSection-{{ section_id }} .product__photo-dots {
