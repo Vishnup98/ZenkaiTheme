@@ -497,8 +497,8 @@
         "settings": {
           "subtitle": "The ones who get it, get it.",
           "title": "Subtle pieces that get noticed by the right people.",
-          "text": "",
-          "button_label": "Shop best sellers",
+          "text": "Tees, hoodies, and hats with references only the real ones catch.",
+          "button_label": "See what's moving",
           "button_link": "shopify://collections/best-selling",
           "image": "shopify://shop_images/mockup_4_1b4c339e-55c9-4095-b658-a673305249f9.png",
           "desktop_size": -10,
@@ -513,9 +513,9 @@
         "settings": {
           "subtitle": "",
           "title": "You're Not Alone",
-          "text": "<p>You outgrew the loud prints, but not the stories that shaped you.<br/><br/>Zenkai exists for that exact tension: subtle, premium pieces that still land with the right people.<br/><strong>This isn't nostalgia. It's evolution.</strong></p>",
-          "button_label": "",
-          "button_link": "",
+          "text": "<p>You outgrew the loud prints, but not the stories that shaped you.<br/><br/>Zenkai exists for that exact tension: subtle, premium pieces that still land with the right people.<br/><strong>Same DNA. Grown-up fit.</strong></p>",
+          "button_label": "Explore the collection",
+          "button_link": "/collections/all",
           "image": "shopify://shop_images/mockup_5.png",
           "desktop_size": 0,
           "image_alignment": "center center",
@@ -537,7 +537,7 @@
             "type": "testimonial",
             "settings": {
               "testimonial": "<p>I have gotten quite a few compliments or people asking me where I get my shirts from.</p>",
-              "author": "J.M."
+              "author": "A.R."
             }
           },
           "testimonial_4": {
@@ -554,7 +554,7 @@
           "testimonial_4"
         ],
         "settings": {
-          "title": "Seen in the wild",
+          "title": "Word on the street",
           "align_text": "center",
           "round_images": false,
           "alt": true

@@ -138,14 +138,14 @@
       "all_of_collection": "View all",
       "see_more": "Show more",
       "see_less": "Show less",
-      "no_matches": "Sorry, there are no products in this collection."
+      "no_matches": "Nothing here yet. Check back — new drops land regularly."
     },
     "sorting": {
       "title": "Sort"
     },
     "filters": {
       "title_tags": "Filter",
-      "all_tags": "All products"
+      "all_tags": "All"
     }
   },
   "contact": {
@@ -284,8 +284,8 @@
   },
   "products": {
     "general": {
-      "sale": "Sale",
-      "save_html": "Save {{ saved_amount }}",
+      "sale": "Price drop",
+      "save_html": "{{ saved_amount }} off",
       "next_product": "Next: {{ title }}",
       "sale_price": "Sale price",
       "regular_price": "Regular price",

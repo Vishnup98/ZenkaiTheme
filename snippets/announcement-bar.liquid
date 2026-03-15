@@ -10,7 +10,7 @@
     {% endif %}
 
     <div class="announcement__text{% unless zenkai_is_product_page %} announcement__text--rotating{% else %} announcement__text--static{% endunless %}"
-         {% unless zenkai_is_product_page %}data-rotating-messages='["🚚 FREE SHIPPING. Always.", "Premium Quality Materials", "Made to Order in 2-5 Days"]'{% endunless %}>
+         {% unless zenkai_is_product_page %}data-rotating-messages='["Free U.S. shipping on every order.", "Made to order in 2-5 business days.", "Subtle references. Premium blanks."]'{% endunless %}>
       {{ section.settings.announcement_text | strip_html }}
     </div>
 

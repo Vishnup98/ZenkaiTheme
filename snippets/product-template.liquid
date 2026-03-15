@@ -1,19 +1,19 @@
 {% include 'product-template-variables' %}
 
 {%- assign zenkai_signal_hook = product_signal_hook | default: product_identity_eyebrow | default: 'The ones who get it, get it.' -%}
-{%- assign zenkai_social_subheadline = product_social_subheadline | default: product_subheadline | default: 'A subtle reference that gets noticed by the right people.' -%}
+{%- assign zenkai_social_subheadline = product_social_subheadline | default: product_subheadline | default: 'Wear it anywhere. The right people always catch it.' -%}
 {%- assign zenkai_cta_text = product_cta_text | default: 'Add to Cart' -%}
 {%- assign zenkai_cta_subcopy = product_cta_subcopy | default: product_cta_note | default: 'Free U.S. shipping. Printed to order.' -%}
-{%- assign zenkai_outcome_1 = product_outcome_1 | default: product_benefit_1 | default: 'The right people notice immediately' -%}
+{%- assign zenkai_outcome_1 = product_outcome_1 | default: product_benefit_1 | default: 'Quiet enough for work. Sharp enough for a show.' -%}
 {%- assign zenkai_outcome_2 = product_outcome_2 | default: product_benefit_2 | default: 'Subtle enough for everyday wear' -%}
-{%- assign zenkai_outcome_3 = product_outcome_3 | default: product_benefit_3 | default: 'The kind of shirt that starts conversations at the right events' -%}
+{%- assign zenkai_outcome_3 = product_outcome_3 | default: product_benefit_3 | default: 'The kind of piece that starts conversations at shows, meetups, and everywhere the culture runs deep' -%}
 {%- assign zenkai_context_heading = product_context_heading | default: 'Where this hits' -%}
 {%- assign zenkai_context_1 = product_context_1 | default: 'At card shows, the right people catch it fast' -%}
 {%- assign zenkai_context_2 = product_context_2 | default: 'At conventions, it reads clean before it reads fandom' -%}
 {%- assign zenkai_context_3 = product_context_3 | default: 'Day to day, it still just looks good' -%}
-{%- assign zenkai_proof_quote_1 = product_proof_quote_1 | default: product_proof_message | default: 'Wore it out and someone caught the reference almost immediately.' -%}
-{%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 | default: product_proof_author | default: 'Recent buyer' -%}
-{%- assign zenkai_proof_quote_2 = product_proof_quote_2 | default: 'Exactly the kind of subtle design I wanted. It gets noticed by the right people.' -%}
+{%- assign zenkai_proof_quote_1 = product_proof_quote_1 | default: product_proof_message | default: 'Wore it to a local event and someone caught the reference within the first ten minutes. That's all I needed to know.' -%}
+{%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 | default: product_proof_author | default: 'Verified buyer' -%}
+{%- assign zenkai_proof_quote_2 = product_proof_quote_2 | default: 'Clean enough to wear to the office, but the right people still catch it every time. Exactly what I wanted.' -%}
 {%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 | default: 'Show floor regular' -%}
 {%- assign zenkai_current_variant_label = current_variant.title -%}
 {%- assign zenkai_mobile_sticky_atc = true -%}
@@ -868,7 +868,7 @@
               {% if zenkai_show_hero_review_summary %}
                 <div class="zenkai-hero-proof-row">
                   {% render 'junip-product-summary', product: product %}
-                  <span class="zenkai-hero-proof-copy">The kind of piece people notice in the wild</span>
+                  <span class="zenkai-hero-proof-copy">Spotted and recognized at events, meetups, and in the wild</span>
                 </div>
               {% endif %}
 
@@ -917,8 +917,8 @@
                 </div>
               {% endunless %}
 
-              <section class="zenkai-outcome-panel" aria-label="What happens when you wear it">
-                <h2 class="zenkai-panel-heading">What happens when you wear it</h2>
+              <section class="zenkai-outcome-panel" aria-label="What you get">
+                <h2 class="zenkai-panel-heading">What you get</h2>
                 <ul class="zenkai-outcome-list" role="list">
                   <li>{{ zenkai_outcome_1 }}</li>
                   <li>{{ zenkai_outcome_2 }}</li>
