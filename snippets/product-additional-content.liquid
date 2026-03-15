@@ -48,6 +48,10 @@
   .zenkai-accordion__trigger:active {
     background: rgba(26, 27, 46, 0.06);
   }
+  .zenkai-accordion__trigger:focus-visible {
+    outline: 2px solid #5966cf;
+    outline-offset: 2px;
+  }
 
   .zenkai-accordion__icon {
     width: 18px;
@@ -179,11 +183,11 @@
 
 <div class="zenkai-accordion">
   <div class="zenkai-accordion__item">
-    <button type="button" class="zenkai-accordion__trigger is-active" aria-expanded="true" aria-controls="zenkai-size-{{ section_id }}">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-size-{{ section_id }}">
       <span>Fit, feel, and sizing</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
-    <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content is-active">
+    <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
         <p><strong>Standard fit with an easy everyday feel.</strong></p>
         <ul>
@@ -198,11 +202,11 @@
   </div>
 
   <div class="zenkai-accordion__item">
-    <button type="button" class="zenkai-accordion__trigger is-active" aria-expanded="true" aria-controls="zenkai-shipping-{{ section_id }}">
+    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-shipping-{{ section_id }}">
       <span>Shipping and production</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
-    <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content is-active">
+    <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
         <p><strong>Every piece is printed to order in the U.S.</strong></p>
         <ul>
