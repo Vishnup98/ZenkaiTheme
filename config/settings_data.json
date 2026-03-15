@@ -135,35 +135,22 @@
           "enable_video_looping": true,
           "product_video_style": "muted",
           "enable_payment_button": true,
-          "product_shipping_callout": "Free U.S. shipping on every order.",
           "product_signal_hook": "The ones who get it, get it.",
-          "product_identity_eyebrow": "The ones who get it, get it.",
           "product_social_subheadline": "A subtle reference that gets noticed by the right people.",
-          "product_subheadline": "A subtle reference that gets noticed by the right people.",
           "product_cta_text": "Add to Cart",
           "product_cta_subcopy": "Free U.S. shipping. Printed to order.",
-          "product_cta_note": "Free U.S. shipping. Printed to order.",
           "product_outcome_1": "The right people notice immediately",
           "product_outcome_2": "Subtle enough for everyday wear",
           "product_outcome_3": "The kind of shirt that starts conversations at the right events",
-          "product_benefit_1": "The right people notice immediately",
-          "product_benefit_2": "Subtle enough for everyday wear",
-          "product_benefit_3": "The kind of shirt that starts conversations at the right events",
           "product_context_heading": "Where this hits",
           "product_context_1": "At card shows, the right people catch it fast",
           "product_context_2": "At conventions, it reads clean before it reads fandom",
           "product_context_3": "Day to day, it still just looks good",
           "product_proof_quote_1": "Wore it out and someone caught the reference almost immediately.",
-          "product_proof_quote_2": "Exactly the kind of subtle design I wanted. It gets noticed by the right people.",
           "product_proof_attribution_1": "Recent buyer",
+          "product_proof_quote_2": "Exactly the kind of subtle design I wanted. It gets noticed by the right people.",
           "product_proof_attribution_2": "Show floor regular",
-          "product_urgency_chip": "Printed to order in the USA",
-          "product_guarantee_note": "Secure checkout",
           "hide_mobile_breadcrumbs": true,
-          "product_proof_style": "customer_messages",
-          "product_proof_heading": "Seen in the wild",
-          "product_proof_message": "Wore it out and someone caught the reference almost immediately.",
-          "product_proof_author": "Recent buyer",
           "product_mobile_media_max_height": 54,
           "product_sticky_atc_trigger_ratio": 18,
           "product_show_review_summary_first": true,
@@ -203,8 +190,6 @@
       },
       "product-sections": {
         "type": "product-sections",
-        "blocks": {},
-        "block_order": [],
         "settings": {}
       },
       "page-sections-template": {
@@ -497,7 +482,7 @@
         "settings": {
           "subtitle": "The ones who get it, get it.",
           "title": "Subtle pieces that get noticed by the right people.",
-          "text": "Tees, hoodies, and hats with references only the real ones catch.",
+          "text": "<p>Tees, hoodies, and hats with references only the real ones catch.</p>",
           "button_label": "See what's moving",
           "button_link": "shopify://collections/best-selling",
           "image": "shopify://shop_images/mockup_4_1b4c339e-55c9-4095-b658-a673305249f9.png",
@@ -592,11 +577,6 @@
           "smartsize_conversion_label_IN": "INCHES"
         }
       },
-      "22230382528836309": {
-        "type": "shopify://apps/xb-sticky-add-to-cart/blocks/core_script/e9179814-5d2a-40d0-a03d-245bcb819e73",
-        "disabled": true,
-        "settings": {}
-      },
       "14429071373314833104": {
         "type": "shopify://apps/candy-rack/blocks/head/cb9c657f-334f-4905-80c2-f69cca01460c",
         "disabled": false,
@@ -633,23 +613,8 @@
           "greeting_message": "👋 Hi, message us with any questions. We're happy to help! We'll typically be with you within a few hours!"
         }
       },
-      "10840395464443086010": {
-        "type": "shopify://apps/alia/blocks/customer-app-frame/51f1d398-3e41-44da-b81e-defd5804b292",
-        "disabled": false,
-        "settings": {}
-      },
-      "10115289292966514107": {
-        "type": "shopify://apps/wiser-ai-upsell-cross-sell/blocks/wiser-block/3f966edc-9a4a-465c-a4df-436d2a39160d",
-        "disabled": false,
-        "settings": {}
-      },
-      "10434560723743799785": {
-        "type": "shopify://apps/wiser-ai-upsell-cross-sell/blocks/wiser-popup-block/3f966edc-9a4a-465c-a4df-436d2a39160d",
-        "disabled": false,
-        "settings": {}
-      },
-      "5639393805199886848": {
-        "type": "shopify://apps/wiser-ai-upsell-cross-sell/blocks/wiser-cart-drawer-block/3f966edc-9a4a-465c-a4df-436d2a39160d",
+      "22230382528836309": {
+        "type": "shopify://apps/xb-ai-cart-upsell/blocks/core_script/e9179814-5d2a-40d0-a03d-245bcb819e73",
         "disabled": false,
         "settings": {}
       }
