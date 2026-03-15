@@ -43,7 +43,10 @@
 
   .zenkai-accordion__trigger:hover,
   .zenkai-accordion__trigger:focus {
-    color: #1a1b2e;
+    background: rgba(26, 27, 46, 0.03);
+  }
+  .zenkai-accordion__trigger:active {
+    background: rgba(26, 27, 46, 0.06);
   }
 
   .zenkai-accordion__icon {
@@ -94,7 +97,7 @@
 
   .zenkai-accordion__inner {
     padding: 0 1.1rem 1rem;
-    color: #6b6f85;
+    color: #555872;
     font-size: 0.9rem;
     line-height: 1.6;
   }
@@ -162,6 +165,15 @@
 
   .zenkai-faq-answer {
     color: #6b6f85;
+  }
+
+  @media (max-width: 767px) {
+    .zenkai-accordion__trigger {
+      padding: 0.9rem;
+    }
+    .zenkai-accordion__inner {
+      padding: 0 0.9rem 0.9rem;
+    }
   }
 </style>
 

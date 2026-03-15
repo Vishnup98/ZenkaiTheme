@@ -251,7 +251,7 @@
   #ProductSection-{{ section_id }} .product-single__prices .product__price--compare {
     position: relative;
     padding-right: 0;
-    color: rgba(26, 27, 46, 0.6);
+    color: rgba(26, 27, 46, 0.72);
     font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
@@ -329,12 +329,15 @@
   }
 
   #ProductSection-{{ section_id }} .variant__label-note {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     margin: 0 0 0.55rem;
-    padding: 0;
+    padding: 0.5rem 0;
     border: 0;
     background: none;
     color: var(--zenkai-muted);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     line-height: 1.35;
     text-decoration: underline;
@@ -396,6 +399,11 @@
     border-color: rgba(26, 27, 46, 0.28);
   }
 
+  #ProductSection-{{ section_id }} .variant-input label:active {
+    transform: scale(0.96);
+    border-color: rgba(26, 27, 46, 0.28);
+  }
+
   #ProductSection-{{ section_id }} .variant-input label.disabled,
   #ProductSection-{{ section_id }} .variant-input .color-swatch.disabled {
     opacity: 0.35;
@@ -438,6 +446,11 @@
     background: var(--zenkai-dark-hover) !important;
     box-shadow: 0 20px 32px rgba(26, 27, 46, 0.2);
     transform: translateY(-1px);
+  }
+
+  #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:active {
+    transform: scale(0.98);
+    box-shadow: 0 8px 18px rgba(26, 27, 46, 0.12);
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:disabled {
@@ -560,7 +573,7 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.85);
     color: var(--zenkai-accent);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -610,7 +623,7 @@
     display: none;
     align-items: center;
     gap: 0.55rem;
-    padding: 0.625rem 0.75rem;
+    padding: 0.75rem 0.85rem;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(26, 27, 46, 0.94);
@@ -638,7 +651,7 @@
     display: block;
     margin-top: 0.12rem;
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.68rem;
+    font-size: 0.78rem;
     font-weight: 600;
     line-height: 1.25;
     white-space: nowrap;
@@ -649,7 +662,7 @@
   .zenkai-sticky-atc__button {
     flex: 0 0 auto;
     min-width: 118px;
-    min-height: 40px;
+    min-height: 48px;
     border: 0;
     border-radius: 12px;
     background: #fff;
@@ -658,6 +671,16 @@
     font-weight: 800;
     letter-spacing: 0.02em;
     text-transform: none;
+  }
+
+  .zenkai-sticky-atc__button:active {
+    transform: scale(0.97);
+    background: #e8eaf8;
+  }
+
+  .zenkai-sticky-atc__button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
   }
 
   @media (max-width: 767px) {
@@ -711,7 +734,7 @@
     }
 
     .zenkai-signal-hook {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       margin-bottom: 0.45rem;
     }
 
@@ -736,6 +759,10 @@
       font-size: 0.9rem;
     }
 
+    .zenkai-context-panel .zenkai-panel-heading {
+      font-size: 0.82rem;
+    }
+
     #ProductSection-{{ section_id }} .variant-input label {
       min-width: 2.85rem;
       min-height: 2.75rem;
@@ -749,7 +776,7 @@
     }
 
     .zenkai-cta-subcopy {
-      font-size: 0.8rem;
+      font-size: 0.84rem;
     }
 
     .zenkai-outcome-list li,

@@ -3,7 +3,7 @@
   {%- assign zenkai_is_product_page = true -%}
 {% endif %}
 
-<div class="announcement" style="background: #1a1b2e;">
+<div class="announcement">
   <div class="announcement__wrapper">
     {% if section.settings.announcement_link != blank %}
       <a href="{{ section.settings.announcement_link }}" class="announcement__link">
@@ -47,6 +47,7 @@
 <style>
 .announcement__text--rotating {
   transition: opacity 0.3s ease;
+  will-change: opacity;
 }
 /* Night Signal - Midnight Indigo Announcement Bar */
 .announcement {
