@@ -68,16 +68,16 @@
 
 <style>
   #ProductSection-{{ section_id }} {
-    --zenkai-page-bg: #faf7f1;
+    --zenkai-page-bg: #f5f5f7;
     --zenkai-surface: #ffffff;
-    --zenkai-surface-alt: #f4efe6;
-    --zenkai-ink: #171922;
-    --zenkai-muted: #5e6270;
-    --zenkai-dark: #151823;
-    --zenkai-dark-hover: #0f121a;
-    --zenkai-brass: #b78338;
-    --zenkai-brass-soft: #f3e6d2;
-    --zenkai-border: rgba(21, 24, 35, 0.1);
+    --zenkai-surface-alt: #eef0f4;
+    --zenkai-ink: #1a1b2e;
+    --zenkai-muted: #6b6f85;
+    --zenkai-dark: #1a1b2e;
+    --zenkai-dark-hover: #131428;
+    --zenkai-accent: #5966cf;
+    --zenkai-accent-soft: #e8eaf8;
+    --zenkai-border: rgba(26, 27, 46, 0.1);
   }
 
   #ProductSection-{{ section_id }} .page-content {
@@ -133,7 +133,7 @@
     border-radius: 18px;
     background: var(--zenkai-surface);
     overflow: hidden;
-    box-shadow: 0 18px 36px rgba(21, 24, 35, 0.06);
+    box-shadow: 0 18px 36px rgba(26, 27, 46, 0.06);
   }
 
   #ProductSection-{{ section_id }} .product__photo-dots {
@@ -155,7 +155,7 @@
     gap: 0.45rem;
     padding: 0.5rem 0.75rem;
     border-radius: 999px;
-    background: rgba(21, 24, 35, 0.8);
+    background: rgba(26, 27, 46, 0.8);
     color: #fff;
     font-size: 0.75rem;
     line-height: 1;
@@ -174,12 +174,12 @@
     border: 1px solid var(--zenkai-border);
     border-radius: 18px;
     background: var(--zenkai-surface);
-    box-shadow: 0 14px 30px rgba(21, 24, 35, 0.05);
+    box-shadow: 0 14px 30px rgba(26, 27, 46, 0.05);
   }
 
   .zenkai-signal-hook {
     margin: 0 0 0.55rem;
-    color: var(--zenkai-brass);
+    color: var(--zenkai-accent);
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -221,7 +221,7 @@
     margin: 0;
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
-    background: var(--zenkai-brass-soft);
+    background: var(--zenkai-accent-soft);
     color: var(--zenkai-ink);
     font-size: 0.78rem;
     font-weight: 600;
@@ -237,7 +237,7 @@
     padding: 0.8rem 0.95rem;
     border-radius: 16px;
     background: var(--zenkai-surface-alt);
-    border: 1px solid rgba(183, 131, 56, 0.12);
+    border: 1px solid rgba(89, 102, 207, 0.12);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices {
@@ -251,7 +251,7 @@
   #ProductSection-{{ section_id }} .product-single__prices .product__price--compare {
     position: relative;
     padding-right: 0;
-    color: rgba(23, 25, 34, 0.6);
+    color: rgba(26, 27, 46, 0.6);
     font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
@@ -264,7 +264,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: rgba(23, 25, 34, 0.4);
+    background: rgba(26, 27, 46, 0.4);
     transform: translateY(-50%);
   }
 
@@ -277,7 +277,7 @@
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .product__price.sale-price {
-    color: var(--zenkai-brass);
+    color: var(--zenkai-accent);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .you-save {
@@ -286,7 +286,7 @@
     padding: 0.3rem 0.65rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.65);
-    color: var(--zenkai-brass);
+    color: var(--zenkai-accent);
     font-size: 0.78rem;
     font-weight: 700;
     line-height: 1.2;
@@ -302,7 +302,7 @@
     border: 1px solid var(--zenkai-border);
     border-radius: 18px;
     background: var(--zenkai-surface);
-    box-shadow: 0 14px 30px rgba(21, 24, 35, 0.04);
+    box-shadow: 0 14px 30px rgba(26, 27, 46, 0.04);
   }
 
   #ProductSection-{{ section_id }} .variant-wrapper {
@@ -372,7 +372,7 @@
     min-width: 3.1rem;
     min-height: 2.95rem;
     padding: 0.75rem 0.9rem;
-    border: 1px solid rgba(21, 24, 35, 0.14);
+    border: 1px solid rgba(26, 27, 46, 0.14);
     border-radius: 10px;
     background: var(--zenkai-surface-alt);
     color: var(--zenkai-ink);
@@ -387,13 +387,13 @@
     border-color: var(--zenkai-dark);
     background: var(--zenkai-dark);
     color: #fff;
-    box-shadow: 0 10px 22px rgba(21, 24, 35, 0.14);
+    box-shadow: 0 10px 22px rgba(26, 27, 46, 0.14);
   }
 
   #ProductSection-{{ section_id }} .variant-input label:hover,
   #ProductSection-{{ section_id }} .variant-input label:focus {
     transform: translateY(-1px);
-    border-color: rgba(21, 24, 35, 0.28);
+    border-color: rgba(26, 27, 46, 0.28);
   }
 
   #ProductSection-{{ section_id }} .variant-input label.disabled,
@@ -429,19 +429,19 @@
     font-weight: 800;
     letter-spacing: 0.01em;
     text-transform: none;
-    box-shadow: 0 18px 30px rgba(21, 24, 35, 0.16);
+    box-shadow: 0 18px 30px rgba(26, 27, 46, 0.16);
     transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:hover,
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:focus {
     background: var(--zenkai-dark-hover) !important;
-    box-shadow: 0 20px 32px rgba(21, 24, 35, 0.2);
+    box-shadow: 0 20px 32px rgba(26, 27, 46, 0.2);
     transform: translateY(-1px);
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:disabled {
-    background: rgba(21, 24, 35, 0.35) !important;
+    background: rgba(26, 27, 46, 0.35) !important;
     color: rgba(255, 255, 255, 0.7) !important;
     box-shadow: none;
     transform: none;
@@ -475,7 +475,7 @@
   }
 
   .zenkai-outcome-panel {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 239, 230, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 240, 244, 0.9) 100%);
   }
 
   .zenkai-panel-heading {
@@ -517,13 +517,13 @@
     width: 0.42rem;
     height: 0.42rem;
     border-radius: 999px;
-    background: var(--zenkai-brass);
-    box-shadow: 0 0 0 4px rgba(183, 131, 56, 0.12);
+    background: var(--zenkai-accent);
+    box-shadow: 0 0 0 4px rgba(89, 102, 207, 0.12);
   }
 
   .zenkai-context-panel {
     background: var(--zenkai-surface-alt);
-    border-color: rgba(183, 131, 56, 0.14);
+    border-color: rgba(89, 102, 207, 0.14);
   }
 
   .zenkai-context-panel .zenkai-panel-heading {
@@ -550,7 +550,7 @@
     padding: 0.9rem;
     border-radius: 16px;
     background: var(--zenkai-surface-alt);
-    border: 1px solid rgba(183, 131, 56, 0.12);
+    border: 1px solid rgba(89, 102, 207, 0.12);
   }
 
   .zenkai-proof-card__tag {
@@ -559,7 +559,7 @@
     padding: 0.18rem 0.5rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.85);
-    color: var(--zenkai-brass);
+    color: var(--zenkai-accent);
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -613,7 +613,7 @@
     padding: 0.625rem 0.75rem;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(21, 24, 35, 0.94);
+    background: rgba(26, 27, 46, 0.94);
     box-shadow: 0 20px 36px rgba(0, 0, 0, 0.24);
   }
 
