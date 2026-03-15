@@ -290,7 +290,7 @@
       "sale_price": "Sale price",
       "regular_price": "Regular price",
       "from_text_html": "<span class=\"price-from-label\">from</span> {{ price }}",
-      "related_products": "You may also like",
+      "related_products": "Same energy",
       "collection_return": "Back to {{ collection }}"
     },
     "product": {
