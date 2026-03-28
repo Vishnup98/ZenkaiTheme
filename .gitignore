@@ -24,3 +24,4 @@ node_modules/
 
 # Generated Shopify assets
 assets/theme.scss
+.gstack/

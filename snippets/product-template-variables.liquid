@@ -40,7 +40,7 @@
       "priceValidUntil": "{{ 'now' | date: '%s' | plus: days_price_valid_until | date: '%Y-%m-%d'}}",
       "url": "{{ shop.url }}{{ product.url }}"
     },
-    "brand": {{ product.vendor | json }},
+    "brand": {{ shop.name | json }},
     "sku": {{ current_variant.sku | json }},
     "name": {{ product.title | json }},
     "description": {{ product.description | strip_html | json }},

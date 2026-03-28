@@ -1,8 +1,8 @@
 {%- assign zenkai_cta_text = product_cta_text | default: 'Add to Cart' -%}
 {%- assign zenkai_cta_subcopy = product_cta_subcopy | default: product_cta_note | default: 'Free U.S. shipping. Printed to order.' -%}
-{%- assign zenkai_secondary_checkout = false -%}
-{% if show_dynamic_checkout_secondary %}
-  {%- assign zenkai_secondary_checkout = true -%}
+{%- assign zenkai_secondary_checkout = true -%}
+{% if show_dynamic_checkout_secondary == false %}
+  {%- assign zenkai_secondary_checkout = false -%}
 {% endif %}
 
 {% capture form_id %}AddToCartForm-{{ section_id }}{% endcapture %}

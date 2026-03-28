@@ -4,7 +4,7 @@
   PNG files and want to keep them that way, set the line
   below to false.
 {% endcomment %}
-{%- assign force_jpg = true -%}
+{%- assign force_jpg = false -%}
 
 {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
 

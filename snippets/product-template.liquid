@@ -17,9 +17,9 @@
 {%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 | default: 'Show floor regular' -%}
 {%- assign zenkai_current_variant_label = current_variant.title -%}
 {%- assign zenkai_mobile_sticky_atc = true -%}
-{%- assign zenkai_secondary_checkout = false -%}
+{%- assign zenkai_secondary_checkout = true -%}
 {%- assign zenkai_hide_mobile_breadcrumbs = true -%}
-{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 68 | plus: 0 -%}
+{%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 52 | plus: 0 -%}
 {%- assign zenkai_sticky_atc_trigger_ratio = product_sticky_atc_trigger_ratio | default: 18 | plus: 0 -%}
 {%- assign zenkai_primary_proof_quote = zenkai_proof_quote_1 -%}
 {%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_1 -%}
@@ -659,6 +659,31 @@
     letter-spacing: 0.02em;
   }
 
+  .zenkai-brand-quote {
+    margin-top: 0.95rem;
+    padding: 1.05rem 1.1rem 1.05rem 1.25rem;
+    border-radius: 18px;
+    border: 1px solid var(--zenkai-border);
+    border-left: 3px solid var(--zenkai-accent);
+    background: var(--zenkai-surface);
+  }
+
+  .zenkai-brand-quote__text {
+    margin: 0;
+    color: var(--zenkai-ink);
+    font-size: 0.96rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .zenkai-brand-quote__follow {
+    margin: 0.5rem 0 0;
+    color: var(--zenkai-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
   .zenkai-additional-content {
     margin-top: 1rem;
   }
@@ -846,6 +871,19 @@
       font-size: 0.96rem;
     }
 
+    .zenkai-brand-quote {
+      padding: 0.9rem 0.9rem 0.9rem 1.1rem;
+      border-radius: 16px;
+    }
+
+    .zenkai-brand-quote__text {
+      font-size: 0.9rem;
+    }
+
+    .zenkai-brand-quote__follow {
+      font-size: 0.82rem;
+    }
+
     .zenkai-cta-subcopy {
       font-size: 0.84rem;
     }
@@ -967,6 +1005,15 @@
             </div>
 
             <div class="zenkai-conversion-stack">
+              <section class="zenkai-outcome-panel" aria-label="What you get">
+                <h2 class="zenkai-panel-heading">What you get</h2>
+                <ul class="zenkai-outcome-list" role="list">
+                  <li>{{ zenkai_outcome_1 }}</li>
+                  <li>{{ zenkai_outcome_2 }}</li>
+                  <li>{{ zenkai_outcome_3 }}</li>
+                </ul>
+              </section>
+
               {% unless isModal %}
                 {% include 'product-form',
                   section_id: section_id,
@@ -990,15 +1037,12 @@
                 </div>
               {% endunless %}
 
-              <section class="zenkai-outcome-panel" aria-label="What you get">
-                <h2 class="zenkai-panel-heading">What you get</h2>
-                <ul class="zenkai-outcome-list" role="list">
-                  <li>{{ zenkai_outcome_1 }}</li>
-                  <li>{{ zenkai_outcome_2 }}</li>
-                  <li>{{ zenkai_outcome_3 }}</li>
-                </ul>
-              </section>
               <div class="zenkai-sticky-sentinel" data-sticky-sentinel aria-hidden="true"></div>
+
+              <aside class="zenkai-brand-quote" aria-label="Brand story">
+                <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
+                <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
+              </aside>
 
               <div class="zenkai-additional-content">
                 {% if settings.additional_content_style == 'expandable' %}
