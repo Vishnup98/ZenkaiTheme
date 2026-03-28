@@ -19,12 +19,8 @@
 {%- assign zenkai_mobile_sticky_atc = true -%}
 {%- assign zenkai_secondary_checkout = false -%}
 {%- assign zenkai_hide_mobile_breadcrumbs = true -%}
-{%- assign zenkai_rating_count = product.metafields.junip.rating_count | default: 0 | plus: 0 -%}
-{%- assign zenkai_show_review_summary = false -%}
-{%- assign zenkai_show_review_summary_first = true -%}
 {%- assign zenkai_mobile_media_max_height = product_mobile_media_max_height | default: 68 | plus: 0 -%}
 {%- assign zenkai_sticky_atc_trigger_ratio = product_sticky_atc_trigger_ratio | default: 18 | plus: 0 -%}
-{%- assign zenkai_show_hero_review_summary = false -%}
 {%- assign zenkai_primary_proof_quote = zenkai_proof_quote_1 -%}
 {%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_1 -%}
 {%- assign zenkai_show_social_proof_panel = false -%}
@@ -45,17 +41,6 @@
   {%- assign zenkai_secondary_checkout = true -%}
 {% endif %}
 
-{% if product_show_review_summary_first == false %}
-  {%- assign zenkai_show_review_summary_first = false -%}
-{% endif %}
-
-{% if shop.metafields.junip.onsite_enabled and zenkai_rating_count > 0 %}
-  {%- assign zenkai_show_review_summary = true -%}
-{% endif %}
-
-{% if zenkai_show_review_summary and zenkai_show_review_summary_first %}
-  {%- assign zenkai_show_hero_review_summary = true -%}
-{% endif %}
 
 {% if zenkai_primary_proof_quote == blank and zenkai_proof_quote_2 != blank %}
   {%- assign zenkai_primary_proof_quote = zenkai_proof_quote_2 -%}
@@ -213,11 +198,6 @@
     align-items: center;
     gap: 0.75rem;
     margin-top: 0.95rem;
-  }
-
-  .zenkai-hero-proof-row .junip-product-summary {
-    display: inline-flex;
-    align-items: center;
   }
 
   .zenkai-hero-proof-copy {
@@ -964,13 +944,6 @@
               {% endif %}
 
               <p class="zenkai-social-subheadline">{{ zenkai_social_subheadline }}</p>
-
-              {% if zenkai_show_hero_review_summary %}
-                <div class="zenkai-hero-proof-row">
-                  {% render 'junip-product-summary', product: product %}
-                  <span class="zenkai-hero-proof-copy">Spotted and recognized at events, meetups, and in the wild</span>
-                </div>
-              {% endif %}
 
               <div class="zenkai-price-band">
                 <div class="product-single__prices" data-price-wrapper>
