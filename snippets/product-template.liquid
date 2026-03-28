@@ -509,7 +509,7 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.4rem 1.1rem;
-    margin: 0.7rem 0 0;
+    margin: 0 0 0.7rem;
   }
 
   .zenkai-trust-item {
@@ -1027,7 +1027,7 @@
       <div class="zenkai-sticky-atc" data-sticky-atc hidden>
         <div class="zenkai-sticky-atc__meta">
           <span class="zenkai-sticky-atc__price" data-sticky-atc-price>{{ current_variant.price | money }}</span>
-          <span class="zenkai-sticky-atc__trust">Free shipping · Premium cotton</span>
+          <span class="zenkai-sticky-atc__variant" data-sticky-atc-variant>{{ zenkai_current_variant_label }}</span>
         </div>
         <button type="button" class="btn zenkai-sticky-atc__button" data-sticky-atc-button{% unless current_variant.available %} disabled="disabled"{% endunless %}>
           {% if current_variant.available %}
