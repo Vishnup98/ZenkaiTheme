@@ -57,7 +57,7 @@
     "additional_content_style": "expandable",
     "enable_product_reviews": false,
     "quick_shop_enable": false,
-    "cart_type": "drawer",
+    "cart_type": "page",
     "cart_icon": "cart",
     "social_instagram_link": "https://instagram.com/zenkai.clothing",
     "social_facebook_link": "https://www.facebook.com/profile.php?id=61574927859435",
