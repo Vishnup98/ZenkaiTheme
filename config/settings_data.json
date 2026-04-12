@@ -577,11 +577,6 @@
           "smartsize_conversion_label_IN": "INCHES"
         }
       },
-      "14429071373314833104": {
-        "type": "shopify://apps/candy-rack/blocks/head/cb9c657f-334f-4905-80c2-f69cca01460c",
-        "disabled": false,
-        "settings": {}
-      },
       "7924418359578431505": {
         "type": "shopify://apps/seoant-ai-seo/blocks/seoant-core/8e57283b-dcb0-4f7b-a947-fb5c57a0d59d",
         "disabled": false,
@@ -615,6 +610,11 @@
       },
       "22230382528836309": {
         "type": "shopify://apps/xb-ai-cart-upsell/blocks/core_script/e9179814-5d2a-40d0-a03d-245bcb819e73",
+        "disabled": false,
+        "settings": {}
+      },
+      "14952540001915115444": {
+        "type": "shopify://apps/upcart-cart-drawer/blocks/app-embed/af3da5fb-f5f7-40ec-8273-41bf50059d4b",
         "disabled": false,
         "settings": {}
       }
