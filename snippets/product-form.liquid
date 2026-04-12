@@ -48,6 +48,13 @@
 
   <p class="zenkai-fit-note">Runs true to size · Retail fit, not boxy</p>
 
+  {% if zenkai_primary_proof_quote != blank %}
+    <div class="zenkai-proof-nudge" aria-label="Customer review">
+      <span class="zenkai-proof-nudge__quote">"{{ zenkai_primary_proof_quote }}"</span>
+      <span class="zenkai-proof-nudge__attr">— {{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
+    </div>
+  {% endif %}
+
   <div class="zenkai-product-actions" data-product-form-anchor>
     <div class="zenkai-trust-strip">
       <span class="zenkai-trust-item">

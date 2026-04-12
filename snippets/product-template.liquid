@@ -62,6 +62,8 @@
     --zenkai-dark-hover: #131428;
     --zenkai-accent: #5966cf;
     --zenkai-accent-soft: #e8eaf8;
+    --zenkai-cta: #e85d3a;
+    --zenkai-cta-hover: #d14e2d;
     --zenkai-border: rgba(26, 27, 46, 0.1);
   }
 
@@ -432,38 +434,38 @@
     min-height: 58px;
     border: 0;
     border-radius: 12px;
-    background: var(--zenkai-accent) !important;
+    background: var(--zenkai-cta) !important;
     color: #fff !important;
     font-size: 1rem;
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: 0.01em;
     text-transform: none;
-    box-shadow: 0 18px 30px rgba(89, 102, 207, 0.22), 0 6px 20px -2px rgba(89, 102, 207, 0.4);
+    box-shadow: 0 18px 30px rgba(232, 93, 58, 0.22), 0 6px 20px -2px rgba(232, 93, 58, 0.35);
     transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:hover,
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:focus {
-    background: #4e5abf !important;
-    box-shadow: 0 20px 32px rgba(89, 102, 207, 0.28), 0 8px 24px -2px rgba(89, 102, 207, 0.45);
+    background: var(--zenkai-cta-hover) !important;
+    box-shadow: 0 20px 32px rgba(232, 93, 58, 0.28), 0 8px 24px -2px rgba(232, 93, 58, 0.4);
     transform: translateY(-1px);
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:active {
     transform: scale(0.98);
-    box-shadow: 0 8px 18px rgba(89, 102, 207, 0.18);
+    box-shadow: 0 8px 18px rgba(232, 93, 58, 0.18);
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:disabled {
-    background: rgba(89, 102, 207, 0.35) !important;
+    background: rgba(232, 93, 58, 0.35) !important;
     color: rgba(255, 255, 255, 0.7) !important;
     box-shadow: none;
     transform: none;
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta:focus-visible {
-    outline: 2px solid var(--zenkai-accent);
+    outline: 2px solid var(--zenkai-cta);
     outline-offset: 2px;
   }
 
@@ -533,6 +535,32 @@
     font-size: 0.82rem;
     font-weight: 600;
     line-height: 1.35;
+  }
+
+  .zenkai-proof-nudge {
+    margin: 0 0 0.65rem;
+    padding: 0.55rem 0.7rem;
+    border-left: 3px solid var(--zenkai-cta);
+    background: rgba(232, 93, 58, 0.04);
+    border-radius: 0 8px 8px 0;
+    line-height: 1.4;
+  }
+
+  .zenkai-proof-nudge__quote {
+    display: block;
+    color: var(--zenkai-ink);
+    font-size: 0.82rem;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .zenkai-proof-nudge__attr {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--zenkai-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-style: normal;
   }
 
   .zenkai-sticky-atc__trust {
@@ -753,7 +781,7 @@
     min-height: 48px;
     border: 0;
     border-radius: 12px;
-    background: var(--zenkai-accent);
+    background: var(--zenkai-cta);
     color: #fff;
     font-size: 0.78rem;
     font-weight: 800;
@@ -764,14 +792,14 @@
 
   .zenkai-sticky-atc__button:hover,
   .zenkai-sticky-atc__button:focus-visible {
-    background: #4e5abf;
+    background: var(--zenkai-cta-hover);
     outline: 2px solid #fff;
     outline-offset: -2px;
   }
 
   .zenkai-sticky-atc__button:active {
     transform: scale(0.97);
-    background: #4e5abf;
+    background: var(--zenkai-cta-hover);
   }
 
   .zenkai-sticky-atc__button:disabled {
@@ -1043,6 +1071,15 @@
                 <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
                 <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
               </aside>
+
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when '@app' -%}
+                    <div class="zenkai-app-block" {{ block.shopify_attributes }}>
+                      {% render block %}
+                    </div>
+                {%- endcase -%}
+              {%- endfor -%}
 
               <div class="zenkai-additional-content">
                 {% if settings.additional_content_style == 'expandable' %}

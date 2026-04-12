@@ -39,6 +39,19 @@
 %}
 
 
+<script>
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  };
+
+  var ctaOverride = document.querySelector('[data-product-cta-default]');
+  if (ctaOverride) {
+    theme.productStrings.addToCart = ctaOverride.getAttribute('data-product-cta-default');
+  }
+</script>
+
 {% if settings.enable_product_reviews %}
   <div id="Reviews-{{ product.id }}" class="index-section product-reviews product-reviews--full">
     <div class="page-width">
@@ -50,6 +63,11 @@
 {% schema %}
   {
     "name": "Product pages",
+    "blocks": [
+      {
+        "type": "@app"
+      }
+    ],
     "settings": [
       {
         "type": "header",
