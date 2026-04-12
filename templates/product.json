@@ -60,11 +60,25 @@
         "product_recommendations_heading": "Same energy",
         "per_row": "small"
       }
+    },
+    "1775977537bfdcb9bb": {
+      "type": "apps",
+      "blocks": {
+        "rokt_aftersell_pdp_upsells_yjhA9J": {
+          "type": "shopify://apps/rokt-aftersell/blocks/pdp-upsells/509ec35d-0632-4dfc-a105-fa799cd9d149",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "rokt_aftersell_pdp_upsells_yjhA9J"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
     "product-sections",
-    "product-recommendations"
+    "product-recommendations",
+    "1775977537bfdcb9bb"
   ]
 }
