@@ -430,7 +430,7 @@
         ],
         "settings": {
           "enable_home": true,
-          "enable_product": false,
+          "enable_product": true,
           "enable_collection": true,
           "title": "On social",
           "description": ""
