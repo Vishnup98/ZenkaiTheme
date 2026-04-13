@@ -11,6 +11,15 @@
   "sections": {
     "main": {
       "type": "product-template",
+      "blocks": {
+        "judge_me_reviews_preview_badge_6qQQcm": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_6qQQcm"
+      ],
       "settings": {
         "product_image_size": "large",
         "product_image_type": "slider",
