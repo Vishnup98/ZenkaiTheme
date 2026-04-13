@@ -300,6 +300,77 @@
     padding: 0.45rem 0.65rem;
   }
 
+  /* Rokt / Aftersell upsell widget overrides */
+  .pdp-widget {
+    --pdp-widget-padding-top: 0.75rem !important;
+    --pdp-widget-padding-bottom: 0.75rem !important;
+    --pdp-widget-padding-left: 0 !important;
+    --pdp-widget-padding-right: 0 !important;
+    --pdp-header-font-size: 1.05rem !important;
+    --pdp-header-text-font-weight: 700 !important;
+    --pdp-header-alignment: left !important;
+    --pdp-header-text-color: var(--zenkai-ink) !important;
+    --pdp-product-card-border-color: var(--zenkai-border) !important;
+    --pdp-product-card-border-radius: 10px !important;
+    --pdp-product-card-padding: 12px !important;
+    --pdp-product-card-min-width: 140px !important;
+    --pdp-product-card-max-width: 200px !important;
+    --pdp-product-title-font-size: 0.82rem !important;
+    --pdp-product-title-text-color: var(--zenkai-ink) !important;
+    --pdp-product-title-font-weight: 600 !important;
+    --pdp-product-title-alignment: start !important;
+    --pdp-add-to-cart-button-background-color: var(--zenkai-dark) !important;
+    --pdp-add-to-cart-button-hover-background-color: var(--zenkai-dark-hover) !important;
+    --pdp-add-to-cart-button-text-color: #fff !important;
+    --pdp-add-to-cart-button-font-size: 0.78rem !important;
+    --pdp-add-to-cart-button-font-weight: 700 !important;
+    --pdp-add-to-cart-button-border-radius: 8px !important;
+    --pdp-product-image-width: 160px !important;
+    --pdp-product-image-height: 160px !important;
+    --pdp-product-image-border-radius: 8px !important;
+    --pdp-price-text-font-size: 0.82rem !important;
+    --pdp-price-text-font-weight: 700 !important;
+    --pdp-price-text-color: var(--zenkai-ink) !important;
+    --pdp-discount-text-font-size: 0.75rem !important;
+    --pdp-discount-text-font-weight: 700 !important;
+    --pdp-discount-text-color: #2d7a31 !important;
+    --pdp-compare-at-price-text-font-size: 0.75rem !important;
+    --pdp-compare-at-price-text-color: var(--zenkai-muted) !important;
+    --pdp-variant-selection-border-radius: 8px !important;
+    --pdp-variant-selection-font-size: 0.75rem !important;
+    --pdp-arrow-background-color: rgba(26, 27, 46, 0.08) !important;
+    --pdp-arrow-hover-background-color: rgba(26, 27, 46, 0.15) !important;
+    --pdp-arrow-icon-color: var(--zenkai-ink) !important;
+    --pdp-arrow-hover-icon-color: var(--zenkai-ink) !important;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .pdp-widget .upsell-header {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--zenkai-ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .pdp-widget .product-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+
+  .pdp-widget .product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .pdp-widget .select-dropdown {
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+
   .zenkai-price-band {
     display: inline-flex;
     flex-wrap: wrap;
@@ -1020,6 +1091,18 @@
 
     .product-section ~ .shopify-section .index-section {
       margin-top: 0.5rem;
+    }
+
+    .pdp-widget {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      --pdp-product-image-width: 120px !important;
+      --pdp-product-image-height: 120px !important;
+      --pdp-product-card-padding: 10px !important;
+    }
+
+    .pdp-widget .upsell-header {
+      text-align: center;
     }
 
     #judgeme_product_reviews .jm-review-widget-minimal-header__title {
