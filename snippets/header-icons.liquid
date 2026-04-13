@@ -47,7 +47,19 @@
       </a>
     {% endunless %}
 
-    {% comment %} Mobile only: Cart icon {% endcomment %}
+    {% comment %} Mobile only: MENU button with text {% endcomment %}
+    <button
+      type="button"
+      class="zenkai-header-menu js-zenkai-toggle medium-up--hide"
+      aria-label="Open menu"
+      aria-expanded="false">
+      <svg class="zenkai-header-menu__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="zenkai-header-menu__text">MENU</span>
+    </button>
+
+    {% comment %} Mobile only: Cart icon (right of MENU) {% endcomment %}
     <a href="{{ routes.cart_url }}"
       class="zenkai-mobile-cart js-drawer-open-cart js-no-transition medium-up--hide"
       aria-label="{{ 'layout.cart.title' | t }}">
@@ -62,17 +74,5 @@
         </span>
       </span>
     </a>
-
-    {% comment %} Mobile only: MENU button with text {% endcomment %}
-    <button
-      type="button"
-      class="zenkai-header-menu js-zenkai-toggle medium-up--hide"
-      aria-label="Open menu"
-      aria-expanded="false">
-      <svg class="zenkai-header-menu__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-      </svg>
-      <span class="zenkai-header-menu__text">MENU</span>
-    </button>
   </div>
 </div>
