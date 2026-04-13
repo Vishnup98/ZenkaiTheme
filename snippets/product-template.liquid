@@ -254,8 +254,17 @@
   /* Judge.me full review widget overrides */
   #judgeme_product_reviews {
     max-width: 800px;
-    margin: 0.75rem auto 2rem;
+    margin: 0 auto;
     padding: 0 1.25rem;
+  }
+
+  /* Tighten section gaps around reviews on product pages */
+  .product-section ~ .shopify-section {
+    margin-top: 0;
+  }
+
+  .product-section ~ .shopify-section .index-section {
+    margin-top: 1rem;
   }
 
   #judgeme_product_reviews .jm-review-widget {
@@ -1003,8 +1012,12 @@
     .zenkai-review-badge--title .jdgm-prev-badge__text { font-size: 0.78rem; }
 
     #judgeme_product_reviews {
-      margin: 0.5rem auto 1.5rem;
+      margin: 0 auto;
       padding: 0 1rem;
+    }
+
+    .product-section ~ .shopify-section .index-section {
+      margin-top: 0.5rem;
     }
 
     #judgeme_product_reviews .jm-review-widget-minimal-header__title {
