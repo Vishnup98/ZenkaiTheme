@@ -247,6 +247,9 @@
     font-weight: 600;
   }
 
+  /* Hide the original app-block badge (cloned into title + CTA slots) */
+  .zenkai-app-block .jdgm-preview-badge { display: none; }
+
   .zenkai-price-band {
     display: inline-flex;
     flex-wrap: wrap;
@@ -1047,7 +1050,7 @@
 
               {% if product_show_review_summary_first %}
                 <div class="zenkai-hero-proof-row">
-                  <div class="jdgm-widget jdgm-preview-badge zenkai-review-badge zenkai-review-badge--title" data-id="{{ product.id }}"></div>
+                  <div class="zenkai-review-badge zenkai-review-badge--title" data-zenkai-review-clone="title"></div>
                 </div>
               {% endif %}
 
@@ -1182,6 +1185,31 @@
       var stickyButton = section.querySelector('[data-sticky-atc-button]');
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
+
+      /* Clone the Judge.me review badge into title and CTA slots */
+      (function cloneReviewBadge() {
+        var targets = section.querySelectorAll('[data-zenkai-review-clone]');
+        if (!targets.length) return;
+
+        function run() {
+          var source = section.querySelector('.zenkai-app-block .jdgm-prev-badge');
+          if (!source) return false;
+          targets.forEach(function(t) {
+            while (t.firstChild) t.removeChild(t.firstChild);
+            var clone = source.cloneNode(true);
+            clone.style.display = '';
+            t.appendChild(clone);
+          });
+          return true;
+        }
+
+        if (run()) return;
+        var observer = new MutationObserver(function(_, obs) {
+          if (run()) obs.disconnect();
+        });
+        observer.observe(section, { childList: true, subtree: true });
+        setTimeout(function() { observer.disconnect(); }, 10000);
+      })();
 
       function getVariantLabel() {
         if (!selectSource || !selectSource.options.length) {
