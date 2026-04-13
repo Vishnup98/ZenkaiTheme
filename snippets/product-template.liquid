@@ -251,6 +251,17 @@
   /* Hide the original app-block badge (cloned into title + CTA slots) */
   .zenkai-app-block .jdgm-preview-badge { display: none; }
 
+  /* Judge.me full review widget overrides */
+  #judgeme_product_reviews {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.25rem;
+  }
+
+  #judgeme_product_reviews .jm-review-widget {
+    --jm-space-600: 1rem;
+  }
+
   .zenkai-price-band {
     display: inline-flex;
     flex-wrap: wrap;
@@ -963,6 +974,24 @@
 
     .zenkai-review-badge--title .jdgm-prev-badge__stars { font-size: 0.88rem; }
     .zenkai-review-badge--title .jdgm-prev-badge__text { font-size: 0.78rem; }
+
+    #judgeme_product_reviews {
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    #judgeme_product_reviews .jm-review-widget-minimal-header__title {
+      text-align: center;
+    }
+
+    #judgeme_product_reviews .jm-average-rating-display {
+      width: 100%;
+      justify-content: center;
+    }
+
+    #judgeme_product_reviews .jm-average-rating-display .jm-cluster {
+      justify-content: center;
+    }
   }
 
   @media (min-width: 768px) {
