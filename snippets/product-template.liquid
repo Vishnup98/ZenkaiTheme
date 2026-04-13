@@ -254,12 +254,39 @@
   /* Judge.me full review widget overrides */
   #judgeme_product_reviews {
     max-width: 800px;
-    margin: 2rem auto;
+    margin: 0.75rem auto 2rem;
     padding: 0 1.25rem;
   }
 
   #judgeme_product_reviews .jm-review-widget {
-    --jm-space-600: 1rem;
+    --jm-space-600: 0.75rem;
+    --jm-space-400: 0.5rem;
+    --jm-space-1000: 0.75rem;
+  }
+
+  #judgeme_product_reviews .jm-review-widget-minimal-header__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  #judgeme_product_reviews .jm-star-rating__font-icon {
+    font-size: 1.1em !important;
+  }
+
+  #judgeme_product_reviews .jm-review-widget__body {
+    border-top: 1px solid #e8e8e8;
+    padding-top: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  #judgeme_product_reviews .jm-button--primary {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  #judgeme_product_reviews .jm-button--secondary {
+    padding: 0.45rem 0.65rem;
   }
 
   .zenkai-price-band {
@@ -976,7 +1003,7 @@
     .zenkai-review-badge--title .jdgm-prev-badge__text { font-size: 0.78rem; }
 
     #judgeme_product_reviews {
-      margin: 1.5rem auto;
+      margin: 0.5rem auto 1.5rem;
       padding: 0 1rem;
     }
 
@@ -990,6 +1017,15 @@
     }
 
     #judgeme_product_reviews .jm-average-rating-display .jm-cluster {
+      justify-content: center;
+    }
+
+    #judgeme_product_reviews .jm-review-widget-minimal-header__filter-container {
+      justify-content: center;
+    }
+
+    #judgeme_product_reviews .jm-action-buttons {
+      width: 100%;
       justify-content: center;
     }
   }
