@@ -11446,6 +11446,63 @@ $marqueeAnimationSpeedMobile: 6.6s;
 /* Overlay fallback styles removed - using solid header everywhere */
 
 /* ==========================================================================
+   ZENKAI MOBILE CART ICON
+   ========================================================================== */
+.zenkai-mobile-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: #ffffff !important;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+
+  .icon {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+  }
+
+  .cart-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .cart-link__bubble {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-link__bubble--visible {
+    display: flex;
+  }
+
+  .cart-link__count {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    color: #1a1b2e;
+  }
+}
+
+/* Hide mobile cart icon on desktop */
+@media screen and (min-width: 769px) {
+  .zenkai-mobile-cart {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
    ZENKAI PREMIUM PRODUCT DISPLAY
    ========================================================================== */
 
