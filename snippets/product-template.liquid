@@ -249,7 +249,7 @@
   }
 
   /* Hide the original app-block badge (cloned into title + CTA slots) */
-  .zenkai-app-block .jdgm-preview-badge { display: none; }
+  .zenkai-app-block:has(.jdgm-preview-badge) { display: none !important; }
 
   /* Judge.me full review widget overrides */
   #judgeme_product_reviews {
