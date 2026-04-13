@@ -216,6 +216,37 @@
     line-height: 1.3;
   }
 
+  /* Review badge — title placement */
+  .zenkai-review-badge--title .jdgm-prev-badge {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .zenkai-review-badge--title .jdgm-prev-badge__stars { font-size: 0.95rem; }
+  .zenkai-review-badge--title .jdgm-prev-badge__text {
+    color: var(--zenkai-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  /* Review badge — CTA placement */
+  .zenkai-review-badge--cta {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 0.55rem;
+  }
+  .zenkai-review-badge--cta .jdgm-prev-badge {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .zenkai-review-badge--cta .jdgm-prev-badge__stars { font-size: 0.85rem; }
+  .zenkai-review-badge--cta .jdgm-prev-badge__text {
+    color: var(--zenkai-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
   .zenkai-price-band {
     display: inline-flex;
     flex-wrap: wrap;
@@ -925,6 +956,9 @@
     .zenkai-proof-card {
       padding: 0.82rem;
     }
+
+    .zenkai-review-badge--title .jdgm-prev-badge__stars { font-size: 0.88rem; }
+    .zenkai-review-badge--title .jdgm-prev-badge__text { font-size: 0.78rem; }
   }
 
   @media (min-width: 768px) {
@@ -1010,6 +1044,12 @@
               {% endif %}
 
               <p class="zenkai-social-subheadline">{{ zenkai_social_subheadline }}</p>
+
+              {% if product_show_review_summary_first %}
+                <div class="zenkai-hero-proof-row">
+                  <div class="jdgm-widget jdgm-preview-badge zenkai-review-badge zenkai-review-badge--title" data-id="{{ product.id }}"></div>
+                </div>
+              {% endif %}
 
               <div class="zenkai-price-band">
                 <div class="product-single__prices" data-price-wrapper>
