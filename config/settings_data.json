@@ -608,13 +608,13 @@
           "greeting_message": "👋 Hi, message us with any questions. We're happy to help! We'll typically be with you within a few hours!"
         }
       },
-      "22230382528836309": {
-        "type": "shopify://apps/xb-ai-cart-upsell/blocks/core_script/e9179814-5d2a-40d0-a03d-245bcb819e73",
+      "14952540001915115444": {
+        "type": "shopify://apps/upcart-cart-drawer/blocks/app-embed/af3da5fb-f5f7-40ec-8273-41bf50059d4b",
         "disabled": false,
         "settings": {}
       },
-      "14952540001915115444": {
-        "type": "shopify://apps/upcart-cart-drawer/blocks/app-embed/af3da5fb-f5f7-40ec-8273-41bf50059d4b",
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
         "settings": {}
       }
