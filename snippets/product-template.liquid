@@ -300,95 +300,15 @@
     padding: 0.45rem 0.65rem;
   }
 
-  /* Rokt / Aftersell upsell widget overrides
-     CSS custom property overrides don't beat inline styles on .pdp-widget,
-     so we target child elements directly with real CSS properties. */
-  .pdp-widget {
-    max-width: 800px !important;
-    margin: 0 auto !important;
-    padding: 0.75rem 1.25rem !important;
-  }
-
-  .pdp-widget .upsell-header {
-    font-size: 1.05rem !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.01em !important;
-    color: #1a1b2e !important;
-    text-align: center !important;
-    margin-bottom: 0.5rem !important;
-  }
-
+  /* Rokt / Aftersell upsell widget — CSS-level fallbacks.
+     Primary styling is via JS (overrides inline custom properties). */
   .pdp-widget .product-card {
-    border: 1px solid rgba(26, 27, 46, 0.1) !important;
-    border-radius: 10px !important;
-    padding: 12px !important;
-    max-width: 200px !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
-    transition: box-shadow 0.15s ease, transform 0.15s ease !important;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
 
   .pdp-widget .product-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-    transform: translateY(-1px) !important;
-  }
-
-  .pdp-widget .product-image {
-    width: 160px !important;
-    height: 160px !important;
-    border-radius: 8px !important;
-    object-fit: cover !important;
-  }
-
-  .pdp-widget .product-title {
-    font-size: 0.82rem !important;
-    font-weight: 600 !important;
-    color: #1a1b2e !important;
-  }
-
-  .pdp-widget .price-info {
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
-    color: #1a1b2e !important;
-  }
-
-  .pdp-widget .price-info.compare-at-price {
-    font-size: 0.75rem !important;
-    font-weight: 400 !important;
-    color: #6b6f85 !important;
-  }
-
-  .pdp-widget .discount-label {
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-    color: #2d7a31 !important;
-  }
-
-  .pdp-widget .add-button {
-    background-color: #1a1b2e !important;
-    color: #fff !important;
-    font-size: 0.78rem !important;
-    font-weight: 700 !important;
-    border-radius: 8px !important;
-    border: 0 !important;
-    padding: 0.55rem 1rem !important;
-  }
-
-  .pdp-widget .add-button:hover {
-    background-color: #131428 !important;
-  }
-
-  .pdp-widget .select-dropdown {
-    font-size: 0.75rem !important;
-    border-radius: 8px !important;
-  }
-
-  .pdp-widget .carousel-button {
-    background: rgba(26, 27, 46, 0.08) !important;
-    color: #1a1b2e !important;
-  }
-
-  .pdp-widget .carousel-button:hover {
-    background: rgba(26, 27, 46, 0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
   }
 
   .zenkai-price-band {
@@ -1352,6 +1272,70 @@
     {% endunless %}
   {% endif %}
 </div>
+
+<script>
+  /* Restyle Rokt upsell widget — CSS can't override its inline custom properties,
+     so we watch for .pdp-widget and rewrite the vars directly on the element. */
+  (function() {
+    var overrides = {
+      '--pdp-widget-padding-top': '0.75rem',
+      '--pdp-widget-padding-bottom': '0.75rem',
+      '--pdp-widget-padding-left': '1rem',
+      '--pdp-widget-padding-right': '1rem',
+      '--pdp-header-font-size': '1.05rem',
+      '--pdp-header-text-font-weight': '700',
+      '--pdp-header-text-color': '#1a1b2e',
+      '--pdp-product-card-border-color': 'rgba(26,27,46,0.1)',
+      '--pdp-product-card-border-radius': '10px',
+      '--pdp-product-card-padding': '12px',
+      '--pdp-product-card-min-width': '140px',
+      '--pdp-product-card-max-width': '200px',
+      '--pdp-product-title-font-size': '0.82rem',
+      '--pdp-product-title-text-color': '#1a1b2e',
+      '--pdp-product-title-font-weight': '600',
+      '--pdp-add-to-cart-button-background-color': '#1a1b2e',
+      '--pdp-add-to-cart-button-hover-background-color': '#131428',
+      '--pdp-add-to-cart-button-text-color': '#fff',
+      '--pdp-add-to-cart-button-font-size': '0.78rem',
+      '--pdp-add-to-cart-button-font-weight': '700',
+      '--pdp-add-to-cart-button-border-radius': '8px',
+      '--pdp-product-image-width': '160px',
+      '--pdp-product-image-height': '160px',
+      '--pdp-product-image-border-radius': '8px',
+      '--pdp-price-text-font-size': '0.82rem',
+      '--pdp-price-text-font-weight': '700',
+      '--pdp-price-text-color': '#1a1b2e',
+      '--pdp-discount-text-font-size': '0.75rem',
+      '--pdp-discount-text-font-weight': '700',
+      '--pdp-discount-text-color': '#2d7a31',
+      '--pdp-compare-at-price-text-font-size': '0.75rem',
+      '--pdp-compare-at-price-text-color': '#6b6f85',
+      '--pdp-variant-selection-border-radius': '8px',
+      '--pdp-variant-selection-font-size': '0.75rem',
+      '--pdp-arrow-background-color': 'rgba(26,27,46,0.08)',
+      '--pdp-arrow-hover-background-color': 'rgba(26,27,46,0.15)',
+      '--pdp-arrow-icon-color': '#1a1b2e',
+      '--pdp-arrow-hover-icon-color': '#1a1b2e',
+      '--pdp-product-card-min-width-for-layout': '200px'
+    };
+
+    function apply(el) {
+      for (var k in overrides) el.style.setProperty(k, overrides[k]);
+      el.style.maxWidth = '800px';
+      el.style.margin = '0 auto';
+    }
+
+    var w = document.querySelector('.pdp-widget');
+    if (w) { apply(w); return; }
+
+    var obs = new MutationObserver(function(_, o) {
+      var w = document.querySelector('.pdp-widget');
+      if (w) { apply(w); o.disconnect(); }
+    });
+    obs.observe(document.body || document.documentElement, { childList: true, subtree: true });
+    setTimeout(function() { obs.disconnect(); }, 15000);
+  })();
+</script>
 
 <script>
   (function() {
