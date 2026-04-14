@@ -1184,6 +1184,8 @@
                   {% endif %}
                 </div>
               </div>
+
+              {% include 'product-type-switcher' %}
             </div>
 
             <div class="zenkai-conversion-stack">
@@ -1195,8 +1197,6 @@
                   <li>{{ zenkai_outcome_3 }}</li>
                 </ul>
               </section>
-
-              {% include 'product-type-switcher' %}
 
               {% unless isModal %}
                 {% include 'product-form',
