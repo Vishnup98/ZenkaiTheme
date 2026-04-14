@@ -1274,8 +1274,8 @@
 </div>
 
 <script>
-  /* Restyle Rokt upsell widget — overrides inline custom properties via JS
-     and injects a late <style> to beat Rokt's stylesheet in the cascade. */
+  /* Restyle Rokt upsell widget — lives inside #aftersell-pdp-upsell shadow DOM,
+     so we pierce the shadow root and override inline custom properties there. */
   (function() {
     var vars = {
       '--pdp-widget-padding-top': '0.75rem',
@@ -1319,28 +1319,40 @@
       '--pdp-product-card-min-width-for-layout': '200px'
     };
 
-    function apply(el) {
-      for (var k in vars) el.style.setProperty(k, vars[k], 'important');
-      el.style.setProperty('max-width', '800px', 'important');
-      el.style.setProperty('margin', '0 auto', 'important');
-    }
+    function style(shadow) {
+      /* Override custom properties on .pdp-widget inside shadow DOM */
+      var w = shadow.querySelector('.pdp-widget');
+      if (!w) return false;
+      for (var k in vars) w.style.setProperty(k, vars[k]);
+      w.style.maxWidth = '800px';
+      w.style.margin = '0 auto';
 
-    function found(el) {
-      apply(el);
-      /* Re-apply if Rokt overwrites our styles */
-      new MutationObserver(function() { apply(el); })
-        .observe(el, { attributes: true, attributeFilter: ['style'] });
+      /* Inject a stylesheet into the shadow root for hover/transition effects */
+      if (!shadow.querySelector('[data-zenkai-rokt]')) {
+        var s = document.createElement('style');
+        s.setAttribute('data-zenkai-rokt', '');
+        s.textContent = '.pdp-widget .product-card { transition: box-shadow .15s ease, transform .15s ease; }' +
+          '.pdp-widget .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); transform: translateY(-1px); }';
+        shadow.appendChild(s);
+      }
+      return true;
     }
 
     function hunt() {
-      var w = document.querySelector('.pdp-widget');
-      if (w) { found(w); return true; }
+      var host = document.getElementById('aftersell-pdp-upsell');
+      if (host && host.shadowRoot) return style(host.shadowRoot);
+      /* Fallback: search all shadow roots */
+      var all = document.querySelectorAll('*');
+      for (var i = 0; i < all.length; i++) {
+        if (all[i].shadowRoot && all[i].shadowRoot.querySelector('.pdp-widget')) {
+          return style(all[i].shadowRoot);
+        }
+      }
       return false;
     }
 
     if (hunt()) return;
 
-    /* Poll for widget — MutationObserver may miss it if injected via iframe bridge */
     var attempts = 0;
     var poll = setInterval(function() {
       if (hunt() || ++attempts > 60) clearInterval(poll);
