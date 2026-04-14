@@ -1282,26 +1282,28 @@
       '--pdp-widget-padding-bottom': '0.75rem',
       '--pdp-widget-padding-left': '1rem',
       '--pdp-widget-padding-right': '1rem',
-      '--pdp-header-font-size': '1.05rem',
+      '--pdp-header-font-size': '0.92rem',
       '--pdp-header-text-font-weight': '700',
       '--pdp-header-text-color': '#1a1b2e',
+      '--pdp-header-alignment': 'left',
       '--pdp-product-card-border-color': 'rgba(26,27,46,0.1)',
       '--pdp-product-card-border-radius': '10px',
-      '--pdp-product-card-padding': '12px',
+      '--pdp-product-card-padding': '10px',
       '--pdp-product-card-min-width': '140px',
-      '--pdp-product-card-max-width': '200px',
+      '--pdp-product-card-max-width': '180px',
       '--pdp-product-title-font-size': '0.82rem',
       '--pdp-product-title-text-color': '#1a1b2e',
       '--pdp-product-title-font-weight': '600',
-      '--pdp-add-to-cart-button-background-color': '#1a1b2e',
-      '--pdp-add-to-cart-button-hover-background-color': '#131428',
+      '--pdp-add-to-cart-button-background-color': '#e85d3a',
+      '--pdp-add-to-cart-button-hover-background-color': '#d14e2d',
       '--pdp-add-to-cart-button-text-color': '#fff',
       '--pdp-add-to-cart-button-font-size': '0.78rem',
-      '--pdp-add-to-cart-button-font-weight': '700',
-      '--pdp-add-to-cart-button-border-radius': '8px',
-      '--pdp-product-image-width': '160px',
-      '--pdp-product-image-height': '160px',
+      '--pdp-add-to-cart-button-font-weight': '800',
+      '--pdp-add-to-cart-button-border-radius': '10px',
+      '--pdp-product-image-width': '140px',
+      '--pdp-product-image-height': '140px',
       '--pdp-product-image-border-radius': '8px',
+      '--pdp-product-image-object-fit': 'cover',
       '--pdp-price-text-font-size': '0.82rem',
       '--pdp-price-text-font-weight': '700',
       '--pdp-price-text-color': '#1a1b2e',
@@ -1311,7 +1313,8 @@
       '--pdp-compare-at-price-text-font-size': '0.75rem',
       '--pdp-compare-at-price-text-color': '#6b6f85',
       '--pdp-variant-selection-border-radius': '8px',
-      '--pdp-variant-selection-font-size': '0.75rem',
+      '--pdp-variant-selection-border-color': 'rgba(26,27,46,0.15)',
+      '--pdp-variant-selection-font-size': '0.72rem',
       '--pdp-arrow-background-color': 'rgba(26,27,46,0.08)',
       '--pdp-arrow-hover-background-color': 'rgba(26,27,46,0.15)',
       '--pdp-arrow-icon-color': '#1a1b2e',
@@ -1327,12 +1330,23 @@
       w.style.maxWidth = '800px';
       w.style.margin = '0 auto';
 
-      /* Inject a stylesheet into the shadow root for hover/transition effects */
+      /* Inject a stylesheet into the shadow root for effects + hierarchy */
       if (!shadow.querySelector('[data-zenkai-rokt]')) {
         var s = document.createElement('style');
         s.setAttribute('data-zenkai-rokt', '');
-        s.textContent = '.pdp-widget .product-card { transition: box-shadow .15s ease, transform .15s ease; }' +
-          '.pdp-widget .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); transform: translateY(-1px); }';
+        s.textContent = [
+          '.pdp-widget { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }',
+          '.pdp-widget .upsell-header { font-size: 0.92rem; font-weight: 700; letter-spacing: -0.01em; color: #1a1b2e; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.04em; }',
+          '.pdp-widget .product-card { transition: box-shadow .15s ease, transform .15s ease; }',
+          '.pdp-widget .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); transform: translateY(-1px); }',
+          '.pdp-widget .product-title { line-height: 1.3; }',
+          '.pdp-widget .add-button { box-shadow: 0 4px 12px rgba(232,93,58,0.2); transition: background .15s ease, box-shadow .15s ease, transform .15s ease; }',
+          '.pdp-widget .add-button:hover { box-shadow: 0 6px 16px rgba(232,93,58,0.3); transform: translateY(-1px); }',
+          '.pdp-widget .select-dropdown { font-size: 0.72rem; }',
+          '.pdp-widget .select-wrap label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em; color: #6b6f85; }',
+          '.pdp-widget .compare-at-price { text-decoration: line-through; opacity: 0.6; }',
+          '.pdp-widget .carousel-button { width: 32px; height: 32px; border-radius: 50%; }'
+        ].join('\n');
         shadow.appendChild(s);
       }
       return true;
