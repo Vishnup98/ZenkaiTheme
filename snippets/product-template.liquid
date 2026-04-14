@@ -1274,10 +1274,10 @@
 </div>
 
 <script>
-  /* Restyle Rokt upsell widget — CSS can't override its inline custom properties,
-     so we watch for .pdp-widget and rewrite the vars directly on the element. */
+  /* Restyle Rokt upsell widget — overrides inline custom properties via JS
+     and injects a late <style> to beat Rokt's stylesheet in the cascade. */
   (function() {
-    var overrides = {
+    var vars = {
       '--pdp-widget-padding-top': '0.75rem',
       '--pdp-widget-padding-bottom': '0.75rem',
       '--pdp-widget-padding-left': '1rem',
@@ -1320,20 +1320,31 @@
     };
 
     function apply(el) {
-      for (var k in overrides) el.style.setProperty(k, overrides[k]);
-      el.style.maxWidth = '800px';
-      el.style.margin = '0 auto';
+      for (var k in vars) el.style.setProperty(k, vars[k], 'important');
+      el.style.setProperty('max-width', '800px', 'important');
+      el.style.setProperty('margin', '0 auto', 'important');
     }
 
-    var w = document.querySelector('.pdp-widget');
-    if (w) { apply(w); return; }
+    function found(el) {
+      apply(el);
+      /* Re-apply if Rokt overwrites our styles */
+      new MutationObserver(function() { apply(el); })
+        .observe(el, { attributes: true, attributeFilter: ['style'] });
+    }
 
-    var obs = new MutationObserver(function(_, o) {
+    function hunt() {
       var w = document.querySelector('.pdp-widget');
-      if (w) { apply(w); o.disconnect(); }
-    });
-    obs.observe(document.body || document.documentElement, { childList: true, subtree: true });
-    setTimeout(function() { obs.disconnect(); }, 15000);
+      if (w) { found(w); return true; }
+      return false;
+    }
+
+    if (hunt()) return;
+
+    /* Poll for widget — MutationObserver may miss it if injected via iframe bridge */
+    var attempts = 0;
+    var poll = setInterval(function() {
+      if (hunt() || ++attempts > 60) clearInterval(poll);
+    }, 250);
   })();
 </script>
 
