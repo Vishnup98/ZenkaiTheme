@@ -1,0 +1,125 @@
+{% assign sister = product.metafields.custom.sister_product.value %}
+{% if sister != blank %}
+
+{%- assign current_title_down = product.title | downcase -%}
+{%- assign sister_title_down = sister.title | downcase -%}
+
+{%- if current_title_down contains 'tee' -%}
+  {%- assign current_type_label = 'Shirt' -%}
+{%- elsif current_title_down contains 'cap' -%}
+  {%- assign current_type_label = 'Hat' -%}
+{%- elsif current_title_down contains 'hoodie' -%}
+  {%- assign current_type_label = 'Hoodie' -%}
+{%- elsif current_title_down contains 'crewneck' -%}
+  {%- assign current_type_label = 'Crewneck' -%}
+{%- elsif current_title_down contains 'tank' -%}
+  {%- assign current_type_label = 'Tank' -%}
+{%- else -%}
+  {%- assign current_type_label = product.type | default: 'This product' -%}
+{%- endif -%}
+
+{%- if sister_title_down contains 'tee' -%}
+  {%- assign sister_type_label = 'Shirt' -%}
+{%- elsif sister_title_down contains 'cap' -%}
+  {%- assign sister_type_label = 'Hat' -%}
+{%- elsif sister_title_down contains 'hoodie' -%}
+  {%- assign sister_type_label = 'Hoodie' -%}
+{%- elsif sister_title_down contains 'crewneck' -%}
+  {%- assign sister_type_label = 'Crewneck' -%}
+{%- elsif sister_title_down contains 'tank' -%}
+  {%- assign sister_type_label = 'Tank' -%}
+{%- else -%}
+  {%- assign sister_type_label = sister.type | default: 'Other' -%}
+{%- endif -%}
+
+<style>
+  .zenkai-type-switcher {
+    margin-top: 0.95rem;
+  }
+
+  .zenkai-type-switcher__label {
+    display: block;
+    margin: 0 0 0.4rem;
+    color: var(--zenkai-ink);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .zenkai-type-switcher__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0;
+  }
+
+  .zenkai-type-switcher__option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3.1rem;
+    min-height: 2.95rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid rgba(26, 27, 46, 0.14);
+    border-radius: 10px;
+    background: var(--zenkai-surface-alt);
+    color: var(--zenkai-ink);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  }
+
+  .zenkai-type-switcher__option--active {
+    border-color: var(--zenkai-dark);
+    background: var(--zenkai-dark);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(26, 27, 46, 0.14);
+    cursor: default;
+  }
+
+  .zenkai-type-switcher__option:not(.zenkai-type-switcher__option--active):hover,
+  .zenkai-type-switcher__option:not(.zenkai-type-switcher__option--active):focus {
+    transform: translateY(-1px);
+    border-color: rgba(26, 27, 46, 0.28);
+  }
+
+  .zenkai-type-switcher__option:not(.zenkai-type-switcher__option--active):active {
+    transform: scale(0.96);
+    border-color: rgba(26, 27, 46, 0.28);
+  }
+
+  .zenkai-type-switcher__option:focus-visible {
+    outline: 2px solid var(--zenkai-accent);
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .zenkai-type-switcher__label {
+      font-size: 0.9rem;
+    }
+
+    .zenkai-type-switcher__option {
+      min-width: 2.85rem;
+      min-height: 2.75rem;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<div class="zenkai-type-switcher">
+  <span class="zenkai-type-switcher__label">Available In</span>
+  <div class="zenkai-type-switcher__options">
+    <span class="zenkai-type-switcher__option zenkai-type-switcher__option--active" aria-current="true">
+      {{- current_type_label -}}
+    </span>
+    <a href="{{ sister.url }}" class="zenkai-type-switcher__option">
+      {{- sister_type_label -}}
+    </a>
+  </div>
+</div>
+
+{% endif %}
