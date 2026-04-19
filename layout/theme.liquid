@@ -81,9 +81,6 @@
   {% include 'load-css' %}
 
   <script src="{{ 'vendor-v2.js' | asset_url | split: '?' | first }}" defer="defer"></script>
-  {%- if shop.enabled_currencies.size > 1 -%}
-    <link rel="stylesheet" href="{{ 'currency-flags.css' | asset_url }}">
-  {%- endif -%}
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   {%- if request.page_type contains 'customers/' -%}
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
