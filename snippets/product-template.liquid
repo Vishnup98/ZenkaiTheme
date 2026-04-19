@@ -1140,6 +1140,8 @@
             </svg>
             Zoom
           </button>
+
+          {% include 'bundle-callout', bundle_slot: 'desktop' %}
         </div>
 
         <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
@@ -1223,12 +1225,12 @@
 
               <div class="zenkai-sticky-sentinel" data-sticky-sentinel aria-hidden="true"></div>
 
+              {% include 'bundle-callout', bundle_slot: 'mobile' %}
+
               <aside class="zenkai-brand-quote" aria-label="Brand story">
                 <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
                 <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
               </aside>
-
-              {% include 'bundle-callout' %}
 
               {%- for block in section.blocks -%}
                 {%- case block.type -%}

@@ -1,29 +1,16 @@
 {%- comment -%}
   Bundle Callout — PDP bundle upsell with live reward progress.
 
-  Data source: product metafield `custom.pdp_bundle_upsell_collection`
-  (collection reference). Each product explicitly picks which collection
-  drives its bundle upsell.
+  Usage: {% include 'bundle-callout', bundle_slot: 'desktop' %}
+         {% include 'bundle-callout', bundle_slot: 'mobile' %}
 
-  Tiers (match the active Shopify automatic discounts — admin sets up):
-    2 items → $5 off
-    3 items → $10 off
-    4+ items → $20 off  (only shown if collection has 4+ total)
-
-  Live cart awareness:
-    - On load, fetches /cart.js and counts how many items from the bundle
-      collection are already in the cart
-    - Progress bar and dynamic message update based on that count
-    - Re-fetches after each add from this component
-
-  Each bundle item has inline size/color pickers + AJAX add via /cart/add.js.
-  Color options render as inline-styled swatches (Liquid maps common color
-  names to hex so it doesn't depend on a third-party swatch app).
-
-  The add button never dispatches global cart events — no drawer opens.
+  Color mapping uses the exact Globo palette supplied by the shop admin —
+  value name → hex. Falls back to a neutral tan if the value isn't mapped.
 
   Hides silently if metafield unset, collection < 2 items, or no others available.
 {%- endcomment -%}
+
+{%- assign bundle_slot = bundle_slot | default: 'default' -%}
 
 {%- assign bundle_mf = product.metafields.custom.pdp_bundle_upsell_collection -%}
 {%- assign bundle_handle = blank -%}
@@ -61,15 +48,15 @@
       {%- for p in bundle_collection.products -%}{{ p.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
     {%- endcapture -%}
 
-<section class="zk-bundle"
+<section class="zk-bundle zk-bundle--{{ bundle_slot }}"
   data-zk-tiers="{% if show_tier_4 %}2,3,4{% else %}2,3{% endif %}"
   data-zk-product-ids="{{ bundle_product_ids | strip }}"
-  aria-labelledby="zk-bundle-heading-{{ product.id }}">
+  aria-labelledby="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}">
   <div class="zk-bundle__inner">
 
     <div class="zk-bundle__head">
       <span class="zk-bundle__eyebrow">More from this world</span>
-      <h3 id="zk-bundle-heading-{{ product.id }}" class="zk-bundle__title">
+      <h3 id="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}" class="zk-bundle__title">
         Complete the {{ collection_short_title }}
       </h3>
       <p class="zk-bundle__message" data-zk-message>
@@ -141,28 +128,63 @@
                         {%- if is_color -%}
                           {%- assign v_lower = value | downcase -%}
                           {%- assign sw_color = '#c7bda5' -%}
-                          {%- if v_lower contains 'black' -%}{%- assign sw_color = '#0e0e0e' -%}
-                          {%- elsif v_lower contains 'white' -%}{%- assign sw_color = '#f7f4ec' -%}
-                          {%- elsif v_lower contains 'midnight' or v_lower contains 'navy' -%}{%- assign sw_color = '#152036' -%}
-                          {%- elsif v_lower contains 'charcoal' -%}{%- assign sw_color = '#343438' -%}
-                          {%- elsif v_lower contains 'heather' -%}{%- assign sw_color = '#9ca0a8' -%}
-                          {%- elsif v_lower contains 'gray' or v_lower contains 'grey' -%}{%- assign sw_color = '#7a7a7a' -%}
-                          {%- elsif v_lower contains 'beige' or v_lower contains 'sand' or v_lower contains 'natural' -%}{%- assign sw_color = '#d7c9a8' -%}
-                          {%- elsif v_lower contains 'cream' -%}{%- assign sw_color = '#e9dfc7' -%}
-                          {%- elsif v_lower contains 'tan' -%}{%- assign sw_color = '#c8a97e' -%}
-                          {%- elsif v_lower contains 'brown' or v_lower contains 'mocha' or v_lower contains 'chocolate' -%}{%- assign sw_color = '#5a3a22' -%}
-                          {%- elsif v_lower contains 'forest' or v_lower contains 'olive' or v_lower contains 'military' -%}{%- assign sw_color = '#3f5239' -%}
-                          {%- elsif v_lower contains 'green' -%}{%- assign sw_color = '#446a44' -%}
-                          {%- elsif v_lower contains 'royal' or v_lower contains 'blue' -%}{%- assign sw_color = '#2e4bb5' -%}
-                          {%- elsif v_lower contains 'red' or v_lower contains 'burgundy' or v_lower contains 'wine' or v_lower contains 'maroon' -%}{%- assign sw_color = '#8a1d1d' -%}
-                          {%- elsif v_lower contains 'purple' or v_lower contains 'plum' -%}{%- assign sw_color = '#5b3a7a' -%}
-                          {%- elsif v_lower contains 'pink' or v_lower contains 'rose' or v_lower contains 'blush' -%}{%- assign sw_color = '#e4a8b4' -%}
-                          {%- elsif v_lower contains 'yellow' or v_lower contains 'gold' or v_lower contains 'mustard' -%}{%- assign sw_color = '#d4a84a' -%}
-                          {%- elsif v_lower contains 'orange' -%}{%- assign sw_color = '#e85d3a' -%}
-                          {%- elsif v_lower contains 'teal' or v_lower contains 'turquoise' -%}{%- assign sw_color = '#2b7a78' -%}
-                          {%- elsif v_lower contains 'light' -%}{%- assign sw_color = '#dcd6c9' -%}
-                          {%- elsif v_lower contains 'dark' -%}{%- assign sw_color = '#2a2418' -%}
-                          {%- endif -%}
+                          {%- case v_lower -%}
+                            {%- when 'black', 'solid black', 'jet black' -%}{%- assign sw_color = '#000000' -%}
+                            {%- when 'navy' -%}{%- assign sw_color = '#1e334c' -%}
+                            {%- when 'navy blue' -%}{%- assign sw_color = '#012b67' -%}
+                            {%- when 'navy blazer' -%}{%- assign sw_color = '#242b36' -%}
+                            {%- when 'classic navy' -%}{%- assign sw_color = '#292d3e' -%}
+                            {%- when 'true navy' -%}{%- assign sw_color = '#2e3550' -%}
+                            {%- when 'oxford navy' -%}{%- assign sw_color = '#000080' -%}
+                            {%- when 'solid midnight navy' -%}{%- assign sw_color = '#0f1f2c' -%}
+                            {%- when 'olive' -%}{%- assign sw_color = '#5c5850' -%}
+                            {%- when 'ivory' -%}{%- assign sw_color = '#f4ead2' -%}
+                            {%- when 'dark chocolate' -%}{%- assign sw_color = '#3c2d27' -%}
+                            {%- when 'solid dark chocolate' -%}{%- assign sw_color = '#3c302f' -%}
+                            {%- when 'forest green' -%}{%- assign sw_color = '#263c30' -%}
+                            {%- when 'solid forest green' -%}{%- assign sw_color = '#213933' -%}
+                            {%- when 'dark green' -%}{%- assign sw_color = '#20331f' -%}
+                            {%- when 'light blue' -%}{%- assign sw_color = '#9dbed7' -%}
+                            {%- when 'solid light blue' -%}{%- assign sw_color = '#b5ced4' -%}
+                            {%- when 'sky blue' -%}{%- assign sw_color = '#87ceeb' -%}
+                            {%- when 'blue spruce' -%}{%- assign sw_color = '#596b5e' -%}
+                            {%- when 'sage' -%}{%- assign sw_color = '#585743' -%}
+                            {%- when 'washed denim' -%}{%- assign sw_color = '#96a6c2' -%}
+                            {%- when 'denim' -%}{%- assign sw_color = '#5a5d67' -%}
+                            {%- when 'blue aqua' -%}{%- assign sw_color = '#82bcdf' -%}
+                            {%- when 'light pink' -%}{%- assign sw_color = '#f3d7dc' -%}
+                            {%- when 'white' -%}{%- assign sw_color = '#f3f3f3' -%}
+                            {%- when 'solid white', 'arctic white' -%}{%- assign sw_color = '#ffffff' -%}
+                            {%- when 'lavender' -%}{%- assign sw_color = '#d1bbe0' -%}
+                            {%- when 'bone' -%}{%- assign sw_color = '#fae8d7' -%}
+                            {%- when 'grape' -%}{%- assign sw_color = '#705e77' -%}
+                            {%- when 'chambray' -%}{%- assign sw_color = '#d6ebf6' -%}
+                            {%- when 'berry' -%}{%- assign sw_color = '#8e607d' -%}
+                            {%- when 'graphite' -%}{%- assign sw_color = '#4f4848' -%}
+                            {%- when 'granite' -%}{%- assign sw_color = '#a0a5a3' -%}
+                            {%- when 'flo blue' -%}{%- assign sw_color = '#6c77b3' -%}
+                            {%- when 'orchid' -%}{%- assign sw_color = '#ebcbe4' -%}
+                            {%- when 'espresso' -%}{%- assign sw_color = '#846753' -%}
+                            {%- when 'khaki' -%}{%- assign sw_color = '#b0a98b' -%}
+                            {%- when 'mystic blue' -%}{%- assign sw_color = '#5e70a9' -%}
+                            {%- when 'seafoam' -%}{%- assign sw_color = '#70a799' -%}
+                            {%- when 'brick' -%}{%- assign sw_color = '#90535c' -%}
+                            {%- when 'maroon' -%}{%- assign sw_color = '#803246' -%}
+                            {%- when 'solid maroon' -%}{%- assign sw_color = '#4c272a' -%}
+                            {%- when 'cardinal' -%}{%- assign sw_color = '#672438' -%}
+                            {%- when 'solid cardinal red' -%}{%- assign sw_color = '#ff0000' -%}
+                            {%- when 'purple' -%}{%- assign sw_color = '#4d3e7a' -%}
+                            {%- when 'solid purple rush' -%}{%- assign sw_color = '#422568' -%}
+                            {%- when 'pepper' -%}{%- assign sw_color = '#595753' -%}
+                            {%- when 'grey', 'gray' -%}{%- assign sw_color = '#9b9b9b' -%}
+                            {%- when 'solid light grey' -%}{%- assign sw_color = '#999798' -%}
+                            {%- when 'charcoal heather' -%}{%- assign sw_color = '#41424a' -%}
+                            {%- when 'solid heavy metal' -%}{%- assign sw_color = '#525a5b' -%}
+                            {%- when 'solid natural' -%}{%- assign sw_color = '#eee5d3' -%}
+                            {%- when 'solid royal' -%}{%- assign sw_color = '#1b5091' -%}
+                            {%- when 'solid desert pink' -%}{%- assign sw_color = '#ffc0cb' -%}
+                            {%- when 'solid cream' -%}{%- assign sw_color = '#fffdd0' -%}
+                          {%- endcase -%}
                           <button type="button" class="zk-bundle__swatch" role="radio" aria-checked="false" data-option-value="{{ value | escape }}" title="{{ value | escape }}" style="background-color: {{ sw_color }}">
                             <span class="zk-bundle__swatch-label">{{ value }}</span>
                           </button>
@@ -224,10 +246,18 @@
     box-shadow: 0 14px 30px rgba(26, 27, 46, 0.05);
   }
 
-  .zk-bundle__head {
-    text-align: center;
-    margin-bottom: 14px;
+  /* Responsive slot visibility */
+  .zk-bundle--desktop { display: none; }
+  .zk-bundle--mobile { display: block; }
+  @media (min-width: 769px) {
+    .zk-bundle--desktop { display: block; }
+    .zk-bundle--mobile { display: none; }
   }
+
+  /* Ensure [hidden] on inner spans is respected inside flex button */
+  .zk-bundle__add [hidden] { display: none !important; }
+
+  .zk-bundle__head { text-align: center; margin-bottom: 14px; }
   .zk-bundle__eyebrow {
     display: inline-block;
     font-size: 10px;
@@ -251,10 +281,7 @@
     margin: 0;
     color: var(--zk-ink-soft);
   }
-  .zk-bundle__message strong {
-    color: var(--zk-ink);
-    font-weight: 700;
-  }
+  .zk-bundle__message strong { color: var(--zk-ink); font-weight: 700; }
 
   /* Progress bar with milestones */
   .zk-bundle__progress {
@@ -276,52 +303,29 @@
     transition: width 350ms cubic-bezier(.2,.8,.2,1);
   }
   .zk-bundle__milestones {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    pointer-events: none;
+    position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none;
   }
   .zk-bundle__milestone {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
   }
   .zk-bundle__milestone-dot {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     background: var(--zk-surface);
     border: 2px solid var(--zk-border-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--zk-ink-faded);
-    transition: all 200ms ease;
-    letter-spacing: -0.5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: var(--zk-ink-faded);
+    transition: all 200ms ease; letter-spacing: -0.5px;
   }
   .zk-bundle__milestone-label {
-    position: absolute;
-    top: calc(100% + 4px);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-    color: var(--zk-ink-faded);
-    white-space: nowrap;
+    position: absolute; top: calc(100% + 4px);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;
+    color: var(--zk-ink-faded); white-space: nowrap;
     transition: color 200ms ease;
   }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-dot {
-    background: var(--zk-cta);
-    border-color: var(--zk-cta);
-    color: #fff;
+    background: var(--zk-cta); border-color: var(--zk-cta); color: #fff;
     box-shadow: 0 2px 8px rgba(232, 93, 58, 0.35);
   }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-label {
@@ -348,119 +352,57 @@
 
   .zk-bundle__card {
     scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: flex; flex-direction: column; gap: 8px;
     background: var(--zk-surface);
     border: 1px solid var(--zk-border);
     border-radius: 14px;
-    padding: 10px;
-    min-width: 0;
+    padding: 10px; min-width: 0;
   }
   .zk-bundle__media {
-    display: block;
-    aspect-ratio: 1 / 1;
-    border-radius: 10px;
-    overflow: hidden;
-    background: var(--zk-bg-deep);
+    display: block; aspect-ratio: 1 / 1;
+    border-radius: 10px; overflow: hidden; background: var(--zk-bg-deep);
   }
-  .zk-bundle__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  .zk-bundle__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .zk-bundle__info {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 6px;
-    margin-top: 2px;
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 6px; margin-top: 2px;
   }
   .zk-bundle__name {
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.25;
-    color: var(--zk-ink);
-    text-decoration: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1 1 auto;
-    min-width: 0;
+    font-size: 13px; font-weight: 600; line-height: 1.25;
+    color: var(--zk-ink); text-decoration: none;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    flex: 1 1 auto; min-width: 0;
   }
   .zk-bundle__name:hover { text-decoration: underline; }
   .zk-bundle__price {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--zk-ink);
-    flex: 0 0 auto;
+    font-size: 13px; font-weight: 700; color: var(--zk-ink); flex: 0 0 auto;
   }
 
-  .zk-bundle__options {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 2px;
-  }
-  .zk-bundle__option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+  .zk-bundle__options { display: flex; flex-direction: column; gap: 5px; margin-top: 2px; }
+  .zk-bundle__option { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .zk-bundle__option-label {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--zk-ink-faded);
-    flex: 0 0 auto;
-    min-width: 30px;
+    font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--zk-ink-faded); flex: 0 0 auto; min-width: 30px;
   }
-  .zk-bundle__option-values {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
+  .zk-bundle__option-values { display: flex; flex-wrap: wrap; gap: 3px; }
   .zk-bundle__option-btn {
-    appearance: none;
-    background: var(--zk-surface);
-    border: 1px solid var(--zk-border);
-    border-radius: 4px;
-    padding: 3px 7px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--zk-ink);
-    cursor: pointer;
-    transition: all 120ms ease;
-    line-height: 1.2;
-    min-width: 22px;
-    font-family: inherit;
+    appearance: none; background: var(--zk-surface); border: 1px solid var(--zk-border);
+    border-radius: 4px; padding: 3px 7px; font-size: 11px; font-weight: 600;
+    color: var(--zk-ink); cursor: pointer; transition: all 120ms ease;
+    line-height: 1.2; min-width: 22px; font-family: inherit;
   }
   .zk-bundle__option-btn:hover { border-color: var(--zk-ink); }
   .zk-bundle__option-btn[aria-checked="true"] {
-    background: var(--zk-ink);
-    border-color: var(--zk-ink);
-    color: #fff;
+    background: var(--zk-ink); border-color: var(--zk-ink); color: #fff;
   }
   .zk-bundle__swatch {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1px solid var(--zk-border-strong);
-    padding: 0;
-    cursor: pointer;
-    transition: outline 120ms ease;
-    font-family: inherit;
-    position: relative;
-    flex: 0 0 auto;
+    appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    border: 1px solid var(--zk-border-strong); padding: 0; cursor: pointer;
+    transition: outline 120ms ease; font-family: inherit; position: relative; flex: 0 0 auto;
   }
   .zk-bundle__swatch[aria-checked="true"] {
-    outline: 2px solid var(--zk-ink);
-    outline-offset: 2px;
+    outline: 2px solid var(--zk-ink); outline-offset: 2px;
   }
   .zk-bundle__swatch-label {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -468,86 +410,108 @@
   }
 
   .zk-bundle__add {
-    appearance: none;
-    background: var(--zk-cta);
-    color: #fff;
-    border: 1px solid var(--zk-cta);
-    border-radius: 8px;
-    padding: 8px 10px;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: background 150ms ease, border-color 150ms ease;
-    min-height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-family: inherit;
-    margin-top: auto;
+    appearance: none; background: var(--zk-cta); color: #fff;
+    border: 1px solid var(--zk-cta); border-radius: 8px; padding: 8px 10px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    cursor: pointer; transition: background 150ms ease, border-color 150ms ease;
+    min-height: 34px; display: flex; align-items: center; justify-content: center;
+    gap: 6px; font-family: inherit; margin-top: auto;
   }
   .zk-bundle__add:hover:not(:disabled) { background: var(--zk-cta-hover); border-color: var(--zk-cta-hover); }
   .zk-bundle__add:disabled {
-    background: var(--zk-muted);
-    border-color: var(--zk-muted);
-    color: #fff;
-    cursor: not-allowed;
-    opacity: 0.85;
+    background: var(--zk-muted); border-color: var(--zk-muted); color: #fff;
+    cursor: not-allowed; opacity: 0.85;
   }
   .zk-bundle__add[data-state="success"] {
-    background: var(--zk-success);
-    border-color: var(--zk-success);
-    opacity: 1;
+    background: var(--zk-success) !important; border-color: var(--zk-success) !important; opacity: 1 !important;
   }
   .zk-bundle__spinner {
     width: 12px; height: 12px;
-    border: 2px solid rgba(255,255,255,0.35);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: zk-spin 600ms linear infinite;
+    border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
+    border-radius: 50%; animation: zk-spin 600ms linear infinite;
     display: inline-block;
   }
   @keyframes zk-spin { to { transform: rotate(360deg); } }
 
   .zk-bundle__foot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--zk-ink-faded);
-    margin: 4px 0 0;
-    font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 11px; color: var(--zk-ink-faded); margin: 4px 0 0; font-weight: 500;
   }
-  .zk-bundle__foot-icon {
-    flex-shrink: 0;
-    color: var(--zk-success);
-  }
+  .zk-bundle__foot-icon { flex-shrink: 0; color: var(--zk-success); }
 
   @media (max-width: 640px) {
     .zk-bundle__inner { padding: 16px 14px 12px; border-radius: 14px; }
     .zk-bundle__title { font-size: 17px; }
     .zk-bundle__message { font-size: 13px; }
-    .zk-bundle__carousel {
-      grid-auto-columns: 160px;
-    }
+    .zk-bundle__carousel { grid-auto-columns: 160px; }
     .zk-bundle__card { padding: 8px; }
     .zk-bundle__milestone-dot { width: 24px; height: 24px; font-size: 10px; }
     .zk-bundle__milestone-label { font-size: 9px; }
   }
-
   @media (min-width: 900px) {
-    .zk-bundle__carousel {
-      grid-auto-columns: minmax(200px, 1fr);
-    }
+    .zk-bundle__carousel { grid-auto-columns: minmax(200px, 1fr); }
   }
 </style>
 
 <script>
 (function() {
   'use strict';
+
+  /* ========== One-time global setup (shared across both slots) ========== */
+  if (!window.__zkBundleGlobal) {
+    window.__zkBundleGlobal = true;
+
+    // Suppress third-party cart drawers triggered by our adds.
+    // Any node with these classes gets force-closed 200ms after a cart mutation.
+    var DRAWER_SELECTORS = [
+      '.cart-drawer.is-open', '.cart-drawer--open', '.drawer--open',
+      '[data-cart-drawer].is-open', '.js-drawer-open', '.drawer.is-visible',
+      '.slide-cart.is-open', '.ajax-cart--open', '.mini-cart.is-open',
+      'cart-drawer[open]', 'cart-drawer.is-open'
+    ];
+    var BODY_DRAWER_CLASSES = ['drawer-open', 'js-drawer-open', 'no-scroll', 'overflow-hidden', 'cart-drawer-open'];
+
+    window.__zkBundleForceCloseDrawer = function() {
+      try {
+        DRAWER_SELECTORS.forEach(function(sel) {
+          document.querySelectorAll(sel).forEach(function(el) {
+            el.classList.remove('is-open', 'is-active', 'is-visible', 'drawer--open', 'cart-drawer--open', 'ajax-cart--open', 'mini-cart--open', 'slide-cart--open', 'js-drawer-open');
+            if (el.hasAttribute('open')) el.removeAttribute('open');
+            el.setAttribute('aria-hidden', 'true');
+          });
+        });
+        BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
+      } catch (e) {}
+    };
+
+    // Refresh all bundle instances' progress state
+    window.__zkBundleRefreshAll = function() {
+      document.querySelectorAll('.zk-bundle').forEach(function(root) {
+        if (root.__zkRefresh) root.__zkRefresh();
+      });
+    };
+
+    // Hook fetch to detect ANY cart mutation (main PDP ATC, Candy Rack, etc.)
+    // so the progress bar updates even when other code triggers cart changes.
+    if (window.fetch && !window.__zkBundleFetchHooked) {
+      window.__zkBundleFetchHooked = true;
+      var origFetch = window.fetch;
+      window.fetch = function(input, init) {
+        var url = '';
+        try { url = typeof input === 'string' ? input : (input && input.url) || ''; } catch(e){}
+        var isCartMut = /\/cart\/(add|change|update|clear)(\.js)?/i.test(url);
+        var p = origFetch.apply(this, arguments);
+        if (isCartMut) {
+          p.then(function() {
+            setTimeout(window.__zkBundleRefreshAll, 250);
+          }).catch(function(){});
+        }
+        return p;
+      };
+    }
+  }
+
+  /* ========== Per-instance init ========== */
   var roots = document.querySelectorAll('.zk-bundle');
   roots.forEach(function(root) {
     if (root.dataset.zkBundleInit === '1') return;
@@ -573,15 +537,11 @@
       if (count === 2) return 'Saving $5 unlocked.';
       if (count === 3 && tiers.indexOf(4) >= 0) return 'Saving $10 — add 1 more for $20 off.';
       if (count === 3) return 'Saving $10 unlocked.';
-      if (count >= maxTier) {
-        if (maxTier === 4) return 'Max saving unlocked — $20 off.';
-        return 'Max saving unlocked — $10 off.';
-      }
+      if (count >= maxTier) return maxTier === 4 ? 'Max saving unlocked — $20 off.' : 'Max saving unlocked — $10 off.';
       return '';
     }
 
     function progressPct(count) {
-      // Milestones are spaced evenly at 33/66/100 (or 50/100 when only 2 tiers).
       if (tiers.length === 3) {
         if (count >= 4) return 100;
         if (count >= 3) return 66;
@@ -589,7 +549,6 @@
         if (count >= 1) return 16.5;
         return 0;
       } else {
-        // 2 tiers: milestones at 33 and 66, 100 unused
         if (count >= 3) return 100;
         if (count >= 2) return 50;
         if (count >= 1) return 25;
@@ -610,28 +569,38 @@
     }
 
     function countBundleItemsInCart() {
-      return fetch('/cart.js', { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
-        .then(function(r) { return r.json(); })
-        .then(function(cart) {
-          if (!cart || !cart.items) return 0;
-          var count = 0;
-          cart.items.forEach(function(item) {
-            if (bundleProductIds.indexOf(item.product_id) >= 0) {
-              count += item.quantity;
-            }
-          });
-          return count;
-        })
-        .catch(function() { return 0; });
+      return new Promise(function(resolve) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/cart.js', true);
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            try {
+              var cart = JSON.parse(xhr.responseText);
+              if (!cart || !cart.items) return resolve(0);
+              var count = 0;
+              cart.items.forEach(function(item) {
+                if (bundleProductIds.indexOf(item.product_id) >= 0) count += item.quantity;
+              });
+              resolve(count);
+            } catch (e) { resolve(0); }
+          }
+        };
+        xhr.send();
+      });
     }
 
     function refreshCartState() {
       countBundleItemsInCart().then(updateProgress);
     }
 
+    // Expose for global refresh
+    root.__zkRefresh = refreshCartState;
+
+    // Initial render
     refreshCartState();
 
-    // Per-card variant selection + add logic
+    /* ===== Per-card: variant picker + add ===== */
     root.querySelectorAll('[data-zk-item]').forEach(function(item) {
       var variantsNode = item.querySelector('[data-zk-variants]');
       if (!variantsNode) return;
@@ -677,7 +646,29 @@
       });
 
       if (!addBtn) return;
-      addBtn.addEventListener('click', function() {
+
+      // XHR-based add bypasses fetch monkey-patches from other apps that
+      // might open a cart drawer on fetch('/cart/add.js').
+      function addToCartXHR(variantId) {
+        return new Promise(function(resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/cart/add.js', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
+              } else reject(new Error('add failed: ' + xhr.status));
+            }
+          };
+          xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+        });
+      }
+
+      addBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         var variantId = addBtn.dataset.variantId;
         if (!variantId || addBtn.disabled) return;
         addBtn.disabled = true;
@@ -688,20 +679,14 @@
         defaultEl.hidden = true;
         loadingEl.hidden = false;
 
-        fetch('/cart/add.js', {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ id: parseInt(variantId, 10), quantity: 1 })
-        })
-          .then(function(res) {
-            if (!res.ok) throw new Error('add failed: ' + res.status);
-            return res.json();
-          })
+        addToCartXHR(parseInt(variantId, 10))
           .then(function() {
             addBtn.dataset.state = 'success';
             loadingEl.hidden = true;
             successEl.hidden = false;
+            // Force-close any drawer that opened from this cart mutation
+            setTimeout(window.__zkBundleForceCloseDrawer, 150);
+            setTimeout(window.__zkBundleForceCloseDrawer, 500);
             refreshCartState();
             setTimeout(function() {
               addBtn.dataset.state = '';
