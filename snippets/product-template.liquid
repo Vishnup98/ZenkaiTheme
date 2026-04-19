@@ -1332,8 +1332,26 @@
       var w = shadow.querySelector('.pdp-widget');
       if (!w) return false;
       for (var k in vars) w.style.setProperty(k, vars[k]);
-      w.style.maxWidth = '800px';
       w.style.margin = '0 auto';
+
+      /* Responsive max-width via matchMedia — keeps the inline-style mechanism
+         that the widget's internal layout depends on, but adapts on breakpoint
+         change. 800 on mobile (effectively unbounded), 960 on tablet, 1200 on
+         desktop so ~3 cards fit inside the theme's 1300px page container. */
+      var mqDesktop = window.matchMedia('(min-width: 1024px)');
+      var mqTablet = window.matchMedia('(min-width: 768px)');
+      var applyWidth = function() {
+        if (mqDesktop.matches) w.style.maxWidth = '1200px';
+        else if (mqTablet.matches) w.style.maxWidth = '960px';
+        else w.style.maxWidth = '800px';
+      };
+      applyWidth();
+      var bindMq = function(mq) {
+        if (mq.addEventListener) mq.addEventListener('change', applyWidth);
+        else if (mq.addListener) mq.addListener(applyWidth);
+      };
+      bindMq(mqDesktop);
+      bindMq(mqTablet);
 
       /* Inject a stylesheet into the shadow root for effects + hierarchy */
       if (!shadow.querySelector('[data-zenkai-rokt]')) {
