@@ -19,12 +19,29 @@
     - no other available products exist besides the current one
 {%- endcomment -%}
 
-{%- assign bundle_collection = product.metafields.custom.pdp_bundle_upsell_collection -%}
+{%- comment -%}
+  Resolve the metafield robustly. Shopify returns different shapes depending
+  on how the metafield definition is configured: direct collection object,
+  a `.value`-wrapped reference, or a list. After resolving, re-fetch via the
+  global `collections[handle]` namespace so `.products` is fully hydrated —
+  metafield-resolved collections don't always expose the products array
+  reliably.
+{%- endcomment -%}
+{%- assign bundle_mf = product.metafields.custom.pdp_bundle_upsell_collection -%}
+{%- assign bundle_handle = blank -%}
 
-<!-- zk-debug-mf: raw={{ product.metafields.custom.pdp_bundle_upsell_collection | json }} -->
-<!-- zk-debug-mf-value: {{ product.metafields.custom.pdp_bundle_upsell_collection.value }} -->
-{% if bundle_collection == blank %}<!-- zk-debug-state: COLLECTION_BLANK -->{% else %}<!-- zk-debug-state: collection=handle:{{ bundle_collection.handle }}|title:{{ bundle_collection.title }}|count:{{ bundle_collection.products_count }} -->{% endif %}
-<!-- zk-debug-product: id={{ product.id }} handle={{ product.handle }} -->
+{%- if bundle_mf.first.handle -%}
+  {%- assign bundle_handle = bundle_mf.first.handle -%}
+{%- elsif bundle_mf.value.handle -%}
+  {%- assign bundle_handle = bundle_mf.value.handle -%}
+{%- elsif bundle_mf.handle -%}
+  {%- assign bundle_handle = bundle_mf.handle -%}
+{%- endif -%}
+
+{%- assign bundle_collection = blank -%}
+{%- if bundle_handle != blank -%}
+  {%- assign bundle_collection = collections[bundle_handle] -%}
+{%- endif -%}
 
 {%- if bundle_collection != blank and bundle_collection.products_count > 1 -%}
 
