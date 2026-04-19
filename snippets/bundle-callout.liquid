@@ -1108,6 +1108,41 @@
       };
     }
 
+    // Parallel hook for XMLHttpRequest — some apps (UpCart, theme-native
+    // ajax carts using jQuery) use XHR instead of fetch. Without this,
+    // an item removed via UpCart's drawer wouldn't trigger our progress
+    // refresh, leaving instances stale.
+    if (window.XMLHttpRequest && !window.__zkBundleXHRHooked) {
+      window.__zkBundleXHRHooked = true;
+      var XHRProto = XMLHttpRequest.prototype;
+      var origOpen = XHRProto.open;
+      var origSend = XHRProto.send;
+      XHRProto.open = function (method, url) {
+        this.__zkBundleURL = url || '';
+        return origOpen.apply(this, arguments);
+      };
+      XHRProto.send = function () {
+        var url = this.__zkBundleURL || '';
+        var isCartMut = /\/cart\/(add|change|update|clear)(\.js)?/i.test(url);
+        if (isCartMut) {
+          this.addEventListener('loadend', function () {
+            setTimeout(window.__zkBundleRefreshAll, 250);
+          });
+        }
+        return origSend.apply(this, arguments);
+      };
+    }
+
+    // Keep the page in sync when the user returns to the tab or the
+    // browser restores from bfcache — they may have mutated the cart
+    // elsewhere (UpCart, another tab).
+    ['focus', 'pageshow', 'visibilitychange'].forEach(function (evt) {
+      window.addEventListener(evt, function () {
+        if (evt === 'visibilitychange' && document.visibilityState !== 'visible') return;
+        setTimeout(window.__zkBundleRefreshAll, 100);
+      });
+    });
+
     // Theme dispatches cart:updated on document after every cart mutation.
     // Also listen for other common custom events third-party apps dispatch.
     ['cart:updated', 'cart:refresh', 'cart:change', 'shopify:cart:update'].forEach(function(evt) {
@@ -1665,10 +1700,15 @@
                   loadingEl.hidden = true;
                   successEl.hidden = false;
                   // Keep button disabled — stay on "Added" permanently.
-                  // refreshCartState updates the progress bar + sync any
-                  // other cards' in-cart state without clobbering this
-                  // button (it's already success state).
-                  refreshCartState();
+                  // Refresh BOTH desktop + mobile instances, not just the
+                  // current one — otherwise the other instance's progress
+                  // bar goes stale (user reported desktop showing $20 off
+                  // while mobile correctly showed $10 for the same cart).
+                  if (typeof window.__zkBundleRefreshAll === 'function') {
+                    window.__zkBundleRefreshAll();
+                  } else {
+                    refreshCartState();
+                  }
                 }, toSuccess);
               })
               .catch(function (err) {
