@@ -531,12 +531,20 @@
               "testimonial": "<p>I really love the design style you use, with the small front graphic over the right chest and the bold back art.</p>",
               "author": "C.C."
             }
+          },
+          "testimonial_5": {
+            "type": "testimonial",
+            "settings": {
+              "testimonial": "<p>I love these clothes. They are comfortable, fit well and I get lots of positive comments.</p>",
+              "author": "J.D."
+            }
           }
         },
         "block_order": [
           "testimonial_1",
           "testimonial_2",
-          "testimonial_4"
+          "testimonial_4",
+          "testimonial_5"
         ],
         "settings": {
           "title": "Word on the street",
