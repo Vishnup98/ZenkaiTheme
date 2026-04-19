@@ -4736,19 +4736,24 @@ this.$container.find('.you-save').addClass('hide');
   
       updateVariantImage: function(evt) {
         var variant = evt.variant;
-        var sizedImgUrl = theme.Images.getSizedImageUrl(variant.featured_media.preview_image.src, this.settings.imageSize);
-  
-        var $newImage = $('.product__thumb[data-id="' + variant.featured_media.id + '"]');
-        var imageIndex = this._slideIndex($newImage.closest('.product__thumb-item'));
-  
-        // No image, bail
+        var mediaId = variant.featured_media && variant.featured_media.id;
+        if (!mediaId) {
+          return;
+        }
+
+        var imageIndex = this.$container.find('.product__slide[data-media-id="' + mediaId + '"]').data('index');
+
+        if (typeof imageIndex === 'undefined') {
+          imageIndex = this.$container.find('.product__thumb[data-id="' + mediaId + '"]').closest('.product__thumb-item').data('index');
+        }
+
         if (typeof imageIndex === 'undefined') {
           return;
         }
-  
+
         if (!theme.config.bpSmall && this.settings.stackedImages) {
           this.stackedScrollTo(imageIndex);
-        } else {
+        } else if (this.$mainSlider && this.settings.slickMainInitialized) {
           this.$mainSlider.slick('slickGoTo', imageIndex);
         }
       },
