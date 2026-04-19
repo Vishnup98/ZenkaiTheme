@@ -1,14 +1,10 @@
-{%- comment -%} cache-bust v4.1 {%- endcomment -%}
-<!-- ZK-SNIPPET-REACHED v4.2 slot={{ bundle_slot }} product={{ product.id }} mf_blank={% if product.metafields.custom.pdp_bundle_upsell_collection == blank %}true{% else %}false{% endif %} -->
 {%- comment -%}
   Bundle Callout — PDP bundle upsell with live reward progress.
 
   Usage: {% include 'bundle-callout', bundle_slot: 'desktop' %}
          {% include 'bundle-callout', bundle_slot: 'mobile' %}
 
-  Color mapping uses the exact Globo palette supplied by the shop admin —
-  value name → hex. Falls back to a neutral tan if the value isn't mapped.
-
+  Color mapping uses the exact Globo palette supplied by the shop admin.
   Hides silently if metafield unset, collection < 2 items, or no others available.
 {%- endcomment -%}
 
@@ -53,16 +49,20 @@
 <section class="zk-bundle zk-bundle--{{ bundle_slot }}"
   data-zk-tiers="{% if show_tier_4 %}2,3,4{% else %}2,3{% endif %}"
   data-zk-product-ids="{{ bundle_product_ids | strip }}"
+  data-zk-ready="false"
   aria-labelledby="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}">
   <div class="zk-bundle__inner">
 
     <div class="zk-bundle__head">
-      <span class="zk-bundle__eyebrow">More from this world</span>
+      <span class="zk-bundle__eyebrow">
+        <span class="zk-bundle__eyebrow-dot" aria-hidden="true"></span>
+        Bundle &amp; save
+      </span>
       <h3 id="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}" class="zk-bundle__title">
         Complete the {{ collection_short_title }}
       </h3>
       <p class="zk-bundle__message" data-zk-message>
-        Pick any 2 for $5 off. Any 3 for $10 off.{% if show_tier_4 %} Any 4+ for $20 off.{% endif %}
+        Pick any 2 for $5 off. Any 3 unlocks $10.{% if show_tier_4 %} Any 4+ unlocks $20.{% endif %}
       </p>
     </div>
 
@@ -72,23 +72,39 @@
       </div>
       <ul class="zk-bundle__milestones" role="list">
         <li class="zk-bundle__milestone" data-zk-milestone="2" style="left:33%">
-          <span class="zk-bundle__milestone-dot" aria-hidden="true">$</span>
-          <span class="zk-bundle__milestone-label">Save $5</span>
+          <span class="zk-bundle__milestone-dot" aria-hidden="true">
+            <span class="zk-bundle__milestone-symbol">$</span>
+            <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="zk-bundle__milestone-label"><span class="zk-bundle__label-full">Save $5</span><span class="zk-bundle__label-short">$5</span></span>
         </li>
         <li class="zk-bundle__milestone" data-zk-milestone="3" style="left:66%">
-          <span class="zk-bundle__milestone-dot" aria-hidden="true">$$</span>
-          <span class="zk-bundle__milestone-label">Save $10</span>
+          <span class="zk-bundle__milestone-dot" aria-hidden="true">
+            <span class="zk-bundle__milestone-symbol">$$</span>
+            <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="zk-bundle__milestone-label"><span class="zk-bundle__label-full">Save $10</span><span class="zk-bundle__label-short">$10</span></span>
         </li>
         {%- if show_tier_4 -%}
         <li class="zk-bundle__milestone" data-zk-milestone="4" style="left:100%">
-          <span class="zk-bundle__milestone-dot" aria-hidden="true">$$$</span>
-          <span class="zk-bundle__milestone-label">Save $20</span>
+          <span class="zk-bundle__milestone-dot" aria-hidden="true">
+            <span class="zk-bundle__milestone-symbol">$$$</span>
+            <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="zk-bundle__milestone-label"><span class="zk-bundle__label-full">Save $20</span><span class="zk-bundle__label-short">$20</span></span>
         </li>
         {%- endif -%}
       </ul>
     </div>
 
-    <div class="zk-bundle__carousel" role="list" data-zk-carousel>
+    <div class="zk-bundle__carousel-wrap">
+      <button type="button" class="zk-bundle__nav zk-bundle__nav--prev" aria-label="Scroll left" data-zk-nav="prev" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="zk-bundle__nav zk-bundle__nav--next" aria-label="Scroll right" data-zk-nav="next" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="zk-bundle__carousel" role="list" data-zk-carousel>
       {%- for p in bundle_collection.products -%}
         {%- if p.id != product.id and p.available -%}
           {%- assign first_image = p.featured_image | default: p.images.first -%}
@@ -96,9 +112,14 @@
           {%- if p.has_only_default_variant -%}
             {%- assign is_single_variant = true -%}
           {%- endif -%}
+          {%- assign on_sale = false -%}
+          {%- if p.compare_at_price > p.price -%}
+            {%- assign on_sale = true -%}
+          {%- endif -%}
 
           <article class="zk-bundle__card" role="listitem" data-zk-item data-product-id="{{ p.id }}">
             <a href="{{ p.url }}" class="zk-bundle__media" tabindex="-1" aria-hidden="true">
+              <span class="zk-bundle__badge" aria-hidden="true">+ Bundle</span>
               {%- if first_image -%}
                 <img
                   src="{{ first_image | img_url: '480x480', crop: 'center' }}"
@@ -112,7 +133,12 @@
 
             <div class="zk-bundle__info">
               <a href="{{ p.url }}" class="zk-bundle__name">{{ p.title }}</a>
-              <span class="zk-bundle__price">{{ p.price | money_without_trailing_zeros }}</span>
+              <span class="zk-bundle__price-group">
+                {%- if on_sale -%}
+                  <span class="zk-bundle__price-compare">{{ p.compare_at_price | money_without_trailing_zeros }}</span>
+                {%- endif -%}
+                <span class="zk-bundle__price{% if on_sale %} zk-bundle__price--sale{% endif %}">{{ p.price | money_without_trailing_zeros }}</span>
+              </span>
             </div>
 
             {%- unless is_single_variant -%}
@@ -203,49 +229,69 @@
             <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
 
             <button type="button" class="zk-bundle__add" data-zk-add {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
-              <span class="zk-bundle__add-default">{% if is_single_variant %}Add{% else %}Select options{% endif %}</span>
+              <span class="zk-bundle__add-default">
+                <svg class="zk-bundle__add-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2 6h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <span data-zk-add-label>{% if is_single_variant %}Add to bundle{% else %}Select options{% endif %}</span>
+              </span>
               <span class="zk-bundle__add-loading" hidden aria-hidden="true"><span class="zk-bundle__spinner"></span></span>
               <span class="zk-bundle__add-success" hidden aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Added
               </span>
             </button>
           </article>
         {%- endif -%}
       {%- endfor -%}
+      </div>
     </div>
 
-    <p class="zk-bundle__foot">
-      <svg class="zk-bundle__foot-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6l2.5 2.5L10 3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Discount applies automatically at checkout.
-    </p>
+    <div class="zk-bundle__foot" role="note">
+      <span class="zk-bundle__foot-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6l2.5 2.5L10 3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Discount auto-applies at checkout
+      </span>
+      <span class="zk-bundle__foot-sep" aria-hidden="true">·</span>
+      <span class="zk-bundle__foot-item">
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 8V4h7l3 3v1H1zM3 9.5a1 1 0 100-2 1 1 0 000 2zM8.5 9.5a1 1 0 100-2 1 1 0 000 2z" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>
+        Ships in 1–3 business days
+      </span>
+    </div>
+
+    <div class="zk-bundle__toast" data-zk-toast hidden role="status" aria-live="polite"></div>
 
   </div>
 </section>
 
 <style>
   .zk-bundle {
-    margin: 24px 0;
+    margin: 20px 0;
     --zk-ink: #1a1b2e;
-    --zk-ink-soft: #5a5f75;
-    --zk-ink-faded: #8a8fa5;
+    --zk-ink-soft: #555a6e;
+    --zk-ink-faded: #8e93a6;
     --zk-bg: #ffffff;
-    --zk-bg-deep: #faf9f6;
-    --zk-border: rgba(26, 27, 46, 0.12);
+    --zk-bg-deep: #f6f5f0;
+    --zk-border: rgba(26, 27, 46, 0.09);
     --zk-border-strong: rgba(26, 27, 46, 0.2);
     --zk-surface: #ffffff;
     --zk-cta: #e85d3a;
-    --zk-cta-hover: #d14e2d;
-    --zk-success: #4a7d3d;
-    --zk-muted: #cfc9bc;
-    --zk-accent-soft: #e8eaf8;
+    --zk-cta-hover: #d04d2a;
+    --zk-cta-soft: rgba(232, 93, 58, 0.09);
+    --zk-success: #2f7a4d;
+    --zk-muted: #d6d2c7;
+    --zk-track: #ece8df;
   }
+  .zk-bundle[data-zk-ready="false"] .zk-bundle__progress-fill,
+  .zk-bundle[data-zk-ready="false"] .zk-bundle__milestone { opacity: 0; }
+  .zk-bundle[data-zk-ready="true"] .zk-bundle__progress-fill,
+  .zk-bundle[data-zk-ready="true"] .zk-bundle__milestone { opacity: 1; transition: opacity 200ms ease; }
+
   .zk-bundle__inner {
     background: var(--zk-bg);
     border: 1px solid var(--zk-border);
-    border-radius: 18px;
-    padding: 20px 18px 16px;
-    box-shadow: 0 14px 30px rgba(26, 27, 46, 0.05);
+    border-radius: 16px;
+    padding: 18px 18px 14px;
+    box-shadow: 0 1px 0 rgba(26, 27, 46, 0.02), 0 18px 44px -18px rgba(26, 27, 46, 0.12);
+    position: relative;
   }
 
   /* Responsive slot visibility */
@@ -256,115 +302,164 @@
     .zk-bundle--mobile { display: none; }
   }
 
-  /* Ensure [hidden] on inner spans is respected inside flex button */
-  .zk-bundle__add [hidden] { display: none !important; }
+  /* Ensure [hidden] is respected on inner spans */
+  .zk-bundle__add [hidden], .zk-bundle [hidden] { display: none !important; }
 
-  .zk-bundle__head { text-align: center; margin-bottom: 14px; }
+  .zk-bundle__head { text-align: center; margin-bottom: 10px; }
   .zk-bundle__eyebrow {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
     color: var(--zk-cta);
-    margin-bottom: 4px;
+    background: var(--zk-cta-soft);
+    padding: 4px 9px; border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .zk-bundle__eyebrow-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--zk-cta);
+    animation: zk-pulse 2s ease-in-out infinite;
+  }
+  @keyframes zk-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.2); }
   }
   .zk-bundle__title {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin: 0 0 6px;
-    color: var(--zk-ink);
-    letter-spacing: -0.01em;
+    font-size: 19px; font-weight: 700; line-height: 1.2;
+    margin: 0 0 4px; color: var(--zk-ink); letter-spacing: -0.015em;
   }
   .zk-bundle__message {
-    font-size: 14px;
-    line-height: 1.4;
-    margin: 0;
-    color: var(--zk-ink-soft);
+    font-size: 13.5px; line-height: 1.45; margin: 0; color: var(--zk-ink-soft);
   }
   .zk-bundle__message strong { color: var(--zk-ink); font-weight: 700; }
 
   /* Progress bar with milestones */
-  .zk-bundle__progress {
-    position: relative;
-    margin: 22px 4px 34px;
-  }
+  .zk-bundle__progress { position: relative; margin: 22px 8px 32px; }
   .zk-bundle__progress-track {
-    position: relative;
-    height: 4px;
-    background: var(--zk-accent-soft);
-    border-radius: 999px;
-    overflow: hidden;
+    position: relative; height: 5px;
+    background: var(--zk-track); border-radius: 999px; overflow: hidden;
   }
   .zk-bundle__progress-fill {
-    position: absolute;
-    inset: 0 auto 0 0;
-    background: linear-gradient(90deg, var(--zk-cta) 0%, #f5845a 100%);
+    position: absolute; inset: 0 auto 0 0;
+    background: linear-gradient(90deg, var(--zk-cta) 0%, #ff8561 100%);
     border-radius: 999px;
-    transition: width 350ms cubic-bezier(.2,.8,.2,1);
+    transition: width 420ms cubic-bezier(.2,.8,.2,1);
   }
-  .zk-bundle__milestones {
-    position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none;
-  }
+  .zk-bundle__milestones { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none; }
   .zk-bundle__milestone {
     position: absolute; top: 50%; transform: translate(-50%, -50%);
     display: flex; flex-direction: column; align-items: center; gap: 4px;
   }
   .zk-bundle__milestone-dot {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--zk-surface);
-    border: 2px solid var(--zk-border-strong);
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--zk-surface); border: 2px solid var(--zk-border-strong);
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 800; color: var(--zk-ink-faded);
-    transition: all 200ms ease; letter-spacing: -0.5px;
+    font-size: 10.5px; font-weight: 800; color: var(--zk-ink-faded);
+    transition: transform 200ms cubic-bezier(.2,.8,.2,1), background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    letter-spacing: -0.5px; position: relative;
+  }
+  .zk-bundle__milestone-symbol { transition: opacity 150ms ease; }
+  .zk-bundle__milestone-check {
+    position: absolute; color: #fff; opacity: 0; transform: scale(0.6);
+    transition: opacity 160ms ease 80ms, transform 200ms cubic-bezier(.2,.8,.2,1) 80ms;
   }
   .zk-bundle__milestone-label {
-    position: absolute; top: calc(100% + 4px);
-    font-size: 10px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;
-    color: var(--zk-ink-faded); white-space: nowrap;
-    transition: color 200ms ease;
+    position: absolute; top: calc(100% + 6px);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+    color: var(--zk-ink-faded); white-space: nowrap; transition: color 180ms ease;
   }
+  .zk-bundle__label-short { display: none; }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-dot {
     background: var(--zk-cta); border-color: var(--zk-cta); color: #fff;
-    box-shadow: 0 2px 8px rgba(232, 93, 58, 0.35);
+    box-shadow: 0 4px 12px rgba(232, 93, 58, 0.38);
   }
-  .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-label {
-    color: var(--zk-cta);
+  .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-symbol { opacity: 0; }
+  .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-check { opacity: 1; transform: scale(1); }
+  .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-label { color: var(--zk-cta); }
+  .zk-bundle__milestone[data-just-unlocked="true"] .zk-bundle__milestone-dot {
+    animation: zk-pop 500ms cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes zk-pop {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    40% { transform: translate(-50%, -50%) scale(1.35); }
+    100% { transform: translate(-50%, -50%) scale(1); }
   }
 
-  /* Carousel */
+  /* Carousel with edge fade + nav chevrons */
+  .zk-bundle__carousel-wrap {
+    position: relative;
+    margin: 0 -4px;
+  }
+  .zk-bundle__carousel-wrap::before,
+  .zk-bundle__carousel-wrap::after {
+    content: ''; position: absolute; top: 4px; bottom: 14px; width: 24px;
+    pointer-events: none; z-index: 2; transition: opacity 180ms ease;
+  }
+  .zk-bundle__carousel-wrap::before {
+    left: 0; background: linear-gradient(90deg, var(--zk-bg) 0%, rgba(255,255,255,0) 100%);
+    opacity: 0;
+  }
+  .zk-bundle__carousel-wrap::after {
+    right: 0; background: linear-gradient(-90deg, var(--zk-bg) 0%, rgba(255,255,255,0) 100%);
+    opacity: 1;
+  }
+  .zk-bundle__carousel-wrap[data-at-start="false"]::before { opacity: 1; }
+  .zk-bundle__carousel-wrap[data-at-end="true"]::after { opacity: 0; }
+
   .zk-bundle__carousel {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(180px, 1fr);
-    gap: 12px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 4px 2px 14px;
-    margin: 0 -4px 0 -4px;
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(176px, 1fr);
+    gap: 10px;
+    overflow-x: auto; overflow-y: hidden;
+    padding: 4px 4px 14px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+    scroll-padding-left: 4px;
   }
-  .zk-bundle__carousel::-webkit-scrollbar { height: 6px; }
-  .zk-bundle__carousel::-webkit-scrollbar-track { background: transparent; }
-  .zk-bundle__carousel::-webkit-scrollbar-thumb { background: var(--zk-border); border-radius: 999px; }
+  .zk-bundle__carousel::-webkit-scrollbar { display: none; }
+
+  .zk-bundle__nav {
+    appearance: none; position: absolute; top: 50%;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--zk-surface); border: 1px solid var(--zk-border);
+    color: var(--zk-ink); cursor: pointer; z-index: 3;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(26, 27, 46, 0.12);
+    transform: translateY(-60%); transition: background 150ms ease, transform 150ms ease;
+  }
+  .zk-bundle__nav:hover { background: var(--zk-ink); color: #fff; }
+  .zk-bundle__nav--prev { left: -6px; }
+  .zk-bundle__nav--next { right: -6px; }
+  @media (max-width: 768px) { .zk-bundle__nav { display: none; } }
 
   .zk-bundle__card {
     scroll-snap-align: start;
-    display: flex; flex-direction: column; gap: 8px;
+    display: flex; flex-direction: column; gap: 9px;
     background: var(--zk-surface);
-    border: 1px solid var(--zk-border);
-    border-radius: 14px;
+    border: 1px solid var(--zk-border); border-radius: 13px;
     padding: 10px; min-width: 0;
+    transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  }
+  .zk-bundle__card:hover {
+    border-color: rgba(26, 27, 46, 0.18);
+    box-shadow: 0 8px 20px -10px rgba(26, 27, 46, 0.18);
+    transform: translateY(-1px);
   }
   .zk-bundle__media {
-    display: block; aspect-ratio: 1 / 1;
+    display: block; aspect-ratio: 1 / 1; position: relative;
     border-radius: 10px; overflow: hidden; background: var(--zk-bg-deep);
   }
-  .zk-bundle__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .zk-bundle__media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 300ms cubic-bezier(.2,.8,.2,1);
+  }
+  .zk-bundle__card:hover .zk-bundle__media img { transform: scale(1.03); }
+  .zk-bundle__badge {
+    position: absolute; top: 7px; left: 7px;
+    background: rgba(26, 27, 46, 0.88); color: #fff;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.4px;
+    padding: 3px 7px; border-radius: 999px; backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
 
   .zk-bundle__info {
     display: flex; align-items: baseline; justify-content: space-between;
@@ -377,9 +472,10 @@
     flex: 1 1 auto; min-width: 0;
   }
   .zk-bundle__name:hover { text-decoration: underline; }
-  .zk-bundle__price {
-    font-size: 13px; font-weight: 700; color: var(--zk-ink); flex: 0 0 auto;
-  }
+  .zk-bundle__price-group { display: inline-flex; align-items: baseline; gap: 5px; flex: 0 0 auto; }
+  .zk-bundle__price { font-size: 13px; font-weight: 700; color: var(--zk-ink); }
+  .zk-bundle__price--sale { color: var(--zk-cta); }
+  .zk-bundle__price-compare { font-size: 11px; color: var(--zk-ink-faded); text-decoration: line-through; font-weight: 500; }
 
   .zk-bundle__options { display: flex; flex-direction: column; gap: 5px; margin-top: 2px; }
   .zk-bundle__option { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
@@ -387,25 +483,26 @@
     font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
     color: var(--zk-ink-faded); flex: 0 0 auto; min-width: 30px;
   }
-  .zk-bundle__option-values { display: flex; flex-wrap: wrap; gap: 3px; }
+  .zk-bundle__option-values { display: flex; flex-wrap: wrap; gap: 4px; }
   .zk-bundle__option-btn {
     appearance: none; background: var(--zk-surface); border: 1px solid var(--zk-border);
-    border-radius: 4px; padding: 3px 7px; font-size: 11px; font-weight: 600;
+    border-radius: 5px; padding: 3px 7px; font-size: 11px; font-weight: 600;
     color: var(--zk-ink); cursor: pointer; transition: all 120ms ease;
     line-height: 1.2; min-width: 22px; font-family: inherit;
   }
   .zk-bundle__option-btn:hover { border-color: var(--zk-ink); }
-  .zk-bundle__option-btn[aria-checked="true"] {
-    background: var(--zk-ink); border-color: var(--zk-ink); color: #fff;
-  }
+  .zk-bundle__option-btn[aria-checked="true"] { background: var(--zk-ink); border-color: var(--zk-ink); color: #fff; }
+  .zk-bundle__option-btn:focus-visible { outline: 2px solid var(--zk-cta); outline-offset: 2px; }
+
   .zk-bundle__swatch {
-    appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    appearance: none; width: 19px; height: 19px; border-radius: 50%;
     border: 1px solid var(--zk-border-strong); padding: 0; cursor: pointer;
-    transition: outline 120ms ease; font-family: inherit; position: relative; flex: 0 0 auto;
+    transition: outline 120ms ease, transform 120ms ease;
+    font-family: inherit; position: relative; flex: 0 0 auto;
   }
-  .zk-bundle__swatch[aria-checked="true"] {
-    outline: 2px solid var(--zk-ink); outline-offset: 2px;
-  }
+  .zk-bundle__swatch:hover { transform: scale(1.08); }
+  .zk-bundle__swatch[aria-checked="true"] { outline: 2px solid var(--zk-ink); outline-offset: 2px; }
+  .zk-bundle__swatch:focus-visible { outline: 2px solid var(--zk-cta); outline-offset: 2px; }
   .zk-bundle__swatch-label {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
@@ -413,20 +510,31 @@
 
   .zk-bundle__add {
     appearance: none; background: var(--zk-cta); color: #fff;
-    border: 1px solid var(--zk-cta); border-radius: 8px; padding: 8px 10px;
-    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-    cursor: pointer; transition: background 150ms ease, border-color 150ms ease;
-    min-height: 34px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--zk-cta); border-radius: 9px; padding: 9px 12px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    cursor: pointer; transition: background 150ms ease, border-color 150ms ease, transform 120ms ease;
+    min-height: 36px; display: flex; align-items: center; justify-content: center;
     gap: 6px; font-family: inherit; margin-top: auto;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.04);
   }
   .zk-bundle__add:hover:not(:disabled) { background: var(--zk-cta-hover); border-color: var(--zk-cta-hover); }
+  .zk-bundle__add:active:not(:disabled) { transform: translateY(1px); }
+  .zk-bundle__add:focus-visible { outline: 2px solid var(--zk-ink); outline-offset: 2px; }
   .zk-bundle__add:disabled {
     background: var(--zk-muted); border-color: var(--zk-muted); color: #fff;
-    cursor: not-allowed; opacity: 0.85;
+    cursor: not-allowed; opacity: 0.85; box-shadow: none;
   }
   .zk-bundle__add[data-state="success"] {
     background: var(--zk-success) !important; border-color: var(--zk-success) !important; opacity: 1 !important;
   }
+  .zk-bundle__add-default { display: inline-flex; align-items: center; gap: 5px; }
+  .zk-bundle__add-icon { opacity: 0.85; flex: 0 0 auto; }
+  .zk-bundle__add[data-state="success"] .zk-bundle__add-success { animation: zk-pop-in 300ms cubic-bezier(.2,.8,.2,1); }
+  @keyframes zk-pop-in {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
   .zk-bundle__spinner {
     width: 12px; height: 12px;
     border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
@@ -436,22 +544,49 @@
   @keyframes zk-spin { to { transform: rotate(360deg); } }
 
   .zk-bundle__foot {
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    font-size: 11px; color: var(--zk-ink-faded); margin: 4px 0 0; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: 6px 10px; font-size: 11.5px; color: var(--zk-ink-faded);
+    margin: 8px 0 0; font-weight: 500;
+    padding-top: 10px; border-top: 1px solid var(--zk-border);
   }
-  .zk-bundle__foot-icon { flex-shrink: 0; color: var(--zk-success); }
+  .zk-bundle__foot-item { display: inline-flex; align-items: center; gap: 5px; }
+  .zk-bundle__foot-item:first-child { color: var(--zk-success); }
+  .zk-bundle__foot-item:first-child svg { color: var(--zk-success); }
+  .zk-bundle__foot-sep { color: var(--zk-border-strong); font-weight: 700; }
+
+  .zk-bundle__toast {
+    position: absolute; left: 50%; bottom: 12px; transform: translate(-50%, 8px);
+    background: #2a1e1e; color: #fff; font-size: 12px; font-weight: 600;
+    padding: 8px 14px; border-radius: 8px; pointer-events: none;
+    opacity: 0; transition: opacity 180ms ease, transform 220ms cubic-bezier(.2,.8,.2,1);
+    z-index: 5; box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+    max-width: 90%; text-align: center;
+  }
+  .zk-bundle__toast[data-tone="error"] { background: #8c2414; }
+  .zk-bundle__toast[data-tone="success"] { background: #2f7a4d; }
+  .zk-bundle__toast[data-visible="true"] { opacity: 1; transform: translate(-50%, 0); }
 
   @media (max-width: 640px) {
-    .zk-bundle__inner { padding: 16px 14px 12px; border-radius: 14px; }
-    .zk-bundle__title { font-size: 17px; }
-    .zk-bundle__message { font-size: 13px; }
-    .zk-bundle__carousel { grid-auto-columns: 160px; }
+    .zk-bundle__inner { padding: 14px 14px 10px; border-radius: 14px; }
+    .zk-bundle__title { font-size: 16.5px; }
+    .zk-bundle__message { font-size: 12.5px; }
+    .zk-bundle__carousel { grid-auto-columns: 160px; gap: 8px; }
     .zk-bundle__card { padding: 8px; }
-    .zk-bundle__milestone-dot { width: 24px; height: 24px; font-size: 10px; }
-    .zk-bundle__milestone-label { font-size: 9px; }
+    .zk-bundle__milestone-dot { width: 24px; height: 24px; font-size: 9.5px; }
+    .zk-bundle__milestone-label { font-size: 9.5px; letter-spacing: 0.2px; }
+  }
+  @media (max-width: 400px) {
+    .zk-bundle__label-full { display: none; }
+    .zk-bundle__label-short { display: inline; }
   }
   @media (min-width: 900px) {
     .zk-bundle__carousel { grid-auto-columns: minmax(200px, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zk-bundle *, .zk-bundle *::before, .zk-bundle *::after {
+      transition: none !important; animation: none !important;
+    }
   }
 </style>
 
@@ -527,19 +662,34 @@
     var fillEl = root.querySelector('[data-zk-progress-fill]');
     var messageEl = root.querySelector('[data-zk-message]');
     var milestoneEls = root.querySelectorAll('[data-zk-milestone]');
+    var toastEl = root.querySelector('[data-zk-toast]');
+    var lastCount = -1;
+
+    function showToast(msg, tone) {
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.dataset.tone = tone || 'info';
+      toastEl.hidden = false;
+      toastEl.setAttribute('data-visible', 'true');
+      clearTimeout(toastEl.__zkTimer);
+      toastEl.__zkTimer = setTimeout(function() {
+        toastEl.setAttribute('data-visible', 'false');
+        setTimeout(function() { toastEl.hidden = true; }, 220);
+      }, 2400);
+    }
 
     function buildMessage(count) {
       var maxTier = tiers[tiers.length - 1];
       if (count <= 0) {
-        if (tiers.indexOf(4) >= 0) return 'Pick any 2 for $5 off. Any 3 for $10 off. Any 4+ for $20 off.';
-        return 'Pick any 2 for $5 off. Any 3 for $10 off.';
+        if (tiers.indexOf(4) >= 0) return 'Pick any 2 for $5 off. Any 3 unlocks $10. Any 4+ unlocks $20.';
+        return 'Pick any 2 for $5 off. Any 3 unlocks $10.';
       }
-      if (count === 1) return 'Add 1 more for $5 off.';
-      if (count === 2 && tiers.indexOf(3) >= 0) return 'Saving $5 — add 1 more for $10 off.';
-      if (count === 2) return 'Saving $5 unlocked.';
-      if (count === 3 && tiers.indexOf(4) >= 0) return 'Saving $10 — add 1 more for $20 off.';
-      if (count === 3) return 'Saving $10 unlocked.';
-      if (count >= maxTier) return maxTier === 4 ? 'Max saving unlocked — $20 off.' : 'Max saving unlocked — $10 off.';
+      if (count === 1) return 'One in cart — add 1 more to unlock $5 off.';
+      if (count === 2 && tiers.indexOf(3) >= 0) return '$5 off unlocked. Add 1 more for $10 off.';
+      if (count === 2) return '$5 off unlocked at checkout.';
+      if (count === 3 && tiers.indexOf(4) >= 0) return '$10 off unlocked. Add 1 more for $20 off.';
+      if (count === 3) return '$10 off unlocked at checkout.';
+      if (count >= maxTier) return maxTier === 4 ? 'Max savings unlocked — $20 off at checkout.' : 'Max savings unlocked — $10 off at checkout.';
       return '';
     }
 
@@ -562,13 +712,59 @@
       if (fillEl) fillEl.style.width = progressPct(count) + '%';
       milestoneEls.forEach(function(el) {
         var threshold = parseInt(el.dataset.zkMilestone, 10);
-        el.dataset.reached = count >= threshold ? 'true' : 'false';
+        var reached = count >= threshold;
+        var wasReached = el.dataset.reached === 'true';
+        el.dataset.reached = reached ? 'true' : 'false';
+        if (reached && !wasReached && lastCount >= 0) {
+          el.dataset.justUnlocked = 'true';
+          setTimeout(function() { delete el.dataset.justUnlocked; }, 600);
+        }
       });
       if (messageEl) {
         var msg = buildMessage(count);
         if (msg) messageEl.textContent = msg;
       }
+      root.dataset.zkReady = 'true';
+      lastCount = count;
     }
+
+    /* ===== Carousel nav + edge state ===== */
+    var carousel = root.querySelector('[data-zk-carousel]');
+    var wrap = root.querySelector('.zk-bundle__carousel-wrap');
+    var navPrev = root.querySelector('[data-zk-nav="prev"]');
+    var navNext = root.querySelector('[data-zk-nav="next"]');
+
+    function updateCarouselEdges() {
+      if (!carousel || !wrap) return;
+      var overflow = carousel.scrollWidth - carousel.clientWidth > 4;
+      if (!overflow) {
+        wrap.dataset.atStart = 'true';
+        wrap.dataset.atEnd = 'true';
+        if (navPrev) navPrev.hidden = true;
+        if (navNext) navNext.hidden = true;
+        return;
+      }
+      var atStart = carousel.scrollLeft <= 2;
+      var atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 2;
+      wrap.dataset.atStart = atStart ? 'true' : 'false';
+      wrap.dataset.atEnd = atEnd ? 'true' : 'false';
+      if (navPrev) navPrev.hidden = atStart;
+      if (navNext) navNext.hidden = atEnd;
+    }
+    if (carousel) {
+      carousel.addEventListener('scroll', updateCarouselEdges, { passive: true });
+      window.addEventListener('resize', updateCarouselEdges);
+      setTimeout(updateCarouselEdges, 50);
+      setTimeout(updateCarouselEdges, 400);
+    }
+    function scrollBy(dir) {
+      if (!carousel) return;
+      var card = carousel.querySelector('.zk-bundle__card');
+      var step = card ? card.getBoundingClientRect().width + 10 : 180;
+      carousel.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
+    }
+    if (navPrev) navPrev.addEventListener('click', function() { scrollBy(-1); });
+    if (navNext) navNext.addEventListener('click', function() { scrollBy(1); });
 
     function countBundleItemsInCart() {
       return new Promise(function(resolve) {
@@ -619,19 +815,22 @@
           return v.options.every(function(val, i) { return val === selection[i]; });
         });
       }
+      function setLabel(text) {
+        var labelEl = addBtn.querySelector('[data-zk-add-label]');
+        if (labelEl) labelEl.textContent = text;
+      }
       function updateAddState() {
-        var defaultEl = addBtn.querySelector('.zk-bundle__add-default');
         if (!allSelected()) {
           addBtn.disabled = true; addBtn.setAttribute('aria-disabled', 'true');
-          defaultEl.textContent = 'Select options'; return;
+          setLabel('Select options'); return;
         }
         var v = findVariant();
-        if (!v) { addBtn.disabled = true; defaultEl.textContent = 'Unavailable'; return; }
-        if (!v.available) { addBtn.disabled = true; defaultEl.textContent = 'Sold out'; return; }
+        if (!v) { addBtn.disabled = true; setLabel('Unavailable'); return; }
+        if (!v.available) { addBtn.disabled = true; setLabel('Sold out'); return; }
         addBtn.disabled = false;
         addBtn.setAttribute('aria-disabled', 'false');
         addBtn.dataset.variantId = v.id;
-        defaultEl.textContent = 'Add';
+        setLabel('Add to bundle');
       }
 
       optionEls.forEach(function(optEl) {
@@ -686,7 +885,6 @@
             addBtn.dataset.state = 'success';
             loadingEl.hidden = true;
             successEl.hidden = false;
-            // Force-close any drawer that opened from this cart mutation
             setTimeout(window.__zkBundleForceCloseDrawer, 150);
             setTimeout(window.__zkBundleForceCloseDrawer, 500);
             refreshCartState();
@@ -702,11 +900,12 @@
             addBtn.dataset.state = '';
             loadingEl.hidden = true;
             defaultEl.hidden = false;
-            defaultEl.textContent = 'Try again';
+            setLabel('Try again');
+            showToast('Couldn\u2019t add that — please try again.', 'error');
             setTimeout(function() {
-              defaultEl.textContent = 'Add';
+              setLabel('Add to bundle');
               addBtn.disabled = false;
-            }, 2000);
+            }, 2400);
           });
       });
     });
