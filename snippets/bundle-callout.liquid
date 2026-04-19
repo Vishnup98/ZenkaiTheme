@@ -248,7 +248,10 @@
                 <svg class="zk-bundle__add-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2 6h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 <span data-zk-add-label>{% if is_single_variant %}Add to bundle{% else %}Select options{% endif %}</span>
               </span>
-              <span class="zk-bundle__add-loading" hidden aria-hidden="true"><span class="zk-bundle__spinner"></span></span>
+              <span class="zk-bundle__add-loading" hidden aria-hidden="true">
+                <span class="zk-bundle__spinner"></span>
+                <span class="zk-bundle__add-loading-text">Adding<span class="zk-bundle__dot" aria-hidden="true">.</span><span class="zk-bundle__dot" aria-hidden="true">.</span><span class="zk-bundle__dot" aria-hidden="true">.</span></span>
+              </span>
               <span class="zk-bundle__add-success" hidden aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Added
@@ -562,10 +565,24 @@
     background: var(--zk-muted); border-color: var(--zk-muted); color: #fff;
     cursor: not-allowed; opacity: 0.85; box-shadow: none;
   }
+  .zk-bundle__add[data-state="loading"] {
+    background: var(--zk-cta) !important; border-color: var(--zk-cta) !important;
+    color: #fff !important; opacity: 1 !important; cursor: progress !important;
+  }
   .zk-bundle__add[data-state="success"] {
     background: var(--zk-success) !important; border-color: var(--zk-success) !important; opacity: 1 !important;
   }
+  .zk-bundle__add[data-state="in-cart"] {
+    background: #fff !important; color: var(--zk-success) !important;
+    border: 1px solid rgba(47, 122, 77, 0.4) !important; opacity: 1 !important;
+    box-shadow: none !important;
+  }
+  .zk-bundle__add[data-state="in-cart"]:hover:not(:disabled) {
+    background: rgba(47, 122, 77, 0.06) !important;
+  }
   .zk-bundle__add-default { display: inline-flex; align-items: center; gap: 5px; }
+  .zk-bundle__add-loading { display: inline-flex; align-items: center; gap: 7px; }
+  .zk-bundle__add-loading-text { font-size: 12px; font-weight: 700; letter-spacing: 0.4px; }
   .zk-bundle__add-icon { opacity: 0.85; flex: 0 0 auto; }
   .zk-bundle__add[data-state="success"] .zk-bundle__add-success { animation: zk-pop-in 300ms cubic-bezier(.2,.8,.2,1); }
   @keyframes zk-pop-in {
@@ -573,11 +590,24 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
+  /* Animated "Adding…" dots */
+  .zk-bundle__dot {
+    display: inline-block; opacity: 0.25;
+    animation: zk-dot-cycle 1.2s infinite ease-in-out;
+  }
+  .zk-bundle__dot:nth-child(1) { animation-delay: 0s; }
+  .zk-bundle__dot:nth-child(2) { animation-delay: 0.18s; }
+  .zk-bundle__dot:nth-child(3) { animation-delay: 0.36s; }
+  @keyframes zk-dot-cycle {
+    0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-1px); }
+  }
+
   .zk-bundle__spinner {
-    width: 12px; height: 12px;
+    width: 13px; height: 13px;
     border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
     border-radius: 50%; animation: zk-spin 600ms linear infinite;
-    display: inline-block;
+    display: inline-block; flex: 0 0 auto;
   }
   @keyframes zk-spin { to { transform: rotate(360deg); } }
 
@@ -666,7 +696,11 @@
     ];
     var BODY_DRAWER_CLASSES = [
       'drawer-open', 'js-drawer-open', 'no-scroll', 'overflow-hidden',
-      'cart-drawer-open', 'scroll-lock', 'cart-open'
+      'cart-drawer-open', 'scroll-lock', 'cart-open',
+      // Rokt UpCart (shadow-dom app) — body class toggles its visibility:
+      'upcartPopupShow', 'upcart-open',
+      // Candy Rack variants:
+      'candyrack-popup-show', 'cr-slider-open'
     ];
     var DRAWER_NODE_SELECTORS = [
       '#CartDrawer', '.drawer--cart', '.cart-drawer', '[data-cart-drawer]',
@@ -990,30 +1024,46 @@
     if (navPrev) navPrev.addEventListener('click', function() { scrollBy(-1); });
     if (navNext) navNext.addEventListener('click', function() { scrollBy(1); });
 
-    function countBundleItemsInCart() {
+    function updateCardInCartStates(cartItems) {
+      var byProduct = {};
+      (cartItems || []).forEach(function(it) {
+        byProduct[it.product_id] = (byProduct[it.product_id] || 0) + it.quantity;
+      });
+      root.querySelectorAll('[data-zk-item]').forEach(function(item) {
+        var pid = parseInt(item.dataset.productId, 10);
+        var btn = item.querySelector('[data-zk-add]');
+        if (!btn || btn.dataset.state === 'loading' || btn.dataset.state === 'success') return;
+        var labelEl = btn.querySelector('[data-zk-add-label]');
+        if (byProduct[pid]) {
+          btn.dataset.state = 'in-cart';
+          if (labelEl) labelEl.textContent = 'In cart · Add more';
+        } else if (btn.dataset.state === 'in-cart') {
+          btn.dataset.state = '';
+          if (labelEl) labelEl.textContent = 'Add to bundle';
+        }
+      });
+    }
+
+    function refreshCartState() {
       return new Promise(function(resolve) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/cart.js', true);
         xhr.setRequestHeader('Accept', 'application/json');
         xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            try {
-              var cart = JSON.parse(xhr.responseText);
-              if (!cart || !cart.items) return resolve(0);
-              var count = 0;
-              cart.items.forEach(function(item) {
-                if (bundleProductIds.indexOf(item.product_id) >= 0) count += item.quantity;
-              });
-              resolve(count);
-            } catch (e) { resolve(0); }
-          }
+          if (xhr.readyState !== 4) return;
+          var cart = null;
+          try { cart = JSON.parse(xhr.responseText); } catch (e) {}
+          var items = (cart && cart.items) || [];
+          var count = 0;
+          items.forEach(function(it) {
+            if (bundleProductIds.indexOf(it.product_id) >= 0) count += it.quantity;
+          });
+          updateProgress(count);
+          updateCardInCartStates(items);
+          resolve();
         };
         xhr.send();
       });
-    }
-
-    function refreshCartState() {
-      countBundleItemsInCart().then(updateProgress);
     }
 
     // Expose for global refresh
@@ -1225,19 +1275,25 @@
 
         // Arm drawer suppression *before* the XHR fires so any open attempt
         // during/after the add is swallowed by the observer.
-        window.__zkBundleSuppressDrawer(1800);
+        // UpCart / Candy Rack sometimes open on a delay; 3s window.
+        window.__zkBundleSuppressDrawer(3000);
 
         addToCartXHR(parseInt(variantId, 10))
           .then(function() {
             addBtn.dataset.state = 'success';
             loadingEl.hidden = true;
             successEl.hidden = false;
+            // Refresh cart state — this will repaint other cards' in-cart labels.
             refreshCartState();
             setTimeout(function() {
-              addBtn.dataset.state = '';
               successEl.hidden = true;
               defaultEl.hidden = false;
               addBtn.disabled = false;
+              // After success, relax into "In cart · Add more" since product is
+              // now in cart. refreshCartState() will have set the label; we
+              // just unlock the state so updateCardInCartStates can repaint.
+              addBtn.dataset.state = '';
+              refreshCartState();
             }, 2000);
           })
           .catch(function(err) {
