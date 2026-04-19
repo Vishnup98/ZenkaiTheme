@@ -5,31 +5,25 @@
   (collection reference). Each product explicitly picks which collection
   drives its bundle upsell.
 
+  Metafield access is hardened to handle three shapes Shopify can return
+  (direct object, .value-wrapped, list) and re-resolves via collections[handle]
+  so the products array is reliably hydrated.
+
   Tiers (match the active Shopify automatic discounts — user sets up):
     2 items from the collection → $5 off
     3 items from the collection → $10 off
     4+ items from the collection → $20 off  (only shown if collection has 4+ total)
 
-  Each bundle item has inline size/color pills + AJAX add-to-cart via
-  /cart/add.js, so the user never leaves the current PDP to build a bundle.
+  Each bundle item has inline size/color pickers + AJAX add-to-cart via
+  /cart/add.js. Color options render with the theme's color-swatch classes
+  so they match the rest of the site. The add button never opens the cart
+  drawer — it just flips to "Added ✓" and resets.
 
-  Hides silently if:
-    - metafield is not configured
-    - referenced collection has fewer than 2 total available items
-    - no other available products exist besides the current one
+  Hides silently if metafield unset, collection empty, or no other products available.
 {%- endcomment -%}
 
-{%- comment -%}
-  Resolve the metafield robustly. Shopify returns different shapes depending
-  on how the metafield definition is configured: direct collection object,
-  a `.value`-wrapped reference, or a list. After resolving, re-fetch via the
-  global `collections[handle]` namespace so `.products` is fully hydrated —
-  metafield-resolved collections don't always expose the products array
-  reliably.
-{%- endcomment -%}
 {%- assign bundle_mf = product.metafields.custom.pdp_bundle_upsell_collection -%}
 {%- assign bundle_handle = blank -%}
-
 {%- if bundle_mf.first.handle -%}
   {%- assign bundle_handle = bundle_mf.first.handle -%}
 {%- elsif bundle_mf.value.handle -%}
@@ -64,11 +58,7 @@
     {%- endif -%}
     {%- assign collection_short_title = bundle_collection.title | replace: 'Collection', '' | strip -%}
 
-<section
-  class="zk-bundle"
-  data-zk-bundle
-  data-bundle-collection="{{ bundle_collection.handle }}"
-  aria-labelledby="zk-bundle-heading-{{ product.id }}">
+<section class="zk-bundle" aria-labelledby="zk-bundle-heading-{{ product.id }}">
   <div class="zk-bundle__inner">
 
     <div class="zk-bundle__head">
@@ -77,119 +67,86 @@
         Complete the {{ collection_short_title }}
       </h3>
       <p class="zk-bundle__sub">
-        Pick 2 for <strong>$5 off</strong>. 3 for <strong>$10 off</strong>.{% if show_tier_4 %} 4+ for <strong>$20 off</strong>.{% endif %}
+        Pick any 2 for <strong>$5 off</strong>. Any 3 for <strong>$10 off</strong>.{% if show_tier_4 %} Any 4+ for <strong>$20 off</strong>.{% endif %}
       </p>
     </div>
 
-    <ul class="zk-bundle__tiers" role="list" aria-label="Savings tiers">
-      <li class="zk-bundle__tier">
-        <span class="zk-bundle__tier-count">2</span>
-        <span class="zk-bundle__tier-arrow" aria-hidden="true">→</span>
-        <span class="zk-bundle__tier-save">Save $5</span>
-      </li>
-      <li class="zk-bundle__tier">
-        <span class="zk-bundle__tier-count">3</span>
-        <span class="zk-bundle__tier-arrow" aria-hidden="true">→</span>
-        <span class="zk-bundle__tier-save">Save $10</span>
-      </li>
+    <ul class="zk-bundle__tiers" role="list">
+      <li class="zk-bundle__tier"><span class="zk-bundle__tier-count">Any 2</span><span class="zk-bundle__tier-arrow" aria-hidden="true">→</span><span class="zk-bundle__tier-save">Save $5</span></li>
+      <li class="zk-bundle__tier"><span class="zk-bundle__tier-count">Any 3</span><span class="zk-bundle__tier-arrow" aria-hidden="true">→</span><span class="zk-bundle__tier-save">Save $10</span></li>
       {%- if show_tier_4 -%}
-      <li class="zk-bundle__tier zk-bundle__tier--best">
-        <span class="zk-bundle__tier-count">4+</span>
-        <span class="zk-bundle__tier-arrow" aria-hidden="true">→</span>
-        <span class="zk-bundle__tier-save">Save $20</span>
-      </li>
+      <li class="zk-bundle__tier zk-bundle__tier--best"><span class="zk-bundle__tier-count">Any 4+</span><span class="zk-bundle__tier-arrow" aria-hidden="true">→</span><span class="zk-bundle__tier-save">Save $20</span></li>
       {%- endif -%}
     </ul>
 
-    <div class="zk-bundle__grid" role="list">
-      {%- assign rendered = 0 -%}
+    <div class="zk-bundle__list" role="list">
       {%- for p in bundle_collection.products -%}
-        {%- if p.id != product.id and p.available and rendered < 4 -%}
+        {%- if p.id != product.id and p.available -%}
           {%- assign first_image = p.featured_image | default: p.images.first -%}
           {%- assign is_single_variant = false -%}
           {%- if p.has_only_default_variant -%}
             {%- assign is_single_variant = true -%}
           {%- endif -%}
 
-          <article
-            class="zk-bundle__item"
-            role="listitem"
-            data-zk-item
-            data-product-id="{{ p.id }}"
-            data-product-url="{{ p.url }}">
+          <article class="zk-bundle__row" role="listitem" data-zk-item data-product-id="{{ p.id }}">
 
             <a href="{{ p.url }}" class="zk-bundle__media" tabindex="-1" aria-hidden="true">
               {%- if first_image -%}
                 <img
-                  src="{{ first_image | img_url: '320x320', crop: 'center' }}"
-                  srcset="{{ first_image | img_url: '320x320', crop: 'center' }} 1x, {{ first_image | img_url: '640x640', crop: 'center' }} 2x"
+                  src="{{ first_image | img_url: '240x240', crop: 'center' }}"
+                  srcset="{{ first_image | img_url: '240x240', crop: 'center' }} 1x, {{ first_image | img_url: '480x480', crop: 'center' }} 2x"
                   alt=""
-                  width="160"
-                  height="160"
+                  width="90"
+                  height="90"
                   loading="lazy">
               {%- endif -%}
             </a>
 
-            <div class="zk-bundle__info">
-              <a href="{{ p.url }}" class="zk-bundle__name">{{ p.title }}</a>
-              <span class="zk-bundle__price" data-zk-price>{{ p.price | money_without_trailing_zeros }}</span>
-            </div>
-
-            {%- unless is_single_variant -%}
-              <div class="zk-bundle__options">
-                {%- for option in p.options_with_values -%}
-                  {%- assign option_name_downcase = option.name | downcase -%}
-                  {%- assign is_color = false -%}
-                  {%- if option_name_downcase contains 'color' or option_name_downcase contains 'colour' -%}
-                    {%- assign is_color = true -%}
-                  {%- endif -%}
-                  <div
-                    class="zk-bundle__option{% if is_color %} zk-bundle__option--color{% endif %}"
-                    data-option-index="{{ forloop.index0 }}"
-                    data-option-name="{{ option.name | escape }}">
-                    <span class="zk-bundle__option-label">{{ option.name }}</span>
-                    <div class="zk-bundle__option-values" role="radiogroup" aria-label="{{ option.name | escape }}">
-                      {%- for value in option.values -%}
-                        <button
-                          type="button"
-                          class="zk-bundle__option-btn"
-                          role="radio"
-                          aria-checked="false"
-                          data-option-value="{{ value | escape }}">
-                          <span class="zk-bundle__option-btn-text">{{ value }}</span>
-                        </button>
-                      {%- endfor -%}
-                    </div>
-                  </div>
-                {%- endfor -%}
+            <div class="zk-bundle__body">
+              <div class="zk-bundle__info">
+                <a href="{{ p.url }}" class="zk-bundle__name">{{ p.title }}</a>
+                <span class="zk-bundle__price">{{ p.price | money_without_trailing_zeros }}</span>
               </div>
-            {%- endunless -%}
 
-            <script type="application/json" data-zk-variants>
-              [
-              {%- for v in p.variants -%}
-                {"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }},"price":{{ v.price }},"title":{{ v.title | json }}}{%- unless forloop.last -%},{%- endunless -%}
-              {%- endfor -%}
-              ]
-            </script>
+              {%- unless is_single_variant -%}
+                <div class="zk-bundle__options">
+                  {%- for option in p.options_with_values -%}
+                    {%- assign option_name_downcase = option.name | downcase -%}
+                    {%- assign is_color = false -%}
+                    {%- if option_name_downcase contains 'color' or option_name_downcase contains 'colour' -%}
+                      {%- assign is_color = true -%}
+                    {%- endif -%}
+                    <div class="zk-bundle__option{% if is_color %} zk-bundle__option--color{% endif %}" data-option-index="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">
+                      <span class="zk-bundle__option-label">{{ option.name }}</span>
+                      <div class="zk-bundle__option-values" role="radiogroup" aria-label="{{ option.name | escape }}">
+                        {%- for value in option.values -%}
+                          {%- assign value_slug = value | handleize -%}
+                          {%- if is_color -%}
+                            <button type="button" class="zk-bundle__swatch color-swatch color-swatch--{{ value_slug }}" role="radio" aria-checked="false" data-option-value="{{ value | escape }}" title="{{ value | escape }}">
+                              <span class="zk-bundle__swatch-label">{{ value }}</span>
+                            </button>
+                          {%- else -%}
+                            <button type="button" class="zk-bundle__option-btn" role="radio" aria-checked="false" data-option-value="{{ value | escape }}">{{ value }}</button>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              {%- endunless -%}
 
-            <button
-              type="button"
-              class="zk-bundle__add"
-              data-zk-add
-              {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
-              <span class="zk-bundle__add-default">{% if is_single_variant %}Add to cart{% else %}Select options{% endif %}</span>
-              <span class="zk-bundle__add-loading" hidden aria-hidden="true">
-                <span class="zk-bundle__spinner"></span>
-              </span>
-              <span class="zk-bundle__add-success" hidden aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Added
-              </span>
-            </button>
+              <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
+
+              <button type="button" class="zk-bundle__add" data-zk-add {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
+                <span class="zk-bundle__add-default">{% if is_single_variant %}Add to cart{% else %}Select options{% endif %}</span>
+                <span class="zk-bundle__add-loading" hidden aria-hidden="true"><span class="zk-bundle__spinner"></span></span>
+                <span class="zk-bundle__add-success" hidden aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  Added
+                </span>
+              </button>
+            </div>
           </article>
-
-          {%- assign rendered = rendered | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -204,7 +161,7 @@
 
 <style>
   .zk-bundle {
-    margin: 28px 0;
+    margin: 24px 0;
     --zk-ink: #2a2418;
     --zk-ink-soft: #5a4d30;
     --zk-ink-faded: #8a7a5e;
@@ -214,8 +171,8 @@
     --zk-border-soft: #ece2cb;
     --zk-surface: #ffffff;
     --zk-dark: #1a1b2e;
-    --zk-dark-hover: #2a2b3e;
-    --zk-accent: #ff4f33;
+    --zk-cta: #e85d3a;
+    --zk-cta-hover: #d44d2a;
     --zk-success: #4a7d3d;
     --zk-muted: #cfc9bc;
   }
@@ -223,58 +180,58 @@
     background: linear-gradient(180deg, var(--zk-bg) 0%, var(--zk-bg-deep) 100%);
     border: 1px solid var(--zk-border);
     border-radius: 12px;
-    padding: 22px 18px 16px;
+    padding: 18px 16px 14px;
   }
 
   .zk-bundle__head {
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   .zk-bundle__eyebrow {
     display: inline-block;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
     color: var(--zk-ink-faded);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .zk-bundle__title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 1.25;
-    margin: 0 0 6px;
+    line-height: 1.2;
+    margin: 0 0 4px;
     color: var(--zk-ink);
   }
   .zk-bundle__sub {
-    font-size: 14px;
-    line-height: 1.45;
+    font-size: 13px;
+    line-height: 1.4;
     margin: 0;
     color: var(--zk-ink-soft);
   }
-  .zk-bundle__sub strong {
-    color: var(--zk-ink);
-  }
+  .zk-bundle__sub strong { color: var(--zk-ink); }
 
   .zk-bundle__tiers {
     list-style: none;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 16px 0 18px;
+    margin: 12px 0 14px;
     padding: 0;
   }
   .zk-bundle__tier {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     background: var(--zk-surface);
     border: 1px solid var(--zk-border);
     border-radius: 999px;
-    padding: 7px 14px;
-    font-size: 13px;
+    padding: 5px 11px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--zk-ink);
+    white-space: nowrap;
   }
   .zk-bundle__tier-count { font-weight: 700; }
   .zk-bundle__tier-arrow { opacity: 0.4; }
@@ -286,40 +243,30 @@
   }
   .zk-bundle__tier--best .zk-bundle__tier-arrow { opacity: 0.55; }
 
-  .zk-bundle__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  @media (max-width: 640px) {
-    .zk-bundle__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .zk-bundle__inner { padding: 18px 14px 14px; }
-    .zk-bundle__title { font-size: 17px; }
+  .zk-bundle__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
-  .zk-bundle__item {
+  .zk-bundle__row {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 12px;
+    align-items: start;
     background: var(--zk-surface);
     border: 1px solid var(--zk-border-soft);
     border-radius: 10px;
-    padding: 10px 10px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: border-color 150ms ease, box-shadow 150ms ease;
-  }
-  .zk-bundle__item:focus-within {
-    border-color: var(--zk-dark);
+    padding: 10px;
   }
   .zk-bundle__media {
-    aspect-ratio: 1 / 1;
+    display: block;
+    width: 72px;
+    height: 72px;
     border-radius: 6px;
     overflow: hidden;
     background: var(--zk-bg-deep);
-    display: block;
   }
   .zk-bundle__media img {
     width: 100%;
@@ -327,45 +274,57 @@
     object-fit: cover;
     display: block;
   }
-  .zk-bundle__info {
+
+  .zk-bundle__body {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
+    min-width: 0;
+  }
+  .zk-bundle__info {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
   }
   .zk-bundle__name {
     font-size: 13px;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
     color: var(--zk-ink);
     text-decoration: none;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1 1 auto;
   }
   .zk-bundle__name:hover { text-decoration: underline; }
   .zk-bundle__price {
     font-size: 13px;
-    font-weight: 500;
-    color: var(--zk-ink-soft);
+    font-weight: 600;
+    color: var(--zk-ink);
+    flex: 0 0 auto;
   }
 
   .zk-bundle__options {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
   .zk-bundle__option {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
   }
   .zk-bundle__option-label {
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     color: var(--zk-ink-faded);
+    flex: 0 0 auto;
+    min-width: 36px;
   }
   .zk-bundle__option-values {
     display: flex;
@@ -376,20 +335,18 @@
     appearance: none;
     background: var(--zk-surface);
     border: 1px solid var(--zk-border);
-    border-radius: 6px;
-    padding: 5px 9px;
-    font-size: 12px;
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--zk-ink);
     cursor: pointer;
     transition: all 120ms ease;
     line-height: 1.2;
-    min-width: 30px;
+    min-width: 24px;
     font-family: inherit;
   }
-  .zk-bundle__option-btn:hover {
-    border-color: var(--zk-dark);
-  }
+  .zk-bundle__option-btn:hover { border-color: var(--zk-dark); }
   .zk-bundle__option-btn[aria-checked="true"] {
     background: var(--zk-dark);
     border-color: var(--zk-dark);
@@ -401,34 +358,67 @@
     cursor: not-allowed;
   }
 
+  .zk-bundle__swatch {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--zk-border);
+    padding: 0;
+    cursor: pointer;
+    transition: all 120ms ease;
+    font-family: inherit;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .zk-bundle__swatch:hover { border-color: var(--zk-dark); }
+  .zk-bundle__swatch[aria-checked="true"] {
+    outline: 2px solid var(--zk-dark);
+    outline-offset: 2px;
+  }
+  .zk-bundle__swatch-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .zk-bundle__add {
     appearance: none;
-    background: var(--zk-dark);
+    background: var(--zk-cta);
     color: #fff;
-    border: 1px solid var(--zk-dark);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 13px;
-    font-weight: 600;
+    border: 1px solid var(--zk-cta);
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
     cursor: pointer;
-    transition: background 150ms ease, opacity 150ms ease;
-    margin-top: auto;
-    position: relative;
-    min-height: 38px;
+    transition: background 150ms ease, border-color 150ms ease, opacity 150ms ease;
+    min-height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     font-family: inherit;
+    margin-top: 2px;
   }
   .zk-bundle__add:hover:not(:disabled) {
-    background: var(--zk-dark-hover);
+    background: var(--zk-cta-hover);
+    border-color: var(--zk-cta-hover);
   }
   .zk-bundle__add:disabled {
     background: var(--zk-muted);
     border-color: var(--zk-muted);
+    color: #fff;
     cursor: not-allowed;
-    opacity: 0.75;
+    opacity: 0.85;
   }
   .zk-bundle__add[data-state="success"] {
     background: var(--zk-success);
@@ -436,24 +426,16 @@
     opacity: 1;
     color: #fff;
   }
-  .zk-bundle__add[data-state="error"] {
-    background: var(--zk-accent);
-    border-color: var(--zk-accent);
-    opacity: 1;
-  }
-
   .zk-bundle__spinner {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border: 2px solid rgba(255,255,255,0.35);
     border-top-color: #fff;
     border-radius: 50%;
     animation: zk-spin 600ms linear infinite;
     display: inline-block;
   }
-  @keyframes zk-spin {
-    to { transform: rotate(360deg); }
-  }
+  @keyframes zk-spin { to { transform: rotate(360deg); } }
 
   .zk-bundle__foot {
     display: flex;
@@ -462,105 +444,108 @@
     gap: 6px;
     font-size: 11px;
     color: var(--zk-ink-soft);
-    margin: 10px 0 0;
+    margin: 8px 0 0;
     font-weight: 500;
   }
   .zk-bundle__foot-icon {
     flex-shrink: 0;
     color: var(--zk-success);
   }
+
+  @media (max-width: 640px) {
+    .zk-bundle__inner { padding: 16px 12px 12px; }
+    .zk-bundle__title { font-size: 16px; }
+    .zk-bundle__row {
+      grid-template-columns: 60px 1fr;
+      gap: 10px;
+      padding: 8px;
+    }
+    .zk-bundle__media { width: 60px; height: 60px; }
+    .zk-bundle__name { font-size: 12px; }
+    .zk-bundle__price { font-size: 12px; }
+    .zk-bundle__option-label { font-size: 9px; min-width: 32px; }
+    .zk-bundle__option-btn { font-size: 10px; padding: 2px 6px; }
+    .zk-bundle__tier { font-size: 11px; padding: 4px 9px; }
+  }
 </style>
 
 <script>
 (function() {
   'use strict';
-  var root = document.querySelector('[data-zk-bundle][aria-labelledby="zk-bundle-heading-{{ product.id }}"]');
-  if (!root || root.dataset.zkBundleInit === '1') return;
-  root.dataset.zkBundleInit = '1';
+  var roots = document.querySelectorAll('.zk-bundle');
+  roots.forEach(function(root) {
+    if (root.dataset.zkBundleInit === '1') return;
+    root.dataset.zkBundleInit = '1';
 
-  var items = root.querySelectorAll('[data-zk-item]');
-  items.forEach(function(item) {
-    var variantsNode = item.querySelector('[data-zk-variants]');
-    if (!variantsNode) return;
-    var variants;
-    try {
-      variants = JSON.parse(variantsNode.textContent);
-    } catch (e) {
-      return;
-    }
-    var addBtn = item.querySelector('[data-zk-add]');
-    var priceEl = item.querySelector('[data-zk-price]');
-    var optionEls = item.querySelectorAll('.zk-bundle__option');
-    var selection = {};
+    root.querySelectorAll('[data-zk-item]').forEach(function(item) {
+      var variantsNode = item.querySelector('[data-zk-variants]');
+      if (!variantsNode) return;
+      var variants;
+      try { variants = JSON.parse(variantsNode.textContent); } catch (e) { return; }
 
-    function findVariant() {
-      return variants.find(function(v) {
-        return v.options.every(function(val, i) {
-          return val === selection[i];
+      var addBtn = item.querySelector('[data-zk-add]');
+      var optionEls = item.querySelectorAll('.zk-bundle__option');
+      var selection = {};
+
+      function allSelected() {
+        return optionEls.length === Object.keys(selection).length;
+      }
+      function findVariant() {
+        return variants.find(function(v) {
+          return v.options.every(function(val, i) { return val === selection[i]; });
         });
-      });
-    }
-
-    function allSelected() {
-      return optionEls.length === Object.keys(selection).length;
-    }
-
-    function updateAddState() {
-      if (!allSelected()) {
-        addBtn.disabled = true;
-        addBtn.setAttribute('aria-disabled', 'true');
-        addBtn.querySelector('.zk-bundle__add-default').textContent = 'Select options';
-        return;
       }
-      var v = findVariant();
-      if (!v) {
-        addBtn.disabled = true;
-        addBtn.setAttribute('aria-disabled', 'true');
-        addBtn.querySelector('.zk-bundle__add-default').textContent = 'Unavailable';
-        return;
+      function updateAddState() {
+        var defaultEl = addBtn.querySelector('.zk-bundle__add-default');
+        if (!allSelected()) {
+          addBtn.disabled = true;
+          addBtn.setAttribute('aria-disabled', 'true');
+          defaultEl.textContent = 'Select options';
+          return;
+        }
+        var v = findVariant();
+        if (!v) {
+          addBtn.disabled = true;
+          addBtn.setAttribute('aria-disabled', 'true');
+          defaultEl.textContent = 'Unavailable';
+          return;
+        }
+        if (!v.available) {
+          addBtn.disabled = true;
+          addBtn.setAttribute('aria-disabled', 'true');
+          defaultEl.textContent = 'Sold out';
+          return;
+        }
+        addBtn.disabled = false;
+        addBtn.setAttribute('aria-disabled', 'false');
+        addBtn.dataset.variantId = v.id;
+        defaultEl.textContent = 'Add to cart';
       }
-      if (!v.available) {
-        addBtn.disabled = true;
-        addBtn.setAttribute('aria-disabled', 'true');
-        addBtn.querySelector('.zk-bundle__add-default').textContent = 'Sold out';
-        return;
-      }
-      addBtn.disabled = false;
-      addBtn.setAttribute('aria-disabled', 'false');
-      addBtn.dataset.variantId = v.id;
-      addBtn.querySelector('.zk-bundle__add-default').textContent = 'Add to cart';
-    }
 
-    optionEls.forEach(function(optEl) {
-      var idx = parseInt(optEl.dataset.optionIndex, 10);
-      var btns = optEl.querySelectorAll('.zk-bundle__option-btn');
-      btns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          btns.forEach(function(b) {
-            b.setAttribute('aria-checked', 'false');
+      optionEls.forEach(function(optEl) {
+        var idx = parseInt(optEl.dataset.optionIndex, 10);
+        var btns = optEl.querySelectorAll('.zk-bundle__option-btn, .zk-bundle__swatch');
+        btns.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            btns.forEach(function(b) { b.setAttribute('aria-checked', 'false'); });
+            btn.setAttribute('aria-checked', 'true');
+            selection[idx] = btn.dataset.optionValue;
+            updateAddState();
           });
-          btn.setAttribute('aria-checked', 'true');
-          selection[idx] = btn.dataset.optionValue;
-          updateAddState();
         });
       });
-    });
 
-    if (addBtn && !addBtn.disabled) {
-      // Single-variant product — already enabled
-    }
-
-    if (addBtn) {
+      if (!addBtn) return;
       addBtn.addEventListener('click', function() {
         var variantId = addBtn.dataset.variantId;
         if (!variantId || addBtn.disabled) return;
         addBtn.disabled = true;
         addBtn.dataset.state = 'loading';
-        var defaultLabel = addBtn.querySelector('.zk-bundle__add-default');
-        var loadingLabel = addBtn.querySelector('.zk-bundle__add-loading');
-        var successLabel = addBtn.querySelector('.zk-bundle__add-success');
-        defaultLabel.hidden = true;
-        loadingLabel.hidden = false;
+        var defaultEl = addBtn.querySelector('.zk-bundle__add-default');
+        var loadingEl = addBtn.querySelector('.zk-bundle__add-loading');
+        var successEl = addBtn.querySelector('.zk-bundle__add-success');
+        defaultEl.hidden = true;
+        loadingEl.hidden = false;
 
         fetch('/cart/add.js', {
           method: 'POST',
@@ -574,39 +559,30 @@
           })
           .then(function() {
             addBtn.dataset.state = 'success';
-            loadingLabel.hidden = true;
-            successLabel.hidden = false;
-            // Notify theme that cart changed — theme listens on a few common events
-            try {
-              document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
-              document.documentElement.dispatchEvent(new CustomEvent('cart:build', { bubbles: true }));
-              window.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true }));
-            } catch (e) {}
-            // Refresh cart count in header if theme exposes an API
-            if (window.theme && typeof window.theme.cartCount === 'function') {
-              try { window.theme.cartCount(); } catch (e) {}
-            }
+            loadingEl.hidden = true;
+            successEl.hidden = false;
+            // Intentionally NOT dispatching cart:* events — those trigger
+            // the theme's cart drawer. We just flip to the success state.
             setTimeout(function() {
               addBtn.dataset.state = '';
-              successLabel.hidden = true;
-              defaultLabel.hidden = false;
+              successEl.hidden = true;
+              defaultEl.hidden = false;
               addBtn.disabled = false;
-            }, 2200);
+            }, 2000);
           })
           .catch(function(err) {
             console.error('[zk-bundle]', err);
-            addBtn.dataset.state = 'error';
-            loadingLabel.hidden = true;
-            defaultLabel.hidden = false;
-            defaultLabel.textContent = 'Try again';
+            addBtn.dataset.state = '';
+            loadingEl.hidden = true;
+            defaultEl.hidden = false;
+            defaultEl.textContent = 'Try again';
             setTimeout(function() {
-              addBtn.dataset.state = '';
-              defaultLabel.textContent = 'Add to cart';
+              defaultEl.textContent = 'Add to cart';
               addBtn.disabled = false;
-            }, 2200);
+            }, 2000);
           });
       });
-    }
+    });
   });
 })();
 </script>
