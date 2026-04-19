@@ -76,14 +76,14 @@
             <span class="zk-bundle__milestone-symbol">$</span>
             <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="zk-bundle__milestone-label"><span class="zk-bundle__label-full">Save $5</span><span class="zk-bundle__label-short">$5</span></span>
+          <span class="zk-bundle__milestone-label">$5 off</span>
         </li>
         <li class="zk-bundle__milestone" data-zk-milestone="3" style="left:66%">
           <span class="zk-bundle__milestone-dot" aria-hidden="true">
             <span class="zk-bundle__milestone-symbol">$$</span>
             <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="zk-bundle__milestone-label"><span class="zk-bundle__label-full">Save $10</span><span class="zk-bundle__label-short">$10</span></span>
+          <span class="zk-bundle__milestone-label">$10 off</span>
         </li>
         {%- if show_tier_4 -%}
         <li class="zk-bundle__milestone" data-zk-milestone="4" style="left:100%">
@@ -91,7 +91,7 @@
             <span class="zk-bundle__milestone-symbol">$$$</span>
             <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="zk-bundle__milestone-label"><span class="zk-bundle__label-full">Save $20</span><span class="zk-bundle__label-short">$20</span></span>
+          <span class="zk-bundle__milestone-label">$20 off</span>
         </li>
         {%- endif -%}
       </ul>
@@ -146,11 +146,25 @@
                 {%- for option in p.options_with_values -%}
                   {%- assign option_name_downcase = option.name | downcase -%}
                   {%- assign is_color = false -%}
+                  {%- assign is_size = false -%}
                   {%- if option_name_downcase contains 'color' or option_name_downcase contains 'colour' -%}
                     {%- assign is_color = true -%}
+                  {%- elsif option_name_downcase contains 'size' -%}
+                    {%- assign is_size = true -%}
                   {%- endif -%}
-                  <div class="zk-bundle__option{% if is_color %} zk-bundle__option--color{% endif %}" data-option-index="{{ forloop.index0 }}">
+                  <div class="zk-bundle__option{% if is_color %} zk-bundle__option--color{% endif %}{% if is_size %} zk-bundle__option--size{% endif %}" data-option-index="{{ forloop.index0 }}">
                     <span class="zk-bundle__option-label">{{ option.name }}</span>
+                    {%- if is_size -%}
+                      <div class="zk-bundle__select-wrap">
+                        <select class="zk-bundle__select" data-zk-select aria-label="{{ option.name | escape }}">
+                          <option value="" selected disabled>Select {{ option.name | downcase }}</option>
+                          {%- for value in option.values -%}
+                            <option value="{{ value | escape }}">{{ value }}</option>
+                          {%- endfor -%}
+                        </select>
+                        <svg class="zk-bundle__select-chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 4l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </div>
+                    {%- else -%}
                     <div class="zk-bundle__option-values" role="radiogroup" aria-label="{{ option.name | escape }}">
                       {%- for value in option.values -%}
                         {%- if is_color -%}
@@ -221,12 +235,13 @@
                         {%- endif -%}
                       {%- endfor -%}
                     </div>
+                    {%- endif -%}
                   </div>
                 {%- endfor -%}
               </div>
             {%- endunless -%}
 
-            <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
+            <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }},"image":{%- if v.featured_image -%}"{{ v.featured_image | img_url: '720x720', crop: 'center' }}"{%- else -%}null{%- endif -%}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
 
             <button type="button" class="zk-bundle__add" data-zk-add {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
               <span class="zk-bundle__add-default">
@@ -333,7 +348,7 @@
   .zk-bundle__message strong { color: var(--zk-ink); font-weight: 700; }
 
   /* Progress bar with milestones */
-  .zk-bundle__progress { position: relative; margin: 22px 8px 32px; }
+  .zk-bundle__progress { position: relative; margin: 24px 28px 34px; }
   .zk-bundle__progress-track {
     position: relative; height: 5px;
     background: var(--zk-track); border-radius: 999px; overflow: hidden;
@@ -367,7 +382,9 @@
     font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
     color: var(--zk-ink-faded); white-space: nowrap; transition: color 180ms ease;
   }
-  .zk-bundle__label-short { display: none; }
+  /* Anchor first/last milestone labels so they can't overflow the card edges */
+  .zk-bundle__milestone[data-zk-milestone="4"] .zk-bundle__milestone-label { left: auto; right: -10px; }
+  .zk-bundle__milestone[data-zk-milestone="2"] .zk-bundle__milestone-label { /* centered via flex */ }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-dot {
     background: var(--zk-cta); border-color: var(--zk-cta); color: #fff;
     box-shadow: 0 4px 12px rgba(232, 93, 58, 0.38);
@@ -406,7 +423,7 @@
   .zk-bundle__carousel-wrap[data-at-end="true"]::after { opacity: 0; }
 
   .zk-bundle__carousel {
-    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(176px, 1fr);
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr);
     gap: 10px;
     overflow-x: auto; overflow-y: hidden;
     padding: 4px 4px 14px;
@@ -494,6 +511,27 @@
   .zk-bundle__option-btn[aria-checked="true"] { background: var(--zk-ink); border-color: var(--zk-ink); color: #fff; }
   .zk-bundle__option-btn:focus-visible { outline: 2px solid var(--zk-cta); outline-offset: 2px; }
 
+  /* Size dropdown */
+  .zk-bundle__select-wrap {
+    position: relative; flex: 1 1 auto; min-width: 0;
+  }
+  .zk-bundle__select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    width: 100%; background: var(--zk-surface);
+    border: 1px solid var(--zk-border); border-radius: 7px;
+    padding: 6px 26px 6px 10px; font-size: 12px; font-weight: 600;
+    color: var(--zk-ink); cursor: pointer; font-family: inherit;
+    line-height: 1.3; transition: border-color 120ms ease;
+  }
+  .zk-bundle__select:hover { border-color: var(--zk-ink); }
+  .zk-bundle__select:focus-visible { outline: 2px solid var(--zk-cta); outline-offset: 2px; border-color: var(--zk-ink); }
+  .zk-bundle__select:invalid { color: var(--zk-ink-faded); }
+  .zk-bundle__select-chev {
+    position: absolute; right: 9px; top: 50%;
+    transform: translateY(-50%); color: var(--zk-ink-faded);
+    pointer-events: none;
+  }
+
   .zk-bundle__swatch {
     appearance: none; width: 19px; height: 19px; border-radius: 50%;
     border: 1px solid var(--zk-border-strong); padding: 0; cursor: pointer;
@@ -570,17 +608,35 @@
     .zk-bundle__inner { padding: 14px 14px 10px; border-radius: 14px; }
     .zk-bundle__title { font-size: 16.5px; }
     .zk-bundle__message { font-size: 12.5px; }
-    .zk-bundle__carousel { grid-auto-columns: 160px; gap: 8px; }
-    .zk-bundle__card { padding: 8px; }
+    .zk-bundle__progress { margin: 22px 22px 30px; }
+    /* Mobile: bigger cards = bigger images. ~72% of viewport width per card. */
+    .zk-bundle__carousel { grid-auto-columns: 72vw; gap: 10px; }
+    .zk-bundle__card { padding: 10px; gap: 10px; }
+    .zk-bundle__name { font-size: 14px; }
+    .zk-bundle__price { font-size: 14px; }
     .zk-bundle__milestone-dot { width: 24px; height: 24px; font-size: 9.5px; }
     .zk-bundle__milestone-label { font-size: 9.5px; letter-spacing: 0.2px; }
   }
-  @media (max-width: 400px) {
-    .zk-bundle__label-full { display: none; }
-    .zk-bundle__label-short { display: inline; }
-  }
-  @media (min-width: 900px) {
-    .zk-bundle__carousel { grid-auto-columns: minmax(200px, 1fr); }
+
+  /* Desktop: 2-column vertical-scrolling grid (replaces horizontal carousel). */
+  @media (min-width: 769px) {
+    .zk-bundle__carousel {
+      grid-auto-flow: row;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: min-content;
+      gap: 12px;
+      overflow-x: hidden; overflow-y: auto;
+      max-height: 680px;
+      scroll-snap-type: none;
+      padding: 4px 8px 4px 4px;
+    }
+    .zk-bundle__carousel::-webkit-scrollbar { display: block; width: 4px; height: auto; }
+    .zk-bundle__carousel::-webkit-scrollbar-thumb { background: var(--zk-border-strong); border-radius: 999px; }
+    .zk-bundle__carousel-wrap::before,
+    .zk-bundle__carousel-wrap::after { display: none; }
+    .zk-bundle__nav { display: none !important; }
+    /* Cards get more vertical breathing room in grid mode */
+    .zk-bundle__card { padding: 12px; gap: 10px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -833,14 +889,52 @@
         setLabel('Add to bundle');
       }
 
+      var cardImg = item.querySelector('.zk-bundle__media img');
+
+      function findBestVariantByPartialSelection() {
+        // Return the first variant matching all currently-selected options,
+        // ignoring unselected ones. Used to pick an image when color is set
+        // but size isn't yet.
+        return variants.find(function(v) {
+          return v.options.every(function(val, i) {
+            return selection[i] === undefined || val === selection[i];
+          });
+        });
+      }
+
+      function swapCardImage(src) {
+        if (!cardImg || !src) return;
+        if (!cardImg.dataset.zkOriginalSrc) cardImg.dataset.zkOriginalSrc = cardImg.src;
+        if (cardImg.src === src) return;
+        cardImg.src = src;
+        cardImg.removeAttribute('srcset');
+      }
+
       optionEls.forEach(function(optEl) {
         var idx = parseInt(optEl.dataset.optionIndex, 10);
+        var isColor = optEl.classList.contains('zk-bundle__option--color');
+        var selectEl = optEl.querySelector('[data-zk-select]');
+
+        // Size dropdown
+        if (selectEl) {
+          selectEl.addEventListener('change', function() {
+            selection[idx] = selectEl.value;
+            updateAddState();
+          });
+          return;
+        }
+
+        // Pill buttons / color swatches
         var btns = optEl.querySelectorAll('.zk-bundle__option-btn, .zk-bundle__swatch');
         btns.forEach(function(btn) {
           btn.addEventListener('click', function() {
             btns.forEach(function(b) { b.setAttribute('aria-checked', 'false'); });
             btn.setAttribute('aria-checked', 'true');
             selection[idx] = btn.dataset.optionValue;
+            if (isColor) {
+              var match = findBestVariantByPartialSelection();
+              if (match && match.image) swapCardImage(match.image);
+            }
             updateAddState();
           });
         });
