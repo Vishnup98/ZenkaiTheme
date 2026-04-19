@@ -1332,6 +1332,7 @@
       var w = shadow.querySelector('.pdp-widget');
       if (!w) return false;
       for (var k in vars) w.style.setProperty(k, vars[k]);
+      w.style.maxWidth = '800px';
       w.style.margin = '0 auto';
 
       /* Inject a stylesheet into the shadow root for effects + hierarchy */
@@ -1342,14 +1343,6 @@
           /* Base */
           '.pdp-widget { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }',
           '.pdp-widget * { box-sizing: border-box; }',
-
-          /* Responsive width — mobile keeps existing full-width feel, desktop expands to use the 1300px page container */
-          '.pdp-widget { max-width: 100%; }',
-          '@media (min-width: 768px) { .pdp-widget { max-width: 960px; } }',
-          '@media (min-width: 1024px) { .pdp-widget { max-width: 1200px; } }',
-
-          /* Trim image height on desktop to reclaim vertical space (mobile untouched) */
-          '@media (min-width: 1024px) { .pdp-widget .product-image { max-height: 220px !important; } }',
 
           /* Header */
           '.pdp-widget .upsell-header { font-size: 0.78rem; font-weight: 700; color: #1a1b2e; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }',
