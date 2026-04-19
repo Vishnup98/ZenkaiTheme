@@ -226,6 +226,26 @@
   {% include 'search-modal' %}
 {% endif %}
 
+<script>
+  // Measure .header-wrapper and publish it as --header-height so the mobile
+  // .main-content offset (see theme.scss.liquid) stays in sync with the actual
+  // header size — including when the announcement bar toggles or the logo resizes.
+  (function () {
+    var el = document.querySelector('.header-wrapper');
+    if (!el) return;
+    var root = document.documentElement;
+    var apply = function () {
+      root.style.setProperty('--header-height', el.offsetHeight + 'px');
+    };
+    apply();
+    window.addEventListener('load', apply);
+    window.addEventListener('resize', apply);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(apply).observe(el);
+    }
+  })();
+</script>
+
 {% schema %}
   {
     "name": "Header",

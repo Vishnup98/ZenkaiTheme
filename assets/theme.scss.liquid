@@ -4262,15 +4262,28 @@ $color-blankstate-background: #f4f4f4;
   display: block;
 
   @include media-query($medium-up) {
+    margin: ($gutter / 8) 0;
+
     .text-center & {
       padding-right: 0;
-      margin: ($gutter / 3) auto;
+      margin: ($gutter / 8) auto;
     }
   }
 
   @include media-query($small) {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  // Cap logo image height so a tall/square logo can't inflate the whole header.
+  // Width auto-scales proportionally, staying inside the container's max-width.
+  img {
+    max-height: 36px;
+    width: auto;
+
+    @include media-query($medium-up) {
+      max-height: 44px;
+    }
   }
 
   .header-layout[data-logo-align="center"] & {
@@ -11416,9 +11429,10 @@ $marqueeAnimationSpeedMobile: 6.6s;
     display: block !important;
   }
 
-  /* Content offset for fixed header */
+  /* Content offset for fixed header — reads live value measured by JS in sections/header.liquid.
+     Fallback 78px matches the old hardcoded value in case JS fails. */
   .main-content {
-    margin-top: 78px;
+    margin-top: var(--header-height, 78px);
   }
 
   /* No overlay styles needed - solid header on all pages */
