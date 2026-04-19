@@ -366,6 +366,22 @@
 
     <div class="zk-bundle__toast" data-zk-toast hidden role="status" aria-live="polite"></div>
 
+    {%- comment -%} XHR-free add path: hidden form posts to /cart/add.js
+        with target=iframe. UpCart's XHR/fetch hooks cannot see this —
+        there's no XMLHttpRequest and no fetch in the parent realm. The
+        .js endpoint responds with JSON (no HTML), so no third-party
+        scripts run in the iframe either. {%- endcomment -%}
+    <iframe name="zk-bundle-sink-{{ bundle_slot }}-{{ product.id }}"
+      data-zk-cart-sink
+      style="display:none!important;width:0;height:0;border:0;position:absolute;"
+      aria-hidden="true" tabindex="-1" src="about:blank"></iframe>
+    <form action="/cart/add.js" method="POST"
+      target="zk-bundle-sink-{{ bundle_slot }}-{{ product.id }}"
+      accept-charset="UTF-8" hidden data-zk-cart-form>
+      <input type="hidden" name="id" value="">
+      <input type="hidden" name="quantity" value="1">
+    </form>
+
   </div>
 </section>
 
@@ -811,10 +827,21 @@
     ];
     // Specific to apps whose root node stays in DOM but children become visible.
     var HARD_HIDE_SELECTORS = [
-      '#candyrack-slider-cart', '#upCart', '#upCartContainer', '#upcart',
-      '#upcart-root', '#upcart-wrapper', '#aftersell-upcart',
-      '[id^="upcart" i]', '[id^="upCart"]', '[class*="upcart" i]',
-      'upcart-app', 'upcart-root'
+      '#candyrack-slider-cart',
+      // AfterSell UpCart — known + variant IDs
+      '#upcart', '#upCart', '#upCartContainer', '#upCart-container',
+      '#upcart-root', '#upcart-wrapper', '#upcart-drawer',
+      '#upcart-shadow-host', '#shopify-cart-drawer',
+      // Attribute wildcards
+      '[id*="upcart" i]', '[id*="UpCart"]',
+      '[class*="upcart" i]', '[class*="UpCart"]',
+      '[id*="aftersell" i]', '[class*="aftersell" i]',
+      '[data-upcart]', '[data-aftersell]', '[data-upcart-open]',
+      // Custom elements
+      'upcart-app', 'upcart-root', 'upcart-drawer',
+      'aftersell-upcart', 'aftersell-cart-drawer',
+      // Iframe embeds
+      'iframe[src*="upcart" i]', 'iframe[src*="aftersell" i]'
     ];
 
     function stripDrawerOpenState(node) {
@@ -842,10 +869,16 @@
       if (node.__zkOrigInlineStyle === undefined) {
         node.__zkOrigInlineStyle = node.getAttribute('style') || '';
       }
+      // Overwrite any transforms/offsets UpCart may have applied to slide
+      // the drawer on-screen. Inline !important beats inline-non-important
+      // and any stylesheet rule (including !important) due to higher
+      // specificity, so these wins are robust frame-to-frame.
       node.style.setProperty('display', 'none', 'important');
       node.style.setProperty('visibility', 'hidden', 'important');
       node.style.setProperty('pointer-events', 'none', 'important');
       node.style.setProperty('opacity', '0', 'important');
+      node.style.setProperty('transform', 'translateX(200vw)', 'important');
+      node.style.setProperty('transition', 'none', 'important');
       node.setAttribute('aria-hidden', 'true');
     }
     function unHardHide(node) {
@@ -892,6 +925,26 @@
           });
         } catch (e) {}
       });
+
+      // Some apps listen via Shopify.onCartUpdate / Shopify.onItemAdded
+      // callbacks instead of their own object. Stub these too during the
+      // window so any app that reacts via that channel gets a no-op.
+      if (window.Shopify) {
+        ['onCartUpdate', 'onItemAdded', 'onCartAdd'].forEach(function (m) {
+          if (typeof window.Shopify[m] === 'function') {
+            var original = window.Shopify[m];
+            try {
+              window.Shopify[m] = function () { /* suppressed */ };
+              restoreFns.push(function () { window.Shopify[m] = original; });
+            } catch (e) {}
+          }
+        });
+      }
+
+      if (window.console && window.console.debug) {
+        console.debug('[zk-bundle] suppression armed for', dur, 'ms');
+      }
+
       // Belt-and-suspenders: poll every 80ms to strip any drawer state that
       // slipped past the mutation observers (some apps add classes inside
       // rAF callbacks or via shadow-DOM reflection that observers miss).
@@ -996,6 +1049,9 @@
         // Restore UpCart's real open/show/toggle methods so the site's
         // normal cart icon opens the drawer again.
         restoreFns.forEach(function (fn) { try { fn(); } catch (e) {} });
+        if (window.console && window.console.debug) {
+          console.debug('[zk-bundle] suppression window ended');
+        }
       }, dur + 200);
     };
 
@@ -1245,36 +1301,91 @@
       });
     }
 
+    // Primary add path: submit a hidden form to /cart/add with target set
+    // to a hidden iframe. No XHR, no fetch — third-party scripts that
+    // monkey-patch XMLHttpRequest or window.fetch to detect cart adds
+    // (UpCart, Candy Rack, etc.) have nothing to hook into.
+    function addViaHiddenForm(variantId) {
+      return new Promise(function (resolve, reject) {
+        var form = root.querySelector('[data-zk-cart-form]');
+        var sink = root.querySelector('[data-zk-cart-sink]');
+        if (!form || !sink) return reject(new Error('form sink missing'));
+        var idInput = form.querySelector('[name="id"]');
+        var qtyInput = form.querySelector('[name="quantity"]');
+        if (!idInput || !qtyInput) return reject(new Error('form inputs missing'));
+        idInput.value = String(variantId);
+        qtyInput.value = '1';
+
+        var settled = false;
+        var onLoad = function () {
+          if (settled) return;
+          settled = true;
+          sink.removeEventListener('load', onLoad);
+          if (window.console && window.console.debug) {
+            console.debug('[zk-bundle] form-submit add succeeded for', variantId);
+          }
+          resolve({});
+        };
+        sink.addEventListener('load', onLoad);
+
+        // Safety timeout: resolve even if iframe load event doesn't fire
+        // (some Shopify variants respond without firing onload in iframe).
+        setTimeout(function () {
+          if (settled) return;
+          settled = true;
+          sink.removeEventListener('load', onLoad);
+          if (window.console && window.console.debug) {
+            console.debug('[zk-bundle] form-submit add resolved via timeout for', variantId);
+          }
+          resolve({});
+        }, 1200);
+
+        try {
+          form.submit();
+        } catch (e) {
+          settled = true;
+          reject(e);
+        }
+      });
+    }
+
     function addToCartXHR(variantId) {
-      return getCleanXHR().then(function(xhr) {
-        return new Promise(function(resolve, reject) {
-          xhr.open('POST', '/cart/add.js', true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.setRequestHeader('Accept', 'application/json');
-          xhr.setRequestHeader('X-Requested-With', 'ZkBundle');
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
+      // Try form-submit first (no XHR/fetch in parent realm).
+      return addViaHiddenForm(variantId).catch(function (err) {
+        if (window.console && window.console.debug) {
+          console.debug('[zk-bundle] form-submit failed, trying iframe XHR:', err && err.message);
+        }
+        // Secondary: iframe-XHR POST to /cart/add.js.
+        return getCleanXHR().then(function(xhr) {
+          return new Promise(function(resolve, reject) {
+            xhr.open('POST', '/cart/add.js', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('X-Requested-With', 'ZkBundle');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                  try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
+                } else reject(new Error('add failed: ' + xhr.status));
+              }
+            };
+            xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+          });
+        }, function() {
+          // Last resort: parent XHR (monkey-patched by UpCart — will open drawer).
+          return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/cart/add.js', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState !== 4) return;
               if (xhr.status >= 200 && xhr.status < 300) {
                 try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
               } else reject(new Error('add failed: ' + xhr.status));
-            }
-          };
-          xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
-        });
-      }, function() {
-        // Fallback to parent XHR if iframe path fails.
-        return new Promise(function(resolve, reject) {
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '/cart/add.js', true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.setRequestHeader('Accept', 'application/json');
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState !== 4) return;
-            if (xhr.status >= 200 && xhr.status < 300) {
-              try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
-            } else reject(new Error('add failed: ' + xhr.status));
-          };
-          xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+            };
+            xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+          });
         });
       });
     }
@@ -1510,7 +1621,11 @@
         defaultEl.hidden = true;
         loadingEl.hidden = false;
 
-        // Arm drawer suppression *before* the XHR fires — 4.5s with polling.
+        if (window.console && window.console.debug) {
+          console.debug('[zk-bundle] add click — variant', variantId);
+        }
+
+        // Arm drawer suppression *before* the add fires — 4.5s with polling.
         window.__zkBundleSuppressDrawer(4500);
 
         // Guarantee the "Adding…" state is visible for at least 500ms so the
