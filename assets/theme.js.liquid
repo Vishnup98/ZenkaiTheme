@@ -4774,6 +4774,11 @@ this.$container.find('.you-save').addClass('hide');
           this.stackedScrollTo(imageIndex);
         } else if (this.$mainSlider && this.settings.slickMainInitialized) {
           this.$mainSlider.slick('slickGoTo', imageIndex);
+        } else {
+          // Slick isn't initialised yet (user clicked a swatch before the
+          // slider finished mounting). Queue the target index — mainSlideInit
+          // consumes it once the carousel is ready.
+          this.settings.pendingSlideIndex = imageIndex;
         }
       },
   
@@ -5000,8 +5005,16 @@ this.$container.find('.you-save').addClass('hide');
         var $currentSlide = slick.$slider.find(selectors.currentSlide);
         var $video = $currentSlide.find(selectors.productVideo);
         var $media = $currentSlide.find(selectors.media);
-  
+
         this.settings.slickMainInitialized = true;
+
+        // If the shopper changed variants before slick finished mounting,
+        // jump to the image they picked now that we can.
+        if (typeof this.settings.pendingSlideIndex === 'number') {
+          var pending = this.settings.pendingSlideIndex;
+          this.settings.pendingSlideIndex = null;
+          this.$mainSlider.slick('slickGoTo', pending);
+        }
   
         if ($video.length) {
           this.initVideo($video);
