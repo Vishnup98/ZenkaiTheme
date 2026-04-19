@@ -8473,21 +8473,23 @@ $collectionHeroSmall: 330px;
     p {
       display: inline-block;
       margin: 0;
-      padding: 8px 18px;
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
+      padding: 7px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       color: #fff;
-      background: rgba(20, 20, 30, 0.42);
-      backdrop-filter: blur(10px) saturate(140%);
-      -webkit-backdrop-filter: blur(10px) saturate(140%);
-      border: 1px solid rgba(255,255,255,0.14);
+      // Solid-feeling dark pill: no saturate so image colors don't tint it,
+      // higher opacity so contrast stays consistent across every collection.
+      background: rgba(10, 12, 20, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 999px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.28);
 
       @include media-query($medium-up) {
-        font-size: 16px;
-        padding: 10px 22px;
+        font-size: 15px;
+        padding: 9px 20px;
       }
     }
   }
