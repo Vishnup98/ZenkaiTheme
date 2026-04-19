@@ -21,6 +21,11 @@
 
 {%- assign bundle_collection = product.metafields.custom.pdp_bundle_upsell_collection -%}
 
+<!-- zk-debug-mf: raw={{ product.metafields.custom.pdp_bundle_upsell_collection | json }} -->
+<!-- zk-debug-mf-value: {{ product.metafields.custom.pdp_bundle_upsell_collection.value }} -->
+{% if bundle_collection == blank %}<!-- zk-debug-state: COLLECTION_BLANK -->{% else %}<!-- zk-debug-state: collection=handle:{{ bundle_collection.handle }}|title:{{ bundle_collection.title }}|count:{{ bundle_collection.products_count }} -->{% endif %}
+<!-- zk-debug-product: id={{ product.id }} handle={{ product.handle }} -->
+
 {%- if bundle_collection != blank and bundle_collection.products_count > 1 -%}
 
   {%- assign other_count = 0 -%}
