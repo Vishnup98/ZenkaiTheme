@@ -4089,6 +4089,25 @@ lazySizesConfig.expFactor = 4;
             var color = $el.data('color-name');
             var index = $el.data('color-index');
             this.updateColorName(color, index);
+
+            // When the newly-selected color has no variant at the currently-
+            // selected size, Shopify's resolver returns null and the normal
+            // variantImageChange event never fires — so the image would stay
+            // stale. Fall back to the first variant of this color so the
+            // shopper at least sees the correct garment.
+            var colorOption = 'option' + (index + 1);
+            var fallback = null;
+            if (this.variantsObject) {
+              for (var i = 0; i < this.variantsObject.length; i++) {
+                if (this.variantsObject[i][colorOption] === color) {
+                  fallback = this.variantsObject[i];
+                  break;
+                }
+              }
+            }
+            if (fallback && fallback.featured_media) {
+              this.updateVariantImage({ variant: fallback });
+            }
           }.bind(this));
         }
   
