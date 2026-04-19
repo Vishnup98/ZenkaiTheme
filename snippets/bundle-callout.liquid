@@ -673,6 +673,17 @@
     .zk-bundle *, .zk-bundle *::before, .zk-bundle *::after {
       transition: none !important; animation: none !important;
     }
+    /* Keep the loading indicator animated even under reduced-motion —
+       it's a progress indicator, not decoration. */
+    .zk-bundle__spinner, .zk-bundle__dot {
+      animation-duration: inherit !important;
+      animation: zk-spin 600ms linear infinite !important;
+    }
+    .zk-bundle__dot {
+      animation: zk-dot-cycle 1.2s infinite ease-in-out !important;
+    }
+    .zk-bundle__dot:nth-child(2) { animation-delay: 0.18s !important; }
+    .zk-bundle__dot:nth-child(3) { animation-delay: 0.36s !important; }
   }
 </style>
 
@@ -757,9 +768,26 @@
     }
 
     window.__zkBundleSuppressDrawer = function(ms) {
-      var dur = ms || 1800;
+      var dur = ms || 4000;
       var until = Date.now() + dur;
       var observers = [];
+      var intervals = [];
+      // Belt-and-suspenders: poll every 80ms to strip any drawer state that
+      // slipped past the mutation observers (some apps add classes inside
+      // rAF callbacks or via shadow-DOM reflection that observers miss).
+      var pollId = setInterval(function() {
+        if (Date.now() > until) { clearInterval(pollId); return; }
+        BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
+        document.documentElement.classList.remove('no-scroll', 'overflow-hidden', 'cart-open');
+        HARD_HIDE_SELECTORS.forEach(function(sel) {
+          document.querySelectorAll(sel).forEach(hardHide);
+        });
+        // Try known close APIs if apps expose them.
+        try { if (window.UpcartPublic && window.UpcartPublic.close) window.UpcartPublic.close(); } catch (e) {}
+        try { if (window.upcart && window.upcart.close) window.upcart.close(); } catch (e) {}
+        try { if (window.CandyRack && window.CandyRack.hideSlider) window.CandyRack.hideSlider(); } catch (e) {}
+      }, 80);
+      intervals.push(pollId);
 
       // Collect drawers once, then top-up as new nodes mount.
       function collectAll() {
@@ -835,6 +863,7 @@
 
       setTimeout(function() {
         observers.forEach(function(o) { try { o.disconnect(); } catch (e) {} });
+        intervals.forEach(function(id) { try { clearInterval(id); } catch (e) {} });
         // Unhide the hard-hidden nodes so the cart icon still works afterward.
         state.hide.forEach(unHardHide);
         document.querySelectorAll(HARD_HIDE_SELECTORS.join(',')).forEach(unHardHide);
@@ -1273,28 +1302,31 @@
         defaultEl.hidden = true;
         loadingEl.hidden = false;
 
-        // Arm drawer suppression *before* the XHR fires so any open attempt
-        // during/after the add is swallowed by the observer.
-        // UpCart / Candy Rack sometimes open on a delay; 3s window.
-        window.__zkBundleSuppressDrawer(3000);
+        // Arm drawer suppression *before* the XHR fires — 4.5s with polling.
+        window.__zkBundleSuppressDrawer(4500);
+
+        // Guarantee the "Adding…" state is visible for at least 500ms so the
+        // dots animation can be perceived even when XHR resolves in <100ms.
+        var loadingShownAt = Date.now();
+        var MIN_LOADING_MS = 500;
 
         addToCartXHR(parseInt(variantId, 10))
           .then(function() {
-            addBtn.dataset.state = 'success';
-            loadingEl.hidden = true;
-            successEl.hidden = false;
-            // Refresh cart state — this will repaint other cards' in-cart labels.
-            refreshCartState();
+            var elapsed = Date.now() - loadingShownAt;
+            var toSuccess = Math.max(0, MIN_LOADING_MS - elapsed);
             setTimeout(function() {
-              successEl.hidden = true;
-              defaultEl.hidden = false;
-              addBtn.disabled = false;
-              // After success, relax into "In cart · Add more" since product is
-              // now in cart. refreshCartState() will have set the label; we
-              // just unlock the state so updateCardInCartStates can repaint.
-              addBtn.dataset.state = '';
+              addBtn.dataset.state = 'success';
+              loadingEl.hidden = true;
+              successEl.hidden = false;
               refreshCartState();
-            }, 2000);
+              setTimeout(function() {
+                successEl.hidden = true;
+                defaultEl.hidden = false;
+                addBtn.disabled = false;
+                addBtn.dataset.state = '';
+                refreshCartState();
+              }, 2000);
+            }, toSuccess);
           })
           .catch(function(err) {
             console.error('[zk-bundle]', err);
