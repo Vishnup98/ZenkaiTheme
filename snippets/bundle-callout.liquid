@@ -21,18 +21,6 @@
 
 {%- assign bundle_collection = product.metafields.custom.pdp_bundle_upsell_collection -%}
 
-<!-- zk-bundle-debug
-  mf_custom_pdp_raw: {{ product.metafields.custom.pdp_bundle_upsell_collection | json }}
-  mf_value: {{ product.metafields.custom.pdp_bundle_upsell_collection.value | json }}
-  bundle_collection_blank: {{ bundle_collection == blank }}
-  bundle_collection_title: {{ bundle_collection.title }}
-  bundle_collection_handle: {{ bundle_collection.handle }}
-  bundle_collection_products_count: {{ bundle_collection.products_count }}
-  all_custom_keys: {% for pair in product.metafields.custom %}{{ pair | first }}={{ pair | last }};{% endfor %}
-  product_id: {{ product.id }}
-  product_handle: {{ product.handle }}
--->
-
 {%- if bundle_collection != blank and bundle_collection.products_count > 1 -%}
 
   {%- assign other_count = 0 -%}
