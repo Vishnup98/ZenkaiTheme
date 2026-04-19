@@ -655,27 +655,105 @@
     window.__zkBundleGlobal = true;
 
     // Suppress third-party cart drawers triggered by our adds.
-    // Any node with these classes gets force-closed 200ms after a cart mutation.
-    var DRAWER_SELECTORS = [
-      '.cart-drawer.is-open', '.cart-drawer--open', '.drawer--open',
-      '[data-cart-drawer].is-open', '.js-drawer-open', '.drawer.is-visible',
-      '.slide-cart.is-open', '.ajax-cart--open', '.mini-cart.is-open',
-      'cart-drawer[open]', 'cart-drawer.is-open'
+    // Strategy: install a MutationObserver for a brief window around each
+    // bundle add that strips any "open" class the moment it's applied —
+    // reliable across theme ajaxCart, Candy Rack, Rokt, etc.
+    var DRAWER_OPEN_CLASSES = [
+      'drawer--is-open', 'is-open', 'is-active', 'is-visible',
+      'drawer--open', 'cart-drawer--open', 'ajax-cart--open',
+      'mini-cart--open', 'slide-cart--open', 'js-drawer-open',
+      'open', 'active'
     ];
-    var BODY_DRAWER_CLASSES = ['drawer-open', 'js-drawer-open', 'no-scroll', 'overflow-hidden', 'cart-drawer-open'];
+    var BODY_DRAWER_CLASSES = [
+      'drawer-open', 'js-drawer-open', 'no-scroll', 'overflow-hidden',
+      'cart-drawer-open', 'scroll-lock', 'cart-open'
+    ];
+    var DRAWER_NODE_SELECTORS = [
+      '#CartDrawer', '.drawer--cart', '.cart-drawer', '[data-cart-drawer]',
+      '.slide-cart', '.mini-cart', '.ajax-cart', 'cart-drawer',
+      '.drawer', '.drawer--right', '.drawer--left'
+    ];
 
-    window.__zkBundleForceCloseDrawer = function() {
+    function stripDrawerOpenState(node) {
       try {
-        DRAWER_SELECTORS.forEach(function(sel) {
+        DRAWER_OPEN_CLASSES.forEach(function(cls) { node.classList.remove(cls); });
+        if (node.hasAttribute('open')) node.removeAttribute('open');
+        node.setAttribute('aria-hidden', 'true');
+      } catch (e) {}
+    }
+
+    function collectDrawerNodes() {
+      var found = [];
+      DRAWER_NODE_SELECTORS.forEach(function(sel) {
+        try {
           document.querySelectorAll(sel).forEach(function(el) {
-            el.classList.remove('is-open', 'is-active', 'is-visible', 'drawer--open', 'cart-drawer--open', 'ajax-cart--open', 'mini-cart--open', 'slide-cart--open', 'js-drawer-open');
-            if (el.hasAttribute('open')) el.removeAttribute('open');
-            el.setAttribute('aria-hidden', 'true');
+            if (found.indexOf(el) < 0) found.push(el);
+          });
+        } catch (e) {}
+      });
+      return found;
+    }
+
+    window.__zkBundleSuppressDrawer = function(ms) {
+      var until = Date.now() + (ms || 1800);
+      var observers = [];
+      var drawers = collectDrawerNodes();
+
+      function sweep() {
+        drawers.forEach(stripDrawerOpenState);
+        BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
+        document.documentElement.classList.remove('no-scroll', 'overflow-hidden', 'cart-open');
+      }
+      sweep();
+
+      drawers.forEach(function(d) {
+        var obs = new MutationObserver(function() {
+          if (Date.now() > until) { obs.disconnect(); return; }
+          stripDrawerOpenState(d);
+        });
+        try {
+          obs.observe(d, { attributes: true, attributeFilter: ['class', 'style', 'open', 'aria-hidden'] });
+          observers.push(obs);
+        } catch (e) {}
+      });
+
+      var bodyObs = new MutationObserver(function() {
+        if (Date.now() > until) { bodyObs.disconnect(); return; }
+        BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
+        document.documentElement.classList.remove('no-scroll', 'overflow-hidden', 'cart-open');
+      });
+      try {
+        bodyObs.observe(document.body, { attributes: true, attributeFilter: ['class', 'style'] });
+        observers.push(bodyObs);
+      } catch (e) {}
+
+      // Also watch for newly-inserted drawers (e.g., Rokt lazy-mounted widgets).
+      var docObs = new MutationObserver(function(muts) {
+        if (Date.now() > until) { docObs.disconnect(); return; }
+        muts.forEach(function(m) {
+          m.addedNodes.forEach(function(n) {
+            if (n.nodeType !== 1) return;
+            DRAWER_NODE_SELECTORS.forEach(function(sel) {
+              try {
+                if (n.matches && n.matches(sel)) stripDrawerOpenState(n);
+                if (n.querySelectorAll) n.querySelectorAll(sel).forEach(stripDrawerOpenState);
+              } catch (e) {}
+            });
           });
         });
-        BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
+      });
+      try {
+        docObs.observe(document.body, { childList: true, subtree: true });
+        observers.push(docObs);
       } catch (e) {}
+
+      setTimeout(function() {
+        observers.forEach(function(o) { try { o.disconnect(); } catch (e) {} });
+      }, (ms || 1800) + 200);
     };
+
+    // Back-compat alias for earlier code paths.
+    window.__zkBundleForceCloseDrawer = function() { window.__zkBundleSuppressDrawer(400); };
 
     // Refresh all bundle instances' progress state
     window.__zkBundleRefreshAll = function() {
@@ -940,6 +1018,87 @@
         });
       });
 
+      /* ===== Sensible defaults: first color + preferred size (L > M > XL > S > first) ===== */
+      (function selectDefaults() {
+        if (!optionEls.length) return;
+        var colorIdx = -1, sizeIdx = -1;
+        optionEls.forEach(function(el) {
+          var i = parseInt(el.dataset.optionIndex, 10);
+          if (el.classList.contains('zk-bundle__option--color')) colorIdx = i;
+          if (el.classList.contains('zk-bundle__option--size')) sizeIdx = i;
+        });
+
+        // Default color: first color with at least one available variant.
+        var defaultColor = null;
+        if (colorIdx >= 0) {
+          var seenColors = {};
+          for (var i = 0; i < variants.length; i++) {
+            var v = variants[i];
+            var c = v.options[colorIdx];
+            if (v.available && !seenColors[c]) { defaultColor = c; break; }
+            seenColors[c] = true;
+          }
+          if (!defaultColor && variants.length) defaultColor = variants[0].options[colorIdx];
+          if (defaultColor) selection[colorIdx] = defaultColor;
+        }
+
+        // Default size: preferred order, filtered to variants matching default color.
+        if (sizeIdx >= 0) {
+          var preferred = ['L', 'M', 'XL', 'S', 'XS', 'XXL', '2XL', '3XL', '4XL'];
+          var candidates = variants.filter(function(v) {
+            if (!v.available) return false;
+            return colorIdx < 0 || v.options[colorIdx] === defaultColor;
+          });
+          var availableSizes = {};
+          candidates.forEach(function(v) { availableSizes[v.options[sizeIdx]] = true; });
+          var defaultSize = null;
+          for (var j = 0; j < preferred.length; j++) {
+            if (availableSizes[preferred[j]]) { defaultSize = preferred[j]; break; }
+          }
+          // Fallback: first available size, else first declared.
+          if (!defaultSize) {
+            var keys = Object.keys(availableSizes);
+            if (keys.length) defaultSize = keys[0];
+            else if (variants.length) defaultSize = variants[0].options[sizeIdx];
+          }
+          if (defaultSize) selection[sizeIdx] = defaultSize;
+        }
+
+        // Non-color, non-size options: just pick first value.
+        optionEls.forEach(function(el) {
+          var idx = parseInt(el.dataset.optionIndex, 10);
+          if (selection[idx] !== undefined) return;
+          var btn = el.querySelector('.zk-bundle__option-btn, .zk-bundle__swatch');
+          if (btn) { selection[idx] = btn.dataset.optionValue; return; }
+          var sel = el.querySelector('[data-zk-select]');
+          if (sel) {
+            var opt = Array.prototype.find.call(sel.options, function(o) { return !o.disabled && o.value; });
+            if (opt) selection[idx] = opt.value;
+          }
+        });
+
+        // Reflect defaults in the UI.
+        optionEls.forEach(function(optEl) {
+          var idx = parseInt(optEl.dataset.optionIndex, 10);
+          var chosen = selection[idx];
+          if (chosen === undefined) return;
+          var sel = optEl.querySelector('[data-zk-select]');
+          if (sel) { sel.value = chosen; return; }
+          var btns = optEl.querySelectorAll('.zk-bundle__option-btn, .zk-bundle__swatch');
+          btns.forEach(function(btn) {
+            btn.setAttribute('aria-checked', btn.dataset.optionValue === chosen ? 'true' : 'false');
+          });
+        });
+
+        // Swap to the default-color variant's image.
+        if (colorIdx >= 0) {
+          var match = findBestVariantByPartialSelection();
+          if (match && match.image) swapCardImage(match.image);
+        }
+
+        updateAddState();
+      })();
+
       if (!addBtn) return;
 
       // XHR-based add bypasses fetch monkey-patches from other apps that
@@ -974,13 +1133,15 @@
         defaultEl.hidden = true;
         loadingEl.hidden = false;
 
+        // Arm drawer suppression *before* the XHR fires so any open attempt
+        // during/after the add is swallowed by the observer.
+        window.__zkBundleSuppressDrawer(1800);
+
         addToCartXHR(parseInt(variantId, 10))
           .then(function() {
             addBtn.dataset.state = 'success';
             loadingEl.hidden = true;
             successEl.hidden = false;
-            setTimeout(window.__zkBundleForceCloseDrawer, 150);
-            setTimeout(window.__zkBundleForceCloseDrawer, 500);
             refreshCartState();
             setTimeout(function() {
               addBtn.dataset.state = '';
