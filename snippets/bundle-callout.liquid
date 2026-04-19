@@ -566,8 +566,13 @@
     cursor: not-allowed; opacity: 0.85; box-shadow: none;
   }
   .zk-bundle__add[data-state="loading"] {
-    background: var(--zk-cta) !important; border-color: var(--zk-cta) !important;
+    background: var(--zk-cta-hover) !important; border-color: var(--zk-cta-hover) !important;
     color: #fff !important; opacity: 1 !important; cursor: progress !important;
+    animation: zk-btn-pulse 1.1s ease-in-out infinite !important;
+  }
+  @keyframes zk-btn-pulse {
+    0%, 100% { box-shadow: 0 2px 0 rgba(0,0,0,0.06), 0 0 0 0 rgba(232, 93, 58, 0.35); }
+    50% { box-shadow: 0 2px 0 rgba(0,0,0,0.06), 0 0 0 6px rgba(232, 93, 58, 0.0); }
   }
   .zk-bundle__add[data-state="success"] {
     background: var(--zk-success) !important; border-color: var(--zk-success) !important; opacity: 1 !important;
@@ -775,19 +780,25 @@
       // Belt-and-suspenders: poll every 80ms to strip any drawer state that
       // slipped past the mutation observers (some apps add classes inside
       // rAF callbacks or via shadow-DOM reflection that observers miss).
-      var pollId = setInterval(function() {
-        if (Date.now() > until) { clearInterval(pollId); return; }
+      // Use requestAnimationFrame so we sweep *every paint frame* — the
+      // mutation observers can miss cross-frame batched mutations, and
+      // polling at 80ms can let a drawer visibly flash for up to 4 frames
+      // before we catch it. rAF keeps pace with the render cycle.
+      var rafId = null;
+      function rafSweep() {
+        if (Date.now() > until) return;
         BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
         document.documentElement.classList.remove('no-scroll', 'overflow-hidden', 'cart-open');
         HARD_HIDE_SELECTORS.forEach(function(sel) {
           document.querySelectorAll(sel).forEach(hardHide);
         });
-        // Try known close APIs if apps expose them.
         try { if (window.UpcartPublic && window.UpcartPublic.close) window.UpcartPublic.close(); } catch (e) {}
         try { if (window.upcart && window.upcart.close) window.upcart.close(); } catch (e) {}
         try { if (window.CandyRack && window.CandyRack.hideSlider) window.CandyRack.hideSlider(); } catch (e) {}
-      }, 80);
-      intervals.push(pollId);
+        rafId = requestAnimationFrame(rafSweep);
+      }
+      rafId = requestAnimationFrame(rafSweep);
+      intervals.push({ cancel: function() { try { cancelAnimationFrame(rafId); } catch(e){} } });
 
       // Collect drawers once, then top-up as new nodes mount.
       function collectAll() {
@@ -863,7 +874,7 @@
 
       setTimeout(function() {
         observers.forEach(function(o) { try { o.disconnect(); } catch (e) {} });
-        intervals.forEach(function(id) { try { clearInterval(id); } catch (e) {} });
+        intervals.forEach(function(i) { try { (i.cancel ? i.cancel() : clearInterval(i)); } catch (e) {} });
         // Unhide the hard-hidden nodes so the cart icon still works afterward.
         state.hide.forEach(unHardHide);
         document.querySelectorAll(HARD_HIDE_SELECTORS.join(',')).forEach(unHardHide);
@@ -1270,22 +1281,62 @@
 
       if (!addBtn) return;
 
-      // XHR-based add bypasses fetch monkey-patches from other apps that
-      // might open a cart drawer on fetch('/cart/add.js').
-      function addToCartXHR(variantId) {
+      // Use a hidden same-origin iframe's XMLHttpRequest to bypass any
+      // monkey-patch third-party apps (UpCart, Candy Rack) may install on
+      // the parent window's XMLHttpRequest.prototype.send. The iframe's
+      // XHR constructor lives in a separate realm that app scripts never
+      // touch. Same-origin means it can still post to /cart/add.js with
+      // the shop's cart cookies.
+      function getCleanXHR() {
         return new Promise(function(resolve, reject) {
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '/cart/add.js', true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.setRequestHeader('Accept', 'application/json');
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
+          if (window.__zkCleanXHRFrame && window.__zkCleanXHRFrame.contentWindow) {
+            try { return resolve(new window.__zkCleanXHRFrame.contentWindow.XMLHttpRequest()); } catch (e) {}
+          }
+          var ifr = document.createElement('iframe');
+          ifr.style.cssText = 'display:none!important;width:0;height:0;border:0;position:absolute;';
+          ifr.setAttribute('aria-hidden', 'true');
+          ifr.src = '/robots.txt';
+          ifr.onload = function() {
+            window.__zkCleanXHRFrame = ifr;
+            try { resolve(new ifr.contentWindow.XMLHttpRequest()); }
+            catch (e) { reject(e); }
+          };
+          ifr.onerror = function() { reject(new Error('iframe load failed')); };
+          document.body.appendChild(ifr);
+        });
+      }
+
+      function addToCartXHR(variantId) {
+        return getCleanXHR().then(function(xhr) {
+          return new Promise(function(resolve, reject) {
+            xhr.open('POST', '/cart/add.js', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('X-Requested-With', 'ZkBundle');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                  try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
+                } else reject(new Error('add failed: ' + xhr.status));
+              }
+            };
+            xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+          });
+        }, function() {
+          // Fallback to parent XHR if iframe path fails.
+          return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/cart/add.js', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState !== 4) return;
               if (xhr.status >= 200 && xhr.status < 300) {
                 try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
               } else reject(new Error('add failed: ' + xhr.status));
-            }
-          };
-          xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+            };
+            xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+          });
         });
       }
 
