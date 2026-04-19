@@ -1,25 +1,28 @@
 {%- comment -%}
-  Bundle Callout — PDP bundle upsell with inline quick-add.
+  Bundle Callout — PDP bundle upsell with live reward progress.
 
   Data source: product metafield `custom.pdp_bundle_upsell_collection`
   (collection reference). Each product explicitly picks which collection
   drives its bundle upsell.
 
-  Metafield access is hardened to handle three shapes Shopify can return
-  (direct object, .value-wrapped, list) and re-resolves via collections[handle]
-  so the products array is reliably hydrated.
+  Tiers (match the active Shopify automatic discounts — admin sets up):
+    2 items → $5 off
+    3 items → $10 off
+    4+ items → $20 off  (only shown if collection has 4+ total)
 
-  Tiers (match the active Shopify automatic discounts — user sets up):
-    2 items from the collection → $5 off
-    3 items from the collection → $10 off
-    4+ items from the collection → $20 off  (only shown if collection has 4+ total)
+  Live cart awareness:
+    - On load, fetches /cart.js and counts how many items from the bundle
+      collection are already in the cart
+    - Progress bar and dynamic message update based on that count
+    - Re-fetches after each add from this component
 
-  Each bundle item has inline size/color pickers + AJAX add-to-cart via
-  /cart/add.js. Color options render with the theme's color-swatch classes
-  so they match the rest of the site. The add button never opens the cart
-  drawer — it just flips to "Added ✓" and resets.
+  Each bundle item has inline size/color pickers + AJAX add via /cart/add.js.
+  Color options render as inline-styled swatches (Liquid maps common color
+  names to hex so it doesn't depend on a third-party swatch app).
 
-  Hides silently if metafield unset, collection empty, or no other products available.
+  The add button never dispatches global cart events — no drawer opens.
+
+  Hides silently if metafield unset, collection < 2 items, or no others available.
 {%- endcomment -%}
 
 {%- assign bundle_mf = product.metafields.custom.pdp_bundle_upsell_collection -%}
@@ -52,13 +55,16 @@
     {%- if total_possible >= 4 -%}
       {%- assign show_tier_4 = true -%}
     {%- endif -%}
-    {%- assign max_savings = 10 -%}
-    {%- if show_tier_4 -%}
-      {%- assign max_savings = 20 -%}
-    {%- endif -%}
     {%- assign collection_short_title = bundle_collection.title | replace: 'Collection', '' | strip -%}
 
-<section class="zk-bundle" aria-labelledby="zk-bundle-heading-{{ product.id }}">
+    {%- capture bundle_product_ids -%}
+      {%- for p in bundle_collection.products -%}{{ p.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
+    {%- endcapture -%}
+
+<section class="zk-bundle"
+  data-zk-tiers="{% if show_tier_4 %}2,3,4{% else %}2,3{% endif %}"
+  data-zk-product-ids="{{ bundle_product_ids | strip }}"
+  aria-labelledby="zk-bundle-heading-{{ product.id }}">
   <div class="zk-bundle__inner">
 
     <div class="zk-bundle__head">
@@ -66,20 +72,34 @@
       <h3 id="zk-bundle-heading-{{ product.id }}" class="zk-bundle__title">
         Complete the {{ collection_short_title }}
       </h3>
-      <p class="zk-bundle__sub">
-        Pick any 2 for <strong>$5 off</strong>. Any 3 for <strong>$10 off</strong>.{% if show_tier_4 %} Any 4+ for <strong>$20 off</strong>.{% endif %}
+      <p class="zk-bundle__message" data-zk-message>
+        Pick any 2 for $5 off. Any 3 for $10 off.{% if show_tier_4 %} Any 4+ for $20 off.{% endif %}
       </p>
     </div>
 
-    <ul class="zk-bundle__tiers" role="list">
-      <li class="zk-bundle__tier"><span class="zk-bundle__tier-count">Any 2</span><span class="zk-bundle__tier-arrow" aria-hidden="true">→</span><span class="zk-bundle__tier-save">Save $5</span></li>
-      <li class="zk-bundle__tier"><span class="zk-bundle__tier-count">Any 3</span><span class="zk-bundle__tier-arrow" aria-hidden="true">→</span><span class="zk-bundle__tier-save">Save $10</span></li>
-      {%- if show_tier_4 -%}
-      <li class="zk-bundle__tier zk-bundle__tier--best"><span class="zk-bundle__tier-count">Any 4+</span><span class="zk-bundle__tier-arrow" aria-hidden="true">→</span><span class="zk-bundle__tier-save">Save $20</span></li>
-      {%- endif -%}
-    </ul>
+    <div class="zk-bundle__progress" data-zk-progress>
+      <div class="zk-bundle__progress-track">
+        <div class="zk-bundle__progress-fill" data-zk-progress-fill style="width:0%"></div>
+      </div>
+      <ul class="zk-bundle__milestones" role="list">
+        <li class="zk-bundle__milestone" data-zk-milestone="2" style="left:33%">
+          <span class="zk-bundle__milestone-dot" aria-hidden="true">$</span>
+          <span class="zk-bundle__milestone-label">Save $5</span>
+        </li>
+        <li class="zk-bundle__milestone" data-zk-milestone="3" style="left:66%">
+          <span class="zk-bundle__milestone-dot" aria-hidden="true">$$</span>
+          <span class="zk-bundle__milestone-label">Save $10</span>
+        </li>
+        {%- if show_tier_4 -%}
+        <li class="zk-bundle__milestone" data-zk-milestone="4" style="left:100%">
+          <span class="zk-bundle__milestone-dot" aria-hidden="true">$$$</span>
+          <span class="zk-bundle__milestone-label">Save $20</span>
+        </li>
+        {%- endif -%}
+      </ul>
+    </div>
 
-    <div class="zk-bundle__list" role="list">
+    <div class="zk-bundle__carousel" role="list" data-zk-carousel>
       {%- for p in bundle_collection.products -%}
         {%- if p.id != product.id and p.available -%}
           {%- assign first_image = p.featured_image | default: p.images.first -%}
@@ -88,64 +108,84 @@
             {%- assign is_single_variant = true -%}
           {%- endif -%}
 
-          <article class="zk-bundle__row" role="listitem" data-zk-item data-product-id="{{ p.id }}">
-
+          <article class="zk-bundle__card" role="listitem" data-zk-item data-product-id="{{ p.id }}">
             <a href="{{ p.url }}" class="zk-bundle__media" tabindex="-1" aria-hidden="true">
               {%- if first_image -%}
                 <img
-                  src="{{ first_image | img_url: '240x240', crop: 'center' }}"
-                  srcset="{{ first_image | img_url: '240x240', crop: 'center' }} 1x, {{ first_image | img_url: '480x480', crop: 'center' }} 2x"
+                  src="{{ first_image | img_url: '480x480', crop: 'center' }}"
+                  srcset="{{ first_image | img_url: '360x360', crop: 'center' }} 1x, {{ first_image | img_url: '720x720', crop: 'center' }} 2x"
                   alt=""
-                  width="90"
-                  height="90"
+                  width="200"
+                  height="200"
                   loading="lazy">
               {%- endif -%}
             </a>
 
-            <div class="zk-bundle__body">
-              <div class="zk-bundle__info">
-                <a href="{{ p.url }}" class="zk-bundle__name">{{ p.title }}</a>
-                <span class="zk-bundle__price">{{ p.price | money_without_trailing_zeros }}</span>
-              </div>
-
-              {%- unless is_single_variant -%}
-                <div class="zk-bundle__options">
-                  {%- for option in p.options_with_values -%}
-                    {%- assign option_name_downcase = option.name | downcase -%}
-                    {%- assign is_color = false -%}
-                    {%- if option_name_downcase contains 'color' or option_name_downcase contains 'colour' -%}
-                      {%- assign is_color = true -%}
-                    {%- endif -%}
-                    <div class="zk-bundle__option{% if is_color %} zk-bundle__option--color{% endif %}" data-option-index="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">
-                      <span class="zk-bundle__option-label">{{ option.name }}</span>
-                      <div class="zk-bundle__option-values" role="radiogroup" aria-label="{{ option.name | escape }}">
-                        {%- for value in option.values -%}
-                          {%- assign value_slug = value | handleize -%}
-                          {%- if is_color -%}
-                            <button type="button" class="zk-bundle__swatch color-swatch color-swatch--{{ value_slug }}" role="radio" aria-checked="false" data-option-value="{{ value | escape }}" title="{{ value | escape }}">
-                              <span class="zk-bundle__swatch-label">{{ value }}</span>
-                            </button>
-                          {%- else -%}
-                            <button type="button" class="zk-bundle__option-btn" role="radio" aria-checked="false" data-option-value="{{ value | escape }}">{{ value }}</button>
-                          {%- endif -%}
-                        {%- endfor -%}
-                      </div>
-                    </div>
-                  {%- endfor -%}
-                </div>
-              {%- endunless -%}
-
-              <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
-
-              <button type="button" class="zk-bundle__add" data-zk-add {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
-                <span class="zk-bundle__add-default">{% if is_single_variant %}Add to cart{% else %}Select options{% endif %}</span>
-                <span class="zk-bundle__add-loading" hidden aria-hidden="true"><span class="zk-bundle__spinner"></span></span>
-                <span class="zk-bundle__add-success" hidden aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  Added
-                </span>
-              </button>
+            <div class="zk-bundle__info">
+              <a href="{{ p.url }}" class="zk-bundle__name">{{ p.title }}</a>
+              <span class="zk-bundle__price">{{ p.price | money_without_trailing_zeros }}</span>
             </div>
+
+            {%- unless is_single_variant -%}
+              <div class="zk-bundle__options">
+                {%- for option in p.options_with_values -%}
+                  {%- assign option_name_downcase = option.name | downcase -%}
+                  {%- assign is_color = false -%}
+                  {%- if option_name_downcase contains 'color' or option_name_downcase contains 'colour' -%}
+                    {%- assign is_color = true -%}
+                  {%- endif -%}
+                  <div class="zk-bundle__option{% if is_color %} zk-bundle__option--color{% endif %}" data-option-index="{{ forloop.index0 }}">
+                    <span class="zk-bundle__option-label">{{ option.name }}</span>
+                    <div class="zk-bundle__option-values" role="radiogroup" aria-label="{{ option.name | escape }}">
+                      {%- for value in option.values -%}
+                        {%- if is_color -%}
+                          {%- assign v_lower = value | downcase -%}
+                          {%- assign sw_color = '#c7bda5' -%}
+                          {%- if v_lower contains 'black' -%}{%- assign sw_color = '#0e0e0e' -%}
+                          {%- elsif v_lower contains 'white' -%}{%- assign sw_color = '#f7f4ec' -%}
+                          {%- elsif v_lower contains 'midnight' or v_lower contains 'navy' -%}{%- assign sw_color = '#152036' -%}
+                          {%- elsif v_lower contains 'charcoal' -%}{%- assign sw_color = '#343438' -%}
+                          {%- elsif v_lower contains 'heather' -%}{%- assign sw_color = '#9ca0a8' -%}
+                          {%- elsif v_lower contains 'gray' or v_lower contains 'grey' -%}{%- assign sw_color = '#7a7a7a' -%}
+                          {%- elsif v_lower contains 'beige' or v_lower contains 'sand' or v_lower contains 'natural' -%}{%- assign sw_color = '#d7c9a8' -%}
+                          {%- elsif v_lower contains 'cream' -%}{%- assign sw_color = '#e9dfc7' -%}
+                          {%- elsif v_lower contains 'tan' -%}{%- assign sw_color = '#c8a97e' -%}
+                          {%- elsif v_lower contains 'brown' or v_lower contains 'mocha' or v_lower contains 'chocolate' -%}{%- assign sw_color = '#5a3a22' -%}
+                          {%- elsif v_lower contains 'forest' or v_lower contains 'olive' or v_lower contains 'military' -%}{%- assign sw_color = '#3f5239' -%}
+                          {%- elsif v_lower contains 'green' -%}{%- assign sw_color = '#446a44' -%}
+                          {%- elsif v_lower contains 'royal' or v_lower contains 'blue' -%}{%- assign sw_color = '#2e4bb5' -%}
+                          {%- elsif v_lower contains 'red' or v_lower contains 'burgundy' or v_lower contains 'wine' or v_lower contains 'maroon' -%}{%- assign sw_color = '#8a1d1d' -%}
+                          {%- elsif v_lower contains 'purple' or v_lower contains 'plum' -%}{%- assign sw_color = '#5b3a7a' -%}
+                          {%- elsif v_lower contains 'pink' or v_lower contains 'rose' or v_lower contains 'blush' -%}{%- assign sw_color = '#e4a8b4' -%}
+                          {%- elsif v_lower contains 'yellow' or v_lower contains 'gold' or v_lower contains 'mustard' -%}{%- assign sw_color = '#d4a84a' -%}
+                          {%- elsif v_lower contains 'orange' -%}{%- assign sw_color = '#e85d3a' -%}
+                          {%- elsif v_lower contains 'teal' or v_lower contains 'turquoise' -%}{%- assign sw_color = '#2b7a78' -%}
+                          {%- elsif v_lower contains 'light' -%}{%- assign sw_color = '#dcd6c9' -%}
+                          {%- elsif v_lower contains 'dark' -%}{%- assign sw_color = '#2a2418' -%}
+                          {%- endif -%}
+                          <button type="button" class="zk-bundle__swatch" role="radio" aria-checked="false" data-option-value="{{ value | escape }}" title="{{ value | escape }}" style="background-color: {{ sw_color }}">
+                            <span class="zk-bundle__swatch-label">{{ value }}</span>
+                          </button>
+                        {%- else -%}
+                          <button type="button" class="zk-bundle__option-btn" role="radio" aria-checked="false" data-option-value="{{ value | escape }}">{{ value }}</button>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endunless -%}
+
+            <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
+
+            <button type="button" class="zk-bundle__add" data-zk-add {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
+              <span class="zk-bundle__add-default">{% if is_single_variant %}Add{% else %}Select options{% endif %}</span>
+              <span class="zk-bundle__add-loading" hidden aria-hidden="true"><span class="zk-bundle__spinner"></span></span>
+              <span class="zk-bundle__add-success" hidden aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Added
+              </span>
+            </button>
           </article>
         {%- endif -%}
       {%- endfor -%}
@@ -153,7 +193,7 @@
 
     <p class="zk-bundle__foot">
       <svg class="zk-bundle__foot-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6l2.5 2.5L10 3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Discount applies automatically at checkout. No code needed.
+      Discount applies automatically at checkout.
     </p>
 
   </div>
@@ -162,109 +202,165 @@
 <style>
   .zk-bundle {
     margin: 24px 0;
-    --zk-ink: #2a2418;
-    --zk-ink-soft: #5a4d30;
-    --zk-ink-faded: #8a7a5e;
-    --zk-bg: #faf7f0;
-    --zk-bg-deep: #f4efe4;
-    --zk-border: #e3d9c3;
-    --zk-border-soft: #ece2cb;
+    --zk-ink: #1a1b2e;
+    --zk-ink-soft: #5a5f75;
+    --zk-ink-faded: #8a8fa5;
+    --zk-bg: #ffffff;
+    --zk-bg-deep: #faf9f6;
+    --zk-border: rgba(26, 27, 46, 0.12);
+    --zk-border-strong: rgba(26, 27, 46, 0.2);
     --zk-surface: #ffffff;
-    --zk-dark: #1a1b2e;
     --zk-cta: #e85d3a;
-    --zk-cta-hover: #d44d2a;
+    --zk-cta-hover: #d14e2d;
     --zk-success: #4a7d3d;
     --zk-muted: #cfc9bc;
+    --zk-accent-soft: #e8eaf8;
   }
   .zk-bundle__inner {
-    background: linear-gradient(180deg, var(--zk-bg) 0%, var(--zk-bg-deep) 100%);
+    background: var(--zk-bg);
     border: 1px solid var(--zk-border);
-    border-radius: 12px;
-    padding: 18px 16px 14px;
+    border-radius: 18px;
+    padding: 20px 18px 16px;
+    box-shadow: 0 14px 30px rgba(26, 27, 46, 0.05);
   }
 
   .zk-bundle__head {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   .zk-bundle__eyebrow {
     display: inline-block;
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    color: var(--zk-ink-faded);
+    color: var(--zk-cta);
     margin-bottom: 4px;
   }
   .zk-bundle__title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 700;
     line-height: 1.2;
-    margin: 0 0 4px;
+    margin: 0 0 6px;
     color: var(--zk-ink);
+    letter-spacing: -0.01em;
   }
-  .zk-bundle__sub {
-    font-size: 13px;
+  .zk-bundle__message {
+    font-size: 14px;
     line-height: 1.4;
     margin: 0;
     color: var(--zk-ink-soft);
   }
-  .zk-bundle__sub strong { color: var(--zk-ink); }
-
-  .zk-bundle__tiers {
-    list-style: none;
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 12px 0 14px;
-    padding: 0;
-  }
-  .zk-bundle__tier {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--zk-surface);
-    border: 1px solid var(--zk-border);
-    border-radius: 999px;
-    padding: 5px 11px;
-    font-size: 12px;
-    font-weight: 500;
+  .zk-bundle__message strong {
     color: var(--zk-ink);
-    white-space: nowrap;
+    font-weight: 700;
   }
-  .zk-bundle__tier-count { font-weight: 700; }
-  .zk-bundle__tier-arrow { opacity: 0.4; }
-  .zk-bundle__tier-save { font-weight: 600; }
-  .zk-bundle__tier--best {
-    background: var(--zk-dark);
-    border-color: var(--zk-dark);
-    color: #fff;
-  }
-  .zk-bundle__tier--best .zk-bundle__tier-arrow { opacity: 0.55; }
 
-  .zk-bundle__list {
+  /* Progress bar with milestones */
+  .zk-bundle__progress {
+    position: relative;
+    margin: 22px 4px 34px;
+  }
+  .zk-bundle__progress-track {
+    position: relative;
+    height: 4px;
+    background: var(--zk-accent-soft);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .zk-bundle__progress-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: linear-gradient(90deg, var(--zk-cta) 0%, #f5845a 100%);
+    border-radius: 999px;
+    transition: width 350ms cubic-bezier(.2,.8,.2,1);
+  }
+  .zk-bundle__milestones {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+  .zk-bundle__milestone {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .zk-bundle__milestone-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--zk-surface);
+    border: 2px solid var(--zk-border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--zk-ink-faded);
+    transition: all 200ms ease;
+    letter-spacing: -0.5px;
+  }
+  .zk-bundle__milestone-label {
+    position: absolute;
+    top: calc(100% + 4px);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--zk-ink-faded);
+    white-space: nowrap;
+    transition: color 200ms ease;
+  }
+  .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-dot {
+    background: var(--zk-cta);
+    border-color: var(--zk-cta);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(232, 93, 58, 0.35);
+  }
+  .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-label {
+    color: var(--zk-cta);
+  }
+
+  /* Carousel */
+  .zk-bundle__carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(180px, 1fr);
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 14px;
+    margin: 0 -4px 0 -4px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .zk-bundle__carousel::-webkit-scrollbar { height: 6px; }
+  .zk-bundle__carousel::-webkit-scrollbar-track { background: transparent; }
+  .zk-bundle__carousel::-webkit-scrollbar-thumb { background: var(--zk-border); border-radius: 999px; }
+
+  .zk-bundle__card {
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .zk-bundle__row {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    gap: 12px;
-    align-items: start;
     background: var(--zk-surface);
-    border: 1px solid var(--zk-border-soft);
-    border-radius: 10px;
+    border: 1px solid var(--zk-border);
+    border-radius: 14px;
     padding: 10px;
+    min-width: 0;
   }
   .zk-bundle__media {
     display: block;
-    width: 72px;
-    height: 72px;
-    border-radius: 6px;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
     overflow: hidden;
     background: var(--zk-bg-deep);
   }
@@ -275,17 +371,12 @@
     display: block;
   }
 
-  .zk-bundle__body {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 0;
-  }
   .zk-bundle__info {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
+    margin-top: 2px;
   }
   .zk-bundle__name {
     font-size: 13px;
@@ -297,11 +388,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     flex: 1 1 auto;
+    min-width: 0;
   }
   .zk-bundle__name:hover { text-decoration: underline; }
   .zk-bundle__price {
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--zk-ink);
     flex: 0 0 auto;
   }
@@ -309,7 +401,8 @@
   .zk-bundle__options {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
+    margin-top: 2px;
   }
   .zk-bundle__option {
     display: flex;
@@ -318,18 +411,18 @@
     flex-wrap: wrap;
   }
   .zk-bundle__option-label {
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 9px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
     color: var(--zk-ink-faded);
     flex: 0 0 auto;
-    min-width: 36px;
+    min-width: 30px;
   }
   .zk-bundle__option-values {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 3px;
   }
   .zk-bundle__option-btn {
     appearance: none;
@@ -338,54 +431,40 @@
     border-radius: 4px;
     padding: 3px 7px;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--zk-ink);
     cursor: pointer;
     transition: all 120ms ease;
     line-height: 1.2;
-    min-width: 24px;
+    min-width: 22px;
     font-family: inherit;
   }
-  .zk-bundle__option-btn:hover { border-color: var(--zk-dark); }
+  .zk-bundle__option-btn:hover { border-color: var(--zk-ink); }
   .zk-bundle__option-btn[aria-checked="true"] {
-    background: var(--zk-dark);
-    border-color: var(--zk-dark);
+    background: var(--zk-ink);
+    border-color: var(--zk-ink);
     color: #fff;
   }
-  .zk-bundle__option-btn[data-unavailable="true"] {
-    opacity: 0.35;
-    text-decoration: line-through;
-    cursor: not-allowed;
-  }
-
   .zk-bundle__swatch {
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 1px solid var(--zk-border);
+    border: 1px solid var(--zk-border-strong);
     padding: 0;
     cursor: pointer;
-    transition: all 120ms ease;
+    transition: outline 120ms ease;
     font-family: inherit;
     position: relative;
     flex: 0 0 auto;
   }
-  .zk-bundle__swatch:hover { border-color: var(--zk-dark); }
   .zk-bundle__swatch[aria-checked="true"] {
-    outline: 2px solid var(--zk-dark);
+    outline: 2px solid var(--zk-ink);
     outline-offset: 2px;
   }
   .zk-bundle__swatch-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
   }
 
   .zk-bundle__add {
@@ -393,26 +472,23 @@
     background: var(--zk-cta);
     color: #fff;
     border: 1px solid var(--zk-cta);
-    border-radius: 6px;
-    padding: 7px 10px;
+    border-radius: 8px;
+    padding: 8px 10px;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: background 150ms ease, border-color 150ms ease, opacity 150ms ease;
-    min-height: 32px;
+    transition: background 150ms ease, border-color 150ms ease;
+    min-height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     font-family: inherit;
-    margin-top: 2px;
+    margin-top: auto;
   }
-  .zk-bundle__add:hover:not(:disabled) {
-    background: var(--zk-cta-hover);
-    border-color: var(--zk-cta-hover);
-  }
+  .zk-bundle__add:hover:not(:disabled) { background: var(--zk-cta-hover); border-color: var(--zk-cta-hover); }
   .zk-bundle__add:disabled {
     background: var(--zk-muted);
     border-color: var(--zk-muted);
@@ -424,11 +500,9 @@
     background: var(--zk-success);
     border-color: var(--zk-success);
     opacity: 1;
-    color: #fff;
   }
   .zk-bundle__spinner {
-    width: 12px;
-    height: 12px;
+    width: 12px; height: 12px;
     border: 2px solid rgba(255,255,255,0.35);
     border-top-color: #fff;
     border-radius: 50%;
@@ -443,8 +517,8 @@
     justify-content: center;
     gap: 6px;
     font-size: 11px;
-    color: var(--zk-ink-soft);
-    margin: 8px 0 0;
+    color: var(--zk-ink-faded);
+    margin: 4px 0 0;
     font-weight: 500;
   }
   .zk-bundle__foot-icon {
@@ -453,19 +527,21 @@
   }
 
   @media (max-width: 640px) {
-    .zk-bundle__inner { padding: 16px 12px 12px; }
-    .zk-bundle__title { font-size: 16px; }
-    .zk-bundle__row {
-      grid-template-columns: 60px 1fr;
-      gap: 10px;
-      padding: 8px;
+    .zk-bundle__inner { padding: 16px 14px 12px; border-radius: 14px; }
+    .zk-bundle__title { font-size: 17px; }
+    .zk-bundle__message { font-size: 13px; }
+    .zk-bundle__carousel {
+      grid-auto-columns: 160px;
     }
-    .zk-bundle__media { width: 60px; height: 60px; }
-    .zk-bundle__name { font-size: 12px; }
-    .zk-bundle__price { font-size: 12px; }
-    .zk-bundle__option-label { font-size: 9px; min-width: 32px; }
-    .zk-bundle__option-btn { font-size: 10px; padding: 2px 6px; }
-    .zk-bundle__tier { font-size: 11px; padding: 4px 9px; }
+    .zk-bundle__card { padding: 8px; }
+    .zk-bundle__milestone-dot { width: 24px; height: 24px; font-size: 10px; }
+    .zk-bundle__milestone-label { font-size: 9px; }
+  }
+
+  @media (min-width: 900px) {
+    .zk-bundle__carousel {
+      grid-auto-columns: minmax(200px, 1fr);
+    }
   }
 </style>
 
@@ -477,6 +553,85 @@
     if (root.dataset.zkBundleInit === '1') return;
     root.dataset.zkBundleInit = '1';
 
+    var tiers = (root.dataset.zkTiers || '2,3').split(',').map(function(n) { return parseInt(n, 10); });
+    var bundleProductIds = (root.dataset.zkProductIds || '').split(',')
+      .map(function(id) { return parseInt(id, 10); })
+      .filter(function(id) { return !isNaN(id); });
+
+    var fillEl = root.querySelector('[data-zk-progress-fill]');
+    var messageEl = root.querySelector('[data-zk-message]');
+    var milestoneEls = root.querySelectorAll('[data-zk-milestone]');
+
+    function buildMessage(count) {
+      var maxTier = tiers[tiers.length - 1];
+      if (count <= 0) {
+        if (tiers.indexOf(4) >= 0) return 'Pick any 2 for $5 off. Any 3 for $10 off. Any 4+ for $20 off.';
+        return 'Pick any 2 for $5 off. Any 3 for $10 off.';
+      }
+      if (count === 1) return 'Add 1 more for $5 off.';
+      if (count === 2 && tiers.indexOf(3) >= 0) return 'Saving $5 — add 1 more for $10 off.';
+      if (count === 2) return 'Saving $5 unlocked.';
+      if (count === 3 && tiers.indexOf(4) >= 0) return 'Saving $10 — add 1 more for $20 off.';
+      if (count === 3) return 'Saving $10 unlocked.';
+      if (count >= maxTier) {
+        if (maxTier === 4) return 'Max saving unlocked — $20 off.';
+        return 'Max saving unlocked — $10 off.';
+      }
+      return '';
+    }
+
+    function progressPct(count) {
+      // Milestones are spaced evenly at 33/66/100 (or 50/100 when only 2 tiers).
+      if (tiers.length === 3) {
+        if (count >= 4) return 100;
+        if (count >= 3) return 66;
+        if (count >= 2) return 33;
+        if (count >= 1) return 16.5;
+        return 0;
+      } else {
+        // 2 tiers: milestones at 33 and 66, 100 unused
+        if (count >= 3) return 100;
+        if (count >= 2) return 50;
+        if (count >= 1) return 25;
+        return 0;
+      }
+    }
+
+    function updateProgress(count) {
+      if (fillEl) fillEl.style.width = progressPct(count) + '%';
+      milestoneEls.forEach(function(el) {
+        var threshold = parseInt(el.dataset.zkMilestone, 10);
+        el.dataset.reached = count >= threshold ? 'true' : 'false';
+      });
+      if (messageEl) {
+        var msg = buildMessage(count);
+        if (msg) messageEl.textContent = msg;
+      }
+    }
+
+    function countBundleItemsInCart() {
+      return fetch('/cart.js', { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+        .then(function(r) { return r.json(); })
+        .then(function(cart) {
+          if (!cart || !cart.items) return 0;
+          var count = 0;
+          cart.items.forEach(function(item) {
+            if (bundleProductIds.indexOf(item.product_id) >= 0) {
+              count += item.quantity;
+            }
+          });
+          return count;
+        })
+        .catch(function() { return 0; });
+    }
+
+    function refreshCartState() {
+      countBundleItemsInCart().then(updateProgress);
+    }
+
+    refreshCartState();
+
+    // Per-card variant selection + add logic
     root.querySelectorAll('[data-zk-item]').forEach(function(item) {
       var variantsNode = item.querySelector('[data-zk-variants]');
       if (!variantsNode) return;
@@ -487,9 +642,7 @@
       var optionEls = item.querySelectorAll('.zk-bundle__option');
       var selection = {};
 
-      function allSelected() {
-        return optionEls.length === Object.keys(selection).length;
-      }
+      function allSelected() { return optionEls.length === Object.keys(selection).length; }
       function findVariant() {
         return variants.find(function(v) {
           return v.options.every(function(val, i) { return val === selection[i]; });
@@ -498,28 +651,16 @@
       function updateAddState() {
         var defaultEl = addBtn.querySelector('.zk-bundle__add-default');
         if (!allSelected()) {
-          addBtn.disabled = true;
-          addBtn.setAttribute('aria-disabled', 'true');
-          defaultEl.textContent = 'Select options';
-          return;
+          addBtn.disabled = true; addBtn.setAttribute('aria-disabled', 'true');
+          defaultEl.textContent = 'Select options'; return;
         }
         var v = findVariant();
-        if (!v) {
-          addBtn.disabled = true;
-          addBtn.setAttribute('aria-disabled', 'true');
-          defaultEl.textContent = 'Unavailable';
-          return;
-        }
-        if (!v.available) {
-          addBtn.disabled = true;
-          addBtn.setAttribute('aria-disabled', 'true');
-          defaultEl.textContent = 'Sold out';
-          return;
-        }
+        if (!v) { addBtn.disabled = true; defaultEl.textContent = 'Unavailable'; return; }
+        if (!v.available) { addBtn.disabled = true; defaultEl.textContent = 'Sold out'; return; }
         addBtn.disabled = false;
         addBtn.setAttribute('aria-disabled', 'false');
         addBtn.dataset.variantId = v.id;
-        defaultEl.textContent = 'Add to cart';
+        defaultEl.textContent = 'Add';
       }
 
       optionEls.forEach(function(optEl) {
@@ -561,8 +702,7 @@
             addBtn.dataset.state = 'success';
             loadingEl.hidden = true;
             successEl.hidden = false;
-            // Intentionally NOT dispatching cart:* events — those trigger
-            // the theme's cart drawer. We just flip to the success state.
+            refreshCartState();
             setTimeout(function() {
               addBtn.dataset.state = '';
               successEl.hidden = true;
@@ -577,7 +717,7 @@
             defaultEl.hidden = false;
             defaultEl.textContent = 'Try again';
             setTimeout(function() {
-              defaultEl.textContent = 'Add to cart';
+              defaultEl.textContent = 'Add';
               addBtn.disabled = false;
             }, 2000);
           });
