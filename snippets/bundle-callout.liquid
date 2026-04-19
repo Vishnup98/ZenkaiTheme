@@ -671,7 +671,15 @@
     var DRAWER_NODE_SELECTORS = [
       '#CartDrawer', '.drawer--cart', '.cart-drawer', '[data-cart-drawer]',
       '.slide-cart', '.mini-cart', '.ajax-cart', 'cart-drawer',
-      '.drawer', '.drawer--right', '.drawer--left'
+      '.drawer', '.drawer--right', '.drawer--left',
+      // Third-party apps present on this store:
+      '#candyrack-slider-cart', '.candyrack-slider-cart', '.CandyRack-CartSlider',
+      '#upCart', '#upCartContainer', '.upcart-drawer', '.upcart-sidebar',
+      '#upCartStickyButton'
+    ];
+    // Specific to apps whose root node stays in DOM but children become visible.
+    var HARD_HIDE_SELECTORS = [
+      '#candyrack-slider-cart', '#upCart', '#upCartContainer'
     ];
 
     function stripDrawerOpenState(node) {
@@ -694,25 +702,61 @@
       return found;
     }
 
-    window.__zkBundleSuppressDrawer = function(ms) {
-      var until = Date.now() + (ms || 1800);
-      var observers = [];
-      var drawers = collectDrawerNodes();
+    function hardHide(node) {
+      if (!node) return;
+      if (node.__zkOrigInlineStyle === undefined) {
+        node.__zkOrigInlineStyle = node.getAttribute('style') || '';
+      }
+      node.style.setProperty('display', 'none', 'important');
+      node.style.setProperty('visibility', 'hidden', 'important');
+      node.style.setProperty('pointer-events', 'none', 'important');
+      node.style.setProperty('opacity', '0', 'important');
+      node.setAttribute('aria-hidden', 'true');
+    }
+    function unHardHide(node) {
+      if (!node) return;
+      if (node.__zkOrigInlineStyle === undefined) return;
+      var original = node.__zkOrigInlineStyle;
+      if (original) node.setAttribute('style', original);
+      else node.removeAttribute('style');
+      delete node.__zkOrigInlineStyle;
+    }
 
-      function sweep() {
-        drawers.forEach(stripDrawerOpenState);
+    window.__zkBundleSuppressDrawer = function(ms) {
+      var dur = ms || 1800;
+      var until = Date.now() + dur;
+      var observers = [];
+
+      // Collect drawers once, then top-up as new nodes mount.
+      function collectAll() {
+        var list = collectDrawerNodes();
+        var hide = [];
+        HARD_HIDE_SELECTORS.forEach(function(sel) {
+          document.querySelectorAll(sel).forEach(function(n) {
+            if (hide.indexOf(n) < 0) hide.push(n);
+          });
+        });
+        return { all: list, hide: hide };
+      }
+
+      function sweep(state) {
+        state.all.forEach(stripDrawerOpenState);
+        state.hide.forEach(hardHide);
         BODY_DRAWER_CLASSES.forEach(function(cls) { document.body.classList.remove(cls); });
         document.documentElement.classList.remove('no-scroll', 'overflow-hidden', 'cart-open');
       }
-      sweep();
 
-      drawers.forEach(function(d) {
+      var state = collectAll();
+      sweep(state);
+
+      state.all.forEach(function(d) {
         var obs = new MutationObserver(function() {
           if (Date.now() > until) { obs.disconnect(); return; }
           stripDrawerOpenState(d);
+          if (HARD_HIDE_SELECTORS.some(function(sel) { try { return d.matches(sel); } catch(e){ return false; } })) hardHide(d);
         });
         try {
-          obs.observe(d, { attributes: true, attributeFilter: ['class', 'style', 'open', 'aria-hidden'] });
+          obs.observe(d, { attributes: true, childList: true, subtree: true, attributeFilter: ['class', 'style', 'open', 'aria-hidden'] });
           observers.push(obs);
         } catch (e) {}
       });
@@ -727,16 +771,24 @@
         observers.push(bodyObs);
       } catch (e) {}
 
-      // Also watch for newly-inserted drawers (e.g., Rokt lazy-mounted widgets).
+      // Re-collect & re-hide newly-inserted drawers (apps that lazy-mount).
       var docObs = new MutationObserver(function(muts) {
         if (Date.now() > until) { docObs.disconnect(); return; }
         muts.forEach(function(m) {
           m.addedNodes.forEach(function(n) {
             if (n.nodeType !== 1) return;
-            DRAWER_NODE_SELECTORS.forEach(function(sel) {
+            DRAWER_NODE_SELECTORS.concat(HARD_HIDE_SELECTORS).forEach(function(sel) {
               try {
-                if (n.matches && n.matches(sel)) stripDrawerOpenState(n);
-                if (n.querySelectorAll) n.querySelectorAll(sel).forEach(stripDrawerOpenState);
+                if (n.matches && n.matches(sel)) {
+                  stripDrawerOpenState(n);
+                  if (HARD_HIDE_SELECTORS.indexOf(sel) >= 0) hardHide(n);
+                }
+                if (n.querySelectorAll) {
+                  n.querySelectorAll(sel).forEach(function(inner) {
+                    stripDrawerOpenState(inner);
+                    if (HARD_HIDE_SELECTORS.indexOf(sel) >= 0) hardHide(inner);
+                  });
+                }
               } catch (e) {}
             });
           });
@@ -749,7 +801,10 @@
 
       setTimeout(function() {
         observers.forEach(function(o) { try { o.disconnect(); } catch (e) {} });
-      }, (ms || 1800) + 200);
+        // Unhide the hard-hidden nodes so the cart icon still works afterward.
+        state.hide.forEach(unHardHide);
+        document.querySelectorAll(HARD_HIDE_SELECTORS.join(',')).forEach(unHardHide);
+      }, dur + 200);
     };
 
     // Back-compat alias for earlier code paths.
@@ -758,7 +813,13 @@
     // Refresh all bundle instances' progress state
     window.__zkBundleRefreshAll = function() {
       document.querySelectorAll('.zk-bundle').forEach(function(root) {
-        if (root.__zkRefresh) root.__zkRefresh();
+        if (root.__zkRefresh) {
+          root.__zkRefresh();
+        } else if (typeof window.__zkBundleInitInstance === 'function') {
+          // Section was re-rendered by a third-party app (e.g., Candy Rack
+          // on drawer close) and the new root lost its JS binding. Re-init.
+          window.__zkBundleInitInstance(root);
+        }
       });
     };
 
@@ -780,12 +841,41 @@
         return p;
       };
     }
+
+    // Theme dispatches cart:updated on document after every cart mutation.
+    // Also listen for other common custom events third-party apps dispatch.
+    ['cart:updated', 'cart:refresh', 'cart:change', 'shopify:cart:update'].forEach(function(evt) {
+      document.addEventListener(evt, function() {
+        setTimeout(window.__zkBundleRefreshAll, 80);
+      });
+    });
+
+    // If a third-party section-rendering replaces the bundle node, re-init
+    // the new instance as soon as it enters the DOM.
+    if (!window.__zkBundleDomObserver) {
+      window.__zkBundleDomObserver = new MutationObserver(function(muts) {
+        muts.forEach(function(m) {
+          m.addedNodes.forEach(function(n) {
+            if (n.nodeType !== 1) return;
+            if (n.classList && n.classList.contains('zk-bundle') && !n.dataset.zkBundleInit) {
+              if (typeof window.__zkBundleInitInstance === 'function') window.__zkBundleInitInstance(n);
+            } else if (n.querySelectorAll) {
+              n.querySelectorAll('.zk-bundle').forEach(function(r) {
+                if (!r.dataset.zkBundleInit && typeof window.__zkBundleInitInstance === 'function') {
+                  window.__zkBundleInitInstance(r);
+                }
+              });
+            }
+          });
+        });
+      });
+      try { window.__zkBundleDomObserver.observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+    }
   }
 
   /* ========== Per-instance init ========== */
-  var roots = document.querySelectorAll('.zk-bundle');
-  roots.forEach(function(root) {
-    if (root.dataset.zkBundleInit === '1') return;
+  window.__zkBundleInitInstance = function(root) {
+    if (!root || root.dataset.zkBundleInit === '1') return;
     root.dataset.zkBundleInit = '1';
 
     var tiers = (root.dataset.zkTiers || '2,3').split(',').map(function(n) { return parseInt(n, 10); });
@@ -1164,7 +1254,9 @@
           });
       });
     });
-  });
+  };
+
+  document.querySelectorAll('.zk-bundle').forEach(window.__zkBundleInitInstance);
 })();
 </script>
 
