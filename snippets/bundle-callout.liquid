@@ -117,6 +117,89 @@
             {%- assign on_sale = true -%}
           {%- endif -%}
 
+          {%- comment -%} Pre-select defaults server-side so mobile & desktop render ready-to-add
+              without depending on JS timing. Pick first available color + preferred size
+              (L > M > XL > S > XS > 2XL > 3XL > 4XL), falling back to first available size. {%- endcomment -%}
+          {%- assign color_idx = -1 -%}
+          {%- assign size_idx = -1 -%}
+          {%- for opt in p.options_with_values -%}
+            {%- assign opt_name_dc = opt.name | downcase -%}
+            {%- if opt_name_dc contains 'color' or opt_name_dc contains 'colour' -%}
+              {%- assign color_idx = forloop.index0 -%}
+            {%- elsif opt_name_dc contains 'size' -%}
+              {%- assign size_idx = forloop.index0 -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- assign default_color = blank -%}
+          {%- if color_idx >= 0 -%}
+            {%- for v in p.variants -%}
+              {%- if default_color != blank -%}{%- continue -%}{%- endif -%}
+              {%- if v.available -%}
+                {%- assign default_color = v.options[color_idx] -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- assign default_size = blank -%}
+          {%- if size_idx >= 0 -%}
+            {%- assign size_pref = 'L,M,XL,S,XS,2XL,3XL,4XL' | split: ',' -%}
+            {%- for size in size_pref -%}
+              {%- if default_size != blank -%}{%- continue -%}{%- endif -%}
+              {%- for v in p.variants -%}
+                {%- if default_size != blank -%}{%- continue -%}{%- endif -%}
+                {%- unless v.available -%}{%- continue -%}{%- endunless -%}
+                {%- assign color_match = true -%}
+                {%- if color_idx >= 0 and v.options[color_idx] != default_color -%}
+                  {%- assign color_match = false -%}
+                {%- endif -%}
+                {%- if color_match and v.options[size_idx] == size -%}
+                  {%- assign default_size = size -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+            {%- if default_size == blank -%}
+              {%- for v in p.variants -%}
+                {%- if default_size != blank -%}{%- continue -%}{%- endif -%}
+                {%- unless v.available -%}{%- continue -%}{%- endunless -%}
+                {%- assign color_match = true -%}
+                {%- if color_idx >= 0 and v.options[color_idx] != default_color -%}
+                  {%- assign color_match = false -%}
+                {%- endif -%}
+                {%- if color_match -%}
+                  {%- assign default_size = v.options[size_idx] -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- assign default_variant_id = blank -%}
+          {%- assign default_variant_available = false -%}
+          {%- for v in p.variants -%}
+            {%- if default_variant_id != blank -%}{%- continue -%}{%- endif -%}
+            {%- assign color_ok = true -%}
+            {%- if color_idx >= 0 and v.options[color_idx] != default_color -%}
+              {%- assign color_ok = false -%}
+            {%- endif -%}
+            {%- assign size_ok = true -%}
+            {%- if size_idx >= 0 and v.options[size_idx] != default_size -%}
+              {%- assign size_ok = false -%}
+            {%- endif -%}
+            {%- if color_ok and size_ok -%}
+              {%- assign default_variant_id = v.id -%}
+              {%- assign default_variant_available = v.available -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- assign has_precomputed_default = false -%}
+          {%- if default_variant_id != blank and default_variant_available -%}
+            {%- assign has_precomputed_default = true -%}
+          {%- endif -%}
+          {%- assign can_add_directly = false -%}
+          {%- if is_single_variant or has_precomputed_default -%}
+            {%- assign can_add_directly = true -%}
+          {%- endif -%}
+
           <article class="zk-bundle__card" role="listitem" data-zk-item data-product-id="{{ p.id }}">
             <a href="{{ p.url }}" class="zk-bundle__media" tabindex="-1" aria-hidden="true">
               <span class="zk-bundle__badge" aria-hidden="true">+ Bundle</span>
@@ -157,9 +240,11 @@
                     {%- if is_size -%}
                       <div class="zk-bundle__select-wrap">
                         <select class="zk-bundle__select" data-zk-select aria-label="{{ option.name | escape }}">
-                          <option value="" selected disabled>Select {{ option.name | downcase }}</option>
+                          {%- if default_size == blank -%}
+                            <option value="" selected disabled>Select {{ option.name | downcase }}</option>
+                          {%- endif -%}
                           {%- for value in option.values -%}
-                            <option value="{{ value | escape }}">{{ value }}</option>
+                            <option value="{{ value | escape }}"{% if value == default_size %} selected{% endif %}>{{ value }}</option>
                           {%- endfor -%}
                         </select>
                         <svg class="zk-bundle__select-chev" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 4l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -227,7 +312,7 @@
                             {%- when 'solid desert pink' -%}{%- assign sw_color = '#ffc0cb' -%}
                             {%- when 'solid cream' -%}{%- assign sw_color = '#fffdd0' -%}
                           {%- endcase -%}
-                          <button type="button" class="zk-bundle__swatch" role="radio" aria-checked="false" data-option-value="{{ value | escape }}" title="{{ value | escape }}" style="background-color: {{ sw_color }}">
+                          <button type="button" class="zk-bundle__swatch" role="radio" aria-checked="{% if value == default_color %}true{% else %}false{% endif %}" data-option-value="{{ value | escape }}" title="{{ value | escape }}" style="background-color: {{ sw_color }}">
                             <span class="zk-bundle__swatch-label">{{ value }}</span>
                           </button>
                         {%- else -%}
@@ -243,10 +328,14 @@
 
             <script type="application/json" data-zk-variants>[{%- for v in p.variants -%}{"id":{{ v.id }},"available":{{ v.available }},"options":{{ v.options | json }},"image":{%- if v.featured_image -%}"{{ v.featured_image | img_url: '720x720', crop: 'center' }}"{%- else -%}null{%- endif -%}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
 
-            <button type="button" class="zk-bundle__add" data-zk-add {% if is_single_variant %}data-variant-id="{{ p.selected_or_first_available_variant.id }}"{% else %}disabled aria-disabled="true"{% endif %}>
+            <button type="button" class="zk-bundle__add" data-zk-add
+              {%- if is_single_variant %} data-variant-id="{{ p.selected_or_first_available_variant.id }}"
+              {%- elsif has_precomputed_default %} data-variant-id="{{ default_variant_id }}"
+              {%- else %} disabled aria-disabled="true"
+              {%- endif -%}>
               <span class="zk-bundle__add-default">
                 <svg class="zk-bundle__add-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v8M2 6h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-                <span data-zk-add-label>{% if is_single_variant %}Add to bundle{% else %}Select options{% endif %}</span>
+                <span data-zk-add-label>{% if can_add_directly %}Add to bundle{% else %}Select options{% endif %}</span>
               </span>
               <span class="zk-bundle__add-loading" hidden aria-hidden="true">
                 <span class="zk-bundle__spinner"></span>
@@ -595,18 +684,14 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
-  /* Animated "Adding…" dots */
-  .zk-bundle__dot {
-    display: inline-block; opacity: 0.25;
-    animation: zk-dot-cycle 1.2s infinite ease-in-out;
-  }
-  .zk-bundle__dot:nth-child(1) { animation-delay: 0s; }
-  .zk-bundle__dot:nth-child(2) { animation-delay: 0.18s; }
-  .zk-bundle__dot:nth-child(3) { animation-delay: 0.36s; }
-  @keyframes zk-dot-cycle {
-    0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
-    30% { opacity: 1; transform: translateY(-1px); }
-  }
+  /* Sequential "Adding" → "Adding." → "Adding.." → "Adding..." count-up */
+  .zk-bundle__dot { display: inline-block; opacity: 0; }
+  .zk-bundle__dot:nth-child(1) { animation: zk-dot-1 1.5s steps(1) infinite; }
+  .zk-bundle__dot:nth-child(2) { animation: zk-dot-2 1.5s steps(1) infinite; }
+  .zk-bundle__dot:nth-child(3) { animation: zk-dot-3 1.5s steps(1) infinite; }
+  @keyframes zk-dot-1 { 0%, 24% { opacity: 0; } 25%, 100% { opacity: 1; } }
+  @keyframes zk-dot-2 { 0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; } }
+  @keyframes zk-dot-3 { 0%, 74% { opacity: 0; } 75%, 100% { opacity: 1; } }
 
   .zk-bundle__spinner {
     width: 13px; height: 13px;
@@ -680,15 +765,10 @@
     }
     /* Keep the loading indicator animated even under reduced-motion —
        it's a progress indicator, not decoration. */
-    .zk-bundle__spinner, .zk-bundle__dot {
-      animation-duration: inherit !important;
-      animation: zk-spin 600ms linear infinite !important;
-    }
-    .zk-bundle__dot {
-      animation: zk-dot-cycle 1.2s infinite ease-in-out !important;
-    }
-    .zk-bundle__dot:nth-child(2) { animation-delay: 0.18s !important; }
-    .zk-bundle__dot:nth-child(3) { animation-delay: 0.36s !important; }
+    .zk-bundle__spinner { animation: zk-spin 600ms linear infinite !important; }
+    .zk-bundle__dot:nth-child(1) { animation: zk-dot-1 1.5s steps(1) infinite !important; }
+    .zk-bundle__dot:nth-child(2) { animation: zk-dot-2 1.5s steps(1) infinite !important; }
+    .zk-bundle__dot:nth-child(3) { animation: zk-dot-3 1.5s steps(1) infinite !important; }
   }
 </style>
 
@@ -777,6 +857,29 @@
       var until = Date.now() + dur;
       var observers = [];
       var intervals = [];
+
+      // Neutralize UpCart/AfterSell "open" APIs for the duration of the
+      // suppression window. The rAF sweep below still calls close() every
+      // frame, but stubbing open() means the drawer never gets a chance
+      // to begin its open animation in the first place — even if UpCart
+      // detects the cart change via its own polling.
+      var restoreFns = [];
+      [
+        [window, 'upcart'],
+        [window, 'UpcartPublic'],
+        [window, 'Upcart']
+      ].forEach(function (pair) {
+        var owner = pair[0], key = pair[1], obj = owner[key];
+        if (!obj) return;
+        ['open', 'show', 'toggle', 'openDrawer', 'showDrawer'].forEach(function (m) {
+          if (typeof obj[m] !== 'function') return;
+          var original = obj[m];
+          try {
+            obj[m] = function () { /* suppressed by zk-bundle */ };
+            restoreFns.push(function () { obj[m] = original; });
+          } catch (e) {}
+        });
+      });
       // Belt-and-suspenders: poll every 80ms to strip any drawer state that
       // slipped past the mutation observers (some apps add classes inside
       // rAF callbacks or via shadow-DOM reflection that observers miss).
@@ -878,6 +981,9 @@
         // Unhide the hard-hidden nodes so the cart icon still works afterward.
         state.hide.forEach(unHardHide);
         document.querySelectorAll(HARD_HIDE_SELECTORS.join(',')).forEach(unHardHide);
+        // Restore UpCart's real open/show/toggle methods so the site's
+        // normal cart icon opens the drawer again.
+        restoreFns.forEach(function (fn) { try { fn(); } catch (e) {} });
       }, dur + 200);
     };
 
@@ -1084,25 +1190,104 @@
       });
     }
 
-    function refreshCartState() {
-      return new Promise(function(resolve) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/cart.js', true);
-        xhr.setRequestHeader('Accept', 'application/json');
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState !== 4) return;
-          var cart = null;
-          try { cart = JSON.parse(xhr.responseText); } catch (e) {}
-          var items = (cart && cart.items) || [];
-          var count = 0;
-          items.forEach(function(it) {
-            if (bundleProductIds.indexOf(it.product_id) >= 0) count += it.quantity;
-          });
-          updateProgress(count);
-          updateCardInCartStates(items);
-          resolve();
+    // Use a hidden same-origin iframe's XMLHttpRequest to bypass any
+    // monkey-patch third-party apps (UpCart, Candy Rack) may install on
+    // the parent window's XMLHttpRequest.prototype.send. The iframe's
+    // XHR constructor lives in a separate realm that app scripts never
+    // touch. Same-origin means it can still post to /cart/add.js with
+    // the shop's cart cookies.
+    function getCleanXHR() {
+      return new Promise(function(resolve, reject) {
+        if (window.__zkCleanXHRFrame && window.__zkCleanXHRFrame.contentWindow) {
+          try { return resolve(new window.__zkCleanXHRFrame.contentWindow.XMLHttpRequest()); } catch (e) {}
+        }
+        var ifr = document.createElement('iframe');
+        ifr.style.cssText = 'display:none!important;width:0;height:0;border:0;position:absolute;';
+        ifr.setAttribute('aria-hidden', 'true');
+        ifr.src = '/robots.txt';
+        ifr.onload = function() {
+          window.__zkCleanXHRFrame = ifr;
+          try { resolve(new ifr.contentWindow.XMLHttpRequest()); }
+          catch (e) { reject(e); }
         };
-        xhr.send();
+        ifr.onerror = function() { reject(new Error('iframe load failed')); };
+        document.body.appendChild(ifr);
+      });
+    }
+
+    function addToCartXHR(variantId) {
+      return getCleanXHR().then(function(xhr) {
+        return new Promise(function(resolve, reject) {
+          xhr.open('POST', '/cart/add.js', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.setRequestHeader('X-Requested-With', 'ZkBundle');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
+              } else reject(new Error('add failed: ' + xhr.status));
+            }
+          };
+          xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+        });
+      }, function() {
+        // Fallback to parent XHR if iframe path fails.
+        return new Promise(function(resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/cart/add.js', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState !== 4) return;
+            if (xhr.status >= 200 && xhr.status < 300) {
+              try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
+            } else reject(new Error('add failed: ' + xhr.status));
+          };
+          xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
+        });
+      });
+    }
+
+    function refreshCartState() {
+      function parseAndApply(text) {
+        var cart = null;
+        try { cart = JSON.parse(text); } catch (e) {}
+        var items = (cart && cart.items) || [];
+        var count = 0;
+        items.forEach(function(it) {
+          if (bundleProductIds.indexOf(it.product_id) >= 0) count += it.quantity;
+        });
+        updateProgress(count);
+        updateCardInCartStates(items);
+      }
+      // Route GET /cart.js through the clean iframe XHR too — UpCart hooks
+      // the parent realm's XHR to sniff cart responses and would otherwise
+      // see our refresh and open the drawer.
+      return getCleanXHR().then(function (xhr) {
+        return new Promise(function (resolve) {
+          xhr.open('GET', '/cart.js', true);
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.setRequestHeader('X-Requested-With', 'ZkBundle');
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState !== 4) return;
+            parseAndApply(xhr.responseText);
+            resolve();
+          };
+          xhr.send();
+        });
+      }, function () {
+        return new Promise(function (resolve) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/cart.js', true);
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState !== 4) return;
+            parseAndApply(xhr.responseText);
+            resolve();
+          };
+          xhr.send();
+        });
       });
     }
 
@@ -1281,68 +1466,10 @@
 
       if (!addBtn) return;
 
-      // Use a hidden same-origin iframe's XMLHttpRequest to bypass any
-      // monkey-patch third-party apps (UpCart, Candy Rack) may install on
-      // the parent window's XMLHttpRequest.prototype.send. The iframe's
-      // XHR constructor lives in a separate realm that app scripts never
-      // touch. Same-origin means it can still post to /cart/add.js with
-      // the shop's cart cookies.
-      function getCleanXHR() {
-        return new Promise(function(resolve, reject) {
-          if (window.__zkCleanXHRFrame && window.__zkCleanXHRFrame.contentWindow) {
-            try { return resolve(new window.__zkCleanXHRFrame.contentWindow.XMLHttpRequest()); } catch (e) {}
-          }
-          var ifr = document.createElement('iframe');
-          ifr.style.cssText = 'display:none!important;width:0;height:0;border:0;position:absolute;';
-          ifr.setAttribute('aria-hidden', 'true');
-          ifr.src = '/robots.txt';
-          ifr.onload = function() {
-            window.__zkCleanXHRFrame = ifr;
-            try { resolve(new ifr.contentWindow.XMLHttpRequest()); }
-            catch (e) { reject(e); }
-          };
-          ifr.onerror = function() { reject(new Error('iframe load failed')); };
-          document.body.appendChild(ifr);
-        });
-      }
-
-      function addToCartXHR(variantId) {
-        return getCleanXHR().then(function(xhr) {
-          return new Promise(function(resolve, reject) {
-            xhr.open('POST', '/cart/add.js', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('Accept', 'application/json');
-            xhr.setRequestHeader('X-Requested-With', 'ZkBundle');
-            xhr.onreadystatechange = function() {
-              if (xhr.readyState === 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                  try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
-                } else reject(new Error('add failed: ' + xhr.status));
-              }
-            };
-            xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
-          });
-        }, function() {
-          // Fallback to parent XHR if iframe path fails.
-          return new Promise(function(resolve, reject) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/cart/add.js', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('Accept', 'application/json');
-            xhr.onreadystatechange = function() {
-              if (xhr.readyState !== 4) return;
-              if (xhr.status >= 200 && xhr.status < 300) {
-                try { resolve(JSON.parse(xhr.responseText)); } catch (e) { resolve({}); }
-              } else reject(new Error('add failed: ' + xhr.status));
-            };
-            xhr.send(JSON.stringify({ id: variantId, quantity: 1 }));
-          });
-        });
-      }
-
       addBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         var variantId = addBtn.dataset.variantId;
         if (!variantId || addBtn.disabled) return;
         addBtn.disabled = true;
@@ -1391,7 +1518,7 @@
               addBtn.disabled = false;
             }, 2400);
           });
-      });
+      }, { capture: true });
     });
   };
 
