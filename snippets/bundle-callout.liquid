@@ -804,12 +804,17 @@
       '.drawer', '.drawer--right', '.drawer--left',
       // Third-party apps present on this store:
       '#candyrack-slider-cart', '.candyrack-slider-cart', '.CandyRack-CartSlider',
-      '#upCart', '#upCartContainer', '.upcart-drawer', '.upcart-sidebar',
-      '#upCartStickyButton'
+      '#upCart', '#upCartContainer', '#upcart', '#upcart-root', '#upcart-wrapper',
+      '.upcart-drawer', '.upcart-sidebar', '.upcart-root', '.upcart-wrapper',
+      '#upCartStickyButton', '#aftersell-upcart', '[id^="upcart" i]', '[id^="upCart"]',
+      '[class*="upcart" i]', 'upcart-app', 'upcart-root'
     ];
     // Specific to apps whose root node stays in DOM but children become visible.
     var HARD_HIDE_SELECTORS = [
-      '#candyrack-slider-cart', '#upCart', '#upCartContainer'
+      '#candyrack-slider-cart', '#upCart', '#upCartContainer', '#upcart',
+      '#upcart-root', '#upcart-wrapper', '#aftersell-upcart',
+      '[id^="upcart" i]', '[id^="upCart"]', '[class*="upcart" i]',
+      'upcart-app', 'upcart-root'
     ];
 
     function stripDrawerOpenState(node) {
@@ -858,27 +863,34 @@
       var observers = [];
       var intervals = [];
 
-      // Neutralize UpCart/AfterSell "open" APIs for the duration of the
-      // suppression window. The rAF sweep below still calls close() every
-      // frame, but stubbing open() means the drawer never gets a chance
-      // to begin its open animation in the first place — even if UpCart
-      // detects the cart change via its own polling.
+      // Neutralize UpCart/AfterSell APIs for the duration of the suppression
+      // window. Instead of enumerating known method names, wrap the whole
+      // object in a Proxy that turns every function call into a no-op —
+      // reads of non-function state still work. The rAF sweep below still
+      // calls close() every frame as a safety net.
       var restoreFns = [];
-      [
-        [window, 'upcart'],
-        [window, 'UpcartPublic'],
-        [window, 'Upcart']
-      ].forEach(function (pair) {
-        var owner = pair[0], key = pair[1], obj = owner[key];
-        if (!obj) return;
-        ['open', 'show', 'toggle', 'openDrawer', 'showDrawer'].forEach(function (m) {
-          if (typeof obj[m] !== 'function') return;
-          var original = obj[m];
-          try {
-            obj[m] = function () { /* suppressed by zk-bundle */ };
-            restoreFns.push(function () { obj[m] = original; });
-          } catch (e) {}
-        });
+      ['upcart', 'UpcartPublic', 'Upcart', 'upcartPublic'].forEach(function (key) {
+        var original = window[key];
+        if (!original || typeof Proxy === 'undefined') return;
+        try {
+          var stub = new Proxy(original, {
+            get: function (target, prop) {
+              var val = target[prop];
+              if (typeof val === 'function') return function () { /* suppressed */ };
+              return val;
+            }
+          });
+          Object.defineProperty(window, key, {
+            configurable: true, writable: true, value: stub
+          });
+          restoreFns.push(function () {
+            try {
+              Object.defineProperty(window, key, {
+                configurable: true, writable: true, value: original
+              });
+            } catch (e) { window[key] = original; }
+          });
+        } catch (e) {}
       });
       // Belt-and-suspenders: poll every 80ms to strip any drawer state that
       // slipped past the mutation observers (some apps add classes inside
@@ -989,6 +1001,24 @@
 
     // Back-compat alias for earlier code paths.
     window.__zkBundleForceCloseDrawer = function() { window.__zkBundleSuppressDrawer(400); };
+
+    // Window-level capture shield: intercept every click on a bundle "Add"
+    // button BEFORE any document/body-level capture listeners UpCart or
+    // other apps install. stopImmediatePropagation() at window capture
+    // prevents propagation down to every descendant capture listener
+    // (which is where third-party apps typically hook). The actual add
+    // logic is stashed on the button as `__zkHandleAdd` by per-instance
+    // init — we just invoke it here.
+    window.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest && e.target.closest('[data-zk-add]');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      if (typeof btn.__zkHandleAdd === 'function') {
+        try { btn.__zkHandleAdd(e); } catch (err) { console.error('[zk-bundle]', err); }
+      }
+    }, true);
 
     // Refresh all bundle instances' progress state
     window.__zkBundleRefreshAll = function() {
@@ -1466,10 +1496,10 @@
 
       if (!addBtn) return;
 
-      addBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
+      var handleAddClick = function(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (e && e.stopPropagation) e.stopPropagation();
+        if (e && e.stopImmediatePropagation) e.stopImmediatePropagation();
         var variantId = addBtn.dataset.variantId;
         if (!variantId || addBtn.disabled) return;
         addBtn.disabled = true;
@@ -1518,7 +1548,12 @@
               addBtn.disabled = false;
             }, 2400);
           });
-      }, { capture: true });
+      };
+      addBtn.__zkHandleAdd = handleAddClick;
+      // Belt-and-suspenders: if the window-level capture shield somehow
+      // fails to win the race against a third-party handler, this
+      // button-level capture listener still fires the add logic.
+      addBtn.addEventListener('click', handleAddClick, { capture: true });
     });
   };
 
