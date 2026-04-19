@@ -1264,14 +1264,27 @@
       root.querySelectorAll('[data-zk-item]').forEach(function(item) {
         var pid = parseInt(item.dataset.productId, 10);
         var btn = item.querySelector('[data-zk-add]');
-        if (!btn || btn.dataset.state === 'loading' || btn.dataset.state === 'success') return;
-        var labelEl = btn.querySelector('[data-zk-add-label]');
+        if (!btn || btn.dataset.state === 'loading') return;
+        var defaultSpan = btn.querySelector('.zk-bundle__add-default');
+        var successSpan = btn.querySelector('.zk-bundle__add-success');
+        var loadingSpan = btn.querySelector('.zk-bundle__add-loading');
         if (byProduct[pid]) {
-          btn.dataset.state = 'in-cart';
-          if (labelEl) labelEl.textContent = 'In cart · Add more';
-        } else if (btn.dataset.state === 'in-cart') {
+          // Any item of this product in cart → show permanent "Added"
+          if (btn.dataset.state !== 'success') {
+            btn.dataset.state = 'success';
+            if (defaultSpan) defaultSpan.hidden = true;
+            if (loadingSpan) loadingSpan.hidden = true;
+            if (successSpan) successSpan.hidden = false;
+            btn.disabled = true;
+            btn.setAttribute('aria-disabled', 'true');
+          }
+        } else if (btn.dataset.state === 'success' || btn.dataset.state === 'in-cart') {
+          // Item was removed from cart externally → re-enable for re-add
           btn.dataset.state = '';
-          if (labelEl) labelEl.textContent = 'Add to bundle';
+          if (defaultSpan) defaultSpan.hidden = false;
+          if (successSpan) successSpan.hidden = true;
+          btn.disabled = false;
+          btn.setAttribute('aria-disabled', 'false');
         }
       });
     }
@@ -1625,45 +1638,55 @@
           console.debug('[zk-bundle] add click — variant', variantId);
         }
 
-        // Arm drawer suppression *before* the add fires — 4.5s with polling.
-        window.__zkBundleSuppressDrawer(4500);
+        // Defer the heavy suppression setup + network dispatch behind a
+        // double requestAnimationFrame so the browser PAINTS the loading
+        // state before we block the main thread. Without this, the ~50-
+        // 150ms of synchronous suppression work delays the first paint
+        // and the click feels dead — and the "Adding…" animation barely
+        // has time to render before success flips in.
+        // 900ms ≈ dot 2.5 of the 1.5s cycle, so users see the full
+        // "Adding" → "Adding." → "Adding.." progression.
+        var MIN_LOADING_MS = 900;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            // Arm drawer suppression *before* the add fires — 4.5s window.
+            window.__zkBundleSuppressDrawer(4500);
 
-        // Guarantee the "Adding…" state is visible for at least 500ms so the
-        // dots animation can be perceived even when XHR resolves in <100ms.
-        var loadingShownAt = Date.now();
-        var MIN_LOADING_MS = 500;
+            // Measure loading duration from *here* (post-paint), so
+            // MIN_LOADING_MS reflects user-perceived loading time.
+            var loadingShownAt = Date.now();
 
-        addToCartXHR(parseInt(variantId, 10))
-          .then(function() {
-            var elapsed = Date.now() - loadingShownAt;
-            var toSuccess = Math.max(0, MIN_LOADING_MS - elapsed);
-            setTimeout(function() {
-              addBtn.dataset.state = 'success';
-              loadingEl.hidden = true;
-              successEl.hidden = false;
-              refreshCartState();
-              setTimeout(function() {
-                successEl.hidden = true;
-                defaultEl.hidden = false;
-                addBtn.disabled = false;
+            addToCartXHR(parseInt(variantId, 10))
+              .then(function () {
+                var elapsed = Date.now() - loadingShownAt;
+                var toSuccess = Math.max(0, MIN_LOADING_MS - elapsed);
+                setTimeout(function () {
+                  addBtn.dataset.state = 'success';
+                  loadingEl.hidden = true;
+                  successEl.hidden = false;
+                  // Keep button disabled — stay on "Added" permanently.
+                  // refreshCartState updates the progress bar + sync any
+                  // other cards' in-cart state without clobbering this
+                  // button (it's already success state).
+                  refreshCartState();
+                }, toSuccess);
+              })
+              .catch(function (err) {
+                console.error('[zk-bundle]', err);
                 addBtn.dataset.state = '';
-                refreshCartState();
-              }, 2000);
-            }, toSuccess);
-          })
-          .catch(function(err) {
-            console.error('[zk-bundle]', err);
-            addBtn.dataset.state = '';
-            loadingEl.hidden = true;
-            defaultEl.hidden = false;
-            setLabel('Try again');
-            showToast('Couldn\u2019t add that — please try again.', 'error');
-            setTimeout(function() {
-              setLabel('Add to bundle');
-              addBtn.disabled = false;
-            }, 2400);
+                loadingEl.hidden = true;
+                defaultEl.hidden = false;
+                setLabel('Try again');
+                showToast('Couldn\u2019t add that — please try again.', 'error');
+                setTimeout(function () {
+                  setLabel('Add to bundle');
+                  addBtn.disabled = false;
+                }, 2400);
+              });
           });
+        });
       };
+
       addBtn.__zkHandleAdd = handleAddClick;
       // Belt-and-suspenders: if the window-level capture shield somehow
       // fails to win the race against a third-party handler, this
