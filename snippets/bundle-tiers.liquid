@@ -1,0 +1,57 @@
+{%- comment -%}
+  Bundle Tiers — single source of truth for the bundle promotion copy and thresholds.
+
+  Change the tier values below and every surface (PDP callout, promo bar, cart,
+  collection belt, homepage band) updates automatically. Do not hardcode these
+  numbers or strings anywhere else in the theme.
+
+  Usage:
+    {% include 'bundle-tiers', format: 'long' %}
+      → Pick any 2 for $5 off. Any 3 unlocks $10. Any 4+ unlocks $20.
+
+    {% include 'bundle-tiers', format: 'short' %}
+      → Buy 2 save $5 • Buy 3 save $10 • Buy 4 save $20
+
+    {% include 'bundle-tiers', format: 'compact' %}
+      → Bundle & save up to $20
+
+    {% include 'bundle-tiers', format: 'progress', tier_count: 2 %}
+      → $5 off unlocked! Add 1 more for $10 off.   (context-aware cart message)
+
+    {% include 'bundle-tiers', format: 'json' %}
+      → <script type="application/json" id="bundle-tiers-data">...</script>
+
+  Params:
+    format     — 'long' | 'short' | 'compact' | 'progress' | 'json'  (default: 'long')
+    max_tier   — 2 | 3 | 4  (default: 4) — cap tiers shown. PDP uses 3 when only
+                 3 products are available in the bundle collection.
+    tier_count — integer  (required for format: 'progress') — items currently in scope.
+{%- endcomment -%}
+
+{%- assign bundle_tier_2_save = 5 -%}
+{%- assign bundle_tier_3_save = 10 -%}
+{%- assign bundle_tier_4_save = 20 -%}
+
+{%- assign format = format | default: 'long' -%}
+{%- assign max_tier = max_tier | default: 4 -%}
+
+{%- if format == 'long' -%}
+Pick any 2 for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
+{%- elsif format == 'short' -%}
+Buy 2 save ${{ bundle_tier_2_save }}{% if max_tier >= 3 %} • Buy 3 save ${{ bundle_tier_3_save }}{% endif %}{% if max_tier >= 4 %} • Buy 4 save ${{ bundle_tier_4_save }}{% endif %}
+{%- elsif format == 'compact' -%}
+{%- if max_tier >= 4 -%}Bundle &amp; save up to ${{ bundle_tier_4_save }}{%- elsif max_tier >= 3 -%}Bundle &amp; save up to ${{ bundle_tier_3_save }}{%- else -%}Bundle &amp; save ${{ bundle_tier_2_save }}{%- endif -%}
+{%- elsif format == 'progress' -%}
+{%- assign c = tier_count | default: 0 | plus: 0 -%}
+{%- if c <= 0 -%}Pick any 2 for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
+{%- elsif c == 1 -%}Add 1 more to unlock ${{ bundle_tier_2_save }} off.
+{%- elsif c == 2 and max_tier >= 3 -%}${{ bundle_tier_2_save }} off unlocked! Add 1 more for ${{ bundle_tier_3_save }} off.
+{%- elsif c == 2 -%}${{ bundle_tier_2_save }} off unlocked — auto-applies at checkout.
+{%- elsif c == 3 and max_tier >= 4 -%}${{ bundle_tier_3_save }} off unlocked! Add 1 more for ${{ bundle_tier_4_save }} off.
+{%- elsif c == 3 -%}${{ bundle_tier_3_save }} off unlocked — auto-applies at checkout.
+{%- elsif max_tier >= 4 -%}${{ bundle_tier_4_save }} off unlocked — auto-applies at checkout.
+{%- else -%}${{ bundle_tier_3_save }} off unlocked — auto-applies at checkout.
+{%- endif -%}
+{%- elsif format == 'json' -%}
+<script type="application/json" id="bundle-tiers-data">{"tiers":[{"count":2,"save":{{ bundle_tier_2_save }}},{"count":3,"save":{{ bundle_tier_3_save }}},{"count":4,"save":{{ bundle_tier_4_save }}}],"messages":{"default_2":"Pick any 2 for ${{ bundle_tier_2_save }} off. Any 3 unlocks ${{ bundle_tier_3_save }}.","default_3":"Pick any 2 for ${{ bundle_tier_2_save }} off. Any 3 unlocks ${{ bundle_tier_3_save }}. Any 4+ unlocks ${{ bundle_tier_4_save }}.","one":"One in cart — add 1 more to unlock ${{ bundle_tier_2_save }} off.","two_with_three":"${{ bundle_tier_2_save }} off unlocked. Add 1 more for ${{ bundle_tier_3_save }} off.","two_max":"${{ bundle_tier_2_save }} off unlocked at checkout.","three_with_four":"${{ bundle_tier_3_save }} off unlocked. Add 1 more for ${{ bundle_tier_4_save }} off.","three_max":"${{ bundle_tier_3_save }} off unlocked at checkout.","max_four":"Max savings unlocked — ${{ bundle_tier_4_save }} off at checkout.","max_three":"Max savings unlocked — ${{ bundle_tier_3_save }} off at checkout."}}</script>
+{%- endif -%}

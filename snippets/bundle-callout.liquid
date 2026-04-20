@@ -21,8 +21,16 @@
 {%- endif -%}
 
 {%- assign bundle_collection = blank -%}
+{%- assign bundle_fallback = false -%}
 {%- if bundle_handle != blank -%}
   {%- assign bundle_collection = collections[bundle_handle] -%}
+{%- endif -%}
+
+{%- comment -%} Fallback: if no metafield collection OR it has <2 products,
+use the shop's Best Selling collection so every PDP shows the upsell. {%- endcomment -%}
+{%- if bundle_collection == blank or bundle_collection.products_count < 2 -%}
+  {%- assign bundle_collection = collections['best-selling'] -%}
+  {%- assign bundle_fallback = true -%}
 {%- endif -%}
 
 {%- if bundle_collection != blank and bundle_collection.products_count > 1 -%}
@@ -41,6 +49,13 @@
       {%- assign show_tier_4 = true -%}
     {%- endif -%}
     {%- assign collection_short_title = bundle_collection.title | replace: 'Collection', '' | strip -%}
+    {%- if show_tier_4 -%}
+      {%- assign bundle_max_tier = 4 -%}
+    {%- else -%}
+      {%- assign bundle_max_tier = 3 -%}
+    {%- endif -%}
+    {%- comment -%} Expose tier amounts as Liquid vars (bundle_tier_2_save etc.) {%- endcomment -%}
+    {%- include 'bundle-tiers', format: 'noop' -%}
 
     {%- capture bundle_product_ids -%}
       {%- for p in bundle_collection.products -%}{{ p.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
@@ -48,7 +63,12 @@
 
 <section class="zk-bundle zk-bundle--{{ bundle_slot }}"
   data-zk-tiers="{% if show_tier_4 %}2,3,4{% else %}2,3{% endif %}"
+  data-zk-t2="{{ bundle_tier_2_save }}"
+  data-zk-t3="{{ bundle_tier_3_save }}"
+  data-zk-t4="{{ bundle_tier_4_save }}"
   data-zk-product-ids="{{ bundle_product_ids | strip }}"
+  data-zk-seed-product="{{ product.id }}"
+  data-zk-ai-sort="{% if bundle_fallback %}true{% else %}false{% endif %}"
   data-zk-ready="false"
   aria-labelledby="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}">
   <div class="zk-bundle__inner">
@@ -59,10 +79,14 @@
         Bundle &amp; save
       </span>
       <h3 id="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}" class="zk-bundle__title">
-        Complete the {{ collection_short_title }}
+        {%- if bundle_fallback -%}
+          Bundle best-sellers &amp; save
+        {%- else -%}
+          Complete the {{ collection_short_title }}
+        {%- endif -%}
       </h3>
       <p class="zk-bundle__message" data-zk-message>
-        Pick any 2 for $5 off. Any 3 unlocks $10.{% if show_tier_4 %} Any 4+ unlocks $20.{% endif %}
+        {% include 'bundle-tiers', format: 'long', max_tier: bundle_max_tier %}
       </p>
     </div>
 
@@ -76,14 +100,14 @@
             <span class="zk-bundle__milestone-symbol">$</span>
             <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="zk-bundle__milestone-label">$5 off</span>
+          <span class="zk-bundle__milestone-label">${{ bundle_tier_2_save }} off</span>
         </li>
         <li class="zk-bundle__milestone" data-zk-milestone="3" style="left:66%">
           <span class="zk-bundle__milestone-dot" aria-hidden="true">
             <span class="zk-bundle__milestone-symbol">$$</span>
             <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="zk-bundle__milestone-label">$10 off</span>
+          <span class="zk-bundle__milestone-label">${{ bundle_tier_3_save }} off</span>
         </li>
         {%- if show_tier_4 -%}
         <li class="zk-bundle__milestone" data-zk-milestone="4" style="left:100%">
@@ -91,7 +115,7 @@
             <span class="zk-bundle__milestone-symbol">$$$</span>
             <svg class="zk-bundle__milestone-check" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="zk-bundle__milestone-label">$20 off</span>
+          <span class="zk-bundle__milestone-label">${{ bundle_tier_4_save }} off</span>
         </li>
         {%- endif -%}
       </ul>
@@ -1209,6 +1233,11 @@
     root.dataset.zkBundleInit = '1';
 
     var tiers = (root.dataset.zkTiers || '2,3').split(',').map(function(n) { return parseInt(n, 10); });
+    var tierSave = {
+      2: parseInt(root.dataset.zkT2, 10) || 5,
+      3: parseInt(root.dataset.zkT3, 10) || 10,
+      4: parseInt(root.dataset.zkT4, 10) || 20
+    };
     var bundleProductIds = (root.dataset.zkProductIds || '').split(',')
       .map(function(id) { return parseInt(id, 10); })
       .filter(function(id) { return !isNaN(id); });
@@ -1234,16 +1263,17 @@
 
     function buildMessage(count) {
       var maxTier = tiers[tiers.length - 1];
+      var s2 = tierSave[2], s3 = tierSave[3], s4 = tierSave[4];
       if (count <= 0) {
-        if (tiers.indexOf(4) >= 0) return 'Pick any 2 for $5 off. Any 3 unlocks $10. Any 4+ unlocks $20.';
-        return 'Pick any 2 for $5 off. Any 3 unlocks $10.';
+        if (tiers.indexOf(4) >= 0) return 'Pick any 2 for $' + s2 + ' off. Any 3 unlocks $' + s3 + '. Any 4+ unlocks $' + s4 + '.';
+        return 'Pick any 2 for $' + s2 + ' off. Any 3 unlocks $' + s3 + '.';
       }
-      if (count === 1) return 'One in cart — add 1 more to unlock $5 off.';
-      if (count === 2 && tiers.indexOf(3) >= 0) return '$5 off unlocked. Add 1 more for $10 off.';
-      if (count === 2) return '$5 off unlocked at checkout.';
-      if (count === 3 && tiers.indexOf(4) >= 0) return '$10 off unlocked. Add 1 more for $20 off.';
-      if (count === 3) return '$10 off unlocked at checkout.';
-      if (count >= maxTier) return maxTier === 4 ? 'Max savings unlocked — $20 off at checkout.' : 'Max savings unlocked — $10 off at checkout.';
+      if (count === 1) return 'One in cart — add 1 more to unlock $' + s2 + ' off.';
+      if (count === 2 && tiers.indexOf(3) >= 0) return '$' + s2 + ' off unlocked. Add 1 more for $' + s3 + ' off.';
+      if (count === 2) return '$' + s2 + ' off unlocked at checkout.';
+      if (count === 3 && tiers.indexOf(4) >= 0) return '$' + s3 + ' off unlocked. Add 1 more for $' + s4 + ' off.';
+      if (count === 3) return '$' + s3 + ' off unlocked at checkout.';
+      if (count >= maxTier) return maxTier === 4 ? 'Max savings unlocked — $' + s4 + ' off at checkout.' : 'Max savings unlocked — $' + s3 + ' off at checkout.';
       return '';
     }
 
@@ -1882,6 +1912,50 @@
     if (window.console && window.console.debug) {
       console.debug('[zk-bundle] init done', __zkSlotId, 'cards=' + __zkIterCount);
     }
+
+    /* ===== AI-powered relevance reordering =====
+       When bundle is in fallback mode (no merchant-curated collection),
+       reorder carousel cards by Shopify's ML-based recommendations for the
+       current product. If the API fails or returns nothing, the server-rendered
+       best-selling order remains. Merchant-curated collections are NOT reordered. */
+    (function maybeReorderByRecommendations() {
+      if (root.dataset.zkAiSort !== 'true') return;
+      var seedId = parseInt(root.dataset.zkSeedProduct, 10);
+      if (!seedId || !carousel) return;
+
+      var url = '/recommendations/products.json?product_id=' + seedId +
+                '&limit=20&intent=complementary';
+
+      fetch(url, { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) {
+          if (!data || !data.products || !data.products.length) return;
+          var rankById = {};
+          data.products.forEach(function(p, i) { rankById[p.id] = i; });
+
+          var cards = Array.prototype.slice.call(carousel.querySelectorAll('[data-zk-item]'));
+          if (!cards.length) return;
+
+          // Stable sort: ranked cards move to front in API order; unranked
+          // cards keep their original relative position at the tail.
+          cards.sort(function(a, b) {
+            var ra = rankById[parseInt(a.dataset.productId, 10)];
+            var rb = rankById[parseInt(b.dataset.productId, 10)];
+            var aHas = ra !== undefined, bHas = rb !== undefined;
+            if (aHas && bHas) return ra - rb;
+            if (aHas) return -1;
+            if (bHas) return 1;
+            return 0;
+          });
+
+          var frag = document.createDocumentFragment();
+          cards.forEach(function(c) { frag.appendChild(c); });
+          carousel.appendChild(frag);
+          updateCarouselEdges();
+          root.dataset.zkAiSorted = 'true';
+        })
+        .catch(function() { /* API failure is a no-op; server order stands */ });
+    })();
   };
 
   document.querySelectorAll('.zk-bundle').forEach(window.__zkBundleInitInstance);

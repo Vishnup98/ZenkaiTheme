@@ -267,10 +267,64 @@
                   <span data-cart-subtotal>{{ cart.total_price | money }}</span>
                 </div>
 
-                <div class="zenkai-cart-shipping" style="margin-bottom: 1rem;">
+                <div class="zenkai-cart-shipping" style="margin-bottom: 0.5rem;">
                   <span class="zenkai-cart-shipping__icon">🚚</span>
                   <span>FREE SHIPPING on this order!</span>
                 </div>
+
+                {%- comment -%} Bundle tier progress — live nudge toward next savings threshold {%- endcomment -%}
+                <div class="zk-cart-tier" data-zk-cart-tier data-zk-count="{{ cart.item_count }}" style="margin-bottom: 1rem;">
+                  <div class="zk-cart-tier__msg" data-zk-cart-tier-msg>
+                    {%- if cart.item_count <= 0 -%}
+                      {% include 'bundle-tiers', format: 'short' %}
+                    {%- else -%}
+                      {% include 'bundle-tiers', format: 'progress', tier_count: cart.item_count %}
+                    {%- endif -%}
+                  </div>
+                  <div class="zk-cart-tier__bar" aria-hidden="true">
+                    <div class="zk-cart-tier__fill" data-zk-cart-tier-fill></div>
+                  </div>
+                </div>
+
+                <style>
+                  .zk-cart-tier {
+                    background: #f6f5f0;
+                    border: 1px solid rgba(26, 27, 46, 0.08);
+                    border-radius: 8px;
+                    padding: 10px 14px;
+                  }
+                  .zk-cart-tier__msg {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: #1a1b2e;
+                    letter-spacing: 0.01em;
+                    margin-bottom: 8px;
+                  }
+                  .zk-cart-tier__bar {
+                    height: 4px;
+                    background: rgba(26, 27, 46, 0.08);
+                    border-radius: 2px;
+                    overflow: hidden;
+                  }
+                  .zk-cart-tier__fill {
+                    height: 100%;
+                    background: linear-gradient(90deg, #1a1b2e 0%, #2a2c45 100%);
+                    border-radius: 2px;
+                    transition: width 320ms ease;
+                    width: 0%;
+                  }
+                </style>
+
+                <script>
+                  (function() {
+                    var el = document.querySelector('[data-zk-cart-tier]');
+                    if (!el) return;
+                    var fill = el.querySelector('[data-zk-cart-tier-fill]');
+                    var count = parseInt(el.dataset.zkCount, 10) || 0;
+                    var pct = count >= 4 ? 100 : count >= 3 ? 66 : count >= 2 ? 33 : count >= 1 ? 16 : 0;
+                    if (fill) requestAnimationFrame(function() { fill.style.width = pct + '%'; });
+                  })();
+                </script>
 
                 {% if settings.cart_terms_conditions_enable %}
                   <p class="cart__note cart__note--terms">

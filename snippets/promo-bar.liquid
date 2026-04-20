@@ -1,0 +1,54 @@
+{%- comment -%}
+  Promo Bar — site-wide slim strip above the header.
+  Advertises the bundle promotion on every page. Copy pulled from bundle-tiers.
+  Included once from layout/theme.liquid so it appears on every template.
+{%- endcomment -%}
+
+<a class="zk-promo-bar" href="/collections/best-selling" aria-label="Shop best-sellers and save with bundles">
+  <span class="zk-promo-bar__inner">
+    <span class="zk-promo-bar__icon" aria-hidden="true">✦</span>
+    <span class="zk-promo-bar__text">{% include 'bundle-tiers', format: 'short' %}</span>
+    <span class="zk-promo-bar__sep" aria-hidden="true">·</span>
+    <span class="zk-promo-bar__cta">Shop best-sellers →</span>
+  </span>
+</a>
+
+<style>
+  .zk-promo-bar {
+    display: block;
+    width: 100%;
+    background: #1a1b2e;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    padding: 8px 16px;
+    text-align: center;
+    font-family: inherit;
+    transition: background 180ms ease;
+  }
+  .zk-promo-bar:hover { background: #2a2c45; color: #ffffff; }
+  .zk-promo-bar:visited { color: #ffffff; }
+  .zk-promo-bar__inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+  }
+  .zk-promo-bar__icon { opacity: 0.8; }
+  .zk-promo-bar__text { font-weight: 500; }
+  .zk-promo-bar__sep { opacity: 0.5; }
+  .zk-promo-bar__cta {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+  }
+  @media (max-width: 640px) {
+    .zk-promo-bar { font-size: 11px; padding: 7px 12px; }
+    .zk-promo-bar__sep { display: none; }
+    .zk-promo-bar__inner { gap: 6px; }
+  }
+</style>
