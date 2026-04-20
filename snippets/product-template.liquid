@@ -178,6 +178,23 @@
     letter-spacing: 0.01em;
   }
 
+  /* FIX-A: scope "On social" section header below PDP H1 to fix hierarchy */
+  .section-header__title--social { font-size: 1.75rem !important; letter-spacing: -0.01em; }
+  @media (min-width: 768px) { .section-header__title--social { font-size: 2rem !important; } }
+
+  /* FIX-B: hide the review-badge hero row when clone slot is empty (JS didn't run)
+     or when the source badge has zero reviews (JS sets [hidden]). */
+  .zenkai-hero-proof-row:has(.zenkai-review-badge:empty) { display: none; }
+
+  /* FIX-D: subtle warm tint behind lazy-loading social images so empty tiles
+     don't flash as bare gray rectangles on slow paints. */
+  .social-section__wrapper .image-wrap {
+    background: linear-gradient(135deg, #f6f1ea 0%, #f3efe8 100%);
+  }
+  .social-section__wrapper .image-wrap img {
+    transition: opacity 0.28s ease;
+  }
+
   #ProductSection-{{ section_id }} .product-single__title {
     margin-bottom: 0.55rem !important;
     color: var(--zenkai-ink);
@@ -674,6 +691,18 @@
   .zenkai-secondary-checkout .shopify-payment-button__button {
     border-radius: 12px !important;
     min-height: 54px !important;
+  }
+
+  /* FIX-C: override Shop Pay brand purple with the navy we already use elsewhere.
+     Both branded ("Buy with shop") and unbranded variants. */
+  .zenkai-secondary-checkout .shopify-payment-button__button--unbranded,
+  .zenkai-secondary-checkout .shopify-payment-button__button--branded {
+    background: var(--zenkai-dark) !important;
+    color: #fff !important;
+  }
+  .zenkai-secondary-checkout .shopify-payment-button__button--unbranded:hover,
+  .zenkai-secondary-checkout .shopify-payment-button__button--branded:hover {
+    background: var(--zenkai-dark-hover) !important;
   }
 
   .zenkai-outcome-panel,
@@ -1192,7 +1221,7 @@
 
             <div class="zenkai-conversion-stack">
               <section class="zenkai-outcome-panel" aria-label="What you get">
-                <h2 class="zenkai-panel-heading">What you get</h2>
+                <p class="zenkai-panel-heading zenkai-panel-heading--eyebrow">What you get</p>
                 <ul class="zenkai-outcome-list" role="list">
                   <li>{{ zenkai_outcome_1 }}</li>
                   <li>{{ zenkai_outcome_2 }}</li>
@@ -1459,14 +1488,34 @@
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
 
-      /* Clone the Judge.me review badge into title and CTA slots */
+      /* Clone the Judge.me review badge into title and CTA slots.
+         FIX-B: skip cloning when review count is 0 so we don't show an empty
+         5-star widget next to the filled-star testimonial below it. */
       (function cloneReviewBadge() {
         var targets = section.querySelectorAll('[data-zenkai-review-clone]');
         if (!targets.length) return;
 
+        function hasReviews(source) {
+          var count = source.getAttribute('data-number-of-reviews');
+          if (count === null) return true; /* attribute missing, don't block */
+          return parseInt(count, 10) > 0;
+        }
+
+        function hideTargets() {
+          targets.forEach(function(t) {
+            while (t.firstChild) t.removeChild(t.firstChild);
+            var wrapper = t.closest('.zenkai-hero-proof-row') || t;
+            wrapper.setAttribute('hidden', 'hidden');
+          });
+        }
+
         function run() {
           var source = section.querySelector('.zenkai-app-block .jdgm-prev-badge');
           if (!source) return false;
+          if (!hasReviews(source)) {
+            hideTargets();
+            return true;
+          }
           targets.forEach(function(t) {
             while (t.firstChild) t.removeChild(t.firstChild);
             var clone = source.cloneNode(true);
