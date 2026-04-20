@@ -63,10 +63,6 @@
     <div class="zenkai-trust-strip">
       <span class="zenkai-trust-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        Free U.S. shipping on every order
-      </span>
-      <span class="zenkai-trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
         1,900+ orders shipped and counting
       </span>
       <span class="zenkai-trust-item">
@@ -101,6 +97,16 @@
       {{ form | payment_button }}
     </div>
   {% endif %}
+
+  <div class="zenkai-shipping-badge">
+    <svg class="zenkai-shipping-badge__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="1" y="3" width="15" height="13"></rect>
+      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+    </svg>
+    <span class="zenkai-shipping-badge__text">Free shipping on every order</span>
+  </div>
 
   {% unless product.empty? %}
     <div class="hide" aria-hidden="true" data-variant-json>
