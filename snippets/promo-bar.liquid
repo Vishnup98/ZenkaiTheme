@@ -1,45 +1,63 @@
 {%- comment -%}
   Promo Bar — site-wide slim strip above the header.
-  Informational only (not a link) so shoppers aren't yanked away from their
-  current page. Copy emphasizes "any product, any category" for clarity.
-  Styling uses the shared .bundle-eyebrow pattern that repeats across every
-  bundle promo surface (cart, collection belt, homepage band, PDP callout).
+
+  Desktop: shows the full tier breakdown statically, centered.
+  Mobile:  same content scrolls as a marquee so the full offer is visible
+           across a few seconds without taking vertical space.
+
+  Styling uses inline styles on the root element for the critical background
+  so Shopify's CSS pipeline can't hide it. Extended behavior (marquee,
+  media queries) lives in the <style> block.
 {%- endcomment -%}
 
-<div class="zk-promo-bar" role="status" aria-label="Bundle promotion">
-  <div class="zk-promo-bar__inner">
-    <span class="bundle-eyebrow bundle-eyebrow--light" aria-hidden="true">
-      <span class="bundle-eyebrow__dot"></span>
-      <span class="bundle-eyebrow__text">Bundle &amp; save</span>
-    </span>
-    <span class="zk-promo-bar__text">{% include 'bundle-tiers', format: 'short' %}</span>
+<div class="zk-promo-bar"
+     role="status"
+     aria-label="Bundle promotion"
+     style="background:#5966cf;color:#ffffff;width:100%;overflow:hidden;font-family:inherit;">
+  <div class="zk-promo-bar__viewport">
+    <div class="zk-promo-bar__track">
+      {%- for i in (1..2) -%}
+        <div class="zk-promo-bar__chunk"{% if forloop.last %} aria-hidden="true"{% endif %}>
+          <span class="bundle-eyebrow bundle-eyebrow--light">
+            <span class="bundle-eyebrow__dot"></span>
+            <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+          </span>
+          <span class="zk-promo-bar__sep">·</span>
+          <span class="zk-promo-bar__tier"><b>Mix any 2</b> styles = $5 off</span>
+          <span class="zk-promo-bar__sep">·</span>
+          <span class="zk-promo-bar__tier"><b>Any 3</b> = $10 off</span>
+          <span class="zk-promo-bar__sep">·</span>
+          <span class="zk-promo-bar__tier"><b>Any 4+</b> = $20 off</span>
+          <span class="zk-promo-bar__sep">·</span>
+          <span class="zk-promo-bar__tier">Tees, hoodies, hats — all count</span>
+        </div>
+      {%- endfor -%}
+    </div>
   </div>
 </div>
 
 <style>
-  .zk-promo-bar {
-    width: 100%;
-    background: #5966cf;
-    color: #ffffff;
-    padding: 9px 16px;
-    text-align: center;
-    font-family: inherit;
+  .zk-promo-bar__viewport { width: 100%; }
+  .zk-promo-bar__track {
+    display: flex;
+    align-items: center;
     font-size: 12px;
-    letter-spacing: 0.04em;
     line-height: 1.4;
+    letter-spacing: 0.02em;
   }
-  .zk-promo-bar__inner {
+  .zk-promo-bar__chunk {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 100%;
+    gap: 12px;
+    white-space: nowrap;
+    padding: 9px 0;
   }
-  .zk-promo-bar__text { font-weight: 500; }
+  .zk-promo-bar__tier { font-weight: 500; }
+  .zk-promo-bar__tier b { font-weight: 700; letter-spacing: 0.03em; }
+  .zk-promo-bar__sep { opacity: 0.55; }
 
-  /* ── Shared bundle eyebrow (see also: cart tier, collection belt,
-     homepage band). Swap .bundle-eyebrow--light for dark contexts. ── */
+  /* Shared bundle eyebrow (also used by cart tier, collection belt,
+     homepage band). Declared here because promo-bar loads on every page. */
   .bundle-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -52,8 +70,7 @@
     white-space: nowrap;
   }
   .bundle-eyebrow__dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: #5966cf;
     display: inline-block;
@@ -62,9 +79,39 @@
   .bundle-eyebrow--light { color: #ffffff; }
   .bundle-eyebrow--light .bundle-eyebrow__dot { background: #ffffff; }
 
-  @media (max-width: 640px) {
-    .zk-promo-bar { font-size: 11px; padding: 8px 12px; }
-    .zk-promo-bar__inner { gap: 8px; }
-    .bundle-eyebrow { font-size: 9px; letter-spacing: 0.12em; gap: 6px; }
+  /* Desktop: centered, single visible chunk, no animation. */
+  @media (min-width: 768px) {
+    .zk-promo-bar__viewport {
+      display: flex;
+      justify-content: center;
+      padding: 0 16px;
+    }
+    .zk-promo-bar__track { gap: 24px; }
+    .zk-promo-bar__chunk + .zk-promo-bar__chunk { display: none; }
+  }
+
+  /* Mobile: marquee. Track is 2x content width; translating -50%
+     lands on the start of the duplicate chunk → seamless loop. */
+  @media (max-width: 767px) {
+    .zk-promo-bar__track {
+      width: max-content;
+      gap: 24px;
+      animation: zk-promo-marquee 28s linear infinite;
+    }
+    .zk-promo-bar__chunk {
+      padding-left: 12px;
+      padding-right: 12px;
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .zk-promo-bar__track { animation: none; }
+    .zk-promo-bar__chunk + .zk-promo-bar__chunk { display: none; }
+  }
+
+  @keyframes zk-promo-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 </style>

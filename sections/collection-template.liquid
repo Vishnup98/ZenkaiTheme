@@ -44,27 +44,50 @@
           <span class="bundle-eyebrow__dot"></span>
           <span class="bundle-eyebrow__text">Bundle &amp; save</span>
         </span>
-        <span class="zk-collection-belt__text">{% include 'bundle-tiers', format: 'short' %}</span>
+        <div class="zk-collection-belt__tiers" role="list">
+          <span class="zk-collection-belt__tier" role="listitem"><b>Mix any 2</b> = $5 off</span>
+          <span class="zk-collection-belt__dot" aria-hidden="true">·</span>
+          <span class="zk-collection-belt__tier" role="listitem"><b>Any 3</b> = $10 off</span>
+          <span class="zk-collection-belt__dot" aria-hidden="true">·</span>
+          <span class="zk-collection-belt__tier" role="listitem"><b>Any 4+</b> = $20 off</span>
+        </div>
+        <span class="zk-collection-belt__note">Tees, hoodies, hats — all count. Auto-applies at checkout.</span>
       </div>
       <style>
         .zk-collection-belt {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 14px;
+          gap: 18px;
           flex-wrap: wrap;
           background: #f6f5f0;
           border: 1px solid rgba(26, 27, 46, 0.09);
           border-radius: 10px;
-          padding: 12px 18px;
+          padding: 14px 20px;
           margin: 0 0 24px;
           color: #1a1b2e;
           font-size: 13px;
-          letter-spacing: 0.02em;
+          letter-spacing: 0.01em;
         }
-        .zk-collection-belt__text { font-weight: 500; }
+        .zk-collection-belt__tiers {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .zk-collection-belt__tier { font-weight: 500; }
+        .zk-collection-belt__tier b { font-weight: 700; letter-spacing: 0.02em; }
+        .zk-collection-belt__dot { opacity: 0.45; }
+        .zk-collection-belt__note {
+          font-size: 12px;
+          color: #555a6e;
+          letter-spacing: 0.01em;
+        }
         @media (max-width: 640px) {
-          .zk-collection-belt { font-size: 12px; padding: 10px 14px; gap: 10px; }
+          .zk-collection-belt { font-size: 12px; padding: 12px 14px; gap: 10px; }
+          .zk-collection-belt__note { display: block; width: 100%; text-align: center; font-size: 11px; }
+          .zk-collection-belt__tiers { gap: 8px; }
         }
       </style>
     {%- endif -%}

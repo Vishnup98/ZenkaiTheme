@@ -41,6 +41,8 @@ Mix any 2 styles for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 
 Mix &amp; match any 2+ products • Save ${{ bundle_tier_2_save }} to ${{ bundle_tier_4_save }} at checkout
 {%- elsif format == 'compact' -%}
 {%- if max_tier >= 4 -%}Mix any 2+ — save up to ${{ bundle_tier_4_save }}{%- elsif max_tier >= 3 -%}Mix any 2+ — save up to ${{ bundle_tier_3_save }}{%- else -%}Mix any 2 — save ${{ bundle_tier_2_save }}{%- endif -%}
+{%- elsif format == 'tiers_inline' -%}
+Mix any 2 = ${{ bundle_tier_2_save }} off{% if max_tier >= 3 %} · Any 3 = ${{ bundle_tier_3_save }} off{% endif %}{% if max_tier >= 4 %} · Any 4+ = ${{ bundle_tier_4_save }} off{% endif %}
 {%- elsif format == 'progress' -%}
 {%- assign c = tier_count | default: 0 | plus: 0 -%}
 {%- if c <= 0 -%}Mix any 2 styles for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
