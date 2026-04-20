@@ -391,9 +391,32 @@
   .zenkai-bundle-belt {
     margin-top: 1.5rem;
   }
+
+  /* Below-grid strip for supporting content that used to live inside the
+     right rail (brand quote, description tabs). Keeps the rail to a pure
+     conversion block and gives these blocks the full page width. */
+  .zenkai-pdp-below {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   @media (min-width: 769px) {
     .zenkai-bundle-belt {
       margin-top: 2.25rem;
+    }
+    .zenkai-pdp-below {
+      margin-top: 2.25rem;
+      gap: 1.25rem;
+    }
+
+    /* Sticky gallery on desktop so the image stays on-screen while the
+       shopper scrolls the right rail. The rail itself is already sticky
+       via .product-single__sticky (applied unconditionally above). */
+    #ProductSection-{{ section_id }} .page-width > .grid > .grid__item:first-child {
+      position: sticky;
+      top: 28px;
     }
   }
 
@@ -1159,7 +1182,7 @@
           </button>
         </div>
 
-        <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
+        <div class="grid__item {{ product_description_width }} product-single__sticky">
           <div class="product-single__meta">
             <div class="product-single__header small--text-center">
               {% if settings.vendor_enable %}
@@ -1173,8 +1196,6 @@
               {% else %}
                 <h1 class="h2 product-single__title">{{ product.title }}</h1>
               {% endif %}
-
-              <p class="zenkai-social-subheadline">{{ zenkai_social_subheadline }}</p>
 
               {% if product_show_review_summary_first %}
                 <div class="zenkai-hero-proof-row">
@@ -1242,11 +1263,6 @@
 
               {% include 'bundle-callout', bundle_slot: 'mobile' %}
 
-              <aside class="zenkai-brand-quote" aria-label="Brand story">
-                <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
-                <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
-              </aside>
-
               {%- for block in section.blocks -%}
                 {%- case block.type -%}
                   {%- when '@app' -%}
@@ -1255,14 +1271,6 @@
                     </div>
                 {%- endcase -%}
               {%- endfor -%}
-
-              <div class="zenkai-additional-content">
-                {% if settings.additional_content_style == 'expandable' %}
-                  {% include 'product-additional-content', section_id: section_id %}
-                {% else %}
-                  {% include 'product-additional-tabs', section_id: section_id %}
-                {% endif %}
-              </div>
 
               {% if social_enable %}
                 {% include 'social-sharing',
@@ -1273,6 +1281,21 @@
               {% endif %}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="zenkai-pdp-below">
+        <aside class="zenkai-brand-quote" aria-label="Brand story">
+          <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
+          <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
+        </aside>
+
+        <div class="zenkai-additional-content">
+          {% if settings.additional_content_style == 'expandable' %}
+            {% include 'product-additional-content', section_id: section_id %}
+          {% else %}
+            {% include 'product-additional-tabs', section_id: section_id %}
+          {% endif %}
         </div>
       </div>
 
