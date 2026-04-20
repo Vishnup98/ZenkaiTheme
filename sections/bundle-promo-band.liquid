@@ -1,9 +1,5 @@
-{%- assign heading = section.settings.heading | default: 'Mix any 2+ styles, save up to $20' -%}
-{%- assign subheading = section.settings.subheading -%}
-{%- if subheading == blank -%}
-  {%- capture subheading -%}{% include 'bundle-tiers', format: 'long' %}{%- endcapture -%}
-{%- endif -%}
-{%- assign cta_text = section.settings.cta_text | default: 'Shop best-sellers' -%}
+{%- assign heading = section.settings.heading | default: 'Build your bundle. Save up to $20.' -%}
+{%- assign cta_text = section.settings.cta_text | default: 'Start your bundle' -%}
 {%- assign cta_link = section.settings.cta_link | default: '/collections/best-selling' -%}
 {%- assign bg_color = section.settings.bg_color | default: '#1a1b2e' -%}
 {%- assign text_color = section.settings.text_color | default: '#ffffff' -%}
@@ -13,27 +9,26 @@
     <div class="bundle-promo-band__inner">
       <span class="bundle-eyebrow bundle-eyebrow--light" aria-hidden="true">
         <span class="bundle-eyebrow__dot"></span>
-        <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+        <span class="bundle-eyebrow__text">Bundle &amp; save · Always on</span>
       </span>
       <h2 class="bundle-promo-band__heading">{{ heading }}</h2>
-      <p class="bundle-promo-band__sub">{{ subheading }}</p>
 
       <ul class="bundle-promo-band__tiers" role="list">
         <li class="bundle-promo-band__tier">
-          <span class="bundle-promo-band__tier-num">2</span>
+          <span class="bundle-promo-band__tier-count">2 items</span>
           <span class="bundle-promo-band__tier-save">Save $5</span>
         </li>
         <li class="bundle-promo-band__tier">
-          <span class="bundle-promo-band__tier-num">3</span>
+          <span class="bundle-promo-band__tier-count">3 items</span>
           <span class="bundle-promo-band__tier-save">Save $10</span>
         </li>
         <li class="bundle-promo-band__tier bundle-promo-band__tier--accent">
-          <span class="bundle-promo-band__tier-num">4+</span>
+          <span class="bundle-promo-band__tier-count">4+ items</span>
           <span class="bundle-promo-band__tier-save">Save $20</span>
         </li>
       </ul>
 
-      <p class="bundle-promo-band__mix">Mix any styles — tees, hoodies, hats — all count toward your bundle. Discount auto-applies at checkout.</p>
+      <p class="bundle-promo-band__mix">Mix tees, hoodies, hats — auto-applies at checkout.</p>
 
       <a class="bundle-promo-band__cta" href="{{ cta_link }}" style="background: {{ text_color }}; color: {{ bg_color }};">
         {{ cta_text }}
@@ -67,12 +62,9 @@
 
   .bundle-promo-band__heading {
     font-size: clamp(28px, 4vw, 44px);
-    line-height: 1.12; margin: 0 0 14px; color: inherit;
-    font-weight: 600; letter-spacing: -0.01em;
-  }
-  .bundle-promo-band__sub {
-    font-size: 15px; line-height: 1.55; opacity: 0.85;
-    margin: 0 0 28px; max-width: 540px;
+    line-height: 1.15; margin: 0 0 28px; color: inherit;
+    font-weight: 600; letter-spacing: -0.015em;
+    max-width: 640px;
   }
   .bundle-promo-band__tiers {
     display: flex; gap: 14px; flex-wrap: wrap;
@@ -84,19 +76,20 @@
     padding: 14px 22px; border-radius: 10px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    min-width: 110px;
+    min-width: 120px;
   }
   .bundle-promo-band__tier--accent {
-    background: rgba(89, 102, 207, 0.18);
-    border-color: rgba(89, 102, 207, 0.48);
+    background: rgba(89, 102, 207, 0.22);
+    border-color: rgba(89, 102, 207, 0.55);
   }
-  .bundle-promo-band__tier-num {
-    font-size: 28px; font-weight: 600; line-height: 1;
-    margin-bottom: 4px;
+  .bundle-promo-band__tier-count {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    opacity: 0.75; margin-bottom: 6px;
   }
   .bundle-promo-band__tier-save {
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 0.04em; opacity: 0.9;
+    font-size: 22px; font-weight: 700; line-height: 1;
+    letter-spacing: -0.01em;
   }
   .bundle-promo-band__mix {
     font-size: 13px;
@@ -116,8 +109,9 @@
 
   @media (max-width: 640px) {
     .bundle-promo-band { padding: 44px 0; }
-    .bundle-promo-band__tier { padding: 10px 16px; min-width: 90px; }
-    .bundle-promo-band__tier-num { font-size: 22px; }
+    .bundle-promo-band__tier { padding: 12px 14px; min-width: 96px; }
+    .bundle-promo-band__tier-count { font-size: 10px; }
+    .bundle-promo-band__tier-save { font-size: 18px; }
     .bundle-promo-band__mix { font-size: 12px; }
   }
 </style>
@@ -131,19 +125,13 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Mix any 2+ styles, save up to $20"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "info": "Leave blank to use the default tier copy from bundle-tiers snippet."
+      "default": "Build your bundle. Save up to $20."
     },
     {
       "type": "text",
       "id": "cta_text",
       "label": "Button text",
-      "default": "Shop best-sellers"
+      "default": "Start your bundle"
     },
     {
       "type": "url",

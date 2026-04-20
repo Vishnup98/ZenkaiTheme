@@ -557,9 +557,8 @@
         "type": "bundle-promo-band",
         "name": "Bundle Promo Band",
         "settings": {
-          "heading": "Mix any 2+ styles, save up to $20",
-          "subheading": "",
-          "cta_text": "Shop best-sellers",
+          "heading": "Build your bundle. Save up to $20.",
+          "cta_text": "Start your bundle",
           "cta_link": "",
           "bg_color": "#1a1b2e",
           "text_color": "#ffffff"

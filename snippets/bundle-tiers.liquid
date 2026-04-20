@@ -36,7 +36,7 @@
 {%- assign max_tier = max_tier | default: 4 -%}
 
 {%- if format == 'long' -%}
-Mix any 2 styles for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %} Tees, hoodies, hats — all count.
+Mix any 2 items for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %} Tees, hoodies, hats — all count.
 {%- elsif format == 'short' -%}
 Mix &amp; match any 2+ products • Save ${{ bundle_tier_2_save }} to ${{ bundle_tier_4_save }} at checkout
 {%- elsif format == 'compact' -%}
@@ -45,14 +45,14 @@ Mix &amp; match any 2+ products • Save ${{ bundle_tier_2_save }} to ${{ bundle
 Mix any 2 = ${{ bundle_tier_2_save }} off{% if max_tier >= 3 %} · Any 3 = ${{ bundle_tier_3_save }} off{% endif %}{% if max_tier >= 4 %} · Any 4+ = ${{ bundle_tier_4_save }} off{% endif %}
 {%- elsif format == 'progress' -%}
 {%- assign c = tier_count | default: 0 | plus: 0 -%}
-{%- if c <= 0 -%}Mix any 2 styles for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
-{%- elsif c == 1 -%}Add 1 more style to unlock ${{ bundle_tier_2_save }} off.
+{%- if c <= 0 -%}Mix any 2 items for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
+{%- elsif c == 1 -%}Add 1 more item to unlock ${{ bundle_tier_2_save }} off.
 {%- elsif c == 2 and max_tier >= 3 -%}${{ bundle_tier_2_save }} off unlocked! Add 1 more for ${{ bundle_tier_3_save }} off.
 {%- elsif c == 2 -%}${{ bundle_tier_2_save }} off unlocked — auto-applies at checkout.
 {%- elsif c == 3 and max_tier >= 4 -%}${{ bundle_tier_3_save }} off unlocked! Add 1 more for ${{ bundle_tier_4_save }} off.
 {%- elsif c == 3 -%}${{ bundle_tier_3_save }} off unlocked — auto-applies at checkout.
-{%- elsif max_tier >= 4 -%}${{ bundle_tier_4_save }} off unlocked — auto-applies at checkout.
-{%- else -%}${{ bundle_tier_3_save }} off unlocked — auto-applies at checkout.
+{%- elsif max_tier >= 4 -%}🎉 Max savings unlocked. ${{ bundle_tier_4_save }} off waiting at checkout.
+{%- else -%}🎉 Max savings unlocked. ${{ bundle_tier_3_save }} off waiting at checkout.
 {%- endif -%}
 {%- elsif format == 'json' -%}
 <script type="application/json" id="bundle-tiers-data">{"tiers":[{"count":2,"save":{{ bundle_tier_2_save }}},{"count":3,"save":{{ bundle_tier_3_save }}},{"count":4,"save":{{ bundle_tier_4_save }}}],"messages":{"default_2":"Pick any 2 for ${{ bundle_tier_2_save }} off. Any 3 unlocks ${{ bundle_tier_3_save }}.","default_3":"Pick any 2 for ${{ bundle_tier_2_save }} off. Any 3 unlocks ${{ bundle_tier_3_save }}. Any 4+ unlocks ${{ bundle_tier_4_save }}.","one":"One in cart — add 1 more to unlock ${{ bundle_tier_2_save }} off.","two_with_three":"${{ bundle_tier_2_save }} off unlocked. Add 1 more for ${{ bundle_tier_3_save }} off.","two_max":"${{ bundle_tier_2_save }} off unlocked at checkout.","three_with_four":"${{ bundle_tier_3_save }} off unlocked. Add 1 more for ${{ bundle_tier_4_save }} off.","three_max":"${{ bundle_tier_3_save }} off unlocked at checkout.","max_four":"Max savings unlocked — ${{ bundle_tier_4_save }} off at checkout.","max_three":"Max savings unlocked — ${{ bundle_tier_3_save }} off at checkout."}}</script>
