@@ -8809,8 +8809,12 @@ $label-bottom-margin: 12px;
     background-color: transparent;
 
     &.color-swatch {
-      height: $type_base_size + 26px;
-      width: $type_base_size  + 26px;
+      height: 48px;
+      width: 48px;
+      min-height: 48px;
+      min-width: 48px;
+      padding: 0;
+      margin: 0 8px $label-bottom-margin 0;
     }
 
     &.disabled {
@@ -9206,11 +9210,12 @@ $label-bottom-margin: 12px;
   display: block;
   text-indent: -9999px;
   overflow: visible;
-  margin: 0 1px 4px;
+  margin: 0 8px 8px 0;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   width: 2.5em;
+  cursor: pointer;
   transition: box-shadow 0.2s ease;
   border-radius: 100px;
 
