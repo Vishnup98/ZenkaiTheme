@@ -649,10 +649,11 @@
   }
 
   .zk-bundle__swatch {
-    appearance: none; width: 19px; height: 19px; border-radius: 50%;
+    appearance: none; width: 28px; height: 28px; border-radius: 50%;
     border: 1px solid var(--zk-border-strong); padding: 0; cursor: pointer;
     transition: outline 120ms ease, transform 120ms ease;
     font-family: inherit; position: relative; flex: 0 0 auto;
+    margin: 0 4px 4px 0;
   }
   .zk-bundle__swatch:hover { transform: scale(1.08); }
   .zk-bundle__swatch[aria-checked="true"] { outline: 2px solid var(--zk-ink); outline-offset: 2px; }
@@ -1473,8 +1474,12 @@
     // Initial render
     refreshCartState();
 
-    /* ===== Per-card: variant picker + add ===== */
+    /* ===== Per-card: variant picker + add =====
+       Each card inits independently. A thrown exception during one card's
+       init must NOT halt the outer forEach, or subsequent cards silently
+       lose their click handlers (users see swatches that do nothing). */
     root.querySelectorAll('[data-zk-item]').forEach(function(item) {
+      try {
       var variantsNode = item.querySelector('[data-zk-variants]');
       if (!variantsNode) return;
       var variants;
@@ -1719,6 +1724,11 @@
       // fails to win the race against a third-party handler, this
       // button-level capture listener still fires the add logic.
       addBtn.addEventListener('click', handleAddClick, { capture: true });
+      } catch (cardErr) {
+        if (window.console && window.console.error) {
+          console.error('[zk-bundle] card init failed', item && item.dataset && item.dataset.productId, cardErr);
+        }
+      }
     });
   };
 
