@@ -417,13 +417,13 @@
     position: relative;
   }
 
-  /* Responsive slot visibility */
+  /* Slot visibility: only the mobile-slot instance is rendered at all widths.
+     The desktop-slot instance stays in the DOM (UpCart's v16 cross-instance
+     sync iterates both) but is hidden everywhere so the bundle always lives
+     below the primary CTA — matches mobile placement and keeps the buy path
+     uninterrupted on wide viewports. */
   .zk-bundle--desktop { display: none; }
   .zk-bundle--mobile { display: block; }
-  @media (min-width: 769px) {
-    .zk-bundle--desktop { display: block; }
-    .zk-bundle--mobile { display: none; }
-  }
 
   /* Ensure [hidden] is respected on inner spans */
   .zk-bundle__add [hidden], .zk-bundle [hidden] { display: none !important; }
