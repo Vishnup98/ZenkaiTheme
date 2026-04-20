@@ -1478,7 +1478,10 @@
        Each card inits independently. A thrown exception during one card's
        init must NOT halt the outer forEach, or subsequent cards silently
        lose their click handlers (users see swatches that do nothing). */
+    var __zkSlotId = root.classList.contains('zk-bundle--mobile') ? 'mobile' : 'desktop';
+    var __zkIterCount = 0;
     root.querySelectorAll('[data-zk-item]').forEach(function(item) {
+      __zkIterCount++;
       try {
       var variantsNode = item.querySelector('[data-zk-variants]');
       if (!variantsNode) return;
@@ -1496,10 +1499,12 @@
         });
       }
       function setLabel(text) {
+        if (!addBtn) return;
         var labelEl = addBtn.querySelector('[data-zk-add-label]');
         if (labelEl) labelEl.textContent = text;
       }
       function updateAddState() {
+        if (!addBtn) return;
         if (!allSelected()) {
           addBtn.disabled = true; addBtn.setAttribute('aria-disabled', 'true');
           setLabel('Select options'); return;
@@ -1726,10 +1731,13 @@
       addBtn.addEventListener('click', handleAddClick, { capture: true });
       } catch (cardErr) {
         if (window.console && window.console.error) {
-          console.error('[zk-bundle] card init failed', item && item.dataset && item.dataset.productId, cardErr);
+          console.error('[zk-bundle] card init failed', __zkSlotId, 'iter=' + __zkIterCount, item && item.dataset && item.dataset.productId, cardErr);
         }
       }
     });
+    if (window.console && window.console.debug) {
+      console.debug('[zk-bundle] init done', __zkSlotId, 'cards=' + __zkIterCount);
+    }
   };
 
   document.querySelectorAll('.zk-bundle').forEach(window.__zkBundleInitInstance);
