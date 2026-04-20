@@ -15,6 +15,9 @@
 {%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 | default: 'Recent buyer' -%}
 {%- assign zenkai_proof_quote_2 = product_proof_quote_2 | default: 'Clean enough to wear to the office, but the right people still catch it every time. Exactly what I wanted.' -%}
 {%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 | default: 'Show floor regular' -%}
+{%- assign zenkai_trust_1 = product_trust_1 | default: 'Free U.S. shipping on every order' -%}
+{%- assign zenkai_trust_2 = product_trust_2 | default: '1,900+ orders shipped and counting' -%}
+{%- assign zenkai_trust_3 = product_trust_3 | default: 'Premium ring-spun cotton · Not thin, not boxy' -%}
 {%- assign zenkai_current_variant_label = current_variant.title -%}
 {%- assign zenkai_mobile_sticky_atc = true -%}
 {%- assign zenkai_secondary_checkout = true -%}
@@ -1255,7 +1258,10 @@
                   product_cta_text: zenkai_cta_text,
                   product_cta_note: zenkai_cta_subcopy,
                   product_cta_subcopy: zenkai_cta_subcopy,
-                  show_dynamic_checkout_secondary: zenkai_secondary_checkout
+                  show_dynamic_checkout_secondary: zenkai_secondary_checkout,
+                  trust_1: zenkai_trust_1,
+                  trust_2: zenkai_trust_2,
+                  trust_3: zenkai_trust_3
                 %}
               {% else %}
                 <div id="ProductFormPlaceholder-{{ section_id }}" data-url="{{ product.url | within: collection }}" data-template="{{ product.template_suffix }}" class="product-form-holder">

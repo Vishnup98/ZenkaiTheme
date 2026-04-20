@@ -52,21 +52,31 @@
     <div class="zenkai-review-badge zenkai-review-badge--cta" data-zenkai-review-clone="cta"></div>
   {% endif %}
 
+  {%- comment -%} FIX-L: trust bullets come from theme settings; collapse strip when all blank. {%- endcomment -%}
+  {%- capture zenkai_trust_any -%}{{ trust_1 }}{{ trust_2 }}{{ trust_3 }}{%- endcapture -%}
   <div class="zenkai-product-actions" data-product-form-anchor>
-    <div class="zenkai-trust-strip">
-      <span class="zenkai-trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        Free U.S. shipping on every order
-      </span>
-      <span class="zenkai-trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        1,900+ orders shipped and counting
-      </span>
-      <span class="zenkai-trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        Premium ring-spun cotton · Not thin, not boxy
-      </span>
-    </div>
+    {% if zenkai_trust_any != blank %}
+      <div class="zenkai-trust-strip">
+        {% if trust_1 != blank %}
+          <span class="zenkai-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            {{ trust_1 }}
+          </span>
+        {% endif %}
+        {% if trust_2 != blank %}
+          <span class="zenkai-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            {{ trust_2 }}
+          </span>
+        {% endif %}
+        {% if trust_3 != blank %}
+          <span class="zenkai-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            {{ trust_3 }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
     <button
       {% if product.empty? %}type="button"{% else %}type="submit"{% endif %}
       name="add"
