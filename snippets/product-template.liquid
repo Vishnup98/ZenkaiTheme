@@ -195,6 +195,25 @@
     transition: opacity 0.28s ease;
   }
 
+  /* FIX-G + FIX-H: full-width section stack below the two-column product area.
+     Houses What-you-get, brand quote, bundle, app blocks, and accordions. */
+  .zenkai-below-product {
+    max-width: 960px;
+    margin: 2.25rem auto 0;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .zenkai-below-product > * { margin: 0; }
+  @media (min-width: 769px) {
+    .zenkai-below-product {
+      margin-top: 3rem;
+      gap: 1.75rem;
+      padding: 0 1.25rem;
+    }
+  }
+
   #ProductSection-{{ section_id }} .product-single__title {
     margin-bottom: 0.55rem !important;
     color: var(--zenkai-ink);
@@ -1169,8 +1188,7 @@
             </svg>
             Zoom
           </button>
-
-          {% include 'bundle-callout', bundle_slot: 'desktop' %}
+          {%- comment -%} FIX-G: desktop bundle moved to .zenkai-below-product so it doesn't stretch the grid row and push the CTA below the fold. {%- endcomment -%}
         </div>
 
         <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
@@ -1219,16 +1237,11 @@
               {% include 'product-type-switcher' %}
             </div>
 
+            {%- comment -%}
+              FIX-H: right rail is now lean. Only form + sticky sentinel + mobile bundle live here.
+              "What you get", brand quote, app blocks, and accordions moved to .zenkai-below-product below.
+            {%- endcomment -%}
             <div class="zenkai-conversion-stack">
-              <section class="zenkai-outcome-panel" aria-label="What you get">
-                <p class="zenkai-panel-heading zenkai-panel-heading--eyebrow">What you get</p>
-                <ul class="zenkai-outcome-list" role="list">
-                  <li>{{ zenkai_outcome_1 }}</li>
-                  <li>{{ zenkai_outcome_2 }}</li>
-                  <li>{{ zenkai_outcome_3 }}</li>
-                </ul>
-              </section>
-
               {% unless isModal %}
                 {% include 'product-form',
                   section_id: section_id,
@@ -1256,28 +1269,6 @@
 
               {% include 'bundle-callout', bundle_slot: 'mobile' %}
 
-              <aside class="zenkai-brand-quote" aria-label="Brand story">
-                <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
-                <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
-              </aside>
-
-              {%- for block in section.blocks -%}
-                {%- case block.type -%}
-                  {%- when '@app' -%}
-                    <div class="zenkai-app-block" {{ block.shopify_attributes }}>
-                      {% render block %}
-                    </div>
-                {%- endcase -%}
-              {%- endfor -%}
-
-              <div class="zenkai-additional-content">
-                {% if settings.additional_content_style == 'expandable' %}
-                  {% include 'product-additional-content', section_id: section_id %}
-                {% else %}
-                  {% include 'product-additional-tabs', section_id: section_id %}
-                {% endif %}
-              </div>
-
               {% if social_enable %}
                 {% include 'social-sharing',
                   share_title: product.title,
@@ -1289,6 +1280,50 @@
           </div>
         </div>
       </div>
+
+      {%- comment -%}
+        FIX-G + FIX-H: Full-width "below-product" stack.
+        Order: What you get -> Brand quote -> Bundle -> App blocks -> Fit/Feel accordions.
+        Runs outside the two-column grid so it spans the full content width on desktop
+        and stacks naturally on mobile (where the mobile bundle slot above takes over
+        via the .zk-bundle--desktop/--mobile visibility media query in bundle-callout.liquid).
+      {%- endcomment -%}
+      {% unless isModal %}
+        <div class="zenkai-below-product">
+          <section class="zenkai-outcome-panel" aria-label="What you get">
+            <p class="zenkai-panel-heading zenkai-panel-heading--eyebrow">What you get</p>
+            <ul class="zenkai-outcome-list" role="list">
+              <li>{{ zenkai_outcome_1 }}</li>
+              <li>{{ zenkai_outcome_2 }}</li>
+              <li>{{ zenkai_outcome_3 }}</li>
+            </ul>
+          </section>
+
+          <aside class="zenkai-brand-quote" aria-label="Brand story">
+            <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
+            <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
+          </aside>
+
+          {% include 'bundle-callout', bundle_slot: 'desktop' %}
+
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                <div class="zenkai-app-block" {{ block.shopify_attributes }}>
+                  {% render block %}
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+
+          <div class="zenkai-additional-content">
+            {% if settings.additional_content_style == 'expandable' %}
+              {% include 'product-additional-content', section_id: section_id %}
+            {% else %}
+              {% include 'product-additional-tabs', section_id: section_id %}
+            {% endif %}
+          </div>
+        </div>
+      {% endunless %}
     </div>
   </div>
 
