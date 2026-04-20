@@ -341,6 +341,34 @@
     padding: 0.45rem 0.65rem;
   }
 
+  /* FIX-N: review card, rating color, and branded button align with PDP palette. */
+  #judgeme_product_reviews .jm-review {
+    border: 1px solid var(--zenkai-border);
+    border-radius: 14px;
+    background: var(--zenkai-surface);
+    padding: 1rem 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+  #judgeme_product_reviews .jm-review-author,
+  #judgeme_product_reviews .jm-reviewer-name {
+    font-weight: 700;
+    color: var(--zenkai-ink);
+  }
+  #judgeme_product_reviews .jm-star-rating,
+  #judgeme_product_reviews .jm-star-rating__font-icon,
+  #judgeme_product_reviews .jm-star {
+    color: var(--zenkai-cta); /* orange stars match the brand CTA */
+  }
+  #judgeme_product_reviews .jm-button--primary {
+    background: var(--zenkai-cta) !important;
+    border-color: var(--zenkai-cta) !important;
+    color: #fff !important;
+  }
+  #judgeme_product_reviews .jm-button--primary:hover {
+    background: var(--zenkai-cta-hover) !important;
+    border-color: var(--zenkai-cta-hover) !important;
+  }
+
   /* Rokt / Aftersell upsell widget — CSS-level fallbacks.
      Primary styling is via JS (overrides inline custom properties). */
   .pdp-widget .product-card {
