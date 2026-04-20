@@ -133,6 +133,10 @@
     data-header-style="{{ section.settings.header_style }}"
     class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}">
 
+    {% comment %} Bundle promo bar — placed inside header-wrapper so it sits in the
+       same positioning context as the announcement bar (guaranteed visible on mobile). {% endcomment %}
+    {% include 'promo-bar' %}
+
     {% comment %} Show announcement bar on all pages {% endcomment %}
     {% if section.settings.show_announcement %}
       {% include 'announcement-bar' %}

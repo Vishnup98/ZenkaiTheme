@@ -8,7 +8,7 @@
 {%- assign bg_color = section.settings.bg_color | default: '#1a1b2e' -%}
 {%- assign text_color = section.settings.text_color | default: '#ffffff' -%}
 
-<section class="bundle-promo-band index-section" style="background: {{ bg_color }}; color: {{ text_color }};">
+<section class="bundle-promo-band" style="background: {{ bg_color }}; color: {{ text_color }};">
   <div class="page-width">
     <div class="bundle-promo-band__inner">
       <span class="bundle-eyebrow bundle-eyebrow--light" aria-hidden="true">
@@ -149,7 +149,7 @@
       "type": "url",
       "id": "cta_link",
       "label": "Button link",
-      "default": "/collections/best-selling"
+      "info": "Defaults to /collections/best-selling when blank."
     },
     {
       "type": "color",

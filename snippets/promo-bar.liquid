@@ -1,56 +1,61 @@
 {%- comment -%}
-  Promo Bar — site-wide slim strip above the header.
+  Promo Bar — sits inside the header section wrapper (above announcement bar).
 
-  Desktop: shows the full tier breakdown statically, centered.
-  Mobile:  same content scrolls as a marquee so the full offer is visible
-           across a few seconds without taking vertical space.
+  Strategy:
+    • Two identical content chunks in a flex row.
+    • Default (mobile): flex row with width:max-content animates translateX(0)→(-50%).
+      Since both chunks are identical, -50% of track width = exactly one chunk's
+      width → seamless loop.
+    • Desktop (min-width:768px): animation disabled, second chunk hidden, first
+      chunk centered. Static, full offer visible in one row.
 
-  Styling uses inline styles on the root element for the critical background
-  so Shopify's CSS pipeline can't hide it. Extended behavior (marquee,
-  media queries) lives in the <style> block.
+  Critical background is set via inline style so the element renders correctly
+  even if the <style> block is ever stripped by a build step.
 {%- endcomment -%}
 
 <div class="zk-promo-bar"
      role="status"
      aria-label="Bundle promotion"
-     style="background:#5966cf;color:#ffffff;width:100%;overflow:hidden;font-family:inherit;">
-  <div class="zk-promo-bar__viewport">
-    <div class="zk-promo-bar__track">
-      {%- for i in (1..2) -%}
-        <div class="zk-promo-bar__chunk"{% if forloop.last %} aria-hidden="true"{% endif %}>
-          <span class="bundle-eyebrow bundle-eyebrow--light">
-            <span class="bundle-eyebrow__dot"></span>
-            <span class="bundle-eyebrow__text">Bundle &amp; save</span>
-          </span>
-          <span class="zk-promo-bar__sep">·</span>
-          <span class="zk-promo-bar__tier"><b>Mix any 2</b> styles = $5 off</span>
-          <span class="zk-promo-bar__sep">·</span>
-          <span class="zk-promo-bar__tier"><b>Any 3</b> = $10 off</span>
-          <span class="zk-promo-bar__sep">·</span>
-          <span class="zk-promo-bar__tier"><b>Any 4+</b> = $20 off</span>
-          <span class="zk-promo-bar__sep">·</span>
-          <span class="zk-promo-bar__tier">Tees, hoodies, hats — all count</span>
-        </div>
-      {%- endfor -%}
-    </div>
+     style="background:#5966cf;color:#ffffff;width:100%;overflow:hidden;font-family:inherit;position:relative;">
+  <div class="zk-promo-bar__track">
+    {%- for i in (1..2) -%}
+      <div class="zk-promo-bar__chunk"{% if forloop.last %} aria-hidden="true"{% endif %}>
+        <span class="bundle-eyebrow bundle-eyebrow--light">
+          <span class="bundle-eyebrow__dot"></span>
+          <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+        </span>
+        <span class="zk-promo-bar__sep" aria-hidden="true">·</span>
+        <span class="zk-promo-bar__tier"><b>Mix any 2</b> styles = $5 off</span>
+        <span class="zk-promo-bar__sep" aria-hidden="true">·</span>
+        <span class="zk-promo-bar__tier"><b>Any 3</b> = $10 off</span>
+        <span class="zk-promo-bar__sep" aria-hidden="true">·</span>
+        <span class="zk-promo-bar__tier"><b>Any 4+</b> = $20 off</span>
+        <span class="zk-promo-bar__sep" aria-hidden="true">·</span>
+        <span class="zk-promo-bar__tier">Tees, hoodies, hats — all count</span>
+      </div>
+    {%- endfor -%}
   </div>
 </div>
 
 <style>
-  .zk-promo-bar__viewport { width: 100%; }
+  /* Default = mobile behavior. Desktop overrides below. */
   .zk-promo-bar__track {
     display: flex;
     align-items: center;
+    width: max-content;
+    animation: zk-promo-marquee 26s linear infinite;
     font-size: 12px;
     line-height: 1.4;
     letter-spacing: 0.02em;
+    will-change: transform;
   }
   .zk-promo-bar__chunk {
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     gap: 12px;
+    padding: 9px 18px;
     white-space: nowrap;
-    padding: 9px 0;
   }
   .zk-promo-bar__tier { font-weight: 500; }
   .zk-promo-bar__tier b { font-weight: 700; letter-spacing: 0.03em; }
@@ -79,39 +84,28 @@
   .bundle-eyebrow--light { color: #ffffff; }
   .bundle-eyebrow--light .bundle-eyebrow__dot { background: #ffffff; }
 
-  /* Desktop: centered, single visible chunk, no animation. */
-  @media (min-width: 768px) {
-    .zk-promo-bar__viewport {
-      display: flex;
-      justify-content: center;
-      padding: 0 16px;
-    }
-    .zk-promo-bar__track { gap: 24px; }
-    .zk-promo-bar__chunk + .zk-promo-bar__chunk { display: none; }
-  }
-
-  /* Mobile: marquee. Track is 2x content width; translating -50%
-     lands on the start of the duplicate chunk → seamless loop. */
-  @media (max-width: 767px) {
-    .zk-promo-bar__track {
-      width: max-content;
-      gap: 24px;
-      animation: zk-promo-marquee 28s linear infinite;
-    }
-    .zk-promo-bar__chunk {
-      padding-left: 12px;
-      padding-right: 12px;
-      font-size: 11px;
-    }
-  }
-
-  @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
-    .zk-promo-bar__track { animation: none; }
-    .zk-promo-bar__chunk + .zk-promo-bar__chunk { display: none; }
-  }
-
   @keyframes zk-promo-marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
+
+  /* Desktop: static, centered, only the first chunk visible. */
+  @media (min-width: 768px) {
+    .zk-promo-bar__track {
+      animation: none;
+      width: 100%;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .zk-promo-bar__chunk + .zk-promo-bar__chunk { display: none; }
+  }
+
+  /* Respect user motion preferences on mobile. */
+  @media (prefers-reduced-motion: reduce) {
+    .zk-promo-bar__track { animation: none; width: 100%; justify-content: center; }
+    .zk-promo-bar__chunk + .zk-promo-bar__chunk { display: none; }
+  }
+
+  /* Pause marquee on hover/focus for accessibility + readability. */
+  .zk-promo-bar:hover .zk-promo-bar__track { animation-play-state: paused; }
 </style>
