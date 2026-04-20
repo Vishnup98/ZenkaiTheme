@@ -15,9 +15,6 @@
 {%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 | default: 'Recent buyer' -%}
 {%- assign zenkai_proof_quote_2 = product_proof_quote_2 | default: 'Clean enough to wear to the office, but the right people still catch it every time. Exactly what I wanted.' -%}
 {%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 | default: 'Show floor regular' -%}
-{%- assign zenkai_trust_1 = product_trust_1 | default: 'Free U.S. shipping on every order' -%}
-{%- assign zenkai_trust_2 = product_trust_2 | default: '1,900+ orders shipped and counting' -%}
-{%- assign zenkai_trust_3 = product_trust_3 | default: 'Premium ring-spun cotton · Not thin, not boxy' -%}
 {%- assign zenkai_current_variant_label = current_variant.title -%}
 {%- assign zenkai_mobile_sticky_atc = true -%}
 {%- assign zenkai_secondary_checkout = true -%}
@@ -58,15 +55,13 @@
   #ProductSection-{{ section_id }} {
     --zenkai-page-bg: #f5f5f7;
     --zenkai-surface: #ffffff;
-    /* FIX-J: unify PDP surfaces on warm cream instead of the old cool blue-gray. */
-    --zenkai-surface-alt: #f3efe8;
+    --zenkai-surface-alt: #eef0f4;
     --zenkai-ink: #1a1b2e;
     --zenkai-muted: #6b6f85;
     --zenkai-dark: #1a1b2e;
     --zenkai-dark-hover: #131428;
-    /* FIX-J: drop the Shop Pay purple echo; brand accent aligns with navy/orange. */
-    --zenkai-accent: #1a1b2e;
-    --zenkai-accent-soft: #f6f1ea;
+    --zenkai-accent: #5966cf;
+    --zenkai-accent-soft: #e8eaf8;
     --zenkai-cta: #e85d3a;
     --zenkai-cta-hover: #d14e2d;
     --zenkai-border: rgba(26, 27, 46, 0.1);
@@ -181,42 +176,6 @@
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.01em;
-  }
-
-  /* FIX-A: scope "On social" section header below PDP H1 to fix hierarchy */
-  .section-header__title--social { font-size: 1.75rem !important; letter-spacing: -0.01em; }
-  @media (min-width: 768px) { .section-header__title--social { font-size: 2rem !important; } }
-
-  /* FIX-B: hide the review-badge hero row when clone slot is empty (JS didn't run)
-     or when the source badge has zero reviews (JS sets [hidden]). */
-  .zenkai-hero-proof-row:has(.zenkai-review-badge:empty) { display: none; }
-
-  /* FIX-D: subtle warm tint behind lazy-loading social images so empty tiles
-     don't flash as bare gray rectangles on slow paints. */
-  .social-section__wrapper .image-wrap {
-    background: linear-gradient(135deg, #f6f1ea 0%, #f3efe8 100%);
-  }
-  .social-section__wrapper .image-wrap img {
-    transition: opacity 0.28s ease;
-  }
-
-  /* FIX-G + FIX-H: full-width section stack below the two-column product area.
-     Houses What-you-get, brand quote, bundle, app blocks, and accordions. */
-  .zenkai-below-product {
-    max-width: 960px;
-    margin: 2.25rem auto 0;
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  .zenkai-below-product > * { margin: 0; }
-  @media (min-width: 769px) {
-    .zenkai-below-product {
-      margin-top: 3rem;
-      gap: 1.75rem;
-      padding: 0 1.25rem;
-    }
   }
 
   #ProductSection-{{ section_id }} .product-single__title {
@@ -339,34 +298,6 @@
 
   #judgeme_product_reviews .jm-button--secondary {
     padding: 0.45rem 0.65rem;
-  }
-
-  /* FIX-N: review card, rating color, and branded button align with PDP palette. */
-  #judgeme_product_reviews .jm-review {
-    border: 1px solid var(--zenkai-border);
-    border-radius: 14px;
-    background: var(--zenkai-surface);
-    padding: 1rem 1.15rem;
-    margin-bottom: 0.75rem;
-  }
-  #judgeme_product_reviews .jm-review-author,
-  #judgeme_product_reviews .jm-reviewer-name {
-    font-weight: 700;
-    color: var(--zenkai-ink);
-  }
-  #judgeme_product_reviews .jm-star-rating,
-  #judgeme_product_reviews .jm-star-rating__font-icon,
-  #judgeme_product_reviews .jm-star {
-    color: var(--zenkai-cta); /* orange stars match the brand CTA */
-  }
-  #judgeme_product_reviews .jm-button--primary {
-    background: var(--zenkai-cta) !important;
-    border-color: var(--zenkai-cta) !important;
-    color: #fff !important;
-  }
-  #judgeme_product_reviews .jm-button--primary:hover {
-    background: var(--zenkai-cta-hover) !important;
-    border-color: var(--zenkai-cta-hover) !important;
   }
 
   /* Rokt / Aftersell upsell widget — CSS-level fallbacks.
@@ -745,18 +676,6 @@
     min-height: 54px !important;
   }
 
-  /* FIX-C: override Shop Pay brand purple with the navy we already use elsewhere.
-     Both branded ("Buy with shop") and unbranded variants. */
-  .zenkai-secondary-checkout .shopify-payment-button__button--unbranded,
-  .zenkai-secondary-checkout .shopify-payment-button__button--branded {
-    background: var(--zenkai-dark) !important;
-    color: #fff !important;
-  }
-  .zenkai-secondary-checkout .shopify-payment-button__button--unbranded:hover,
-  .zenkai-secondary-checkout .shopify-payment-button__button--branded:hover {
-    background: var(--zenkai-dark-hover) !important;
-  }
-
   .zenkai-outcome-panel,
   .zenkai-context-panel,
   .zenkai-social-proof {
@@ -768,8 +687,7 @@
   }
 
   .zenkai-outcome-panel {
-    /* FIX-J: warm cream gradient replaces the cool blue-gray tail. */
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(243, 239, 232, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 240, 244, 0.9) 100%);
   }
 
   .zenkai-panel-heading {
@@ -1222,7 +1140,8 @@
             </svg>
             Zoom
           </button>
-          {%- comment -%} FIX-G: desktop bundle moved to .zenkai-below-product so it doesn't stretch the grid row and push the CTA below the fold. {%- endcomment -%}
+
+          {% include 'bundle-callout', bundle_slot: 'desktop' %}
         </div>
 
         <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
@@ -1271,11 +1190,16 @@
               {% include 'product-type-switcher' %}
             </div>
 
-            {%- comment -%}
-              FIX-H: right rail is now lean. Only form + sticky sentinel + mobile bundle live here.
-              "What you get", brand quote, app blocks, and accordions moved to .zenkai-below-product below.
-            {%- endcomment -%}
             <div class="zenkai-conversion-stack">
+              <section class="zenkai-outcome-panel" aria-label="What you get">
+                <h2 class="zenkai-panel-heading">What you get</h2>
+                <ul class="zenkai-outcome-list" role="list">
+                  <li>{{ zenkai_outcome_1 }}</li>
+                  <li>{{ zenkai_outcome_2 }}</li>
+                  <li>{{ zenkai_outcome_3 }}</li>
+                </ul>
+              </section>
+
               {% unless isModal %}
                 {% include 'product-form',
                   section_id: section_id,
@@ -1286,10 +1210,7 @@
                   product_cta_text: zenkai_cta_text,
                   product_cta_note: zenkai_cta_subcopy,
                   product_cta_subcopy: zenkai_cta_subcopy,
-                  show_dynamic_checkout_secondary: zenkai_secondary_checkout,
-                  trust_1: zenkai_trust_1,
-                  trust_2: zenkai_trust_2,
-                  trust_3: zenkai_trust_3
+                  show_dynamic_checkout_secondary: zenkai_secondary_checkout
                 %}
               {% else %}
                 <div id="ProductFormPlaceholder-{{ section_id }}" data-url="{{ product.url | within: collection }}" data-template="{{ product.template_suffix }}" class="product-form-holder">
@@ -1306,6 +1227,28 @@
 
               {% include 'bundle-callout', bundle_slot: 'mobile' %}
 
+              <aside class="zenkai-brand-quote" aria-label="Brand story">
+                <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
+                <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
+              </aside>
+
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when '@app' -%}
+                    <div class="zenkai-app-block" {{ block.shopify_attributes }}>
+                      {% render block %}
+                    </div>
+                {%- endcase -%}
+              {%- endfor -%}
+
+              <div class="zenkai-additional-content">
+                {% if settings.additional_content_style == 'expandable' %}
+                  {% include 'product-additional-content', section_id: section_id %}
+                {% else %}
+                  {% include 'product-additional-tabs', section_id: section_id %}
+                {% endif %}
+              </div>
+
               {% if social_enable %}
                 {% include 'social-sharing',
                   share_title: product.title,
@@ -1317,50 +1260,6 @@
           </div>
         </div>
       </div>
-
-      {%- comment -%}
-        FIX-G + FIX-H: Full-width "below-product" stack.
-        Order: What you get -> Brand quote -> Bundle -> App blocks -> Fit/Feel accordions.
-        Runs outside the two-column grid so it spans the full content width on desktop
-        and stacks naturally on mobile (where the mobile bundle slot above takes over
-        via the .zk-bundle--desktop/--mobile visibility media query in bundle-callout.liquid).
-      {%- endcomment -%}
-      {% unless isModal %}
-        <div class="zenkai-below-product">
-          <section class="zenkai-outcome-panel" aria-label="What you get">
-            <p class="zenkai-panel-heading zenkai-panel-heading--eyebrow">What you get</p>
-            <ul class="zenkai-outcome-list" role="list">
-              <li>{{ zenkai_outcome_1 }}</li>
-              <li>{{ zenkai_outcome_2 }}</li>
-              <li>{{ zenkai_outcome_3 }}</li>
-            </ul>
-          </section>
-
-          <aside class="zenkai-brand-quote" aria-label="Brand story">
-            <p class="zenkai-brand-quote__text">You outgrew the loud prints, but you never outgrew the world that shaped you.</p>
-            <p class="zenkai-brand-quote__follow">Zenkai exists for that exact tension: the part of you that still wants the reference, just in a cleaner, sharper form.</p>
-          </aside>
-
-          {% include 'bundle-callout', bundle_slot: 'desktop' %}
-
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when '@app' -%}
-                <div class="zenkai-app-block" {{ block.shopify_attributes }}>
-                  {% render block %}
-                </div>
-            {%- endcase -%}
-          {%- endfor -%}
-
-          <div class="zenkai-additional-content">
-            {% if settings.additional_content_style == 'expandable' %}
-              {% include 'product-additional-content', section_id: section_id %}
-            {% else %}
-              {% include 'product-additional-tabs', section_id: section_id %}
-            {% endif %}
-          </div>
-        </div>
-      {% endunless %}
     </div>
   </div>
 
@@ -1560,34 +1459,14 @@
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
 
-      /* Clone the Judge.me review badge into title and CTA slots.
-         FIX-B: skip cloning when review count is 0 so we don't show an empty
-         5-star widget next to the filled-star testimonial below it. */
+      /* Clone the Judge.me review badge into title and CTA slots */
       (function cloneReviewBadge() {
         var targets = section.querySelectorAll('[data-zenkai-review-clone]');
         if (!targets.length) return;
 
-        function hasReviews(source) {
-          var count = source.getAttribute('data-number-of-reviews');
-          if (count === null) return true; /* attribute missing, don't block */
-          return parseInt(count, 10) > 0;
-        }
-
-        function hideTargets() {
-          targets.forEach(function(t) {
-            while (t.firstChild) t.removeChild(t.firstChild);
-            var wrapper = t.closest('.zenkai-hero-proof-row') || t;
-            wrapper.setAttribute('hidden', 'hidden');
-          });
-        }
-
         function run() {
           var source = section.querySelector('.zenkai-app-block .jdgm-prev-badge');
           if (!source) return false;
-          if (!hasReviews(source)) {
-            hideTargets();
-            return true;
-          }
           targets.forEach(function(t) {
             while (t.firstChild) t.removeChild(t.firstChild);
             var clone = source.cloneNode(true);

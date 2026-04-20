@@ -12,22 +12,6 @@
   {%- assign enable_section = true -%}
 {%- endif -%}
 
-{%- comment -%}
-  FIX-D: On product pages, only render when at least one block is tagged for the current product.
-  Untagged (generic) social posts don't belong on a specific PDP — they read as empty filler.
-{%- endcomment -%}
-{%- if enable_section and template contains 'product' -%}
-  {%- assign _has_product_blocks = false -%}
-  {%- for block in section.blocks -%}
-    {%- if block.settings.product != blank and block.settings.product == product.handle -%}
-      {%- assign _has_product_blocks = true -%}
-    {%- endif -%}
-  {%- endfor -%}
-  {%- unless _has_product_blocks -%}
-    {%- assign enable_section = false -%}
-  {%- endunless -%}
-{%- endif -%}
-
 {% if enable_section %}
   {%- assign grid_item_width = 'grid-product--medium' -%}
 
@@ -43,7 +27,7 @@
       {% if section.settings.title != blank %}
         <div class="page-width">
           <header class="section-header" data-aos>
-            <h2 class="section-header__title section-header__title--social appear-delay">
+            <h2 class="section-header__title appear-delay">
               {{ section.settings.title }}
             </h2>
             {% if section.settings.description != blank %}
@@ -79,12 +63,7 @@
             class="grid grid--uniform social-section__grid"
             data-aos="overflow__animation">
 
-            {%- comment -%}
-              FIX-D: Suppress educational placeholders on PDP; keep for home/collection.
-              If section is reached on PDP it means product-tagged blocks exist (see early guard above),
-              so placeholders would only dilute real content.
-            {%- endcomment -%}
-            {% if section.blocks.size == 0 and template != 'product' %}
+            {% if section.blocks.size == 0 %}
               {% for i in (1..8) %}
                 <div class="grid__item {{ grid_item_width }}">
                   {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
@@ -152,8 +131,7 @@
             {% if social_product_blocks != blank %}
               {{ social_product_blocks }}
             {% endif %}
-            {%- comment -%} FIX-D: on PDP, skip generic (non-product-tagged) blocks — they're filler. {%- endcomment -%}
-            {% if social_blocks != blank and template != 'product' %}
+            {% if social_blocks != blank %}
               {{ social_blocks }}
             {% endif %}
           </div>
