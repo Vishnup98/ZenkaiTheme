@@ -655,17 +655,28 @@
   .zk-bundle__swatch {
     appearance: none; width: 28px; height: 28px; border-radius: 50%;
     border: 1px solid var(--zk-border-strong); padding: 0; cursor: pointer;
-    transition: outline 120ms ease, transform 120ms ease;
+    outline: none;
+    transition: box-shadow 120ms ease, transform 120ms ease;
     font-family: inherit; position: relative; flex: 0 0 auto;
     margin: 0 4px 4px 0;
   }
   .zk-bundle__swatch:hover { transform: scale(1.08); }
+  /* Selection indicator uses box-shadow layers (not outline) so it paints
+     reliably on first click and never races the UA focus ring. Layers:
+       inset 2px white  — inner halo so the ink ring is visible on any
+                          swatch color (black, navy, etc.)
+       2px white (outer)— 2px gap between the swatch edge and the ink ring
+       4px ink (outer)  — the visible "selected" ring. */
   .zk-bundle__swatch[aria-checked="true"] {
-    outline: 2px solid var(--zk-ink); outline-offset: 2px;
-    box-shadow: 0 0 0 2px #fff inset;
+    box-shadow:
+      0 0 0 2px #fff inset,
+      0 0 0 2px #fff,
+      0 0 0 4px var(--zk-ink);
   }
   .zk-bundle__swatch:focus-visible:not([aria-checked="true"]) {
-    outline: 2px solid var(--zk-cta); outline-offset: 2px;
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 4px var(--zk-cta);
   }
   .zk-bundle__swatch-label {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
