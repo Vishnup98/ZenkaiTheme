@@ -345,6 +345,10 @@
                 <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Added
               </span>
+              <span class="zk-bundle__add-unavail" hidden aria-hidden="true">
+                <span class="zk-bundle__add-unavail-main">Sold out</span>
+                <span class="zk-bundle__add-unavail-sub">Try another size or color</span>
+              </span>
             </button>
           </article>
         {%- endif -%}
@@ -656,8 +660,13 @@
     margin: 0 4px 4px 0;
   }
   .zk-bundle__swatch:hover { transform: scale(1.08); }
-  .zk-bundle__swatch[aria-checked="true"] { outline: 2px solid var(--zk-ink); outline-offset: 2px; }
-  .zk-bundle__swatch:focus-visible { outline: 2px solid var(--zk-cta); outline-offset: 2px; }
+  .zk-bundle__swatch[aria-checked="true"] {
+    outline: 2px solid var(--zk-ink); outline-offset: 2px;
+    box-shadow: 0 0 0 2px #fff inset;
+  }
+  .zk-bundle__swatch:focus-visible:not([aria-checked="true"]) {
+    outline: 2px solid var(--zk-cta); outline-offset: 2px;
+  }
   .zk-bundle__swatch-label {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
@@ -699,6 +708,27 @@
   .zk-bundle__add[data-state="in-cart"]:hover:not(:disabled) {
     background: rgba(47, 122, 77, 0.06) !important;
   }
+  .zk-bundle__add[data-state="unavailable"] {
+    background: var(--zk-muted) !important;
+    border-color: var(--zk-muted) !important;
+    color: #fff !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important;
+    padding: 6px 12px;
+    line-height: 1.15;
+    box-shadow: none !important;
+  }
+  .zk-bundle__add-unavail {
+    display: inline-flex; flex-direction: column; align-items: center; gap: 1px;
+  }
+  .zk-bundle__add-unavail-main {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  }
+  .zk-bundle__add-unavail-sub {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.3px;
+    text-transform: none; opacity: 0.9;
+  }
+  .zk-bundle__select option:disabled { color: var(--zk-muted); }
   .zk-bundle__add-default { display: inline-flex; align-items: center; gap: 5px; }
   .zk-bundle__add-loading { display: inline-flex; align-items: center; gap: 7px; }
   .zk-bundle__add-loading-text { font-size: 12px; font-weight: 700; letter-spacing: 0.4px; }
@@ -1518,17 +1548,65 @@
       }
       function updateAddState() {
         if (!addBtn) return;
+        // Skip while a cart-add is in flight so we don't blow away the
+        // loading/success state that handleAddClick is driving.
+        if (addBtn.dataset.state === 'loading' || addBtn.dataset.state === 'success') return;
+
+        var defEl = addBtn.querySelector('.zk-bundle__add-default');
+        var unavail = addBtn.querySelector('.zk-bundle__add-unavail');
+
+        function showDefault(label) {
+          if (unavail) unavail.hidden = true;
+          if (defEl) defEl.hidden = false;
+          addBtn.dataset.state = '';
+          setLabel(label);
+        }
+        function showUnavail() {
+          if (defEl) defEl.hidden = true;
+          if (unavail) unavail.hidden = false;
+          addBtn.disabled = true;
+          addBtn.setAttribute('aria-disabled', 'true');
+          addBtn.dataset.state = 'unavailable';
+        }
+
         if (!allSelected()) {
-          addBtn.disabled = true; addBtn.setAttribute('aria-disabled', 'true');
-          setLabel('Select options'); return;
+          addBtn.disabled = true;
+          addBtn.setAttribute('aria-disabled', 'true');
+          showDefault('Select options');
+          return;
         }
         var v = findVariant();
-        if (!v) { addBtn.disabled = true; setLabel('Unavailable'); return; }
-        if (!v.available) { addBtn.disabled = true; setLabel('Sold out'); return; }
+        if (!v || !v.available) { showUnavail(); return; }
         addBtn.disabled = false;
         addBtn.setAttribute('aria-disabled', 'false');
         addBtn.dataset.variantId = v.id;
-        setLabel('Add to bundle');
+        showDefault('Add to bundle');
+      }
+
+      // Disable <option>s in the size dropdown that have no available
+      // variant for the currently-selected color. Keeps the dropdown
+      // honest so shoppers can't pick a size that would flip the CTA
+      // to "Sold out".
+      function updateSizeAvailability() {
+        optionEls.forEach(function(optEl) {
+          if (!optEl.classList.contains('zk-bundle__option--size')) return;
+          var oIdx = parseInt(optEl.dataset.optionIndex, 10);
+          var sel = optEl.querySelector('[data-zk-select]');
+          if (!sel) return;
+          Array.prototype.forEach.call(sel.options, function(opt) {
+            if (!opt.value) return; // skip placeholder
+            var isAvail = variants.some(function(v) {
+              if (!v.available) return false;
+              if (v.options[oIdx] !== opt.value) return false;
+              for (var i = 0; i < v.options.length; i++) {
+                if (i === oIdx) continue;
+                if (selection[i] !== undefined && v.options[i] !== selection[i]) return false;
+              }
+              return true;
+            });
+            opt.disabled = !isAvail;
+          });
+        });
       }
 
       var cardImg = item.querySelector('.zk-bundle__media img');
@@ -1615,6 +1693,8 @@
                 }
               }
               if (match && match.image) swapCardImage(match.image);
+              // Color changed → refresh which sizes are pickable.
+              updateSizeAvailability();
             }
             updateAddState();
           });
@@ -1699,6 +1779,7 @@
           if (match && match.image) swapCardImage(match.image);
         }
 
+        updateSizeAvailability();
         updateAddState();
       })();
 
