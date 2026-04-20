@@ -625,13 +625,16 @@ lazySizesConfig.expFactor = 4;
       },
   
       _updateImages: function(variant) {
-        var variantImage = variant.featured_image || {};
-        var currentVariantImage = this.currentVariant.featured_image || {};
-  
-        if (!variant.featured_image || variantImage.src === currentVariantImage.src) {
+        var variantMediaPreview = (variant.featured_media && variant.featured_media.preview_image) || null;
+        var currentMediaPreview = (this.currentVariant.featured_media && this.currentVariant.featured_media.preview_image) || null;
+        var variantImage = variant.featured_image || variantMediaPreview || {};
+        var currentVariantImage = this.currentVariant.featured_image || currentMediaPreview || {};
+        var hasMedia = variant.featured_image || variant.featured_media;
+
+        if (!hasMedia || variantImage.src === currentVariantImage.src) {
           return;
         }
-  
+
         this.$container.trigger({
           type: 'variantImageChange',
           variant: variant
@@ -4812,7 +4815,9 @@ this.$container.find('.you-save').addClass('hide');
           return;
         }
 
-        var imageIndex = this.$container.find('.product__slide[data-media-id="' + mediaId + '"]').data('index');
+        // Exclude Slick's cloned slides so the data-index we read comes from
+        // the original DOM, not a clone whose index Slick rewrites at init.
+        var imageIndex = this.$container.find('.product__slide:not(.slick-cloned)[data-media-id="' + mediaId + '"]').data('index');
 
         if (typeof imageIndex === 'undefined') {
           imageIndex = this.$container.find('.product__thumb[data-id="' + mediaId + '"]').closest('.product__thumb-item').data('index');
