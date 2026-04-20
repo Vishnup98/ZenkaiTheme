@@ -39,11 +39,13 @@
 
   <div class="page-width">
     {%- if section.settings.show_bundle_belt -%}
-      <a class="zk-collection-belt" href="/collections/best-selling">
-        <span class="zk-collection-belt__tag">Bundle &amp; save</span>
+      <div class="zk-collection-belt">
+        <span class="bundle-eyebrow" aria-hidden="true">
+          <span class="bundle-eyebrow__dot"></span>
+          <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+        </span>
         <span class="zk-collection-belt__text">{% include 'bundle-tiers', format: 'short' %}</span>
-        <span class="zk-collection-belt__cta" aria-hidden="true">→</span>
-      </a>
+      </div>
       <style>
         .zk-collection-belt {
           display: flex;
@@ -52,34 +54,15 @@
           gap: 14px;
           flex-wrap: wrap;
           background: #f6f5f0;
-          border: 1px solid rgba(26, 27, 46, 0.08);
+          border: 1px solid rgba(26, 27, 46, 0.09);
           border-radius: 10px;
           padding: 12px 18px;
           margin: 0 0 24px;
-          text-decoration: none;
           color: #1a1b2e;
           font-size: 13px;
           letter-spacing: 0.02em;
-          transition: background 180ms ease, border-color 180ms ease;
-        }
-        .zk-collection-belt:hover {
-          background: #efeee7;
-          border-color: rgba(26, 27, 46, 0.16);
-          color: #1a1b2e;
-        }
-        .zk-collection-belt__tag {
-          background: #1a1b2e;
-          color: #fff;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          padding: 4px 10px;
-          border-radius: 4px;
-          white-space: nowrap;
         }
         .zk-collection-belt__text { font-weight: 500; }
-        .zk-collection-belt__cta { font-weight: 600; }
         @media (max-width: 640px) {
           .zk-collection-belt { font-size: 12px; padding: 10px 14px; gap: 10px; }
         }

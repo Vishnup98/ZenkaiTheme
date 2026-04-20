@@ -36,15 +36,15 @@
 {%- assign max_tier = max_tier | default: 4 -%}
 
 {%- if format == 'long' -%}
-Pick any 2 for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
+Mix any 2 styles for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %} Tees, hoodies, hats — all count.
 {%- elsif format == 'short' -%}
-Buy 2 save ${{ bundle_tier_2_save }}{% if max_tier >= 3 %} • Buy 3 save ${{ bundle_tier_3_save }}{% endif %}{% if max_tier >= 4 %} • Buy 4 save ${{ bundle_tier_4_save }}{% endif %}
+Mix &amp; match any 2+ products • Save ${{ bundle_tier_2_save }} to ${{ bundle_tier_4_save }} at checkout
 {%- elsif format == 'compact' -%}
-{%- if max_tier >= 4 -%}Bundle &amp; save up to ${{ bundle_tier_4_save }}{%- elsif max_tier >= 3 -%}Bundle &amp; save up to ${{ bundle_tier_3_save }}{%- else -%}Bundle &amp; save ${{ bundle_tier_2_save }}{%- endif -%}
+{%- if max_tier >= 4 -%}Mix any 2+ — save up to ${{ bundle_tier_4_save }}{%- elsif max_tier >= 3 -%}Mix any 2+ — save up to ${{ bundle_tier_3_save }}{%- else -%}Mix any 2 — save ${{ bundle_tier_2_save }}{%- endif -%}
 {%- elsif format == 'progress' -%}
 {%- assign c = tier_count | default: 0 | plus: 0 -%}
-{%- if c <= 0 -%}Pick any 2 for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
-{%- elsif c == 1 -%}Add 1 more to unlock ${{ bundle_tier_2_save }} off.
+{%- if c <= 0 -%}Mix any 2 styles for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
+{%- elsif c == 1 -%}Add 1 more style to unlock ${{ bundle_tier_2_save }} off.
 {%- elsif c == 2 and max_tier >= 3 -%}${{ bundle_tier_2_save }} off unlocked! Add 1 more for ${{ bundle_tier_3_save }} off.
 {%- elsif c == 2 -%}${{ bundle_tier_2_save }} off unlocked — auto-applies at checkout.
 {%- elsif c == 3 and max_tier >= 4 -%}${{ bundle_tier_3_save }} off unlocked! Add 1 more for ${{ bundle_tier_4_save }} off.

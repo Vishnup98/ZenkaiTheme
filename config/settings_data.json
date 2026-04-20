@@ -455,6 +455,17 @@
         "type": "trust-bar",
         "settings": {}
       },
+      "bundle_promo_band_home": {
+        "type": "bundle-promo-band",
+        "settings": {
+          "heading": "Mix any 2+ styles, save up to $20",
+          "subheading": "",
+          "cta_text": "Shop best-sellers",
+          "cta_link": "/collections/best-selling",
+          "bg_color": "#1a1b2e",
+          "text_color": "#ffffff"
+        }
+      },
       "featured_collection_slider_NqdwdL": {
         "type": "featured-collection-slider",
         "settings": {
@@ -558,6 +569,7 @@
       "background_image_text_feh6JW",
       "featured_collection_slider_NqdwdL",
       "trust_bar_section",
+      "bundle_promo_band_home",
       "testimonials_homepage",
       "featured_collection_slider_XJfWth",
       "1543003878234",

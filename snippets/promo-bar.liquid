@@ -1,54 +1,70 @@
 {%- comment -%}
   Promo Bar — site-wide slim strip above the header.
-  Advertises the bundle promotion on every page. Copy pulled from bundle-tiers.
-  Included once from layout/theme.liquid so it appears on every template.
+  Informational only (not a link) so shoppers aren't yanked away from their
+  current page. Copy emphasizes "any product, any category" for clarity.
+  Styling uses the shared .bundle-eyebrow pattern that repeats across every
+  bundle promo surface (cart, collection belt, homepage band, PDP callout).
 {%- endcomment -%}
 
-<a class="zk-promo-bar" href="/collections/best-selling" aria-label="Shop best-sellers and save with bundles">
-  <span class="zk-promo-bar__inner">
-    <span class="zk-promo-bar__icon" aria-hidden="true">✦</span>
+<div class="zk-promo-bar" role="status" aria-label="Bundle promotion">
+  <div class="zk-promo-bar__inner">
+    <span class="bundle-eyebrow bundle-eyebrow--light" aria-hidden="true">
+      <span class="bundle-eyebrow__dot"></span>
+      <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+    </span>
     <span class="zk-promo-bar__text">{% include 'bundle-tiers', format: 'short' %}</span>
-    <span class="zk-promo-bar__sep" aria-hidden="true">·</span>
-    <span class="zk-promo-bar__cta">Shop best-sellers →</span>
-  </span>
-</a>
+  </div>
+</div>
 
 <style>
   .zk-promo-bar {
-    display: block;
     width: 100%;
-    background: #1a1b2e;
+    background: #5966cf;
     color: #ffffff;
-    text-decoration: none;
+    padding: 9px 16px;
+    text-align: center;
+    font-family: inherit;
     font-size: 12px;
     letter-spacing: 0.04em;
     line-height: 1.4;
-    padding: 8px 16px;
-    text-align: center;
-    font-family: inherit;
-    transition: background 180ms ease;
   }
-  .zk-promo-bar:hover { background: #2a2c45; color: #ffffff; }
-  .zk-promo-bar:visited { color: #ffffff; }
   .zk-promo-bar__inner {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
   }
-  .zk-promo-bar__icon { opacity: 0.8; }
   .zk-promo-bar__text { font-weight: 500; }
-  .zk-promo-bar__sep { opacity: 0.5; }
-  .zk-promo-bar__cta {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    font-weight: 500;
+
+  /* ── Shared bundle eyebrow (see also: cart tier, collection belt,
+     homepage band). Swap .bundle-eyebrow--light for dark contexts. ── */
+  .bundle-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1a1b2e;
+    white-space: nowrap;
   }
+  .bundle-eyebrow__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5966cf;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .bundle-eyebrow--light { color: #ffffff; }
+  .bundle-eyebrow--light .bundle-eyebrow__dot { background: #ffffff; }
+
   @media (max-width: 640px) {
-    .zk-promo-bar { font-size: 11px; padding: 7px 12px; }
-    .zk-promo-bar__sep { display: none; }
-    .zk-promo-bar__inner { gap: 6px; }
+    .zk-promo-bar { font-size: 11px; padding: 8px 12px; }
+    .zk-promo-bar__inner { gap: 8px; }
+    .bundle-eyebrow { font-size: 9px; letter-spacing: 0.12em; gap: 6px; }
   }
 </style>

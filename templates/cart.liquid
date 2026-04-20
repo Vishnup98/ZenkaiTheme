@@ -272,8 +272,12 @@
                   <span>FREE SHIPPING on this order!</span>
                 </div>
 
-                {%- comment -%} Bundle tier progress — live nudge toward next savings threshold {%- endcomment -%}
+                {%- comment -%} Bundle tier progress — live nudge toward next savings threshold. Matches PDP bundle callout visual language. {%- endcomment -%}
                 <div class="zk-cart-tier" data-zk-cart-tier data-zk-count="{{ cart.item_count }}" style="margin-bottom: 1rem;">
+                  <span class="bundle-eyebrow" aria-hidden="true">
+                    <span class="bundle-eyebrow__dot"></span>
+                    <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+                  </span>
                   <div class="zk-cart-tier__msg" data-zk-cart-tier-msg>
                     {%- if cart.item_count <= 0 -%}
                       {% include 'bundle-tiers', format: 'short' %}
@@ -284,21 +288,24 @@
                   <div class="zk-cart-tier__bar" aria-hidden="true">
                     <div class="zk-cart-tier__fill" data-zk-cart-tier-fill></div>
                   </div>
+                  <p class="zk-cart-tier__note">Mix any styles — tees, hoodies, hats all count.</p>
                 </div>
 
                 <style>
                   .zk-cart-tier {
                     background: #f6f5f0;
-                    border: 1px solid rgba(26, 27, 46, 0.08);
-                    border-radius: 8px;
-                    padding: 10px 14px;
+                    border: 1px solid rgba(26, 27, 46, 0.09);
+                    border-radius: 10px;
+                    padding: 14px 16px;
                   }
+                  .zk-cart-tier .bundle-eyebrow { margin-bottom: 8px; }
                   .zk-cart-tier__msg {
                     font-size: 13px;
-                    font-weight: 500;
+                    font-weight: 600;
                     color: #1a1b2e;
                     letter-spacing: 0.01em;
-                    margin-bottom: 8px;
+                    margin: 0 0 10px;
+                    line-height: 1.45;
                   }
                   .zk-cart-tier__bar {
                     height: 4px;
@@ -308,10 +315,17 @@
                   }
                   .zk-cart-tier__fill {
                     height: 100%;
-                    background: linear-gradient(90deg, #1a1b2e 0%, #2a2c45 100%);
+                    background: #5966cf;
                     border-radius: 2px;
                     transition: width 320ms ease;
                     width: 0%;
+                  }
+                  .zk-cart-tier__note {
+                    font-size: 11px;
+                    color: #555a6e;
+                    letter-spacing: 0.02em;
+                    margin: 8px 0 0;
+                    line-height: 1.4;
                   }
                 </style>
 
