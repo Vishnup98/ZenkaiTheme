@@ -276,7 +276,7 @@
                 <div class="zk-cart-tier" data-zk-cart-tier data-zk-count="{{ cart.item_count }}" style="margin-bottom: 1rem;">
                   <span class="bundle-eyebrow" aria-hidden="true">
                     <span class="bundle-eyebrow__dot"></span>
-                    <span class="bundle-eyebrow__text">Bundle &amp; save</span>
+                    <span class="bundle-eyebrow__text">Bundle &amp; save · Always on</span>
                   </span>
                   <div class="zk-cart-tier__msg" data-zk-cart-tier-msg>
                     {%- if cart.item_count <= 0 -%}
@@ -289,6 +289,9 @@
                     <div class="zk-cart-tier__fill" data-zk-cart-tier-fill></div>
                   </div>
                   <p class="zk-cart-tier__note">Mix any styles — tees, hoodies, hats all count.</p>
+                  {%- if cart.item_count > 0 and cart.item_count < 4 -%}
+                    <a class="zk-cart-tier__cta" href="/collections/best-selling">Browse best-sellers →</a>
+                  {%- endif -%}
                 </div>
 
                 <style>
@@ -327,6 +330,17 @@
                     margin: 8px 0 0;
                     line-height: 1.4;
                   }
+                  .zk-cart-tier__cta {
+                    display: inline-block;
+                    margin-top: 10px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: #5966cf;
+                    text-decoration: underline;
+                    text-underline-offset: 2px;
+                    letter-spacing: 0.01em;
+                  }
+                  .zk-cart-tier__cta:hover { color: #4a56b8; }
                 </style>
 
                 <script>

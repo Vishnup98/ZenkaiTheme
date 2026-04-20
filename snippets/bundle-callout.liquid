@@ -74,16 +74,12 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   <div class="zk-bundle__inner">
 
     <div class="zk-bundle__head">
-      <span class="zk-bundle__eyebrow">
-        <span class="zk-bundle__eyebrow-dot" aria-hidden="true"></span>
-        Bundle &amp; save
+      <span class="bundle-eyebrow" style="margin-bottom:8px;">
+        <span class="bundle-eyebrow__dot"></span>
+        <span class="bundle-eyebrow__text">Bundle &amp; save · Always on</span>
       </span>
       <h3 id="zk-bundle-heading-{{ bundle_slot }}-{{ product.id }}" class="zk-bundle__title">
-        {%- if bundle_fallback -%}
-          Mix &amp; match best-sellers
-        {%- else -%}
-          Complete the {{ collection_short_title }}
-        {%- endif -%}
+        Add to your bundle
       </h3>
       <p class="zk-bundle__message" data-zk-message>
         {% include 'bundle-tiers', format: 'long', max_tier: bundle_max_tier %}
@@ -424,9 +420,9 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
     --zk-border: rgba(26, 27, 46, 0.09);
     --zk-border-strong: rgba(26, 27, 46, 0.2);
     --zk-surface: #ffffff;
-    --zk-cta: #e85d3a;
-    --zk-cta-hover: #d04d2a;
-    --zk-cta-soft: rgba(232, 93, 58, 0.09);
+    --zk-cta: #5966cf;
+    --zk-cta-hover: #4a56b8;
+    --zk-cta-soft: rgba(89, 102, 207, 0.09);
     --zk-success: #2f7a4d;
     --zk-muted: #d6d2c7;
     --zk-track: #ece8df;
@@ -439,7 +435,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   .zk-bundle__inner {
     background: var(--zk-bg);
     border: 1px solid var(--zk-border);
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 18px 18px 14px;
     box-shadow: 0 1px 0 rgba(26, 27, 46, 0.02), 0 18px 44px -18px rgba(26, 27, 46, 0.12);
     position: relative;
@@ -462,23 +458,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   .zk-bundle__add [hidden], .zk-bundle [hidden] { display: none !important; }
 
   .zk-bundle__head { text-align: center; margin-bottom: 10px; }
-  .zk-bundle__eyebrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 1.6px; text-transform: uppercase;
-    color: var(--zk-cta);
-    background: var(--zk-cta-soft);
-    padding: 4px 9px; border-radius: 999px;
-    margin-bottom: 8px;
-  }
-  .zk-bundle__eyebrow-dot {
-    width: 5px; height: 5px; border-radius: 50%; background: var(--zk-cta);
-    animation: zk-pulse 2s ease-in-out infinite;
-  }
-  @keyframes zk-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.55; transform: scale(1.2); }
-  }
+  /* PDP eyebrow uses the shared .bundle-eyebrow from promo-bar.liquid */
   .zk-bundle__title {
     font-size: 19px; font-weight: 700; line-height: 1.2;
     margin: 0 0 4px; color: var(--zk-ink); letter-spacing: -0.015em;
@@ -496,7 +476,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   }
   .zk-bundle__progress-fill {
     position: absolute; inset: 0 auto 0 0;
-    background: linear-gradient(90deg, var(--zk-cta) 0%, #ff8561 100%);
+    background: linear-gradient(90deg, var(--zk-cta) 0%, #7b86e0 100%);
     border-radius: 999px;
     transition: width 420ms cubic-bezier(.2,.8,.2,1);
   }
@@ -528,7 +508,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   .zk-bundle__milestone[data-zk-milestone="2"] .zk-bundle__milestone-label { /* centered via flex */ }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-dot {
     background: var(--zk-cta); border-color: var(--zk-cta); color: #fff;
-    box-shadow: 0 4px 12px rgba(232, 93, 58, 0.38);
+    box-shadow: 0 4px 12px rgba(89, 102, 207, 0.38);
   }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-symbol { opacity: 0; }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-check { opacity: 1; transform: scale(1); }
@@ -596,7 +576,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
     scroll-snap-align: start;
     display: flex; flex-direction: column; gap: 9px;
     background: var(--zk-surface);
-    border: 1px solid var(--zk-border); border-radius: 13px;
+    border: 1px solid var(--zk-border); border-radius: 10px;
     padding: 10px; min-width: 0;
     transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
   }
@@ -1264,10 +1244,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
     function buildMessage(count) {
       var maxTier = tiers[tiers.length - 1];
       var s2 = tierSave[2], s3 = tierSave[3], s4 = tierSave[4];
-      if (count <= 0) {
-        if (tiers.indexOf(4) >= 0) return 'Pick any 2 for $' + s2 + ' off. Any 3 unlocks $' + s3 + '. Any 4+ unlocks $' + s4 + '.';
-        return 'Pick any 2 for $' + s2 + ' off. Any 3 unlocks $' + s3 + '.';
-      }
+      if (count <= 0) return 'This item counts. Add 1 more to save $' + s2 + '.';
       if (count === 1) return 'One in cart — add 1 more to unlock $' + s2 + ' off.';
       if (count === 2 && tiers.indexOf(3) >= 0) return '$' + s2 + ' off unlocked. Add 1 more for $' + s3 + ' off.';
       if (count === 2) return '$' + s2 + ' off unlocked at checkout.';
