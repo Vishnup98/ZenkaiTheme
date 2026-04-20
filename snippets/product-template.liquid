@@ -203,6 +203,10 @@
     margin-top: 0.95rem;
   }
 
+  /* Hide hero proof row when the review-badge clone slot is empty — either
+     JS didn't run yet, or Judge.me reported 0 reviews (JS clears + hides). */
+  .zenkai-hero-proof-row:has(.zenkai-review-badge:empty) { display: none; }
+
   .zenkai-hero-proof-copy {
     display: inline-flex;
     align-items: center;
@@ -1459,14 +1463,35 @@
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
 
-      /* Clone the Judge.me review badge into title and CTA slots */
+      /* Clone the Judge.me review badge into title and CTA slots. When Judge.me
+         reports zero reviews, hide the proof row rather than showing an empty
+         5-star widget — that mismatch between "5 stars / No reviews" actively
+         damages trust ATF on a new product. */
       (function cloneReviewBadge() {
         var targets = section.querySelectorAll('[data-zenkai-review-clone]');
         if (!targets.length) return;
 
+        function hasReviews(source) {
+          var count = source.getAttribute('data-number-of-reviews');
+          if (count === null) return true;
+          return parseInt(count, 10) > 0;
+        }
+
+        function hideTargets() {
+          targets.forEach(function(t) {
+            while (t.firstChild) t.removeChild(t.firstChild);
+            var wrapper = t.closest('.zenkai-hero-proof-row') || t;
+            wrapper.setAttribute('hidden', 'hidden');
+          });
+        }
+
         function run() {
           var source = section.querySelector('.zenkai-app-block .jdgm-prev-badge');
           if (!source) return false;
+          if (!hasReviews(source)) {
+            hideTargets();
+            return true;
+          }
           targets.forEach(function(t) {
             while (t.firstChild) t.removeChild(t.firstChild);
             var clone = source.cloneNode(true);
