@@ -384,6 +384,19 @@
     margin-top: 1rem;
   }
 
+  /* Full-width belt for the desktop bundle callout. Lives below the product
+     grid so the carousel spans the full page-width instead of being cramped
+     inside the 40%-wide right rail. Mobile uses a separate slot rendered
+     inside the conversion stack — see bundle-callout.liquid for the swap. */
+  .zenkai-bundle-belt {
+    margin-top: 1.5rem;
+  }
+  @media (min-width: 769px) {
+    .zenkai-bundle-belt {
+      margin-top: 2.25rem;
+    }
+  }
+
   #ProductSection-{{ section_id }} .product-single__form {
     margin: 0;
     padding: 1.1rem;
@@ -1144,8 +1157,6 @@
             </svg>
             Zoom
           </button>
-
-          {% include 'bundle-callout', bundle_slot: 'desktop' %}
         </div>
 
         <div class="grid__item {{ product_description_width }}{% if product_image_type == 'stacked' %} product-single__sticky{% endif %}">
@@ -1263,6 +1274,10 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="zenkai-bundle-belt">
+        {% include 'bundle-callout', bundle_slot: 'desktop' %}
       </div>
     </div>
   </div>

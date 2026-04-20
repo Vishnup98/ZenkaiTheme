@@ -417,13 +417,18 @@
     position: relative;
   }
 
-  /* Slot visibility: only the mobile-slot instance is rendered at all widths.
-     The desktop-slot instance stays in the DOM (UpCart's v16 cross-instance
-     sync iterates both) but is hidden everywhere so the bundle always lives
-     below the primary CTA — matches mobile placement and keeps the buy path
-     uninterrupted on wide viewports. */
+  /* Slot visibility: each viewport uses its own slot instance so each bundle
+     can sit in its ideal DOM location. Desktop slot lives in the .zenkai-
+     bundle-belt full-width wrapper below the product grid; mobile slot lives
+     inside the right-column conversion stack (narrow context, post-CTA).
+     UpCart's v16 cross-instance sync (window.__zkBundleRefreshAll) iterates
+     by .zk-bundle base class so both stay coordinated. */
   .zk-bundle--desktop { display: none; }
   .zk-bundle--mobile { display: block; }
+  @media (min-width: 769px) {
+    .zk-bundle--desktop { display: block; }
+    .zk-bundle--mobile { display: none; }
+  }
 
   /* Ensure [hidden] is respected on inner spans */
   .zk-bundle__add [hidden], .zk-bundle [hidden] { display: none !important; }
