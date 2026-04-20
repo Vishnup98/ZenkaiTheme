@@ -1492,6 +1492,19 @@
       var optionEls = item.querySelectorAll('.zk-bundle__option');
       var selection = {};
 
+      // Track the size option (index + dropdown element) so color-swatch
+      // clicks can pre-swap size when the new color is sold out at the
+      // currently selected size. Mirrors the main PDP variant picker
+      // fix in theme.js.liquid so both behave identically.
+      var sizeOptionIdx = -1;
+      var sizeSelectEl = null;
+      optionEls.forEach(function(oe) {
+        if (oe.classList.contains('zk-bundle__option--size')) {
+          sizeOptionIdx = parseInt(oe.dataset.optionIndex, 10);
+          sizeSelectEl = oe.querySelector('[data-zk-select]');
+        }
+      });
+
       function allSelected() { return optionEls.length === Object.keys(selection).length; }
       function findVariant() {
         return variants.find(function(v) {
@@ -1561,7 +1574,46 @@
             btn.setAttribute('aria-checked', 'true');
             selection[idx] = btn.dataset.optionValue;
             if (isColor) {
+              // If the clicked color has no available variant at the
+              // current size, swap size to the first available size for
+              // this color before resolving the variant. Without this,
+              // the first click resolves to an undefined variant — image
+              // never swaps, CTA locks to "Sold out", and the user has to
+              // change size manually before anything responds.
+              if (sizeOptionIdx >= 0) {
+                var currentSize = selection[sizeOptionIdx];
+                var matchAtSize = variants.some(function(v) {
+                  return v.available
+                    && v.options[idx] === selection[idx]
+                    && (currentSize === undefined || v.options[sizeOptionIdx] === currentSize);
+                });
+                if (!matchAtSize) {
+                  var fallback = null;
+                  for (var fi = 0; fi < variants.length; fi++) {
+                    if (variants[fi].available && variants[fi].options[idx] === selection[idx]) {
+                      fallback = variants[fi];
+                      break;
+                    }
+                  }
+                  if (fallback && sizeSelectEl) {
+                    var newSize = fallback.options[sizeOptionIdx];
+                    selection[sizeOptionIdx] = newSize;
+                    sizeSelectEl.value = newSize;
+                  }
+                }
+              }
               var match = findBestVariantByPartialSelection();
+              if (!match) {
+                // Color fully sold out at every size — still swap the
+                // image so the shopper sees the right garment even
+                // though the CTA will read "Sold out".
+                for (var mi = 0; mi < variants.length; mi++) {
+                  if (variants[mi].options[idx] === selection[idx]) {
+                    match = variants[mi];
+                    break;
+                  }
+                }
+              }
               if (match && match.image) swapCardImage(match.image);
             }
             updateAddState();
