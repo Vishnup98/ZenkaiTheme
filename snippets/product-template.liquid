@@ -55,13 +55,15 @@
   #ProductSection-{{ section_id }} {
     --zenkai-page-bg: #f5f5f7;
     --zenkai-surface: #ffffff;
-    --zenkai-surface-alt: #eef0f4;
+    /* FIX-J: unify PDP surfaces on warm cream instead of the old cool blue-gray. */
+    --zenkai-surface-alt: #f3efe8;
     --zenkai-ink: #1a1b2e;
     --zenkai-muted: #6b6f85;
     --zenkai-dark: #1a1b2e;
     --zenkai-dark-hover: #131428;
-    --zenkai-accent: #5966cf;
-    --zenkai-accent-soft: #e8eaf8;
+    /* FIX-J: drop the Shop Pay purple echo; brand accent aligns with navy/orange. */
+    --zenkai-accent: #1a1b2e;
+    --zenkai-accent-soft: #f6f1ea;
     --zenkai-cta: #e85d3a;
     --zenkai-cta-hover: #d14e2d;
     --zenkai-border: rgba(26, 27, 46, 0.1);
@@ -735,7 +737,8 @@
   }
 
   .zenkai-outcome-panel {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 240, 244, 0.9) 100%);
+    /* FIX-J: warm cream gradient replaces the cool blue-gray tail. */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(243, 239, 232, 0.9) 100%);
   }
 
   .zenkai-panel-heading {
