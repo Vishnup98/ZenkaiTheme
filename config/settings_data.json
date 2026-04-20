@@ -260,14 +260,6 @@
       "1543003878234": {
         "type": "featured-collections",
         "blocks": {
-          "1543003878234-0": {
-            "type": "collection",
-            "settings": {
-              "collection": "frontpage",
-              "image": "shopify://shop_images/creative_4.png",
-              "focal_point": "top center"
-            }
-          },
           "1543003878234-3": {
             "type": "collection",
             "settings": {
@@ -293,6 +285,14 @@
             "type": "collection",
             "settings": {
               "collection": "sweatshirts",
+              "focal_point": "top center"
+            }
+          },
+          "1543003878234-0": {
+            "type": "collection",
+            "settings": {
+              "collection": "frontpage",
+              "image": "shopify://shop_images/creative_4.png",
               "focal_point": "top center"
             }
           }
@@ -455,17 +455,6 @@
         "type": "trust-bar",
         "settings": {}
       },
-      "bundle_promo_band_home": {
-        "type": "bundle-promo-band",
-        "settings": {
-          "heading": "Mix any 2+ styles, save up to $20",
-          "subheading": "",
-          "cta_text": "Shop best-sellers",
-          "cta_link": "/collections/best-selling",
-          "bg_color": "#1a1b2e",
-          "text_color": "#ffffff"
-        }
-      },
       "featured_collection_slider_NqdwdL": {
         "type": "featured-collection-slider",
         "settings": {
@@ -563,13 +552,25 @@
           "round_images": false,
           "alt": true
         }
+      },
+      "bundle_promo_band_cLkp4b": {
+        "type": "bundle-promo-band",
+        "name": "Bundle Promo Band",
+        "settings": {
+          "heading": "Mix any 2+ styles, save up to $20",
+          "subheading": "",
+          "cta_text": "Shop best-sellers",
+          "cta_link": "",
+          "bg_color": "#1a1b2e",
+          "text_color": "#ffffff"
+        }
       }
     },
     "content_for_index": [
       "background_image_text_feh6JW",
       "featured_collection_slider_NqdwdL",
       "trust_bar_section",
-      "bundle_promo_band_home",
+      "bundle_promo_band_cLkp4b",
       "testimonials_homepage",
       "featured_collection_slider_XJfWth",
       "1543003878234",
@@ -644,11 +645,6 @@
         "settings": {
           "script_load_mode": "async"
         }
-      },
-      "10840395464443086010": {
-        "type": "shopify://apps/alia/blocks/customer-app-frame/51f1d398-3e41-44da-b81e-defd5804b292",
-        "disabled": false,
-        "settings": {}
       }
     }
   },
