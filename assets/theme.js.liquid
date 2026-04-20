@@ -4084,31 +4084,75 @@ lazySizesConfig.expFactor = 4;
         };
   
         if ($(selectors.variantColorSwatch, this.$container).length) {
+          var self = this;
           $(selectors.variantColorSwatch, this.$container).on('change', function(evt) {
             var $el = $(evt.currentTarget);
             var color = $el.data('color-name');
             var index = $el.data('color-index');
-            this.updateColorName(color, index);
+            self.updateColorName(color, index);
 
-            // When the newly-selected color has no variant at the currently-
-            // selected size, Shopify's resolver returns null and the normal
-            // variantImageChange event never fires — so the image would stay
-            // stale. Fall back to the first variant of this color so the
-            // shopper at least sees the correct garment.
-            var colorOption = 'option' + (index + 1);
+            if (!self.variantsObject) return;
+
+            var colorOptionKey = 'option' + (index + 1);
+
+            // Snapshot every currently-checked option value from the DOM.
+            // The new color's radio is already checked at this point.
+            var currentOptions = {};
+            $(selectors.singleOptionSelector + ':checked', self.$container).each(function() {
+              var $input = $(this);
+              currentOptions[$input.data('index')] = $input.val();
+            });
+            currentOptions[colorOptionKey] = color;
+
+            // If [new color + every other currently-selected option] is an
+            // available variant, let the normal _onSelectChange path run.
+            var hasAvailableMatch = self.variantsObject.some(function(v) {
+              for (var k in currentOptions) {
+                if (v[k] !== currentOptions[k]) return false;
+              }
+              return v.available;
+            });
+            if (hasAvailableMatch) return;
+
+            // Otherwise, find the first AVAILABLE variant of the new color
+            // and pre-swap any non-color option to match it. Triggering change
+            // on the size radio synchronously runs _onSelectChange on the now-
+            // valid combo, which fires variantImageChange and jumps Slick.
             var fallback = null;
-            if (this.variantsObject) {
-              for (var i = 0; i < this.variantsObject.length; i++) {
-                if (this.variantsObject[i][colorOption] === color) {
-                  fallback = this.variantsObject[i];
+            for (var i = 0; i < self.variantsObject.length; i++) {
+              if (self.variantsObject[i][colorOptionKey] === color && self.variantsObject[i].available) {
+                fallback = self.variantsObject[i];
+                break;
+              }
+            }
+
+            if (fallback) {
+              Object.keys(currentOptions).forEach(function(optKey) {
+                if (optKey === colorOptionKey) return;
+                if (fallback[optKey] === currentOptions[optKey]) return;
+                var escapedValue = String(fallback[optKey]).replace(/"/g, '\\"');
+                var $target = $(selectors.singleOptionSelector +
+                  '[data-index="' + optKey + '"][value="' + escapedValue + '"]',
+                  self.$container);
+                if ($target.length && !$target.prop('checked')) {
+                  $target.prop('checked', true).trigger('change');
+                }
+              });
+            } else {
+              // Color is entirely sold out — legacy image-only fallback so
+              // the shopper at least sees the correct garment.
+              var firstOfColor = null;
+              for (var j = 0; j < self.variantsObject.length; j++) {
+                if (self.variantsObject[j][colorOptionKey] === color) {
+                  firstOfColor = self.variantsObject[j];
                   break;
                 }
               }
+              if (firstOfColor && firstOfColor.featured_media) {
+                self.updateVariantImage({ variant: firstOfColor });
+              }
             }
-            if (fallback && fallback.featured_media) {
-              this.updateVariantImage({ variant: fallback });
-            }
-          }.bind(this));
+          });
         }
   
         this.variants = new theme.Variants(options);
