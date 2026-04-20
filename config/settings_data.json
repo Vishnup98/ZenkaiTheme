@@ -31,7 +31,7 @@
     "color_image_overlay_opacity": 10,
     "color_small_image_bg": "#f3efe8",
     "color_large_image_bg": "#1a1b2e",
-    "type_header_font_family": "inter_n6",
+    "type_header_font_family": "space_grotesk_n7",
     "type_header_capitalize": false,
     "type_header_spacing": 25,
     "type_header_base_size": 44,
