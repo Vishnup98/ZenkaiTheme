@@ -1108,32 +1108,34 @@
     }
 
     #ProductSection-{{ section_id }} .product-single__header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
+      display: grid;
+      grid-template-columns: 1fr auto;
       text-align: left !important;
     }
 
+    #ProductSection-{{ section_id }} .product-single__header > * {
+      grid-column: 1 / -1;
+    }
+
     .zenkai-signal-hook {
-      flex: 0 0 100%;
-      order: 1;
       font-size: 0.78rem;
       margin-bottom: 0.2rem;
     }
 
     #ProductSection-{{ section_id }} .product-single__title {
-      flex: 1 1 0%;
-      order: 2;
+      grid-column: 1;
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
-      word-break: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .zenkai-price-band {
-      flex: 0 0 auto;
-      order: 3;
-      margin-top: 0;
+      grid-column: 2;
+      align-self: baseline;
+      margin: 0;
       margin-left: 0.5rem;
       padding: 0;
       border-radius: 0;
@@ -1142,15 +1144,11 @@
     }
 
     .zenkai-hero-proof-row {
-      flex: 0 0 100%;
-      order: 4;
       margin-top: 0.4rem;
       justify-content: flex-start;
     }
 
     .zenkai-type-switcher {
-      flex: 0 0 100%;
-      order: 5;
       text-align: left;
       margin-top: 0.4rem;
     }
@@ -2160,83 +2158,72 @@
   jQuery(function($) {
     var $section = $('#ProductSection-{{ section_id }}');
     if (!$section.length) return;
-    var initialized = false;
 
-    function initMobileThumbs() {
-      if (initialized) return true;
-      var $slider = $section.find('[data-product-photos]');
-      if (!$slider.hasClass('slick-initialized')) return false;
-
-      var $thumbContainer = $section.find('[data-product-thumbs]');
-      if (!$thumbContainer.length) return false;
-      initialized = true;
-
-      function setActive(index) {
-        index = parseInt(index, 10);
-        if (isNaN(index)) return;
-        var $items = $section.find('[data-product-thumb-item]');
-        $items.removeClass('is-active');
-        var $active = $items.filter('[data-index="' + index + '"]');
-        $active.addClass('is-active');
-
-        var container = $thumbContainer[0];
-        if (container.scrollWidth > container.clientWidth && $active.length) {
-          var el = $active[0];
-          var target = el.offsetLeft - (container.clientWidth / 2) + (el.offsetWidth / 2);
-          container.scrollTo({ left: target, behavior: 'smooth' });
-        }
-      }
-
-      function checkCentering() {
-        var el = $thumbContainer[0];
-        el.style.justifyContent = (el.scrollWidth <= el.clientWidth) ? 'center' : 'flex-start';
-      }
-
-      $section.find('[data-product-thumb]').on('click.zenkaiThumb', function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        var idx = parseInt($(this).data('index'), 10);
-        if ($slider.hasClass('slick-initialized')) {
-          $slider.slick('slickGoTo', idx);
-        }
-        setActive(idx);
-      });
-
-      $slider.on('beforeChange', function(e, slick, cur, next) {
-        setActive(next);
-      });
-
-      $slider.on('afterChange', function(e, slick, cur) {
-        setActive(cur);
-      });
-
-      $section.on('variantImageChange', function() {
-        setTimeout(function() {
-          if ($slider.hasClass('slick-initialized')) {
-            setActive($slider.slick('slickCurrentSlide'));
-          }
-        }, 50);
-      });
-
-      checkCentering();
-      window.addEventListener('resize', checkCentering);
-      setActive($slider.slick('slickCurrentSlide'));
+    function getSlider() {
+      return $section.find('[data-product-photos].slick-initialized');
     }
 
-    var sliderEl = $section.find('[data-product-photos]')[0];
-    if (sliderEl) {
-      if (sliderEl.classList.contains('slick-initialized')) {
-        initMobileThumbs();
-      } else {
-        var obs = new MutationObserver(function() {
-          if (sliderEl.classList.contains('slick-initialized')) {
-            obs.disconnect();
-            initMobileThumbs();
-          }
-        });
-        obs.observe(sliderEl, { attributes: true, attributeFilter: ['class'] });
-        setTimeout(function() { obs.disconnect(); }, 10000);
+    function syncThumbs() {
+      var $slider = getSlider();
+      if (!$slider.length) return;
+      var current = $slider.slick('slickCurrentSlide');
+      var $items = $section.find('[data-product-thumb-item]');
+      $items.removeClass('is-active');
+      var $active = $items.filter('[data-index="' + current + '"]');
+      $active.addClass('is-active');
+
+      var $c = $section.find('[data-product-thumbs]');
+      if ($c.length && $c[0].scrollWidth > $c[0].clientWidth && $active.length) {
+        var el = $active[0];
+        var ct = $c[0];
+        ct.scrollTo({ left: el.offsetLeft - (ct.clientWidth / 2) + (el.offsetWidth / 2), behavior: 'smooth' });
       }
     }
+
+    function checkCentering() {
+      var $c = $section.find('[data-product-thumbs]');
+      if (!$c.length) return;
+      var el = $c[0];
+      el.style.justifyContent = (el.scrollWidth <= el.clientWidth) ? 'center' : 'flex-start';
+    }
+
+    $section.on('click', '[data-product-thumb]', function(e) {
+      e.preventDefault();
+      var idx = parseInt($(this).data('index'), 10);
+      var $slider = getSlider();
+      if ($slider.length) {
+        $slider.slick('slickGoTo', idx);
+      }
+      $section.find('[data-product-thumb-item]').removeClass('is-active');
+      $(this).closest('[data-product-thumb-item]').addClass('is-active');
+    });
+
+    var slickBound = false;
+    function bindSlickEvents() {
+      if (slickBound) return;
+      var $slider = getSlider();
+      if (!$slider.length) return;
+      slickBound = true;
+      $slider.on('afterChange.zenkaiSync', function() {
+        syncThumbs();
+      });
+    }
+
+    $section.on('variantImageChange', function() {
+      setTimeout(syncThumbs, 100);
+    });
+
+    var ready = setInterval(function() {
+      var $slider = getSlider();
+      if ($slider.length) {
+        bindSlickEvents();
+        syncThumbs();
+        checkCentering();
+        clearInterval(ready);
+      }
+    }, 150);
+    setTimeout(function() { clearInterval(ready); }, 10000);
+
+    window.addEventListener('resize', checkCentering);
   });
 </script>
