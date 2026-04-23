@@ -1127,10 +1127,7 @@
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      word-break: break-word;
     }
 
     .zenkai-price-band {
@@ -2163,61 +2160,83 @@
   jQuery(function($) {
     var $section = $('#ProductSection-{{ section_id }}');
     if (!$section.length) return;
+    var initialized = false;
 
     function initMobileThumbs() {
+      if (initialized) return true;
       var $slider = $section.find('[data-product-photos]');
       if (!$slider.hasClass('slick-initialized')) return false;
 
-      var $thumbs = $section.find('[data-product-thumb]');
       var $thumbContainer = $section.find('[data-product-thumbs]');
-      if (!$thumbs.length || !$thumbContainer.length) return false;
+      if (!$thumbContainer.length) return false;
+      initialized = true;
 
       function setActive(index) {
+        index = parseInt(index, 10);
+        if (isNaN(index)) return;
         var $items = $section.find('[data-product-thumb-item]');
         $items.removeClass('is-active');
         var $active = $items.filter('[data-index="' + index + '"]');
         $active.addClass('is-active');
 
-        if ($thumbContainer[0].scrollWidth > $thumbContainer[0].clientWidth && $active.length) {
+        var container = $thumbContainer[0];
+        if (container.scrollWidth > container.clientWidth && $active.length) {
           var el = $active[0];
-          var container = $thumbContainer[0];
-          var scrollTarget = el.offsetLeft - (container.clientWidth / 2) + (el.offsetWidth / 2);
-          container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+          var target = el.offsetLeft - (container.clientWidth / 2) + (el.offsetWidth / 2);
+          container.scrollTo({ left: target, behavior: 'smooth' });
         }
       }
 
       function checkCentering() {
         var el = $thumbContainer[0];
-        if (el.scrollWidth <= el.clientWidth) {
-          el.style.justifyContent = 'center';
-        } else {
-          el.style.justifyContent = 'flex-start';
-        }
+        el.style.justifyContent = (el.scrollWidth <= el.clientWidth) ? 'center' : 'flex-start';
       }
 
-      $thumbs.off('click').on('click', function(e) {
+      $section.find('[data-product-thumb]').on('click.zenkaiThumb', function(e) {
         e.preventDefault();
-        var idx = $(this).data('index');
-        $slider.slick('slickGoTo', idx);
+        e.stopImmediatePropagation();
+        var idx = parseInt($(this).data('index'), 10);
+        if ($slider.hasClass('slick-initialized')) {
+          $slider.slick('slickGoTo', idx);
+        }
         setActive(idx);
-        return false;
       });
 
-      $slider.on('beforeChange', function(e, slick, currentSlide, nextSlide) {
-        setActive(nextSlide);
+      $slider.on('beforeChange', function(e, slick, cur, next) {
+        setActive(next);
+      });
+
+      $slider.on('afterChange', function(e, slick, cur) {
+        setActive(cur);
+      });
+
+      $section.on('variantImageChange', function() {
+        setTimeout(function() {
+          if ($slider.hasClass('slick-initialized')) {
+            setActive($slider.slick('slickCurrentSlide'));
+          }
+        }, 50);
       });
 
       checkCentering();
       window.addEventListener('resize', checkCentering);
-      setActive(0);
-      return true;
+      setActive($slider.slick('slickCurrentSlide'));
     }
 
-    if (!initMobileThumbs()) {
-      var poll = setInterval(function() {
-        if (initMobileThumbs()) clearInterval(poll);
-      }, 100);
-      setTimeout(function() { clearInterval(poll); }, 8000);
+    var sliderEl = $section.find('[data-product-photos]')[0];
+    if (sliderEl) {
+      if (sliderEl.classList.contains('slick-initialized')) {
+        initMobileThumbs();
+      } else {
+        var obs = new MutationObserver(function() {
+          if (sliderEl.classList.contains('slick-initialized')) {
+            obs.disconnect();
+            initMobileThumbs();
+          }
+        });
+        obs.observe(sliderEl, { attributes: true, attributeFilter: ['class'] });
+        setTimeout(function() { obs.disconnect(); }, 10000);
+      }
     }
   });
 </script>
