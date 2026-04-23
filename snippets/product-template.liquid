@@ -1127,6 +1127,10 @@
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     #ProductSection-{{ section_id }} .zenkai-price-band {
@@ -2184,29 +2188,26 @@
       el.style.justifyContent = (el.scrollWidth <= el.clientWidth) ? 'center' : 'flex-start';
     }
 
-    var sectionEl = $section[0];
-    document.addEventListener('click', function(e) {
-      var thumb = e.target.closest('[data-product-thumb]');
-      if (!thumb || !sectionEl.contains(thumb)) return;
-      e.preventDefault();
-      e.stopPropagation();
-      var idx = parseInt(thumb.dataset.index, 10);
-      var $slider = getSlider();
-      if ($slider.length) {
-        $slider.slick('slickGoTo', idx);
-      }
-      var items = sectionEl.querySelectorAll('[data-product-thumb-item]');
-      for (var i = 0; i < items.length; i++) {
-        items[i].classList.toggle('is-active', parseInt(items[i].dataset.index, 10) === idx);
-      }
-    }, true);
-
-    var slickBound = false;
-    function bindSlickEvents() {
-      if (slickBound) return;
+    var thumbsBound = false;
+    function bindThumbs() {
+      if (thumbsBound) return;
       var $slider = getSlider();
       if (!$slider.length) return;
-      slickBound = true;
+      thumbsBound = true;
+
+      var thumbEls = $section[0].querySelectorAll('[data-product-thumb]');
+      for (var i = 0; i < thumbEls.length; i++) {
+        (function(thumb) {
+          thumb.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var idx = parseInt(thumb.getAttribute('data-index'), 10);
+            $slider.slick('slickGoTo', idx);
+            setTimeout(syncThumbs, 50);
+          });
+        })(thumbEls[i]);
+      }
+
       $slider.on('afterChange.zenkaiSync', function() {
         syncThumbs();
       });
@@ -2217,14 +2218,13 @@
     });
 
     var ready = setInterval(function() {
-      var $slider = getSlider();
-      if ($slider.length) {
-        bindSlickEvents();
+      if (getSlider().length) {
+        bindThumbs();
         syncThumbs();
         checkCentering();
         clearInterval(ready);
       }
-    }, 150);
+    }, 100);
     setTimeout(function() { clearInterval(ready); }, 10000);
 
     window.addEventListener('resize', checkCentering);
