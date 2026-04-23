@@ -1127,10 +1127,8 @@
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      line-height: 1.15 !important;
+      word-break: break-word;
     }
 
     #ProductSection-{{ section_id }} .zenkai-price-band {
@@ -2198,23 +2196,43 @@
       var thumbEls = $section[0].querySelectorAll('[data-product-thumb]');
       for (var i = 0; i < thumbEls.length; i++) {
         (function(thumb) {
+          var startX, startY;
+          thumb.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          }, { passive: true });
+
+          thumb.addEventListener('touchend', function(e) {
+            var t = e.changedTouches[0];
+            if (Math.abs(t.clientX - startX) > 10 || Math.abs(t.clientY - startY) > 10) return;
+            e.preventDefault();
+            var idx = parseInt(thumb.getAttribute('data-index'), 10);
+            var $s = getSlider();
+            if ($s.length) $s.slick('slickGoTo', idx);
+            setTimeout(syncThumbs, 50);
+          }, { passive: false });
+
           thumb.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
             var idx = parseInt(thumb.getAttribute('data-index'), 10);
-            $slider.slick('slickGoTo', idx);
+            var $s = getSlider();
+            if ($s.length) $s.slick('slickGoTo', idx);
             setTimeout(syncThumbs, 50);
           });
         })(thumbEls[i]);
       }
 
+      $slider.on('beforeChange.zenkaiSync', function(e, slick, cur, next) {
+        syncThumbs();
+      });
       $slider.on('afterChange.zenkaiSync', function() {
         syncThumbs();
       });
     }
 
-    $section.on('variantImageChange', function() {
-      setTimeout(syncThumbs, 100);
+    $section.on('variantChange variantImageChange', function() {
+      setTimeout(syncThumbs, 150);
     });
 
     var ready = setInterval(function() {
@@ -2228,5 +2246,19 @@
     setTimeout(function() { clearInterval(ready); }, 10000);
 
     window.addEventListener('resize', checkCentering);
+
+    if (window.innerWidth < 768) {
+      var title = $section.find('.product-single__title')[0];
+      if (title) {
+        var size = 1.45;
+        var lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
+        var maxLines = 2;
+        while (title.scrollHeight > lineH * maxLines + 2 && size > 0.9) {
+          size -= 0.05;
+          title.style.fontSize = size + 'rem';
+          lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
+        }
+      }
+    }
   });
 </script>
