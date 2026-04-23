@@ -2193,6 +2193,12 @@
       if (!$slider.length) return;
       thumbsBound = true;
 
+      var dbg = document.createElement('div');
+      dbg.id = 'zenkai-dbg';
+      dbg.style.cssText = 'position:fixed;bottom:70px;left:8px;z-index:9999;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.3 monospace;pointer-events:none;max-width:200px;';
+      dbg.textContent = 'BOUND: ' + $section[0].querySelectorAll('[data-product-thumb]').length + ' thumbs';
+      document.body.appendChild(dbg);
+
       var thumbEls = $section[0].querySelectorAll('[data-product-thumb]');
       for (var i = 0; i < thumbEls.length; i++) {
         (function(thumb) {
@@ -2208,6 +2214,8 @@
             e.preventDefault();
             var idx = parseInt(thumb.getAttribute('data-index'), 10);
             var $s = getSlider();
+            dbg.textContent = 'TOUCH idx:' + idx + ' slider:' + ($s.length ? 'yes' : 'NO');
+            dbg.style.color = $s.length ? '#0ff' : '#f00';
             if ($s.length) $s.slick('slickGoTo', idx);
             setTimeout(syncThumbs, 50);
           }, { passive: false });
@@ -2217,6 +2225,8 @@
             e.stopImmediatePropagation();
             var idx = parseInt(thumb.getAttribute('data-index'), 10);
             var $s = getSlider();
+            dbg.textContent = 'CLICK idx:' + idx + ' slider:' + ($s.length ? 'yes' : 'NO');
+            dbg.style.color = $s.length ? '#ff0' : '#f00';
             if ($s.length) $s.slick('slickGoTo', idx);
             setTimeout(syncThumbs, 50);
           });
@@ -2224,14 +2234,18 @@
       }
 
       $slider.on('beforeChange.zenkaiSync', function(e, slick, cur, next) {
+        dbg.textContent = 'BEFORE ' + cur + '→' + next;
         syncThumbs();
       });
-      $slider.on('afterChange.zenkaiSync', function() {
+      $slider.on('afterChange.zenkaiSync', function(e, slick, cur) {
+        dbg.textContent = 'AFTER slide:' + cur;
         syncThumbs();
       });
     }
 
-    $section.on('variantChange variantImageChange', function() {
+    $section.on('variantChange variantImageChange', function(e) {
+      var d = document.getElementById('zenkai-dbg');
+      if (d) { d.textContent = 'EVENT: ' + e.type; d.style.color = '#f0f'; }
       setTimeout(syncThumbs, 150);
     });
 
