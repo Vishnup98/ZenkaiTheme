@@ -1053,7 +1053,15 @@
       margin-top: -4.5rem;
       position: relative;
       z-index: 2;
-      padding: 0 0.5rem;
+      padding: 0 1rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+    }
+
+    #ProductSection-{{ section_id }} .product__thumbs::-webkit-scrollbar {
+      display: none;
     }
 
     #ProductSection-{{ section_id }} .product__thumbs .product__thumb-item {
@@ -1114,7 +1122,7 @@
     }
 
     #ProductSection-{{ section_id }} .product-single__title {
-      flex: 1 1 auto;
+      flex: 1 1 0;
       order: 2;
       min-width: 0;
       font-size: 1.45rem !important;
@@ -2133,35 +2141,40 @@
 </script>
 
 <script>
-  (function() {
-    var section = document.getElementById('ProductSection-{{ section_id }}');
-    if (!section || !window.jQuery) return;
+  jQuery(function($) {
+    var $section = $('#ProductSection-{{ section_id }}');
+    if (!$section.length) return;
 
-    var $mainSlider = jQuery('[data-product-photos]', section);
-    var thumbItems = section.querySelectorAll('[data-product-thumb-item]');
-    if (!thumbItems.length) return;
+    function initMobileThumbs() {
+      var $slider = $section.find('[data-product-photos]');
+      if (!$slider.hasClass('slick-initialized')) return false;
 
-    function setActive(index) {
-      Array.prototype.forEach.call(thumbItems, function(item) {
-        item.classList.toggle('is-active', parseInt(item.getAttribute('data-index'), 10) === index);
+      var $thumbs = $section.find('[data-product-thumb]');
+      if (!$thumbs.length) return false;
+
+      $thumbs.off('click').on('click', function(e) {
+        e.preventDefault();
+        var idx = $(this).data('index');
+        $slider.slick('slickGoTo', idx);
+        $section.find('[data-product-thumb-item]').removeClass('is-active');
+        $(this).closest('[data-product-thumb-item]').addClass('is-active');
+        return false;
       });
+
+      $slider.on('afterChange', function(e, slick, slide) {
+        $section.find('[data-product-thumb-item]').removeClass('is-active');
+        $section.find('[data-product-thumb-item][data-index="' + slide + '"]').addClass('is-active');
+      });
+
+      $section.find('[data-product-thumb-item][data-index="0"]').addClass('is-active');
+      return true;
     }
 
-    setActive(0);
-
-    Array.prototype.forEach.call(section.querySelectorAll('[data-product-thumb]'), function(thumb) {
-      thumb.addEventListener('click', function(e) {
-        e.preventDefault();
-        var index = parseInt(thumb.getAttribute('data-index'), 10);
-        if ($mainSlider.hasClass('slick-initialized')) {
-          $mainSlider.slick('slickGoTo', index);
-        }
-        setActive(index);
-      });
-    });
-
-    $mainSlider.on('afterChange', function(event, slick, currentSlide) {
-      setActive(currentSlide);
-    });
-  })();
+    if (!initMobileThumbs()) {
+      var poll = setInterval(function() {
+        if (initMobileThumbs()) clearInterval(poll);
+      }, 200);
+      setTimeout(function() { clearInterval(poll); }, 8000);
+    }
+  });
 </script>
