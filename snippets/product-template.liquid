@@ -1048,7 +1048,7 @@
 
     #ProductSection-{{ section_id }} .product__thumbs {
       display: flex !important;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 0.4rem;
       margin-top: -4.5rem;
       position: relative;
@@ -1122,14 +1122,11 @@
     }
 
     #ProductSection-{{ section_id }} .product-single__title {
-      flex: 1 1 0;
+      flex: 1 1 0%;
       order: 2;
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .zenkai-price-band {
@@ -2168,23 +2165,56 @@
       if (!$slider.hasClass('slick-initialized')) return false;
 
       var $thumbs = $section.find('[data-product-thumb]');
-      if (!$thumbs.length) return false;
+      var $thumbContainer = $section.find('[data-product-thumbs]');
+      if (!$thumbs.length || !$thumbContainer.length) return false;
+
+      function setActive(index) {
+        var $items = $section.find('[data-product-thumb-item]');
+        $items.removeClass('is-active');
+        var $active = $items.filter('[data-index="' + index + '"]');
+        $active.addClass('is-active');
+
+        if ($thumbContainer[0].scrollWidth > $thumbContainer[0].clientWidth && $active.length) {
+          var el = $active[0];
+          var container = $thumbContainer[0];
+          var scrollTarget = el.offsetLeft - (container.clientWidth / 2) + (el.offsetWidth / 2);
+          container.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+        }
+      }
+
+      function checkCentering() {
+        var el = $thumbContainer[0];
+        if (el.scrollWidth <= el.clientWidth) {
+          el.style.justifyContent = 'center';
+        } else {
+          el.style.justifyContent = 'flex-start';
+        }
+      }
 
       $thumbs.off('click').on('click', function(e) {
         e.preventDefault();
         var idx = $(this).data('index');
         $slider.slick('slickGoTo', idx);
-        $section.find('[data-product-thumb-item]').removeClass('is-active');
-        $(this).closest('[data-product-thumb-item]').addClass('is-active');
+        setActive(idx);
         return false;
       });
 
       $slider.on('afterChange', function(e, slick, slide) {
-        $section.find('[data-product-thumb-item]').removeClass('is-active');
-        $section.find('[data-product-thumb-item][data-index="' + slide + '"]').addClass('is-active');
+        setActive(slide);
       });
 
-      $section.find('[data-product-thumb-item][data-index="0"]').addClass('is-active');
+      $section.find('[data-variant-input]').on('change', function() {
+        setTimeout(function() {
+          if ($slider.hasClass('slick-initialized')) {
+            var current = $slider.slick('slickCurrentSlide');
+            setActive(current);
+          }
+        }, 150);
+      });
+
+      checkCentering();
+      window.addEventListener('resize', checkCentering);
+      setActive(0);
       return true;
     }
 
