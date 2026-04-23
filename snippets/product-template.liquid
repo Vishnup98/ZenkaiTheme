@@ -26,6 +26,34 @@
 {%- assign zenkai_show_social_proof_panel = false -%}
 {%- assign zenkai_ugc_heading = product_ugc_heading | default: 'Spotted in the wild' -%}
 
+{%- assign zenkai_ptype = product.type | downcase -%}
+{%- assign zenkai_ptitle = product.title | downcase -%}
+{%- if zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
+  {%- assign zenkai_product_category = 'cap' -%}
+{%- elsif zenkai_ptype contains 'hoodie' or zenkai_ptype contains 'sweatshirt' or zenkai_ptitle contains 'hoodie' -%}
+  {%- assign zenkai_product_category = 'hoodie' -%}
+{%- else -%}
+  {%- assign zenkai_product_category = 'tee' -%}
+{%- endif -%}
+
+{%- case zenkai_product_category -%}
+  {%- when 'cap' -%}
+    {%- assign zenkai_type_benefit = 'Structured dad cap — clean profile, every angle' -%}
+    {%- assign zenkai_type_trust = 'Structured fit · Clean embroidered detail' -%}
+    {%- assign zenkai_type_fit = 'One size fits most · Adjustable strap closure' -%}
+    {%- assign zenkai_type_production = 'Made to order in the USA — just for you' -%}
+  {%- when 'hoodie' -%}
+    {%- assign zenkai_type_benefit = 'Premium heavyweight fleece — built to layer or stand alone' -%}
+    {%- assign zenkai_type_trust = 'Premium heavyweight fleece · Not thin, not boxy' -%}
+    {%- assign zenkai_type_fit = 'Runs true to size · Retail fit, not boxy' -%}
+    {%- assign zenkai_type_production = zenkai_outcome_3 -%}
+  {%- else -%}
+    {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
+    {%- assign zenkai_type_trust = 'Premium ring-spun cotton · Not thin, not boxy' -%}
+    {%- assign zenkai_type_fit = 'Runs true to size · Retail fit, not boxy' -%}
+    {%- assign zenkai_type_production = zenkai_outcome_3 -%}
+{%- endcase -%}
+
 {% if product.has_only_default_variant or zenkai_current_variant_label == 'Default Title' %}
   {%- assign zenkai_current_variant_label = 'Ready to order' -%}
 {% endif %}

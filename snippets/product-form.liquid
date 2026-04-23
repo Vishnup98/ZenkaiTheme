@@ -46,7 +46,7 @@
     {%- assign enable_dynamic_buttons = true -%}
   {% endif %}
 
-  <p class="zenkai-fit-note">Runs true to size · Retail fit, not boxy</p>
+  <p class="zenkai-fit-note">{{ zenkai_type_fit }}</p>
 
   {% if zenkai_primary_proof_quote != blank %}
     <div class="zenkai-proof-nudge" aria-label="Customer review">
@@ -67,7 +67,7 @@
       </span>
       <span class="zenkai-trust-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        Premium ring-spun cotton · Not thin, not boxy
+        {{ zenkai_type_trust }}
       </span>
     </div>
     <button
@@ -111,11 +111,11 @@
   <div class="zenkai-compact-benefits">
     <span class="zenkai-compact-benefit">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      {{ zenkai_outcome_1 }}
+      {{ zenkai_type_benefit }}
     </span>
     <span class="zenkai-compact-benefit">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      {{ zenkai_outcome_3 }}
+      {{ zenkai_type_production }}
     </span>
   </div>
 
