@@ -1029,6 +1029,7 @@
 
     #ProductSection-{{ section_id }} .product__photos--beside {
       display: block;
+      position: relative;
     }
 
     #ProductSection-{{ section_id }} .product__main-photos-wrapper {
@@ -1050,9 +1051,11 @@
       display: flex !important;
       justify-content: flex-start;
       gap: 0.4rem;
-      margin-top: -4.5rem;
-      position: relative;
-      z-index: 2;
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0;
+      right: 0;
+      z-index: 10;
       padding: 0 1rem;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
