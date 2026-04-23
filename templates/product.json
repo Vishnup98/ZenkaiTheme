@@ -12,12 +12,20 @@
     "main": {
       "type": "product-template",
       "blocks": {
+        "ugc_photo_PWkNtN": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sandshrew_shirt_UGC.png",
+            "caption": ""
+          }
+        },
         "judge_me_reviews_preview_badge_6qQQcm": {
           "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },
       "block_order": [
+        "ugc_photo_PWkNtN",
         "judge_me_reviews_preview_badge_6qQQcm"
       ],
       "settings": {
@@ -55,7 +63,8 @@
         "quantity_enable": false,
         "mobile_sticky_atc_enable": true,
         "show_dynamic_checkout_secondary": false,
-        "social_enable": false
+        "social_enable": false,
+        "product_ugc_heading": "Spotted in the wild"
       }
     },
     "product-sections": {
