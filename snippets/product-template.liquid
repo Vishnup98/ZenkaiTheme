@@ -2188,24 +2188,25 @@
           e.preventDefault();
           e.stopImmediatePropagation();
           var idx = parseInt(thumbs[i].getAttribute('data-index'), 10);
-          var $s = jQuery('[data-product-photos].slick-initialized');
-          if ($s.length) $s.slick('slickGoTo', idx);
+          if (typeof jQuery !== 'undefined') {
+            var $s = jQuery('[data-product-photos].slick-initialized');
+            if ($s.length) $s.slick('slickGoTo', idx);
+          }
           return;
         }
       }
     }, { capture: true, passive: false });
-  })();
-
-  jQuery(function() {
-    if (window.innerWidth >= 768) return;
 
     setInterval(function() {
+      if (typeof jQuery === 'undefined') return;
       var $slider = jQuery('[data-product-photos].slick-initialized');
       if (!$slider.length) return;
       var current = $slider.slick('slickCurrentSlide');
-      jQuery('[data-product-thumb-item]').each(function() {
-        jQuery(this).toggleClass('is-active', parseInt(jQuery(this).data('index'), 10) === current);
-      });
+      var items = document.querySelectorAll('[data-product-thumb-item]');
+      for (var i = 0; i < items.length; i++) {
+        var isActive = parseInt(items[i].getAttribute('data-index'), 10) === current;
+        items[i].classList.toggle('is-active', isActive);
+      }
       var c = document.querySelector('[data-product-thumbs]');
       var a = document.querySelector('[data-product-thumb-item].is-active');
       if (c && a && c.scrollWidth > c.clientWidth) {
@@ -2214,15 +2215,17 @@
       if (c) c.style.justifyContent = (c.scrollWidth <= c.clientWidth) ? 'center' : 'flex-start';
     }, 500);
 
-    var title = document.querySelector('.product-single__title');
-    if (title) {
-      var size = 1.45;
-      var lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
-      while (title.scrollHeight > lineH * 2 + 2 && size > 0.9) {
-        size -= 0.05;
-        title.style.fontSize = size + 'rem';
-        lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
+    setTimeout(function() {
+      var title = document.querySelector('.product-single__title');
+      if (title) {
+        var size = 1.45;
+        var lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
+        while (title.scrollHeight > lineH * 2 + 2 && size > 0.9) {
+          size -= 0.05;
+          title.style.fontSize = size + 'rem';
+          lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
+        }
       }
-    }
-  });
+    }, 500);
+  })();
 </script>
