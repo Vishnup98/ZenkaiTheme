@@ -1127,9 +1127,6 @@
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
     #ProductSection-{{ section_id }} .zenkai-price-band {
@@ -2187,16 +2184,22 @@
       el.style.justifyContent = (el.scrollWidth <= el.clientWidth) ? 'center' : 'flex-start';
     }
 
-    $section.on('click', '[data-product-thumb]', function(e) {
+    var sectionEl = $section[0];
+    document.addEventListener('click', function(e) {
+      var thumb = e.target.closest('[data-product-thumb]');
+      if (!thumb || !sectionEl.contains(thumb)) return;
       e.preventDefault();
-      var idx = parseInt($(this).data('index'), 10);
+      e.stopPropagation();
+      var idx = parseInt(thumb.dataset.index, 10);
       var $slider = getSlider();
       if ($slider.length) {
         $slider.slick('slickGoTo', idx);
       }
-      $section.find('[data-product-thumb-item]').removeClass('is-active');
-      $(this).closest('[data-product-thumb-item]').addClass('is-active');
-    });
+      var items = sectionEl.querySelectorAll('[data-product-thumb-item]');
+      for (var i = 0; i < items.length; i++) {
+        items[i].classList.toggle('is-active', parseInt(items[i].dataset.index, 10) === idx);
+      }
+    }, true);
 
     var slickBound = false;
     function bindSlickEvents() {
