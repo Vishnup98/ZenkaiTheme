@@ -48,13 +48,6 @@
 
   <p class="zenkai-fit-note">{{ zenkai_type_fit }}</p>
 
-  {% if zenkai_primary_proof_quote != blank %}
-    <div class="zenkai-proof-nudge" aria-label="Customer review">
-      <span class="zenkai-proof-nudge__quote">"{{ zenkai_primary_proof_quote }}"</span>
-      <span class="zenkai-proof-nudge__attr">— {{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
-    </div>
-  {% endif %}
-
   {% if product_show_review_summary_first %}
     <div class="zenkai-review-badge zenkai-review-badge--cta" data-zenkai-review-clone="cta"></div>
   {% endif %}
@@ -107,6 +100,13 @@
     </svg>
     <span class="zenkai-shipping-badge__text">Free shipping on every order</span>
   </div>
+
+  {% if zenkai_primary_proof_quote != blank %}
+    <div class="zenkai-proof-nudge" aria-label="Customer review">
+      <span class="zenkai-proof-nudge__quote">"{{ zenkai_primary_proof_quote }}"</span>
+      <span class="zenkai-proof-nudge__attr">— {{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
+    </div>
+  {% endif %}
 
   <div class="zenkai-compact-benefits">
     <span class="zenkai-compact-benefit">
