@@ -1080,6 +1080,13 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
       overflow: hidden;
       position: relative;
+      pointer-events: auto !important;
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+
+    #ProductSection-{{ section_id }} .product__thumbs .product__thumb * {
+      pointer-events: none;
     }
 
     .zenkai-secondary-checkout .shopify-payment-button__more-options {
@@ -2157,16 +2164,26 @@
 </script>
 
 <script>
-  jQuery(document).on('click', '[data-product-thumb]', function(e) {
-    if (window.innerWidth >= 768) return;
-    e.preventDefault();
-    var idx = parseInt(jQuery(this).data('index'), 10);
-    var $slider = jQuery('[data-product-photos].slick-initialized');
-    if ($slider.length) $slider.slick('slickGoTo', idx);
-  });
-
   jQuery(function() {
     if (window.innerWidth >= 768) return;
+
+    function bindThumbClicks() {
+      var $thumbs = jQuery('[data-product-thumb]');
+      var $slider = jQuery('[data-product-photos].slick-initialized');
+      if (!$thumbs.length || !$slider.length) return false;
+      $thumbs.off('click focus').on('click', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var idx = parseInt(jQuery(this).data('index'), 10);
+        jQuery('[data-product-photos].slick-initialized').slick('slickGoTo', idx);
+      });
+      return true;
+    }
+
+    var attempts = 0;
+    var bindPoll = setInterval(function() {
+      if (bindThumbClicks() || ++attempts > 50) clearInterval(bindPoll);
+    }, 200);
 
     setInterval(function() {
       var $slider = jQuery('[data-product-photos].slick-initialized');
