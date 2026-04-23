@@ -1056,7 +1056,7 @@
       justify-content: flex-start;
       gap: 0.4rem;
       position: absolute !important;
-      bottom: 0.5rem !important;
+      bottom: -33px !important;
       left: 0 !important;
       right: 0 !important;
       z-index: 99 !important;
@@ -1099,8 +1099,8 @@
 
     #ProductSection-{{ section_id }} .product__thumbs .thumb--current .product__thumb,
     #ProductSection-{{ section_id }} .product__thumbs .product__thumb-item.is-active .product__thumb {
-      border-color: var(--zenkai-accent);
-      box-shadow: 0 2px 8px rgba(89, 102, 207, 0.35);
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px var(--zenkai-accent), 0 2px 10px rgba(89, 102, 207, 0.4);
     }
 
     #ProductSection-{{ section_id }} .product__thumbs .product__thumb img {
