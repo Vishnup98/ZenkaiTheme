@@ -2154,125 +2154,73 @@
 </script>
 
 <script>
-  jQuery(function($) {
-    var $section = $('#ProductSection-{{ section_id }}');
-    if (!$section.length) return;
+  (function() {
+    if (window.innerWidth >= 768) return;
 
-    function getSlider() {
-      return $section.find('[data-product-photos].slick-initialized');
-    }
+    var section = document.querySelector('.product-section');
+    if (!section) return;
 
     function syncThumbs() {
-      var $slider = getSlider();
-      if (!$slider.length) return;
-      var current = $slider.slick('slickCurrentSlide');
-      var $items = $section.find('[data-product-thumb-item]');
-      $items.removeClass('is-active');
-      var $active = $items.filter('[data-index="' + current + '"]');
-      $active.addClass('is-active');
-
-      var $c = $section.find('[data-product-thumbs]');
-      if ($c.length && $c[0].scrollWidth > $c[0].clientWidth && $active.length) {
-        var el = $active[0];
-        var ct = $c[0];
-        ct.scrollTo({ left: el.offsetLeft - (ct.clientWidth / 2) + (el.offsetWidth / 2), behavior: 'smooth' });
+      var slider = section.querySelector('[data-product-photos]');
+      if (!slider || !jQuery(slider).hasClass('slick-initialized')) return;
+      var current = jQuery(slider).slick('slickCurrentSlide');
+      var items = section.querySelectorAll('[data-product-thumb-item]');
+      for (var i = 0; i < items.length; i++) {
+        items[i].classList.toggle('is-active', parseInt(items[i].getAttribute('data-index'), 10) === current);
+      }
+      var container = section.querySelector('[data-product-thumbs]');
+      var active = section.querySelector('[data-product-thumb-item].is-active');
+      if (container && active && container.scrollWidth > container.clientWidth) {
+        container.scrollTo({ left: active.offsetLeft - (container.clientWidth / 2) + (active.offsetWidth / 2), behavior: 'smooth' });
       }
     }
 
     function checkCentering() {
-      var $c = $section.find('[data-product-thumbs]');
-      if (!$c.length) return;
-      var el = $c[0];
-      el.style.justifyContent = (el.scrollWidth <= el.clientWidth) ? 'center' : 'flex-start';
+      var c = section.querySelector('[data-product-thumbs]');
+      if (c) c.style.justifyContent = (c.scrollWidth <= c.clientWidth) ? 'center' : 'flex-start';
     }
 
-    var thumbsBound = false;
-    function bindThumbs() {
-      if (thumbsBound) return;
-      var $slider = getSlider();
-      if (!$slider.length) return;
-      thumbsBound = true;
-
-      var dbg = document.createElement('div');
-      dbg.id = 'zenkai-dbg';
-      dbg.style.cssText = 'position:fixed;bottom:70px;left:8px;z-index:9999;padding:4px 8px;border-radius:6px;background:rgba(0,0,0,0.85);color:#0f0;font:11px/1.3 monospace;pointer-events:none;max-width:200px;';
-      dbg.textContent = 'BOUND: ' + $section[0].querySelectorAll('[data-product-thumb]').length + ' thumbs';
-      document.body.appendChild(dbg);
-
-      var thumbEls = $section[0].querySelectorAll('[data-product-thumb]');
-      for (var i = 0; i < thumbEls.length; i++) {
-        (function(thumb) {
-          var startX, startY;
-          thumb.addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-          }, { passive: true });
-
-          thumb.addEventListener('touchend', function(e) {
-            var t = e.changedTouches[0];
-            if (Math.abs(t.clientX - startX) > 10 || Math.abs(t.clientY - startY) > 10) return;
-            e.preventDefault();
-            var idx = parseInt(thumb.getAttribute('data-index'), 10);
-            var $s = getSlider();
-            dbg.textContent = 'TOUCH idx:' + idx + ' slider:' + ($s.length ? 'yes' : 'NO');
-            dbg.style.color = $s.length ? '#0ff' : '#f00';
-            if ($s.length) $s.slick('slickGoTo', idx);
-            setTimeout(syncThumbs, 50);
-          }, { passive: false });
-
-          thumb.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            var idx = parseInt(thumb.getAttribute('data-index'), 10);
-            var $s = getSlider();
-            dbg.textContent = 'CLICK idx:' + idx + ' slider:' + ($s.length ? 'yes' : 'NO');
-            dbg.style.color = $s.length ? '#ff0' : '#f00';
-            if ($s.length) $s.slick('slickGoTo', idx);
-            setTimeout(syncThumbs, 50);
-          });
-        })(thumbEls[i]);
-      }
-
-      $slider.on('beforeChange.zenkaiSync', function(e, slick, cur, next) {
-        dbg.textContent = 'BEFORE ' + cur + '→' + next;
-        syncThumbs();
-      });
-      $slider.on('afterChange.zenkaiSync', function(e, slick, cur) {
-        dbg.textContent = 'AFTER slide:' + cur;
-        syncThumbs();
-      });
-    }
-
-    $section.on('variantChange variantImageChange', function(e) {
-      var d = document.getElementById('zenkai-dbg');
-      if (d) { d.textContent = 'EVENT: ' + e.type; d.style.color = '#f0f'; }
-      setTimeout(syncThumbs, 150);
+    jQuery(document).on('click.zenkaiThumb', '[data-product-thumb]', function(e) {
+      e.preventDefault();
+      var slider = section.querySelector('[data-product-photos]');
+      if (!slider || !jQuery(slider).hasClass('slick-initialized')) return;
+      var idx = parseInt(jQuery(this).data('index'), 10);
+      jQuery(slider).slick('slickGoTo', idx);
+      setTimeout(syncThumbs, 100);
     });
 
-    var ready = setInterval(function() {
-      if (getSlider().length) {
-        bindThumbs();
+    var observer = new MutationObserver(function() {
+      syncThumbs();
+    });
+    var photos = section.querySelector('[data-product-photos]');
+    if (photos) {
+      observer.observe(photos, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    }
+
+    var initDone = false;
+    var readyCheck = setInterval(function() {
+      if (initDone) return;
+      var slider = section.querySelector('[data-product-photos]');
+      if (slider && jQuery(slider).hasClass('slick-initialized')) {
+        initDone = true;
+        clearInterval(readyCheck);
         syncThumbs();
         checkCentering();
-        clearInterval(ready);
       }
     }, 100);
-    setTimeout(function() { clearInterval(ready); }, 10000);
+    setTimeout(function() { clearInterval(readyCheck); }, 10000);
 
     window.addEventListener('resize', checkCentering);
 
-    if (window.innerWidth < 768) {
-      var title = $section.find('.product-single__title')[0];
-      if (title) {
-        var size = 1.45;
-        var lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
-        var maxLines = 2;
-        while (title.scrollHeight > lineH * maxLines + 2 && size > 0.9) {
-          size -= 0.05;
-          title.style.fontSize = size + 'rem';
-          lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
-        }
+    var title = section.querySelector('.product-single__title');
+    if (title) {
+      var size = 1.45;
+      var lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
+      while (title.scrollHeight > lineH * 2 + 2 && size > 0.9) {
+        size -= 0.05;
+        title.style.fontSize = size + 'rem';
+        lineH = parseFloat(getComputedStyle(title).lineHeight) || (size * 16 * 1.15);
       }
     }
-  });
+  })();
 </script>
