@@ -2168,26 +2168,36 @@
 </script>
 
 <script>
-  jQuery(function() {
+  (function() {
     if (window.innerWidth >= 768) return;
 
-    function bindThumbClicks() {
-      var $thumbs = jQuery('[data-product-thumb]');
-      var $slider = jQuery('[data-product-photos].slick-initialized');
-      if (!$thumbs.length || !$slider.length) return false;
-      $thumbs.off('click focus').on('click', function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        var idx = parseInt(jQuery(this).data('index'), 10);
-        jQuery('[data-product-photos].slick-initialized').slick('slickGoTo', idx);
-      });
-      return true;
-    }
+    var startX, startY;
+    document.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { capture: true, passive: true });
 
-    var attempts = 0;
-    var bindPoll = setInterval(function() {
-      if (bindThumbClicks() || ++attempts > 50) clearInterval(bindPoll);
-    }, 200);
+    document.addEventListener('touchend', function(e) {
+      var touch = e.changedTouches[0];
+      if (Math.abs(touch.clientX - startX) > 10 || Math.abs(touch.clientY - startY) > 10) return;
+      var thumbs = document.querySelectorAll('[data-product-thumb]');
+      for (var i = 0; i < thumbs.length; i++) {
+        var r = thumbs[i].getBoundingClientRect();
+        if (touch.clientX >= r.left && touch.clientX <= r.right &&
+            touch.clientY >= r.top && touch.clientY <= r.bottom) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          var idx = parseInt(thumbs[i].getAttribute('data-index'), 10);
+          var $s = jQuery('[data-product-photos].slick-initialized');
+          if ($s.length) $s.slick('slickGoTo', idx);
+          return;
+        }
+      }
+    }, { capture: true, passive: false });
+  })();
+
+  jQuery(function() {
+    if (window.innerWidth >= 768) return;
 
     setInterval(function() {
       var $slider = jQuery('[data-product-photos].slick-initialized');
