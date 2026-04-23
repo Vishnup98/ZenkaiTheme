@@ -2131,3 +2131,37 @@
     });
   })();
 </script>
+
+<script>
+  (function() {
+    var section = document.getElementById('ProductSection-{{ section_id }}');
+    if (!section || !window.jQuery) return;
+
+    var $mainSlider = jQuery('[data-product-photos]', section);
+    var thumbItems = section.querySelectorAll('[data-product-thumb-item]');
+    if (!thumbItems.length) return;
+
+    function setActive(index) {
+      Array.prototype.forEach.call(thumbItems, function(item) {
+        item.classList.toggle('is-active', parseInt(item.getAttribute('data-index'), 10) === index);
+      });
+    }
+
+    setActive(0);
+
+    Array.prototype.forEach.call(section.querySelectorAll('[data-product-thumb]'), function(thumb) {
+      thumb.addEventListener('click', function(e) {
+        e.preventDefault();
+        var index = parseInt(thumb.getAttribute('data-index'), 10);
+        if ($mainSlider.hasClass('slick-initialized')) {
+          $mainSlider.slick('slickGoTo', index);
+        }
+        setActive(index);
+      });
+    });
+
+    $mainSlider.on('afterChange', function(event, slick, currentSlide) {
+      setActive(currentSlide);
+    });
+  })();
+</script>
