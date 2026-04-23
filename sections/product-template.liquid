@@ -35,7 +35,8 @@
   show_dynamic_checkout_secondary: section.settings.show_dynamic_checkout_secondary,
   social_enable: section.settings.social_enable,
   video_looping: section.settings.enable_video_looping,
-  video_style: section.settings.product_video_style
+  video_style: section.settings.product_video_style,
+  product_ugc_heading: section.settings.product_ugc_heading
 %}
 
 
@@ -66,6 +67,24 @@
     "blocks": [
       {
         "type": "@app"
+      },
+      {
+        "type": "ugc_photo",
+        "name": "Customer photo",
+        "limit": 12,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Photo"
+          },
+          {
+            "type": "text",
+            "id": "caption",
+            "label": "Caption (optional)",
+            "info": "Customer name or @handle"
+          }
+        ]
       }
     ],
     "settings": [
@@ -340,6 +359,16 @@
         "id": "social_enable",
         "label": "Show share links on product page",
         "default": false
+      },
+      {
+        "type": "header",
+        "content": "Customer gallery"
+      },
+      {
+        "type": "text",
+        "id": "product_ugc_heading",
+        "label": "Gallery heading",
+        "default": "Spotted in the wild"
       }
     ]
   }
