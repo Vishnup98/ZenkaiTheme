@@ -1127,6 +1127,10 @@
       min-width: 0;
       font-size: 1.45rem !important;
       margin-bottom: 0 !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .zenkai-price-band {
@@ -2199,17 +2203,8 @@
         return false;
       });
 
-      $slider.on('afterChange', function(e, slick, slide) {
-        setActive(slide);
-      });
-
-      $section.find('[data-variant-input]').on('change', function() {
-        setTimeout(function() {
-          if ($slider.hasClass('slick-initialized')) {
-            var current = $slider.slick('slickCurrentSlide');
-            setActive(current);
-          }
-        }, 150);
+      $slider.on('beforeChange', function(e, slick, currentSlide, nextSlide) {
+        setActive(nextSlide);
       });
 
       checkCentering();
@@ -2221,7 +2216,7 @@
     if (!initMobileThumbs()) {
       var poll = setInterval(function() {
         if (initMobileThumbs()) clearInterval(poll);
-      }, 200);
+      }, 100);
       setTimeout(function() { clearInterval(poll); }, 8000);
     }
   });
