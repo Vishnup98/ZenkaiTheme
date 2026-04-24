@@ -88,18 +88,6 @@
           </a>
         {% endif %}
 
-        {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}" class="zenkai-menu__utility-link">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
-              <path d="M4 21c0-4 4-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-            </svg>
-            <span>
-              {% if customer %}{{ 'layout.customer.account' | t }}{% else %}{{ 'layout.customer.log_in' | t }}{% endif %}
-            </span>
-          </a>
-        {% endif %}
-
         {%- if settings.social_enable -%}
           {%- assign has_social = false -%}
           {%- if settings.social_instagram_link != blank or settings.social_facebook_link != blank or settings.social_twitter_link != blank or settings.social_tiktok_link != blank -%}
