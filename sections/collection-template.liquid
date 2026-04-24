@@ -159,21 +159,22 @@
 
   .zk-editorial-card__heading {
     margin: 0;
-    font-size: 28px;
+    font-size: 38px;
     font-weight: 700;
-    letter-spacing: 0.005em;
-    line-height: 1.15;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.012em;
+    line-height: 1.08;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
   }
 
   .zk-editorial-card__subheading {
-    margin: 8px 0 0;
-    font-size: 14px;
-    font-weight: 400;
+    margin: 10px 0 0;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
     line-height: 1.5;
-    opacity: 0.94;
+    opacity: 0.96;
     max-width: 520px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   }
 
   .zk-editorial-card__cta {
@@ -222,11 +223,13 @@
       padding: 22px 22px 20px;
     }
     .zk-editorial-card__heading {
-      font-size: 22px;
+      font-size: 28px;
+      letter-spacing: -0.008em;
+      line-height: 1.1;
     }
     .zk-editorial-card__subheading {
-      font-size: 13px;
-      margin-top: 6px;
+      font-size: 14px;
+      margin-top: 8px;
     }
     .zk-editorial-card__cta {
       margin-top: 12px;
@@ -282,113 +285,130 @@
         data-zk-t4="{{ bundle_tier_4_save }}"
         role="region"
         aria-labelledby="zk-cbelt-heading-{{ section.id }}">
-        <div class="zk-cbelt__head">
-          <span class="bundle-eyebrow" id="zk-cbelt-heading-{{ section.id }}">
-            <span class="bundle-eyebrow__dot"></span>
-            <span class="bundle-eyebrow__text">Bundle rewards</span>
-          </span>
-          <span class="zk-cbelt__count" data-zk-count-badge>
-            {%- if zk_belt_count == 0 -%}Start your bundle
-            {%- elsif zk_belt_count == 1 -%}1 in cart
-            {%- else -%}{{ zk_belt_count }} in cart
-            {%- endif -%}
-          </span>
-        </div>
-
-        <div class="zk-cbelt__progress"
-             role="progressbar"
-             aria-valuemin="0"
-             aria-valuemax="4"
-             aria-valuenow="{% if zk_belt_count > 4 %}4{% else %}{{ zk_belt_count }}{% endif %}"
-             aria-label="Bundle discount progress">
-          <div class="zk-cbelt__track">
-            <div class="zk-cbelt__fill" data-zk-fill style="width:{{ zk_belt_fill }}%;"></div>
+        <div class="zk-cbelt__inner">
+          <div class="zk-cbelt__head">
+            <span class="bundle-eyebrow" id="zk-cbelt-heading-{{ section.id }}">
+              <span class="bundle-eyebrow__dot"></span>
+              <span class="bundle-eyebrow__text">Bundle rewards</span>
+            </span>
+            <span class="zk-cbelt__count" data-zk-count-badge>
+              {%- if zk_belt_count == 0 -%}Start your bundle
+              {%- elsif zk_belt_count == 1 -%}1 in cart
+              {%- else -%}{{ zk_belt_count }} in cart
+              {%- endif -%}
+            </span>
           </div>
-          <ol class="zk-cbelt__milestones">
-            {%- assign zk_belt_tiers = '2,3,4' | split: ',' -%}
-            {%- for t in zk_belt_tiers -%}
-              {%- assign threshold = t | plus: 0 -%}
-              {%- case threshold -%}
-                {%- when 2 -%}{%- assign save_amt = bundle_tier_2_save -%}{%- assign sym = '$' -%}{%- assign pos = 33 -%}
-                {%- when 3 -%}{%- assign save_amt = bundle_tier_3_save -%}{%- assign sym = '$$' -%}{%- assign pos = 66 -%}
-                {%- when 4 -%}{%- assign save_amt = bundle_tier_4_save -%}{%- assign sym = '$$$' -%}{%- assign pos = 100 -%}
-              {%- endcase -%}
 
-              {%- if zk_belt_count >= threshold -%}
-                {%- assign state = 'unlocked' -%}
-                {%- capture label_text -%}✓ ${{ save_amt }}{%- endcapture -%}
-              {%- else -%}
-                {%- assign delta = threshold | minus: zk_belt_count -%}
-                {%- capture label_text -%}+{{ delta }} → ${{ save_amt }}{%- endcapture -%}
-                {%- if threshold == 2 -%}
-                  {%- assign state = 'next' -%}
+          <div class="zk-cbelt__progress"
+               role="progressbar"
+               aria-valuemin="0"
+               aria-valuemax="4"
+               aria-valuenow="{% if zk_belt_count > 4 %}4{% else %}{{ zk_belt_count }}{% endif %}"
+               aria-label="Bundle discount progress">
+            <div class="zk-cbelt__track">
+              <div class="zk-cbelt__fill" data-zk-fill style="width:{{ zk_belt_fill }}%;"></div>
+            </div>
+            <ol class="zk-cbelt__milestones">
+              {%- assign zk_belt_tiers = '2,3,4' | split: ',' -%}
+              {%- for t in zk_belt_tiers -%}
+                {%- assign threshold = t | plus: 0 -%}
+                {%- case threshold -%}
+                  {%- when 2 -%}{%- assign save_amt = bundle_tier_2_save -%}{%- assign dot_num = '2' -%}{%- assign pos = 33 -%}
+                  {%- when 3 -%}{%- assign save_amt = bundle_tier_3_save -%}{%- assign dot_num = '3' -%}{%- assign pos = 66 -%}
+                  {%- when 4 -%}{%- assign save_amt = bundle_tier_4_save -%}{%- assign dot_num = '4+' -%}{%- assign pos = 100 -%}
+                {%- endcase -%}
+
+                {%- if zk_belt_count >= threshold -%}
+                  {%- assign state = 'unlocked' -%}
+                  {%- assign tag_text = 'Unlocked' -%}
+                  {%- assign delta_text = '' -%}
                 {%- else -%}
-                  {%- assign prev_thresh = threshold | minus: 1 -%}
-                  {%- if zk_belt_count >= prev_thresh -%}
-                    {%- assign state = 'next' -%}
+                  {%- assign delta = threshold | minus: zk_belt_count -%}
+                  {%- if delta == 1 -%}
+                    {%- assign delta_text = '1 more' -%}
                   {%- else -%}
-                    {%- assign state = 'locked' -%}
+                    {%- capture delta_text -%}{{ delta }} more{%- endcapture -%}
+                  {%- endif -%}
+                  {%- if threshold == 2 -%}
+                    {%- assign state = 'next' -%}
+                    {%- assign tag_text = 'Next' -%}
+                  {%- else -%}
+                    {%- assign prev_thresh = threshold | minus: 1 -%}
+                    {%- if zk_belt_count >= prev_thresh -%}
+                      {%- assign state = 'next' -%}
+                      {%- assign tag_text = 'Next' -%}
+                    {%- else -%}
+                      {%- assign state = 'locked' -%}
+                      {%- if threshold == 4 -%}
+                        {%- assign tag_text = 'Final' -%}
+                      {%- else -%}
+                        {%- assign tag_text = 'Locked' -%}
+                      {%- endif -%}
+                    {%- endif -%}
                   {%- endif -%}
                 {%- endif -%}
-              {%- endif -%}
 
-              <li class="zk-cbelt__milestone"
-                  data-zk-milestone="{{ threshold }}"
-                  data-state="{{ state }}"
-                  style="left:{{ pos }}%">
-                <span class="zk-cbelt__dot" aria-hidden="true">
-                  <span class="zk-cbelt__sym">{{ sym }}</span>
-                  <svg class="zk-cbelt__check" viewBox="0 0 14 14" width="12" height="12" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span class="zk-cbelt__label">
-                  {%- if state == 'unlocked' -%}
-                    <span class="zk-cbelt__tag zk-cbelt__tag--unlocked" data-zk-tag-unlocked>Unlocked</span>
-                  {%- elsif threshold == 4 -%}
-                    <span class="zk-cbelt__tag zk-cbelt__tag--max">Max reward</span>
-                  {%- endif -%}
-                  <span class="zk-cbelt__label-text" data-zk-label="{{ threshold }}">{{ label_text }}</span>
-                </span>
-              </li>
-            {%- endfor -%}
-          </ol>
+                <li class="zk-cbelt__milestone"
+                    data-zk-milestone="{{ threshold }}"
+                    data-state="{{ state }}"
+                    style="left:{{ pos }}%">
+                  <span class="zk-cbelt__dot" aria-hidden="true">
+                    <span class="zk-cbelt__num" data-zk-num>{{ dot_num }}</span>
+                    <svg class="zk-cbelt__check" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="zk-cbelt__label">
+                    <span class="zk-cbelt__tag" data-zk-tag>{{ tag_text }}</span>
+                    <span class="zk-cbelt__amt" data-zk-amt>${{ save_amt }} off</span>
+                    <span class="zk-cbelt__delta" data-zk-delta>{{ delta_text }}</span>
+                  </span>
+                </li>
+              {%- endfor -%}
+            </ol>
+          </div>
+
+          <p class="zk-cbelt__note">Mix tees, hoodies, hats · Auto-applies at checkout</p>
+          <span class="visually-hidden" aria-live="polite" data-zk-live>{{ zk_belt_live_msg }}</span>
         </div>
-
-        <p class="zk-cbelt__note">Mix tees, hoodies, hats · Auto-applies at checkout</p>
-        <span class="visually-hidden" aria-live="polite" data-zk-live>{{ zk_belt_live_msg }}</span>
       </section>
 
       <style>
         .zk-cbelt {
           position: relative;
-          background: #f6f5f0;
-          border: 1px solid rgba(26, 27, 46, 0.09);
-          border-radius: 10px;
-          padding: 18px 22px 16px;
+          background: transparent;
+          border: 0;
+          border-top: 1px solid rgba(26, 27, 46, 0.08);
+          border-bottom: 1px solid rgba(26, 27, 46, 0.08);
+          padding: 28px 0 24px;
           margin: 0 0 24px;
           color: #1a1b2e;
+        }
+        .zk-cbelt__inner {
+          max-width: 720px;
+          margin: 0 auto;
+          padding: 0 16px;
         }
         .zk-cbelt__head {
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 12px;
-          margin-bottom: 20px;
+          margin-bottom: 28px;
         }
         .zk-cbelt__count {
           font-size: 11px;
           font-weight: 600;
           letter-spacing: 0.02em;
-          color: #555a6e;
+          color: #6a6f80;
           white-space: nowrap;
         }
         .zk-cbelt__progress {
           position: relative;
-          padding: 0 14px 52px;
+          padding: 0 22px 76px;
         }
         .zk-cbelt__track {
           position: relative;
-          height: 4px;
-          background: rgba(26, 27, 46, 0.09);
+          height: 2px;
+          background: rgba(26, 27, 46, 0.12);
           border-radius: 999px;
           overflow: hidden;
         }
@@ -400,8 +420,8 @@
         }
         .zk-cbelt__milestones {
           position: absolute;
-          left: 14px;
-          right: 14px;
+          left: 22px;
+          right: 22px;
           top: 0;
           list-style: none;
           margin: 0;
@@ -410,12 +430,12 @@
         }
         .zk-cbelt__milestone {
           position: absolute;
-          top: -8px;
+          top: -10px;
           transform: translateX(-50%);
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 12px;
+          gap: 14px;
           min-width: 0;
         }
 
@@ -424,24 +444,27 @@
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: 20px;
-          height: 20px;
+          width: 22px;
+          height: 22px;
           border-radius: 50%;
           background: #fff;
-          border: 1.5px solid rgba(26, 27, 46, 0.22);
-          color: rgba(26, 27, 46, 0.48);
-          font-size: 9px;
-          font-weight: 700;
-          letter-spacing: 0.02em;
+          border: 1.5px solid rgba(26, 27, 46, 0.20);
+          color: rgba(26, 27, 46, 0.55);
           transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .zk-cbelt__sym { display: inline; line-height: 1; }
+        .zk-cbelt__num {
+          display: inline;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.01em;
+          line-height: 1;
+        }
         .zk-cbelt__check { display: none; }
 
         .zk-cbelt__milestone[data-state='next'] .zk-cbelt__dot {
           border: 2px solid #5966cf;
           color: #5966cf;
-          box-shadow: 0 0 0 2px #f6f5f0, 0 0 0 4px #5966cf;
+          box-shadow: 0 0 0 2px #fff, 0 0 0 4px #5966cf;
         }
 
         .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__dot {
@@ -449,7 +472,7 @@
           border-color: #5966cf;
           color: #fff;
         }
-        .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__sym { display: none; }
+        .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__num { display: none; }
         .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__check {
           display: block;
           animation: zk-cbelt-check-in 200ms ease 40ms both;
@@ -467,8 +490,9 @@
         .zk-cbelt__label {
           display: flex;
           flex-direction: column;
-          align-items: inherit;
-          gap: 3px;
+          align-items: center;
+          gap: 4px;
+          text-align: center;
           white-space: nowrap;
           line-height: 1;
         }
@@ -477,22 +501,32 @@
           font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: #5966cf;
           line-height: 1;
+          color: #5966cf;
         }
-        .zk-cbelt__tag--max { color: #8a8f9f; }
-        .zk-cbelt__label-text {
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1.25;
+        .zk-cbelt__milestone[data-state='locked'] .zk-cbelt__tag { color: rgba(26, 27, 46, 0.35); }
+        .zk-cbelt__amt {
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: -0.005em;
+          line-height: 1.1;
           color: #1a1b2e;
         }
-        .zk-cbelt__milestone[data-state='locked'] .zk-cbelt__label-text {
+        .zk-cbelt__milestone[data-state='locked'] .zk-cbelt__amt { color: rgba(26, 27, 46, 0.5); }
+        .zk-cbelt__milestone[data-state='next'] .zk-cbelt__amt { color: #1a1b2e; }
+        .zk-cbelt__delta {
+          font-size: 11px;
+          font-weight: 500;
+          line-height: 1;
           color: #6a6f80;
+          min-height: 11px;
         }
+        .zk-cbelt__milestone[data-state='locked'] .zk-cbelt__delta { color: rgba(26, 27, 46, 0.35); }
+        .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__delta { visibility: hidden; }
+        .zk-cbelt__delta:empty { visibility: hidden; }
 
         .zk-cbelt__note {
-          margin: 18px 0 0;
+          margin: 8px 0 0;
           font-size: 11px;
           font-weight: 500;
           color: #8a8f9f;
@@ -501,14 +535,15 @@
         }
 
         @media (max-width: 640px) {
-          .zk-cbelt { padding: 14px 16px 14px; margin: 0 0 20px; }
-          .zk-cbelt__head { margin-bottom: 16px; }
-          .zk-cbelt__progress { padding: 0 10px 46px; }
-          .zk-cbelt__milestones { left: 10px; right: 10px; }
-          .zk-cbelt__label { gap: 2px; }
-          .zk-cbelt__label-text { font-size: 11px; }
+          .zk-cbelt { padding: 20px 0 18px; margin: 0 0 18px; }
+          .zk-cbelt__inner { padding: 0 12px; }
+          .zk-cbelt__head { margin-bottom: 22px; }
+          .zk-cbelt__progress { padding: 0 14px 70px; }
+          .zk-cbelt__milestones { left: 14px; right: 14px; }
           .zk-cbelt__tag { font-size: 8px; letter-spacing: 0.12em; }
-          .zk-cbelt__note { font-size: 10px; margin-top: 12px; }
+          .zk-cbelt__amt { font-size: 12px; }
+          .zk-cbelt__delta { font-size: 10px; }
+          .zk-cbelt__note { font-size: 10px; margin-top: 6px; }
           .zk-cbelt__count { font-size: 10px; }
         }
 
@@ -533,7 +568,6 @@
 
           var fillEl = belt.querySelector('[data-zk-fill]');
           var dots = belt.querySelectorAll('[data-zk-milestone]');
-          var labels = belt.querySelectorAll('[data-zk-label]');
           var countBadge = belt.querySelector('[data-zk-count-badge]');
           var liveEl = belt.querySelector('[data-zk-live]');
           var progressEl = belt.querySelector('[role="progressbar"]');
@@ -548,9 +582,17 @@
             return 0;
           }
 
-          function labelFor(threshold, count) {
-            if (count >= threshold) return '✓ $' + saves[threshold];
-            return '+' + (threshold - count) + ' → $' + saves[threshold];
+          function tagFor(state, threshold) {
+            if (state === 'unlocked') return 'Unlocked';
+            if (state === 'next') return 'Next';
+            if (threshold === 4) return 'Final';
+            return 'Locked';
+          }
+
+          function deltaFor(threshold, count) {
+            if (count >= threshold) return '';
+            var d = threshold - count;
+            return (d === 1 ? '1 more' : d + ' more');
           }
 
           function liveFor(n) {
@@ -587,31 +629,10 @@
               }
               dot.dataset.state = nextState;
 
-              var label = dot.querySelector('.zk-cbelt__label');
-              if (label) {
-                var existingTags = label.querySelectorAll('.zk-cbelt__tag');
-                for (var k = 0; k < existingTags.length; k++) {
-                  existingTags[k].parentNode.removeChild(existingTags[k]);
-                }
-                var tagText = null;
-                var tagModifier = '';
-                if (nextState === 'unlocked') {
-                  tagText = 'Unlocked';
-                  tagModifier = 'zk-cbelt__tag--unlocked';
-                } else if (threshold === 4) {
-                  tagText = 'Max reward';
-                  tagModifier = 'zk-cbelt__tag--max';
-                }
-                if (tagText) {
-                  var tag = document.createElement('span');
-                  tag.className = 'zk-cbelt__tag ' + tagModifier;
-                  if (tagModifier === 'zk-cbelt__tag--unlocked') {
-                    tag.setAttribute('data-zk-tag-unlocked', '');
-                  }
-                  tag.textContent = tagText;
-                  label.insertBefore(tag, label.firstChild);
-                }
-              }
+              var tagEl = dot.querySelector('[data-zk-tag]');
+              if (tagEl) tagEl.textContent = tagFor(nextState, threshold);
+              var deltaEl = dot.querySelector('[data-zk-delta]');
+              if (deltaEl) deltaEl.textContent = deltaFor(threshold, n);
 
               if (!reached) priorAllReached = false;
 
@@ -621,12 +642,6 @@
                   setTimeout(function () { delete d.dataset.justUnlocked; }, 600);
                 })(dot);
               }
-            }
-
-            for (var j = 0; j < labels.length; j++) {
-              var lbl = labels[j];
-              var th = parseInt(lbl.dataset.zkLabel, 10);
-              lbl.textContent = labelFor(th, n);
             }
 
             if (liveEl) liveEl.textContent = liveFor(n);
