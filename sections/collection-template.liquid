@@ -589,15 +589,27 @@
 
               var label = dot.querySelector('.zk-cbelt__label');
               if (label) {
-                var existingUnlockedTag = label.querySelector('[data-zk-tag-unlocked]');
-                if (nextState === 'unlocked' && !existingUnlockedTag) {
+                var existingTags = label.querySelectorAll('.zk-cbelt__tag');
+                for (var k = 0; k < existingTags.length; k++) {
+                  existingTags[k].parentNode.removeChild(existingTags[k]);
+                }
+                var tagText = null;
+                var tagModifier = '';
+                if (nextState === 'unlocked') {
+                  tagText = 'Unlocked';
+                  tagModifier = 'zk-cbelt__tag--unlocked';
+                } else if (threshold === 4) {
+                  tagText = 'Max reward';
+                  tagModifier = 'zk-cbelt__tag--max';
+                }
+                if (tagText) {
                   var tag = document.createElement('span');
-                  tag.className = 'zk-cbelt__tag zk-cbelt__tag--unlocked';
-                  tag.setAttribute('data-zk-tag-unlocked', '');
-                  tag.textContent = 'Unlocked';
+                  tag.className = 'zk-cbelt__tag ' + tagModifier;
+                  if (tagModifier === 'zk-cbelt__tag--unlocked') {
+                    tag.setAttribute('data-zk-tag-unlocked', '');
+                  }
+                  tag.textContent = tagText;
                   label.insertBefore(tag, label.firstChild);
-                } else if (nextState !== 'unlocked' && existingUnlockedTag) {
-                  existingUnlockedTag.parentNode.removeChild(existingUnlockedTag);
                 }
               }
 
