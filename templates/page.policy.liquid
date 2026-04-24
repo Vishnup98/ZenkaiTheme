@@ -1,0 +1,87 @@
+<div class="page-width page-content">
+
+  <div class="grid">
+    <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
+
+      <header class="section-header">
+        <h1 class="section-header__title">
+          {{ page.title }}
+        </h1>
+      </header>
+
+      {%- if page.content != blank -%}
+        <div class="rte rte--nomargin zenkai-policy__intro">
+          {{ page.content }}
+        </div>
+      {%- endif -%}
+
+      <div class="rte rte--nomargin zenkai-policy">
+        <p class="zenkai-policy__lede">Small brand. Real people. Here's exactly how we handle things when something isn't perfect.</p>
+
+        <h2>If it arrives damaged or misprinted</h2>
+        <p>We replace it, free. <a href="/pages/contact">Send us a message</a> with a photo and we'll get a new one on the way. You don't need to ship the damaged one back.</p>
+
+        <h2>If you're not happy with your first tee</h2>
+        <p>You have 30 days from delivery to request a refund on the first item in your first order. No interrogation, no photos — just reach out.</p>
+
+        <h2>Additional items in the same order</h2>
+        <p>For anything beyond that first tee, we handle it through exchange or store credit, not cash. This keeps the shop sustainable — each piece is printed fresh when you order, and a full refund on a printed multi-item order is a loss we can't absorb as a small operation.</p>
+
+        <h2>If the size is off</h2>
+        <p>One free size exchange per order. If you're trading up a tier that costs more, we just ask you to cover the difference.</p>
+
+        <h2>Shipping, always</h2>
+        <p>Free in the US, always. Most orders ship in 1–2 business days. You'll get tracking the moment it goes out.</p>
+
+        <hr>
+
+        <p class="zenkai-policy__why"><strong>Why the policy is shaped this way:</strong> each Zenkai tee is printed fresh when you order it — nothing warehoused, nothing mass-produced. That means we can't restock returns, and a full-order cash refund on printed goods isn't something we can absorb while still making good tees. The promises above are the real ones — the ones we can keep without gimmicks or cutting corners on quality.</p>
+
+        <p>Questions before you order? <a href="/pages/contact">Contact us</a> — we answer every email.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<style>
+.zenkai-policy__lede {
+  font-size: 1.1em;
+  color: #1a1b2e;
+  margin-bottom: 2em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid rgba(26, 27, 46, 0.08);
+}
+.zenkai-policy h2 {
+  font-size: 1.05em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5966cf;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.zenkai-policy h2:first-of-type {
+  margin-top: 1em;
+}
+.zenkai-policy p {
+  line-height: 1.65;
+  margin-bottom: 1em;
+}
+.zenkai-policy hr {
+  border: 0;
+  border-top: 1px solid rgba(26, 27, 46, 0.08);
+  margin: 2.25em 0 1.75em;
+}
+.zenkai-policy__why {
+  background: #f6f5f0;
+  padding: 1.25em 1.5em;
+  border-radius: 4px;
+  border-left: 3px solid #5966cf;
+}
+.zenkai-policy__intro {
+  margin-bottom: 1.5em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid rgba(26, 27, 46, 0.08);
+}
+</style>

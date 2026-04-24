@@ -9,10 +9,10 @@
         <span class="trust-bar__dot trust-bar__dot--two" aria-hidden="true"></span>
         <span class="trust-bar__text">Ships in 1–2 business days</span>
       </div>
-      <div class="trust-bar__item">
+      <a href="/pages/policy" class="trust-bar__item trust-bar__item--link">
         <span class="trust-bar__dot trust-bar__dot--three" aria-hidden="true"></span>
-        <span class="trust-bar__text">Secure checkout</span>
-      </div>
+        <span class="trust-bar__text">30-day first-item guarantee</span>
+      </a>
     </div>
   </div>
 </div>
@@ -53,6 +53,14 @@
 .trust-bar__item:hover {
   background: rgba(89, 102, 207, 0.14);
   border-color: rgba(89, 102, 207, 0.36);
+}
+
+.trust-bar__item--link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.trust-bar__item--link:hover {
+  text-decoration: none;
 }
 
 .trust-bar__dot {
