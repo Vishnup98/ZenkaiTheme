@@ -168,9 +168,14 @@
 
 <script>
 (function() {
-  var overlay = document.getElementById('zenkai-mobile-overlay');
-  if (!overlay || overlay.dataset.zenkaiInit === '1') return;
-  overlay.dataset.zenkaiInit = '1';
+  // The overlay is rendered early in sections/header.liquid (line 37) but the
+  // header MENU trigger lives in snippets/header-icons.liquid and is rendered
+  // LATER in the same section (line 214). Running synchronously during parse
+  // would miss the opener — bind after DOM parsing completes.
+  function init() {
+    var overlay = document.getElementById('zenkai-mobile-overlay');
+    if (!overlay || overlay.dataset.zenkaiInit === '1') return;
+    overlay.dataset.zenkaiInit = '1';
 
   var DRAWER_CLASS = 'js-drawer-open';
   var html = document.documentElement;
@@ -267,6 +272,19 @@
 
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) closeMenu();
+  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  // Re-init if Shopify theme editor reloads the header section.
+  document.addEventListener('shopify:section:load', function(e) {
+    if (e.target && e.target.querySelector && e.target.querySelector('#zenkai-mobile-overlay')) {
+      init();
+    }
   });
 })();
 </script>
