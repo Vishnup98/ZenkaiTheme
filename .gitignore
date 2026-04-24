@@ -25,3 +25,7 @@ node_modules/
 # Generated Shopify assets
 assets/theme.scss
 .gstack/
+
+# Claude Code local artifacts
+.claude/
+.context/
