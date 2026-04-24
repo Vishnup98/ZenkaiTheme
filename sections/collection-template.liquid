@@ -454,9 +454,9 @@
         }
         .zk-cbelt__num {
           display: inline;
-          font-size: 10px;
+          font-size: 9px;
           font-weight: 700;
-          letter-spacing: 0.01em;
+          letter-spacing: 0;
           line-height: 1;
         }
         .zk-cbelt__check { display: none; }
@@ -494,7 +494,13 @@
           gap: 4px;
           text-align: center;
           white-space: nowrap;
-          line-height: 1;
+          line-height: 1.05;
+        }
+        /* Shift only the last label leftward so it doesn't kiss the right edge
+           on narrow viewports. Applied to the label, not the milestone, so the
+           dot stays aligned on its 100% track position. */
+        .zk-cbelt__milestone:last-child .zk-cbelt__label {
+          transform: translateX(-22%);
         }
         .zk-cbelt__tag {
           font-size: 9px;
@@ -535,16 +541,23 @@
         }
 
         @media (max-width: 640px) {
-          .zk-cbelt { padding: 20px 0 18px; margin: 0 0 18px; }
+          .zk-cbelt { padding: 16px 0 14px; margin: 0 0 18px; }
           .zk-cbelt__inner { padding: 0 12px; }
-          .zk-cbelt__head { margin-bottom: 22px; }
-          .zk-cbelt__progress { padding: 0 14px 70px; }
+          .zk-cbelt__head { margin-bottom: 16px; gap: 10px; }
+          .zk-cbelt__progress { padding: 0 14px 62px; }
           .zk-cbelt__milestones { left: 14px; right: 14px; }
+          .zk-cbelt__milestone { gap: 10px; }
           .zk-cbelt__tag { font-size: 8px; letter-spacing: 0.12em; }
           .zk-cbelt__amt { font-size: 12px; }
           .zk-cbelt__delta { font-size: 10px; }
-          .zk-cbelt__note { font-size: 10px; margin-top: 6px; }
+          .zk-cbelt__note { font-size: 10px; margin-top: 4px; }
           .zk-cbelt__count { font-size: 10px; }
+          .zk-cbelt__milestone:last-child .zk-cbelt__label { transform: translateX(-30%); }
+        }
+
+        @media (max-width: 380px) {
+          .zk-cbelt__head { flex-direction: column; align-items: flex-start; gap: 6px; }
+          .zk-cbelt__count { white-space: normal; }
         }
 
         @media (prefers-reduced-motion: reduce) {
