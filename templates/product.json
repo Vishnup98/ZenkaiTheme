@@ -12,6 +12,13 @@
     "main": {
       "type": "product-template",
       "blocks": {
+        "ugc_photo_6XteFk": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/ugc3.png",
+            "caption": ""
+          }
+        },
         "ugc_photo_6mJpeB": {
           "type": "ugc_photo",
           "settings": {
@@ -32,6 +39,7 @@
         }
       },
       "block_order": [
+        "ugc_photo_6XteFk",
         "ugc_photo_6mJpeB",
         "ugc_photo_PWkNtN",
         "judge_me_reviews_preview_badge_6qQQcm"
