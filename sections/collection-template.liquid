@@ -108,13 +108,20 @@
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 320px;
     overflow: hidden;
     border-radius: 14px;
     color: #ffffff;
     text-decoration: none;
     background: #1a1b2e;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Only span-2 and full-row cards get a desktop min-height floor.
+     span-1 cards inherit product-card row height via CSS Grid auto-stretch;
+     forcing min-height on them pushes every neighbor in the row taller too. */
+  .zk-editorial-slot[data-span='2'] .zk-editorial-card,
+  .zk-editorial-slot[data-span='full'] .zk-editorial-card {
+    min-height: 320px;
   }
 
   .zk-editorial-card__image {
@@ -239,57 +246,405 @@
 
   <div class="page-width">
     {%- if section.settings.show_bundle_belt -%}
-      <div class="zk-collection-belt">
-        <span class="bundle-eyebrow" aria-hidden="true">
-          <span class="bundle-eyebrow__dot"></span>
-          <span class="bundle-eyebrow__text">Bundle &amp; save · Always on</span>
-        </span>
-        <div class="zk-collection-belt__tiers" role="list">
-          <span class="zk-collection-belt__tier" role="listitem"><b>Mix any 2</b> = $5 off</span>
-          <span class="zk-collection-belt__dot" aria-hidden="true">·</span>
-          <span class="zk-collection-belt__tier" role="listitem"><b>Any 3</b> = $10 off</span>
-          <span class="zk-collection-belt__dot" aria-hidden="true">·</span>
-          <span class="zk-collection-belt__tier" role="listitem"><b>Any 4+</b> = $20 off</span>
+      {%- include 'bundle-tiers', format: 'noop' -%}
+      {%- assign zk_belt_count = cart.item_count | default: 0 | plus: 0 -%}
+
+      {%- if zk_belt_count >= 4 -%}
+        {%- capture zk_belt_live_msg -%}Max bundle savings unlocked — ${{ bundle_tier_4_save }} off at checkout.{%- endcapture -%}
+      {%- elsif zk_belt_count == 3 -%}
+        {%- capture zk_belt_live_msg -%}${{ bundle_tier_3_save }} off unlocked. Add 1 more for ${{ bundle_tier_4_save }} off.{%- endcapture -%}
+      {%- elsif zk_belt_count == 2 -%}
+        {%- capture zk_belt_live_msg -%}${{ bundle_tier_2_save }} off unlocked. Add 1 more for ${{ bundle_tier_3_save }} off.{%- endcapture -%}
+      {%- elsif zk_belt_count == 1 -%}
+        {%- capture zk_belt_live_msg -%}One in cart — add 1 more to unlock ${{ bundle_tier_2_save }} off.{%- endcapture -%}
+      {%- else -%}
+        {%- capture zk_belt_live_msg -%}Mix any 2 items to save ${{ bundle_tier_2_save }}. Any 3 saves ${{ bundle_tier_3_save }}. Any 4+ saves ${{ bundle_tier_4_save }}.{%- endcapture -%}
+      {%- endif -%}
+
+      {%- if zk_belt_count >= 4 -%}
+        {%- assign zk_belt_fill = 100 -%}
+      {%- elsif zk_belt_count >= 3 -%}
+        {%- assign zk_belt_fill = 66 -%}
+      {%- elsif zk_belt_count >= 2 -%}
+        {%- assign zk_belt_fill = 33 -%}
+      {%- elsif zk_belt_count >= 1 -%}
+        {%- assign zk_belt_fill = 16 -%}
+      {%- else -%}
+        {%- assign zk_belt_fill = 0 -%}
+      {%- endif -%}
+
+      <section
+        class="zk-cbelt"
+        data-zk-collection-belt
+        data-zk-count="{{ zk_belt_count }}"
+        data-zk-t2="{{ bundle_tier_2_save }}"
+        data-zk-t3="{{ bundle_tier_3_save }}"
+        data-zk-t4="{{ bundle_tier_4_save }}"
+        role="region"
+        aria-labelledby="zk-cbelt-heading-{{ section.id }}">
+        <div class="zk-cbelt__head">
+          <span class="bundle-eyebrow" id="zk-cbelt-heading-{{ section.id }}">
+            <span class="bundle-eyebrow__dot"></span>
+            <span class="bundle-eyebrow__text">Bundle rewards</span>
+          </span>
+          <span class="zk-cbelt__count" data-zk-count-badge>
+            {%- if zk_belt_count == 0 -%}Start your bundle
+            {%- elsif zk_belt_count == 1 -%}1 in cart
+            {%- else -%}{{ zk_belt_count }} in cart
+            {%- endif -%}
+          </span>
         </div>
-        <span class="zk-collection-belt__note">Mix tees, hoodies, hats · Auto-applies at checkout</span>
-      </div>
+
+        <div class="zk-cbelt__progress"
+             role="progressbar"
+             aria-valuemin="0"
+             aria-valuemax="4"
+             aria-valuenow="{% if zk_belt_count > 4 %}4{% else %}{{ zk_belt_count }}{% endif %}"
+             aria-label="Bundle discount progress">
+          <div class="zk-cbelt__track">
+            <div class="zk-cbelt__fill" data-zk-fill style="width:{{ zk_belt_fill }}%;"></div>
+          </div>
+          <ol class="zk-cbelt__milestones">
+            {%- assign zk_belt_tiers = '2,3,4' | split: ',' -%}
+            {%- for t in zk_belt_tiers -%}
+              {%- assign threshold = t | plus: 0 -%}
+              {%- case threshold -%}
+                {%- when 2 -%}{%- assign save_amt = bundle_tier_2_save -%}{%- assign sym = '$' -%}{%- assign pos = 33 -%}
+                {%- when 3 -%}{%- assign save_amt = bundle_tier_3_save -%}{%- assign sym = '$$' -%}{%- assign pos = 66 -%}
+                {%- when 4 -%}{%- assign save_amt = bundle_tier_4_save -%}{%- assign sym = '$$$' -%}{%- assign pos = 100 -%}
+              {%- endcase -%}
+
+              {%- if zk_belt_count >= threshold -%}
+                {%- assign state = 'unlocked' -%}
+                {%- capture label_text -%}✓ ${{ save_amt }}{%- endcapture -%}
+              {%- else -%}
+                {%- assign delta = threshold | minus: zk_belt_count -%}
+                {%- capture label_text -%}+{{ delta }} → ${{ save_amt }}{%- endcapture -%}
+                {%- if threshold == 2 -%}
+                  {%- assign state = 'next' -%}
+                {%- else -%}
+                  {%- assign prev_thresh = threshold | minus: 1 -%}
+                  {%- if zk_belt_count >= prev_thresh -%}
+                    {%- assign state = 'next' -%}
+                  {%- else -%}
+                    {%- assign state = 'locked' -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              <li class="zk-cbelt__milestone"
+                  data-zk-milestone="{{ threshold }}"
+                  data-state="{{ state }}"
+                  style="left:{{ pos }}%">
+                <span class="zk-cbelt__dot" aria-hidden="true">
+                  <span class="zk-cbelt__sym">{{ sym }}</span>
+                  <svg class="zk-cbelt__check" viewBox="0 0 14 14" width="12" height="12" aria-hidden="true"><path d="M2 7l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="zk-cbelt__label">
+                  {%- if state == 'unlocked' -%}
+                    <span class="zk-cbelt__tag zk-cbelt__tag--unlocked" data-zk-tag-unlocked>Unlocked</span>
+                  {%- elsif threshold == 4 -%}
+                    <span class="zk-cbelt__tag zk-cbelt__tag--max">Max reward</span>
+                  {%- endif -%}
+                  <span class="zk-cbelt__label-text" data-zk-label="{{ threshold }}">{{ label_text }}</span>
+                </span>
+              </li>
+            {%- endfor -%}
+          </ol>
+        </div>
+
+        <p class="zk-cbelt__note">Mix tees, hoodies, hats · Auto-applies at checkout</p>
+        <span class="visually-hidden" aria-live="polite" data-zk-live>{{ zk_belt_live_msg }}</span>
+      </section>
+
       <style>
-        .zk-collection-belt {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 18px;
-          flex-wrap: wrap;
+        .zk-cbelt {
+          position: relative;
           background: #f6f5f0;
           border: 1px solid rgba(26, 27, 46, 0.09);
           border-radius: 10px;
-          padding: 14px 20px;
+          padding: 18px 22px 16px;
           margin: 0 0 24px;
           color: #1a1b2e;
-          font-size: 13px;
-          letter-spacing: 0.01em;
         }
-        .zk-collection-belt__tiers {
-          display: inline-flex;
+        .zk-cbelt__head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          margin-bottom: 20px;
+        }
+        .zk-cbelt__count {
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          color: #555a6e;
+          white-space: nowrap;
+        }
+        .zk-cbelt__progress {
+          position: relative;
+          padding: 0 14px 52px;
+        }
+        .zk-cbelt__track {
+          position: relative;
+          height: 4px;
+          background: rgba(26, 27, 46, 0.09);
+          border-radius: 999px;
+          overflow: hidden;
+        }
+        .zk-cbelt__fill {
+          height: 100%;
+          background: #5966cf;
+          border-radius: 999px;
+          transition: width 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+        .zk-cbelt__milestones {
+          position: absolute;
+          left: 14px;
+          right: 14px;
+          top: 0;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          height: 0;
+        }
+        .zk-cbelt__milestone {
+          position: absolute;
+          top: -8px;
+          transform: translateX(-50%);
+          display: flex;
+          flex-direction: column;
           align-items: center;
           gap: 12px;
-          flex-wrap: wrap;
+          min-width: 0;
+        }
+
+        .zk-cbelt__dot {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
           justify-content: center;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #fff;
+          border: 1.5px solid rgba(26, 27, 46, 0.22);
+          color: rgba(26, 27, 46, 0.48);
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .zk-collection-belt__tier { font-weight: 500; }
-        .zk-collection-belt__tier b { font-weight: 700; letter-spacing: 0.02em; }
-        .zk-collection-belt__dot { opacity: 0.45; }
-        .zk-collection-belt__note {
+        .zk-cbelt__sym { display: inline; line-height: 1; }
+        .zk-cbelt__check { display: none; }
+
+        .zk-cbelt__milestone[data-state='next'] .zk-cbelt__dot {
+          border: 2px solid #5966cf;
+          color: #5966cf;
+          box-shadow: 0 0 0 2px #f6f5f0, 0 0 0 4px #5966cf;
+        }
+
+        .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__dot {
+          background: #5966cf;
+          border-color: #5966cf;
+          color: #fff;
+        }
+        .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__sym { display: none; }
+        .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__check {
+          display: block;
+          animation: zk-cbelt-check-in 200ms ease 40ms both;
+        }
+
+        .zk-cbelt__milestone[data-just-unlocked='true'] .zk-cbelt__dot {
+          transform: scale(1.14);
+        }
+
+        @keyframes zk-cbelt-check-in {
+          from { opacity: 0; transform: scale(0.5); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+
+        .zk-cbelt__label {
+          display: flex;
+          flex-direction: column;
+          align-items: inherit;
+          gap: 3px;
+          white-space: nowrap;
+          line-height: 1;
+        }
+        .zk-cbelt__tag {
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #5966cf;
+          line-height: 1;
+        }
+        .zk-cbelt__tag--max { color: #8a8f9f; }
+        .zk-cbelt__label-text {
           font-size: 12px;
-          color: #555a6e;
-          letter-spacing: 0.01em;
+          font-weight: 500;
+          line-height: 1.25;
+          color: #1a1b2e;
         }
+        .zk-cbelt__milestone[data-state='locked'] .zk-cbelt__label-text {
+          color: #6a6f80;
+        }
+
+        .zk-cbelt__note {
+          margin: 18px 0 0;
+          font-size: 11px;
+          font-weight: 500;
+          color: #8a8f9f;
+          letter-spacing: 0.02em;
+          text-align: center;
+        }
+
         @media (max-width: 640px) {
-          .zk-collection-belt { font-size: 12px; padding: 12px 14px; gap: 10px; }
-          .zk-collection-belt__note { display: block; width: 100%; text-align: center; font-size: 11px; }
-          .zk-collection-belt__tiers { gap: 8px; }
+          .zk-cbelt { padding: 14px 16px 14px; margin: 0 0 20px; }
+          .zk-cbelt__head { margin-bottom: 16px; }
+          .zk-cbelt__progress { padding: 0 10px 46px; }
+          .zk-cbelt__milestones { left: 10px; right: 10px; }
+          .zk-cbelt__label { gap: 2px; }
+          .zk-cbelt__label-text { font-size: 11px; }
+          .zk-cbelt__tag { font-size: 8px; letter-spacing: 0.12em; }
+          .zk-cbelt__note { font-size: 10px; margin-top: 12px; }
+          .zk-cbelt__count { font-size: 10px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .zk-cbelt__fill { transition: width 80ms linear; }
+          .zk-cbelt__dot { transition: background-color 80ms linear, color 80ms linear, border-color 80ms linear; }
+          .zk-cbelt__milestone[data-just-unlocked='true'] .zk-cbelt__dot { transform: none; }
+          .zk-cbelt__milestone[data-state='unlocked'] .zk-cbelt__check { animation: none; }
         }
       </style>
+
+      <script>
+        (function () {
+          var belt = document.querySelector('[data-zk-collection-belt]');
+          if (!belt || belt.__zkInit) return;
+          belt.__zkInit = true;
+
+          var t2 = parseInt(belt.dataset.zkT2, 10);
+          var t3 = parseInt(belt.dataset.zkT3, 10);
+          var t4 = parseInt(belt.dataset.zkT4, 10);
+          var saves = { 2: t2, 3: t3, 4: t4 };
+
+          var fillEl = belt.querySelector('[data-zk-fill]');
+          var dots = belt.querySelectorAll('[data-zk-milestone]');
+          var labels = belt.querySelectorAll('[data-zk-label]');
+          var countBadge = belt.querySelector('[data-zk-count-badge]');
+          var liveEl = belt.querySelector('[data-zk-live]');
+          var progressEl = belt.querySelector('[role="progressbar"]');
+          var lastCount = parseInt(belt.dataset.zkCount, 10);
+          if (isNaN(lastCount)) lastCount = 0;
+
+          function pct(n) {
+            if (n >= 4) return 100;
+            if (n >= 3) return 66;
+            if (n >= 2) return 33;
+            if (n >= 1) return 16;
+            return 0;
+          }
+
+          function labelFor(threshold, count) {
+            if (count >= threshold) return '✓ $' + saves[threshold];
+            return '+' + (threshold - count) + ' → $' + saves[threshold];
+          }
+
+          function liveFor(n) {
+            if (n >= 4) return 'Max bundle savings unlocked — $' + t4 + ' off at checkout.';
+            if (n === 3) return '$' + t3 + ' off unlocked. Add 1 more for $' + t4 + ' off.';
+            if (n === 2) return '$' + t2 + ' off unlocked. Add 1 more for $' + t3 + ' off.';
+            if (n === 1) return 'One in cart — add 1 more to unlock $' + t2 + ' off.';
+            return 'Mix any 2 items to save $' + t2 + '. Any 3 saves $' + t3 + '. Any 4+ saves $' + t4 + '.';
+          }
+
+          function render(n) {
+            if (typeof n !== 'number' || isNaN(n) || n < 0) n = 0;
+
+            if (fillEl) fillEl.style.width = pct(n) + '%';
+            belt.dataset.zkCount = n;
+            if (countBadge) {
+              countBadge.textContent = n === 0 ? 'Start your bundle' : (n === 1 ? '1 in cart' : n + ' in cart');
+            }
+            if (progressEl) progressEl.setAttribute('aria-valuenow', String(Math.min(n, 4)));
+
+            var priorAllReached = true;
+            for (var i = 0; i < dots.length; i++) {
+              var dot = dots[i];
+              var threshold = parseInt(dot.dataset.zkMilestone, 10);
+              var reached = n >= threshold;
+              var wasUnlocked = dot.dataset.state === 'unlocked';
+              var nextState;
+              if (reached) {
+                nextState = 'unlocked';
+              } else if (priorAllReached) {
+                nextState = 'next';
+              } else {
+                nextState = 'locked';
+              }
+              dot.dataset.state = nextState;
+
+              var label = dot.querySelector('.zk-cbelt__label');
+              if (label) {
+                var existingUnlockedTag = label.querySelector('[data-zk-tag-unlocked]');
+                if (nextState === 'unlocked' && !existingUnlockedTag) {
+                  var tag = document.createElement('span');
+                  tag.className = 'zk-cbelt__tag zk-cbelt__tag--unlocked';
+                  tag.setAttribute('data-zk-tag-unlocked', '');
+                  tag.textContent = 'Unlocked';
+                  label.insertBefore(tag, label.firstChild);
+                } else if (nextState !== 'unlocked' && existingUnlockedTag) {
+                  existingUnlockedTag.parentNode.removeChild(existingUnlockedTag);
+                }
+              }
+
+              if (!reached) priorAllReached = false;
+
+              if (reached && !wasUnlocked && lastCount !== n) {
+                dot.dataset.justUnlocked = 'true';
+                (function (d) {
+                  setTimeout(function () { delete d.dataset.justUnlocked; }, 600);
+                })(dot);
+              }
+            }
+
+            for (var j = 0; j < labels.length; j++) {
+              var lbl = labels[j];
+              var th = parseInt(lbl.dataset.zkLabel, 10);
+              lbl.textContent = labelFor(th, n);
+            }
+
+            if (liveEl) liveEl.textContent = liveFor(n);
+            lastCount = n;
+          }
+
+          document.addEventListener('cart:updated', function (e) {
+            if (e && e.detail && e.detail.cart && typeof e.detail.cart.item_count === 'number') {
+              render(e.detail.cart.item_count);
+            }
+          });
+
+          if (window.jQuery) {
+            window.jQuery('body').on('updateCart.zkCbelt', function (_evt, cart) {
+              if (cart && typeof cart.item_count === 'number') render(cart.item_count);
+            });
+          }
+
+          if (typeof fetch === 'function') {
+            fetch('/cart.js', { credentials: 'same-origin' })
+              .then(function (r) { return r.json(); })
+              .then(function (cart) {
+                if (cart && typeof cart.item_count === 'number' && cart.item_count !== lastCount) {
+                  render(cart.item_count);
+                }
+              })
+              .catch(function () {});
+          }
+        })();
+      </script>
     {%- endif -%}
     <div id="CollectionAjaxContent">
       <div
@@ -469,8 +824,8 @@
             "type": "text",
             "id": "cta_text",
             "label": "CTA text",
-            "info": "Shown only when Link is set.",
-            "default": "Shop the collection →"
+            "info": "Shown only when Link is set. An arrow icon is rendered automatically — no need to include one in the text.",
+            "default": "Shop the collection"
           },
           {
             "type": "text",
