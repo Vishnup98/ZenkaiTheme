@@ -21,8 +21,8 @@
       "page": "Page {{ page }}"
     },
     "404": {
-      "title": "404 Page Not Found",
-      "subtext_html": "<p>The page you were looking for does not exist. </p><p><a href='{{ url }}'>Continue shopping</a></p>"
+      "title": "404",
+      "subtext_html": "<p>That page vanished. The shirts worth finding didn't.</p><p><a href='{{ url }}'>Back to the catalog</a></p>"
     },
     "pagination": {
       "previous": "Previous",
@@ -33,7 +33,7 @@
       "login_form_password_placeholder": "Your password",
       "login_form_submit": "Enter",
       "signup_form_email_label": "Email",
-      "signup_form_success": "We will send you an email right before we open!",
+      "signup_form_success": "You're on the list. We'll drop the moment the shop opens.",
       "admin_link_html": "Store owner? <a href=\"/admin\" class=\"text-link\">Log in here</a>",
       "password_link": "Password",
       "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
@@ -51,14 +51,14 @@
     },
     "newsletter_form": {
       "newsletter_email": "Enter your email",
-      "newsletter_confirmation": "Thanks for subscribing",
+      "newsletter_confirmation": "You're in. First dibs on new drops.",
       "submit": "Subscribe"
     },
     "search": {
-      "no_results_html": "Your search for \"{{ terms }}\" did not yield any results.",
-      "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
+      "no_results_html": "No match for \"{{ terms }}\". Try another character, color, or collection.",
+      "results_for_html": "Results for \"{{ terms }}\"",
       "title": "Search",
-      "placeholder": "Search our store",
+      "placeholder": "Search by character, collection, or color",
       "submit": "Search",
       "result_count": {
         "one": "{{ count }} result",
@@ -121,7 +121,7 @@
       "shipping_at_checkout": "Shipping, taxes, and discount codes calculated at checkout.",
       "update": "Update cart",
       "checkout": "Check out",
-      "empty": "Your cart is currently empty.",
+      "empty": "Nothing in the cart yet. The good ones are still waiting.",
       "continue_shopping": "Continue shopping",
       "continue_browsing_html": "Continue browsing <a href='{{ url }}'>here</a>.",
       "close_cart": "Close cart",
@@ -143,7 +143,7 @@
   },
   "collections": {
     "general": {
-      "catalog_title": "Catalog",
+      "catalog_title": "All designs",
       "all_of_collection": "View all",
       "see_more": "Show more",
       "see_less": "Show less",
