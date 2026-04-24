@@ -29,6 +29,103 @@
 
 {%- capture grid_item_width -%}{{ grid_small_width }} {{ grid_large_width}}{%- endcapture -%}
 
+{%- style -%}
+  .zk-editorial-slot {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .zk-editorial-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 2.4 / 1;
+    color: #ffffff;
+    text-decoration: none;
+    background: #1a1b2e;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .zk-editorial-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .zk-editorial-card--link:hover .zk-editorial-card__image {
+    transform: scale(1.02);
+  }
+
+  .zk-editorial-card__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 26px 30px 24px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0) 100%);
+    color: #ffffff;
+  }
+
+  .zk-editorial-card__heading {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1.18;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  }
+
+  .zk-editorial-card__subheading {
+    margin: 6px 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.45;
+    opacity: 0.94;
+    max-width: 620px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+
+  .zk-editorial-card__cta {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .zk-editorial-card--link:hover .zk-editorial-card__cta {
+    border-color: rgba(255, 255, 255, 1);
+  }
+
+  @media (max-width: 640px) {
+    .zk-editorial-card {
+      aspect-ratio: 5 / 4;
+      border-radius: 10px;
+    }
+    .zk-editorial-card__overlay {
+      padding: 20px 20px 18px;
+    }
+    .zk-editorial-card__heading {
+      font-size: 21px;
+    }
+    .zk-editorial-card__subheading {
+      font-size: 13px;
+    }
+    .zk-editorial-slot {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+{%- endstyle -%}
+
 {% paginate collection.products by paginate_by %}
 
 <div
@@ -98,6 +195,44 @@
 
         {% for product in collection.products %}
           {% include 'product-grid-item' %}
+
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'editorial_image' and block.settings.image != blank and block.settings.insert_after_product == forloop.parentloop.index -%}
+              {%- assign ed_has_link = false -%}
+              {%- if block.settings.link != blank -%}{%- assign ed_has_link = true -%}{%- endif -%}
+              {%- assign ed_img = block.settings.image -%}
+
+              {%- capture ed_inner -%}
+                <img class="zk-editorial-card__image"
+                  src="{{ ed_img | image_url: width: 1200 }}"
+                  srcset="{{ ed_img | image_url: width: 600 }} 600w, {{ ed_img | image_url: width: 900 }} 900w, {{ ed_img | image_url: width: 1200 }} 1200w, {{ ed_img | image_url: width: 1600 }} 1600w, {{ ed_img | image_url: width: 2000 }} 2000w"
+                  sizes="(max-width: 749px) 100vw, 92vw"
+                  alt="{{ block.settings.image_alt | default: block.settings.heading | escape }}"
+                  width="{{ ed_img.width }}"
+                  height="{{ ed_img.height }}"
+                  loading="lazy">
+                <div class="zk-editorial-card__overlay">
+                  {%- if block.settings.heading != blank -%}
+                    <h3 class="zk-editorial-card__heading">{{ block.settings.heading }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.subheading != blank -%}
+                    <p class="zk-editorial-card__subheading">{{ block.settings.subheading }}</p>
+                  {%- endif -%}
+                  {%- if ed_has_link and block.settings.cta_text != blank -%}
+                    <span class="zk-editorial-card__cta">{{ block.settings.cta_text }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endcapture -%}
+
+              <div class="grid__item medium-up--one-whole small--one-whole zk-editorial-slot" {{ block.shopify_attributes }} data-aos>
+                {%- if ed_has_link -%}
+                  <a href="{{ block.settings.link }}" class="zk-editorial-card zk-editorial-card--link">{{ ed_inner }}</a>
+                {%- else -%}
+                  <div class="zk-editorial-card">{{ ed_inner }}</div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
         {% else %}
           <div class="grid__item">
             <p>{{ 'collections.general.no_matches' | t }}</p>
@@ -169,6 +304,59 @@
         "label": "Show bundle promo belt above grid",
         "default": true,
         "info": "Advertises the Buy 2/3/4 bundle discount. Links to Best Selling collection."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "editorial_image",
+        "name": "Editorial image",
+        "limit": 6,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "range",
+            "id": "insert_after_product",
+            "label": "Insert after product #",
+            "info": "Position in the grid (1 = after 1st product). Block repeats on every paginated page at the same slot.",
+            "min": 1,
+            "max": 23,
+            "step": 1,
+            "default": 4
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading (optional)"
+          },
+          {
+            "type": "textarea",
+            "id": "subheading",
+            "label": "Subheading (optional)"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link (optional)",
+            "info": "Points to a collection, product, page, or external URL. When set, the entire card becomes clickable."
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA text",
+            "info": "Shown only when Link is set.",
+            "default": "Shop the collection →"
+          },
+          {
+            "type": "text",
+            "id": "image_alt",
+            "label": "Image alt text",
+            "info": "Describes the image for accessibility and SEO."
+          }
+        ]
       }
     ]
   }
