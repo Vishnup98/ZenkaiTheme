@@ -12,10 +12,10 @@
     "main": {
       "type": "product-template",
       "blocks": {
-        "ugc_photo_8nejCt": {
+        "ugc_photo_iayrqb": {
           "type": "ugc_photo",
           "settings": {
-            "image": "shopify://shop_images/OpenAI_Playground_2026-04-24_at_19.06.39_0.png",
+            "image": "shopify://shop_images/OpenAI_Playground_2026-04-24_at_19.08.47_2.png",
             "caption": ""
           }
         },
@@ -23,6 +23,13 @@
           "type": "ugc_photo",
           "settings": {
             "image": "shopify://shop_images/ugc3.png",
+            "caption": ""
+          }
+        },
+        "ugc_photo_8nejCt": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/OpenAI_Playground_2026-04-24_at_19.06.39_0.png",
             "caption": ""
           }
         },
@@ -46,8 +53,9 @@
         }
       },
       "block_order": [
-        "ugc_photo_8nejCt",
+        "ugc_photo_iayrqb",
         "ugc_photo_6XteFk",
+        "ugc_photo_8nejCt",
         "ugc_photo_6mJpeB",
         "ugc_photo_PWkNtN",
         "judge_me_reviews_preview_badge_6qQQcm"
