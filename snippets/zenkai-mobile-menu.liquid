@@ -1,172 +1,272 @@
 {% comment %}
-  ZENKAI MOBILE MENU
-  A clean, full-screen overlay mobile menu for premium streetwear experience.
-  Uses unique class names (zenkai-*) to avoid conflicts with original theme.
+  ZENKAI MOBILE MENU — midnight indigo, push-panel submenus.
+
+  Markup notes:
+  - Submenu panels are siblings of the main list at overlay root (NOT nested in
+    <li>) so ancestor transforms can never create a containing block and clip them
+    (the bug that made COLLECTIONS render as a skinny box).
+  - Panel IDs use `handleize | append: forloop.index` — collision-safe if two
+    top-level links share a title (matches the pattern in slide-nav.liquid).
+  - Opener is .js-zenkai-open (on the header MENU button), close controls are
+    .js-zenkai-close (inside the overlay). No single class does both roles.
+  - Body scroll lock uses the theme-standard js-drawer-open class on <html>+<body>
+    (see theme.scss.liquid:2881). Do not use screen-layer-open (ProductScreen).
+  - Focus trap uses theme.a11y.trapFocus / removeTrapFocus from theme.js.liquid.
 {% endcomment %}
 
-<div id="zenkai-mobile-overlay" class="zenkai-overlay" aria-hidden="true">
-  {% comment %} Close button - visible at top right {% endcomment %}
-  <button type="button" class="zenkai-menu__close js-zenkai-toggle" aria-label="Close menu">
-    <span>CLOSE</span>
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-    </svg>
-  </button>
+<div id="zenkai-mobile-overlay" class="zenkai-overlay" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+  <header class="zenkai-overlay__bar">
+    <a href="{{ routes.root_url }}" class="zenkai-overlay__brand" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo -%}
+        {%- assign overlay_logo_size = '120x' -%}
+        <img src="{{ section.settings.logo | img_url: overlay_logo_size }}"
+             alt="{{ shop.name | escape }}"
+             width="{{ section.settings.logo.width }}"
+             height="{{ section.settings.logo.height }}"
+             class="zenkai-overlay__logo">
+      {%- else -%}
+        <span class="zenkai-overlay__wordmark">{{ shop.name | upcase }}</span>
+      {%- endif -%}
+    </a>
+    <button type="button" class="zenkai-overlay__close js-zenkai-close" aria-label="Close menu">
+      <span>CLOSE</span>
+      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
 
-  <nav class="zenkai-menu" role="navigation" aria-label="Mobile navigation">
-    <ul class="zenkai-menu__list">
-      <li class="zenkai-menu__item zenkai-menu__item--cta">
-        <a href="/collections/best-selling" class="zenkai-menu__link zenkai-menu__link--cta">
-          Shop best sellers
-        </a>
-      </li>
-
-      <li class="zenkai-menu__item zenkai-menu__item--utility">
-        <a href="{{ routes.search_url }}" class="zenkai-menu__link zenkai-menu__link--utility js-modal-open-search-modal js-no-transition">
-          Search
-        </a>
-      </li>
-
-      {%- unless main_menu.links[0].url == routes.root_url -%}
-        <li class="zenkai-menu__item">
-          <a href="{{ routes.root_url }}" class="zenkai-menu__link">
-            {{ 'general.drawers.home' | t }}
-          </a>
+  <div class="zenkai-overlay__stage">
+    <nav class="zenkai-menu" aria-label="Primary">
+      <ul class="zenkai-menu__list">
+        <li class="zenkai-menu__item zenkai-menu__item--cta">
+          <a href="/collections/best-selling" class="zenkai-menu__cta">Shop best sellers</a>
         </li>
-      {%- endunless -%}
 
-      {% for link in main_menu.links %}
-        <li class="zenkai-menu__item">
-          {% if link.links != blank %}
-            <button type="button" class="zenkai-menu__link zenkai-menu__toggle" data-submenu="{{ link.title | handleize }}">
-              {{ link.title }}
-              <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="20" height="20">
-                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none"/>
-              </svg>
-            </button>
-            <ul class="zenkai-submenu" data-submenu-id="{{ link.title | handleize }}">
-              <li class="zenkai-submenu__header">
-                <button type="button" class="zenkai-submenu__back">
-                  <svg viewBox="0 0 24 24" width="20" height="20">
-                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none"/>
-                  </svg>
-                  Back
-                </button>
-                <a href="{{ link.url }}" class="zenkai-submenu__title">{{ link.title }}</a>
-              </li>
-              {% for childlink in link.links %}
-                <li class="zenkai-menu__item">
-                  <a href="{{ childlink.url }}" class="zenkai-menu__link zenkai-menu__link--sub">
-                    {{ childlink.title | escape }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <a href="{{ link.url }}" class="zenkai-menu__link">
-              {{ link.title }}
+        {%- unless main_menu.links[0].url == routes.root_url -%}
+          <li class="zenkai-menu__item">
+            <a href="{{ routes.root_url }}" class="zenkai-menu__link">
+              {{ 'general.drawers.home' | t }}
             </a>
-          {% endif %}
-        </li>
-      {% endfor %}
+          </li>
+        {%- endunless -%}
 
-    </ul>
-  </nav>
+        {% for link in main_menu.links %}
+          {%- assign panel_id = link.title | handleize | append: '-' | append: forloop.index -%}
+          <li class="zenkai-menu__item">
+            {% if link.links != blank %}
+              <button type="button"
+                class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open"
+                data-panel="{{ panel_id }}"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <span>{{ link.title }}</span>
+                <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+              </button>
+            {% else %}
+              <a href="{{ link.url }}" class="zenkai-menu__link"{% if link.active %} aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% comment %} Utility footer — respects settings.social_enable and announcement. {% endcomment %}
+      <div class="zenkai-menu__utility">
+        <span class="zenkai-menu__divider" aria-hidden="true"></span>
+
+        {% if section.settings.header_search_enable %}
+          <a href="{{ routes.search_url }}" class="zenkai-menu__utility-link js-modal-open-search-modal js-no-transition">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span>{{ 'general.search.title' | t }}</span>
+          </a>
+        {% endif %}
+
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}" class="zenkai-menu__utility-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+              <path d="M4 21c0-4 4-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <span>
+              {% if customer %}{{ 'layout.customer.account' | t }}{% else %}{{ 'layout.customer.log_in' | t }}{% endif %}
+            </span>
+          </a>
+        {% endif %}
+
+        {%- if settings.social_enable -%}
+          {%- assign has_social = false -%}
+          {%- if settings.social_instagram_link != blank or settings.social_facebook_link != blank or settings.social_twitter_link != blank or settings.social_tiktok_link != blank -%}
+            {%- assign has_social = true -%}
+          {%- endif -%}
+          {%- if has_social -%}
+            <div class="zenkai-menu__social" aria-label="Social links">
+              {% if settings.social_instagram_link != blank %}
+                <a href="{{ settings.social_instagram_link }}" class="zenkai-menu__social-link" aria-label="Instagram" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6-1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" fill="currentColor"/></svg>
+                </a>
+              {% endif %}
+              {% if settings.social_facebook_link != blank %}
+                <a href="{{ settings.social_facebook_link }}" class="zenkai-menu__social-link" aria-label="Facebook" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1z" fill="currentColor"/></svg>
+                </a>
+              {% endif %}
+              {% if settings.social_twitter_link != blank %}
+                <a href="{{ settings.social_twitter_link }}" class="zenkai-menu__social-link" aria-label="Twitter" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 5.8a8.5 8.5 0 0 1-2.4.7 4.2 4.2 0 0 0 1.8-2.3 8.4 8.4 0 0 1-2.7 1 4.2 4.2 0 0 0-7.1 3.8A11.9 11.9 0 0 1 3 4.8a4.2 4.2 0 0 0 1.3 5.6 4.2 4.2 0 0 1-1.9-.5v.1a4.2 4.2 0 0 0 3.4 4.1 4.2 4.2 0 0 1-1.9.1 4.2 4.2 0 0 0 3.9 2.9A8.4 8.4 0 0 1 2 18.6a11.9 11.9 0 0 0 6.4 1.9c7.7 0 12-6.4 12-12v-.5A8.5 8.5 0 0 0 22 5.8z" fill="currentColor"/></svg>
+                </a>
+              {% endif %}
+              {% if settings.social_tiktok_link != blank %}
+                <a href="{{ settings.social_tiktok_link }}" class="zenkai-menu__social-link" aria-label="TikTok" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M16 3c.5 2.2 2 3.9 4.2 4.3v3a7 7 0 0 1-4.2-1.4v6.6a6 6 0 1 1-6-6v3a3 3 0 1 0 3 3V3h3z" fill="currentColor"/></svg>
+                </a>
+              {% endif %}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {% if section.settings.show_announcement and section.settings.announcement_text != blank %}
+          <p class="zenkai-menu__shipping">{{ section.settings.announcement_text | strip_html }}</p>
+        {% endif %}
+      </div>
+    </nav>
+
+    {%- comment -%} Submenu panels, hoisted out of <li>. One per dropdown. {%- endcomment -%}
+    {% for link in main_menu.links %}
+      {% if link.links != blank %}
+        {%- assign panel_id = link.title | handleize | append: '-' | append: forloop.index -%}
+        <section class="zenkai-panel" data-panel-id="{{ panel_id }}" aria-hidden="true" aria-label="{{ link.title | escape }}">
+          <div class="zenkai-panel__header">
+            <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back">
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </svg>
+              <span>BACK</span>
+            </button>
+            <a href="{{ link.url }}" class="zenkai-panel__title">{{ link.title }}</a>
+          </div>
+          <ul class="zenkai-panel__list">
+            {% for childlink in link.links %}
+              <li class="zenkai-panel__item">
+                <a href="{{ childlink.url }}" class="zenkai-panel__link"{% if childlink.active %} aria-current="page"{% endif %}>
+                  {{ childlink.title | escape }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
   var overlay = document.getElementById('zenkai-mobile-overlay');
-  var toggleButtons = document.querySelectorAll('.js-zenkai-toggle');
-  var submenuToggles = overlay.querySelectorAll('.zenkai-menu__toggle');
-  var backButtons = overlay.querySelectorAll('.zenkai-submenu__back');
-  var modalLinks = overlay.querySelectorAll('.js-modal-open-search-modal');
+  if (!overlay || overlay.dataset.zenkaiInit === '1') return;
+  overlay.dataset.zenkaiInit = '1';
 
-  function openMenu() {
+  var DRAWER_CLASS = 'js-drawer-open';
+  var html = document.documentElement;
+  var body = document.body;
+  var openers = document.querySelectorAll('.js-zenkai-open');
+  var closers = overlay.querySelectorAll('.js-zenkai-close');
+  var panelOpeners = overlay.querySelectorAll('.js-zenkai-panel-open');
+  var backButtons = overlay.querySelectorAll('.js-zenkai-panel-back');
+  var panels = overlay.querySelectorAll('.zenkai-panel');
+  var stage = overlay.querySelector('.zenkai-overlay__stage');
+  var menuList = overlay.querySelector('.zenkai-menu');
+  var searchHandoff = overlay.querySelectorAll('.js-modal-open-search-modal');
+
+  var lastOpener = null;
+  var activePanel = null;
+
+  function useTrapFocus(container) {
+    if (window.theme && window.theme.a11y && typeof window.theme.a11y.trapFocus === 'function') {
+      window.theme.a11y.trapFocus({ $container: window.jQuery ? window.jQuery(container) : container, namespace: 'zenkaiMenu' });
+    }
+  }
+  function releaseTrapFocus() {
+    if (window.theme && window.theme.a11y && typeof window.theme.a11y.removeTrapFocus === 'function') {
+      window.theme.a11y.removeTrapFocus({ namespace: 'zenkaiMenu' });
+    }
+  }
+
+  function openMenu(evt) {
+    if (evt && evt.preventDefault) evt.preventDefault();
+    if (evt && evt.currentTarget) lastOpener = evt.currentTarget;
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    toggleButtons.forEach(function(btn) {
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-expanded', 'true');
-    });
+    html.classList.add(DRAWER_CLASS);
+    body.classList.add(DRAWER_CLASS);
+    openers.forEach(function(btn) { btn.setAttribute('aria-expanded', 'true'); });
+    useTrapFocus(overlay);
   }
 
   function closeMenu() {
+    closeActivePanel(true);
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    toggleButtons.forEach(function(btn) {
-      btn.classList.remove('is-active');
-      btn.setAttribute('aria-expanded', 'false');
-    });
-    // Close all submenus
-    overlay.querySelectorAll('.zenkai-submenu.is-open').forEach(function(sub) {
-      sub.classList.remove('is-open');
-    });
+    html.classList.remove(DRAWER_CLASS);
+    body.classList.remove(DRAWER_CLASS);
+    openers.forEach(function(btn) { btn.setAttribute('aria-expanded', 'false'); });
+    releaseTrapFocus();
+    if (lastOpener && typeof lastOpener.focus === 'function') lastOpener.focus();
   }
 
-  // Toggle button click
-  toggleButtons.forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (overlay.classList.contains('is-open')) {
-        closeMenu();
-      } else {
-        openMenu();
+  function openPanel(id, triggerBtn) {
+    var panel = overlay.querySelector('.zenkai-panel[data-panel-id="' + id + '"]');
+    if (!panel) return;
+    closeActivePanel(false);
+    panel.setAttribute('aria-hidden', 'false');
+    panel.classList.add('is-open');
+    if (menuList) menuList.classList.add('is-pushed');
+    if (triggerBtn) {
+      triggerBtn.setAttribute('aria-expanded', 'true');
+      panel.dataset.zenkaiReturn = triggerBtn.getAttribute('data-panel');
+    }
+    activePanel = panel;
+    var back = panel.querySelector('.js-zenkai-panel-back');
+    if (back && typeof back.focus === 'function') back.focus();
+  }
+
+  function closeActivePanel(skipFocusRestore) {
+    if (!activePanel) return;
+    activePanel.setAttribute('aria-hidden', 'true');
+    activePanel.classList.remove('is-open');
+    var returnId = activePanel.dataset.zenkaiReturn;
+    activePanel = null;
+    if (menuList) menuList.classList.remove('is-pushed');
+    if (returnId) {
+      var trigger = overlay.querySelector('.js-zenkai-panel-open[data-panel="' + returnId + '"]');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+        if (!skipFocusRestore && typeof trigger.focus === 'function') trigger.focus();
       }
-    });
-  });
+    }
+  }
 
-  // Submenu toggle
-  submenuToggles.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var targetId = this.getAttribute('data-submenu');
-      var submenu = overlay.querySelector('[data-submenu-id="' + targetId + '"]');
-      if (submenu) {
-        submenu.classList.add('is-open');
-      }
-    });
+  openers.forEach(function(btn) { btn.addEventListener('click', openMenu); });
+  closers.forEach(function(btn) { btn.addEventListener('click', function(e) { e.preventDefault(); closeMenu(); }); });
+  panelOpeners.forEach(function(btn) {
+    btn.addEventListener('click', function() { openPanel(btn.getAttribute('data-panel'), btn); });
   });
+  backButtons.forEach(function(btn) { btn.addEventListener('click', function() { closeActivePanel(false); }); });
+  searchHandoff.forEach(function(link) { link.addEventListener('click', function() { closeMenu(); }); });
 
-  // Back button
-  backButtons.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      this.closest('.zenkai-submenu').classList.remove('is-open');
-    });
-  });
-
-  // Close the overlay before handing off to theme modals
-  modalLinks.forEach(function(link) {
-    link.addEventListener('click', function() {
-      closeMenu();
-    });
-  });
-
-  // Close on ESC
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-      closeMenu();
-    }
+    if (e.key !== 'Escape' || !overlay.classList.contains('is-open')) return;
+    if (activePanel) closeActivePanel(false); else closeMenu();
   });
 
-  // Close when clicking on overlay background
   overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) {
-      closeMenu();
-    }
+    if (e.target === overlay) closeMenu();
   });
-
-  // Scroll detection for header background on homepage
-  var headerWrapper = document.querySelector('.header-wrapper--overlay');
-  if (headerWrapper) {
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 50) {
-        headerWrapper.classList.add('is-scrolled');
-      } else {
-        headerWrapper.classList.remove('is-scrolled');
-      }
-    }, { passive: true });
-  }
-});
+})();
 </script>
