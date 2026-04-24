@@ -485,6 +485,7 @@
           "text": "<p>Tees, hoodies, and hats with references only the real ones catch.</p>",
           "button_label": "See what's moving",
           "button_link": "shopify://collections/best-selling",
+          "accent_button": true,
           "image": "shopify://shop_images/mockup_4_1b4c339e-55c9-4095-b658-a673305249f9.png",
           "desktop_size": -10,
           "image_alignment": "center center",
