@@ -29,18 +29,88 @@
 
 {%- capture grid_item_width -%}{{ grid_small_width }} {{ grid_large_width}}{%- endcapture -%}
 
+{%- liquid
+  case section.settings.per_row_mobile
+    when '1'
+      assign zk_mobile_cols = 1
+    else
+      assign zk_mobile_cols = 2
+  endcase
+-%}
+
 {%- style -%}
+  /* =========================================================
+     Collection grid — CSS Grid override (scoped to collection only)
+     Replaces the legacy float-based .grid layout with CSS Grid so
+     editorial image blocks can use grid-column: span N and match
+     the height of adjacent product cards in their row.
+     ========================================================= */
+  #CollectionAjaxContent .grid {
+    display: grid !important;
+    grid-template-columns: repeat({{ section.settings.per_row_desktop }}, minmax(0, 1fr)) !important;
+    gap: 30px 22px !important;
+    margin-left: 0 !important;
+  }
+
+  /* Neutralize the legacy float clearfix so ::after doesn't become a grid cell */
+  #CollectionAjaxContent .grid::after,
+  #CollectionAjaxContent .grid::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  #CollectionAjaxContent .grid > .grid__item {
+    float: none !important;
+    width: auto !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Kill grid--scattered-large-* padding-top offsets — they target .grid-product:nth-child */
+  #CollectionAjaxContent .grid > .grid-product {
+    padding-top: 0 !important;
+  }
+
+  /* Product cards fill their grid cell height */
+  #CollectionAjaxContent .grid > .grid__item .grid-product__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 749px) {
+    #CollectionAjaxContent .grid {
+      grid-template-columns: repeat({{ zk_mobile_cols }}, minmax(0, 1fr)) !important;
+      gap: 22px 14px !important;
+    }
+  }
+
+  /* =========================================================
+     Editorial image block — premium card, matches row height
+     ========================================================= */
   .zk-editorial-slot {
-    padding-top: 28px;
-    padding-bottom: 28px;
+    grid-column: span 2;
+  }
+
+  .zk-editorial-slot[data-span='1'] {
+    grid-column: span 1;
+  }
+
+  .zk-editorial-slot[data-span='full'] {
+    grid-column: 1 / -1;
   }
 
   .zk-editorial-card {
     position: relative;
     display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
     overflow: hidden;
-    border-radius: 12px;
-    aspect-ratio: 2.4 / 1;
+    border-radius: 14px;
     color: #ffffff;
     text-decoration: none;
     background: #1a1b2e;
@@ -53,11 +123,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    object-position: center center;
+    transition: transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
   }
 
   .zk-editorial-card--link:hover .zk-editorial-card__image {
-    transform: scale(1.02);
+    transform: scale(1.025);
   }
 
   .zk-editorial-card__overlay {
@@ -65,63 +136,95 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 26px 30px 24px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0) 100%);
+    padding: 28px 32px 26px;
+    background: linear-gradient(to top,
+      rgba(10, 11, 22, 0.78) 0%,
+      rgba(10, 11, 22, 0.42) 45%,
+      rgba(10, 11, 22, 0.08) 75%,
+      rgba(10, 11, 22, 0) 100%);
     color: #ffffff;
+    pointer-events: none;
+  }
+
+  .zk-editorial-card--link .zk-editorial-card__overlay {
+    pointer-events: auto;
   }
 
   .zk-editorial-card__heading {
     margin: 0;
-    font-size: 26px;
-    font-weight: 600;
+    font-size: 28px;
+    font-weight: 700;
     letter-spacing: 0.005em;
-    line-height: 1.18;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    line-height: 1.15;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
   }
 
   .zk-editorial-card__subheading {
-    margin: 6px 0 0;
+    margin: 8px 0 0;
     font-size: 14px;
     font-weight: 400;
-    line-height: 1.45;
+    line-height: 1.5;
     opacity: 0.94;
-    max-width: 620px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    max-width: 520px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 
   .zk-editorial-card__cta {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 4px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px 18px;
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.55);
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    letter-spacing: 0.005em;
+    color: #1a1b2e;
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, gap 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .zk-editorial-card__cta-arrow {
+    transition: transform 0.25s ease;
   }
 
   .zk-editorial-card--link:hover .zk-editorial-card__cta {
-    border-color: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+    gap: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
   }
 
-  @media (max-width: 640px) {
+  .zk-editorial-card--link:hover .zk-editorial-card__cta-arrow {
+    transform: translateX(3px);
+  }
+
+  @media screen and (max-width: 749px) {
+    /* On mobile, editorial blocks always span full row for breathing room */
+    .zk-editorial-slot,
+    .zk-editorial-slot[data-span='1'],
+    .zk-editorial-slot[data-span='full'] {
+      grid-column: 1 / -1;
+    }
     .zk-editorial-card {
-      aspect-ratio: 5 / 4;
+      min-height: 280px;
+      aspect-ratio: 16 / 11;
       border-radius: 10px;
     }
     .zk-editorial-card__overlay {
-      padding: 20px 20px 18px;
+      padding: 22px 22px 20px;
     }
     .zk-editorial-card__heading {
-      font-size: 21px;
+      font-size: 22px;
     }
     .zk-editorial-card__subheading {
       font-size: 13px;
+      margin-top: 6px;
     }
-    .zk-editorial-slot {
-      padding-top: 20px;
-      padding-bottom: 20px;
+    .zk-editorial-card__cta {
+      margin-top: 12px;
+      font-size: 12px;
+      padding: 8px 14px;
     }
   }
 {%- endstyle -%}
@@ -201,12 +304,13 @@
               {%- assign ed_has_link = false -%}
               {%- if block.settings.link != blank -%}{%- assign ed_has_link = true -%}{%- endif -%}
               {%- assign ed_img = block.settings.image -%}
+              {%- assign ed_span = block.settings.column_span | default: '2' -%}
 
               {%- capture ed_inner -%}
                 <img class="zk-editorial-card__image"
                   src="{{ ed_img | image_url: width: 1200 }}"
                   srcset="{{ ed_img | image_url: width: 600 }} 600w, {{ ed_img | image_url: width: 900 }} 900w, {{ ed_img | image_url: width: 1200 }} 1200w, {{ ed_img | image_url: width: 1600 }} 1600w, {{ ed_img | image_url: width: 2000 }} 2000w"
-                  sizes="(max-width: 749px) 100vw, 92vw"
+                  sizes="(max-width: 749px) 100vw, 50vw"
                   alt="{{ block.settings.image_alt | default: block.settings.heading | escape }}"
                   width="{{ ed_img.width }}"
                   height="{{ ed_img.height }}"
@@ -219,12 +323,18 @@
                     <p class="zk-editorial-card__subheading">{{ block.settings.subheading }}</p>
                   {%- endif -%}
                   {%- if ed_has_link and block.settings.cta_text != blank -%}
-                    <span class="zk-editorial-card__cta">{{ block.settings.cta_text }}</span>
+                    <span class="zk-editorial-card__cta">
+                      <span>{{ block.settings.cta_text }}</span>
+                      <svg class="zk-editorial-card__cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </span>
                   {%- endif -%}
                 </div>
               {%- endcapture -%}
 
-              <div class="grid__item medium-up--one-whole small--one-whole zk-editorial-slot" {{ block.shopify_attributes }} data-aos>
+              <div class="grid__item zk-editorial-slot" data-span="{{ ed_span }}" {{ block.shopify_attributes }} data-aos>
                 {%- if ed_has_link -%}
                   <a href="{{ block.settings.link }}" class="zk-editorial-card zk-editorial-card--link">{{ ed_inner }}</a>
                 {%- else -%}
@@ -326,6 +436,18 @@
             "max": 23,
             "step": 1,
             "default": 4
+          },
+          {
+            "type": "select",
+            "id": "column_span",
+            "label": "Card width",
+            "info": "Desktop: 1 = one product width, 2 = two product widths (editorial default), full = full row. Mobile always full row.",
+            "options": [
+              { "value": "1", "label": "1 column (product-sized)" },
+              { "value": "2", "label": "2 columns (editorial, recommended)" },
+              { "value": "full", "label": "Full row (hero banner)" }
+            ],
+            "default": "2"
           },
           {
             "type": "text",
