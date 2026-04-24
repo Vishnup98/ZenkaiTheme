@@ -10993,22 +10993,35 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 /* ==========================================================================
-   ZENKAI MOBILE MENU OVERLAY — Night Signal palette, push-panel submenus
+   ZENKAI MENU OVERLAY - Premium full-screen menu
    ========================================================================== */
 .zenkai-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  background: #1a1b2e; /* midnight indigo, matches announcement + body buttons */
+  background: linear-gradient(165deg, #0a0a0a 0%, #141414 50%, #0d0d0d 100%);
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 220ms ease, visibility 220ms ease;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.zenkai-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top right, rgba(255,255,255,0.03) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .zenkai-overlay.is-open {
@@ -11017,428 +11030,350 @@ $marqueeAnimationSpeedMobile: 6.6s;
   pointer-events: auto;
 }
 
-.zenkai-overlay::before {
-  content: '';
-  position: absolute;
-  top: 56px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, $colorAccent 20%, $colorAccent 80%, transparent 100%);
-  opacity: 0.6;
-  pointer-events: none;
-  z-index: 2;
+/* Staggered animation for menu items */
+.zenkai-overlay.is-open .zenkai-menu__item {
+  animation: menuFadeIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(15px);
 }
 
-/* Overlay header — 56px bar with brand mark + CLOSE */
-.zenkai-overlay__bar {
-  position: relative;
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(1) { animation-delay: 0.1s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(2) { animation-delay: 0.15s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(3) { animation-delay: 0.2s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(4) { animation-delay: 0.25s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(5) { animation-delay: 0.3s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(6) { animation-delay: 0.35s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(7) { animation-delay: 0.4s; }
+.zenkai-overlay.is-open .zenkai-menu__item:nth-child(8) { animation-delay: 0.45s; }
+
+@keyframes menuFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Close Button - Top Right */
+.zenkai-menu__close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 0 20px;
-  flex-shrink: 0;
-  z-index: 3;
-}
-
-.zenkai-overlay__brand {
-  display: flex;
-  align-items: center;
-  color: #ffffff;
-  text-decoration: none;
-  min-height: 44px;
-}
-
-.zenkai-overlay__logo {
-  display: block;
-  height: 28px;
-  width: auto;
-  max-width: 140px;
-  object-fit: contain;
-}
-
-.zenkai-overlay__wordmark {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #ffffff;
-}
-
-.zenkai-overlay__close {
-  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 4px;
-  margin: 0;
-  background: transparent;
-  border: 0;
-  color: rgba(255, 255, 255, 0.85);
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0;
+  color: #ffffff;
   font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
+  transition: all 0.25s ease;
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.2s ease;
-  min-height: 44px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: closeButtonFade 0.4s ease 0.3s forwards;
+  opacity: 0;
 }
 
-.zenkai-overlay__close:hover,
-.zenkai-overlay__close:focus {
-  color: #ffffff;
+.zenkai-overlay.is-open .zenkai-menu__close {
+  opacity: 1;
+}
+
+@keyframes closeButtonFade {
+  to { opacity: 1; }
+}
+
+.zenkai-menu__close:hover,
+.zenkai-menu__close:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
   outline: none;
 }
 
-.zenkai-overlay__close:focus-visible {
-  outline: 2px solid $colorAccent;
-  outline-offset: 2px;
+.zenkai-menu__close:active {
+  transform: scale(0.97);
 }
 
-.zenkai-overlay__close svg {
+.zenkai-menu__close svg {
   stroke: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
-/* Stage — holds the primary nav and the submenu panels */
-.zenkai-overlay__stage {
-  position: relative;
-  flex: 1 1 auto;
-  overflow: hidden;
-}
-
+/* Menu Container - Top-aligned content */
 .zenkai-menu {
-  position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 0px));
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1), opacity 280ms ease;
-  will-change: transform;
-}
-
-.zenkai-menu.is-pushed {
-  transform: translateX(-30%);
-  opacity: 0.5;
-  pointer-events: none;
+  justify-content: flex-start;
+  min-height: auto;
+  padding: 90px 40px calc(50px + env(safe-area-inset-bottom, 0px));
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .zenkai-menu__list {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
+/* Menu Items */
 .zenkai-menu__item {
   position: relative;
 }
 
+/* Subtle separator between items */
 .zenkai-menu__item + .zenkai-menu__item {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.zenkai-menu__item--cta {
-  border-top: none !important;
-  margin-bottom: 18px;
-}
-
-.zenkai-menu__cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 14px 18px;
-  background: #ffffff;
-  color: #1a1b2e !important;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 3px; /* matches site button-style: round-slight */
-  transition: background 0.2s ease, color 0.2s ease;
-  min-height: 48px;
-}
-
-.zenkai-menu__cta:hover,
-.zenkai-menu__cta:focus {
-  background: rgba(255, 255, 255, 0.92);
-  color: #1a1b2e !important;
-  outline: none;
-}
-
-.zenkai-menu__cta:focus-visible {
-  box-shadow: 0 0 0 2px $colorAccent;
-}
-
-/* Primary nav link rows */
+/* Menu Links - Clean, elegant typography (sized to fit without scrolling) */
 .zenkai-menu__link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  display: block;
   width: 100%;
-  padding: 16px 4px;
-  background: transparent;
-  border: 0;
-  border-left: 2px solid transparent;
-  color: rgba(255, 255, 255, 0.92) !important;
-  font-family: inherit;
+  padding: 18px 15px;
   font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-weight: 400;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85) !important;
   text-decoration: none;
-  text-align: left;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
-  min-height: 48px;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+}
+
+/* Hover underline effect */
+.zenkai-menu__link::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.zenkai-menu__link:hover::after,
+.zenkai-menu__link:focus::after {
+  width: 40px;
 }
 
 .zenkai-menu__link:hover,
 .zenkai-menu__link:focus {
   color: #ffffff !important;
   outline: none;
-  border-left-color: $colorAccent;
-  padding-left: 12px;
 }
 
-.zenkai-menu__link:focus-visible {
-  border-left-color: $colorAccent;
-  padding-left: 12px;
+.zenkai-menu__link:active {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
-.zenkai-menu__link[aria-current="page"] {
-  border-left-color: $colorAccent;
-  padding-left: 12px;
-  color: #ffffff !important;
+.zenkai-menu__item--cta {
+  margin-bottom: 10px;
+}
+
+.zenkai-menu__item--utility {
+  margin-bottom: 12px;
+}
+
+.zenkai-menu__item--cta + .zenkai-menu__item--utility,
+.zenkai-menu__item--utility + .zenkai-menu__item {
+  border-top: none;
+}
+
+.zenkai-menu__link--cta,
+.zenkai-menu__link--utility {
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.zenkai-menu__link--cta::after,
+.zenkai-menu__link--utility::after {
+  display: none;
+}
+
+.zenkai-menu__link--cta {
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: #f5f5f7;
+  color: #1a1b2e !important;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+}
+
+.zenkai-menu__link--cta:hover,
+.zenkai-menu__link--cta:focus {
+  background: #FFFFFF;
+  color: #1a1b2e !important;
+}
+
+.zenkai-menu__link--utility {
+  padding: 12px 8px;
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.zenkai-menu__link--utility:hover,
+.zenkai-menu__link--utility:focus {
+  color: #FFFFFF !important;
+}
+
+.zenkai-menu__link--sub {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  padding: 14px 15px;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.zenkai-menu__link--sub::after {
+  display: none;
+}
+
+.zenkai-menu__link--sub:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Toggle button (with chevron) */
+.zenkai-menu__toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.zenkai-menu__toggle::after {
+  display: none;
 }
 
 .zenkai-menu__chevron {
   flex-shrink: 0;
   stroke: currentColor;
-  opacity: 0.6;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 0.25s ease;
+  opacity: 0.4;
+  width: 16px;
+  height: 16px;
 }
 
-.zenkai-menu__toggle:hover .zenkai-menu__chevron,
-.zenkai-menu__toggle:focus .zenkai-menu__chevron {
-  opacity: 1;
-  transform: translateX(3px);
+.zenkai-menu__toggle:hover .zenkai-menu__chevron {
+  opacity: 0.8;
+  transform: translateX(4px);
 }
 
-/* Utility footer — search, account, social, shipping */
-.zenkai-menu__utility {
-  margin-top: auto;
-  padding-top: 24px;
-}
-
-.zenkai-menu__divider {
-  display: block;
-  height: 2px;
-  margin-bottom: 16px;
-  background: linear-gradient(90deg, transparent 0%, $colorAccent 20%, $colorAccent 80%, transparent 100%);
-  opacity: 0.5;
-}
-
-.zenkai-menu__utility-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 4px;
-  color: rgba(255, 255, 255, 0.75) !important;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  min-height: 44px;
-  transition: color 0.2s ease;
-}
-
-.zenkai-menu__utility-link:hover,
-.zenkai-menu__utility-link:focus {
-  color: #ffffff !important;
-  outline: none;
-}
-
-.zenkai-menu__utility-link svg {
-  stroke: currentColor;
-  flex-shrink: 0;
-}
-
-.zenkai-menu__social {
-  display: flex;
-  gap: 16px;
-  padding: 12px 4px 4px;
-}
-
-.zenkai-menu__social-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: color 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.zenkai-menu__social-link:hover,
-.zenkai-menu__social-link:focus {
-  color: #ffffff;
-  outline: none;
-}
-
-.zenkai-menu__shipping {
-  margin: 16px 4px 0;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  line-height: 1.5;
-}
-
-/* =====================================================================
-   Submenu panels — slide-in from right when a dropdown is opened
-   ===================================================================== */
-.zenkai-panel {
-  position: absolute;
-  inset: 0;
-  background: #1a1b2e;
-  transform: translateX(100%);
-  transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1);
+/* Submenu */
+.zenkai-submenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(165deg, #0a0a0a 0%, #141414 50%, #0d0d0d 100%);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(20px);
+  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 0px));
-  will-change: transform;
-  z-index: 2;
+  padding: 80px 40px 60px;
+  list-style: none;
+  margin: 0;
 }
 
-.zenkai-panel.is-open {
-  transform: translateX(0);
-}
-
-.zenkai-panel[aria-hidden="true"] * {
-  /* keep hidden panels out of the tab order */
-  visibility: inherit;
-}
-
-.zenkai-panel[aria-hidden="true"] a,
-.zenkai-panel[aria-hidden="true"] button {
+.zenkai-submenu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top right, rgba(255,255,255,0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
-.zenkai-panel__header {
+.zenkai-submenu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.zenkai-submenu__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 16px;
-  margin-bottom: 8px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.zenkai-panel__back {
-  display: inline-flex;
+.zenkai-submenu__back {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 4px;
-  background: transparent;
-  border: 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
   cursor: pointer;
-  min-height: 44px;
-  transition: color 0.2s ease;
+  transition: all 0.25s ease;
 }
 
-.zenkai-panel__back:hover,
-.zenkai-panel__back:focus {
-  color: #ffffff;
-  outline: none;
+.zenkai-submenu__back:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
 }
 
-.zenkai-panel__back:focus-visible {
-  outline: 2px solid $colorAccent;
-  outline-offset: 2px;
+.zenkai-submenu__back:active {
+  transform: scale(0.97);
 }
 
-.zenkai-panel__back svg {
+.zenkai-submenu__back svg {
   stroke: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
-.zenkai-panel__title {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #ffffff !important;
-  text-decoration: none;
-  text-align: right;
-  transition: color 0.2s ease;
-}
-
-.zenkai-panel__title:hover {
-  color: rgba(255, 255, 255, 0.85) !important;
-}
-
-.zenkai-panel__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.zenkai-panel__item + .zenkai-panel__item {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.zenkai-panel__link {
-  display: block;
-  padding: 16px 4px;
-  border-left: 2px solid transparent;
-  color: rgba(255, 255, 255, 0.85) !important;
-  font-size: 16px;
+.zenkai-submenu__title {
+  font-size: 18px;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  min-height: 48px;
-  transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
+  transition: color 0.25s ease;
 }
 
-.zenkai-panel__link:hover,
-.zenkai-panel__link:focus {
-  color: #ffffff !important;
-  outline: none;
-  border-left-color: $colorAccent;
-  padding-left: 12px;
+.zenkai-submenu__title:hover {
+  color: #ffffff;
 }
 
-.zenkai-panel__link[aria-current="page"] {
-  border-left-color: $colorAccent;
-  padding-left: 12px;
-  color: #ffffff !important;
-}
-
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .zenkai-overlay,
-  .zenkai-menu,
-  .zenkai-panel,
-  .zenkai-menu__link,
-  .zenkai-panel__link {
-    transition-duration: 0.01ms !important;
-  }
+/* Hide MENU button when menu is open (close button takes over) */
+.zenkai-header-menu.is-active {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ==========================================================================
