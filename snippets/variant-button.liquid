@@ -15,14 +15,14 @@
   {% endfor %}
 {% endif %}
 
-<div class="variant-wrapper variant-wrapper--{{ variant_type }} js">
-  {%- assign is_size_option = false -%}
-  {%- assign option_name_downcase = option_drop.name | downcase -%}
-  {% if option_name_downcase contains 'size' %}
-    {%- assign is_size_option = true -%}
-  {% endif %}
+{%- assign is_size_option = false -%}
+{%- assign option_name_downcase = option_drop.name | downcase -%}
+{% if option_name_downcase contains 'size' %}
+  {%- assign is_size_option = true -%}
+{% endif %}
+<div class="variant-wrapper variant-wrapper--{{ variant_type }}{% if is_size_option %} variant-wrapper--size{% endif %} js">
   {%- assign option_index = forloop.index -%}
-  <fieldset class="variant-input-wrap"
+  <fieldset class="variant-input-wrap{% if is_size_option %} variant-input-wrap--size{% endif %}"
     name="{{ option_drop.name }}"
     data-index="option{{ option_index }}"
     id="ProductSelect-{{ section_id }}-option-{{ forloop.index0 }}">

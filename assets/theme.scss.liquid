@@ -8878,6 +8878,47 @@ $label-bottom-margin: 12px;
   cursor: default;
 }
 
+// Size pill row — single horizontal scroll row on mobile so ATC stays above the fold
+@include media-query($small) {
+  .variant-input-wrap--size {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+    margin-bottom: $label-bottom-margin;
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .variant__label {
+      white-space: normal;
+    }
+
+    .variant-input {
+      scroll-snap-align: start;
+      white-space: normal;
+    }
+
+    label {
+      padding: 12px 16px;
+      margin: 0 6px 0 0;
+      min-width: 44px;
+      text-align: center;
+    }
+  }
+
+  .variant-wrapper--size {
+    margin-bottom: 0;
+  }
+}
+
 // Extra left/right padding when one-per row
 
 @include media-query($small) {
