@@ -1032,7 +1032,9 @@
       position: relative;
     }
 
-    #ProductSection-{{ section_id }} .product__main-photos {
+    #ProductSection-{{ section_id }} .product__main-photos,
+    #ProductSection-{{ section_id }} .product__main-photos-wrapper,
+    #ProductSection-{{ section_id }} .product__main-photos .slick-list {
       z-index: 1 !important;
       overflow: visible !important;
     }
@@ -1042,7 +1044,6 @@
       border-left: 0;
       border-right: 0;
       box-shadow: none;
-      overflow: visible !important;
     }
 
     #ProductSection-{{ section_id }} .product__main-photos .product-image-main .image-wrap {
