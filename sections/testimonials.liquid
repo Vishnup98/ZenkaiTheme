@@ -86,25 +86,31 @@
 
 @media screen and (max-width: 590px) {
   .testimonials-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .testimonial-card {
-    padding: 18px 20px;
+    padding: 14px 16px;
   }
 
   .testimonial-card__quote svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .testimonial-card__text {
-    font-size: 14px;
-    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 10px;
   }
 
   .testimonial-card__quote {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+  }
+
+  .testimonial-card__author {
+    font-size: 13px;
   }
 }
 </style>
