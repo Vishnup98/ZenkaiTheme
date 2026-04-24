@@ -135,7 +135,7 @@
           "enable_video_looping": true,
           "product_video_style": "muted",
           "enable_payment_button": true,
-          "product_signal_hook": "Your childhood favorites, illustrated like they deserve. Midweight ringspun cotton. Printed in the USA.",
+          "product_signal_hook": "Childhood favorites, made for adults. Ringspun cotton. Made to order in the USA.",
           "product_social_subheadline": "Wear it once, your group chat asks for the link.",
           "product_cta_text": "Add to cart",
           "product_cta_subcopy": "Free U.S. shipping. Printed to order in the USA.",
@@ -481,7 +481,7 @@
         "name": "Large image with text box",
         "settings": {
           "subtitle": "Cute, bold, reimagined.",
-          "title": "Childhood favorites, drawn like they deserve.",
+          "title": "Childhood favorites, made for adults.",
           "text": "<p>Finally — merch that isn't from the kids' section and isn't bootleg. Curated prints, ringspun cotton, made to order in the USA.</p>",
           "button_label": "Shop best sellers",
           "button_link": "shopify://collections/best-selling",
