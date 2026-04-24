@@ -12,6 +12,13 @@
     "main": {
       "type": "product-template",
       "blocks": {
+        "ugc_photo_6mJpeB": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/OpenAI_Playground_2026-04-24_at_18.51.44_2.png",
+            "caption": ""
+          }
+        },
         "ugc_photo_PWkNtN": {
           "type": "ugc_photo",
           "settings": {
@@ -25,6 +32,7 @@
         }
       },
       "block_order": [
+        "ugc_photo_6mJpeB",
         "ugc_photo_PWkNtN",
         "judge_me_reviews_preview_badge_6qQQcm"
       ],
