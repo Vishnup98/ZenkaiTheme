@@ -97,7 +97,7 @@
           "main_menu_link_list": "main-menu",
           "show_announcement": true,
           "show_announcement_home_only": false,
-          "announcement_text": "Always free U.S. shipping · Ships in 1–2 business days",
+          "announcement_text": "Free U.S. shipping · Ships in 1–2 days",
           "announcement_link": ""
         }
       },
@@ -480,7 +480,7 @@
         "custom_css": [],
         "name": "Large image with text box",
         "settings": {
-          "subtitle": "Illustrated character tees, hoodies, and hats",
+          "subtitle": "Cute, bold, reimagined.",
           "title": "Childhood favorites, drawn like they deserve.",
           "text": "<p>The ones you grew up with, finally illustrated properly. A full catalog: character portraits, scene prints, abstract graphics, deep cuts. Midweight ringspun cotton, printed in the USA, shipped free in 1–2 business days.</p>",
           "button_label": "Shop best sellers",

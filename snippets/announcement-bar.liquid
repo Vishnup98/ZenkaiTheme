@@ -9,8 +9,8 @@
       <a href="{{ section.settings.announcement_link }}" class="announcement__link">
     {% endif %}
 
-    <div class="announcement__text{% unless zenkai_is_product_page %} announcement__text--rotating{% else %} announcement__text--static{% endunless %}"
-         {% unless zenkai_is_product_page %}data-rotating-messages='["Free U.S. shipping, always", "Ships in 1–2 business days", "Nostalgia, drawn properly"]'{% endunless %}>
+    <div class="announcement__text announcement__text--rotating"
+         data-rotating-messages='["Free U.S. shipping", "Ships in 1–2 days", "Nostalgia, drawn properly"]'>
       {{ section.settings.announcement_text | strip_html }}
     </div>
 
@@ -28,7 +28,11 @@
   const messages = JSON.parse(textEl.dataset.rotatingMessages || '[]');
   if (messages.length < 2) return;
 
+  // Paint messages[0] immediately so the longer settings text doesn't flash
+  // for 4s before the first rotation tick. Index increments AFTER display,
+  // so the cycle reads [0, 1, 2, 0, …] instead of skipping 0.
   let currentIndex = 0;
+  textEl.textContent = messages[0];
 
   function rotateMessage() {
     textEl.style.opacity = '0';

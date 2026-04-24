@@ -36,7 +36,7 @@
 {%- assign max_tier = max_tier | default: 4 -%}
 
 {%- if format == 'long' -%}
-Mix any 2 items for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %} Tees, hoodies, hats — all count.
+Mix any 2 items for ${{ bundle_tier_2_save }} off.{% if max_tier >= 3 %} Any 3 unlocks ${{ bundle_tier_3_save }}.{% endif %}{% if max_tier >= 4 %} Any 4+ unlocks ${{ bundle_tier_4_save }}.{% endif %}
 {%- elsif format == 'short' -%}
 Mix &amp; match any 2+ products • Save ${{ bundle_tier_2_save }} to ${{ bundle_tier_4_save }} at checkout
 {%- elsif format == 'compact' -%}
