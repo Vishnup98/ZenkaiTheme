@@ -64,19 +64,33 @@
     overflow: hidden;
   }
 
+  /* Show full image — dark bg fills any gaps on non-square photos */
   .grid-product__image--cover {
     position: absolute !important;
     top: 0;
     left: 0;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover;
-    object-position: center top;
+    object-fit: contain;
+    object-position: center center;
     transition: transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
   }
 
   .grid-product--editorial:hover .grid-product__image--cover {
     transform: scale(1.03);
+  }
+
+  /* Bigger cards — override grid-product--small sizing */
+  .grid-product--editorial.grid-product--small {
+    width: 75% !important;
+    flex: 0 0 75% !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    .grid-product--editorial.grid-product--small {
+      width: 36% !important;
+      flex: 0 0 36% !important;
+    }
   }
 
   /* Gradient overlay — compact for square cards */
