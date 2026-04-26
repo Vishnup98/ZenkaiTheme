@@ -56,11 +56,11 @@
     position: relative;
   }
 
-  /* Fixed 3:4 aspect ratio — keeps cards uniform regardless of source image */
+  /* Fixed 1:1 aspect ratio — square cards */
   .image-wrap--editorial {
     position: relative;
     height: 0 !important;
-    padding-bottom: 133.33% !important;
+    padding-bottom: 100% !important;
     overflow: hidden;
   }
 
@@ -79,17 +79,17 @@
     transform: scale(1.03);
   }
 
-  /* Gradient overlay — matches editorial card treatment */
+  /* Gradient overlay — tighter for square cards */
   .grid-product__editorial-overlay {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 22px 24px 20px;
+    padding: 20px 22px 18px;
     background: linear-gradient(to top,
-      rgba(10, 11, 22, 0.82) 0%,
-      rgba(10, 11, 22, 0.50) 35%,
-      rgba(10, 11, 22, 0.12) 62%,
+      rgba(10, 11, 22, 0.85) 0%,
+      rgba(10, 11, 22, 0.55) 40%,
+      rgba(10, 11, 22, 0.12) 70%,
       rgba(10, 11, 22, 0) 100%);
     color: #ffffff;
     z-index: 2;
@@ -119,13 +119,14 @@
     opacity: 0.75;
   }
 
-  /* Product title — punchy, bold, max 2 lines */
+  /* Product title — punchy, bold, max 2 lines, fixed height for alignment */
   .grid-product__editorial-title {
     margin: 0;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1.18;
+    min-height: 2.36em;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -167,6 +168,7 @@
     .grid-product__editorial-title {
       font-size: 15px;
       line-height: 1.2;
+      min-height: 2.4em;
     }
 
     .grid-product__editorial-price {
