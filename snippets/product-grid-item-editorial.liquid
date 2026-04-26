@@ -67,8 +67,9 @@
                     alt="{{ preview_image.alt | escape }}">
                 </noscript>
               {% else %}
+                {%- assign secondary_img_url = media.preview_image | img_url: '1x1', format: 'jpg' | replace: '_1x1.', '_{width}x.' -%}
                 <img class="grid-product__image grid-product__image--cover lazyload"
-                    data-src="{{ media.preview_image | img_url: '1x1', format: 'jpg' | replace: '_1x1.', '_{width}x.' }}"
+                    data-src="{{ secondary_img_url }}"
                     data-widths="[360, 540, 750, 900, 1080]"
                     data-aspectratio="{{ media.preview_image.aspect_ratio }}"
                     data-sizes="auto"
