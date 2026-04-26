@@ -1,0 +1,131 @@
+{%- assign force_jpg = true -%}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+  {%- assign on_sale = true -%}
+{% endif %}
+
+{%- assign sold_out = true -%}
+{% if product.available %}
+  {%- assign sold_out = false -%}
+{% endif %}
+
+{%- assign product_tags = product.tags | join: ',' -%}
+{%- assign has_custom_label = false -%}
+{% if product_tags contains '_label_' %}
+  {% for tag in product.tags %}
+    {% if tag contains '_label_' %}
+      {%- assign tag_starts_with = tag | slice: 0 -%}
+      {% if tag_starts_with == '_' %}
+        {%- assign has_custom_label = true -%}
+        {%- assign custom_label = tag | replace: '_label_', '' -%}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{%- assign preview_image = product.featured_media.preview_image -%}
+{%- if force_jpg -%}
+  {%- assign img_url = preview_image | img_url: '1x1', format: 'jpg' | replace: '_1x1.', '_{width}x.' -%}
+{%- else -%}
+  {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+{%- endif -%}
+
+{%- assign image_limit = 1 -%}
+{% if settings.product_hover_image %}
+  {%- assign image_limit = 10 -%}
+{% endif %}
+
+<div
+  class="grid__item grid-product grid-product--editorial {{ grid_item_width }}"
+  data-aos
+  data-product-grid
+  data-id="{{ product.id }}">
+  <div class="grid-product__content grid-product__content--editorial">
+    <a
+      href="{{ product.url | within: collection }}"
+      class="grid-product__link grid-product__link--editorial{% if sold_out %} grid-product__link--disabled{% endif %}"
+      data-product-id="{{ product.id }}"
+      data-url="{{ product.url | within: collection }}">
+
+      <div class="product-slider"
+        data-image-count="{{ product.media.size }}"
+        data-id="{{ product.id }}">
+        {% for media in product.media limit: image_limit %}
+          <div class="product-slide">
+            <div class="image-wrap image-wrap--editorial">
+              {% if forloop.first %}
+                <img class="grid-product__image grid-product__image--cover lazyload"
+                    data-src="{{ img_url }}"
+                    data-widths="[360, 540, 750, 900, 1080]"
+                    data-aspectratio="{{ preview_image.aspect_ratio }}"
+                    data-sizes="auto"
+                    alt="{{ preview_image.alt | escape }}">
+                <noscript>
+                  <img class="grid-product__image grid-product__image--cover lazyloaded"
+                    src="{{ preview_image | img_url: '540x' }}"
+                    alt="{{ preview_image.alt | escape }}">
+                </noscript>
+              {% else %}
+                <img class="grid-product__image grid-product__image--cover lazyload"
+                    data-src="{{ media.preview_image | img_url: '1x1', format: 'jpg' | replace: '_1x1.', '_{width}x.' }}"
+                    data-widths="[360, 540, 750, 900, 1080]"
+                    data-aspectratio="{{ media.preview_image.aspect_ratio }}"
+                    data-sizes="auto"
+                    alt="{{ media.preview_image.alt | escape }}">
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if product.media.size > 1 and settings.product_hover_image %}
+        {%- assign loader_duration = 1350 | times: product.media.size -%}
+        <style>
+          .product-slider.slick-initialized[data-id="{{ product.id }}"]:after {
+            animation-duration: {{ loader_duration }}ms;
+          }
+        </style>
+      {% endif %}
+
+      <div class="grid-product__editorial-overlay">
+        {% if has_custom_label %}
+          <span class="grid-product__editorial-badge">{{ custom_label }}</span>
+        {% elsif sold_out %}
+          <span class="grid-product__editorial-badge grid-product__editorial-badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+        {% elsif on_sale %}
+          <span class="grid-product__editorial-badge grid-product__editorial-badge--sale">
+            {% if settings.product_save_amount %}
+              {% if settings.product_save_type == 'dollar' %}
+                {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money }}{% endcapture %}
+              {% else %}
+                {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%{% endcapture %}
+              {% endif %}
+              {{ 'products.general.save_html' | t: saved_amount: saved_amount }}
+            {% else %}
+              {{ 'products.general.sale' | t }}
+            {% endif %}
+          </span>
+        {% endif %}
+
+        <h3 class="grid-product__editorial-title">{{ product.title }}</h3>
+
+        <div class="grid-product__editorial-price">
+          {% if on_sale %}
+            <del class="grid-product__editorial-price--compare">{{ product.compare_at_price | money }}</del>
+          {% endif %}
+          {% if product.price_varies %}
+            {% assign price = product.price_min | money %}
+            <span {% if on_sale %}class="grid-product__editorial-price--sale"{% endif %}>
+              {{ 'products.general.from_text_html' | t: price: price }}
+            </span>
+          {% else %}
+            <span {% if on_sale %}class="grid-product__editorial-price--sale"{% endif %}>
+              {{ product.price | money }}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
