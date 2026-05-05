@@ -95,7 +95,7 @@
     --zenkai-surface-alt: #eaf7f3;
     --zenkai-ink: #202225;
     --zenkai-muted: #6b6f85;
-    --zenkai-dark: #173b35;
+    --zenkai-dark: #16312d;
     --zenkai-dark-hover: #12302b;
     --zenkai-accent: #59b7a7;
     --zenkai-accent-soft: #e4f5f0;
@@ -268,24 +268,6 @@
   .zenkai-review-badge--title .jdgm-prev-badge__text {
     color: var(--zenkai-muted);
     font-size: 0.82rem;
-    font-weight: 600;
-  }
-
-  /* Review badge — CTA placement */
-  .zenkai-review-badge--cta {
-    display: flex;
-    justify-content: center;
-    margin: 0 0 0.55rem;
-  }
-  .zenkai-review-badge--cta .jdgm-prev-badge {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 0.25rem;
-  }
-  .zenkai-review-badge--cta .jdgm-prev-badge__stars { font-size: 0.85rem; }
-  .zenkai-review-badge--cta .jdgm-prev-badge__text {
-    color: var(--zenkai-muted);
-    font-size: 0.75rem;
     font-weight: 600;
   }
 
@@ -973,7 +955,7 @@
     padding: 0.75rem 0.85rem;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(23, 59, 53, 0.94);
+    background: rgba(22, 49, 45, 0.94);
     box-shadow: 0 20px 36px rgba(0, 0, 0, 0.24);
   }
 
@@ -1370,7 +1352,7 @@
   .zenkai-ugc-heading {
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     font-weight: 800;
     font-size: 0.88rem;
     color: var(--zenkai-ink);
@@ -1979,7 +1961,7 @@
       var stickyPrice = section.querySelector('[data-sticky-atc-price]');
       var stickyVariant = section.querySelector('[data-sticky-atc-variant]');
 
-      /* Clone the Judge.me review badge into title and CTA slots. When Judge.me
+      /* Clone the Judge.me review badge into the title slot. When Judge.me
          reports zero reviews, hide the proof row rather than showing an empty
          5-star widget — that mismatch between "5 stars / No reviews" actively
          damages trust ATF on a new product. */

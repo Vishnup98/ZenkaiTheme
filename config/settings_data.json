@@ -21,9 +21,9 @@
     "color_accent_text": "#FFFFFF",
     "color_alt_bg": "#f3f9f6",
     "color_alt_text": "#202225",
-    "color_announcement": "#173b35",
+    "color_announcement": "#16312d",
     "color_announcement_text": "#FFFFFF",
-    "color_newsletter": "#173b35",
+    "color_newsletter": "#16312d",
     "color_newsletter_text": "#FFFFFF",
     "color_drawer_background": "#fbfcff",
     "color_drawer_text": "#202225",
@@ -31,7 +31,7 @@
     "color_image_overlay": "#000000",
     "color_image_overlay_opacity": 10,
     "color_small_image_bg": "#eaf7f3",
-    "color_large_image_bg": "#173b35",
+    "color_large_image_bg": "#16312d",
     "type_header_font_family": "inter_n6",
     "type_header_capitalize": false,
     "type_header_spacing": 25,
@@ -562,7 +562,7 @@
           "heading": "Build your bundle. Save up to $20.",
           "cta_text": "Start your bundle",
           "cta_link": "",
-          "bg_color": "#173b35",
+          "bg_color": "#16312d",
           "text_color": "#ffffff"
         }
       }

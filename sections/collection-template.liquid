@@ -112,7 +112,7 @@
     border-radius: 14px;
     color: #ffffff;
     text-decoration: none;
-    background: #173b35;
+    background: #16312d;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   }
 
@@ -292,9 +292,11 @@
               <span class="bundle-eyebrow__text">Bundle rewards</span>
             </span>
             <span class="zk-cbelt__count" data-zk-count-badge>
-              {%- if zk_belt_count == 0 -%}Start your bundle
-              {%- elsif zk_belt_count == 1 -%}1 in cart
-              {%- else -%}{{ zk_belt_count }} in cart
+              {%- if zk_belt_count >= 4 -%}${{ bundle_tier_4_save }} off unlocked
+              {%- elsif zk_belt_count == 3 -%}Add 1 more for ${{ bundle_tier_4_save }} off
+              {%- elsif zk_belt_count == 2 -%}Add 1 more for ${{ bundle_tier_3_save }} off
+              {%- elsif zk_belt_count == 1 -%}Add 1 more for ${{ bundle_tier_2_save }} off
+              {%- else -%}Add 2 items for ${{ bundle_tier_2_save }} off
               {%- endif -%}
             </span>
           </div>
@@ -392,18 +394,19 @@
           align-items: center;
           justify-content: space-between;
           gap: 12px;
-          margin-bottom: 28px;
+          margin-bottom: 22px;
         }
         .zk-cbelt__count {
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 0.02em;
-          color: #6a6f80;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0;
+          color: #16312d;
           white-space: nowrap;
+          line-height: 1.2;
         }
         .zk-cbelt__progress {
           position: relative;
-          padding: 0 22px 76px;
+          padding: 0 22px 64px;
         }
         .zk-cbelt__track {
           position: relative;
@@ -435,9 +438,12 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 14px;
+          gap: 12px;
+          opacity: 0.82;
           min-width: 0;
         }
+        .zk-cbelt__milestone[data-state='next'],
+        .zk-cbelt__milestone[data-state='unlocked'] { opacity: 1; }
 
         .zk-cbelt__dot {
           position: relative;
@@ -463,7 +469,7 @@
 
         .zk-cbelt__milestone[data-state='next'] .zk-cbelt__dot {
           border: 2px solid #63d6bf;
-          color: #173b35;
+          color: #16312d;
           box-shadow: 0 0 0 2px #fff, 0 0 0 4px #63d6bf;
         }
 
@@ -505,7 +511,7 @@
         .zk-cbelt__tag {
           font-size: 9px;
           font-weight: 700;
-          letter-spacing: 0.09em;
+          letter-spacing: 0.055em;
           text-transform: uppercase;
           line-height: 1;
           color: #2b8f7f;
@@ -543,20 +549,19 @@
         @media (max-width: 640px) {
           .zk-cbelt { padding: 12px 0 10px; margin: 0 0 14px; }
           .zk-cbelt__inner { padding: 0 12px; }
-          .zk-cbelt__head { margin-bottom: 11px; gap: 8px; }
-          .zk-cbelt__progress { padding: 0 14px 48px; }
+          .zk-cbelt__head { margin-bottom: 14px; gap: 6px; flex-direction: column; align-items: flex-start; }
+          .zk-cbelt__progress { padding: 0 14px 42px; }
           .zk-cbelt__milestones { left: 14px; right: 14px; }
           .zk-cbelt__milestone { gap: 8px; }
-          .zk-cbelt__tag { font-size: 8px; letter-spacing: 0.08em; }
+          .zk-cbelt__tag { font-size: 8px; letter-spacing: 0.04em; }
           .zk-cbelt__amt { font-size: 12px; }
           .zk-cbelt__delta { font-size: 10px; }
           .zk-cbelt__note { display: none; }
-          .zk-cbelt__count { font-size: 10px; }
+          .zk-cbelt__count { font-size: 13px; white-space: normal; }
           .zk-cbelt__milestone:last-child .zk-cbelt__label { transform: translateX(-30%); }
         }
 
         @media (max-width: 380px) {
-          .zk-cbelt__head { flex-direction: column; align-items: flex-start; gap: 6px; }
           .zk-cbelt__count { white-space: normal; }
         }
 
@@ -616,13 +621,21 @@
             return 'Mix any 2 items to save $' + t2 + '. Any 3 saves $' + t3 + '. Any 4+ saves $' + t4 + '.';
           }
 
+          function promptFor(n) {
+            if (n >= 4) return '$' + t4 + ' off unlocked';
+            if (n === 3) return 'Add 1 more for $' + t4 + ' off';
+            if (n === 2) return 'Add 1 more for $' + t3 + ' off';
+            if (n === 1) return 'Add 1 more for $' + t2 + ' off';
+            return 'Add 2 items for $' + t2 + ' off';
+          }
+
           function render(n) {
             if (typeof n !== 'number' || isNaN(n) || n < 0) n = 0;
 
             if (fillEl) fillEl.style.width = pct(n) + '%';
             belt.dataset.zkCount = n;
             if (countBadge) {
-              countBadge.textContent = n === 0 ? 'Start your bundle' : (n === 1 ? '1 in cart' : n + ' in cart');
+              countBadge.textContent = promptFor(n);
             }
             if (progressEl) progressEl.setAttribute('aria-valuenow', String(Math.min(n, 4)));
 

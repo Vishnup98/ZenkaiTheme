@@ -59,7 +59,7 @@
 
 .background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
   color: #ffffff; /* ZENKAI: Full white for better contrast */
-  letter-spacing: 0.12em; /* ZENKAI: Reduced from 0.2em for readability */
+  letter-spacing: 0.08em;
   font-size: 13px;
   font-weight: 500; /* ZENKAI: Slightly bolder */
   margin-bottom: 12px;
@@ -106,7 +106,7 @@
 
   .background-media-text--background_image_text_feh6JW .background-media-text__text .subheading {
     font-size: 12px;
-    letter-spacing: 0.1em; /* ZENKAI: Reduced for readability */
+    letter-spacing: 0.07em;
     margin-bottom: 8px;
     color: #ffffff;
     font-weight: 500;
@@ -176,7 +176,7 @@
 
 .background-media-text--background_image_text_c8AXa4 .background-media-text__text .subheading {
   color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.1em;
   font-size: 14px;
   margin-bottom: 12px;
 }
@@ -230,7 +230,7 @@
 
   .background-media-text--background_image_text_c8AXa4 .background-media-text__text .subheading {
     font-size: 11px; /* Tightened from 12px */
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
     margin-bottom: 8px;
   }
 
@@ -407,7 +407,7 @@
 
 @mixin buttonFontStack {
   @if ($button_type_style == 'caps') {
-    letter-spacing: 0.2em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     font-size: $type_base_size - 2;
   }
@@ -613,7 +613,7 @@ $colorNav: {{ settings.color_body_bg | default: '#fff' }};
 
 $colorNavText: {{ settings.color_body_text | default: '#000' }};
 
-$colorAnnouncement: {{ settings.color_announcement | default: '#173b35' }};
+$colorAnnouncement: {{ settings.color_announcement | default: '#16312d' }};
 
 $colorAnnouncementText: {{ settings.color_announcement_text | default: '#fff' }};
 
@@ -621,7 +621,7 @@ $colorStickyNavLinks: #fff;
 
 // Footer newsletter section
 
-$colorNewsletter: {{ settings.color_newsletter | default: '#173b35' }};
+$colorNewsletter: {{ settings.color_newsletter | default: '#16312d' }};
 
 $colorNewsletterText: {{ settings.color_newsletter_text | default: '#fff' }};
 
@@ -1775,7 +1775,7 @@ h6, .h6 {
 
 .subheading {
   font-size: $type_base_size - 3;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 15px;
 
@@ -3253,7 +3253,7 @@ symbol {
 .sticky-cart__item.btn,
 .cart__checkout--drawer {
   @if ($button_type_style == 'caps') {
-    letter-spacing: 0.2em;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
     font-size: $type_base_size - 2;
     padding: 15px;
@@ -5017,7 +5017,7 @@ $thumb-nav-close-duration: 0.1s;
 .site-nav__thumb-button {
   width: 100%;
   font-size: 19px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   height: $thumbButtonHeight;
 
@@ -10129,7 +10129,7 @@ $testimonialImageSize: 80px;
 
 .announcement__text {
   font-size: 11px;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   display: block;
   padding: 3px 18px 3px;
@@ -10569,7 +10569,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   color: #5966cf;
   font-weight: 600;
   font-style: normal;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   font-size: 13px;
 }
@@ -11005,7 +11005,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   inset: 0;
   width: 100%;
   height: 100%;
-  background: #173b35;
+  background: #16312d;
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
@@ -11066,7 +11066,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 .zenkai-overlay__wordmark {
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #ffffff;
 }
@@ -11083,7 +11083,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -11118,7 +11118,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 14px 20px calc(22px + env(safe-area-inset-bottom, 0px));
+  padding: 12px 20px calc(20px + env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1), opacity 280ms ease;
@@ -11147,7 +11147,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 .zenkai-menu__item--cta {
   border-top: none !important;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .zenkai-menu__cta {
@@ -11155,12 +11155,12 @@ $marqueeAnimationSpeedMobile: 6.6s;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 12px 16px;
+  padding: 11px 16px;
   background: #ffffff;
   color: #202225 !important;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   text-decoration: none;
   border-radius: 3px; /* matches site button-style: round-slight */
@@ -11186,22 +11186,22 @@ $marqueeAnimationSpeedMobile: 6.6s;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding: 13px 4px;
+  padding: 11px 4px;
   background: transparent;
   border: 0;
   border-left: 2px solid transparent;
   color: rgba(255, 255, 255, 0.92) !important;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   text-decoration: none;
   text-align: left;
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
   -webkit-tap-highlight-color: transparent;
-  min-height: 44px;
+  min-height: 42px;
 }
 
 .zenkai-menu__link:hover,
@@ -11239,13 +11239,13 @@ $marqueeAnimationSpeedMobile: 6.6s;
 /* Utility footer — search, account, social, shipping */
 .zenkai-menu__utility {
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 14px;
 }
 
 .zenkai-menu__divider {
   display: block;
   height: 2px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   background: linear-gradient(90deg, transparent 0%, $colorAccent 20%, $colorAccent 80%, transparent 100%);
   opacity: 0.5;
 }
@@ -11254,14 +11254,14 @@ $marqueeAnimationSpeedMobile: 6.6s;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 4px;
+  padding: 10px 4px;
   color: rgba(255, 255, 255, 0.75) !important;
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   text-decoration: none;
-  min-height: 44px;
+  min-height: 40px;
   transition: color 0.2s ease;
 }
 
@@ -11300,10 +11300,10 @@ $marqueeAnimationSpeedMobile: 6.6s;
 }
 
 .zenkai-menu__shipping {
-  margin: 16px 4px 0;
+  margin: 14px 4px 0;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.5;
@@ -11315,12 +11315,12 @@ $marqueeAnimationSpeedMobile: 6.6s;
 .zenkai-panel {
   position: absolute;
   inset: 0;
-  background: #173b35;
+  background: #16312d;
   transform: translateX(100%);
   transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 14px 20px calc(22px + env(safe-area-inset-bottom, 0px));
+  padding: 12px 20px calc(20px + env(safe-area-inset-bottom, 0px));
   will-change: transform;
   z-index: 2;
 }
@@ -11360,7 +11360,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   cursor: pointer;
   min-height: 44px;
@@ -11385,7 +11385,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 .zenkai-panel__title {
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.065em;
   text-transform: uppercase;
   color: #ffffff !important;
   text-decoration: none;
@@ -11409,15 +11409,15 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 .zenkai-panel__link {
   display: block;
-  padding: 13px 4px;
+  padding: 11px 4px;
   border-left: 2px solid transparent;
   color: rgba(255, 255, 255, 0.85) !important;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   text-decoration: none;
-  min-height: 44px;
+  min-height: 42px;
   transition: color 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
 }
 
@@ -11578,7 +11578,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 .zenkai-header-menu__text {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.065em;
   text-transform: uppercase;
 }
 
@@ -11765,7 +11765,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
   color: #5966cf;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -11838,7 +11838,7 @@ $marqueeAnimationSpeedMobile: 6.6s;
 
 // ========== BOTANICAL INK PALETTE ==========
 .announcement {
-  background: #173b35 !important;
+  background: #16312d !important;
 }
 
 .announcement__text,
