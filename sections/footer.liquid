@@ -14,7 +14,7 @@
   {%- assign show_selectors = true -%}
 {%- endif -%}
 
-<footer class="site-footer text-center" data-section-id="{{ section.id }}" data-section-type="footer-section">
+<footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
   {% if section.settings.show_newsletter %}
     <div class="site-footer__section site-footer__section--newsletter" data-aos>
       <div class="page-width">
@@ -38,7 +38,19 @@
     </div>
   {% endif %}
 
-  <div class="page-width">
+  <div class="page-width site-footer__inner">
+
+    <div class="site-footer__brand">
+      <a href="{{ routes.root_url }}" class="site-footer__wordmark">{{ shop.name }}</a>
+      <p class="site-footer__tagline">Original reimaginings of the favorites you grew up with.</p>
+      <div class="site-footer__signals" aria-label="Store promises">
+        <span>Free U.S. shipping</span>
+        <span>Ships in 1-2 days</span>
+        <a href="/pages/policy">30-day first-item guarantee</a>
+      </div>
+    </div>
+
+    <div class="site-footer__utility">
 
     {%- if show_selectors -%}
       {%- form 'localization', class: 'multi-selectors site-footer__section' -%}
@@ -105,19 +117,19 @@
     {%- endif -%}
 
     {% if section.settings.show_social_icons %}
-      <div class="site-footer__section">
+      <div class="site-footer__section site-footer__social">
         {% include 'social-icons', social_class: 'footer__social' %}
       </div>
     {% endif %}
 
     {% if linklists[section.settings.menu].links.size > 0 %}
-      <div class="site-footer__section">
+      <nav class="site-footer__section site-footer__nav" aria-label="Footer">
         <ul class="no-bullets inline-list site-footer__linklist">
           {% for link in linklists[section.settings.menu].links %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
         </ul>
-      </div>
+      </nav>
     {% endif %}
 
     {% if section.settings.show_payment_icons %}
@@ -144,6 +156,7 @@
           {% endif %}
         </span>
       {% endif %}
+    </div>
     </div>
   </div>
 </footer>
