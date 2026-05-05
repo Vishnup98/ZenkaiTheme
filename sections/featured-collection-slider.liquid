@@ -31,7 +31,7 @@
 
 <style>
   /* =========================================================
-     Editorial product cards — image-first with text overlay
+     Editorial product cards - collectible image stage with crisp meta
      ========================================================= */
   .grid-product--editorial {
     padding-top: 0 !important;
@@ -41,7 +41,8 @@
     position: relative;
     overflow: hidden;
     border-radius: 14px;
-    background: #1a1b2e;
+    background: #171827;
+    border: 1px solid rgba(26, 27, 46, 0.08);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -54,23 +55,26 @@
   .grid-product__link--editorial {
     display: block;
     position: relative;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #171827;
   }
 
-  /* Fixed 1:1 square cards */
   .image-wrap--editorial {
     position: relative;
     height: 0 !important;
-    padding-bottom: 100% !important;
+    padding-bottom: 108% !important;
     overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #eaf7f3 100%);
   }
 
-  /* Show full image — dark bg fills any gaps on non-square photos */
+  /* Keep the full tee visible inside the card stage. */
   .grid-product__image--cover {
     position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 20px) !important;
     object-fit: contain;
     object-position: center center;
     transition: transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
@@ -93,17 +97,10 @@
     }
   }
 
-  /* Gradient overlay — compact for square cards */
   .grid-product__editorial-overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 14px 16px 12px;
-    background: linear-gradient(to top,
-      rgba(10, 11, 22, 0.88) 0%,
-      rgba(10, 11, 22, 0.52) 50%,
-      rgba(10, 11, 22, 0) 100%);
+    position: relative;
+    padding: 12px 16px 14px;
+    background: #171827;
     color: #ffffff;
     z-index: 2;
   }
@@ -116,15 +113,13 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 4px;
     margin-bottom: 8px;
   }
 
   .grid-product__editorial-badge--sale {
-    background: rgba(89, 102, 207, 0.55);
+    background: rgba(232, 93, 58, 0.78);
   }
 
   .grid-product__editorial-badge--sold-out {
@@ -139,7 +134,6 @@
     font-weight: 700;
     letter-spacing: -0.005em;
     line-height: 1.2;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -152,10 +146,16 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.005em;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 6px;
+    color: #ffffff;
+  }
+
+  .grid-product__editorial-price .price-from-label {
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 600;
+    margin-right: 2px;
   }
 
   .grid-product__editorial-price--compare {
@@ -165,7 +165,7 @@
   }
 
   .grid-product__editorial-price--sale {
-    color: #c4cbff;
+    color: #ffd7c8;
   }
 
   @media screen and (max-width: 749px) {
@@ -174,7 +174,7 @@
     }
 
     .grid-product__editorial-overlay {
-      padding: 12px 12px 10px;
+      padding: 10px 12px 12px;
     }
 
     .grid-product__editorial-title {
