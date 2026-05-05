@@ -160,8 +160,22 @@
 
   <script>
     (function() {
-      var cartCopyPattern = /Add (\d+) more items? and save \$(\d+)/g;
+      var cartCopyPattern = /Add\s+(\d+)\s+more\s+items?\s+and\s+save\s+\$(\d+)/gi;
       var ignoredTags = /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/;
+      var observedRoots = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
+      var appColors = {
+        mint: '#63d6bf',
+        mintHover: '#4fc5ae',
+        mintSoft: '#eaf7f3',
+        mintWash: '#f3fbf8',
+        ink: '#102522',
+        dark: '#16312d',
+        darkHover: '#12302b',
+        text: '#202225',
+        muted: '#6b6f85',
+        success: '#2b8f7f',
+        border: 'rgba(89, 183, 167, 0.2)'
+      };
 
       function normalizeCartCopy(value) {
         return value.replace(cartCopyPattern, function(match, count, save) {
@@ -170,8 +184,162 @@
       }
 
       function fixTextNode(node) {
-        if (!node || !node.nodeValue || node.nodeValue.indexOf('more item') === -1) return;
+        if (!node || !node.nodeValue || node.nodeValue.toLowerCase().indexOf('more item') === -1) return;
         node.nodeValue = normalizeCartCopy(node.nodeValue);
+      }
+
+      function setImportantStyle(el, name, value) {
+        if (!el || !el.style) return;
+        try {
+          el.style.setProperty(name, value, 'important');
+        } catch (e) {
+          el.style.setProperty(name, value);
+        }
+      }
+
+      function applyUpCartColors() {
+        var popup = document.getElementById('UpcartPopup');
+        if (!popup) return;
+
+        var vars = {
+          '--upcart-internal-global-button-background-color': appColors.mint,
+          '--upcart-internal-global-button-text-color': appColors.ink,
+          '--upcart-internal-global-button-text-hover-color': appColors.ink,
+          '--upcart-internal-header-background-color': appColors.dark,
+          '--upcart-internal-header-close-button-icon-color': '#ffffff',
+          '--upcart-internal-header-close-button-icon-color-hover': '#ffffff',
+          '--upcart-internal-announcements-bg-color': appColors.mintSoft,
+          '--upcart-internal-announcements-border-color': appColors.border,
+          '--upcart-internal-design-accent-color': appColors.mintSoft,
+          '--upcart-internal-design-savings-text-color': appColors.success,
+          '--upcart-internal-component-progress-bar-background-color': '#d9eee9',
+          '--upcart-internal-component-progress-bar-foreground-color': appColors.mint,
+          '--upcart-internal-component-progress-bar-icon-color-complete': appColors.ink
+        };
+
+        Object.keys(vars).forEach(function(name) {
+          setImportantStyle(popup, name, vars[name]);
+        });
+      }
+
+      function applyCandyRackFrameColors(frame) {
+        if (!frame || frame.__zenkaiCandyRackBound === 'blocked') return;
+
+        function apply() {
+          var doc;
+          try {
+            doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+          } catch (e) {
+            frame.__zenkaiCandyRackBound = 'blocked';
+            return;
+          }
+          if (!doc || !doc.documentElement) return;
+
+          var vars = {
+            '--add-button-background-color-1': appColors.mint,
+            '--add-button-background-color-2': appColors.mintHover,
+            '--add-button-background-color-3': '#bff0e6',
+            '--add-button-background-color-5': appColors.mintWash,
+            '--add-button-text-color': appColors.ink,
+            '--add-button-border-color-1': appColors.mint,
+            '--add-button-border-color-2': appColors.mintHover,
+            '--add-button-border-color-3': '#bff0e6',
+            '--continue-to-button-background-color-1': appColors.dark,
+            '--continue-to-button-background-color-2': appColors.darkHover,
+            '--continue-to-button-background-color-3': '#b8d4cd',
+            '--continue-to-button-background-color-5': appColors.mintSoft,
+            '--continue-to-button-text-color': '#ffffff',
+            '--continue-to-button-border-color-1': appColors.dark,
+            '--continue-to-button-border-color-2': appColors.darkHover,
+            '--continue-to-button-border-color-3': '#b8d4cd',
+            '--reject-button-background-color-1': appColors.text,
+            '--reject-button-background-color-2': appColors.muted,
+            '--reject-button-background-color-3': '#d7dbe3',
+            '--reject-button-text-color': '#ffffff',
+            '--primary-color-1': appColors.mint,
+            '--primary-color-2': appColors.mintHover,
+            '--primary-color-3': '#bff0e6',
+            '--primary-color-5': appColors.mintWash,
+            '--readable-primary-color': appColors.ink
+          };
+
+          Object.keys(vars).forEach(function(name) {
+            setImportantStyle(doc.documentElement, name, vars[name]);
+          });
+
+          if (!doc.getElementById('zenkai-candyrack-colors')) {
+            var style = doc.createElement('style');
+            style.id = 'zenkai-candyrack-colors';
+            style.textContent = [
+              ':root {',
+              '  --add-button-background-color-1: ' + appColors.mint + ' !important;',
+              '  --add-button-background-color-2: ' + appColors.mintHover + ' !important;',
+              '  --add-button-text-color: ' + appColors.ink + ' !important;',
+              '  --add-button-border-color-1: ' + appColors.mint + ' !important;',
+              '  --add-button-border-color-2: ' + appColors.mintHover + ' !important;',
+              '  --continue-to-button-background-color-1: ' + appColors.dark + ' !important;',
+              '  --continue-to-button-background-color-2: ' + appColors.darkHover + ' !important;',
+              '  --continue-to-button-text-color: #ffffff !important;',
+              '  --continue-to-button-border-color-1: ' + appColors.dark + ' !important;',
+              '  --continue-to-button-border-color-2: ' + appColors.darkHover + ' !important;',
+              '}',
+              '.bg-addButtonBackgroundColor-1, .hover\\:bg-addButtonBackgroundColor-2:hover, .Button-Add { background-color: ' + appColors.mint + ' !important; }',
+              '.border-addButtonBorderColor-1, .hover\\:border-addButtonBorderColor-2:hover { border-color: ' + appColors.mint + ' !important; }',
+              '.text-readableAddButtonTextColor { color: ' + appColors.ink + ' !important; }',
+              '.bg-continueToButtonBackgroundColor-1, .hover\\:bg-continueToButtonBackgroundColor-2:hover { background-color: ' + appColors.dark + ' !important; }',
+              '.border-continueToButtonBorderColor-1, .hover\\:border-continueToButtonBorderColor-2:hover { border-color: ' + appColors.dark + ' !important; }',
+              '.text-readableContinueToButtonTextColor { color: #ffffff !important; }',
+              'button { letter-spacing: 0.02em; }'
+            ].join('\n');
+            (doc.head || doc.documentElement).appendChild(style);
+          }
+        }
+
+        apply();
+        if (!frame.__zenkaiCandyRackBound) {
+          frame.__zenkaiCandyRackBound = 'bound';
+          frame.addEventListener('load', function() {
+            apply();
+            window.setTimeout(apply, 150);
+            window.setTimeout(apply, 500);
+          });
+        }
+      }
+
+      function applyCandyRackColors(root) {
+        var frames = [];
+        if (root && root.nodeType === 1 && root.matches && root.matches('#candyrack-frame')) {
+          frames.push(root);
+        }
+        if (root && root.querySelectorAll) {
+          root.querySelectorAll('#candyrack-frame').forEach(function(frame) {
+            frames.push(frame);
+          });
+        }
+        frames.forEach(applyCandyRackFrameColors);
+      }
+
+      function applyThirdPartyStyles(root) {
+        applyUpCartColors();
+        applyCandyRackColors(root || document);
+      }
+
+      function observeRoot(root) {
+        if (!root || !root.querySelectorAll) return;
+        if (observedRoots && observedRoots.has(root)) return;
+        if (observedRoots) observedRoots.add(root);
+
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'characterData') {
+              fixTextNode(mutation.target);
+              return;
+            }
+            mutation.addedNodes.forEach(scan);
+          });
+          applyThirdPartyStyles(root);
+        });
+        observer.observe(root, { childList: true, characterData: true, subtree: true });
       }
 
       function scan(root) {
@@ -195,26 +363,24 @@
         }
 
         if (root.querySelectorAll) {
+          applyThirdPartyStyles(root);
           root.querySelectorAll('*').forEach(function(el) {
-            if (el.shadowRoot) scan(el.shadowRoot);
+            if (el.shadowRoot) {
+              observeRoot(el.shadowRoot);
+              scan(el.shadowRoot);
+            }
           });
         }
       }
 
       function startCartCopyObserver() {
         scan(document.body);
-        var observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.type === 'characterData') {
-              fixTextNode(mutation.target);
-              return;
-            }
-            mutation.addedNodes.forEach(scan);
-          });
-        });
-        observer.observe(document.body, { childList: true, characterData: true, subtree: true });
-        [500, 1500, 3000].forEach(function(delay) {
-          window.setTimeout(function() { scan(document.body); }, delay);
+        observeRoot(document.body);
+        [250, 500, 1000, 2000, 4000].forEach(function(delay) {
+          window.setTimeout(function() {
+            scan(document.body);
+            applyThirdPartyStyles(document);
+          }, delay);
         });
       }
 
