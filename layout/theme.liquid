@@ -197,9 +197,16 @@
         }
       }
 
-      function applyUpCartColors() {
-        var popup = document.getElementById('UpcartPopup');
-        if (!popup) return;
+      function forEachMatch(root, selector, callback) {
+        if (!root) return;
+        if (root.nodeType === 1 && root.matches && root.matches(selector)) callback(root);
+        if (root.querySelectorAll) {
+          root.querySelectorAll(selector).forEach(callback);
+        }
+      }
+
+      function applyUpCartColors(root) {
+        root = root || document;
 
         var vars = {
           '--upcart-internal-global-button-background-color': appColors.mint,
@@ -217,8 +224,77 @@
           '--upcart-internal-component-progress-bar-icon-color-complete': appColors.ink
         };
 
-        Object.keys(vars).forEach(function(name) {
-          setImportantStyle(popup, name, vars[name]);
+        forEachMatch(root, '#upCart, #UpcartPopup, #CartPopup', function(el) {
+          Object.keys(vars).forEach(function(name) {
+            setImportantStyle(el, name, vars[name]);
+          });
+        });
+
+        forEachMatch(root, [
+          '#upCart .upcart-checkout-button',
+          '#UpcartPopup .upcart-checkout-button',
+          '#CartPopup .upcart-checkout-button',
+          '#upCart .upcart-internal-component__button',
+          '#UpcartPopup .upcart-internal-component__button',
+          '#CartPopup .upcart-internal-component__button',
+          '#upCart .upcart-public-component__button',
+          '#UpcartPopup .upcart-public-component__button',
+          '#CartPopup .upcart-public-component__button'
+        ].join(','), function(button) {
+          setImportantStyle(button, 'background', appColors.mint);
+          setImportantStyle(button, 'background-color', appColors.mint);
+          setImportantStyle(button, 'border-color', appColors.mint);
+          setImportantStyle(button, 'color', appColors.ink);
+        });
+
+        forEachMatch(root, [
+          '#upCart .upcart-internal-header',
+          '#UpcartPopup .upcart-internal-header',
+          '#CartPopup .upcart-internal-header',
+          '#upCart .upcart-public-header',
+          '#UpcartPopup .upcart-public-header',
+          '#CartPopup .upcart-public-header'
+        ].join(','), function(header) {
+          setImportantStyle(header, 'background', appColors.dark);
+          setImportantStyle(header, 'background-color', appColors.dark);
+        });
+
+        forEachMatch(root, [
+          '#upCart .upcart-internal-announcement',
+          '#UpcartPopup .upcart-internal-announcement',
+          '#CartPopup .upcart-internal-announcement',
+          '#upCart .upcart-public-announcement',
+          '#UpcartPopup .upcart-public-announcement',
+          '#CartPopup .upcart-public-announcement'
+        ].join(','), function(announcement) {
+          setImportantStyle(announcement, 'background', appColors.mintSoft);
+          setImportantStyle(announcement, 'background-color', appColors.mintSoft);
+          setImportantStyle(announcement, 'border-color', appColors.border);
+          setImportantStyle(announcement, 'color', appColors.dark);
+        });
+
+        forEachMatch(root, [
+          '#upCart .upcart-internal-component-segmented-progress-bar__segment-fill',
+          '#UpcartPopup .upcart-internal-component-segmented-progress-bar__segment-fill',
+          '#CartPopup .upcart-internal-component-segmented-progress-bar__segment-fill',
+          '#upCart .upcart-public-component-segmented-progress-bar__segment-fill',
+          '#UpcartPopup .upcart-public-component-segmented-progress-bar__segment-fill',
+          '#CartPopup .upcart-public-component-segmented-progress-bar__segment-fill'
+        ].join(','), function(fill) {
+          setImportantStyle(fill, 'background', appColors.mint);
+          setImportantStyle(fill, 'background-color', appColors.mint);
+        });
+
+        forEachMatch(root, [
+          '#upCart .upcart-internal-rewards__message',
+          '#UpcartPopup .upcart-internal-rewards__message',
+          '#CartPopup .upcart-internal-rewards__message',
+          '#upCart .upcart-public-rewards__message',
+          '#UpcartPopup .upcart-public-rewards__message',
+          '#CartPopup .upcart-public-rewards__message'
+        ].join(','), function(message) {
+          setImportantStyle(message, 'color', appColors.text);
+          setImportantStyle(message, 'font-weight', '700');
         });
       }
 
@@ -320,7 +396,7 @@
       }
 
       function applyThirdPartyStyles(root) {
-        applyUpCartColors();
+        applyUpCartColors(root || document);
         applyCandyRackColors(root || document);
       }
 
