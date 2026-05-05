@@ -158,6 +158,74 @@
     {% include 'cart-drawer' %}
   {% endif %}
 
+  <script>
+    (function() {
+      var cartCopyPattern = /Add (\d+) more items? and save \$(\d+)/g;
+      var ignoredTags = /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/;
+
+      function normalizeCartCopy(value) {
+        return value.replace(cartCopyPattern, function(match, count, save) {
+          return 'Add ' + count + ' more to save $' + save;
+        });
+      }
+
+      function fixTextNode(node) {
+        if (!node || !node.nodeValue || node.nodeValue.indexOf('more item') === -1) return;
+        node.nodeValue = normalizeCartCopy(node.nodeValue);
+      }
+
+      function scan(root) {
+        if (!root) return;
+        if (root.nodeType === 3) {
+          fixTextNode(root);
+          return;
+        }
+        if (root.nodeType !== 1 && root.nodeType !== 9 && root.nodeType !== 11) return;
+
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode: function(node) {
+            var parent = node.parentElement;
+            if (!parent || ignoredTags.test(parent.tagName)) return NodeFilter.FILTER_REJECT;
+            return node.nodeValue.indexOf('more item') >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+          }
+        });
+        var textNode;
+        while ((textNode = walker.nextNode())) {
+          fixTextNode(textNode);
+        }
+
+        if (root.querySelectorAll) {
+          root.querySelectorAll('*').forEach(function(el) {
+            if (el.shadowRoot) scan(el.shadowRoot);
+          });
+        }
+      }
+
+      function startCartCopyObserver() {
+        scan(document.body);
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'characterData') {
+              fixTextNode(mutation.target);
+              return;
+            }
+            mutation.addedNodes.forEach(scan);
+          });
+        });
+        observer.observe(document.body, { childList: true, characterData: true, subtree: true });
+        [500, 1500, 3000].forEach(function(delay) {
+          window.setTimeout(function() { scan(document.body); }, delay);
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startCartCopyObserver);
+      } else {
+        startCartCopyObserver();
+      }
+    })();
+  </script>
+
   {{ 'pinch-zoom-fix.js' | asset_url | script_tag }}
 
 </body>
