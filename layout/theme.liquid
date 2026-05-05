@@ -298,6 +298,44 @@
         });
       }
 
+      function applyCandyRackCopy(doc) {
+        if (!doc || !doc.body) return;
+
+        var titleParent = null;
+        var filter = doc.defaultView && doc.defaultView.NodeFilter ? doc.defaultView.NodeFilter : window.NodeFilter;
+        var walker = doc.createTreeWalker(doc.body, filter.SHOW_TEXT, {
+          acceptNode: function(node) {
+            var parent = node.parentElement;
+            if (!parent || ignoredTags.test(parent.tagName)) return filter.FILTER_REJECT;
+            var text = node.nodeValue.replace(/\s+/g, ' ').trim();
+            return /Get extras for your product|Complete your bundle/i.test(text) ? filter.FILTER_ACCEPT : filter.FILTER_SKIP;
+          }
+        });
+        var node;
+        while ((node = walker.nextNode())) {
+          if (/Get extras for your product/i.test(node.nodeValue)) {
+            node.nodeValue = node.nodeValue.replace(/Get extras for your product/i, 'Complete your bundle');
+          }
+          if (!titleParent && /Complete your bundle/i.test(node.nodeValue)) {
+            titleParent = node.parentElement;
+          }
+        }
+
+        if (titleParent && !doc.getElementById('zenkai-candyrack-subcopy')) {
+          var subcopy = doc.createElement('p');
+          subcopy.id = 'zenkai-candyrack-subcopy';
+          subcopy.textContent = 'Add one more favorite and unlock your next bundle discount.';
+          subcopy.style.margin = '0.2rem auto 1rem';
+          subcopy.style.maxWidth = '32rem';
+          subcopy.style.color = appColors.muted;
+          subcopy.style.fontSize = '1.3rem';
+          subcopy.style.fontWeight = '600';
+          subcopy.style.lineHeight = '1.35';
+          subcopy.style.textAlign = 'center';
+          titleParent.insertAdjacentElement('afterend', subcopy);
+        }
+      }
+
       function applyCandyRackFrameColors(frame) {
         if (!frame || frame.__zenkaiCandyRackBound === 'blocked') return;
 
@@ -342,6 +380,7 @@
           Object.keys(vars).forEach(function(name) {
             setImportantStyle(doc.documentElement, name, vars[name]);
           });
+          applyCandyRackCopy(doc);
 
           if (!doc.getElementById('zenkai-candyrack-colors')) {
             var style = doc.createElement('style');

@@ -1,6 +1,10 @@
 {%- assign zenkai_cta_text = product_cta_text | default: 'Add to Cart' -%}
 {%- assign zenkai_cta_subcopy = product_cta_subcopy | default: product_cta_note | default: 'Free U.S. shipping. Printed to order.' -%}
 {%- assign zenkai_secondary_checkout = true -%}
+{%- assign zenkai_cta_with_price = false -%}
+{% if zenkai_cta_text == 'Add to Cart' %}
+  {%- assign zenkai_cta_with_price = true -%}
+{% endif %}
 {% if show_dynamic_checkout_secondary == false %}
   {%- assign zenkai_secondary_checkout = false -%}
 {% endif %}
@@ -64,6 +68,7 @@
       name="add"
       data-add-to-cart
       data-cta-label="{{ zenkai_cta_text | escape }}"
+      data-cta-price="{% if zenkai_cta_with_price %}true{% else %}false{% endif %}"
       aria-live="polite"
       class="btn btn--full add-to-cart zenkai-primary-cta{% if enable_dynamic_buttons %} zenkai-primary-cta--with-secondary{% endif %}"
       {% unless current_variant.available %} disabled="disabled"{% endunless %}>
@@ -72,7 +77,7 @@
           {% if template == 'product.preorder' %}
             {{ 'products.product.preorder' | t }}
           {% else %}
-            {{ zenkai_cta_text }}
+            {{ zenkai_cta_text }}{% if zenkai_cta_with_price %} - {{ current_variant.price | money }}{% endif %}
           {% endif %}
         {% else %}
           {{ 'products.product.sold_out' | t }}

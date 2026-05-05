@@ -7,6 +7,9 @@
           <h1 class="section-header__title">
             {{ 'cart.general.title' | t }}
           </h1>
+          <p class="cart__header-subtitle">
+            Free U.S. shipping, bundle savings, and your 30-day first-item guarantee are ready at checkout.
+          </p>
         </header>
 
         <form action="{{ routes.cart_url }}" method="post" novalidate class="cart{% if cart.item_count == 0 %} cart--empty{% endif %}">
@@ -272,6 +275,12 @@
                   <span>Free U.S. shipping on this order.</span>
                 </div>
 
+                <div class="zenkai-cart-assurance" aria-label="Checkout confidence">
+                  <span>Secure checkout</span>
+                  <span>Ships in 1-2 business days</span>
+                  <span>30-day first-item guarantee</span>
+                </div>
+
                 {%- comment -%} Bundle tier progress — live nudge toward next savings threshold. Matches PDP bundle callout visual language. {%- endcomment -%}
                 <div class="zk-cart-tier" data-zk-cart-tier data-zk-count="{{ cart.item_count }}" style="margin-bottom: 1rem;">
                   <span class="bundle-eyebrow" aria-hidden="true">
@@ -296,9 +305,9 @@
 
                 <style>
                   .zk-cart-tier {
-                    background: #f6f5f0;
-                    border: 1px solid rgba(26, 27, 46, 0.09);
-                    border-radius: 10px;
+                    background: #f3fbf8;
+                    border: 1px solid rgba(89, 183, 167, 0.18);
+                    border-radius: 14px;
                     padding: 14px 16px;
                   }
                   .zk-cart-tier .bundle-eyebrow { margin-bottom: 8px; }
@@ -318,7 +327,7 @@
                   }
                   .zk-cart-tier__fill {
                     height: 100%;
-                    background: #5966cf;
+                    background: #63d6bf;
                     border-radius: 2px;
                     transition: width 320ms ease;
                     width: 0%;
@@ -335,12 +344,12 @@
                     margin-top: 10px;
                     font-size: 12px;
                     font-weight: 600;
-                    color: #5966cf;
+                    color: #2b8f7f;
                     text-decoration: underline;
                     text-underline-offset: 2px;
                     letter-spacing: 0.01em;
                   }
-                  .zk-cart-tier__cta:hover { color: #4a56b8; }
+                  .zk-cart-tier__cta:hover { color: #16312d; }
                 </style>
 
                 <script>
