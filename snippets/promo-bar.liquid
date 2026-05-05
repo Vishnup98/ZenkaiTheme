@@ -16,7 +16,7 @@
 <div class="zk-promo-bar"
      role="status"
      aria-label="Bundle promotion"
-     style="background:#e85d3a;color:#ffffff;width:100%;overflow:hidden;font-family:inherit;position:relative;">
+     style="background:#63d6bf;color:#102522;width:100%;overflow:hidden;font-family:inherit;position:relative;">
   <div class="zk-promo-bar__track">
     {%- for i in (1..2) -%}
       <div class="zk-promo-bar__chunk"{% if forloop.last %} aria-hidden="true"{% endif %}>
@@ -69,18 +69,20 @@
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: #1a1b2e;
+    color: #202225;
     white-space: nowrap;
   }
   .bundle-eyebrow__dot {
     width: 6px; height: 6px;
     border-radius: 50%;
-    background: #e85d3a;
+    background: #63d6bf;
     display: inline-block;
     flex-shrink: 0;
   }
   .bundle-eyebrow--light { color: #ffffff; }
   .bundle-eyebrow--light .bundle-eyebrow__dot { background: #ffffff; }
+  .zk-promo-bar .bundle-eyebrow--light { color: #102522; }
+  .zk-promo-bar .bundle-eyebrow--light .bundle-eyebrow__dot { background: #102522; }
 
   @keyframes zk-promo-marquee {
     from { transform: translateX(0); }

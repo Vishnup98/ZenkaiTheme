@@ -412,7 +412,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
 <style>
   .zk-bundle {
     margin: 20px 0;
-    --zk-ink: #1a1b2e;
+    --zk-ink: #202225;
     --zk-ink-soft: #555a6e;
     --zk-ink-faded: #8e93a6;
     --zk-bg: #ffffff;
@@ -420,9 +420,9 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
     --zk-border: rgba(26, 27, 46, 0.09);
     --zk-border-strong: rgba(26, 27, 46, 0.2);
     --zk-surface: #ffffff;
-    --zk-cta: #e85d3a;
-    --zk-cta-hover: #d14e2d;
-    --zk-cta-soft: rgba(232, 93, 58, 0.09);
+    --zk-cta: #63d6bf;
+    --zk-cta-hover: #4fc5ae;
+    --zk-cta-soft: rgba(89, 183, 167, 0.12);
     --zk-success: #2f7a4d;
     --zk-muted: #d6e8e4;
     --zk-track: #e2efeb;
@@ -476,7 +476,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   }
   .zk-bundle__progress-fill {
     position: absolute; inset: 0 auto 0 0;
-    background: linear-gradient(90deg, var(--zk-cta) 0%, #7b86e0 100%);
+    background: linear-gradient(90deg, var(--zk-cta) 0%, #8fdccc 100%);
     border-radius: 999px;
     transition: width 420ms cubic-bezier(.2,.8,.2,1);
   }
@@ -507,8 +507,8 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   .zk-bundle__milestone[data-zk-milestone="4"] .zk-bundle__milestone-label { left: auto; right: -10px; }
   .zk-bundle__milestone[data-zk-milestone="2"] .zk-bundle__milestone-label { /* centered via flex */ }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-dot {
-    background: var(--zk-cta); border-color: var(--zk-cta); color: #fff;
-    box-shadow: 0 4px 12px rgba(232, 93, 58, 0.38);
+    background: var(--zk-cta); border-color: var(--zk-cta); color: #102522;
+    box-shadow: 0 4px 12px rgba(89, 183, 167, 0.38);
   }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-symbol { opacity: 0; }
   .zk-bundle__milestone[data-reached="true"] .zk-bundle__milestone-check { opacity: 1; transform: scale(1); }
@@ -688,7 +688,7 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   }
 
   .zk-bundle__add {
-    appearance: none; background: var(--zk-cta); color: #fff;
+    appearance: none; background: var(--zk-cta); color: #102522;
     border: 1px solid var(--zk-cta); border-radius: 9px; padding: 9px 12px;
     font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
     cursor: pointer; transition: background 150ms ease, border-color 150ms ease, transform 120ms ease;
@@ -705,12 +705,12 @@ use the shop's Best Selling collection so every PDP shows the upsell. {%- endcom
   }
   .zk-bundle__add[data-state="loading"] {
     background: var(--zk-cta-hover) !important; border-color: var(--zk-cta-hover) !important;
-    color: #fff !important; opacity: 1 !important; cursor: progress !important;
+    color: #102522 !important; opacity: 1 !important; cursor: progress !important;
     animation: zk-btn-pulse 1.1s ease-in-out infinite !important;
   }
   @keyframes zk-btn-pulse {
-    0%, 100% { box-shadow: 0 2px 0 rgba(0,0,0,0.06), 0 0 0 0 rgba(232, 93, 58, 0.35); }
-    50% { box-shadow: 0 2px 0 rgba(0,0,0,0.06), 0 0 0 6px rgba(232, 93, 58, 0.0); }
+    0%, 100% { box-shadow: 0 2px 0 rgba(0,0,0,0.06), 0 0 0 0 rgba(89, 183, 167, 0.35); }
+    50% { box-shadow: 0 2px 0 rgba(0,0,0,0.06), 0 0 0 6px rgba(89, 183, 167, 0.0); }
   }
   .zk-bundle__add[data-state="success"] {
     background: var(--zk-success) !important; border-color: var(--zk-success) !important; opacity: 1 !important;

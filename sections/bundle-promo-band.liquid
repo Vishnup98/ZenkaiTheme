@@ -1,7 +1,7 @@
 {%- assign heading = section.settings.heading | default: 'Build your bundle. Save up to $20.' -%}
 {%- assign cta_text = section.settings.cta_text | default: 'Start your bundle' -%}
 {%- assign cta_link = section.settings.cta_link | default: '/collections/best-selling' -%}
-{%- assign bg_color = section.settings.bg_color | default: '#1a1b2e' -%}
+{%- assign bg_color = section.settings.bg_color | default: '#173b35' -%}
 {%- assign text_color = section.settings.text_color | default: '#ffffff' -%}
 
 <section class="bundle-promo-band" style="background: {{ bg_color }}; color: {{ text_color }};">
@@ -30,7 +30,7 @@
 
       <p class="bundle-promo-band__mix">Mix tees, hoodies, hats — auto-applies at checkout.</p>
 
-      <a class="bundle-promo-band__cta" href="{{ cta_link }}" style="background: {{ text_color }}; color: {{ bg_color }};">
+      <a class="bundle-promo-band__cta" href="{{ cta_link }}" style="background: #63d6bf; color: #102522;">
         {{ cta_text }}
         <span aria-hidden="true">→</span>
       </a>
@@ -51,11 +51,11 @@
   .bundle-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
-    text-transform: uppercase; white-space: nowrap; color: #1a1b2e;
+    text-transform: uppercase; white-space: nowrap; color: #202225;
   }
   .bundle-eyebrow__dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: #e85d3a; display: inline-block; flex-shrink: 0;
+    background: #63d6bf; display: inline-block; flex-shrink: 0;
   }
   .bundle-eyebrow--light { color: #ffffff; }
   .bundle-eyebrow--light .bundle-eyebrow__dot { background: #ffffff; }
@@ -79,8 +79,8 @@
     min-width: 120px;
   }
   .bundle-promo-band__tier--accent {
-    background: rgba(232, 93, 58, 0.22);
-    border-color: rgba(232, 93, 58, 0.55);
+    background: rgba(99, 214, 191, 0.18);
+    border-color: rgba(99, 214, 191, 0.50);
   }
   .bundle-promo-band__tier-count {
     font-size: 12px; font-weight: 600;
@@ -143,7 +143,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#1a1b2e"
+      "default": "#173b35"
     },
     {
       "type": "color",
