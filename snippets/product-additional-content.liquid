@@ -10,6 +10,15 @@
   {% endif %}
 {% endfor %}
 
+{%- assign zenkai_detail_type = product.type | downcase -%}
+{%- assign zenkai_detail_title = product.title | downcase -%}
+{%- assign zenkai_detail_category = 'tee' -%}
+{%- if zenkai_detail_type contains 'cap' or zenkai_detail_type contains 'hat' or zenkai_detail_title contains 'cap' or zenkai_detail_title contains 'hat' -%}
+  {%- assign zenkai_detail_category = 'cap' -%}
+{%- elsif zenkai_detail_type contains 'hoodie' or zenkai_detail_type contains 'sweatshirt' or zenkai_detail_title contains 'hoodie' or zenkai_detail_title contains 'sweatshirt' -%}
+  {%- assign zenkai_detail_category = 'hoodie' -%}
+{%- endif -%}
+
 <!-- Zenkai Custom Accordion -->
 <style>
   .zenkai-accordion {
@@ -189,12 +198,29 @@
     </button>
     <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content is-active">
       <div class="zenkai-accordion__inner">
-        <p><strong>True-to-size fit — structured through the shoulders, comfortable through the body.</strong></p>
-        <ul>
-          <li>Runs true to size</li>
-          <li>If you're between sizes or prefer a relaxed look, size up one</li>
-          <li>100% ring-spun cotton at a midweight feel - soft from day one, holds shape after washing</li>
-        </ul>
+        {% case zenkai_detail_category %}
+          {% when 'hoodie' %}
+            <p><strong>True-to-size retail fit: structured through the shoulders, comfortable through the body.</strong></p>
+            <ul>
+              <li>Runs true to size</li>
+              <li>If you're between sizes or prefer a relaxed layer, size up one</li>
+              <li>Premium heavyweight fleece with a soft cotton face and cozy brushed interior</li>
+            </ul>
+          {% when 'cap' %}
+            <p><strong>Clean structured fit with an adjustable strap closure.</strong></p>
+            <ul>
+              <li>One size fits most</li>
+              <li>Structured dad-cap profile with clean embroidered detail</li>
+              <li>Adjust the strap for a closer or more relaxed fit</li>
+            </ul>
+          {% else %}
+            <p><strong>True-to-size retail fit: soft from day one, comfortable through the body.</strong></p>
+            <ul>
+              <li>Runs true to size</li>
+              <li>If you're between sizes or prefer a relaxed look, size up one</li>
+              <li>100% ring-spun cotton at a midweight feel - soft from day one, holds shape after washing</li>
+            </ul>
+        {% endcase %}
         <div class="zenkai-utility-note">
           <strong>Made-to-order note:</strong> Every piece is printed fresh when you order. If the size is off, we'll send one free exchange per order. If it arrives damaged or misprinted, we'll replace it. <a href="/pages/policy">Full policy</a>
         </div>
@@ -228,6 +254,7 @@
       <div class="zenkai-accordion__inner">
         <p><strong>For the ones who like the reference, not the costume.</strong></p>
         <p>Every design is an original reimagining: sometimes playful, sometimes abstract, always made to feel like something you'd actually wear.</p>
+        <p>Customers call out the same things again and again: the designs get compliments, and the blanks feel good enough to keep in rotation.</p>
       </div>
     </div>
   </div>
@@ -240,7 +267,7 @@
     <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
         <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
-        <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that feel like real clothes.</p>
+        <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
         {% if product.description %}
           <div class="rte" style="margin-top: 0.8rem;">{{ product.description }}</div>
         {% endif %}

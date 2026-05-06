@@ -63,6 +63,12 @@
         {{ zenkai_type_trust }}
       </span>
     </div>
+    {% if zenkai_primary_proof_quote != blank %}
+      <div class="zenkai-proof-nudge" aria-label="Customer review">
+        <span class="zenkai-proof-nudge__quote">"{{ zenkai_primary_proof_quote }}"</span>
+        <span class="zenkai-proof-nudge__attr">— {{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
+      </div>
+    {% endif %}
     <button
       {% if product.empty? %}type="button"{% else %}type="submit"{% endif %}
       name="add"
@@ -110,13 +116,6 @@
     <span class="zenkai-guarantee-badge__text">30-day first-item guarantee</span>
     <span class="zenkai-guarantee-badge__arrow" aria-hidden="true">→</span>
   </a>
-
-  {% if zenkai_primary_proof_quote != blank %}
-    <div class="zenkai-proof-nudge" aria-label="Customer review">
-      <span class="zenkai-proof-nudge__quote">"{{ zenkai_primary_proof_quote }}"</span>
-      <span class="zenkai-proof-nudge__attr">— {{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
-    </div>
-  {% endif %}
 
   {% if zenkai_type_benefit != blank or zenkai_type_production != blank %}
     <div class="zenkai-compact-benefits">
