@@ -460,7 +460,7 @@
         "type": "featured-collection-slider",
         "settings": {
           "title": "Best Sellers",
-          "description": "The ones everyone keeps asking about.",
+          "description": "Customer favorites people keep asking about.",
           "home_featured_products": "best-selling",
           "per_row": "small",
           "alt": false
@@ -470,7 +470,7 @@
         "type": "featured-collection-slider",
         "settings": {
           "title": "Latest drops",
-          "description": "Fresh designs. Same nostalgia, drawn properly.",
+          "description": "Fresh designs, from playful to abstract.",
           "home_featured_products": "whats-new",
           "per_row": "small",
           "alt": false
@@ -481,9 +481,9 @@
         "custom_css": [],
         "name": "Large image with text box",
         "settings": {
-          "subtitle": "Playful, bold, reimagined.",
-          "title": "Nostalgia, reimagined for adults.",
-          "text": "<p>Original designs inspired by the references you grew up with, from playful to abstract. Soft ringspun cotton, clean prints, made to order in the USA.</p>",
+          "subtitle": "Playful to abstract. Always wearable.",
+          "title": "Original reimaginings, drawn for everyday wear.",
+          "text": "<p>Playful, abstract, and nostalgic designs on quality blanks you'll actually want in rotation.</p>",
           "button_label": "Shop best sellers",
           "button_link": "shopify://collections/best-selling",
           "accent_button": true,
@@ -499,8 +499,8 @@
         "name": "Large image with text box",
         "settings": {
           "subtitle": "",
-          "title": "The shirts your ten-year-old self would have begged for.",
-          "text": "<p>And you still want them. Probably more now.</p>",
+          "title": "Made for the \"where'd you get that?\" moment.",
+          "text": "<p>Clean front details, bold back art, soft blanks, and original designs that get noticed without feeling like a costume.</p>",
           "button_label": "Shop the catalog",
           "button_link": "/collections/all",
           "image": "shopify://shop_images/mockup_5.png",
@@ -549,7 +549,7 @@
           "testimonial_5"
         ],
         "settings": {
-          "title": "Word on the street",
+          "title": "Compliments in the wild",
           "align_text": "center",
           "round_images": false,
           "alt": true
