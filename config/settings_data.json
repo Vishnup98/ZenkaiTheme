@@ -330,6 +330,28 @@
       "social": {
         "type": "social",
         "blocks": {
+          "post_XtVfzy": {
+            "type": "post",
+            "settings": {
+              "image": "shopify://shop_images/UGC4.png",
+              "link": "",
+              "product": "",
+              "account": "",
+              "caption": "",
+              "likes": ""
+            }
+          },
+          "post_FmJTjc": {
+            "type": "post",
+            "settings": {
+              "image": "shopify://shop_images/ugc3.png",
+              "link": "",
+              "product": "",
+              "account": "",
+              "caption": "",
+              "likes": ""
+            }
+          },
           "post_mB4x4V": {
             "type": "post",
             "settings": {
@@ -442,6 +464,8 @@
           }
         },
         "block_order": [
+          "post_XtVfzy",
+          "post_FmJTjc",
           "post_mB4x4V",
           "post_YKWjKm",
           "post_rkLHGy",
