@@ -4827,6 +4827,8 @@ this.$container.find('.you-save').addClass('hide');
           return;
         }
 
+        this.syncVariantImageThumb(imageIndex);
+
         if (!theme.config.bpSmall && this.settings.stackedImages) {
           this.stackedScrollTo(imageIndex);
         } else if (this.$mainSlider && this.settings.slickMainInitialized) {
@@ -4836,6 +4838,34 @@ this.$container.find('.you-save').addClass('hide');
           // slider finished mounting). Queue the target index — mainSlideInit
           // consumes it once the carousel is ready.
           this.settings.pendingSlideIndex = imageIndex;
+        }
+      },
+
+      syncVariantImageThumb: function(imageIndex) {
+        var $thumbItems = $(selectors.photoThumbItem, this.$container);
+        if (!$thumbItems.length) {
+          return;
+        }
+
+        var $activeThumb = $thumbItems.filter('[data-index="' + imageIndex + '"]');
+        if (!$activeThumb.length) {
+          $activeThumb = $thumbItems.eq(imageIndex);
+        }
+
+        $thumbItems.removeClass(classes.thumbActive).removeClass('is-active');
+        $activeThumb.addClass(classes.thumbActive).addClass('is-active');
+
+        var thumbs = this.$container.find('[data-product-thumbs]')[0];
+        if (!thumbs || !$activeThumb.length || thumbs.scrollWidth <= thumbs.clientWidth) {
+          return;
+        }
+
+        var activeThumb = $activeThumb[0];
+        var left = activeThumb.offsetLeft - (thumbs.clientWidth / 2) + (activeThumb.offsetWidth / 2);
+        if (typeof thumbs.scrollTo === 'function') {
+          thumbs.scrollTo({ left: left, behavior: 'smooth' });
+        } else {
+          thumbs.scrollLeft = left;
         }
       },
   

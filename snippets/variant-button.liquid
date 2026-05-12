@@ -65,11 +65,13 @@
             class="zk-color-swatch zk-color-swatch--{{ value | handle }}{% unless product_available %} disabled{% endunless %}"
             style="--zk-swatch-color: {{ color_swatch_value }};"
             title="{{ value | escape }}"
+            aria-label="{{ option_drop.name }}: {{ value | escape }}"
+            data-swatch-label="{{ value | escape }}"
           >
             <span class="zk-color-swatch__chip" aria-hidden="true">
               <span class="zk-color-swatch__mark"></span>
             </span>
-            <span class="zk-color-swatch__name">{{ value | escape }}</span>
+            <span class="zk-color-swatch__name visually-hidden">{{ value | escape }}</span>
           </label>
         {% else %}
           <label for="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}"{% unless product_available %} class="disabled"{% endunless %}>{{ value | escape }}</label>
