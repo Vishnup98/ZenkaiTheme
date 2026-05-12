@@ -4713,18 +4713,27 @@ this.$container.find('.you-save').addClass('hide');
       },
   
       disableVariantGroup: function($group) {
+        if ($group.length > 1) {
+          $group.each(function(index, group) {
+            this.disableVariantGroup($(group));
+          }.bind(this));
+          return;
+        }
+
         if (this.settings.variantType === 'dropdown') {
           $group.find('option').prop('disabled', true)
         } else {
           // Color swatches must stay clickable even when no variant exists for
           // the current size+color combo — the color-swatch change handler
           // pre-swaps the size to the first available one for that color.
-          // Disabling the input would swallow the click and the handler would
-          // never fire. Apply visual .disabled class only.
           var hasColorSwatch = $group.find('[data-color-swatch]').length > 0;
-          if (!hasColorSwatch) {
-            $group.find('input').prop('disabled', true);
+          if (hasColorSwatch) {
+            $group.find('input').prop('disabled', false);
+            $group.find('label').toggleClass('disabled', false);
+            return;
           }
+
+          $group.find('input').prop('disabled', true);
           $group.find('label').toggleClass('disabled', true);
         }
       },

@@ -587,8 +587,7 @@
     outline-offset: 2px;
   }
 
-  #ProductSection-{{ section_id }} .variant-input label.disabled,
-  #ProductSection-{{ section_id }} .variant-input .zk-color-swatch.disabled {
+  #ProductSection-{{ section_id }} .variant-input label.disabled:not(.zk-color-swatch) {
     opacity: 0.35;
     cursor: not-allowed;
   }
@@ -622,12 +621,12 @@
   }
 
   #ProductSection-{{ section_id }} .variant-input .zk-color-swatch.disabled {
-    opacity: 0.56;
+    opacity: 1;
     cursor: pointer;
   }
 
   #ProductSection-{{ section_id }} .variant-input input:checked + .zk-color-swatch.disabled {
-    opacity: 0.8;
+    opacity: 1;
   }
 
   #ProductSection-{{ section_id }} .zk-color-swatch__chip {
