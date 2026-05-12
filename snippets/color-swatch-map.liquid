@@ -1,0 +1,69 @@
+{%- assign color_key = color_name | default: '' | handleize -%}
+{%- case color_key -%}
+  {%- when 'black' -%}#000000
+  {%- when 'navy' -%}#1e334c
+  {%- when 'olive' -%}#5c5850
+  {%- when 'ivory' -%}#f4ead2
+  {%- when 'dark-chocolate' -%}#3c2d27
+  {%- when 'forest-green' -%}#263c30
+  {%- when 'light-blue' -%}#9dbed7
+  {%- when 'blue-spruce' -%}#596b5e
+  {%- when 'sage' -%}#585743
+  {%- when 'washed-denim' -%}#96a6c2
+  {%- when 'blue-aqua' -%}#82bcdf
+  {%- when 'classic-navy' -%}#292d3e
+  {%- when 'light-pink' -%}#f3d7dc
+  {%- when 'white' -%}#f3f3f3
+  {%- when 'lavender' -%}#d1bbe0
+  {%- when 'bone' -%}#fae8d7
+  {%- when 'grape' -%}#705e77
+  {%- when 'chambray' -%}#d6ebf6
+  {%- when 'berry' -%}#8e607d
+  {%- when 'graphite' -%}#4f4848
+  {%- when 'granite' -%}#a0a5a3
+  {%- when 'flo-blue' -%}#6c77b3
+  {%- when 'true-navy' -%}#2e3550
+  {%- when 'orchid' -%}#ebcbe4
+  {%- when 'espresso' -%}#846753
+  {%- when 'khaki' -%}#b0a98b
+  {%- when 'mystic-blue' -%}#5e70a9
+  {%- when 'seafoam' -%}#70a799
+  {%- when 'brick' -%}#90535c
+  {%- when 'denim' -%}#5a5d67
+  {%- when 'navy-blazer' -%}#242b36
+  {%- when 'maroon' -%}#803246
+  {%- when 'cardinal' -%}#672438
+  {%- when 'dark-green' -%}#20331f
+  {%- when 'purple' -%}#4d3e7a
+  {%- when 'pepper' -%}#595753
+  {%- when 'grey' -%}#9b9b9b
+  {%- when 'solid-maroon' -%}#4c272a
+  {%- when 'solid-forest-green' -%}#213933
+  {%- when 'solid-black' -%}#000000
+  {%- when 'solid-midnight-navy' -%}#0f1f2c
+  {%- when 'solid-purple-rush' -%}#422568
+  {%- when 'solid-light-blue' -%}#b5ced4
+  {%- when 'solid-white' -%}#ffffff
+  {%- when 'solid-heavy-metal' -%}#525a5b
+  {%- when 'solid-dark-chocolate' -%}#3c302f
+  {%- when 'charcoal-heather' -%}#41424a
+  {%- when 'solid-natural' -%}#eee5d3
+  {%- when 'solid-royal' -%}#1b5091
+  {%- when 'solid-light-grey' -%}#999798
+  {%- when 'solid-cardinal-red' -%}#ff0000
+  {%- when 'oxford-navy' -%}#000080
+  {%- when 'arctic-white' -%}#ffffff
+  {%- when 'sky-blue' -%}#87ceeb
+  {%- when 'jet-black' -%}#000000
+  {%- when 'solid-desert-pink' -%}#ffc0cb
+  {%- when 'solid-cream' -%}#fffdd0
+  {%- when 'navy-blue' -%}#012b67
+  {%- when 'dark-brown' -%}#654321
+  {%- when 'solid-light-pink' -%}#ffb6c1
+  {%- when 'bottle-green' -%}#008000
+  {%- when 'steel-grey' -%}#9b9b9b
+  {%- when 'red-hot-chilli' -%}#ff0000
+  {%- else -%}
+    {%- assign fallback_color = color_name | default: '' | split: ' ' | last | handleize -%}
+    {%- if fallback_color != blank -%}{{ fallback_color }}{%- else -%}#d9d9d9{%- endif -%}
+{%- endcase -%}

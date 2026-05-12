@@ -1,28 +1,25 @@
-{%- assign swatch_file_extension = 'png' -%}
 {%- assign is_color = false -%}
 {%- assign color_swatch_drop = option_drop -%}
 {%- assign color_option_index = 0 -%}
 
-{% if settings.product_color_swatches %}
-  {% for option in product.options_with_values %}
-    {% if option == color_swatch_drop %}
-      {%- assign color_option_index = forloop.index0 -%}
-      {%- assign downcased_option = color_swatch_drop.name | downcase -%}
-      {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
-        {% assign is_color = true %}
-      {% endif %}
+{% for option in product.options_with_values %}
+  {% if option == color_swatch_drop %}
+    {%- assign color_option_index = forloop.index0 -%}
+    {%- assign downcased_option = color_swatch_drop.name | downcase -%}
+    {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+      {% assign is_color = true %}
     {% endif %}
-  {% endfor %}
-{% endif %}
+  {% endif %}
+{% endfor %}
 
-<div class="variant-wrapper variant-wrapper--{{ variant_type }} js">
+<div class="variant-wrapper variant-wrapper--{{ variant_type }}{% if is_color %} variant-wrapper--color{% endif %} js">
   {%- assign is_size_option = false -%}
   {%- assign option_name_downcase = option_drop.name | downcase -%}
   {% if option_name_downcase contains 'size' %}
     {%- assign is_size_option = true -%}
   {% endif %}
   {%- assign option_index = forloop.index -%}
-  <fieldset class="variant-input-wrap"
+  <fieldset class="variant-input-wrap{% if is_color %} variant-input-wrap--color zk-color-picker{% endif %}"
     name="{{ option_drop.name }}"
     data-index="option{{ option_index }}"
     id="ProductSelect-{{ section_id }}-option-{{ forloop.index0 }}">
@@ -61,14 +58,18 @@
           {% if is_color %} data-color-index="{{ color_option_index }}"{% endif %}
           id="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}">
         {% if is_color %}
-          {%- assign color_image = value | handle | append: '.' | append: swatch_file_extension | asset_img_url: '50x' | prepend: 'https:' | split: '?' | first -%}
-          {%- assign color_swatch_fallback = value | split: ' ' | last | handle -%}
+          {%- capture mapped_swatch_color -%}{% render 'color-swatch-map', color_name: value %}{%- endcapture -%}
+          {%- assign color_swatch_value = mapped_swatch_color | strip | default: '#d9d9d9' -%}
           <label
             for="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}"
-            class="color-swatch color-swatch--{{ value | handle }}{% unless product_available %} disabled{% endunless %}"
-            style="background-image: url({{ color_image }}); background-color: {{ color_swatch_fallback }};"
+            class="zk-color-swatch zk-color-swatch--{{ value | handle }}{% unless product_available %} disabled{% endunless %}"
+            style="--zk-swatch-color: {{ color_swatch_value }};"
+            title="{{ value | escape }}"
           >
-            {{ value | escape }}
+            <span class="zk-color-swatch__chip" aria-hidden="true">
+              <span class="zk-color-swatch__mark"></span>
+            </span>
+            <span class="zk-color-swatch__name">{{ value | escape }}</span>
           </label>
         {% else %}
           <label for="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}"{% unless product_available %} class="disabled"{% endunless %}>{{ value | escape }}</label>
