@@ -330,6 +330,50 @@
       "social": {
         "type": "social",
         "blocks": {
+          "post_XtVfzy": {
+            "type": "post",
+            "settings": {
+              "image": "shopify://shop_images/UGC4.png",
+              "link": "",
+              "product": "",
+              "account": "",
+              "caption": "",
+              "likes": ""
+            }
+          },
+          "post_FmJTjc": {
+            "type": "post",
+            "settings": {
+              "image": "shopify://shop_images/ugc3.png",
+              "link": "",
+              "product": "",
+              "account": "",
+              "caption": "",
+              "likes": ""
+            }
+          },
+          "post_mB4x4V": {
+            "type": "post",
+            "settings": {
+              "image": "shopify://shop_images/sandshrew_shirt_UGC.png",
+              "link": "",
+              "product": "",
+              "account": "",
+              "caption": "",
+              "likes": ""
+            }
+          },
+          "post_YKWjKm": {
+            "type": "post",
+            "settings": {
+              "image": "shopify://shop_images/UGC_2.png",
+              "link": "",
+              "product": "",
+              "account": "",
+              "caption": "",
+              "likes": ""
+            }
+          },
           "post_rkLHGy": {
             "type": "post",
             "settings": {
@@ -420,6 +464,10 @@
           }
         },
         "block_order": [
+          "post_XtVfzy",
+          "post_FmJTjc",
+          "post_mB4x4V",
+          "post_YKWjKm",
           "post_rkLHGy",
           "post_FWpyXU",
           "post_BR3yjM",
@@ -503,6 +551,7 @@
           "text": "<p>Original artwork on soft blanks, from playful favorites to abstract reimaginings, made to feel fresh, wearable, and easy to keep in rotation.</p>",
           "button_label": "Shop the catalog",
           "button_link": "/collections/all",
+          "accent_button": false,
           "image": "shopify://shop_images/mockup_5.png",
           "desktop_size": 0,
           "image_alignment": "center center",
