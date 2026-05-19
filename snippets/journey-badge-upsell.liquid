@@ -820,47 +820,6 @@
         });
       }
 
-      function getParentCart() {
-        return new Promise(function(resolve, reject) {
-          var xhr;
-          try {
-            xhr = new XMLHttpRequest();
-          } catch (e) {
-            reject(e);
-            return;
-          }
-
-          xhr.open('GET', '/cart.js?zk_journey_refresh=' + Date.now(), true);
-          xhr.setRequestHeader('Accept', 'application/json');
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState !== 4) return;
-            if (xhr.status < 200 || xhr.status >= 300) {
-              reject(new Error('cart refresh failed'));
-              return;
-            }
-
-            var data = {};
-            try {
-              data = JSON.parse(xhr.responseText);
-            } catch (e) {
-              reject(e);
-              return;
-            }
-
-            if (!data || !Array.isArray(data.items)) {
-              reject(new Error('cart refresh returned invalid data'));
-              return;
-            }
-
-            resolve(data);
-          };
-          xhr.onerror = function() {
-            reject(new Error('cart refresh failed'));
-          };
-          xhr.send();
-        });
-      }
-
       function emitEvent(target, name, detail) {
         if (!target) return;
         try {
@@ -883,6 +842,79 @@
         emitEvent(window, 'upcart:refresh', { cart: cart });
       }
 
+      function wait(ms) {
+        return new Promise(function(resolve) {
+          window.setTimeout(resolve, ms);
+        });
+      }
+
+      function meaningfulPublicFunction(name) {
+        var fn = window[name];
+        if (typeof fn !== 'function') return false;
+
+        try {
+          var source = String(fn).replace(/\s+/g, '');
+          if (source === '()=>{}' || source === 'async()=>{}') return false;
+        } catch (e) {}
+
+        return true;
+      }
+
+      function callWindowFunction(name, args) {
+        if (!meaningfulPublicFunction(name)) return { called: false };
+
+        try {
+          return {
+            called: true,
+            value: window[name].apply(window, args || [])
+          };
+        } catch (e) {
+          return { called: false };
+        }
+      }
+
+      function refreshUpcartPublicApi() {
+        var attempts = 0;
+
+        return new Promise(function(resolve) {
+          function tryRefresh() {
+            var refresh = callWindowFunction('upcartRefreshCart');
+            attempts += 1;
+
+            if (refresh.called) {
+              Promise.resolve(refresh.value)
+                .catch(function() {})
+                .then(function() {
+                  resolve(true);
+                });
+              return;
+            }
+
+            var registerAdd = callWindowFunction('upcartRegisterAddToCart');
+            if (registerAdd.called) {
+              Promise.resolve(registerAdd.value)
+                .catch(function() {})
+                .then(function() {
+                  return wait(1100);
+                })
+                .then(function() {
+                  resolve(true);
+                });
+              return;
+            }
+
+            if (attempts < 12) {
+              window.setTimeout(tryRefresh, 150);
+              return;
+            }
+
+            resolve(false);
+          }
+
+          tryRefresh();
+        });
+      }
+
       function callUpcartMethods(names, cart) {
         var called = false;
         ['UpcartPublic', 'upcart', 'Upcart', 'upcartPublic'].forEach(function(key) {
@@ -902,6 +934,14 @@
       function openUpcartDrawer(cart) {
         var detail = cart && Array.isArray(cart.items) ? { cart: cart } : {};
         var methodArg = cart && Array.isArray(cart.items) ? cart : undefined;
+
+        if (callWindowFunction('upcartOpenCart').called) {
+          return true;
+        }
+
+        if (callWindowFunction('upcartStickyButtonOnClick').called) {
+          return true;
+        }
 
         if (methodArg) {
           callUpcartMethods(['refresh', 'reload', 'update', 'render', 'fetchCart', 'getCart', 'updateCart'], methodArg);
@@ -934,14 +974,14 @@
       function refreshAndOpenCart() {
         closeModal(false);
 
-        getParentCart().catch(function() {
+        refreshUpcartPublicApi().then(function() {
           return getCart();
         }).then(function(cart) {
           announceCart(cart);
           window.setTimeout(function() {
             if (openUpcartDrawer(cart)) return;
             window.location.href = '/cart';
-          }, 900);
+          }, 450);
         }).catch(function() {
           window.setTimeout(function() {
             if (openUpcartDrawer()) return;
