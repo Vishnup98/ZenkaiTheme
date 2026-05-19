@@ -107,6 +107,8 @@
             "region": {{ zk_variant.title | json }},
             "price": {{ zk_variant.price | money | json }},
             "priceCents": {{ zk_variant.price | json }},
+            "compareAtPrice": {% if zk_variant.compare_at_price != blank %}{{ zk_variant.compare_at_price | money | json }}{% else %}null{% endif %},
+            "compareAtPriceCents": {{ zk_variant.compare_at_price | default: 0 | json }},
             "available": {{ zk_variant.available | json }},
             "image": {{ zk_variant_image | image_url: width: 720, height: 720, crop: 'center' | json }}
           }{%- unless forloop.last -%},{%- endunless -%}
@@ -306,6 +308,17 @@
       font-size: 0.9rem;
       font-weight: 800;
       line-height: 1.2;
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .zk-journey-upsell__compare-price {
+      color: #8a909d;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: line-through;
     }
 
     .zk-journey-upsell__button {
@@ -522,20 +535,58 @@
         })[0] || null;
       }
 
+      function findCollectorVariant() {
+        return (config.variants || []).filter(function(variant) {
+          var title = String(variant.region || '').toLowerCase();
+          return title.indexOf('collector') >= 0 ||
+            title.indexOf('4 regions') >= 0 ||
+            title.indexOf('all four') >= 0;
+        })[0] || null;
+      }
+
       function collectorVariants() {
         return ['kanto', 'johto', 'hoenn', 'sinnoh'].map(findVariant).filter(Boolean);
       }
 
-      function formatCollectorPrice() {
+      function formatMoney(cents) {
+        cents = parseInt(cents, 10) || 0;
+        if (window.theme && theme.Currency && typeof theme.Currency.formatMoney === 'function') {
+          return theme.Currency.formatMoney(cents, theme.settings.moneyFormat);
+        }
+
+        return '$' + (cents / 100).toFixed(2);
+      }
+
+      function formatRegionPackPrice() {
         var total = collectorVariants().reduce(function(sum, variant) {
           return sum + (parseInt(variant.priceCents, 10) || 0);
         }, 0);
 
-        if (window.theme && theme.Currency && typeof theme.Currency.formatMoney === 'function') {
-          return theme.Currency.formatMoney(total, theme.settings.moneyFormat);
+        return formatMoney(total);
+      }
+
+      function renderPrice(node, variant, fallbackText) {
+        if (!node) return;
+        while (node.firstChild) node.removeChild(node.firstChild);
+
+        if (!variant) {
+          node.textContent = fallbackText || '';
+          return;
         }
 
-        return '$' + (total / 100).toFixed(2);
+        var price = document.createElement('span');
+        price.textContent = variant.price || formatMoney(variant.priceCents);
+
+        var compareCents = parseInt(variant.compareAtPriceCents, 10) || 0;
+        var priceCents = parseInt(variant.priceCents, 10) || 0;
+        if (compareCents > priceCents) {
+          var compare = document.createElement('span');
+          compare.className = 'zk-journey-upsell__compare-price';
+          compare.textContent = variant.compareAtPrice || formatMoney(compareCents);
+          node.appendChild(compare);
+        }
+
+        node.appendChild(price);
       }
 
       function getMarker(form) {
@@ -808,11 +859,11 @@
         }
 
         if (els.regionPrice) {
-          els.regionPrice.textContent = variant ? variant.price : '';
+          renderPrice(els.regionPrice, variant, '');
         }
 
         if (els.collectorPrice) {
-          els.collectorPrice.textContent = formatCollectorPrice();
+          renderPrice(els.collectorPrice, findCollectorVariant(), formatRegionPackPrice());
         }
 
         if (els.addRegion) {
@@ -820,7 +871,7 @@
         }
 
         if (els.addCollector) {
-          els.addCollector.disabled = collectorVariants().length < 4;
+          els.addCollector.disabled = !findCollectorVariant() && collectorVariants().length < 4;
         }
       }
 
@@ -928,15 +979,16 @@
 
       function addCollectorOffer() {
         if (state.busy) return;
+        var collectorVariant = findCollectorVariant();
         var variants = collectorVariants();
-        if (variants.length < 4) return;
+        if (!collectorVariant && variants.length < 4) return;
 
         state.busy = true;
         suppressThirdParty(2400);
         setStatus('Adding the collector pack...', '');
         els.addCollector.disabled = true;
 
-        addVariantPack(variants)
+        (collectorVariant ? addOneVariant(collectorVariant.id) : addVariantPack(variants))
           .then(function() {
             refreshAndOpenCart();
           })
