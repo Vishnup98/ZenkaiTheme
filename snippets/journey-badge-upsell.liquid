@@ -1,0 +1,920 @@
+{%- assign zk_badge_handle = '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
+{%- assign zk_badge_product = all_products[zk_badge_handle] -%}
+
+{%- if zk_badge_product != blank and zk_badge_product.variants.size > 0 -%}
+  <div class="zk-journey-upsell" data-zk-journey-upsell-modal hidden aria-hidden="true">
+    <div class="zk-journey-upsell__scrim" data-zk-journey-dismiss></div>
+    <section class="zk-journey-upsell__dialog" role="dialog" aria-modal="true" aria-labelledby="zk-journey-upsell-title" aria-describedby="zk-journey-upsell-copy">
+      <button type="button" class="zk-journey-upsell__close" data-zk-journey-dismiss aria-label="Close badge offer">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+        </svg>
+      </button>
+
+      <div class="zk-journey-upsell__handle" aria-hidden="true"></div>
+
+      <div class="zk-journey-upsell__header">
+        <p class="zk-journey-upsell__eyebrow">Bundle match</p>
+        <h2 id="zk-journey-upsell-title">Complete your <span data-zk-journey-region-label>{{ zenkai_journey_region }}</span> run.</h2>
+        <p id="zk-journey-upsell-copy">Badge sets count toward Bundle &amp; Save: 2 items = $5 off, 3 = $10 off, 4+ = $20 off.</p>
+      </div>
+
+      <div class="zk-journey-upsell__offers">
+        <article class="zk-journey-upsell__offer" data-zk-journey-region-card>
+          <div class="zk-journey-upsell__media">
+            <img data-zk-journey-region-image alt="" loading="lazy" width="320" height="320">
+          </div>
+          <div class="zk-journey-upsell__offer-copy">
+            <p class="zk-journey-upsell__offer-kicker">Region match</p>
+            <h3><span data-zk-journey-region-label>{{ zenkai_journey_region }}</span> Badge Set</h3>
+            <p>Eight hard enamel badges matched to the piece you just picked.</p>
+            <div class="zk-journey-upsell__price" data-zk-journey-region-price></div>
+          </div>
+          <button type="button" class="zk-journey-upsell__button zk-journey-upsell__button--primary" data-zk-journey-add-region>
+            <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+            </svg>
+            <span>Add Badge Set</span>
+          </button>
+        </article>
+
+        <article class="zk-journey-upsell__offer zk-journey-upsell__offer--collector" data-zk-journey-collector-card>
+          <div class="zk-journey-upsell__collector-grid" aria-hidden="true">
+            {%- for zk_variant in zk_badge_product.variants -%}
+              {%- assign zk_variant_image = zk_variant.featured_image | default: zk_badge_product.featured_image -%}
+              <img src="{{ zk_variant_image | image_url: width: 180, height: 180, crop: 'center' }}" alt="" loading="lazy" width="180" height="180">
+            {%- endfor -%}
+          </div>
+          <div class="zk-journey-upsell__offer-copy">
+            <p class="zk-journey-upsell__offer-kicker">Collector's pack</p>
+            <h3>All four regions</h3>
+            <p>Kanto, Johto, Hoenn, and Sinnoh together in one cart move.</p>
+            <div class="zk-journey-upsell__price" data-zk-journey-collector-price></div>
+          </div>
+          <button type="button" class="zk-journey-upsell__button zk-journey-upsell__button--dark" data-zk-journey-add-collector>
+            <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 7h16M7 4v16M17 4v16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"></path>
+            </svg>
+            <span>Add Collector's Pack</span>
+          </button>
+        </article>
+      </div>
+
+      <button type="button" class="zk-journey-upsell__skip" data-zk-journey-skip>Continue to cart</button>
+      <p class="zk-journey-upsell__status" data-zk-journey-status role="status" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <script type="application/json" data-zk-journey-upsell-config>
+    {
+      "badgeProductId": {{ zk_badge_product.id | json }},
+      "badgeProductTitle": {{ zk_badge_product.title | json }},
+      "badgeProductUrl": {{ zk_badge_product.url | json }},
+      "currentRegion": {{ zenkai_journey_region | json }},
+      "variants": [
+        {%- for zk_variant in zk_badge_product.variants -%}
+          {%- assign zk_variant_image = zk_variant.featured_image | default: zk_badge_product.featured_image -%}
+          {
+            "id": {{ zk_variant.id | json }},
+            "region": {{ zk_variant.title | json }},
+            "price": {{ zk_variant.price | money | json }},
+            "priceCents": {{ zk_variant.price | json }},
+            "available": {{ zk_variant.available | json }},
+            "image": {{ zk_variant_image | image_url: width: 360, height: 360, crop: 'center' | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+
+  <style>
+    .zk-journey-upsell[hidden] {
+      display: none !important;
+    }
+
+    .zk-journey-upsell {
+      position: fixed;
+      inset: 0;
+      z-index: 2147482900;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+      color: #202225;
+      font-family: inherit;
+    }
+
+    .zk-journey-upsell__scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(16, 20, 30, 0.5);
+      backdrop-filter: blur(3px);
+    }
+
+    .zk-journey-upsell__dialog {
+      position: relative;
+      width: min(100%, 520px);
+      max-height: calc(100dvh - 24px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      background: #ffffff;
+      border: 1px solid rgba(26, 27, 46, 0.1);
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 -16px 45px rgba(16, 20, 30, 0.22);
+      padding: 14px 14px max(14px, env(safe-area-inset-bottom));
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .zk-journey-upsell.is-open .zk-journey-upsell__dialog {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @supports not (height: 100dvh) {
+      .zk-journey-upsell__dialog {
+        max-height: calc(100vh - 24px);
+      }
+    }
+
+    .zk-journey-upsell__handle {
+      width: 42px;
+      height: 4px;
+      margin: 0 auto 12px;
+      border-radius: 999px;
+      background: #d8dde5;
+    }
+
+    .zk-journey-upsell__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 999px;
+      background: #f4f7f8;
+      color: #202225;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .zk-journey-upsell__header {
+      padding: 0 42px 12px 0;
+    }
+
+    .zk-journey-upsell__eyebrow,
+    .zk-journey-upsell__offer-kicker {
+      margin: 0 0 4px;
+      color: #2b8f7f;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .zk-journey-upsell__header h2 {
+      margin: 0;
+      color: #16312d;
+      font-size: 1.42rem;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .zk-journey-upsell__header p:last-child {
+      margin: 8px 0 0;
+      color: #5f6575;
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.38;
+    }
+
+    .zk-journey-upsell__offers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .zk-journey-upsell__offer {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid rgba(26, 27, 46, 0.1);
+      border-radius: 8px;
+      background: #fbfcff;
+    }
+
+    .zk-journey-upsell__media,
+    .zk-journey-upsell__collector-grid {
+      width: 82px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #f2f4f7;
+    }
+
+    .zk-journey-upsell__media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .zk-journey-upsell__collector-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .zk-journey-upsell__collector-grid img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .zk-journey-upsell__offer-copy {
+      min-width: 0;
+    }
+
+    .zk-journey-upsell__offer-copy h3 {
+      margin: 0;
+      color: #202225;
+      font-size: 1rem;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .zk-journey-upsell__offer-copy p:not(.zk-journey-upsell__offer-kicker) {
+      margin: 5px 0 0;
+      color: #626879;
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.32;
+    }
+
+    .zk-journey-upsell__price {
+      margin-top: 5px;
+      color: #16312d;
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .zk-journey-upsell__button {
+      grid-column: 1 / -1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      padding: 0 16px;
+      font-size: 0.88rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    .zk-journey-upsell__button--primary {
+      background: #63d6bf;
+      color: #102522;
+    }
+
+    .zk-journey-upsell__button--dark {
+      background: #16312d;
+      color: #ffffff;
+    }
+
+    .zk-journey-upsell__button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+
+    .zk-journey-upsell__skip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid rgba(26, 27, 46, 0.12);
+      border-radius: 8px;
+      background: #ffffff;
+      color: #202225;
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.1;
+      cursor: pointer;
+    }
+
+    .zk-journey-upsell__status {
+      min-height: 18px;
+      margin: 8px 2px 0;
+      color: #5f6575;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .zk-journey-upsell__status[data-state="error"] {
+      color: #9b2d2d;
+    }
+
+    body.zk-journey-upsell-open {
+      overflow: hidden;
+    }
+
+    @media screen and (min-width: 768px) {
+      .zk-journey-upsell {
+        align-items: center;
+        padding: 24px;
+      }
+
+      .zk-journey-upsell__dialog {
+        width: min(94vw, 760px);
+        border-radius: 8px;
+        padding: 22px;
+        box-shadow: 0 24px 80px rgba(16, 20, 30, 0.22);
+      }
+
+      .zk-journey-upsell__handle {
+        display: none;
+      }
+
+      .zk-journey-upsell__header {
+        max-width: 560px;
+        padding-right: 48px;
+      }
+
+      .zk-journey-upsell__header h2 {
+        font-size: 1.72rem;
+      }
+
+      .zk-journey-upsell__offers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 8px;
+      }
+
+      .zk-journey-upsell__offer {
+        grid-template-columns: 108px minmax(0, 1fr);
+        align-items: start;
+        padding: 12px;
+      }
+
+      .zk-journey-upsell__media,
+      .zk-journey-upsell__collector-grid {
+        width: 108px;
+      }
+
+      .zk-journey-upsell__button {
+        min-height: 46px;
+      }
+
+      .zk-journey-upsell__skip {
+        width: auto;
+        min-width: 190px;
+        margin: 14px auto 0;
+        padding: 0 22px;
+      }
+    }
+  </style>
+
+  <script>
+    (function() {
+      'use strict';
+
+      if (window.__zkJourneyBadgeUpsellLoaded) return;
+      window.__zkJourneyBadgeUpsellLoaded = true;
+
+      var configEl = document.querySelector('[data-zk-journey-upsell-config]');
+      var modal = document.querySelector('[data-zk-journey-upsell-modal]');
+      if (!configEl || !modal) return;
+
+      var config;
+      try {
+        config = JSON.parse(configEl.textContent);
+      } catch (e) {
+        return;
+      }
+
+      var raf = window.requestAnimationFrame || function(callback) {
+        return window.setTimeout(callback, 16);
+      };
+
+      var state = {
+        busy: false,
+        currentRegion: normalizeRegion(config.currentRegion),
+        previousFocus: null,
+        activeButton: null
+      };
+
+      var els = {
+        regionLabels: modal.querySelectorAll('[data-zk-journey-region-label]'),
+        regionImage: modal.querySelector('[data-zk-journey-region-image]'),
+        regionPrice: modal.querySelector('[data-zk-journey-region-price]'),
+        collectorPrice: modal.querySelector('[data-zk-journey-collector-price]'),
+        addRegion: modal.querySelector('[data-zk-journey-add-region]'),
+        addCollector: modal.querySelector('[data-zk-journey-add-collector]'),
+        skip: modal.querySelector('[data-zk-journey-skip]'),
+        status: modal.querySelector('[data-zk-journey-status]')
+      };
+
+      function normalizeRegion(value) {
+        value = String(value || '').toLowerCase();
+        if (value.indexOf('kanto') >= 0) return 'kanto';
+        if (value.indexOf('johto') >= 0) return 'johto';
+        if (value.indexOf('hoenn') >= 0) return 'hoenn';
+        if (value.indexOf('sinnoh') >= 0) return 'sinnoh';
+        return '';
+      }
+
+      function regionTitle(value) {
+        var region = normalizeRegion(value);
+        if (region === 'kanto') return 'Kanto';
+        if (region === 'johto') return 'Johto';
+        if (region === 'hoenn') return 'Hoenn';
+        if (region === 'sinnoh') return 'Sinnoh';
+        return 'region';
+      }
+
+      function findVariant(region) {
+        region = normalizeRegion(region);
+        return (config.variants || []).filter(function(variant) {
+          return normalizeRegion(variant.region) === region;
+        })[0] || null;
+      }
+
+      function collectorVariants() {
+        return ['kanto', 'johto', 'hoenn', 'sinnoh'].map(findVariant).filter(Boolean);
+      }
+
+      function formatCollectorPrice() {
+        var total = collectorVariants().reduce(function(sum, variant) {
+          return sum + (parseInt(variant.priceCents, 10) || 0);
+        }, 0);
+
+        if (window.theme && theme.Currency && typeof theme.Currency.formatMoney === 'function') {
+          return theme.Currency.formatMoney(total, theme.settings.moneyFormat);
+        }
+
+        return '$' + (total / 100).toFixed(2);
+      }
+
+      function getMarker(form) {
+        return form && form.querySelector('[data-zk-journey-upsell]');
+      }
+
+      function getRegionForForm(form) {
+        var marker = getMarker(form);
+        return marker ? normalizeRegion(marker.getAttribute('data-zk-journey-region') || marker.value) : '';
+      }
+
+      function getProductTitle(form) {
+        var marker = getMarker(form);
+        return marker ? marker.getAttribute('data-zk-journey-product-title') || '' : '';
+      }
+
+      function isJourneyForm(form) {
+        return Boolean(form && form.matches && form.matches('form') && getRegionForForm(form));
+      }
+
+      function setButtonLoading(button, loading) {
+        if (!button) return;
+        button.classList.toggle('btn--loading', loading);
+        button.classList.toggle('is-loading', loading);
+        button.disabled = loading;
+      }
+
+      function setStatus(message, type) {
+        if (!els.status) return;
+        els.status.textContent = message || '';
+        if (type) {
+          els.status.setAttribute('data-state', type);
+        } else {
+          els.status.removeAttribute('data-state');
+        }
+      }
+
+      function suppressThirdParty(ms) {
+        var started = Date.now();
+        var selectors = [
+          '#candyrack-frame',
+          '#candyrack-slider-cart',
+          '.candyrack-slider-cart',
+          '.CandyRack-CartSlider',
+          '[id*="candyrack" i]',
+          '[class*="candyrack" i]',
+          '[id*="CandyRack"]',
+          '[class*="CandyRack"]'
+        ];
+
+        function quiet(root) {
+          try {
+            document.body.classList.remove('candyrack-popup-show', 'cr-slider-open');
+          } catch (e) {}
+
+          selectors.forEach(function(selector) {
+            try {
+              (root || document).querySelectorAll(selector).forEach(function(node) {
+                if (node.closest && node.closest('[data-zk-journey-upsell-modal]')) return;
+                node.style.setProperty('display', 'none', 'important');
+                node.style.setProperty('visibility', 'hidden', 'important');
+                node.setAttribute('aria-hidden', 'true');
+              });
+            } catch (e) {}
+          });
+        }
+
+        try { if (window.CandyRack && window.CandyRack.hideSlider) window.CandyRack.hideSlider(); } catch (e) {}
+        quiet(document);
+
+        if (!window.MutationObserver) return;
+        var observer = new MutationObserver(function(mutations) {
+          quiet(document);
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node && node.nodeType === 1) quiet(node);
+            });
+          });
+          if (Date.now() - started > (ms || 1800)) observer.disconnect();
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        window.setTimeout(function() { observer.disconnect(); }, ms || 1800);
+      }
+
+      function getCleanXHR() {
+        return new Promise(function(resolve, reject) {
+          if (window.__zkJourneyCleanXHRFrame && window.__zkJourneyCleanXHRFrame.contentWindow) {
+            try {
+              resolve(new window.__zkJourneyCleanXHRFrame.contentWindow.XMLHttpRequest());
+              return;
+            } catch (e) {}
+          }
+
+          var frame = document.createElement('iframe');
+          frame.style.cssText = 'display:none!important;width:0;height:0;border:0;position:absolute;';
+          frame.setAttribute('aria-hidden', 'true');
+          frame.src = '/robots.txt';
+          frame.onload = function() {
+            window.__zkJourneyCleanXHRFrame = frame;
+            try {
+              resolve(new frame.contentWindow.XMLHttpRequest());
+            } catch (e) {
+              reject(e);
+            }
+          };
+          frame.onerror = function() {
+            reject(new Error('cart transport unavailable'));
+          };
+          document.body.appendChild(frame);
+        });
+      }
+
+      function requestCart(url, body, contentType) {
+        return getCleanXHR().then(function(xhr) {
+          return new Promise(function(resolve, reject) {
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            if (contentType) xhr.setRequestHeader('Content-Type', contentType);
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState !== 4) return;
+              var data = {};
+              try {
+                data = JSON.parse(xhr.responseText);
+              } catch (e) {}
+              if (xhr.status >= 200 && xhr.status < 300) {
+                resolve(data);
+              } else {
+                reject(new Error(data.description || data.message || 'Could not add that item.'));
+              }
+            };
+            xhr.send(body);
+          });
+        });
+      }
+
+      function formToBody(form) {
+        var source = new FormData(form);
+        var params = new URLSearchParams();
+        var hasQuantity = false;
+        source.forEach(function(value, key) {
+          if (!key || key.indexOf('data-') === 0) return;
+          if (key === 'quantity') hasQuantity = true;
+          params.append(key, value);
+        });
+        if (!hasQuantity) params.append('quantity', '1');
+        return params.toString();
+      }
+
+      function addMainProduct(form) {
+        return requestCart('/cart/add.js', formToBody(form), 'application/x-www-form-urlencoded; charset=UTF-8');
+      }
+
+      function addOneVariant(variantId) {
+        var body = 'id=' + encodeURIComponent(String(variantId)) + '&quantity=1';
+        return requestCart('/cart/add.js', body, 'application/x-www-form-urlencoded; charset=UTF-8');
+      }
+
+      function addVariantPack(variants) {
+        var payload = {
+          items: variants.map(function(variant) {
+            return { id: Number(variant.id), quantity: 1 };
+          })
+        };
+        return requestCart('/cart/add.js', JSON.stringify(payload), 'application/json');
+      }
+
+      function getCart() {
+        return getCleanXHR().then(function(xhr) {
+          return new Promise(function(resolve) {
+            xhr.open('GET', '/cart.js', true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState !== 4) return;
+              var data = {};
+              try {
+                data = JSON.parse(xhr.responseText);
+              } catch (e) {}
+              resolve(data);
+            };
+            xhr.send();
+          });
+        });
+      }
+
+      function emitEvent(target, name, detail) {
+        if (!target) return;
+        try {
+          target.dispatchEvent(new CustomEvent(name, { detail: detail }));
+        } catch (e) {
+          var event = document.createEvent('CustomEvent');
+          event.initCustomEvent(name, true, true, detail);
+          target.dispatchEvent(event);
+        }
+      }
+
+      function announceCart(cart) {
+        if (window.jQuery) {
+          window.jQuery('body').trigger('updateCart', cart);
+        }
+        emitEvent(document, 'cart:updated', { cart: cart });
+        emitEvent(window, 'cart:updated', { cart: cart });
+        emitEvent(document, 'upcart:refresh', { cart: cart });
+        emitEvent(window, 'upcart:refresh', { cart: cart });
+      }
+
+      function callUpcartMethods(names, cart) {
+        var called = false;
+        ['UpcartPublic', 'upcart', 'Upcart', 'upcartPublic'].forEach(function(key) {
+          var api = window[key];
+          if (!api) return;
+          names.forEach(function(name) {
+            if (typeof api[name] !== 'function') return;
+            try {
+              api[name](cart);
+              called = true;
+            } catch (e) {}
+          });
+        });
+        return called;
+      }
+
+      function openUpcartDrawer(cart) {
+        callUpcartMethods(['refresh', 'reload', 'update', 'render', 'fetchCart', 'getCart', 'updateCart'], cart);
+
+        emitEvent(document, 'upcart:open', { cart: cart });
+        emitEvent(window, 'upcart:open', { cart: cart });
+        emitEvent(document, 'upcart:toggle', { cart: cart, open: true });
+        emitEvent(window, 'upcart:toggle', { cart: cart, open: true });
+        emitEvent(document, 'cart:open', { cart: cart });
+        emitEvent(window, 'cart:open', { cart: cart });
+
+        if (callUpcartMethods(['open', 'show', 'openCart', 'showCart', 'openDrawer', 'openCartDrawer'], cart)) {
+          return true;
+        }
+
+        var cartTrigger = document.querySelector(
+          '#upCartStickyButton, [data-upcart-open], [data-cart-drawer-open], .js-drawer-open-cart, a[href="/cart"], a[href*="/cart"]'
+        );
+        if (cartTrigger && typeof cartTrigger.click === 'function') {
+          cartTrigger.click();
+          return true;
+        }
+
+        return false;
+      }
+
+      function refreshAndOpenCart() {
+        closeModal(false);
+
+        getCart().catch(function() {
+          return {};
+        }).then(function(cart) {
+          announceCart(cart);
+          window.setTimeout(function() {
+            if (openUpcartDrawer(cart)) return;
+            window.location.href = '/cart';
+          }, 220);
+        });
+      }
+
+      function renderOffer(region) {
+        state.currentRegion = normalizeRegion(region);
+        var variant = findVariant(state.currentRegion);
+        var label = regionTitle(state.currentRegion);
+
+        els.regionLabels.forEach(function(node) {
+          node.textContent = label;
+        });
+
+        if (variant && els.regionImage) {
+          els.regionImage.src = variant.image;
+          els.regionImage.alt = label + ' badge set';
+        }
+
+        if (els.regionPrice) {
+          els.regionPrice.textContent = variant ? variant.price : '';
+        }
+
+        if (els.collectorPrice) {
+          els.collectorPrice.textContent = formatCollectorPrice();
+        }
+
+        if (els.addRegion) {
+          els.addRegion.disabled = !variant;
+        }
+
+        if (els.addCollector) {
+          els.addCollector.disabled = collectorVariants().length < 4;
+        }
+      }
+
+      function openModal(region) {
+        renderOffer(region);
+        state.previousFocus = document.activeElement;
+        setStatus('', '');
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('zk-journey-upsell-open');
+        raf(function() {
+          modal.classList.add('is-open');
+          if (els.addRegion) els.addRegion.focus();
+        });
+      }
+
+      function closeModal(restoreFocus) {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('zk-journey-upsell-open');
+        window.setTimeout(function() {
+          modal.hidden = true;
+          if (restoreFocus !== false && state.previousFocus && state.previousFocus.focus) {
+            state.previousFocus.focus();
+          }
+        }, 180);
+      }
+
+      function showFormError(form, message) {
+        if (!form) return;
+        var oldError = form.querySelector('.errors');
+        if (oldError) oldError.remove();
+        var error = document.createElement('div');
+        error.className = 'errors text-center';
+        error.textContent = message;
+        form.insertBefore(error, form.firstChild);
+      }
+
+      function startFlow(form, button) {
+        if (state.busy) return;
+        state.busy = true;
+        state.activeButton = button || form.querySelector('[data-add-to-cart]');
+
+        var region = getRegionForForm(form);
+        var title = getProductTitle(form);
+        suppressThirdParty(3200);
+        setButtonLoading(state.activeButton, true);
+
+        addMainProduct(form)
+          .then(function() {
+            emitEvent(document, 'zk:journeyProductAdded', { region: regionTitle(region), productTitle: title });
+            openModal(region);
+          })
+          .catch(function(error) {
+            showFormError(form, error && error.message ? error.message : 'Could not add that item.');
+          })
+          .then(function() {
+            state.busy = false;
+            setButtonLoading(state.activeButton, false);
+            state.activeButton = null;
+          });
+      }
+
+      function interceptEvent(evt) {
+        var form = null;
+        var button = null;
+
+        if (evt.type === 'submit') {
+          form = evt.target;
+        } else {
+          button = evt.target && evt.target.closest ? evt.target.closest('[data-add-to-cart], .add-to-cart, button[name="add"]') : null;
+          form = button && button.form;
+        }
+
+        if (!isJourneyForm(form)) return;
+
+        evt.preventDefault();
+        evt.stopPropagation();
+        if (evt.stopImmediatePropagation) evt.stopImmediatePropagation();
+        startFlow(form, button);
+      }
+
+      function addRegionOffer() {
+        if (state.busy) return;
+        var variant = findVariant(state.currentRegion);
+        if (!variant) return;
+
+        state.busy = true;
+        suppressThirdParty(2400);
+        setStatus('Adding ' + regionTitle(state.currentRegion) + ' badges...', '');
+        els.addRegion.disabled = true;
+
+        addOneVariant(variant.id)
+          .then(function() {
+            refreshAndOpenCart();
+          })
+          .catch(function(error) {
+            setStatus(error && error.message ? error.message : 'Could not add that badge set.', 'error');
+            els.addRegion.disabled = false;
+          })
+          .then(function() {
+            state.busy = false;
+          });
+      }
+
+      function addCollectorOffer() {
+        if (state.busy) return;
+        var variants = collectorVariants();
+        if (variants.length < 4) return;
+
+        state.busy = true;
+        suppressThirdParty(2400);
+        setStatus('Adding the collector pack...', '');
+        els.addCollector.disabled = true;
+
+        addVariantPack(variants)
+          .then(function() {
+            refreshAndOpenCart();
+          })
+          .catch(function(error) {
+            setStatus(error && error.message ? error.message : 'Could not add the collector pack.', 'error');
+            els.addCollector.disabled = false;
+          })
+          .then(function() {
+            state.busy = false;
+          });
+      }
+
+      document.addEventListener('click', interceptEvent, true);
+      document.addEventListener('submit', interceptEvent, true);
+
+      modal.addEventListener('click', function(evt) {
+        if (evt.target.closest('[data-zk-journey-add-region]')) {
+          addRegionOffer();
+          return;
+        }
+
+        if (evt.target.closest('[data-zk-journey-add-collector]')) {
+          addCollectorOffer();
+          return;
+        }
+
+        if (evt.target.closest('[data-zk-journey-skip]')) {
+          refreshAndOpenCart();
+          return;
+        }
+
+        if (evt.target.closest('[data-zk-journey-dismiss]')) {
+          refreshAndOpenCart();
+        }
+      });
+
+      document.addEventListener('keydown', function(evt) {
+        if (modal.hidden || evt.key !== 'Escape') return;
+        refreshAndOpenCart();
+      });
+    })();
+  </script>
+{%- endif -%}

@@ -17,6 +17,15 @@
 {% capture form_id %}AddToCartForm-{{ section_id }}{% endcapture %}
 {% form 'product', product, id: form_id, class: 'product-single__form zenkai-product-form small--text-center' %}
   <input type="hidden" name="data-product-id" value="{{ product.id }}">
+  {% if zenkai_journey_region != blank %}
+    <input
+      type="hidden"
+      value="{{ zenkai_journey_region | escape }}"
+      data-zk-journey-upsell
+      data-zk-journey-region="{{ zenkai_journey_region | escape }}"
+      data-zk-journey-product-title="{{ product.title | escape }}"
+      data-zk-journey-product-id="{{ product.id }}">
+  {% endif %}
   {% unless product.has_only_default_variant %}
     {% for option in product.options_with_values %}
       {% if variant_type == 'button' %}

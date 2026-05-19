@@ -37,6 +37,25 @@
 {%- assign zenkai_ptype = product.type | downcase -%}
 {%- assign zenkai_ptitle = product.title | downcase -%}
 {%- assign zenkai_ptemplate = product.template_suffix | downcase -%}
+{%- assign zenkai_is_journey_product = false -%}
+{%- assign zenkai_journey_region = '' -%}
+{%- for zenkai_product_collection in product.collections -%}
+  {%- if zenkai_product_collection.handle == 'journeys-collection' -%}
+    {%- assign zenkai_is_journey_product = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if zenkai_is_journey_product -%}
+  {%- if zenkai_ptitle contains 'indigo' -%}
+    {%- assign zenkai_journey_region = 'Kanto' -%}
+  {%- elsif zenkai_ptitle contains 'second journey' or zenkai_ptitle contains '00251' or zenkai_ptitle contains 'champions' -%}
+    {%- assign zenkai_journey_region = 'Johto' -%}
+  {%- elsif zenkai_ptitle contains 'emerald' -%}
+    {%- assign zenkai_journey_region = 'Hoenn' -%}
+  {%- elsif zenkai_ptitle contains 'platinum' -%}
+    {%- assign zenkai_journey_region = 'Sinnoh' -%}
+  {%- endif -%}
+{%- endif -%}
 {%- if zenkai_ptemplate == 'gympin' or zenkai_ptype contains 'pin' or zenkai_ptype contains 'badge' or zenkai_ptitle == 'pin' or zenkai_ptitle contains ' pin' or zenkai_ptitle contains 'pin ' or zenkai_ptitle contains 'pins' or zenkai_ptitle contains 'badge' or zenkai_ptitle contains 'brooch' -%}
   {%- assign zenkai_product_category = 'pin' -%}
 {%- elsif zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
@@ -1959,6 +1978,12 @@
       <div class="zenkai-bundle-belt">
         {% include 'bundle-callout', bundle_slot: 'desktop' %}
       </div>
+
+      {% if zenkai_journey_region != blank %}
+        {% unless isModal %}
+          {% render 'journey-badge-upsell', zenkai_journey_region: zenkai_journey_region %}
+        {% endunless %}
+      {% endif %}
     </div>
   </div>
 
