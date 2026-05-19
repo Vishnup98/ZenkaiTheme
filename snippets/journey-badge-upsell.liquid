@@ -820,6 +820,47 @@
         });
       }
 
+      function getParentCart() {
+        return new Promise(function(resolve, reject) {
+          var xhr;
+          try {
+            xhr = new XMLHttpRequest();
+          } catch (e) {
+            reject(e);
+            return;
+          }
+
+          xhr.open('GET', '/cart.js?zk_journey_refresh=' + Date.now(), true);
+          xhr.setRequestHeader('Accept', 'application/json');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState !== 4) return;
+            if (xhr.status < 200 || xhr.status >= 300) {
+              reject(new Error('cart refresh failed'));
+              return;
+            }
+
+            var data = {};
+            try {
+              data = JSON.parse(xhr.responseText);
+            } catch (e) {
+              reject(e);
+              return;
+            }
+
+            if (!data || !Array.isArray(data.items)) {
+              reject(new Error('cart refresh returned invalid data'));
+              return;
+            }
+
+            resolve(data);
+          };
+          xhr.onerror = function() {
+            reject(new Error('cart refresh failed'));
+          };
+          xhr.send();
+        });
+      }
+
       function emitEvent(target, name, detail) {
         if (!target) return;
         try {
@@ -893,7 +934,9 @@
       function refreshAndOpenCart() {
         closeModal(false);
 
-        getCart().then(function(cart) {
+        getParentCart().catch(function() {
+          return getCart();
+        }).then(function(cart) {
           announceCart(cart);
           window.setTimeout(function() {
             if (openUpcartDrawer(cart)) return;
