@@ -32,6 +32,7 @@
         <p class="zk-journey-upsell__eyebrow">Bundle match</p>
         <h2 id="zk-journey-upsell-title">Complete your <span data-zk-journey-region-label>{{ zenkai_journey_region }}</span> run.</h2>
         <p id="zk-journey-upsell-copy" class="zk-journey-upsell__bundle">Counts toward Bundle &amp; Save: 2 = $5 off, 3 = $10 off, 4+ = $20 off.</p>
+        <p class="zk-journey-upsell__pin-note">Matching pins, perfect for displaying or wearing.</p>
       </div>
 
       <div class="zk-journey-upsell__offers">
@@ -57,6 +58,7 @@
             </svg>
             <span>Add Badge Set</span>
           </button>
+          <button type="button" class="zk-journey-upsell__continue" data-zk-journey-skip>Continue to cart</button>
         </article>
 
         <article class="zk-journey-upsell__offer zk-journey-upsell__offer--collector" data-zk-journey-collector-card>
@@ -80,11 +82,11 @@
             </svg>
             <span>Add Collector's Pack</span>
           </button>
+          <button type="button" class="zk-journey-upsell__continue" data-zk-journey-skip>Continue to cart</button>
         </article>
       </div>
 
       <div class="zk-journey-upsell__footer">
-        <button type="button" class="zk-journey-upsell__skip" data-zk-journey-skip>Continue to cart</button>
         <p class="zk-journey-upsell__shipping">Ships separately. Usually arrives in 10-12 days.</p>
       </div>
       <p class="zk-journey-upsell__status" data-zk-journey-status role="status" aria-live="polite"></p>
@@ -230,12 +232,21 @@
       line-height: 1.28;
     }
 
+    .zk-journey-upsell__pin-note {
+      margin: 5px 0 0;
+      color: #38423f;
+      font-size: 0.76rem;
+      font-weight: 700;
+      line-height: 1.28;
+    }
+
     .zk-journey-upsell__shipping {
-      margin: 8px 0 0;
+      margin: 0;
       color: #777d89;
       font-size: 0.68rem;
       font-weight: 700;
       line-height: 1.25;
+      text-align: center;
     }
 
     .zk-journey-upsell__offers {
@@ -330,28 +341,25 @@
       opacity: 0.58;
     }
 
-    .zk-journey-upsell__footer {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 2px;
-      margin-top: 10px;
-    }
-
-    .zk-journey-upsell__skip {
+    .zk-journey-upsell__continue {
+      grid-column: 1 / -1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
+      min-height: 40px;
       width: 100%;
       border: 1px solid rgba(26, 27, 46, 0.12);
       border-radius: 8px;
       background: #ffffff;
       color: #202225;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       line-height: 1.1;
       cursor: pointer;
+    }
+
+    .zk-journey-upsell__footer {
+      margin-top: 8px;
     }
 
     .zk-journey-upsell__status {
@@ -402,6 +410,10 @@
         font-size: 0.82rem;
       }
 
+      .zk-journey-upsell__pin-note {
+        font-size: 0.8rem;
+      }
+
       .zk-journey-upsell__offers {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
@@ -433,21 +445,7 @@
         min-height: 48px;
       }
 
-      .zk-journey-upsell__footer {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .zk-journey-upsell__skip {
-        width: auto;
-        min-width: 180px;
-        padding: 0 22px;
-      }
-
       .zk-journey-upsell__shipping {
-        margin-top: 0;
         text-align: right;
       }
     }
