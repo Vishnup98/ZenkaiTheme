@@ -2,6 +2,11 @@
 {%- assign zenkai_cta_subcopy = product_cta_subcopy | default: product_cta_note | default: 'Free U.S. shipping. Printed to order.' -%}
 {%- assign zenkai_secondary_checkout = true -%}
 {%- assign zenkai_cta_with_price = false -%}
+{%- assign zenkai_shipping_badge_text = 'Free shipping on every order' -%}
+{%- assign zenkai_guarantee_badge_text = '30-day first-item guarantee' -%}
+{%- if zenkai_product_category == 'pin' -%}
+  {%- assign zenkai_guarantee_badge_text = 'Arrives safe or we make it right' -%}
+{%- endif -%}
 {% if zenkai_cta_text == 'Add to Cart' %}
   {%- assign zenkai_cta_with_price = true -%}
 {% endif %}
@@ -105,7 +110,7 @@
       <circle cx="5.5" cy="18.5" r="2.5"></circle>
       <circle cx="18.5" cy="18.5" r="2.5"></circle>
     </svg>
-    <span class="zenkai-shipping-badge__text">Free shipping on every order</span>
+    <span class="zenkai-shipping-badge__text">{{ zenkai_shipping_badge_text }}</span>
   </div>
 
   <a href="/pages/policy" class="zenkai-guarantee-badge">
@@ -113,7 +118,7 @@
       <path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path>
       <polyline points="9 12 11 14 15 10"></polyline>
     </svg>
-    <span class="zenkai-guarantee-badge__text">30-day first-item guarantee</span>
+    <span class="zenkai-guarantee-badge__text">{{ zenkai_guarantee_badge_text }}</span>
     <span class="zenkai-guarantee-badge__arrow" aria-hidden="true">→</span>
   </a>
 

@@ -12,11 +12,18 @@
 
 {%- assign zenkai_detail_type = product.type | downcase -%}
 {%- assign zenkai_detail_title = product.title | downcase -%}
+{%- assign zenkai_detail_template = product.template_suffix | downcase -%}
 {%- assign zenkai_detail_category = 'tee' -%}
-{%- if zenkai_detail_type contains 'cap' or zenkai_detail_type contains 'hat' or zenkai_detail_title contains 'cap' or zenkai_detail_title contains 'hat' -%}
+{%- if zenkai_detail_template == 'gympin' or zenkai_detail_type contains 'pin' or zenkai_detail_type contains 'badge' or zenkai_detail_title == 'pin' or zenkai_detail_title contains ' pin' or zenkai_detail_title contains 'pin ' or zenkai_detail_title contains 'pins' or zenkai_detail_title contains 'badge' or zenkai_detail_title contains 'brooch' -%}
+  {%- assign zenkai_detail_category = 'pin' -%}
+{%- elsif zenkai_detail_type contains 'cap' or zenkai_detail_type contains 'hat' or zenkai_detail_title contains 'cap' or zenkai_detail_title contains 'hat' -%}
   {%- assign zenkai_detail_category = 'cap' -%}
 {%- elsif zenkai_detail_type contains 'hoodie' or zenkai_detail_type contains 'sweatshirt' or zenkai_detail_title contains 'hoodie' or zenkai_detail_title contains 'sweatshirt' -%}
   {%- assign zenkai_detail_category = 'hoodie' -%}
+{%- endif -%}
+{%- assign zenkai_detail_specs_label = 'Fit &amp; sizing' -%}
+{%- if zenkai_detail_category == 'pin' -%}
+  {%- assign zenkai_detail_specs_label = 'Pin details' -%}
 {%- endif -%}
 
 <!-- Zenkai Custom Accordion -->
@@ -193,7 +200,7 @@
 <div class="zenkai-accordion">
   <div class="zenkai-accordion__item">
     <button type="button" class="zenkai-accordion__trigger is-active" aria-expanded="true" aria-controls="zenkai-size-{{ section_id }}">
-      <span>Fit &amp; sizing</span>
+      <span>{{ zenkai_detail_specs_label }}</span>
       <span class="zenkai-accordion__icon"></span>
     </button>
     <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content is-active">
@@ -205,6 +212,13 @@
               <li>Runs true to size</li>
               <li>If you're between sizes or prefer a relaxed layer, size up one</li>
               <li>Premium heavyweight fleece with a soft cotton face and cozy brushed interior</li>
+            </ul>
+          {% when 'pin' %}
+            <p><strong>Collector-style hard enamel badges with no apparel sizing to guess.</strong></p>
+            <ul>
+              <li>Includes the full 8-piece gym badge set</li>
+              <li>Polished hard enamel finish with secure metal clutch backings</li>
+              <li>Made for backpacks, jackets, hats, cork boards, and display cases</li>
             </ul>
           {% when 'cap' %}
             <p><strong>Clean structured fit with an adjustable strap closure.</strong></p>
@@ -222,7 +236,11 @@
             </ul>
         {% endcase %}
         <div class="zenkai-utility-note">
-          <strong>Made-to-order note:</strong> Every piece is printed fresh when you order. If the size is off, we'll send one free exchange per order. If it arrives damaged or misprinted, we'll replace it. <a href="/pages/policy">Full policy</a>
+          {% if zenkai_detail_category == 'pin' %}
+            <strong>Pin note:</strong> No sizing or fabric care needed. If a pin arrives damaged or a backing is missing, we'll make it right. <a href="/pages/policy">Full policy</a>
+          {% else %}
+            <strong>Made-to-order note:</strong> Every piece is printed fresh when you order. If the size is off, we'll send one free exchange per order. If it arrives damaged or misprinted, we'll replace it. <a href="/pages/policy">Full policy</a>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -235,7 +253,11 @@
     </button>
     <div id="zenkai-shipping-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
-        <p><strong>Made to order in the USA.</strong></p>
+        {% if zenkai_detail_category == 'pin' %}
+          <p><strong>Ships ready to gift.</strong></p>
+        {% else %}
+          <p><strong>Made to order in the USA.</strong></p>
+        {% endif %}
         <ul>
           <li>Most orders ship within 1 to 2 business days</li>
           <li>Free U.S. shipping on every order</li>
@@ -252,9 +274,15 @@
     </button>
     <div id="zenkai-description-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
-        <p><strong>For the ones who like the reference, not the costume.</strong></p>
-        <p>Every design is an original reimagining: sometimes playful, sometimes abstract, always made to feel like something you'd actually wear.</p>
-        <p>Customers call out the same things again and again: the designs get compliments, and the blanks feel good enough to keep in rotation.</p>
+        {% if zenkai_detail_category == 'pin' %}
+          <p><strong>For collectors who want the whole badge run, not a random single.</strong></p>
+          <p>The set reads playful and display-worthy: bright enamel color, classic badge shapes, and a polished finish that works on bags, jackets, cork boards, or shelves.</p>
+          <p>It is easy to gift, easy to collect, and small enough to carry the reference every day.</p>
+        {% else %}
+          <p><strong>For the ones who like the reference, not the costume.</strong></p>
+          <p>Every design is an original reimagining: sometimes playful, sometimes abstract, always made to feel like something you'd actually wear.</p>
+          <p>Customers call out the same things again and again: the designs get compliments, and the blanks feel good enough to keep in rotation.</p>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -266,8 +294,13 @@
     </button>
     <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
       <div class="zenkai-accordion__inner">
-        <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
-        <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
+        {% if zenkai_detail_category == 'pin' %}
+          <p><strong>The badges you grew up trying to win, turned into a display-worthy enamel set.</strong></p>
+          <p>Zenkai exists for nostalgic pieces that still feel clean in the real world: crisp enamel, playful references, and collector-friendly details that do not need a whole outfit to carry the moment.</p>
+        {% else %}
+          <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
+          <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
+        {% endif %}
         {% if product.description %}
           <div class="rte" style="margin-top: 0.8rem;">{{ product.description }}</div>
         {% endif %}

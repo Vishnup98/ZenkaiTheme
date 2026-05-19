@@ -36,7 +36,10 @@
 
 {%- assign zenkai_ptype = product.type | downcase -%}
 {%- assign zenkai_ptitle = product.title | downcase -%}
-{%- if zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
+{%- assign zenkai_ptemplate = product.template_suffix | downcase -%}
+{%- if zenkai_ptemplate == 'gympin' or zenkai_ptype contains 'pin' or zenkai_ptype contains 'badge' or zenkai_ptitle == 'pin' or zenkai_ptitle contains ' pin' or zenkai_ptitle contains 'pin ' or zenkai_ptitle contains 'pins' or zenkai_ptitle contains 'badge' or zenkai_ptitle contains 'brooch' -%}
+  {%- assign zenkai_product_category = 'pin' -%}
+{%- elsif zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
   {%- assign zenkai_product_category = 'cap' -%}
 {%- elsif zenkai_ptype contains 'hoodie' or zenkai_ptype contains 'sweatshirt' or zenkai_ptitle contains 'hoodie' -%}
   {%- assign zenkai_product_category = 'hoodie' -%}
@@ -44,7 +47,17 @@
   {%- assign zenkai_product_category = 'tee' -%}
 {%- endif -%}
 
+{%- assign zenkai_ugc_alt = 'Customer wearing Zenkai' -%}
+{%- if zenkai_product_category == 'pin' -%}
+  {%- assign zenkai_ugc_alt = 'Customer photo of Zenkai pins' -%}
+{%- endif -%}
+
 {%- case zenkai_product_category -%}
+  {%- when 'pin' -%}
+    {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
+    {%- assign zenkai_type_trust = 'Hard enamel finish / Secure clutch backings' -%}
+    {%- assign zenkai_type_fit = 'No sizing needed / Ready for bags, jackets, hats, and display boards' -%}
+    {%- assign zenkai_type_production = zenkai_outcome_3 -%}
   {%- when 'cap' -%}
     {%- assign zenkai_type_benefit = 'Structured dad cap — clean profile, every angle' -%}
     {%- assign zenkai_type_trust = 'Structured fit · Clean embroidered detail' -%}
@@ -1838,7 +1851,7 @@
                                      {{ block.settings.image | img_url: '600x800', crop: 'center' }} 600w"
                               sizes="72vw"
                               src="{{ block.settings.image | img_url: '450x600', crop: 'center' }}"
-                              alt="{{ block.settings.caption | default: 'Customer wearing Zenkai' | escape }}"
+                              alt="{{ block.settings.caption | default: zenkai_ugc_alt | escape }}"
                               loading="lazy"
                               width="450"
                               height="600"
@@ -1887,8 +1900,13 @@
 
       <div class="zenkai-pdp-below">
         <aside class="zenkai-brand-quote" aria-label="Brand story">
-          <p class="zenkai-brand-quote__text">Original designs. Familiar energy. Made to feel like real clothes.</p>
-          <p class="zenkai-brand-quote__follow">Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
+          {% if zenkai_product_category == 'pin' %}
+            <p class="zenkai-brand-quote__text">Collectible badges. Familiar energy. Made to display, gift, and wear.</p>
+            <p class="zenkai-brand-quote__follow">Zenkai exists for the pieces you always wished existed: crisp enamel, playful symbols, nostalgic energy, and small accessories that carry the reference without taking over the whole fit.</p>
+          {% else %}
+            <p class="zenkai-brand-quote__text">Original designs. Familiar energy. Made to feel like real clothes.</p>
+            <p class="zenkai-brand-quote__follow">Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
+          {% endif %}
         </aside>
 
         {% if has_ugc %}
@@ -1905,7 +1923,7 @@
                                {{ block.settings.image | img_url: '600x800', crop: 'center' }} 600w"
                         sizes="(max-width: 767px) 72vw, 33vw"
                         src="{{ block.settings.image | img_url: '600x800', crop: 'center' }}"
-                        alt="{{ block.settings.caption | default: 'Customer wearing Zenkai' | escape }}"
+                        alt="{{ block.settings.caption | default: zenkai_ugc_alt | escape }}"
                         loading="lazy"
                         width="600"
                         height="800"
