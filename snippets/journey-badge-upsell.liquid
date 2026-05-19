@@ -2,6 +2,21 @@
 {%- assign zk_badge_product = all_products[zk_badge_handle] -%}
 
 {%- if zk_badge_product != blank and zk_badge_product.variants.size > 0 -%}
+  {%- assign zk_region_key = zenkai_journey_region | downcase -%}
+  {%- assign zk_region_badge_variant = blank -%}
+  {%- assign zk_collector_badge_variant = blank -%}
+  {%- for zk_variant in zk_badge_product.variants -%}
+    {%- assign zk_variant_title_down = zk_variant.title | downcase -%}
+    {%- if zk_region_key != blank and zk_variant_title_down contains zk_region_key -%}
+      {%- assign zk_region_badge_variant = zk_variant -%}
+    {%- endif -%}
+    {%- if zk_variant_title_down contains 'collector' or zk_variant_title_down contains '4 regions' or zk_variant_title_down contains 'all four' -%}
+      {%- assign zk_collector_badge_variant = zk_variant -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign zk_region_badge_image = zk_region_badge_variant.image | default: zk_region_badge_variant.featured_image | default: zk_badge_product.featured_image -%}
+  {%- assign zk_collector_badge_image = zk_collector_badge_variant.image | default: zk_collector_badge_variant.featured_image | default: zk_badge_product.featured_image -%}
+
   <div class="zk-journey-upsell" data-zk-journey-upsell-modal hidden aria-hidden="true">
     <div class="zk-journey-upsell__scrim" data-zk-journey-dismiss></div>
     <section class="zk-journey-upsell__dialog" role="dialog" aria-modal="true" aria-labelledby="zk-journey-upsell-title" aria-describedby="zk-journey-upsell-copy">
@@ -16,19 +31,24 @@
       <div class="zk-journey-upsell__header">
         <p class="zk-journey-upsell__eyebrow">Bundle match</p>
         <h2 id="zk-journey-upsell-title">Complete your <span data-zk-journey-region-label>{{ zenkai_journey_region }}</span> run.</h2>
-        <p id="zk-journey-upsell-copy">Badge sets count toward Bundle &amp; Save: 2 items = $5 off, 3 = $10 off, 4+ = $20 off.</p>
-        <p class="zk-journey-upsell__shipping">Badge sets ship separately and usually arrive in about 10-12 days.</p>
+        <p id="zk-journey-upsell-copy" class="zk-journey-upsell__bundle">Counts toward Bundle &amp; Save: 2 = $5 off, 3 = $10 off, 4+ = $20 off.</p>
       </div>
 
       <div class="zk-journey-upsell__offers">
         <article class="zk-journey-upsell__offer" data-zk-journey-region-card>
           <div class="zk-journey-upsell__media">
-            <img data-zk-journey-region-image alt="" loading="lazy" width="320" height="320">
+            <img
+              src="{{ zk_region_badge_image | image_url: width: 720, height: 720, crop: 'center' }}"
+              data-zk-journey-region-image
+              alt="{{ zenkai_journey_region | escape }} badge set"
+              loading="lazy"
+              width="720"
+              height="720">
           </div>
           <div class="zk-journey-upsell__offer-copy">
             <p class="zk-journey-upsell__offer-kicker">Region match</p>
             <h3><span data-zk-journey-region-label>{{ zenkai_journey_region }}</span> Badge Set</h3>
-            <p>Eight hard enamel badges matched to the piece you just picked.</p>
+            <p>Matched to the piece in your cart.</p>
             <div class="zk-journey-upsell__price" data-zk-journey-region-price></div>
           </div>
           <button type="button" class="zk-journey-upsell__button zk-journey-upsell__button--primary" data-zk-journey-add-region>
@@ -40,16 +60,18 @@
         </article>
 
         <article class="zk-journey-upsell__offer zk-journey-upsell__offer--collector" data-zk-journey-collector-card>
-          <div class="zk-journey-upsell__collector-grid" aria-hidden="true">
-            {%- for zk_variant in zk_badge_product.variants -%}
-              {%- assign zk_variant_image = zk_variant.featured_image | default: zk_badge_product.featured_image -%}
-              <img src="{{ zk_variant_image | image_url: width: 180, height: 180, crop: 'center' }}" alt="" loading="lazy" width="180" height="180">
-            {%- endfor -%}
+          <div class="zk-journey-upsell__media zk-journey-upsell__media--collector">
+            <img
+              src="{{ zk_collector_badge_image | image_url: width: 720, height: 720, crop: 'center' }}"
+              alt="Collector's pack badge set"
+              loading="lazy"
+              width="720"
+              height="720">
           </div>
           <div class="zk-journey-upsell__offer-copy">
             <p class="zk-journey-upsell__offer-kicker">Collector's pack</p>
             <h3>All four regions</h3>
-            <p>Kanto, Johto, Hoenn, and Sinnoh together in one cart move.</p>
+            <p>Kanto, Johto, Hoenn, and Sinnoh.</p>
             <div class="zk-journey-upsell__price" data-zk-journey-collector-price></div>
           </div>
           <button type="button" class="zk-journey-upsell__button zk-journey-upsell__button--dark" data-zk-journey-add-collector>
@@ -61,7 +83,10 @@
         </article>
       </div>
 
-      <button type="button" class="zk-journey-upsell__skip" data-zk-journey-skip>Continue to cart</button>
+      <div class="zk-journey-upsell__footer">
+        <button type="button" class="zk-journey-upsell__skip" data-zk-journey-skip>Continue to cart</button>
+        <p class="zk-journey-upsell__shipping">Ships separately. Usually arrives in 10-12 days.</p>
+      </div>
       <p class="zk-journey-upsell__status" data-zk-journey-status role="status" aria-live="polite"></p>
     </section>
   </div>
@@ -74,14 +99,14 @@
       "currentRegion": {{ zenkai_journey_region | json }},
       "variants": [
         {%- for zk_variant in zk_badge_product.variants -%}
-          {%- assign zk_variant_image = zk_variant.featured_image | default: zk_badge_product.featured_image -%}
+          {%- assign zk_variant_image = zk_variant.image | default: zk_variant.featured_image | default: zk_badge_product.featured_image -%}
           {
             "id": {{ zk_variant.id | json }},
             "region": {{ zk_variant.title | json }},
             "price": {{ zk_variant.price | money | json }},
             "priceCents": {{ zk_variant.price | json }},
             "available": {{ zk_variant.available | json }},
-            "image": {{ zk_variant_image | image_url: width: 360, height: 360, crop: 'center' | json }}
+            "image": {{ zk_variant_image | image_url: width: 720, height: 720, crop: 'center' | json }}
           }{%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
       ]
@@ -114,7 +139,7 @@
 
     .zk-journey-upsell__dialog {
       position: relative;
-      width: min(100%, 520px);
+      width: min(100%, 560px);
       max-height: calc(100dvh - 24px);
       overflow-y: auto;
       overscroll-behavior: contain;
@@ -123,7 +148,7 @@
       border: 1px solid rgba(26, 27, 46, 0.1);
       border-radius: 8px 8px 0 0;
       box-shadow: 0 -16px 45px rgba(16, 20, 30, 0.22);
-      padding: 14px 14px max(14px, env(safe-area-inset-bottom));
+      padding: 14px 14px max(12px, env(safe-area-inset-bottom));
       transform: translateY(18px);
       opacity: 0;
       transition: transform 180ms ease, opacity 180ms ease;
@@ -143,7 +168,7 @@
     .zk-journey-upsell__handle {
       width: 42px;
       height: 4px;
-      margin: 0 auto 12px;
+      margin: 0 auto 10px;
       border-radius: 999px;
       background: #d8dde5;
     }
@@ -166,15 +191,24 @@
     }
 
     .zk-journey-upsell__header {
-      padding: 0 42px 12px 0;
+      padding: 0 46px 10px 0;
     }
 
-    .zk-journey-upsell__eyebrow,
-    .zk-journey-upsell__offer-kicker {
+    .zk-journey-upsell__eyebrow {
       margin: 0 0 4px;
       color: #2b8f7f;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .zk-journey-upsell__offer-kicker {
+      margin: 0 0 3px;
+      color: #2b8f7f;
+      font-size: 0.66rem;
+      font-weight: 900;
       letter-spacing: 0;
       line-height: 1.2;
       text-transform: uppercase;
@@ -183,68 +217,56 @@
     .zk-journey-upsell__header h2 {
       margin: 0;
       color: #16312d;
-      font-size: 1.42rem;
-      line-height: 1.08;
+      font-size: 1.24rem;
+      line-height: 1.12;
       letter-spacing: 0;
     }
 
-    .zk-journey-upsell__header p:not(.zk-journey-upsell__eyebrow) {
-      margin: 8px 0 0;
+    .zk-journey-upsell__bundle {
+      margin: 7px 0 0;
       color: #5f6575;
-      font-size: 0.92rem;
-      font-weight: 600;
-      line-height: 1.38;
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.28;
     }
 
     .zk-journey-upsell__shipping {
-      color: #6a4c19;
-      font-size: 0.82rem;
-      line-height: 1.32;
+      margin: 8px 0 0;
+      color: #777d89;
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.25;
     }
 
     .zk-journey-upsell__offers {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .zk-journey-upsell__offer {
       display: grid;
-      grid-template-columns: 82px minmax(0, 1fr);
-      gap: 12px;
-      align-items: center;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
       padding: 10px;
       border: 1px solid rgba(26, 27, 46, 0.1);
       border-radius: 8px;
       background: #fbfcff;
     }
 
-    .zk-journey-upsell__media,
-    .zk-journey-upsell__collector-grid {
-      width: 82px;
-      aspect-ratio: 1;
+    .zk-journey-upsell__media {
+      width: 100%;
+      height: 230px;
       overflow: hidden;
       border-radius: 8px;
-      background: #f2f4f7;
+      background: #f4f6f8;
     }
 
     .zk-journey-upsell__media img {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-
-    .zk-journey-upsell__collector-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-    }
-
-    .zk-journey-upsell__collector-grid img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .zk-journey-upsell__offer-copy {
@@ -254,23 +276,23 @@
     .zk-journey-upsell__offer-copy h3 {
       margin: 0;
       color: #202225;
-      font-size: 1rem;
-      line-height: 1.18;
+      font-size: 0.98rem;
+      line-height: 1.16;
       letter-spacing: 0;
     }
 
     .zk-journey-upsell__offer-copy p:not(.zk-journey-upsell__offer-kicker) {
-      margin: 5px 0 0;
+      margin: 4px 0 0;
       color: #626879;
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      line-height: 1.32;
+      line-height: 1.28;
     }
 
     .zk-journey-upsell__price {
-      margin-top: 5px;
+      margin-top: 4px;
       color: #16312d;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 800;
       line-height: 1.2;
     }
@@ -281,12 +303,12 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      min-height: 48px;
+      min-height: 46px;
       width: 100%;
       border: 0;
       border-radius: 8px;
       padding: 0 16px;
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: 0;
@@ -308,18 +330,25 @@
       opacity: 0.58;
     }
 
+    .zk-journey-upsell__footer {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      margin-top: 10px;
+    }
+
     .zk-journey-upsell__skip {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
+      min-height: 42px;
       width: 100%;
-      margin-top: 10px;
       border: 1px solid rgba(26, 27, 46, 0.12);
       border-radius: 8px;
       background: #ffffff;
       color: #202225;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       font-weight: 800;
       line-height: 1.1;
       cursor: pointer;
@@ -350,9 +379,9 @@
       }
 
       .zk-journey-upsell__dialog {
-        width: min(94vw, 760px);
+        width: min(94vw, 1080px);
         border-radius: 8px;
-        padding: 22px;
+        padding: 24px;
         box-shadow: 0 24px 80px rgba(16, 20, 30, 0.22);
       }
 
@@ -361,40 +390,65 @@
       }
 
       .zk-journey-upsell__header {
-        max-width: 560px;
+        max-width: 640px;
         padding-right: 48px;
       }
 
       .zk-journey-upsell__header h2 {
-        font-size: 1.72rem;
+        font-size: 1.54rem;
+      }
+
+      .zk-journey-upsell__bundle {
+        font-size: 0.82rem;
       }
 
       .zk-journey-upsell__offers {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 8px;
+        gap: 16px;
+        margin-top: 10px;
       }
 
       .zk-journey-upsell__offer {
-        grid-template-columns: 108px minmax(0, 1fr);
-        align-items: start;
+        gap: 10px;
         padding: 12px;
       }
 
-      .zk-journey-upsell__media,
-      .zk-journey-upsell__collector-grid {
-        width: 108px;
+      .zk-journey-upsell__media {
+        height: 360px;
+      }
+
+      .zk-journey-upsell__offer-copy h3 {
+        font-size: 1.08rem;
+      }
+
+      .zk-journey-upsell__offer-copy p:not(.zk-journey-upsell__offer-kicker) {
+        font-size: 0.8rem;
+      }
+
+      .zk-journey-upsell__price {
+        font-size: 0.96rem;
       }
 
       .zk-journey-upsell__button {
-        min-height: 46px;
+        min-height: 48px;
+      }
+
+      .zk-journey-upsell__footer {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
       }
 
       .zk-journey-upsell__skip {
         width: auto;
-        min-width: 190px;
-        margin: 14px auto 0;
+        min-width: 180px;
         padding: 0 22px;
+      }
+
+      .zk-journey-upsell__shipping {
+        margin-top: 0;
+        text-align: right;
       }
     }
   </style>
@@ -455,6 +509,12 @@
         if (region === 'hoenn') return 'Hoenn';
         if (region === 'sinnoh') return 'Sinnoh';
         return 'region';
+      }
+
+      function normalizeImageUrl(url) {
+        url = String(url || '');
+        if (url.indexOf('//') === 0) return window.location.protocol + url;
+        return url;
       }
 
       function findVariant(region) {
@@ -745,7 +805,7 @@
         });
 
         if (variant && els.regionImage) {
-          els.regionImage.src = variant.image;
+          els.regionImage.src = normalizeImageUrl(variant.image);
           els.regionImage.alt = label + ' badge set';
         }
 
