@@ -787,16 +787,33 @@
 
       function getCart() {
         return getCleanXHR().then(function(xhr) {
-          return new Promise(function(resolve) {
+          return new Promise(function(resolve, reject) {
             xhr.open('GET', '/cart.js', true);
             xhr.setRequestHeader('Accept', 'application/json');
             xhr.onreadystatechange = function() {
               if (xhr.readyState !== 4) return;
+              if (xhr.status < 200 || xhr.status >= 300) {
+                reject(new Error('cart refresh failed'));
+                return;
+              }
+
               var data = {};
               try {
                 data = JSON.parse(xhr.responseText);
-              } catch (e) {}
+              } catch (e) {
+                reject(e);
+                return;
+              }
+
+              if (!data || !Array.isArray(data.items)) {
+                reject(new Error('cart refresh returned invalid data'));
+                return;
+              }
+
               resolve(data);
+            };
+            xhr.onerror = function() {
+              reject(new Error('cart refresh failed'));
             };
             xhr.send();
           });
@@ -815,6 +832,7 @@
       }
 
       function announceCart(cart) {
+        if (!cart || !Array.isArray(cart.items)) return;
         if (window.jQuery) {
           window.jQuery('body').trigger('updateCart', cart);
         }
@@ -841,16 +859,23 @@
       }
 
       function openUpcartDrawer(cart) {
-        callUpcartMethods(['refresh', 'reload', 'update', 'render', 'fetchCart', 'getCart', 'updateCart'], cart);
+        var detail = cart && Array.isArray(cart.items) ? { cart: cart } : {};
+        var methodArg = cart && Array.isArray(cart.items) ? cart : undefined;
 
-        emitEvent(document, 'upcart:open', { cart: cart });
-        emitEvent(window, 'upcart:open', { cart: cart });
-        emitEvent(document, 'upcart:toggle', { cart: cart, open: true });
-        emitEvent(window, 'upcart:toggle', { cart: cart, open: true });
-        emitEvent(document, 'cart:open', { cart: cart });
-        emitEvent(window, 'cart:open', { cart: cart });
+        if (methodArg) {
+          callUpcartMethods(['refresh', 'reload', 'update', 'render', 'fetchCart', 'getCart', 'updateCart'], methodArg);
+        } else {
+          callUpcartMethods(['refresh', 'reload', 'update', 'render', 'fetchCart', 'getCart', 'updateCart']);
+        }
 
-        if (callUpcartMethods(['open', 'show', 'openCart', 'showCart', 'openDrawer', 'openCartDrawer'], cart)) {
+        emitEvent(document, 'upcart:open', detail);
+        emitEvent(window, 'upcart:open', detail);
+        emitEvent(document, 'upcart:toggle', Object.assign({ open: true }, detail));
+        emitEvent(window, 'upcart:toggle', Object.assign({ open: true }, detail));
+        emitEvent(document, 'cart:open', detail);
+        emitEvent(window, 'cart:open', detail);
+
+        if (callUpcartMethods(['open', 'show', 'openCart', 'showCart', 'openDrawer', 'openCartDrawer'], methodArg)) {
           return true;
         }
 
@@ -868,12 +893,15 @@
       function refreshAndOpenCart() {
         closeModal(false);
 
-        getCart().catch(function() {
-          return {};
-        }).then(function(cart) {
+        getCart().then(function(cart) {
           announceCart(cart);
           window.setTimeout(function() {
             if (openUpcartDrawer(cart)) return;
+            window.location.href = '/cart';
+          }, 220);
+        }).catch(function() {
+          window.setTimeout(function() {
+            if (openUpcartDrawer()) return;
             window.location.href = '/cart';
           }, 220);
         });
