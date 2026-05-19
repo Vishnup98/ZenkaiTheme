@@ -17,6 +17,7 @@
         <p class="zk-journey-upsell__eyebrow">Bundle match</p>
         <h2 id="zk-journey-upsell-title">Complete your <span data-zk-journey-region-label>{{ zenkai_journey_region }}</span> run.</h2>
         <p id="zk-journey-upsell-copy">Badge sets count toward Bundle &amp; Save: 2 items = $5 off, 3 = $10 off, 4+ = $20 off.</p>
+        <p class="zk-journey-upsell__shipping">Badge sets ship separately and usually arrive in about 10-12 days.</p>
       </div>
 
       <div class="zk-journey-upsell__offers">
@@ -187,12 +188,18 @@
       letter-spacing: 0;
     }
 
-    .zk-journey-upsell__header p:last-child {
+    .zk-journey-upsell__header p:not(.zk-journey-upsell__eyebrow) {
       margin: 8px 0 0;
       color: #5f6575;
       font-size: 0.92rem;
       font-weight: 600;
       line-height: 1.38;
+    }
+
+    .zk-journey-upsell__shipping {
+      color: #6a4c19;
+      font-size: 0.82rem;
+      line-height: 1.32;
     }
 
     .zk-journey-upsell__offers {
@@ -567,19 +574,16 @@
           var frame = document.createElement('iframe');
           frame.style.cssText = 'display:none!important;width:0;height:0;border:0;position:absolute;';
           frame.setAttribute('aria-hidden', 'true');
-          frame.src = '/robots.txt';
-          frame.onload = function() {
-            window.__zkJourneyCleanXHRFrame = frame;
+          frame.src = 'about:blank';
+          document.body.appendChild(frame);
+          window.__zkJourneyCleanXHRFrame = frame;
+          window.setTimeout(function() {
             try {
               resolve(new frame.contentWindow.XMLHttpRequest());
             } catch (e) {
               reject(e);
             }
-          };
-          frame.onerror = function() {
-            reject(new Error('cart transport unavailable'));
-          };
-          document.body.appendChild(frame);
+          }, 0);
         });
       }
 
