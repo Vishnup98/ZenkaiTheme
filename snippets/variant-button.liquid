@@ -81,8 +81,11 @@
         {% else %}
           <label for="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}"{% unless product_available %} class="disabled"{% endunless %}>
             {% if is_collector_option %}
-              <span class="zenkai-collector-option__main">{{ value | escape }}</span>
-              <span class="zenkai-collector-option__meta">32 badges | 4 boxed sets | save $20</span>
+              <span class="zenkai-collector-option__copy">
+                <span class="zenkai-collector-option__main">{{ value | escape }}</span>
+                <span class="zenkai-collector-option__meta">32 badges | 4 boxed sets | save $20</span>
+              </span>
+              <span class="zenkai-collector-option__badge">Best value</span>
             {% else %}
               {{ value | escape }}
             {% endif %}

@@ -5,7 +5,7 @@
 {%- assign zenkai_shipping_badge_text = 'Free shipping on every order' -%}
 {%- assign zenkai_guarantee_badge_text = '30-day first-item guarantee' -%}
 {%- if zenkai_product_category == 'pin' -%}
-  {%- assign zenkai_guarantee_badge_text = 'Arrives safe or we make it right' -%}
+  {%- assign zenkai_guarantee_badge_text = "Damaged or defective? We'll replace it" -%}
 {%- endif -%}
 {% if zenkai_cta_text == 'Add to Cart' %}
   {%- assign zenkai_cta_with_price = true -%}
@@ -25,6 +25,17 @@
       data-zk-journey-region="{{ zenkai_journey_region | escape }}"
       data-zk-journey-product-title="{{ product.title | escape }}"
       data-zk-journey-product-id="{{ product.id }}">
+  {% endif %}
+  {% if zenkai_product_category == 'pin' %}
+    <div class="zenkai-collector-nudge" aria-label="Collector pack value">
+      <p class="zenkai-collector-nudge__eyebrow">Complete collector pack</p>
+      <p class="zenkai-collector-nudge__line">Most people pick a region. Collectors finish the map.</p>
+      <div class="zenkai-collector-nudge__facts" aria-label="Collector pack includes 32 badges, 4 boxed sets, and saves 20 dollars">
+        <span>32 badges</span>
+        <span>4 boxed sets</span>
+        <span>Save $20</span>
+      </div>
+    </div>
   {% endif %}
   {% unless product.has_only_default_variant %}
     {% for option in product.options_with_values %}
@@ -64,25 +75,23 @@
     {%- assign enable_dynamic_buttons = true -%}
   {% endif %}
 
-  <p class="zenkai-fit-note">{{ zenkai_type_fit }}</p>
+  {% unless zenkai_product_category == 'pin' %}
+    <p class="zenkai-fit-note">{{ zenkai_type_fit }}</p>
+  {% endunless %}
 
   <div class="zenkai-product-actions" data-product-form-anchor>
-    <div class="zenkai-trust-strip">
-      <span class="zenkai-trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        2,200+ orders shipped and counting
-      </span>
-      <span class="zenkai-trust-item">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        {{ zenkai_type_trust }}
-      </span>
-    </div>
-    {% if zenkai_primary_proof_quote != blank %}
-      <div class="zenkai-proof-nudge" aria-label="Customer review">
-        <span class="zenkai-proof-nudge__quote">"{{ zenkai_primary_proof_quote }}"</span>
-        <span class="zenkai-proof-nudge__attr">— {{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
+    {% unless zenkai_product_category == 'pin' %}
+      <div class="zenkai-trust-strip">
+        <span class="zenkai-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          2,200+ orders shipped and counting
+        </span>
+        <span class="zenkai-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          {{ zenkai_type_trust }}
+        </span>
       </div>
-    {% endif %}
+    {% endunless %}
     <button
       {% if product.empty? %}type="button"{% else %}type="submit"{% endif %}
       name="add"
@@ -104,6 +113,12 @@
         {% endif %}
       </span>
     </button>
+    {% if zenkai_primary_proof_quote != blank %}
+      <div class="zenkai-proof-nudge" aria-label="Customer review">
+        <span class="zenkai-proof-nudge__quote">{{ zenkai_primary_proof_quote }}</span>
+        <span class="zenkai-proof-nudge__attr">{{ zenkai_primary_proof_attribution | default: 'Verified buyer' }}</span>
+      </div>
+    {% endif %}
   </div>
 
   {% if enable_dynamic_buttons %}
@@ -112,24 +127,37 @@
     </div>
   {% endif %}
 
-  <div class="zenkai-shipping-badge">
-    <svg class="zenkai-shipping-badge__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="1" y="3" width="15" height="13"></rect>
-      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-      <circle cx="5.5" cy="18.5" r="2.5"></circle>
-      <circle cx="18.5" cy="18.5" r="2.5"></circle>
-    </svg>
-    <span class="zenkai-shipping-badge__text">{{ zenkai_shipping_badge_text }}</span>
-  </div>
+  {% if zenkai_product_category == 'pin' %}
+    <div class="zenkai-pin-assurance-row" aria-label="Order confidence">
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+        Free U.S. shipping
+      </span>
+      <a href="/pages/policy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+        {{ zenkai_guarantee_badge_text }}
+      </a>
+    </div>
+  {% else %}
+    <div class="zenkai-shipping-badge">
+      <svg class="zenkai-shipping-badge__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="1" y="3" width="15" height="13"></rect>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+      </svg>
+      <span class="zenkai-shipping-badge__text">{{ zenkai_shipping_badge_text }}</span>
+    </div>
 
-  <a href="/pages/policy" class="zenkai-guarantee-badge">
-    <svg class="zenkai-guarantee-badge__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path>
-      <polyline points="9 12 11 14 15 10"></polyline>
-    </svg>
-    <span class="zenkai-guarantee-badge__text">{{ zenkai_guarantee_badge_text }}</span>
-    <span class="zenkai-guarantee-badge__arrow" aria-hidden="true">→</span>
-  </a>
+    <a href="/pages/policy" class="zenkai-guarantee-badge">
+      <svg class="zenkai-guarantee-badge__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path>
+        <polyline points="9 12 11 14 15 10"></polyline>
+      </svg>
+      <span class="zenkai-guarantee-badge__text">{{ zenkai_guarantee_badge_text }}</span>
+      <span class="zenkai-guarantee-badge__arrow" aria-hidden="true">→</span>
+    </a>
+  {% endif %}
 
   {% if zenkai_type_benefit != blank or zenkai_type_production != blank %}
     <div class="zenkai-compact-benefits">

@@ -12,44 +12,12 @@
     "main": {
       "type": "product-template",
       "blocks": {
-        "ugc_photo_iayrqb": {
-          "type": "ugc_photo",
-          "settings": {
-            "caption": ""
-          }
-        },
-        "ugc_photo_8nejCt": {
-          "type": "ugc_photo",
-          "settings": {
-            "caption": ""
-          }
-        },
-        "ugc_photo_6XteFk": {
-          "type": "ugc_photo",
-          "settings": {
-            "caption": ""
-          }
-        },
-        "ugc_photo_6mJpeB": {
-          "type": "ugc_photo",
-          "settings": {
-            "caption": ""
-          }
-        },
-        "ugc_photo_PWkNtN": {
-          "type": "ugc_photo",
-          "settings": {
-            "caption": ""
-          }
+        "judge_me_reviews_preview_badge_6qQQcm": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         }
       },
-      "block_order": [
-        "ugc_photo_iayrqb",
-        "ugc_photo_8nejCt",
-        "ugc_photo_6XteFk",
-        "ugc_photo_6mJpeB",
-        "ugc_photo_PWkNtN"
-      ],
+      "block_order": [],
       "settings": {
         "product_image_size": "large",
         "product_image_type": "slider",
@@ -58,7 +26,7 @@
         "product_video_style": "muted",
         "enable_payment_button": true,
         "product_signal_hook": "You still know all eight.",
-        "product_social_subheadline": "Choose one boxed 8-badge region set, or complete all four with the collector pack.",
+        "product_social_subheadline": "Most people pick a region. Collectors finish the map.",
         "product_cta_text": "Add to Cart",
         "product_cta_subcopy": "Free U.S. shipping. Ships ready to gift.",
         "product_outcome_1": "8 hard enamel badges per region",
@@ -73,8 +41,8 @@
         "product_proof_quote_2": "Bought it as a gift and they loved opening the full badge set.",
         "product_proof_attribution_2": "Verified Zenkai buyer",
         "hide_mobile_breadcrumbs": true,
-        "product_mobile_media_max_height": 50,
-        "product_sticky_atc_trigger_ratio": 12,
+        "product_mobile_media_max_height": 44,
+        "product_sticky_atc_trigger_ratio": 8,
         "product_show_review_summary_first": false,
         "variant_type": "button",
         "variant_labels_enable": true,
@@ -86,12 +54,13 @@
         "mobile_sticky_atc_enable": true,
         "show_dynamic_checkout_secondary": false,
         "social_enable": false,
-        "product_ugc_heading": "Ways to wear and display it",
+        "product_ugc_heading": "Spotted in the wild",
         "product_pin_collector_image_desktop": "shopify://shop_images/collector_hero_desktop.jpg",
         "product_pin_collector_image_mobile": "shopify://shop_images/collector_hero_mobile.jpg",
         "product_pin_quality_image_desktop": "shopify://shop_images/quality_desktop.jpg",
         "product_pin_quality_image_mobile": "shopify://shop_images/quality_mobile.jpg",
         "product_pin_lifestyle_image_desktop": "shopify://shop_images/lifestyle_desktop.png",
+        "product_pin_lifestyle_image_mobile": "",
         "product_pin_collector_kicker": "Collector's pack",
         "product_pin_collector_heading": "32 badges. 4 boxed sets. Save $20.",
         "product_pin_collector_body": "Choose one region if you know your favorite. Choose the collector pack if you want the whole run.",
@@ -101,11 +70,6 @@
         "product_pin_lifestyle_kicker": "Made to show",
         "product_pin_lifestyle_heading": "Display it, gift it, or pin it to the bag you actually carry.",
         "product_pin_lifestyle_body": "Small enough for daily use, clean enough for a shelf, and specific enough for the right person to notice.",
-        "product_pin_ugc_heading": "Ways to wear and display it",
-        "product_pin_ugc_caption_1": "",
-        "product_pin_ugc_caption_2": "",
-        "product_pin_ugc_caption_3": "",
-        "product_pin_ugc_caption_4": "",
         "product_manual_reviews_heading": "From collectors",
         "product_manual_review_quote_1": "They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.",
         "product_manual_review_name_1": "Oliver S.",
