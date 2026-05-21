@@ -25,6 +25,12 @@
 {%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_1 -%}
 {%- assign zenkai_show_social_proof_panel = false -%}
 {%- assign zenkai_ugc_heading = product_ugc_heading | default: 'Spotted in the wild' -%}
+{%- assign zenkai_pin_ugc_boxed_arrival_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-boxed-arrival.jpg?v=1779381316' -%}
+{%- assign zenkai_pin_ugc_framed_display_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-framed-display.jpg?v=1779381316' -%}
+{%- assign zenkai_pin_ugc_open_box_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-open-box-in-hand.jpg?v=1779381316' -%}
+{%- assign zenkai_pin_ugc_sunlight_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-enamel-detail-sunlight.jpg?v=1779381316' -%}
+{%- assign zenkai_pin_ugc_closeup_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-collector-detail-closeup.jpg?v=1779381316' -%}
+{%- assign zenkai_pin_ugc_collector_box_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-collector-open-box.jpg?v=1779381316' -%}
 {%- assign zenkai_pin_collector_image_desktop = product_pin_collector_image_desktop -%}
 {%- assign zenkai_pin_collector_image_mobile = product_pin_collector_image_mobile -%}
 {%- assign zenkai_pin_quality_image_desktop = product_pin_quality_image_desktop -%}
@@ -1231,6 +1237,88 @@
     line-height: 1.5;
   }
 
+  .zenkai-pin-collector-photos {
+    padding-top: 0.95rem;
+    border-top: 1px solid var(--zenkai-border);
+  }
+
+  .zenkai-pin-collector-photos__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .zenkai-pin-collector-photos__heading {
+    margin: 0;
+    color: var(--zenkai-ink);
+    font-size: clamp(1.1rem, 1.6vw, 1.55rem);
+    font-weight: 850;
+    line-height: 1.08;
+  }
+
+  .zenkai-pin-collector-photos__subhead {
+    margin: 0;
+    color: var(--zenkai-muted);
+    font-size: 0.86rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  .zenkai-pin-collector-photos__track {
+    display: flex;
+    gap: 0.55rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.2rem;
+  }
+
+  .zenkai-pin-collector-photos__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .zenkai-pin-photo-card {
+    position: relative;
+    flex: 0 0 188px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+    border: 1px solid rgba(21, 44, 41, 0.1);
+    background: #eef3f1;
+    scroll-snap-align: start;
+  }
+
+  .zenkai-pin-photo-card--wide {
+    flex-basis: 286px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .zenkai-pin-photo-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .zenkai-pin-photo-card__label {
+    position: absolute;
+    left: 0.55rem;
+    bottom: 0.55rem;
+    padding: 0.24rem 0.42rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--zenkai-ink);
+    font-size: 0.62rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
   .zenkai-pin-story {
     display: grid;
     gap: 1rem;
@@ -1803,6 +1891,47 @@
       display: block;
     }
 
+    .zenkai-pin-collector-photos {
+      padding-top: 0.85rem;
+    }
+
+    .zenkai-pin-collector-photos__header {
+      display: block;
+      margin-bottom: 0.55rem;
+    }
+
+    .zenkai-pin-collector-photos__heading {
+      font-size: 1.05rem;
+    }
+
+    .zenkai-pin-collector-photos__subhead {
+      margin-top: 0.18rem;
+      font-size: 0.78rem;
+    }
+
+    .zenkai-pin-collector-photos__track {
+      gap: 0.5rem;
+      margin-right: -1rem;
+      padding-right: 1rem;
+    }
+
+    .zenkai-pin-photo-card {
+      flex-basis: 42vw;
+      max-width: 178px;
+      border-radius: 10px;
+    }
+
+    .zenkai-pin-photo-card--wide {
+      flex-basis: 68vw;
+      max-width: 292px;
+    }
+
+    .zenkai-pin-photo-card__label {
+      left: 0.45rem;
+      bottom: 0.45rem;
+      font-size: 0.58rem;
+    }
+
     .zenkai-pin-story-card,
     .zenkai-manual-review {
       margin-bottom: 0.8rem;
@@ -2111,6 +2240,7 @@
   .zenkai-ugc-arrow--next { right: 0.75rem; }
 
   .zenkai-ugc-gallery--mobile { display: none; }
+  .zenkai-ugc-gallery--pin-mobile { display: none; }
 
   .zenkai-compact-benefits {
     display: flex;
@@ -2137,6 +2267,12 @@
   @media (max-width: 767px) {
     .zenkai-ugc-gallery--mobile { display: block; }
     .zenkai-ugc-gallery--desktop { display: none; }
+    .zenkai-ugc-gallery--pin-mobile {
+      display: block;
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--zenkai-border);
+    }
 
     .zenkai-ugc-card {
       flex: 0 0 42%;
@@ -2318,7 +2454,7 @@
 
               <div class="zenkai-sticky-sentinel" data-sticky-sentinel aria-hidden="true"></div>
 
-              {% if has_ugc %}
+              {% if has_ugc and zenkai_product_category != 'pin' %}
                 <section class="zenkai-ugc-gallery zenkai-ugc-gallery--mobile" aria-label="{{ zenkai_ugc_heading }}">
                   <h2 class="zenkai-ugc-heading">{{ zenkai_ugc_heading }}</h2>
                   <div class="zenkai-ugc-carousel" data-ugc-carousel>
@@ -2383,6 +2519,81 @@
 
       <div class="zenkai-pdp-below">
         {% if zenkai_product_category == 'pin' %}
+          <section class="zenkai-pin-collector-photos" aria-label="Collector photos">
+            <div class="zenkai-pin-collector-photos__header">
+              <h2 class="zenkai-pin-collector-photos__heading">Collector Photos</h2>
+              <p class="zenkai-pin-collector-photos__subhead">Boxed, displayed, and actually in hand.</p>
+            </div>
+            <div class="zenkai-pin-collector-photos__track" aria-label="Customer-style badge photos">
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_framed_display_url }}&width=240 240w, {{ zenkai_pin_ugc_framed_display_url }}&width=360 360w, {{ zenkai_pin_ugc_framed_display_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_framed_display_url }}"
+                  alt="Gym badge pin set displayed in a framed shadow box"
+                  loading="lazy"
+                  width="677"
+                  height="1200">
+                <figcaption class="zenkai-pin-photo-card__label">Displayed</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_open_box_url }}&width=240 240w, {{ zenkai_pin_ugc_open_box_url }}&width=360 360w, {{ zenkai_pin_ugc_open_box_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_open_box_url }}"
+                  alt="Open gym badge pin box held in hand"
+                  loading="lazy"
+                  width="675"
+                  height="1200">
+                <figcaption class="zenkai-pin-photo-card__label">In hand</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card zenkai-pin-photo-card--wide">
+                <img
+                  srcset="{{ zenkai_pin_ugc_closeup_url }}&width=360 360w, {{ zenkai_pin_ugc_closeup_url }}&width=540 540w, {{ zenkai_pin_ugc_closeup_url }}&width=720 720w"
+                  sizes="(max-width: 767px) 68vw, 286px"
+                  src="{{ zenkai_pin_ugc_closeup_url }}"
+                  alt="Close up of colorful enamel badge pins in the collector box"
+                  loading="lazy"
+                  width="1500"
+                  height="726">
+                <figcaption class="zenkai-pin-photo-card__label">Detail</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_collector_box_url }}&width=240 240w, {{ zenkai_pin_ugc_collector_box_url }}&width=360 360w, {{ zenkai_pin_ugc_collector_box_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_collector_box_url }}"
+                  alt="Open collector box with eight enamel gym badge pins"
+                  loading="lazy"
+                  width="1124"
+                  height="1500">
+                <figcaption class="zenkai-pin-photo-card__label">Boxed</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card zenkai-pin-photo-card--wide">
+                <img
+                  srcset="{{ zenkai_pin_ugc_sunlight_url }}&width=360 360w, {{ zenkai_pin_ugc_sunlight_url }}&width=540 540w, {{ zenkai_pin_ugc_sunlight_url }}&width=720 720w"
+                  sizes="(max-width: 767px) 68vw, 286px"
+                  src="{{ zenkai_pin_ugc_sunlight_url }}"
+                  alt="Loose enamel badge pins catching light on a bright surface"
+                  loading="lazy"
+                  width="1500"
+                  height="1199">
+                <figcaption class="zenkai-pin-photo-card__label">Gloss</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_boxed_arrival_url }}&width=240 240w, {{ zenkai_pin_ugc_boxed_arrival_url }}&width=360 360w, {{ zenkai_pin_ugc_boxed_arrival_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_boxed_arrival_url }}"
+                  alt="Gym badge collector box still in protective packaging"
+                  loading="lazy"
+                  width="587"
+                  height="1200">
+                <figcaption class="zenkai-pin-photo-card__label">Arrival</figcaption>
+              </figure>
+            </div>
+          </section>
+
           {%- assign zenkai_has_pin_story = false -%}
           {%- if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank or zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank -%}
             {%- assign zenkai_has_pin_story = true -%}
@@ -2529,7 +2740,7 @@
         {% endunless %}
 
         {% if has_ugc %}
-          <section class="zenkai-ugc-gallery zenkai-ugc-gallery--desktop" aria-label="{{ zenkai_ugc_heading }}">
+          <section class="zenkai-ugc-gallery zenkai-ugc-gallery--desktop{% if zenkai_product_category == 'pin' %} zenkai-ugc-gallery--pin-mobile{% endif %}" aria-label="{{ zenkai_ugc_heading }}">
             <h2 class="zenkai-ugc-heading">{{ zenkai_ugc_heading }}</h2>
             <div class="zenkai-ugc-carousel" data-ugc-carousel>
               <div class="zenkai-ugc-track" data-ugc-track>
