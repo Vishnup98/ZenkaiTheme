@@ -409,8 +409,8 @@
     margin-top: 1rem;
     padding: 0.8rem 0.95rem;
     border-radius: 16px;
-    background: var(--zenkai-surface-alt);
-    border: 1px solid rgba(89, 183, 167, 0.18);
+    background: rgba(22, 49, 45, 0.045);
+    border: 1px solid rgba(22, 49, 45, 0.12);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices {
@@ -450,7 +450,7 @@
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .product__price.sale-price {
-    color: var(--zenkai-cta);
+    color: var(--zenkai-dark);
   }
 
   #ProductSection-{{ section_id }} .product-single__prices .you-save {
@@ -458,12 +458,13 @@
     align-items: center;
     padding: 0.3rem 0.65rem;
     border-radius: 999px;
-    background: var(--zenkai-cta);
-    color: #102522;
+    background: rgba(22, 49, 45, 0.08);
+    border: 1px solid rgba(22, 49, 45, 0.1);
+    color: var(--zenkai-dark);
     font-size: 0.78rem;
     font-weight: 700;
     line-height: 1.2;
-    box-shadow: 0 3px 12px -1px rgba(89, 183, 167, 0.34);
+    box-shadow: none;
   }
 
   .zenkai-paid-proof-strip {
@@ -1607,12 +1608,43 @@
     }
 
     {% if zenkai_product_category == 'pin' %}
+      #ProductSection-{{ section_id }} .product__main-photos,
+      #ProductSection-{{ section_id }} .product__main-photos-wrapper,
+      #ProductSection-{{ section_id }} [data-product-photos],
+      #ProductSection-{{ section_id }} [data-product-photos] .slick-list,
+      #ProductSection-{{ section_id }} [data-product-photos] .slick-track,
+      #ProductSection-{{ section_id }} [data-product-photos] .product__slide,
+      #ProductSection-{{ section_id }} [data-product-photos] .product-image-main {
+        height: min(100vw, 620px) !important;
+        max-height: none !important;
+      }
+
+      #ProductSection-{{ section_id }} .product__main-photos .product-image-main .image-wrap {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        height: 100% !important;
+        padding-bottom: 0 !important;
+        background: var(--zenkai-surface);
+      }
+
+      #ProductSection-{{ section_id }} .product__main-photos .product-image-main .image-wrap img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+      }
+
       #ProductSection-{{ section_id }} .product__thumbs {
-        bottom: -46px !important;
+        position: relative !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        margin-top: 0.75rem;
+        padding-bottom: 0.2rem;
       }
 
       #ProductSection-{{ section_id }} .product-single__meta {
-        margin-top: 3.25rem;
+        margin-top: 1.2rem;
       }
     {% endif %}
 
