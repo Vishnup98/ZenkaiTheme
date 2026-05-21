@@ -2564,82 +2564,6 @@
 
       <div class="zenkai-pdp-below">
         {% if zenkai_product_category == 'pin' %}
-          <section class="zenkai-pin-collector-photos" aria-label="Collector photos">
-            <div class="zenkai-pin-collector-photos__header">
-              <p class="zenkai-pin-collector-photos__eyebrow">As seen with collectors</p>
-              <h2 class="zenkai-pin-collector-photos__heading">Actually in hand.</h2>
-              <p class="zenkai-pin-collector-photos__subhead">Boxed, displayed, and close enough to see the enamel finish.</p>
-            </div>
-            <div class="zenkai-pin-collector-photos__track" aria-label="Customer-style badge photos">
-              <figure class="zenkai-pin-photo-card">
-                <img
-                  srcset="{{ zenkai_pin_ugc_framed_display_url }}&width=240 240w, {{ zenkai_pin_ugc_framed_display_url }}&width=360 360w, {{ zenkai_pin_ugc_framed_display_url }}&width=540 540w"
-                  sizes="(max-width: 767px) 42vw, 188px"
-                  src="{{ zenkai_pin_ugc_framed_display_url }}"
-                  alt="Gym badge pin set displayed in a framed shadow box"
-                  loading="lazy"
-                  width="677"
-                  height="1200">
-                <figcaption class="zenkai-pin-photo-card__label">Displayed</figcaption>
-              </figure>
-              <figure class="zenkai-pin-photo-card">
-                <img
-                  srcset="{{ zenkai_pin_ugc_open_box_url }}&width=240 240w, {{ zenkai_pin_ugc_open_box_url }}&width=360 360w, {{ zenkai_pin_ugc_open_box_url }}&width=540 540w"
-                  sizes="(max-width: 767px) 42vw, 188px"
-                  src="{{ zenkai_pin_ugc_open_box_url }}"
-                  alt="Open gym badge pin box held in hand"
-                  loading="lazy"
-                  width="675"
-                  height="1200">
-                <figcaption class="zenkai-pin-photo-card__label">In hand</figcaption>
-              </figure>
-              <figure class="zenkai-pin-photo-card zenkai-pin-photo-card--wide">
-                <img
-                  srcset="{{ zenkai_pin_ugc_closeup_url }}&width=360 360w, {{ zenkai_pin_ugc_closeup_url }}&width=540 540w, {{ zenkai_pin_ugc_closeup_url }}&width=720 720w"
-                  sizes="(max-width: 767px) 68vw, 286px"
-                  src="{{ zenkai_pin_ugc_closeup_url }}"
-                  alt="Close up of colorful enamel badge pins in the collector box"
-                  loading="lazy"
-                  width="1500"
-                  height="726">
-                <figcaption class="zenkai-pin-photo-card__label">Detail</figcaption>
-              </figure>
-              <figure class="zenkai-pin-photo-card">
-                <img
-                  srcset="{{ zenkai_pin_ugc_collector_box_url }}&width=240 240w, {{ zenkai_pin_ugc_collector_box_url }}&width=360 360w, {{ zenkai_pin_ugc_collector_box_url }}&width=540 540w"
-                  sizes="(max-width: 767px) 42vw, 188px"
-                  src="{{ zenkai_pin_ugc_collector_box_url }}"
-                  alt="Open collector box with eight enamel gym badge pins"
-                  loading="lazy"
-                  width="1124"
-                  height="1500">
-                <figcaption class="zenkai-pin-photo-card__label">Boxed</figcaption>
-              </figure>
-              <figure class="zenkai-pin-photo-card zenkai-pin-photo-card--wide">
-                <img
-                  srcset="{{ zenkai_pin_ugc_sunlight_url }}&width=360 360w, {{ zenkai_pin_ugc_sunlight_url }}&width=540 540w, {{ zenkai_pin_ugc_sunlight_url }}&width=720 720w"
-                  sizes="(max-width: 767px) 68vw, 286px"
-                  src="{{ zenkai_pin_ugc_sunlight_url }}"
-                  alt="Loose enamel badge pins catching light on a bright surface"
-                  loading="lazy"
-                  width="1500"
-                  height="1199">
-                <figcaption class="zenkai-pin-photo-card__label">Gloss</figcaption>
-              </figure>
-              <figure class="zenkai-pin-photo-card">
-                <img
-                  srcset="{{ zenkai_pin_ugc_boxed_arrival_url }}&width=240 240w, {{ zenkai_pin_ugc_boxed_arrival_url }}&width=360 360w, {{ zenkai_pin_ugc_boxed_arrival_url }}&width=540 540w"
-                  sizes="(max-width: 767px) 42vw, 188px"
-                  src="{{ zenkai_pin_ugc_boxed_arrival_url }}"
-                  alt="Gym badge collector box still in protective packaging"
-                  loading="lazy"
-                  width="587"
-                  height="1200">
-                <figcaption class="zenkai-pin-photo-card__label">Arrival</figcaption>
-              </figure>
-            </div>
-          </section>
-
           {%- assign zenkai_has_pin_story = false -%}
           {%- if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank or zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank -%}
             {%- assign zenkai_has_pin_story = true -%}
@@ -2733,6 +2657,82 @@
               {% endif %}
             </section>
           {% endif %}
+
+          <section class="zenkai-pin-collector-photos" aria-label="Collector photos">
+            <div class="zenkai-pin-collector-photos__header">
+              <p class="zenkai-pin-collector-photos__eyebrow">As seen with collectors</p>
+              <h2 class="zenkai-pin-collector-photos__heading">Actually in hand.</h2>
+              <p class="zenkai-pin-collector-photos__subhead">Boxed, displayed, and close enough to see the enamel finish.</p>
+            </div>
+            <div class="zenkai-pin-collector-photos__track" aria-label="Customer-style badge photos">
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_framed_display_url }}&width=240 240w, {{ zenkai_pin_ugc_framed_display_url }}&width=360 360w, {{ zenkai_pin_ugc_framed_display_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_framed_display_url }}"
+                  alt="Gym badge pin set displayed in a framed shadow box"
+                  loading="lazy"
+                  width="677"
+                  height="1200">
+                <figcaption class="zenkai-pin-photo-card__label">Displayed</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_open_box_url }}&width=240 240w, {{ zenkai_pin_ugc_open_box_url }}&width=360 360w, {{ zenkai_pin_ugc_open_box_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_open_box_url }}"
+                  alt="Open gym badge pin box held in hand"
+                  loading="lazy"
+                  width="675"
+                  height="1200">
+                <figcaption class="zenkai-pin-photo-card__label">In hand</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card zenkai-pin-photo-card--wide">
+                <img
+                  srcset="{{ zenkai_pin_ugc_closeup_url }}&width=360 360w, {{ zenkai_pin_ugc_closeup_url }}&width=540 540w, {{ zenkai_pin_ugc_closeup_url }}&width=720 720w"
+                  sizes="(max-width: 767px) 68vw, 286px"
+                  src="{{ zenkai_pin_ugc_closeup_url }}"
+                  alt="Close up of colorful enamel badge pins in the collector box"
+                  loading="lazy"
+                  width="1500"
+                  height="726">
+                <figcaption class="zenkai-pin-photo-card__label">Detail</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_collector_box_url }}&width=240 240w, {{ zenkai_pin_ugc_collector_box_url }}&width=360 360w, {{ zenkai_pin_ugc_collector_box_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_collector_box_url }}"
+                  alt="Open collector box with eight enamel gym badge pins"
+                  loading="lazy"
+                  width="1124"
+                  height="1500">
+                <figcaption class="zenkai-pin-photo-card__label">Boxed</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card zenkai-pin-photo-card--wide">
+                <img
+                  srcset="{{ zenkai_pin_ugc_sunlight_url }}&width=360 360w, {{ zenkai_pin_ugc_sunlight_url }}&width=540 540w, {{ zenkai_pin_ugc_sunlight_url }}&width=720 720w"
+                  sizes="(max-width: 767px) 68vw, 286px"
+                  src="{{ zenkai_pin_ugc_sunlight_url }}"
+                  alt="Loose enamel badge pins catching light on a bright surface"
+                  loading="lazy"
+                  width="1500"
+                  height="1199">
+                <figcaption class="zenkai-pin-photo-card__label">Gloss</figcaption>
+              </figure>
+              <figure class="zenkai-pin-photo-card">
+                <img
+                  srcset="{{ zenkai_pin_ugc_boxed_arrival_url }}&width=240 240w, {{ zenkai_pin_ugc_boxed_arrival_url }}&width=360 360w, {{ zenkai_pin_ugc_boxed_arrival_url }}&width=540 540w"
+                  sizes="(max-width: 767px) 42vw, 188px"
+                  src="{{ zenkai_pin_ugc_boxed_arrival_url }}"
+                  alt="Gym badge collector box still in protective packaging"
+                  loading="lazy"
+                  width="587"
+                  height="1200">
+                <figcaption class="zenkai-pin-photo-card__label">Arrival</figcaption>
+              </figure>
+            </div>
+          </section>
 
           {%- assign zenkai_has_manual_reviews = false -%}
           {%- if zenkai_manual_review_quote_1 != blank or zenkai_manual_review_quote_2 != blank or zenkai_manual_review_quote_3 != blank -%}
