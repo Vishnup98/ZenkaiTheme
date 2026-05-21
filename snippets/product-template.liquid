@@ -1634,17 +1634,23 @@
         object-fit: contain !important;
       }
 
+      #ProductSection-{{ section_id }} [data-product-photos] img {
+        object-fit: contain !important;
+      }
+
       #ProductSection-{{ section_id }} .product__thumbs {
-        position: relative !important;
+        position: static !important;
+        top: auto !important;
         right: auto !important;
         bottom: auto !important;
         left: auto !important;
-        margin-top: 0.75rem;
-        padding-bottom: 0.2rem;
+        transform: none !important;
+        margin: 1rem 0 1.25rem !important;
+        padding: 0.15rem 1rem 0.35rem !important;
       }
 
       #ProductSection-{{ section_id }} .product-single__meta {
-        margin-top: 1.2rem;
+        margin-top: 0;
       }
     {% endif %}
 
