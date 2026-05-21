@@ -287,26 +287,23 @@
     </div>
   </div>
 
-  <div class="zenkai-accordion__item">
-    <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
-      <span>Story behind the design</span>
-      <span class="zenkai-accordion__icon"></span>
-    </button>
-    <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
-      <div class="zenkai-accordion__inner">
-        {% if zenkai_detail_category == 'pin' %}
-          <p><strong>The badges you grew up trying to win, turned into a display-worthy enamel set.</strong></p>
-          <p>Zenkai exists for nostalgic pieces that still feel clean in the real world: crisp enamel, playful references, and collector-friendly details that do not need a whole outfit to carry the moment.</p>
-        {% else %}
+  {% unless zenkai_detail_category == 'pin' %}
+    <div class="zenkai-accordion__item">
+      <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
+        <span>Story behind the design</span>
+        <span class="zenkai-accordion__icon"></span>
+      </button>
+      <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
+        <div class="zenkai-accordion__inner">
           <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
           <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
-        {% endif %}
-        {% if product.description %}
-          <div class="rte" style="margin-top: 0.8rem;">{{ product.description }}</div>
-        {% endif %}
+          {% if product.description %}
+            <div class="rte" style="margin-top: 0.8rem;">{{ product.description }}</div>
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
+  {% endunless %}
 
   <!-- Include any custom tabs from product tags -->
   {% for tag in product.tags %}

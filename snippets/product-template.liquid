@@ -33,13 +33,13 @@
 {%- assign zenkai_pin_lifestyle_image_mobile = product_pin_lifestyle_image_mobile -%}
 {%- assign zenkai_pin_collector_kicker = product_pin_collector_kicker | default: "Collector's pack" -%}
 {%- assign zenkai_pin_collector_heading = product_pin_collector_heading | default: '32 badges. 4 boxed sets. Save $20.' -%}
-{%- assign zenkai_pin_collector_body = product_pin_collector_body | default: 'Choose one region if you know your favorite. Choose the collector pack if you want the whole run.' -%}
+{%- assign zenkai_pin_collector_body = product_pin_collector_body | default: 'Choose one region if you know your favorite. Choose the collector pack when you want the full badge run.' -%}
 {%- assign zenkai_pin_quality_kicker = product_pin_quality_kicker | default: 'Quality proof' -%}
 {%- assign zenkai_pin_quality_heading = product_pin_quality_heading | default: 'Glossy hard enamel. Raised metal trim.' -%}
-{%- assign zenkai_pin_quality_body = product_pin_quality_body | default: 'A polished collectible finish with secure clutch backings for bags, jackets, hats, and displays.' -%}
+{%- assign zenkai_pin_quality_body = product_pin_quality_body | default: 'Polished color, raised metal edges, and secure clutch backs.' -%}
 {%- assign zenkai_pin_lifestyle_kicker = product_pin_lifestyle_kicker | default: 'Made to show' -%}
-{%- assign zenkai_pin_lifestyle_heading = product_pin_lifestyle_heading | default: 'Display it, gift it, or pin it to the bag you actually carry.' -%}
-{%- assign zenkai_pin_lifestyle_body = product_pin_lifestyle_body | default: 'Small enough for daily use, clean enough for a shelf, and specific enough for the right person to notice.' -%}
+{%- assign zenkai_pin_lifestyle_heading = product_pin_lifestyle_heading | default: 'Display it, gift it, wear it.' -%}
+{%- assign zenkai_pin_lifestyle_body = product_pin_lifestyle_body | default: 'Small enough to wear. Clean enough to display.' -%}
 {%- assign zenkai_manual_reviews_heading = product_manual_reviews_heading | default: 'From collectors' -%}
 {%- assign zenkai_manual_review_quote_1 = product_manual_review_quote_1 -%}
 {%- assign zenkai_manual_review_name_1 = product_manual_review_name_1 -%}
@@ -89,6 +89,17 @@
   {%- assign zenkai_product_category = 'hoodie' -%}
 {%- else -%}
   {%- assign zenkai_product_category = 'tee' -%}
+{%- endif -%}
+{%- assign zenkai_current_variant_title_downcase = current_variant.title | downcase -%}
+{%- assign zenkai_current_variant_is_collector = false -%}
+{%- if zenkai_product_category == 'pin' -%}
+  {%- if zenkai_current_variant_title_downcase contains 'collector' -%}
+    {%- assign zenkai_current_variant_is_collector = true -%}
+  {%- elsif zenkai_current_variant_title_downcase contains '4 region' -%}
+    {%- assign zenkai_current_variant_is_collector = true -%}
+  {%- elsif zenkai_current_variant_title_downcase contains '4-region' -%}
+    {%- assign zenkai_current_variant_is_collector = true -%}
+  {%- endif -%}
 {%- endif -%}
 {%- assign zenkai_ugc_alt = 'Customer wearing Zenkai' -%}
 {%- if zenkai_product_category == 'pin' -%}
@@ -853,24 +864,68 @@
     line-height: 1.25;
   }
 
-  .zenkai-collector-nudge__facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-top: 0.58rem;
+  .zenkai-collector-compare {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-top: 0.62rem;
   }
 
-  .zenkai-collector-nudge__facts span {
-    display: inline-flex;
-    align-items: center;
-    min-height: 1.6rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 999px;
-    background: rgba(89, 183, 167, 0.1);
-    color: var(--zenkai-dark);
-    font-size: 0.72rem;
+  .zenkai-collector-compare__item {
+    padding: 0.54rem 0.58rem;
+    border: 1px solid rgba(21, 44, 41, 0.1);
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .zenkai-collector-compare__item--featured {
+    border-color: rgba(89, 183, 167, 0.28);
+    background: rgba(89, 183, 167, 0.08);
+  }
+
+  .zenkai-collector-compare__item span,
+  .zenkai-collector-compare__item strong,
+  .zenkai-collector-compare__item em {
+    display: block;
+  }
+
+  .zenkai-collector-compare__item span {
+    color: var(--zenkai-muted);
+    font-size: 0.66rem;
     font-weight: 850;
-    line-height: 1.1;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .zenkai-collector-compare__item strong {
+    margin-top: 0.18rem;
+    color: var(--zenkai-ink);
+    font-size: 0.76rem;
+    font-weight: 850;
+    line-height: 1.22;
+  }
+
+  .zenkai-collector-compare__item em {
+    margin-top: 0.16rem;
+    color: var(--zenkai-accent);
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.16;
+  }
+
+  .zenkai-gift-nudge {
+    margin: 0.62rem 0 0;
+    color: var(--zenkai-muted);
+    font-size: 0.78rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  .zenkai-gift-nudge strong {
+    color: var(--zenkai-ink);
+    font-weight: 900;
   }
 
   #ProductSection-{{ section_id }} button.add-to-cart.zenkai-primary-cta {
@@ -1765,8 +1820,12 @@
       font-size: 0.88rem;
     }
 
-    .zenkai-collector-nudge__facts span {
-      font-size: 0.68rem;
+    .zenkai-collector-compare__item {
+      padding: 0.46rem 0.52rem;
+    }
+
+    .zenkai-gift-nudge {
+      font-size: 0.74rem;
     }
 
     .zenkai-pin-story,
@@ -2212,7 +2271,11 @@
                 <div class="product-single__prices" data-price-wrapper>
                   {% if current_variant.compare_at_price > current_variant.price %}
                     <span class="product__price product__price--compare" data-product-price-compare>
-                      {{ current_variant.compare_at_price | money }}
+                      {% if zenkai_current_variant_is_collector %}
+                        {{ 11996 | money }}
+                      {% else %}
+                        {{ current_variant.compare_at_price | money }}
+                      {% endif %}
                     </span>
                   {% endif %}
 
@@ -2222,7 +2285,11 @@
 
                   {% if current_variant.compare_at_price > current_variant.price %}
                     <span class="you-save">
-                      Save {{ current_variant.compare_at_price | minus: current_variant.price | money }}
+                      {% if zenkai_current_variant_is_collector %}
+                        Save $20
+                      {% else %}
+                        Save {{ current_variant.compare_at_price | minus: current_variant.price | money }}
+                      {% endif %}
                     </span>
                   {% endif %}
                 </div>
@@ -2233,18 +2300,16 @@
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   2,200+ orders shipped
                 </span>
-                <span class="zenkai-paid-proof-strip__item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                  Free U.S. shipping
-                </span>
-                <span class="zenkai-paid-proof-strip__item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-                  {% if zenkai_product_category == 'pin' %}
-                    Damaged or defective? We replace it
-                  {% else %}
+                {% unless zenkai_product_category == 'pin' %}
+                  <span class="zenkai-paid-proof-strip__item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    Free U.S. shipping
+                  </span>
+                  <span class="zenkai-paid-proof-strip__item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
                     30-day first-item guarantee
-                  {% endif %}
-                </span>
+                  </span>
+                {% endunless %}
               </div>
 
               {% include 'product-type-switcher' %}
@@ -2479,15 +2544,12 @@
           {% endif %}
         {% endif %}
 
-        <aside class="zenkai-brand-quote" aria-label="Brand story">
-          {% if zenkai_product_category == 'pin' %}
-            <p class="zenkai-brand-quote__text">Collectible badges. Familiar energy. Made to display, gift, and wear.</p>
-            <p class="zenkai-brand-quote__follow">Zenkai exists for the pieces you always wished existed: crisp enamel, playful symbols, nostalgic energy, and small accessories that carry the reference without taking over the whole fit.</p>
-          {% else %}
+        {% unless zenkai_product_category == 'pin' %}
+          <aside class="zenkai-brand-quote" aria-label="Brand story">
             <p class="zenkai-brand-quote__text">Original designs. Familiar energy. Made to feel like real clothes.</p>
             <p class="zenkai-brand-quote__follow">Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
-          {% endif %}
-        </aside>
+          </aside>
+        {% endunless %}
 
         {% if has_ugc %}
           <section class="zenkai-ugc-gallery zenkai-ugc-gallery--desktop" aria-label="{{ zenkai_ugc_heading }}">
@@ -2741,6 +2803,8 @@
       var mainButtonShowsPrice = mainButton && mainButton.getAttribute('data-cta-price') === 'true';
       var stickySentinel = section.querySelector('[data-sticky-sentinel]');
       var priceSource = section.querySelector('[data-product-price]');
+      var comparePriceSource = section.querySelector('[data-product-price-compare]');
+      var savingsBadge = section.querySelector('.you-save');
       var selectSource = section.querySelector('[data-product-select]');
       var variantInputs = section.querySelectorAll('[data-variant-input]');
       var sticky = section.querySelector('[data-sticky-atc]');
@@ -2813,6 +2877,27 @@
         return label;
       }
 
+      function isCollectorVariantLabel(label) {
+        var normalized = (label || '').toLowerCase();
+        return normalized.indexOf('collector') !== -1 ||
+          normalized.indexOf('4 region') !== -1 ||
+          normalized.indexOf('4-region') !== -1;
+      }
+
+      function syncCollectorSavings() {
+        if (productCategory !== 'pin' || !isCollectorVariantLabel(getVariantLabel())) {
+          return;
+        }
+
+        if (comparePriceSource) {
+          comparePriceSource.textContent = '$119.96';
+        }
+
+        if (savingsBadge) {
+          savingsBadge.textContent = 'Save $20';
+        }
+      }
+
       function getContextualCtaLabel() {
         if (productCategory !== 'pin') {
           return ctaLabel;
@@ -2867,6 +2952,7 @@
       }
 
       function syncAll() {
+        syncCollectorSavings();
         syncCta();
         syncMeta();
       }

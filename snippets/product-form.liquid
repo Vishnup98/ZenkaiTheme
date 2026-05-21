@@ -30,11 +30,19 @@
     <div class="zenkai-collector-nudge" aria-label="Collector pack value">
       <p class="zenkai-collector-nudge__eyebrow">Complete collector pack</p>
       <p class="zenkai-collector-nudge__line">Most people pick a region. Collectors finish the map.</p>
-      <div class="zenkai-collector-nudge__facts" aria-label="Collector pack includes 32 badges, 4 boxed sets, and saves 20 dollars">
-        <span>32 badges</span>
-        <span>4 boxed sets</span>
-        <span>Save $20</span>
+      <div class="zenkai-collector-compare" aria-label="Compare one region with the collector pack">
+        <div class="zenkai-collector-compare__item">
+          <span>One region</span>
+          <strong>8 badges / 1 box</strong>
+          <em>$29.99</em>
+        </div>
+        <div class="zenkai-collector-compare__item zenkai-collector-compare__item--featured">
+          <span>Collector pack</span>
+          <strong>32 badges / 4 boxes</strong>
+          <em>$99.99 / save $20</em>
+        </div>
       </div>
+      <p class="zenkai-gift-nudge"><strong>Easy gift. No size guessing.</strong> A boxed collectible for someone who still remembers every badge.</p>
     </div>
   {% endif %}
   {% unless product.has_only_default_variant %}
@@ -159,22 +167,24 @@
     </a>
   {% endif %}
 
-  {% if zenkai_type_benefit != blank or zenkai_type_production != blank %}
-    <div class="zenkai-compact-benefits">
-      {% if zenkai_type_benefit != blank %}
-        <span class="zenkai-compact-benefit">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          {{ zenkai_type_benefit }}
-        </span>
-      {% endif %}
-      {% if zenkai_type_production != blank %}
-        <span class="zenkai-compact-benefit">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          {{ zenkai_type_production }}
-        </span>
-      {% endif %}
-    </div>
-  {% endif %}
+  {% unless zenkai_product_category == 'pin' %}
+    {% if zenkai_type_benefit != blank or zenkai_type_production != blank %}
+      <div class="zenkai-compact-benefits">
+        {% if zenkai_type_benefit != blank %}
+          <span class="zenkai-compact-benefit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            {{ zenkai_type_benefit }}
+          </span>
+        {% endif %}
+        {% if zenkai_type_production != blank %}
+          <span class="zenkai-compact-benefit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            {{ zenkai_type_production }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endunless %}
 
   {% unless product.empty? %}
     <div class="hide" aria-hidden="true" data-variant-json>
