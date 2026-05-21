@@ -25,6 +25,45 @@
 {%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_1 -%}
 {%- assign zenkai_show_social_proof_panel = false -%}
 {%- assign zenkai_ugc_heading = product_ugc_heading | default: 'Spotted in the wild' -%}
+{%- assign zenkai_pin_collector_image_desktop = product_pin_collector_image_desktop -%}
+{%- assign zenkai_pin_collector_image_mobile = product_pin_collector_image_mobile -%}
+{%- assign zenkai_pin_quality_image_desktop = product_pin_quality_image_desktop -%}
+{%- assign zenkai_pin_quality_image_mobile = product_pin_quality_image_mobile -%}
+{%- assign zenkai_pin_lifestyle_image_desktop = product_pin_lifestyle_image_desktop -%}
+{%- assign zenkai_pin_lifestyle_image_mobile = product_pin_lifestyle_image_mobile -%}
+{%- assign zenkai_pin_collector_kicker = product_pin_collector_kicker | default: "Collector's pack" -%}
+{%- assign zenkai_pin_collector_heading = product_pin_collector_heading | default: '32 badges. 4 boxed sets. Save $20.' -%}
+{%- assign zenkai_pin_collector_body = product_pin_collector_body | default: 'Choose one region if you know your favorite. Choose the collector pack if you want the whole run.' -%}
+{%- assign zenkai_pin_quality_kicker = product_pin_quality_kicker | default: 'Quality proof' -%}
+{%- assign zenkai_pin_quality_heading = product_pin_quality_heading | default: 'Glossy hard enamel. Raised metal trim.' -%}
+{%- assign zenkai_pin_quality_body = product_pin_quality_body | default: 'A polished collectible finish with secure clutch backings for bags, jackets, hats, and displays.' -%}
+{%- assign zenkai_pin_lifestyle_kicker = product_pin_lifestyle_kicker | default: 'Made to show' -%}
+{%- assign zenkai_pin_lifestyle_heading = product_pin_lifestyle_heading | default: 'Display it, gift it, or pin it to the bag you actually carry.' -%}
+{%- assign zenkai_pin_lifestyle_body = product_pin_lifestyle_body | default: 'Small enough for daily use, clean enough for a shelf, and specific enough for the right person to notice.' -%}
+{%- assign zenkai_pin_ugc_heading = product_pin_ugc_heading | default: 'Ways to wear and display it' -%}
+{%- assign zenkai_pin_ugc_image_1 = product_pin_ugc_image_1 -%}
+{%- assign zenkai_pin_ugc_caption_1 = product_pin_ugc_caption_1 -%}
+{%- assign zenkai_pin_ugc_image_2 = product_pin_ugc_image_2 -%}
+{%- assign zenkai_pin_ugc_caption_2 = product_pin_ugc_caption_2 -%}
+{%- assign zenkai_pin_ugc_image_3 = product_pin_ugc_image_3 -%}
+{%- assign zenkai_pin_ugc_caption_3 = product_pin_ugc_caption_3 -%}
+{%- assign zenkai_pin_ugc_image_4 = product_pin_ugc_image_4 -%}
+{%- assign zenkai_pin_ugc_caption_4 = product_pin_ugc_caption_4 -%}
+{%- assign zenkai_manual_reviews_heading = product_manual_reviews_heading | default: 'From collectors' -%}
+{%- assign zenkai_manual_review_quote_1 = product_manual_review_quote_1 -%}
+{%- assign zenkai_manual_review_name_1 = product_manual_review_name_1 -%}
+{%- assign zenkai_manual_review_meta_1 = product_manual_review_meta_1 -%}
+{%- assign zenkai_manual_review_quote_2 = product_manual_review_quote_2 -%}
+{%- assign zenkai_manual_review_name_2 = product_manual_review_name_2 -%}
+{%- assign zenkai_manual_review_meta_2 = product_manual_review_meta_2 -%}
+{%- assign zenkai_manual_review_quote_3 = product_manual_review_quote_3 -%}
+{%- assign zenkai_manual_review_name_3 = product_manual_review_name_3 -%}
+{%- assign zenkai_manual_review_meta_3 = product_manual_review_meta_3 -%}
+
+{%- assign zenkai_has_setting_ugc = false -%}
+{%- if zenkai_pin_ugc_image_1 != blank or zenkai_pin_ugc_image_2 != blank or zenkai_pin_ugc_image_3 != blank or zenkai_pin_ugc_image_4 != blank -%}
+  {%- assign zenkai_has_setting_ugc = true -%}
+{%- endif -%}
 
 {%- assign has_ugc = false -%}
 {%- for block in section.blocks -%}
@@ -33,6 +72,9 @@
     {%- break -%}
   {%- endif -%}
 {%- endfor -%}
+{%- if zenkai_has_setting_ugc -%}
+  {%- assign has_ugc = true -%}
+{%- endif -%}
 
 {%- assign zenkai_ptype = product.type | downcase -%}
 {%- assign zenkai_ptitle = product.title | downcase -%}
@@ -64,6 +106,9 @@
   {%- assign zenkai_product_category = 'hoodie' -%}
 {%- else -%}
   {%- assign zenkai_product_category = 'tee' -%}
+{%- endif -%}
+{%- if zenkai_product_category == 'pin' and zenkai_pin_ugc_heading != blank -%}
+  {%- assign zenkai_ugc_heading = zenkai_pin_ugc_heading -%}
 {%- endif -%}
 
 {%- assign zenkai_ugc_alt = 'Customer wearing Zenkai' -%}
@@ -624,6 +669,40 @@
     cursor: not-allowed;
   }
 
+  #ProductSection-{{ section_id }} .variant-input--collector {
+    flex: 0 0 100%;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input--collector label {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.45rem;
+    padding: 0.72rem 0.82rem;
+    background: #f4fbf8;
+    border-color: rgba(89, 183, 167, 0.28);
+    line-height: 1.25;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input--collector input:checked + label {
+    background: var(--zenkai-dark);
+    border-color: var(--zenkai-dark);
+    color: #fff;
+  }
+
+  .zenkai-collector-option__main {
+    font-weight: 800;
+  }
+
+  .zenkai-collector-option__meta {
+    color: var(--zenkai-muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+
+  #ProductSection-{{ section_id }} .variant-input--collector input:checked + label .zenkai-collector-option__meta {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
   #ProductSection-{{ section_id }} .variant-input .zk-color-swatch {
     --zk-swatch-color: #d9d9d9;
     position: relative;
@@ -1089,6 +1168,128 @@
     line-height: 1.5;
   }
 
+  .zenkai-pin-story {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .zenkai-pin-story__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .zenkai-pin-story-card {
+    overflow: hidden;
+    border: 1px solid var(--zenkai-border);
+    border-radius: 18px;
+    background: var(--zenkai-surface);
+    box-shadow: 0 14px 30px rgba(26, 27, 46, 0.04);
+  }
+
+  .zenkai-pin-story-card--featured {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+    align-items: stretch;
+  }
+
+  .zenkai-pin-story-card__media {
+    display: block;
+    min-height: 100%;
+    background: #f2f4f5;
+  }
+
+  .zenkai-pin-story-card__media picture,
+  .zenkai-pin-story-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .zenkai-pin-story-card__media img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .zenkai-pin-story-card:not(.zenkai-pin-story-card--featured) .zenkai-pin-story-card__media img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .zenkai-pin-story-card__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.2rem;
+  }
+
+  .zenkai-pin-story-card__kicker,
+  .zenkai-manual-reviews__kicker {
+    margin: 0 0 0.45rem;
+    color: var(--zenkai-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .zenkai-pin-story-card__heading,
+  .zenkai-manual-reviews__heading {
+    margin: 0;
+    color: var(--zenkai-ink);
+    font-size: clamp(1.25rem, 2vw, 2rem);
+    font-weight: 800;
+    line-height: 1.08;
+  }
+
+  .zenkai-pin-story-card__body {
+    margin: 0.7rem 0 0;
+    color: var(--zenkai-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .zenkai-manual-reviews {
+    padding: 1.1rem;
+    border: 1px solid var(--zenkai-border);
+    border-radius: 18px;
+    background: var(--zenkai-surface);
+  }
+
+  .zenkai-manual-reviews__header {
+    margin-bottom: 0.9rem;
+    text-align: center;
+  }
+
+  .zenkai-manual-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .zenkai-manual-review {
+    padding: 0.95rem;
+    border: 1px solid rgba(89, 183, 167, 0.16);
+    border-radius: 16px;
+    background: var(--zenkai-surface-alt);
+  }
+
+  .zenkai-manual-review__quote {
+    margin: 0;
+    color: var(--zenkai-ink);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .zenkai-manual-review__meta {
+    display: block;
+    margin-top: 0.7rem;
+    color: var(--zenkai-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
   .zenkai-additional-content {
     margin-top: 1rem;
   }
@@ -1327,23 +1528,20 @@
     }
 
     #ProductSection-{{ section_id }} .product-single__title {
-      grid-column: 1;
+      grid-column: 1 / -1;
       min-width: 0;
-      font-size: 1.45rem !important;
+      font-size: 1.75rem !important;
       margin-bottom: 0 !important;
       line-height: 1.15 !important;
-      word-break: break-word;
+      word-break: normal;
     }
 
     #ProductSection-{{ section_id }} .zenkai-price-band {
-      grid-column: 2;
-      align-self: baseline;
-      margin: 0;
-      margin-left: 0.5rem;
-      padding: 0;
-      border-radius: 0;
-      background: none;
-      border: none;
+      grid-column: 1 / -1;
+      align-self: start;
+      margin: 0.6rem 0 0;
+      padding: 0.55rem 0.7rem;
+      border-radius: 14px;
     }
 
     .zenkai-paid-proof-strip {
@@ -1425,6 +1623,52 @@
       min-height: 2.3rem;
       padding: 0.46rem 0.62rem;
       font-size: 0.8rem;
+    }
+
+    #ProductSection-{{ section_id }} .variant-input--collector label {
+      align-items: flex-start;
+      flex-direction: column;
+      min-height: 0;
+      padding: 0.68rem 0.74rem;
+    }
+
+    .zenkai-pin-story,
+    .zenkai-pin-story__grid,
+    .zenkai-pin-story-card--featured,
+    .zenkai-manual-reviews__grid {
+      display: block;
+    }
+
+    .zenkai-pin-story-card,
+    .zenkai-manual-review {
+      margin-bottom: 0.8rem;
+      border-radius: 16px;
+      box-shadow: none;
+    }
+
+    .zenkai-pin-story-card:last-child,
+    .zenkai-manual-review:last-child {
+      margin-bottom: 0;
+    }
+
+    .zenkai-pin-story-card__media img,
+    .zenkai-pin-story-card:not(.zenkai-pin-story-card--featured) .zenkai-pin-story-card__media img {
+      aspect-ratio: 4 / 5;
+    }
+
+    .zenkai-pin-story-card__copy,
+    .zenkai-manual-reviews {
+      padding: 0.9rem;
+    }
+
+    .zenkai-pin-story-card__heading,
+    .zenkai-manual-reviews__heading {
+      font-size: 1.25rem;
+    }
+
+    .zenkai-pin-story-card__body,
+    .zenkai-manual-review__quote {
+      font-size: 0.86rem;
     }
 
     #ProductSection-{{ section_id }} .variant-input .zk-color-swatch {
@@ -1725,6 +1969,7 @@
   class="product-section"
   data-section-id="{{ section_id }}"
   data-section-type="product-template"
+  data-product-category="{{ zenkai_product_category }}"
   data-product-cta-default="{{ zenkai_cta_text | escape }}"
   data-sticky-trigger-ratio="{{ zenkai_sticky_atc_trigger_ratio }}"
   {% if isModal %}data-subsection{% endif %}
@@ -1784,6 +2029,10 @@
                 <p class="h2 product-single__title">{{ product.title }}</p>
               {% else %}
                 <h1 class="h2 product-single__title">{{ product.title }}</h1>
+              {% endif %}
+
+              {% if zenkai_social_subheadline != blank %}
+                <p class="zenkai-social-subheadline">{{ zenkai_social_subheadline }}</p>
               {% endif %}
 
               {% if product_show_review_summary_first %}
@@ -1883,6 +2132,32 @@
                           </div>
                         {%- endif -%}
                       {%- endfor -%}
+                      {% if zenkai_has_setting_ugc %}
+                        {% if zenkai_pin_ugc_image_1 != blank %}
+                          <div class="zenkai-ugc-card">
+                            <img src="{{ zenkai_pin_ugc_image_1 | image_url: width: 600 }}" alt="{{ zenkai_pin_ugc_caption_1 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_1.width }}" height="{{ zenkai_pin_ugc_image_1.height }}">
+                            {% if zenkai_pin_ugc_caption_1 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_1 }}</p></div>{% endif %}
+                          </div>
+                        {% endif %}
+                        {% if zenkai_pin_ugc_image_2 != blank %}
+                          <div class="zenkai-ugc-card">
+                            <img src="{{ zenkai_pin_ugc_image_2 | image_url: width: 600 }}" alt="{{ zenkai_pin_ugc_caption_2 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_2.width }}" height="{{ zenkai_pin_ugc_image_2.height }}">
+                            {% if zenkai_pin_ugc_caption_2 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_2 }}</p></div>{% endif %}
+                          </div>
+                        {% endif %}
+                        {% if zenkai_pin_ugc_image_3 != blank %}
+                          <div class="zenkai-ugc-card">
+                            <img src="{{ zenkai_pin_ugc_image_3 | image_url: width: 600 }}" alt="{{ zenkai_pin_ugc_caption_3 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_3.width }}" height="{{ zenkai_pin_ugc_image_3.height }}">
+                            {% if zenkai_pin_ugc_caption_3 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_3 }}</p></div>{% endif %}
+                          </div>
+                        {% endif %}
+                        {% if zenkai_pin_ugc_image_4 != blank %}
+                          <div class="zenkai-ugc-card">
+                            <img src="{{ zenkai_pin_ugc_image_4 | image_url: width: 600 }}" alt="{{ zenkai_pin_ugc_caption_4 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_4.width }}" height="{{ zenkai_pin_ugc_image_4.height }}">
+                            {% if zenkai_pin_ugc_caption_4 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_4 }}</p></div>{% endif %}
+                          </div>
+                        {% endif %}
+                      {% endif %}
                     </div>
                     <button type="button" class="zenkai-ugc-arrow zenkai-ugc-arrow--prev" data-ugc-prev aria-label="Previous photos" hidden>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -1918,6 +2193,136 @@
       </div>
 
       <div class="zenkai-pdp-below">
+        {% if zenkai_product_category == 'pin' %}
+          {%- assign zenkai_has_pin_story = false -%}
+          {%- if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank or zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank -%}
+            {%- assign zenkai_has_pin_story = true -%}
+          {%- endif -%}
+
+          {% if zenkai_has_pin_story %}
+            <section class="zenkai-pin-story" aria-label="Collector pack details">
+              {% if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank %}
+                {%- assign zenkai_pin_collector_image = zenkai_pin_collector_image_desktop -%}
+                {%- if zenkai_pin_collector_image == blank -%}
+                  {%- assign zenkai_pin_collector_image = zenkai_pin_collector_image_mobile -%}
+                {%- endif -%}
+                <article class="zenkai-pin-story-card zenkai-pin-story-card--featured">
+                  <div class="zenkai-pin-story-card__media">
+                    <picture>
+                      {% if zenkai_pin_collector_image_mobile != blank %}
+                        <source media="(max-width: 767px)" srcset="{{ zenkai_pin_collector_image_mobile | image_url: width: 1200 }}">
+                      {% endif %}
+                      <img
+                        src="{{ zenkai_pin_collector_image | image_url: width: 1800 }}"
+                        alt="{{ zenkai_pin_collector_heading | escape }}"
+                        loading="lazy"
+                        width="{{ zenkai_pin_collector_image.width }}"
+                        height="{{ zenkai_pin_collector_image.height }}">
+                    </picture>
+                  </div>
+                  <div class="zenkai-pin-story-card__copy">
+                    <p class="zenkai-pin-story-card__kicker">{{ zenkai_pin_collector_kicker }}</p>
+                    <h2 class="zenkai-pin-story-card__heading">{{ zenkai_pin_collector_heading }}</h2>
+                    <p class="zenkai-pin-story-card__body">{{ zenkai_pin_collector_body }}</p>
+                  </div>
+                </article>
+              {% endif %}
+
+              {% if zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank %}
+                <div class="zenkai-pin-story__grid">
+                  {% if zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank %}
+                    {%- assign zenkai_pin_quality_image = zenkai_pin_quality_image_desktop -%}
+                    {%- if zenkai_pin_quality_image == blank -%}
+                      {%- assign zenkai_pin_quality_image = zenkai_pin_quality_image_mobile -%}
+                    {%- endif -%}
+                    <article class="zenkai-pin-story-card">
+                      <div class="zenkai-pin-story-card__media">
+                        <picture>
+                          {% if zenkai_pin_quality_image_mobile != blank %}
+                            <source media="(max-width: 767px)" srcset="{{ zenkai_pin_quality_image_mobile | image_url: width: 1000 }}">
+                          {% endif %}
+                          <img
+                            src="{{ zenkai_pin_quality_image | image_url: width: 1200 }}"
+                            alt="{{ zenkai_pin_quality_heading | escape }}"
+                            loading="lazy"
+                            width="{{ zenkai_pin_quality_image.width }}"
+                            height="{{ zenkai_pin_quality_image.height }}">
+                        </picture>
+                      </div>
+                      <div class="zenkai-pin-story-card__copy">
+                        <p class="zenkai-pin-story-card__kicker">{{ zenkai_pin_quality_kicker }}</p>
+                        <h2 class="zenkai-pin-story-card__heading">{{ zenkai_pin_quality_heading }}</h2>
+                        <p class="zenkai-pin-story-card__body">{{ zenkai_pin_quality_body }}</p>
+                      </div>
+                    </article>
+                  {% endif %}
+
+                  {% if zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank %}
+                    {%- assign zenkai_pin_lifestyle_image = zenkai_pin_lifestyle_image_desktop -%}
+                    {%- if zenkai_pin_lifestyle_image == blank -%}
+                      {%- assign zenkai_pin_lifestyle_image = zenkai_pin_lifestyle_image_mobile -%}
+                    {%- endif -%}
+                    <article class="zenkai-pin-story-card">
+                      <div class="zenkai-pin-story-card__media">
+                        <picture>
+                          {% if zenkai_pin_lifestyle_image_mobile != blank %}
+                            <source media="(max-width: 767px)" srcset="{{ zenkai_pin_lifestyle_image_mobile | image_url: width: 1000 }}">
+                          {% endif %}
+                          <img
+                            src="{{ zenkai_pin_lifestyle_image | image_url: width: 1200 }}"
+                            alt="{{ zenkai_pin_lifestyle_heading | escape }}"
+                            loading="lazy"
+                            width="{{ zenkai_pin_lifestyle_image.width }}"
+                            height="{{ zenkai_pin_lifestyle_image.height }}">
+                        </picture>
+                      </div>
+                      <div class="zenkai-pin-story-card__copy">
+                        <p class="zenkai-pin-story-card__kicker">{{ zenkai_pin_lifestyle_kicker }}</p>
+                        <h2 class="zenkai-pin-story-card__heading">{{ zenkai_pin_lifestyle_heading }}</h2>
+                        <p class="zenkai-pin-story-card__body">{{ zenkai_pin_lifestyle_body }}</p>
+                      </div>
+                    </article>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </section>
+          {% endif %}
+
+          {%- assign zenkai_has_manual_reviews = false -%}
+          {%- if zenkai_manual_review_quote_1 != blank or zenkai_manual_review_quote_2 != blank or zenkai_manual_review_quote_3 != blank -%}
+            {%- assign zenkai_has_manual_reviews = true -%}
+          {%- endif -%}
+
+          {% if zenkai_has_manual_reviews %}
+            <section class="zenkai-manual-reviews" aria-label="{{ zenkai_manual_reviews_heading | escape }}">
+              <div class="zenkai-manual-reviews__header">
+                <p class="zenkai-manual-reviews__kicker">Real reviews</p>
+                <h2 class="zenkai-manual-reviews__heading">{{ zenkai_manual_reviews_heading }}</h2>
+              </div>
+              <div class="zenkai-manual-reviews__grid">
+                {% if zenkai_manual_review_quote_1 != blank %}
+                  <figure class="zenkai-manual-review">
+                    <blockquote class="zenkai-manual-review__quote">"{{ zenkai_manual_review_quote_1 }}"</blockquote>
+                    <figcaption class="zenkai-manual-review__meta">{{ zenkai_manual_review_name_1 | default: 'Verified buyer' }}{% if zenkai_manual_review_meta_1 != blank %} &middot; {{ zenkai_manual_review_meta_1 }}{% endif %}</figcaption>
+                  </figure>
+                {% endif %}
+                {% if zenkai_manual_review_quote_2 != blank %}
+                  <figure class="zenkai-manual-review">
+                    <blockquote class="zenkai-manual-review__quote">"{{ zenkai_manual_review_quote_2 }}"</blockquote>
+                    <figcaption class="zenkai-manual-review__meta">{{ zenkai_manual_review_name_2 | default: 'Verified buyer' }}{% if zenkai_manual_review_meta_2 != blank %} &middot; {{ zenkai_manual_review_meta_2 }}{% endif %}</figcaption>
+                  </figure>
+                {% endif %}
+                {% if zenkai_manual_review_quote_3 != blank %}
+                  <figure class="zenkai-manual-review">
+                    <blockquote class="zenkai-manual-review__quote">"{{ zenkai_manual_review_quote_3 }}"</blockquote>
+                    <figcaption class="zenkai-manual-review__meta">{{ zenkai_manual_review_name_3 | default: 'Verified buyer' }}{% if zenkai_manual_review_meta_3 != blank %} &middot; {{ zenkai_manual_review_meta_3 }}{% endif %}</figcaption>
+                  </figure>
+                {% endif %}
+              </div>
+            </section>
+          {% endif %}
+        {% endif %}
+
         <aside class="zenkai-brand-quote" aria-label="Brand story">
           {% if zenkai_product_category == 'pin' %}
             <p class="zenkai-brand-quote__text">Collectible badges. Familiar energy. Made to display, gift, and wear.</p>
@@ -1955,6 +2360,32 @@
                     </div>
                   {%- endif -%}
                 {%- endfor -%}
+                {% if zenkai_has_setting_ugc %}
+                  {% if zenkai_pin_ugc_image_1 != blank %}
+                    <div class="zenkai-ugc-card">
+                      <img src="{{ zenkai_pin_ugc_image_1 | image_url: width: 800 }}" alt="{{ zenkai_pin_ugc_caption_1 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_1.width }}" height="{{ zenkai_pin_ugc_image_1.height }}">
+                      {% if zenkai_pin_ugc_caption_1 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_1 }}</p></div>{% endif %}
+                    </div>
+                  {% endif %}
+                  {% if zenkai_pin_ugc_image_2 != blank %}
+                    <div class="zenkai-ugc-card">
+                      <img src="{{ zenkai_pin_ugc_image_2 | image_url: width: 800 }}" alt="{{ zenkai_pin_ugc_caption_2 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_2.width }}" height="{{ zenkai_pin_ugc_image_2.height }}">
+                      {% if zenkai_pin_ugc_caption_2 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_2 }}</p></div>{% endif %}
+                    </div>
+                  {% endif %}
+                  {% if zenkai_pin_ugc_image_3 != blank %}
+                    <div class="zenkai-ugc-card">
+                      <img src="{{ zenkai_pin_ugc_image_3 | image_url: width: 800 }}" alt="{{ zenkai_pin_ugc_caption_3 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_3.width }}" height="{{ zenkai_pin_ugc_image_3.height }}">
+                      {% if zenkai_pin_ugc_caption_3 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_3 }}</p></div>{% endif %}
+                    </div>
+                  {% endif %}
+                  {% if zenkai_pin_ugc_image_4 != blank %}
+                    <div class="zenkai-ugc-card">
+                      <img src="{{ zenkai_pin_ugc_image_4 | image_url: width: 800 }}" alt="{{ zenkai_pin_ugc_caption_4 | default: zenkai_ugc_alt | escape }}" loading="lazy" width="{{ zenkai_pin_ugc_image_4.width }}" height="{{ zenkai_pin_ugc_image_4.height }}">
+                      {% if zenkai_pin_ugc_caption_4 != blank %}<div class="zenkai-ugc-card__overlay"><p class="zenkai-ugc-card__caption">{{ zenkai_pin_ugc_caption_4 }}</p></div>{% endif %}
+                    </div>
+                  {% endif %}
+                {% endif %}
               </div>
               <button type="button" class="zenkai-ugc-arrow zenkai-ugc-arrow--prev" data-ugc-prev aria-label="Previous photos" hidden>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -2172,6 +2603,7 @@
       }
 
       var ctaLabel = section.getAttribute('data-product-cta-default') || {{ zenkai_cta_text | json }};
+      var productCategory = section.getAttribute('data-product-category') || '';
       var mainButton = section.querySelector('[data-add-to-cart]');
       var mainButtonText = section.querySelector('[data-add-to-cart-text]');
       var mainButtonShowsPrice = mainButton && mainButton.getAttribute('data-cta-price') === 'true';
@@ -2249,8 +2681,25 @@
         return label;
       }
 
+      function getContextualCtaLabel() {
+        if (productCategory !== 'pin') {
+          return ctaLabel;
+        }
+
+        var variantLabel = getVariantLabel();
+        if (!variantLabel || variantLabel === 'Ready to order') {
+          return ctaLabel;
+        }
+
+        if (variantLabel.toLowerCase().indexOf('collector') !== -1) {
+          return 'Add Collector Pack';
+        }
+
+        return 'Add ' + variantLabel + ' Set';
+      }
+
       function getMainCtaLabel() {
-        var label = ctaLabel;
+        var label = getContextualCtaLabel();
         if (mainButtonShowsPrice && priceSource) {
           var price = priceSource.textContent.replace(/\s+/g, ' ').trim();
           if (price) label += ' - ' + price;
@@ -2271,7 +2720,7 @@
 
         if (stickyButton) {
           stickyButton.disabled = mainButton.disabled;
-          stickyButton.textContent = mainButton.disabled ? mainButton.textContent.replace(/\s+/g, ' ').trim() : ctaLabel;
+          stickyButton.textContent = mainButton.disabled ? mainButton.textContent.replace(/\s+/g, ' ').trim() : getContextualCtaLabel();
         }
       }
 

@@ -36,7 +36,41 @@
   social_enable: section.settings.social_enable,
   video_looping: section.settings.enable_video_looping,
   video_style: section.settings.product_video_style,
-  product_ugc_heading: section.settings.product_ugc_heading
+  product_ugc_heading: section.settings.product_ugc_heading,
+  product_pin_collector_image_desktop: section.settings.product_pin_collector_image_desktop,
+  product_pin_collector_image_mobile: section.settings.product_pin_collector_image_mobile,
+  product_pin_quality_image_desktop: section.settings.product_pin_quality_image_desktop,
+  product_pin_quality_image_mobile: section.settings.product_pin_quality_image_mobile,
+  product_pin_lifestyle_image_desktop: section.settings.product_pin_lifestyle_image_desktop,
+  product_pin_lifestyle_image_mobile: section.settings.product_pin_lifestyle_image_mobile,
+  product_pin_collector_kicker: section.settings.product_pin_collector_kicker,
+  product_pin_collector_heading: section.settings.product_pin_collector_heading,
+  product_pin_collector_body: section.settings.product_pin_collector_body,
+  product_pin_quality_kicker: section.settings.product_pin_quality_kicker,
+  product_pin_quality_heading: section.settings.product_pin_quality_heading,
+  product_pin_quality_body: section.settings.product_pin_quality_body,
+  product_pin_lifestyle_kicker: section.settings.product_pin_lifestyle_kicker,
+  product_pin_lifestyle_heading: section.settings.product_pin_lifestyle_heading,
+  product_pin_lifestyle_body: section.settings.product_pin_lifestyle_body,
+  product_pin_ugc_heading: section.settings.product_pin_ugc_heading,
+  product_pin_ugc_image_1: section.settings.product_pin_ugc_image_1,
+  product_pin_ugc_caption_1: section.settings.product_pin_ugc_caption_1,
+  product_pin_ugc_image_2: section.settings.product_pin_ugc_image_2,
+  product_pin_ugc_caption_2: section.settings.product_pin_ugc_caption_2,
+  product_pin_ugc_image_3: section.settings.product_pin_ugc_image_3,
+  product_pin_ugc_caption_3: section.settings.product_pin_ugc_caption_3,
+  product_pin_ugc_image_4: section.settings.product_pin_ugc_image_4,
+  product_pin_ugc_caption_4: section.settings.product_pin_ugc_caption_4,
+  product_manual_reviews_heading: section.settings.product_manual_reviews_heading,
+  product_manual_review_quote_1: section.settings.product_manual_review_quote_1,
+  product_manual_review_name_1: section.settings.product_manual_review_name_1,
+  product_manual_review_meta_1: section.settings.product_manual_review_meta_1,
+  product_manual_review_quote_2: section.settings.product_manual_review_quote_2,
+  product_manual_review_name_2: section.settings.product_manual_review_name_2,
+  product_manual_review_meta_2: section.settings.product_manual_review_meta_2,
+  product_manual_review_quote_3: section.settings.product_manual_review_quote_3,
+  product_manual_review_name_3: section.settings.product_manual_review_name_3,
+  product_manual_review_meta_3: section.settings.product_manual_review_meta_3
 %}
 
 
@@ -369,6 +403,202 @@
         "id": "product_ugc_heading",
         "label": "Gallery heading",
         "default": "Spotted in the wild"
+      },
+      {
+        "type": "header",
+        "content": "Gym badge image slots"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_collector_image_desktop",
+        "label": "Collector pack image - desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_collector_image_mobile",
+        "label": "Collector pack image - mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_quality_image_desktop",
+        "label": "Quality proof image - desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_quality_image_mobile",
+        "label": "Quality proof image - mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_lifestyle_image_desktop",
+        "label": "Lifestyle image - desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_lifestyle_image_mobile",
+        "label": "Lifestyle image - mobile"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_collector_kicker",
+        "label": "Collector image kicker",
+        "default": "Collector's pack"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_collector_heading",
+        "label": "Collector image heading",
+        "default": "32 badges. 4 boxed sets. Save $20."
+      },
+      {
+        "type": "textarea",
+        "id": "product_pin_collector_body",
+        "label": "Collector image body",
+        "default": "Choose one region if you know your favorite. Choose the collector pack if you want the whole run."
+      },
+      {
+        "type": "text",
+        "id": "product_pin_quality_kicker",
+        "label": "Quality image kicker",
+        "default": "Quality proof"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_quality_heading",
+        "label": "Quality image heading",
+        "default": "Glossy hard enamel. Raised metal trim."
+      },
+      {
+        "type": "textarea",
+        "id": "product_pin_quality_body",
+        "label": "Quality image body",
+        "default": "A polished collectible finish with secure clutch backings for bags, jackets, hats, and displays."
+      },
+      {
+        "type": "text",
+        "id": "product_pin_lifestyle_kicker",
+        "label": "Lifestyle image kicker",
+        "default": "Made to show"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_lifestyle_heading",
+        "label": "Lifestyle image heading",
+        "default": "Display it, gift it, or pin it to the bag you actually carry."
+      },
+      {
+        "type": "textarea",
+        "id": "product_pin_lifestyle_body",
+        "label": "Lifestyle image body",
+        "default": "Small enough for daily use, clean enough for a shelf, and specific enough for the right person to notice."
+      },
+      {
+        "type": "header",
+        "content": "Gym badge lifestyle gallery"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_ugc_heading",
+        "label": "Gym badge gallery heading",
+        "default": "Ways to wear and display it"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_ugc_image_1",
+        "label": "Lifestyle gallery image 1"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_ugc_caption_1",
+        "label": "Lifestyle gallery caption 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_ugc_image_2",
+        "label": "Lifestyle gallery image 2"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_ugc_caption_2",
+        "label": "Lifestyle gallery caption 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_ugc_image_3",
+        "label": "Lifestyle gallery image 3"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_ugc_caption_3",
+        "label": "Lifestyle gallery caption 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "product_pin_ugc_image_4",
+        "label": "Lifestyle gallery image 4"
+      },
+      {
+        "type": "text",
+        "id": "product_pin_ugc_caption_4",
+        "label": "Lifestyle gallery caption 4"
+      },
+      {
+        "type": "header",
+        "content": "Manual reviews"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_reviews_heading",
+        "label": "Manual reviews heading",
+        "default": "From collectors"
+      },
+      {
+        "type": "textarea",
+        "id": "product_manual_review_quote_1",
+        "label": "Review quote 1"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_review_name_1",
+        "label": "Review name 1"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_review_meta_1",
+        "label": "Review meta 1",
+        "info": "Example: Verified buyer"
+      },
+      {
+        "type": "textarea",
+        "id": "product_manual_review_quote_2",
+        "label": "Review quote 2"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_review_name_2",
+        "label": "Review name 2"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_review_meta_2",
+        "label": "Review meta 2",
+        "info": "Example: Verified buyer"
+      },
+      {
+        "type": "textarea",
+        "id": "product_manual_review_quote_3",
+        "label": "Review quote 3"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_review_name_3",
+        "label": "Review name 3"
+      },
+      {
+        "type": "text",
+        "id": "product_manual_review_meta_3",
+        "label": "Review meta 3",
+        "info": "Example: Verified buyer"
       }
     ]
   }

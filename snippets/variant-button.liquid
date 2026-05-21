@@ -38,11 +38,16 @@
     </legend>
     {% for value in option_drop.values %}
       {%- assign product_available = true -%}
+      {%- assign value_downcase = value | downcase -%}
+      {%- assign is_collector_option = false -%}
+      {%- if zenkai_product_category == 'pin' and value_downcase contains 'collector' -%}
+        {%- assign is_collector_option = true -%}
+      {%- endif -%}
       {% if product.options.size == 1 %}
         {%- assign product_available = product.variants[forloop.index0].available -%}
       {% endif %}
       <div
-        class="variant-input"
+        class="variant-input{% if is_collector_option %} variant-input--collector{% endif %}"
         data-index="option{{ option_index }}"
         data-value="{{ value | escape }}">
         <input type="radio"
@@ -74,7 +79,14 @@
             <span class="zk-color-swatch__name visually-hidden">{{ value | escape }}</span>
           </label>
         {% else %}
-          <label for="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}"{% unless product_available %} class="disabled"{% endunless %}>{{ value | escape }}</label>
+          <label for="ProductSelect-{{ section_id }}-option-{{ option_drop.name | handleize }}-{{ value | url_encode }}"{% unless product_available %} class="disabled"{% endunless %}>
+            {% if is_collector_option %}
+              <span class="zenkai-collector-option__main">{{ value | escape }}</span>
+              <span class="zenkai-collector-option__meta">32 badges | 4 boxed sets | save $20</span>
+            {% else %}
+              {{ value | escape }}
+            {% endif %}
+          </label>
         {% endif %}
       </div>
     {% endfor %}
