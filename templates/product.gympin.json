@@ -91,6 +91,7 @@
         "product_pin_collector_image_mobile": "shopify://shop_images/collector_hero_mobile.jpg",
         "product_pin_quality_image_desktop": "shopify://shop_images/quality_desktop.jpg",
         "product_pin_quality_image_mobile": "shopify://shop_images/quality_mobile.jpg",
+        "product_pin_lifestyle_image_desktop": "shopify://shop_images/lifestyle_desktop.png",
         "product_pin_collector_kicker": "Collector's pack",
         "product_pin_collector_heading": "32 badges. 4 boxed sets. Save $20.",
         "product_pin_collector_body": "Choose one region if you know your favorite. Choose the collector pack if you want the whole run.",
@@ -106,15 +107,15 @@
         "product_pin_ugc_caption_3": "",
         "product_pin_ugc_caption_4": "",
         "product_manual_reviews_heading": "From collectors",
-        "product_manual_review_quote_1": "",
-        "product_manual_review_name_1": "",
-        "product_manual_review_meta_1": "",
-        "product_manual_review_quote_2": "",
-        "product_manual_review_name_2": "",
-        "product_manual_review_meta_2": "",
-        "product_manual_review_quote_3": "",
-        "product_manual_review_name_3": "",
-        "product_manual_review_meta_3": ""
+        "product_manual_review_quote_1": "They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.",
+        "product_manual_review_name_1": "Oliver S.",
+        "product_manual_review_meta_1": "Verified Buyer",
+        "product_manual_review_quote_2": "Very good collection. Perfect for displaying and remembering good times. Painting almost identical to the original.",
+        "product_manual_review_name_2": "R.O.",
+        "product_manual_review_meta_2": "Verified Buyer",
+        "product_manual_review_quote_3": "Wauw they look amazing, i really feel like a pokemom trainer and it brings great nostalgia. let's go to the elite four.",
+        "product_manual_review_name_3": "S.P.",
+        "product_manual_review_meta_3": "Verified BUyer"
       }
     },
     "product-sections": {
