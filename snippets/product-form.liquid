@@ -26,24 +26,6 @@
       data-zk-journey-product-title="{{ product.title | escape }}"
       data-zk-journey-product-id="{{ product.id }}">
   {% endif %}
-  {% if zenkai_product_category == 'pin' %}
-    <div class="zenkai-collector-nudge" aria-label="Collector pack value">
-      <p class="zenkai-collector-nudge__eyebrow">Complete collector pack</p>
-      <p class="zenkai-collector-nudge__line">Most people pick a region. Collectors finish the map.</p>
-      <div class="zenkai-collector-compare" aria-label="Compare one region with the collector pack">
-        <div class="zenkai-collector-compare__item">
-          <span>One region</span>
-          <strong>8 badges / 1 box</strong>
-          <em>$29.99</em>
-        </div>
-        <div class="zenkai-collector-compare__item zenkai-collector-compare__item--featured">
-          <span>Collector pack</span>
-          <strong>32 badges / 4 boxes</strong>
-          <em>$99.99 / save $20</em>
-        </div>
-      </div>
-    </div>
-  {% endif %}
   {% unless product.has_only_default_variant %}
     {% for option in product.options_with_values %}
       {% if variant_type == 'button' %}
