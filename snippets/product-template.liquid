@@ -1685,6 +1685,16 @@
       object-fit: cover;
     }
 
+    {% if zenkai_product_category == 'pin' %}
+      #ProductSection-{{ section_id }} .product__thumbs {
+        bottom: -46px !important;
+      }
+
+      #ProductSection-{{ section_id }} .product-single__meta {
+        margin-top: 3.25rem;
+      }
+    {% endif %}
+
     #ProductSection-{{ section_id }} .product-single__header,
     .zenkai-context-panel,
     .zenkai-social-proof {
