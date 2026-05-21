@@ -1336,20 +1336,29 @@
 
   .zenkai-pin-story-card__media {
     display: block;
-    min-height: 100%;
     background: #f2f4f5;
   }
 
-  .zenkai-pin-story-card__media picture,
-  .zenkai-pin-story-card__media img {
+  .zenkai-pin-story-card__media picture {
     display: block;
     width: 100%;
-    height: 100%;
   }
 
   .zenkai-pin-story-card__media img {
+    display: block;
+    width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+  }
+
+  .zenkai-pin-story-card--featured .zenkai-pin-story-card__media {
+    min-height: 100%;
+  }
+
+  .zenkai-pin-story-card--featured .zenkai-pin-story-card__media picture,
+  .zenkai-pin-story-card--featured .zenkai-pin-story-card__media img {
+    height: 100%;
   }
 
   .zenkai-pin-story-card:not(.zenkai-pin-story-card--featured) .zenkai-pin-story-card__media img {
@@ -1859,6 +1868,15 @@
     .zenkai-pin-story-card__media img,
     .zenkai-pin-story-card:not(.zenkai-pin-story-card--featured) .zenkai-pin-story-card__media img {
       aspect-ratio: 4 / 5;
+    }
+
+    .zenkai-pin-story-card--lifestyle .zenkai-pin-story-card__media {
+      background: #f4eee5;
+    }
+
+    .zenkai-pin-story-card--lifestyle .zenkai-pin-story-card__media img {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
     }
 
     .zenkai-pin-story-card__copy {
@@ -2456,7 +2474,7 @@
                     {%- if zenkai_pin_quality_image == blank -%}
                       {%- assign zenkai_pin_quality_image = zenkai_pin_quality_image_mobile -%}
                     {%- endif -%}
-                    <article class="zenkai-pin-story-card">
+                    <article class="zenkai-pin-story-card zenkai-pin-story-card--quality">
                       <div class="zenkai-pin-story-card__media">
                         <picture>
                           {% if zenkai_pin_quality_image_mobile != blank %}
@@ -2483,7 +2501,7 @@
                     {%- if zenkai_pin_lifestyle_image == blank -%}
                       {%- assign zenkai_pin_lifestyle_image = zenkai_pin_lifestyle_image_mobile -%}
                     {%- endif -%}
-                    <article class="zenkai-pin-story-card">
+                    <article class="zenkai-pin-story-card zenkai-pin-story-card--lifestyle">
                       <div class="zenkai-pin-story-card__media">
                         <picture>
                           {% if zenkai_pin_lifestyle_image_mobile != blank %}
