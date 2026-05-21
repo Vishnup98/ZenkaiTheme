@@ -42,7 +42,6 @@
           <em>$99.99 / save $20</em>
         </div>
       </div>
-      <p class="zenkai-gift-nudge"><strong>Easy gift. No size guessing.</strong> A boxed collectible for someone who still remembers every badge.</p>
     </div>
   {% endif %}
   {% unless product.has_only_default_variant %}
@@ -121,6 +120,9 @@
         {% endif %}
       </span>
     </button>
+    {% if zenkai_product_category == 'pin' %}
+      <p class="zenkai-gift-nudge"><strong>Easy gift. No size guessing.</strong> A boxed collectible for someone who still remembers every badge.</p>
+    {% endif %}
     {% if zenkai_primary_proof_quote != blank %}
       <div class="zenkai-proof-nudge" aria-label="Customer review">
         <span class="zenkai-proof-nudge__quote">{{ zenkai_primary_proof_quote }}</span>
@@ -137,10 +139,6 @@
 
   {% if zenkai_product_category == 'pin' %}
     <div class="zenkai-pin-assurance-row" aria-label="Order confidence">
-      <span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-        Free U.S. shipping
-      </span>
       <a href="/pages/policy">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
         {{ zenkai_guarantee_badge_text }}
