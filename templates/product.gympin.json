@@ -15,41 +15,32 @@
         "ugc_photo_iayrqb": {
           "type": "ugc_photo",
           "settings": {
-            "image": "",
             "caption": ""
           }
         },
         "ugc_photo_8nejCt": {
           "type": "ugc_photo",
           "settings": {
-            "image": "",
             "caption": ""
           }
         },
         "ugc_photo_6XteFk": {
           "type": "ugc_photo",
           "settings": {
-            "image": "",
             "caption": ""
           }
         },
         "ugc_photo_6mJpeB": {
           "type": "ugc_photo",
           "settings": {
-            "image": "",
             "caption": ""
           }
         },
         "ugc_photo_PWkNtN": {
           "type": "ugc_photo",
           "settings": {
-            "image": "",
             "caption": ""
           }
-        },
-        "judge_me_reviews_preview_badge_6qQQcm": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         }
       },
       "block_order": [
@@ -96,12 +87,7 @@
         "show_dynamic_checkout_secondary": false,
         "social_enable": false,
         "product_ugc_heading": "Ways to wear and display it",
-        "product_pin_collector_image_desktop": "",
-        "product_pin_collector_image_mobile": "",
-        "product_pin_quality_image_desktop": "",
-        "product_pin_quality_image_mobile": "",
-        "product_pin_lifestyle_image_desktop": "",
-        "product_pin_lifestyle_image_mobile": "",
+        "product_pin_collector_image_desktop": "shopify://shop_images/collector_hero_desktop.jpg",
         "product_pin_collector_kicker": "Collector's pack",
         "product_pin_collector_heading": "32 badges. 4 boxed sets. Save $20.",
         "product_pin_collector_body": "Choose one region if you know your favorite. Choose the collector pack if you want the whole run.",
@@ -112,14 +98,10 @@
         "product_pin_lifestyle_heading": "Display it, gift it, or pin it to the bag you actually carry.",
         "product_pin_lifestyle_body": "Small enough for daily use, clean enough for a shelf, and specific enough for the right person to notice.",
         "product_pin_ugc_heading": "Ways to wear and display it",
-        "product_pin_ugc_image_1": "",
-        "product_pin_ugc_caption_1": "Pinned to the daily backpack",
-        "product_pin_ugc_image_2": "",
-        "product_pin_ugc_caption_2": "Desk display, boxed set open",
-        "product_pin_ugc_image_3": "",
-        "product_pin_ugc_caption_3": "Gift-ready unboxing",
-        "product_pin_ugc_image_4": "",
-        "product_pin_ugc_caption_4": "Collector board setup",
+        "product_pin_ugc_caption_1": "",
+        "product_pin_ugc_caption_2": "",
+        "product_pin_ugc_caption_3": "",
+        "product_pin_ugc_caption_4": "",
         "product_manual_reviews_heading": "From collectors",
         "product_manual_review_quote_1": "",
         "product_manual_review_name_1": "",
@@ -149,7 +131,7 @@
       "type": "apps",
       "blocks": {
         "rokt_aftersell_pdp_upsells_yjhA9J": {
-          "type": "shopify://apps/rokt-aftersell/blocks/pdp-upsells/509ec35d-0632-4dfc-a105-fa799cd9d149",
+          "type": "shopify://apps/aftersell/blocks/pdp-upsells/509ec35d-0632-4dfc-a105-fa799cd9d149",
           "settings": {}
         }
       },
@@ -160,7 +142,6 @@
     },
     "17760601400e1872b8": {
       "type": "apps",
-      "disabled": true,
       "blocks": {
         "judge_me_reviews_review_widget_fMBa3j": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
@@ -175,6 +156,7 @@
       "block_order": [
         "judge_me_reviews_review_widget_fMBa3j"
       ],
+      "disabled": true,
       "settings": {}
     }
   },
