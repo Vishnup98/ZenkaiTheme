@@ -396,69 +396,52 @@
     padding: 0.45rem 0.65rem;
   }
 
-  #judgeme_product_reviews :is(.jm-review, .jm-review-card, .jm-review-widget-review, .jm-review-list-item, .jdgm-rev, .zenkai-judgeme-review--with-media) {
+  #judgeme_product_reviews .jdgm-review-list .jm-review-item {
     scroll-margin-top: 96px;
   }
 
-  #judgeme_product_reviews .zenkai-judgeme-review--with-media {
-    position: relative;
+  #judgeme_product_reviews .jdgm-review-list .jm-review-item:has(.jm-media-thumbnail-list__thumbnail) {
+    padding-top: 0.2rem;
   }
 
-  #judgeme_product_reviews :is(
-    .zenkai-judgeme-media,
-    .jdgm-rev__pics,
-    .jm-review-media,
-    .jm-review__media,
-    .jm-review-media-list,
-    .jm-review-images,
-    .jm-review-photos,
-    [class*="review-media"],
-    [class*="review__media"],
-    [class*="review-images"],
-    [class*="review-photos"],
-    [class*="review-pictures"],
-    [class*="rev__pics"]
-  ) {
-    display: flex;
-    flex-wrap: wrap;
+  #judgeme_product_reviews .jdgm-review-list .jm-stack:has(.jm-media-thumbnail-list__thumbnail) {
+    margin-top: 0.85rem;
+  }
+
+  #judgeme_product_reviews .jdgm-review-list .jm-cluster:has(.jm-media-thumbnail-list__thumbnail) {
     align-items: flex-start;
     gap: 0.55rem;
-    margin-top: 0.9rem;
   }
 
-  #judgeme_product_reviews .zenkai-judgeme-media__item {
+  #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail {
     position: relative;
     display: block;
-    flex: 0 0 102px;
-    width: 102px;
-    aspect-ratio: 1;
     overflow: hidden;
     border: 1px solid rgba(26, 27, 46, 0.12);
     border-radius: 10px;
     background: #f2f7f5;
     box-shadow: 0 8px 18px rgba(26, 27, 46, 0.08);
     cursor: zoom-in;
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
   }
 
-  #judgeme_product_reviews .zenkai-judgeme-media__item:focus-visible {
+  #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail:hover {
+    box-shadow: 0 10px 22px rgba(26, 27, 46, 0.12);
+    transform: translateY(-1px);
+  }
+
+  #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail:focus-visible,
+  #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail:focus-within {
     outline: 2px solid var(--zenkai-accent);
     outline-offset: 3px;
   }
 
-  #judgeme_product_reviews .zenkai-judgeme-media__image {
+  #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail img {
     display: block;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important;
-    object-fit: cover !important;
-    transition: transform 0.18s ease;
+    border-radius: inherit;
   }
 
-  #judgeme_product_reviews .zenkai-judgeme-media__item:hover .zenkai-judgeme-media__image {
-    transform: scale(1.035);
-  }
-
-  #judgeme_product_reviews .zenkai-judgeme-media__item::after {
+  #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -2173,37 +2156,17 @@
       padding: 0 1rem;
     }
 
-    #judgeme_product_reviews :is(
-      .zenkai-judgeme-media,
-      .jdgm-rev__pics,
-      .jm-review-media,
-      .jm-review__media,
-      .jm-review-media-list,
-      .jm-review-images,
-      .jm-review-photos,
-      [class*="review-media"],
-      [class*="review__media"],
-      [class*="review-images"],
-      [class*="review-photos"],
-      [class*="review-pictures"],
-      [class*="rev__pics"]
-    ) {
-      flex-wrap: nowrap;
-      gap: 0.45rem;
-      margin-right: -1rem;
-      padding-right: 1rem;
-      padding-bottom: 0.2rem;
-      overflow-x: auto;
-      scroll-snap-type: x proximity;
-      -webkit-overflow-scrolling: touch;
+    #judgeme_product_reviews .jdgm-review-list .jm-stack:has(.jm-media-thumbnail-list__thumbnail) {
+      margin-top: 0.7rem;
     }
 
-    #judgeme_product_reviews .zenkai-judgeme-media__item {
-      flex-basis: 84px;
-      width: 84px;
-      min-width: 84px;
+    #judgeme_product_reviews .jdgm-review-list .jm-cluster:has(.jm-media-thumbnail-list__thumbnail) {
+      gap: 0.45rem;
+    }
+
+    #judgeme_product_reviews .jdgm-review-list .jm-media-thumbnail-list__thumbnail {
       border-radius: 9px;
-      scroll-snap-align: start;
+      box-shadow: 0 6px 14px rgba(26, 27, 46, 0.08);
     }
 
     .product-section ~ .shopify-section .index-section {
@@ -3193,129 +3156,6 @@
         });
         observer.observe(section, { childList: true, subtree: true });
         setTimeout(function() { observer.disconnect(); }, 10000);
-      })();
-
-      (function enhanceJudgeMeMedia() {
-        var root = document.getElementById('judgeme_product_reviews');
-        if (!root) return;
-
-        var mediaSelectors = [
-          '.zenkai-judgeme-media',
-          '.jdgm-rev__pics',
-          '.jm-review-media',
-          '.jm-review__media',
-          '.jm-review-media-list',
-          '.jm-review-images',
-          '.jm-review-photos',
-          '[class*="review-media"]',
-          '[class*="review__media"]',
-          '[class*="review-images"]',
-          '[class*="review-photos"]',
-          '[class*="review-pictures"]',
-          '[class*="rev__pics"]'
-        ].join(',');
-        var reviewSelectors = [
-          '.jm-review',
-          '.jm-review-card',
-          '.jm-review-widget-review',
-          '.jm-review-list-item',
-          '.jdgm-rev',
-          '[class*="review-card"]',
-          '[class*="review-item"]'
-        ].join(',');
-        var mediaItemSelectors = [
-          'a',
-          'button',
-          'figure',
-          'li',
-          '.jdgm-rev__pic-link',
-          '[class*="media-item"]',
-          '[class*="image-wrapper"]',
-          '[class*="photo"]',
-          '[class*="picture"]',
-          '[class*="thumbnail"]'
-        ].join(',');
-        var ignoredImagePattern = /avatar|star|badge|icon|logo|rating|sprite/i;
-        var photoSignalPattern = /judgeme\.imgix|review[-_\s]*(media|photo|picture|pic|image)|media|photo|picture|pic|attachment|thumbnail|upload/i;
-        var markQueued = false;
-
-        function classText(el) {
-          return el ? String(el.className || '') : '';
-        }
-
-        function matchesSelector(el, selector) {
-          if (!el || el.nodeType !== 1) return false;
-          var fn = el.matches || el.msMatchesSelector || el.webkitMatchesSelector;
-          return fn ? fn.call(el, selector) : false;
-        }
-
-        function closestWithin(el, selector) {
-          while (el && el !== root && el.nodeType === 1) {
-            if (matchesSelector(el, selector)) return el;
-            el = el.parentElement;
-          }
-
-          return null;
-        }
-
-        function isLikelyReviewPhoto(img) {
-          var signal = [
-            img.src || '',
-            img.currentSrc || '',
-            img.alt || '',
-            classText(img),
-            classText(img.parentElement),
-            classText(img.parentElement && img.parentElement.parentElement)
-          ].join(' ');
-
-          if (ignoredImagePattern.test(signal)) return false;
-          return photoSignalPattern.test(signal);
-        }
-
-        function markImage(img) {
-          if (!isLikelyReviewPhoto(img)) return;
-
-          img.classList.add('zenkai-judgeme-media__image');
-          if (!img.getAttribute('loading')) img.setAttribute('loading', 'lazy');
-          if (!img.getAttribute('decoding')) img.setAttribute('decoding', 'async');
-
-          var item = closestWithin(img, mediaItemSelectors) || img.parentElement;
-          if (!item || !root.contains(item) || ignoredImagePattern.test(classText(item))) return;
-
-          item.classList.add('zenkai-judgeme-media__item');
-
-          var gallery = closestWithin(item.parentElement, mediaSelectors) || item.parentElement;
-          if (gallery && root.contains(gallery)) gallery.classList.add('zenkai-judgeme-media');
-
-          var card = closestWithin(item, reviewSelectors);
-          if (card) card.classList.add('zenkai-judgeme-review--with-media');
-        }
-
-        function markMedia() {
-          var images = root.querySelectorAll(mediaSelectors + ' img, img[src*="judgeme.imgix.net"]');
-          Array.prototype.forEach.call(images, markImage);
-        }
-
-        function queueMarkMedia() {
-          if (markQueued) return;
-          markQueued = true;
-
-          setTimeout(function() {
-            markQueued = false;
-            markMedia();
-          }, 60);
-        }
-
-        markMedia();
-
-        if (window.MutationObserver) {
-          var observer = new MutationObserver(queueMarkMedia);
-          observer.observe(root, { childList: true, subtree: true });
-          setTimeout(markMedia, 1500);
-          setTimeout(function() { observer.disconnect(); }, 30000);
-        } else {
-          setTimeout(markMedia, 2000);
-        }
       })();
 
       function getVariantLabel() {
