@@ -4,6 +4,7 @@ import {
   ShopifyAdminClient,
   verifyZenkaiAccess,
 } from "../../tools/zenkai-catalog-api/client.mjs";
+import { loadManifest } from "../../tools/zenkai-catalog-api/manifest.mjs";
 
 const MAIN = {
   id: "gid://shopify/Product/9420750880873",
@@ -22,6 +23,11 @@ const UPSELL = {
   compareAtPrice: "99.99",
 };
 
+const AUTOMATIC_PUBLICATION = {
+  id: "gid://shopify/Publication/153815548009",
+  name: "Microsoft Copilot",
+};
+
 const READ_QUERY = `
   query ReadUnlistedOffer($mainId: ID!, $upsellId: ID!) {
     main: product(id: $mainId) {
@@ -31,6 +37,8 @@ const READ_QUERY = `
       status
       templateSuffix
       onlineStoreUrl
+      descriptionHtml
+      seo { title description }
       variants(first: 10) {
         nodes { id sku price compareAtPrice }
       }
@@ -61,7 +69,7 @@ const READ_QUERY = `
 const PRODUCT_UPDATE_MUTATION = `
   mutation SetProductUnlisted($product: ProductUpdateInput!) {
     productUpdate(product: $product) {
-      product { id handle status }
+      product { id title handle status descriptionHtml seo { title description } }
       userErrors { field message }
     }
   }
@@ -87,6 +95,13 @@ const PUBLISH_MUTATION = `
 
 function fail(message, details = {}) {
   throw new CatalogApiError(message, details);
+}
+
+function normalizeHtml(value) {
+  return String(value || "")
+    .replace(/>\s+</g, "><")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function publishedChannels(product) {
@@ -147,6 +162,28 @@ async function setUnlisted(client, product) {
   }
 }
 
+async function setMainCatalogCopy(client, manifest) {
+  const data = await client.graphql(PRODUCT_UPDATE_MUTATION, {
+    product: {
+      id: MAIN.id,
+      title: manifest.title,
+      descriptionHtml: manifest.descriptionHtml,
+      seo: manifest.seo,
+    },
+  });
+  assertNoUserErrors(data.productUpdate, "productUpdate");
+  const product = data.productUpdate.product;
+  if (
+    product?.id !== MAIN.id ||
+    product?.title !== manifest.title ||
+    normalizeHtml(product?.descriptionHtml) !== normalizeHtml(manifest.descriptionHtml) ||
+    product?.seo?.title !== manifest.seo.title ||
+    product?.seo?.description !== manifest.seo.description
+  ) {
+    fail("Shopify did not return the exact guarded Summoning Glow catalog copy.", { product });
+  }
+}
+
 async function setUpsellPrice(client) {
   const data = await client.graphql(VARIANT_UPDATE_MUTATION, {
     productId: UPSELL.id,
@@ -186,7 +223,7 @@ async function publishOnlyToOnlineStore(client, product, onlineStore) {
   }
 }
 
-function verifyFinal(state, onlineStore) {
+function verifyFinal(state, onlineStore, mainManifest) {
   verifyIdentity(state.main, MAIN);
   verifyIdentity(state.upsell, UPSELL);
   const mainVariant = findVariant(state.main, MAIN);
@@ -200,6 +237,14 @@ function verifyFinal(state, onlineStore) {
   }
   if (mainVariant.price !== MAIN.price) fail("Summoning Glow price changed unexpectedly.");
   if (
+    state.main.title !== mainManifest.title ||
+    normalizeHtml(state.main.descriptionHtml) !== normalizeHtml(mainManifest.descriptionHtml) ||
+    state.main.seo?.title !== mainManifest.seo.title ||
+    state.main.seo?.description !== mainManifest.seo.description
+  ) {
+    fail("Summoning Glow final catalog-copy verification failed.");
+  }
+  if (
     upsellVariant.price !== UPSELL.price ||
     upsellVariant.compareAtPrice !== UPSELL.compareAtPrice
   ) {
@@ -208,8 +253,14 @@ function verifyFinal(state, onlineStore) {
 
   for (const product of [state.main, state.upsell]) {
     const channels = publishedChannels(product);
-    if (channels.length !== 1 || channels[0].id !== onlineStore.id) {
-      fail(`${product.title} is not published exclusively to Online Store.`, { channels });
+    if (!channels.some((channel) => channel.id === onlineStore.id)) {
+      fail(`${product.title} is not published to Online Store.`, { channels });
+    }
+    const unexpected = channels.filter(
+      (channel) => channel.id !== onlineStore.id && channel.id !== AUTOMATIC_PUBLICATION.id,
+    );
+    if (unexpected.length) {
+      fail(`${product.title} has an unexpected publication association.`, { channels, unexpected });
     }
   }
 }
@@ -217,6 +268,9 @@ function verifyFinal(state, onlineStore) {
 async function run() {
   const confirm = process.argv.includes("--confirm");
   const client = ShopifyAdminClient.fromEnvironment();
+  const { manifest: mainManifest } = await loadManifest(
+    "catalog-products/summoning-glow-16cm/product.manifest.json",
+  );
   const access = await verifyZenkaiAccess(client);
   const before = await readState(client);
   verifyIdentity(before.main, MAIN);
@@ -235,6 +289,8 @@ async function run() {
     desired: {
       statuses: { main: "UNLISTED", upsell: "UNLISTED" },
       publications: [onlineStore],
+      toleratedAutomaticPublication: AUTOMATIC_PUBLICATION,
+      mainTitle: mainManifest.title,
       mainPrice: MAIN.price,
       upsellPrice: UPSELL.price,
       upsellCompareAtPrice: UPSELL.compareAtPrice,
@@ -246,13 +302,15 @@ async function run() {
       ...preflight,
       confirmationRequired: true,
       mutationsExecuted: false,
-      nextCommand: "Repeat with --confirm to make both products UNLISTED and publish only to Online Store.",
+      nextCommand: "Repeat with --confirm to apply guarded copy and pricing, keep both products UNLISTED, and preserve direct-link Online Store availability.",
     }, null, 2));
     return;
   }
 
-  let stage = "setUpsellPrice";
+  let stage = "setMainCatalogCopy";
   try {
+    await setMainCatalogCopy(client, mainManifest);
+    stage = "setUpsellPrice";
     await setUpsellPrice(client);
     stage = "setMainUnlisted";
     await setUnlisted(client, before.main);
@@ -267,20 +325,20 @@ async function run() {
 
     stage = "finalVerification";
     const finalState = await readState(client);
-    verifyFinal(finalState, onlineStore);
+    verifyFinal(finalState, onlineStore, mainManifest);
     console.log(JSON.stringify({
       ok: true,
       mutationsExecuted: true,
       main: publicProduct(finalState.main, MAIN),
       upsell: publicProduct(finalState.upsell, UPSELL),
-      safety: "Both products are UNLISTED and published exclusively to Zenkai's Online Store channel.",
+      safety: "Both products are UNLISTED and available by their direct Zenkai Online Store URLs. Shopify retains its automatic Microsoft Copilot publication association for UNLISTED products.",
     }, null, 2));
   } catch (error) {
     if (error instanceof CatalogApiError) {
       error.details = {
         ...error.details,
         stage,
-        recovery: "Re-run the read-only preflight. Do not use a generic publish command, which would set products ACTIVE.",
+        recovery: "Re-run the read-only preflight. Do not use a generic publish command, which would set products ACTIVE. Microsoft Copilot is a tolerated automatic publication association only while status remains UNLISTED.",
       };
     }
     throw error;

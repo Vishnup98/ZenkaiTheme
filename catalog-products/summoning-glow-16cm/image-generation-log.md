@@ -59,11 +59,11 @@ Conservative restoration of the supplied 432×960 customer unboxing photo: prese
 - Final file: `popup-images/complete-set-desktop.png`
 - Theme delivery file: `assets/summoning-glow-complete-set-desktop.jpg`
 - Built-in image-generation mode: referenced product mockup
-- Prompt summary: place the 16 cm illuminated Summoning Glow display beside the larger 24 cm Eternal Wish dragon-and-hero display on a dark emerald collector shelf; preserve honest relative scale, exactly two display products, seven orange spheres on Summoning Glow, and one young hero on one yellow cloud; no text, logos, packaging, hands, or extra objects.
+- Prompt summary: place the approximately 15–16 cm Summoning Glow dragon display beside the larger 24 cm Eternal Wish dragon-and-hero display on a dark emerald collector shelf; preserve an honest roughly 1.5× height relationship, exactly two display products, seven orange spheres on Summoning Glow, and one young hero on one yellow cloud; no text, logos, packaging, hands, or extra objects.
 
 ### Mobile popup image
 
 - Final file: `popup-images/complete-set-mobile.png`
 - Theme delivery file: `assets/summoning-glow-complete-set-mobile.jpg`
 - Built-in image-generation mode: referenced product mockup
-- Prompt summary: create a portrait composition of the same two-piece collectible set, with Eternal Wish centered as the larger companion and Summoning Glow lower in the foreground; preserve the same product-count, sphere-count, hero, text, logo, packaging, and accessory constraints.
+- Prompt summary: place both complete displays on the same shelf plane at the same camera distance, with the 24 cm Eternal Wish display approximately 1.5× the rigid height of the 15–16 cm Summoning Glow dragon display; preserve exactly seven orange spheres and one young hero on one yellow cloud, with no text, logos, packaging, hands, or extra objects. The original foreground-perspective draft was rejected and regenerated because it overstated Summoning Glow's apparent size.

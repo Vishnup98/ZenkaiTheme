@@ -2,7 +2,7 @@
 
 ## Trigger
 
-- Product: `Summoning Glow — 16cm LED Dragon Display`
+- Product: `Summoning Glow — LED Dragon Display`
 - Shopify product: `gid://shopify/Product/9420750880873`
 - Trigger point: successful main product add-to-cart from its dedicated PDP
 - Scope: this product only

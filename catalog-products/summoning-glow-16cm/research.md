@@ -3,7 +3,7 @@
 ## Catalog identity
 
 - Shopify draft being finalized: `gid://shopify/Product/9420750880873`
-- Product title: `Summoning Glow — 16cm LED Dragon Display`
+- Product title: `Summoning Glow — LED Dragon Display`
 - SKU: `ZK-FIG-SG16-LED`
 - Price: `$99.99`
 - Product option: `Default Title` only
@@ -18,7 +18,7 @@
 
 ## Verified product facts used in customer-facing copy
 
-- Approximately 16 cm / 6.3 in display figure
+- Approximately 15–16 cm / 6 in dragon figure across matching supplier listings; this is not a verified total-base dimension
 - Painted PVC construction
 - Green coiled dragon figure on a small internal support stand
 - Large clear wired display base with three concentric LED rings
@@ -32,7 +32,7 @@
 - USB, wall-plug, or battery power method
 - A specific cable connector or adapter
 - Cable length
-- Exact base diameter, total weight, or package dimensions
+- Exact full-base diameter, total assembled height, total weight, or package dimensions
 - Retail or collector packaging
 - Official licensing or brand affiliation
 - A guaranteed fulfillment or delivery time
