@@ -211,7 +211,7 @@
       <div class="zenkai-accordion__inner">
         {% case zenkai_detail_category %}
           {% when 'collectible' %}
-            <p><strong>A finished display piece with detail from every angle.</strong></p>
+            <p><strong>A layered display scene with detail from every angle.</strong></p>
             <ul>
               {% if section.settings.product_outcome_1 != blank %}<li>{{ section.settings.product_outcome_1 }}</li>{% endif %}
               {% if section.settings.product_outcome_2 != blank %}<li>{{ section.settings.product_outcome_2 }}</li>{% endif %}
@@ -269,7 +269,7 @@
         {% if zenkai_detail_category == 'pin' %}
           <p><strong>Ships ready to gift.</strong></p>
         {% elsif zenkai_detail_category == 'collectible' %}
-          <p><strong>Ships ready to display.</strong></p>
+          <p><strong>Arrives in multiple components, ready to assemble for display.</strong></p>
         {% else %}
           <p><strong>Made to order in the USA.</strong></p>
         {% endif %}
@@ -297,6 +297,10 @@
           <p><strong>For collectors who want the whole badge run, not a random single.</strong></p>
           <p>The set reads playful and display-worthy: bright enamel color, classic badge shapes, and a polished finish that works on bags, jackets, cork boards, or shelves.</p>
           <p>It is easy to gift, easy to collect, and small enough to carry the reference every day.</p>
+        {% elsif zenkai_detail_category == 'collectible' %}
+          <p><strong>For the shelf that needs one unmistakable silhouette.</strong></p>
+          <p>The coiled sculpt reads clearly in daylight; after dark, the concentric base and translucent effects turn the entire scene into a warm focal point.</p>
+          <p>Painted texture, clear supports, and layered light give you something new to notice from every angle.</p>
         {% else %}
           <p><strong>For the ones who like the reference, not the costume.</strong></p>
           <p>Every design is an original reimagining: sometimes playful, sometimes abstract, always made to feel like something you'd actually wear.</p>
@@ -309,13 +313,18 @@
   {% unless zenkai_detail_category == 'pin' %}
     <div class="zenkai-accordion__item">
       <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
-        <span>Story behind the design</span>
+        <span>{% if zenkai_detail_category == 'collectible' %}Story behind the display{% else %}Story behind the design{% endif %}</span>
         <span class="zenkai-accordion__icon"></span>
       </button>
       <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
         <div class="zenkai-accordion__inner">
-          <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
-          <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
+          {% if zenkai_detail_category == 'collectible' %}
+            <p><strong>Familiar energy, rebuilt as a centerpiece.</strong></p>
+            <p>Zenkai display pieces focus on unmistakable silhouettes, layered detail, and the kind of presence that changes the shelf around them.</p>
+          {% else %}
+            <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
+            <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
+          {% endif %}
           {% if product.description %}
             <div class="rte" style="margin-top: 0.8rem;">{{ product.description }}</div>
           {% endif %}

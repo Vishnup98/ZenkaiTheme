@@ -103,6 +103,8 @@
   {%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 -%}
   {%- assign zenkai_proof_quote_2 = product_proof_quote_2 -%}
   {%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 -%}
+  {%- assign zenkai_primary_proof_quote = product_proof_quote_1 -%}
+  {%- assign zenkai_primary_proof_attribution = product_proof_attribution_1 -%}
 {%- endif -%}
 {%- assign zenkai_current_variant_title_downcase = current_variant.title | downcase -%}
 {%- assign zenkai_current_variant_is_collector = false -%}
@@ -2656,7 +2658,7 @@
           {%- endif -%}
 
           {% if zenkai_has_pin_story %}
-            <section class="zenkai-pin-story" aria-label="Collector pack details">
+            <section class="zenkai-pin-story" aria-label="Product story">
               {% if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank %}
                 {%- assign zenkai_pin_collector_image = zenkai_pin_collector_image_desktop -%}
                 {%- if zenkai_pin_collector_image == blank -%}
