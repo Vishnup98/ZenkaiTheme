@@ -13,8 +13,10 @@
 - Shopify product: `gid://shopify/Product/9420423463017`
 - Variant: `gid://shopify/ProductVariant/47934894473321`
 - SKU: `ZK-FIG-EW23-CD`
-- Price: `$49.99`
-- Compare-at price: `$99.99`
+- Regular price: `$99.99`
+- Complete Collection automatic discount: `$50.00` off when Summoning Glow and Eternal Wish are in the same cart
+- Qualified price: `$49.99`
+- Compare-at price: none; `$99.99` is the product's actual regular price
 - Offer narrative: `Complete the collectible set`
 - Quantity: one
 - Billing: ordinary one-time product line; no subscription
@@ -34,10 +36,12 @@ Both products are intended to use Shopify's `UNLISTED` status and be published o
 At launch, verify all of the following:
 
 - Eternal Wish is hidden from search, collections, recommendations, and ordinary browsing.
-- Its exact variant remains available at `$49.99` with SKU `ZK-FIG-EW23-CD`.
-- Its compare-at price remains `$99.99`.
+- Its exact variant remains available at its regular `$99.99` price with SKU `ZK-FIG-EW23-CD`.
+- Shopify applies the `$50.00` Complete Collection discount only when the qualifying Summoning Glow variant is in the cart.
+- It has no compare-at price; the `$50.00` reduction is entirely controlled by the guarded automatic discount.
 - Direct product discovery is disabled to the extent supported by Shopify's unlisted status.
 - Accept, decline, close, and Escape flows work on desktop and mobile.
 - The native offer does not double-open Candy Rack or UpCart.
-- Cart lines, cart count, subtotal, and checkout all refresh correctly.
+- Accepting the offer adds Eternal Wish and routes directly to checkout.
+- Declining the offer refreshes the cart lines, cart count, and subtotal normally.
 - Most orders arrive at the customer's door within one business week.

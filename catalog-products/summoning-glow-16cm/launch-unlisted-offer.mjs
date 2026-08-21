@@ -19,8 +19,8 @@ const UPSELL = {
   handle: "eternal-wish-23cm-coiled-dragon-rider-display",
   variantId: "gid://shopify/ProductVariant/47934894473321",
   sku: "ZK-FIG-EW23-CD",
-  price: "49.99",
-  compareAtPrice: "99.99",
+  price: "99.99",
+  compareAtPrice: null,
 };
 
 const AUTOMATIC_PUBLICATION = {
@@ -32,10 +32,18 @@ const ONLINE_FULFILLMENT_LOCATION = {
   id: "gid://shopify/Location/70087704681",
   name: "PO BOX",
 };
+const TARGET_DELIVERY_PROFILE = {
+  id: "gid://shopify/DeliveryProfile/94163271785",
+  name: "Dsers Profile",
+};
+const REQUIRED_SHIPPING_SCOPE = "write_shipping";
 const INITIAL_SELLABLE_BUFFER = 100;
 
 const READ_QUERY = `
-  query ReadUnlistedOffer($mainId: ID!, $upsellId: ID!) {
+  query ReadUnlistedOffer($mainId: ID!, $upsellId: ID!, $deliveryProfileId: ID!) {
+    currentAppInstallation {
+      accessScopes { handle }
+    }
     main: product(id: $mainId) {
       id
       title
@@ -164,6 +172,33 @@ const READ_QUERY = `
         catalog { id title status }
       }
     }
+    targetDeliveryProfile: deliveryProfile(id: $deliveryProfileId) {
+      id
+      name
+      default
+      activeMethodDefinitionsCount
+      locationsWithoutRatesCount
+      profileLocationGroups {
+        locationGroup {
+          id
+          locations(first: 50) {
+            nodes { id name isActive fulfillsOnlineOrders }
+          }
+        }
+        locationGroupZones(first: 50) {
+          nodes {
+            zone {
+              id
+              name
+              countries { code { countryCode restOfWorld } }
+            }
+            methodDefinitions(first: 50) {
+              nodes { id active description }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -212,6 +247,15 @@ const PUBLISH_MUTATION = `
   mutation PublishUnlistedOffer($id: ID!, $input: [PublicationInput!]!, $publicationId: ID!) {
     publishablePublish(id: $id, input: $input) {
       publishable { publishedOnPublication(publicationId: $publicationId) }
+      userErrors { field message }
+    }
+  }
+`;
+
+const DELIVERY_PROFILE_UPDATE_MUTATION = `
+  mutation AssociateOfferShippingProfile($id: ID!, $profile: DeliveryProfileInput!) {
+    deliveryProfileUpdate(id: $id, profile: $profile) {
+      profile { id name }
       userErrors { field message }
     }
   }
@@ -273,7 +317,64 @@ function publicProduct(product, expected) {
 }
 
 async function readState(client) {
-  return client.graphql(READ_QUERY, { mainId: MAIN.id, upsellId: UPSELL.id });
+  return client.graphql(READ_QUERY, {
+    mainId: MAIN.id,
+    upsellId: UPSELL.id,
+    deliveryProfileId: TARGET_DELIVERY_PROFILE.id,
+  });
+}
+
+function verifyTargetDeliveryProfile(profile) {
+  if (
+    profile?.id !== TARGET_DELIVERY_PROFILE.id ||
+    profile?.name !== TARGET_DELIVERY_PROFILE.name ||
+    profile?.default !== false
+  ) {
+    fail("Target delivery-profile identity guard failed; refusing shipping mutations.", {
+      expected: TARGET_DELIVERY_PROFILE,
+      actual: profile,
+    });
+  }
+
+  const usMethod = profile.profileLocationGroups
+    .filter((group) => group.locationGroup.locations.nodes.some(
+      (location) =>
+        location.id === ONLINE_FULFILLMENT_LOCATION.id &&
+        location.name === ONLINE_FULFILLMENT_LOCATION.name &&
+        location.isActive === true &&
+        location.fulfillsOnlineOrders === true,
+    ))
+    .flatMap((group) => group.locationGroupZones.nodes)
+    .find((groupZone) =>
+      groupZone.zone.countries.some(
+        (country) => country.code.countryCode === "US" && country.code.restOfWorld === false,
+      ) && groupZone.methodDefinitions.nodes.some((method) => method.active === true),
+    );
+
+  if (!usMethod) {
+    fail("Target delivery profile has no active U.S. method from the guarded PO BOX location.", {
+      profile,
+    });
+  }
+}
+
+async function associateOfferDeliveryProfile(client, state) {
+  const mainVariant = findVariant(state.main, MAIN);
+  const upsellVariant = findVariant(state.upsell, UPSELL);
+  const variantsToAssociate = [mainVariant, upsellVariant]
+    .filter((variant) => variant.deliveryProfile?.id !== TARGET_DELIVERY_PROFILE.id)
+    .map((variant) => variant.id);
+  if (!variantsToAssociate.length) return;
+
+  const data = await client.graphql(DELIVERY_PROFILE_UPDATE_MUTATION, {
+    id: TARGET_DELIVERY_PROFILE.id,
+    profile: { variantsToAssociate },
+  });
+  assertNoUserErrors(data.deliveryProfileUpdate, "deliveryProfileUpdate");
+  const profile = data.deliveryProfileUpdate.profile;
+  if (profile?.id !== TARGET_DELIVERY_PROFILE.id || profile?.name !== TARGET_DELIVERY_PROFILE.name) {
+    fail("Shopify did not confirm the exact guarded delivery profile association.", { profile });
+  }
 }
 
 async function setUnlisted(client, product) {
@@ -476,6 +577,16 @@ function verifyFinal(state, onlineStore, mainManifest) {
   ) {
     fail("Eternal Wish final price verification failed.", { upsellVariant });
   }
+  if (
+    mainVariant.deliveryProfile?.id !== TARGET_DELIVERY_PROFILE.id ||
+    upsellVariant.deliveryProfile?.id !== TARGET_DELIVERY_PROFILE.id
+  ) {
+    fail("Final U.S. delivery-profile verification failed.", {
+      expected: TARGET_DELIVERY_PROFILE,
+      main: mainVariant.deliveryProfile,
+      upsell: upsellVariant.deliveryProfile,
+    });
+  }
 
   for (const product of [state.main, state.upsell]) {
     const channels = publishedChannels(product);
@@ -501,6 +612,13 @@ async function run() {
   const before = await readState(client);
   verifyIdentity(before.main, MAIN);
   verifyIdentity(before.upsell, UPSELL);
+  verifyTargetDeliveryProfile(before.targetDeliveryProfile);
+  const installedScopes = before.currentAppInstallation.accessScopes.map(({ handle }) => handle);
+  const hasShippingWrite = installedScopes.includes(REQUIRED_SHIPPING_SCOPE);
+  const shippingAssociationNeeded = [
+    findVariant(before.main, MAIN),
+    findVariant(before.upsell, UPSELL),
+  ].some((variant) => variant.deliveryProfile?.id !== TARGET_DELIVERY_PROFILE.id);
 
   const onlineStore = before.publications.nodes.find((publication) => publication.name === "Online Store");
   if (!onlineStore) fail("Online Store publication was not found; refusing launch mutations.");
@@ -526,17 +644,32 @@ async function run() {
         location: ONLINE_FULFILLMENT_LOCATION,
         behavior: "Initialize only when current available quantity is exactly zero; never reset a positive or negative order-adjusted level.",
       },
+      deliveryProfile: TARGET_DELIVERY_PROFILE,
+      shippingAssociationNeeded,
+      requiredShippingScope: shippingAssociationNeeded ? REQUIRED_SHIPPING_SCOPE : null,
     },
   };
 
   if (!confirm) {
     console.log(JSON.stringify({
       ...preflight,
+      authorizationRequired: shippingAssociationNeeded && !hasShippingWrite,
+      missingScope: shippingAssociationNeeded && !hasShippingWrite ? REQUIRED_SHIPPING_SCOPE : null,
       confirmationRequired: true,
       mutationsExecuted: false,
-      nextCommand: "Repeat with --confirm to apply guarded copy and pricing, keep both products UNLISTED, and preserve direct-link Online Store availability.",
+      nextCommand: shippingAssociationNeeded && !hasShippingWrite
+        ? "Add write_shipping to the installed Zenkai API app, reauthorize it, then rerun this read-only preflight."
+        : "Repeat with --confirm to verify the guarded unlisted offer and preserve the current U.S. shipping-profile association.",
     }, null, 2));
     return;
+  }
+
+  if (shippingAssociationNeeded && !hasShippingWrite) {
+    fail("The installed Zenkai API app is missing write_shipping; refusing all launch mutations.", {
+      requiredScope: REQUIRED_SHIPPING_SCOPE,
+      currentReadScope: installedScopes.includes("read_shipping") ? "read_shipping" : null,
+      nextAction: "Add write_shipping to AnalyticsMCPApp, save the app configuration, and reauthorize the installation.",
+    });
   }
 
   let stage = "setMainCatalogCopy";
@@ -555,6 +688,8 @@ async function run() {
     await setMainSellability(client);
     stage = "setUpsellPrice";
     await setUpsellPrice(client);
+    stage = "associateOfferDeliveryProfile";
+    await associateOfferDeliveryProfile(client, before);
     stage = "setMainUnlisted";
     await setUnlisted(client, before.main);
     stage = "setUpsellUnlisted";

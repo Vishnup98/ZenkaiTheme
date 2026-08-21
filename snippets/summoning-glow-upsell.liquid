@@ -34,20 +34,20 @@
             loading="eager"
             fetchpriority="high">
         </picture>
-        <span class="zk-glow-upsell__badge">One-time cart offer</span>
+        <span class="zk-glow-upsell__badge">Complete Collection offer</span>
       </div>
 
       <div class="zk-glow-upsell__copy">
         <p class="zk-glow-upsell__eyebrow">Complete the collectible set</p>
         <h2 id="zk-glow-upsell-title">Bring home the full summoning display.</h2>
-        <p id="zk-glow-upsell-copy" class="zk-glow-upsell__intro">You have the illuminated centerpiece. Add the 23 cm coiled dragon-and-rider display and complete the pair for half price.</p>
+        <p id="zk-glow-upsell-copy" class="zk-glow-upsell__intro">You have the illuminated centerpiece. Add the 23 cm coiled dragon-and-rider display and the Complete Collection discount automatically takes $50 off.</p>
 
         <div class="zk-glow-upsell__product-line">
           <div>
             <h3>Eternal Wish — 23cm Coiled Dragon &amp; Rider Display</h3>
             <p>Painted PVC · Three sweeping coils · Approximately 9.05 in / 23 cm</p>
           </div>
-          <div class="zk-glow-upsell__price" aria-label="Regularly $99.99, now $49.99. Save $50.">
+          <div class="zk-glow-upsell__price" aria-label="Regular price $99.99. Complete Collection price $49.99. Save $50.">
             <s>$99.99</s>
             <strong>$49.99</strong>
             <span>Save $50</span>
@@ -56,13 +56,13 @@
 
         <ul class="zk-glow-upsell__benefits" aria-label="Offer details">
           <li>A 23 cm layered dragon-and-rider companion</li>
-          <li>One-time add-to-bag price</li>
+          <li>Automatic Complete Collection discount</li>
           <li>Most orders arrive within one business week</li>
           <li>No subscription or recurring charge</li>
         </ul>
 
         <button type="button" class="zk-glow-upsell__add" data-zk-glow-add>
-          <span>Complete the set — add for $49.99</span>
+          <span>Complete the set — add for $49.99 &amp; checkout</span>
         </button>
         <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, continue with Summoning Glow</button>
         <p class="zk-glow-upsell__status" data-zk-glow-status role="status" aria-live="polite"></p>
@@ -625,14 +625,16 @@
         if (event.target.closest('[data-zk-glow-add]')) {
           if (state.busy) return;
           setBusy(addButton, true);
-          setStatus('Adding Eternal Wish...');
+          setStatus('Adding Eternal Wish and opening secure checkout...');
           quietCandyRack();
           request(
             'POST',
             '/cart/add.js?upcart=1&opens_cart=never',
             'id=' + encodeURIComponent(String(config.upsellVariantId)) + '&quantity=1',
             'application/x-www-form-urlencoded; charset=UTF-8'
-          ).then(openCart).catch(function(error) {
+          ).then(function() {
+            window.location.assign('/checkout');
+          }).catch(function(error) {
             setStatus(error && error.message ? error.message : 'This offer is not available yet.');
             setBusy(addButton, false);
           });
