@@ -1,8 +1,15 @@
-{%- assign zenkai_defect_only_product_page = false -%}
+{%- assign zenkai_defect_only_context = false -%}
 {%- if request.page_type == 'product' -%}
   {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
-    {%- assign zenkai_defect_only_product_page = true -%}
+    {%- assign zenkai_defect_only_context = true -%}
   {%- endif -%}
+{%- elsif request.page_type == 'cart' -%}
+  {%- for zenkai_trust_cart_item in cart.items -%}
+    {%- if zenkai_trust_cart_item.product.handle == 'summoning-glow-16cm-led-dragon-display' or zenkai_trust_cart_item.product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+      {%- assign zenkai_defect_only_context = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
 {%- endif -%}
 
 <div class="trust-bar-section">
@@ -16,7 +23,7 @@
         <span class="trust-bar__dot trust-bar__dot--two" aria-hidden="true"></span>
         <span class="trust-bar__text">Ships in 1–2 business days</span>
       </div>
-      {% if zenkai_defect_only_product_page %}
+      {% if zenkai_defect_only_context %}
         <span class="trust-bar__item">
           <span class="trust-bar__dot trust-bar__dot--three" aria-hidden="true"></span>
           <span class="trust-bar__text">Defect-only replacement or refund</span>
