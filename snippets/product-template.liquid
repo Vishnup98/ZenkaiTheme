@@ -98,6 +98,12 @@
 {%- else -%}
   {%- assign zenkai_product_category = 'tee' -%}
 {%- endif -%}
+{%- if zenkai_product_category == 'collectible' -%}
+  {%- assign zenkai_proof_quote_1 = product_proof_quote_1 -%}
+  {%- assign zenkai_proof_attribution_1 = product_proof_attribution_1 -%}
+  {%- assign zenkai_proof_quote_2 = product_proof_quote_2 -%}
+  {%- assign zenkai_proof_attribution_2 = product_proof_attribution_2 -%}
+{%- endif -%}
 {%- assign zenkai_current_variant_title_downcase = current_variant.title | downcase -%}
 {%- assign zenkai_current_variant_is_collector = false -%}
 {%- if zenkai_product_category == 'pin' -%}

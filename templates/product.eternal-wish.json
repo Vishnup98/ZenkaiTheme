@@ -1,0 +1,111 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "blocks": {
+        "judge_me_reviews_preview_badge_eternal": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_eternal"
+      ],
+      "settings": {
+        "product_image_size": "large",
+        "product_image_type": "slider",
+        "product_zoom_enable": true,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_payment_button": true,
+        "product_signal_hook": "Built for the shelf that deserves a centerpiece.",
+        "product_social_subheadline": "A coiled dragon, a familiar wish, and a silhouette you notice from across the room.",
+        "product_cta_text": "Add to Cart",
+        "product_cta_subcopy": "A display-ready collectible for the collection.",
+        "product_outcome_1": "Painted PVC display figure",
+        "product_outcome_2": "Approximately 9.4 in / 24 cm tall",
+        "product_outcome_3": "Finished figure with a sculpted cloud-and-rock base",
+        "product_context_heading": "Where it gets noticed",
+        "product_context_1": "The shelf that needs one unmistakable centerpiece",
+        "product_context_2": "The desk setup where the right person gets it instantly",
+        "product_context_3": "The gift that earns a permanent place on display",
+        "product_proof_quote_1": "",
+        "product_proof_attribution_1": "",
+        "product_proof_quote_2": "",
+        "product_proof_attribution_2": "",
+        "hide_mobile_breadcrumbs": true,
+        "product_mobile_media_max_height": 50,
+        "product_sticky_atc_trigger_ratio": 10,
+        "product_show_review_summary_first": true,
+        "variant_type": "button",
+        "variant_labels_enable": true,
+        "sku_enable": false,
+        "inventory_enable": true,
+        "inventory_threshold": 10,
+        "inventory_transfers_enable": false,
+        "quantity_enable": false,
+        "mobile_sticky_atc_enable": true,
+        "show_dynamic_checkout_secondary": false,
+        "social_enable": false,
+        "product_ugc_heading": "From collectors",
+        "product_manual_reviews_heading": "From collectors",
+        "product_manual_review_quote_1": "",
+        "product_manual_review_name_1": "",
+        "product_manual_review_meta_1": "",
+        "product_manual_review_quote_2": "",
+        "product_manual_review_name_2": "",
+        "product_manual_review_meta_2": "",
+        "product_manual_review_quote_3": "",
+        "product_manual_review_name_3": "",
+        "product_manual_review_meta_3": ""
+      }
+    },
+    "product-sections": {
+      "type": "product-sections",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "Same energy",
+        "per_row": "small"
+      }
+    },
+    "reviews": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_eternal": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "hide_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_eternal"
+      ],
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "product-sections",
+    "product-recommendations",
+    "reviews"
+  ]
+}
