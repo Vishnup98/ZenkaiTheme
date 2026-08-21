@@ -68,6 +68,10 @@
 {%- assign zenkai_ptype = product.type | downcase -%}
 {%- assign zenkai_ptitle = product.title | downcase -%}
 {%- assign zenkai_ptemplate = product.template_suffix | downcase -%}
+{%- assign zenkai_defect_only_collectible = false -%}
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+  {%- assign zenkai_defect_only_collectible = true -%}
+{%- endif -%}
 {%- assign zenkai_is_journey_product = false -%}
 {%- assign zenkai_journey_region = '' -%}
 {%- for zenkai_product_collection in product.collections -%}
@@ -1200,6 +1204,26 @@
     color: var(--zenkai-ink);
     text-decoration: underline;
     text-underline-offset: 0.16em;
+  }
+
+  .zenkai-defect-only-policy {
+    margin: 0.7rem 0 0;
+    padding: 0.78rem 0.85rem;
+    border: 1px solid rgba(26, 27, 46, 0.13);
+    border-radius: 12px;
+    background: rgba(26, 27, 46, 0.035);
+    color: var(--zenkai-muted);
+    font-size: 0.76rem;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .zenkai-defect-only-policy strong {
+    display: block;
+    margin-bottom: 0.18rem;
+    color: var(--zenkai-ink);
+    font-size: 0.79rem;
+    font-weight: 850;
   }
 
   .zenkai-outcome-panel,
@@ -2571,7 +2595,12 @@
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                   Free U.S. shipping
                 </span>
-                {% if zenkai_product_category == 'collectible' %}
+                {% if zenkai_defect_only_collectible %}
+                  <span class="zenkai-paid-proof-strip__item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                    Defect-only replacement or refund
+                  </span>
+                {% elsif zenkai_product_category == 'collectible' %}
                   <span class="zenkai-paid-proof-strip__item">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
                     Damaged or defective? We'll replace it

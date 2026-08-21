@@ -4,8 +4,15 @@
 {%- assign zenkai_cta_with_price = false -%}
 {%- assign zenkai_shipping_badge_text = 'Free shipping on every order' -%}
 {%- assign zenkai_guarantee_badge_text = '30-day first-item guarantee' -%}
+{%- assign zenkai_defect_only_collectible = false -%}
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+  {%- assign zenkai_defect_only_collectible = true -%}
+{%- endif -%}
 {%- if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' -%}
   {%- assign zenkai_guarantee_badge_text = "Damaged or defective? We'll replace it" -%}
+{%- endif -%}
+{%- if zenkai_defect_only_collectible -%}
+  {%- assign zenkai_guarantee_badge_text = 'Final sale · defect-only replacement or refund' -%}
 {%- endif -%}
 {% if zenkai_cta_text == 'Add to Cart' or zenkai_cta_text == 'Add to Bag' %}
   {%- assign zenkai_cta_with_price = true -%}
@@ -134,10 +141,10 @@
 
   {% if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' %}
     <div class="zenkai-pin-assurance-row" aria-label="Order confidence">
-      <a href="/pages/policy">
+      {% if zenkai_defect_only_collectible %}<span>{% else %}<a href="/pages/policy">{% endif %}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
         {{ zenkai_guarantee_badge_text }}
-      </a>
+      {% if zenkai_defect_only_collectible %}</span>{% else %}</a>{% endif %}
     </div>
   {% else %}
     <div class="zenkai-shipping-badge">
@@ -158,6 +165,13 @@
       <span class="zenkai-guarantee-badge__text">{{ zenkai_guarantee_badge_text }}</span>
       <span class="zenkai-guarantee-badge__arrow" aria-hidden="true">→</span>
     </a>
+  {% endif %}
+
+  {% if zenkai_defect_only_collectible %}
+    <aside class="zenkai-defect-only-policy" aria-label="Collector-item return policy">
+      <strong>Collector-item return policy</strong>
+      These displays are final sale. We do not accept returns for a change of mind or because the piece is not to your taste. If your display arrives damaged or defective, contact us for a replacement or refund.
+    </aside>
   {% endif %}
 
   {% unless zenkai_product_category == 'pin' %}
