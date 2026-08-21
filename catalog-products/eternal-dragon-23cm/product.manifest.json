@@ -30,8 +30,8 @@
   "variants": [
     {
       "sku": "ZK-FIG-EW23-CD",
-      "price": "49.99",
-      "compareAtPrice": "99.99",
+      "price": "99.99",
+      "compareAtPrice": null,
       "options": {
         "Title": "Default Title"
       },
@@ -49,23 +49,23 @@
   ],
   "images": [
     {
-      "source": "customer-images/customer-01.png",
-      "alt": "Customer photo of the 23cm Eternal Wish coiled dragon and rider display from the front",
+      "source": "product-photography/eternal-wish-studio-hero-v1.png",
+      "alt": "Eternal Wish 23cm coiled dragon and rider display on a warm white studio background",
       "variantSkus": [
         "ZK-FIG-EW23-CD"
       ]
     },
     {
-      "source": "customer-images/customer-02.png",
-      "alt": "Customer holding the Eternal Wish coiled dragon display beside a desk for scale"
+      "source": "product-photography/eternal-wish-dark-studio-v1.png",
+      "alt": "Eternal Wish coiled dragon display under dramatic dark green studio lighting"
     },
     {
-      "source": "customer-images/customer-03.png",
-      "alt": "Eternal Wish coiled dragon display shown beside other collector figures"
+      "source": "product-photography/eternal-wish-desk-display-v1.png",
+      "alt": "Eternal Wish 23cm dragon display photographed on a warm collector desk"
     },
     {
-      "source": "customer-images/customer-04.png",
-      "alt": "Angled customer view of the green dragons, cloud effects, and rocky display base"
+      "source": "product-photography/eternal-wish-detail-v1.png",
+      "alt": "Close studio view of the Eternal Wish dragon scales, cloud effects, lightning, and rider"
     }
   ]
 }

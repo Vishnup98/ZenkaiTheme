@@ -12,12 +12,44 @@
     "main": {
       "type": "product-template",
       "blocks": {
+        "ugc_photo_eternal_scale": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-02.png",
+            "caption": "Real-world scale"
+          }
+        },
+        "ugc_photo_eternal_shelf": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-03.png",
+            "caption": "Collector shelf"
+          }
+        },
+        "ugc_photo_eternal_front": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-01.png",
+            "caption": "Front display"
+          }
+        },
+        "ugc_photo_eternal_angle": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-04.png",
+            "caption": "Shelf angle"
+          }
+        },
         "judge_me_reviews_preview_badge_eternal": {
           "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },
       "block_order": [
+        "ugc_photo_eternal_scale",
+        "ugc_photo_eternal_shelf",
+        "ugc_photo_eternal_front",
+        "ugc_photo_eternal_angle",
         "judge_me_reviews_preview_badge_eternal"
       ],
       "settings": {
@@ -56,7 +88,7 @@
         "mobile_sticky_atc_enable": true,
         "show_dynamic_checkout_secondary": false,
         "social_enable": false,
-        "product_ugc_heading": "From collectors",
+        "product_ugc_heading": "Seen in the wild",
         "product_manual_reviews_heading": "From collectors",
         "product_manual_review_quote_1": "",
         "product_manual_review_name_1": "",

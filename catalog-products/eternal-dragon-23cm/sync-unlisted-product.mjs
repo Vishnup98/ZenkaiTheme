@@ -204,7 +204,7 @@ function verifyPreflight(data, manifest) {
     }
   }
   if (manifest.variants.length !== 1) errors.push("Manifest must contain exactly one variant.");
-  if (manifest.images.length !== 4) errors.push("Manifest must contain exactly four corrected customer images.");
+  if (manifest.images.length !== 4) errors.push("Manifest must contain exactly four approved product images.");
   return { product, variant, errors };
 }
 
@@ -242,7 +242,7 @@ async function run() {
       sku: desiredVariant.sku,
       price: desiredVariant.price,
       compareAtPrice: desiredVariant.compareAtPrice,
-      correctedCustomerImageCount: prepared.images.length,
+      approvedProductImageCount: prepared.images.length,
     },
     errors,
   };
@@ -312,7 +312,7 @@ async function run() {
       fail("Shopify did not return the exact corrected Eternal Wish variant.", { updatedVariant });
     }
 
-    stage = "correctedImageUpload";
+    stage = "approvedProductImageUpload";
     const correctedFiles = [];
     for (const image of prepared.images) {
       correctedFiles.push(
@@ -374,7 +374,7 @@ async function run() {
       correctedMedia.some((media) => media.status !== "READY" || media.mediaContentType !== "IMAGE") ||
       unexpectedMedia.length
     ) {
-      fail("Final corrected-media verification failed.", { correctedMedia, unexpectedMedia });
+      fail("Final approved product-media verification failed.", { correctedMedia, unexpectedMedia });
     }
 
     console.log(JSON.stringify({
