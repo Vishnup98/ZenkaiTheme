@@ -134,8 +134,17 @@
     class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}">
 
     {% comment %} Bundle promo bar — placed inside header-wrapper so it sits in the
-       same positioning context as the announcement bar (guaranteed visible on mobile). {% endcomment %}
-    {% include 'promo-bar' %}
+       same positioning context as the announcement bar (guaranteed visible on mobile).
+       The collectible offer pages have their own focused purchase journey. {% endcomment %}
+    {%- assign zenkai_hide_bundle_promo = false -%}
+    {%- if request.page_type == 'product' -%}
+      {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+        {%- assign zenkai_hide_bundle_promo = true -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- unless zenkai_hide_bundle_promo -%}
+      {% include 'promo-bar' %}
+    {%- endunless -%}
 
     {% comment %} Show announcement bar on all pages {% endcomment %}
     {% if section.settings.show_announcement %}

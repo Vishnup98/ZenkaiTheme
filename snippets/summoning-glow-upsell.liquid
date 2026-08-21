@@ -16,7 +16,7 @@
       aria-modal="true"
       aria-labelledby="zk-glow-upsell-title"
       aria-describedby="zk-glow-upsell-copy zk-glow-upsell-policy">
-      <button type="button" class="zk-glow-upsell__close" data-zk-glow-skip aria-label="Skip this offer and open cart">
+      <button type="button" class="zk-glow-upsell__close" data-zk-glow-skip aria-label="Skip this offer and continue to checkout">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M18 6 6 18M6 6l12 12"></path>
         </svg>
@@ -100,7 +100,7 @@
         <button type="button" class="zk-glow-upsell__add" data-zk-glow-add>
           <span>Complete the set — add for $49.99 &amp; checkout</span>
         </button>
-        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, continue with Summoning Glow</button>
+        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, checkout with Summoning Glow</button>
         <p class="zk-glow-upsell__status" data-zk-glow-status role="status" aria-live="polite"></p>
       </div>
     </section>
@@ -558,7 +558,6 @@
       var state = {
         busy: false,
         mainAdded: false,
-        previousFocus: null,
         carouselIndex: 0,
         carouselTouchStartX: null
       };
@@ -706,7 +705,6 @@
       }
 
       function openModal() {
-        state.previousFocus = document.activeElement;
         setStatus('');
         showCarouselSlide(0);
         modal.hidden = false;
@@ -718,52 +716,11 @@
         });
       }
 
-      function closeModal() {
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('zk-glow-upsell-open');
-        state.mainAdded = false;
-        window.setTimeout(function() { modal.hidden = true; }, 180);
-      }
-
-      function emit(target, name, detail) {
-        if (!target) return;
-        try { target.dispatchEvent(new CustomEvent(name, { detail: detail })); } catch (error) {}
-      }
-
-      function openCart() {
-        closeModal();
-        request('GET', '/cart.js').then(function(cart) {
-          if (window.jQuery) window.jQuery('body').trigger('updateCart', cart);
-          emit(document, 'cart:updated', { cart: cart });
-          emit(window, 'cart:updated', { cart: cart });
-          emit(document, 'upcart:refresh', { cart: cart });
-          emit(window, 'upcart:refresh', { cart: cart });
-
-          try {
-            if (typeof window.upcartRefreshCart === 'function') window.upcartRefreshCart();
-          } catch (error) {}
-
-          window.setTimeout(function() {
-            try {
-              if (typeof window.upcartOpenCart === 'function') {
-                window.upcartOpenCart();
-                return;
-              }
-            } catch (error) {}
-
-            var trigger = document.querySelector(
-              '#upCartStickyButton, [data-upcart-open], [data-cart-drawer-open], .js-drawer-open-cart, a[href="/cart"]'
-            );
-            if (trigger && typeof trigger.click === 'function') {
-              trigger.click();
-              return;
-            }
-            window.location.href = '/cart';
-          }, 500);
-        }).catch(function() {
-          window.location.href = '/cart';
-        });
+      function continueToCheckout() {
+        if (state.busy) return;
+        state.busy = true;
+        setStatus('Opening secure checkout...');
+        window.location.assign('/checkout');
       }
 
       function addMain(form, button) {
@@ -842,13 +799,13 @@
           return;
         }
 
-        if (event.target.closest('[data-zk-glow-skip]') && !state.busy) openCart();
+        if (event.target.closest('[data-zk-glow-skip]')) continueToCheckout();
       });
 
       document.addEventListener('keydown', function(event) {
         if (modal.hidden || state.busy) return;
         if (event.key === 'Escape') {
-          openCart();
+          continueToCheckout();
           return;
         }
         if (event.key === 'ArrowLeft') {
