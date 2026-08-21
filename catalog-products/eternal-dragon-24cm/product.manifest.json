@@ -38,7 +38,7 @@
       "tracked": false,
       "requiresShipping": true,
       "taxable": true,
-      "inventoryPolicy": "DENY",
+      "inventoryPolicy": "CONTINUE",
       "inventory": []
     }
   ],

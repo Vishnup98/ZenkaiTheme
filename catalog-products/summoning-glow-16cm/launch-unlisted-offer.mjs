@@ -40,7 +40,25 @@ const READ_QUERY = `
       descriptionHtml
       seo { title description }
       variants(first: 10) {
-        nodes { id sku price compareAtPrice }
+        nodes {
+          id
+          sku
+          price
+          compareAtPrice
+          availableForSale
+          inventoryPolicy
+          inventoryQuantity
+          sellableOnlineQuantity
+          inventoryItem { id tracked }
+          deliveryProfile {
+            id
+            name
+            default
+            activeMethodDefinitionsCount
+            originLocationCount
+            zoneCountryCount
+          }
+        }
       }
       resourcePublications(first: 100) {
         nodes { isPublished publication { id name } }
@@ -54,7 +72,25 @@ const READ_QUERY = `
       templateSuffix
       onlineStoreUrl
       variants(first: 10) {
-        nodes { id sku price compareAtPrice }
+        nodes {
+          id
+          sku
+          price
+          compareAtPrice
+          availableForSale
+          inventoryPolicy
+          inventoryQuantity
+          sellableOnlineQuantity
+          inventoryItem { id tracked }
+          deliveryProfile {
+            id
+            name
+            default
+            activeMethodDefinitionsCount
+            originLocationCount
+            zoneCountryCount
+          }
+        }
       }
       resourcePublications(first: 100) {
         nodes { isPublished publication { id name } }
@@ -78,7 +114,7 @@ const PRODUCT_UPDATE_MUTATION = `
 const VARIANT_UPDATE_MUTATION = `
   mutation SetOfferPrice($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
     productVariantsBulkUpdate(productId: $productId, variants: $variants) {
-      productVariants { id sku price compareAtPrice }
+      productVariants { id sku price compareAtPrice inventoryPolicy }
       userErrors { field message }
     }
   }
@@ -184,6 +220,23 @@ async function setMainCatalogCopy(client, manifest) {
   }
 }
 
+async function setMainSellability(client) {
+  const data = await client.graphql(VARIANT_UPDATE_MUTATION, {
+    productId: MAIN.id,
+    variants: [{ id: MAIN.variantId, inventoryPolicy: "CONTINUE" }],
+  });
+  assertNoUserErrors(data.productVariantsBulkUpdate, "productVariantsBulkUpdate");
+  const variant = data.productVariantsBulkUpdate.productVariants?.[0];
+  if (
+    variant?.id !== MAIN.variantId ||
+    variant?.sku !== MAIN.sku ||
+    variant?.price !== MAIN.price ||
+    variant?.inventoryPolicy !== "CONTINUE"
+  ) {
+    fail("Shopify did not return Summoning Glow with continue-selling enabled.", { variant });
+  }
+}
+
 async function setUpsellPrice(client) {
   const data = await client.graphql(VARIANT_UPDATE_MUTATION, {
     productId: UPSELL.id,
@@ -192,6 +245,7 @@ async function setUpsellPrice(client) {
         id: UPSELL.variantId,
         price: UPSELL.price,
         compareAtPrice: UPSELL.compareAtPrice,
+        inventoryPolicy: "CONTINUE",
       },
     ],
   });
@@ -201,7 +255,8 @@ async function setUpsellPrice(client) {
     variant?.id !== UPSELL.variantId ||
     variant?.sku !== UPSELL.sku ||
     variant?.price !== UPSELL.price ||
-    variant?.compareAtPrice !== UPSELL.compareAtPrice
+    variant?.compareAtPrice !== UPSELL.compareAtPrice ||
+    variant?.inventoryPolicy !== "CONTINUE"
   ) {
     fail("Shopify did not return the exact guarded Eternal Wish offer price.", { variant });
   }
@@ -235,7 +290,13 @@ function verifyFinal(state, onlineStore, mainManifest) {
       upsellStatus: state.upsell.status,
     });
   }
-  if (mainVariant.price !== MAIN.price) fail("Summoning Glow price changed unexpectedly.");
+  if (
+    mainVariant.price !== MAIN.price ||
+    mainVariant.inventoryPolicy !== "CONTINUE" ||
+    mainVariant.availableForSale !== true
+  ) {
+    fail("Summoning Glow final sellability verification failed.", { mainVariant });
+  }
   if (
     state.main.title !== mainManifest.title ||
     normalizeHtml(state.main.descriptionHtml) !== normalizeHtml(mainManifest.descriptionHtml) ||
@@ -246,7 +307,9 @@ function verifyFinal(state, onlineStore, mainManifest) {
   }
   if (
     upsellVariant.price !== UPSELL.price ||
-    upsellVariant.compareAtPrice !== UPSELL.compareAtPrice
+    upsellVariant.compareAtPrice !== UPSELL.compareAtPrice ||
+    upsellVariant.inventoryPolicy !== "CONTINUE" ||
+    upsellVariant.availableForSale !== true
   ) {
     fail("Eternal Wish final price verification failed.", { upsellVariant });
   }
@@ -310,6 +373,8 @@ async function run() {
   let stage = "setMainCatalogCopy";
   try {
     await setMainCatalogCopy(client, mainManifest);
+    stage = "setMainSellability";
+    await setMainSellability(client);
     stage = "setUpsellPrice";
     await setUpsellPrice(client);
     stage = "setMainUnlisted";
