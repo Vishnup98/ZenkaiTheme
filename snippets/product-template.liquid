@@ -87,7 +87,9 @@
     {%- assign zenkai_journey_region = 'Sinnoh' -%}
   {%- endif -%}
 {%- endif -%}
-{%- if zenkai_ptemplate == 'gympin' or zenkai_ptype contains 'pin' or zenkai_ptype contains 'badge' or zenkai_ptitle == 'pin' or zenkai_ptitle contains ' pin' or zenkai_ptitle contains 'pin ' or zenkai_ptitle contains 'pins' or zenkai_ptitle contains 'badge' or zenkai_ptitle contains 'brooch' -%}
+{%- if zenkai_ptemplate == 'collectible' or zenkai_ptype contains 'collectible' or zenkai_ptype contains 'figure' or zenkai_ptype contains 'figurine' -%}
+  {%- assign zenkai_product_category = 'collectible' -%}
+{%- elsif zenkai_ptemplate == 'gympin' or zenkai_ptype contains 'pin' or zenkai_ptype contains 'badge' or zenkai_ptitle == 'pin' or zenkai_ptitle contains ' pin' or zenkai_ptitle contains 'pin ' or zenkai_ptitle contains 'pins' or zenkai_ptitle contains 'badge' or zenkai_ptitle contains 'brooch' -%}
   {%- assign zenkai_product_category = 'pin' -%}
 {%- elsif zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
   {%- assign zenkai_product_category = 'cap' -%}
@@ -110,9 +112,16 @@
 {%- assign zenkai_ugc_alt = 'Customer wearing Zenkai' -%}
 {%- if zenkai_product_category == 'pin' -%}
   {%- assign zenkai_ugc_alt = 'Customer photo of Zenkai pins' -%}
+{%- elsif zenkai_product_category == 'collectible' -%}
+  {%- assign zenkai_ugc_alt = 'Customer photo of a Zenkai display collectible' -%}
 {%- endif -%}
 
 {%- case zenkai_product_category -%}
+  {%- when 'collectible' -%}
+    {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
+    {%- assign zenkai_type_trust = zenkai_outcome_2 -%}
+    {%- assign zenkai_type_fit = 'Display piece · No apparel sizing needed' -%}
+    {%- assign zenkai_type_production = zenkai_outcome_3 -%}
   {%- when 'pin' -%}
     {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
     {%- assign zenkai_type_trust = 'Hard enamel finish / Secure clutch backings' -%}
@@ -2528,12 +2537,17 @@
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                   Free U.S. shipping
                 </span>
-                {% unless zenkai_product_category == 'pin' %}
+                {% if zenkai_product_category == 'collectible' %}
+                  <span class="zenkai-paid-proof-strip__item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                    Damaged or defective? We'll replace it
+                  </span>
+                {% elsif zenkai_product_category != 'pin' %}
                   <span class="zenkai-paid-proof-strip__item">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
                     30-day first-item guarantee
                   </span>
-                {% endunless %}
+                {% endif %}
               </div>
 
               {% include 'product-type-switcher' %}
@@ -2844,12 +2858,17 @@
           {% endif %}
         {% endif %}
 
-        {% unless zenkai_product_category == 'pin' %}
+        {% if zenkai_product_category == 'collectible' %}
+          <aside class="zenkai-brand-quote" aria-label="Brand story">
+            <p class="zenkai-brand-quote__text">Familiar energy. Built for the shelf.</p>
+            <p class="zenkai-brand-quote__follow">Display pieces with unmistakable silhouettes, nostalgic energy, and details worth a second look.</p>
+          </aside>
+        {% elsif zenkai_product_category != 'pin' %}
           <aside class="zenkai-brand-quote" aria-label="Brand story">
             <p class="zenkai-brand-quote__text">Original designs. Familiar energy. Made to feel like real clothes.</p>
             <p class="zenkai-brand-quote__follow">Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>
           </aside>
-        {% endunless %}
+        {% endif %}
 
         {% if has_ugc %}
           <section class="zenkai-ugc-gallery zenkai-ugc-gallery--desktop{% if zenkai_product_category == 'pin' %} zenkai-ugc-gallery--pin-mobile{% endif %}" aria-label="{{ zenkai_ugc_heading }}">

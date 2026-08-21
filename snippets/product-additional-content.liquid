@@ -14,7 +14,9 @@
 {%- assign zenkai_detail_title = product.title | downcase -%}
 {%- assign zenkai_detail_template = product.template_suffix | downcase -%}
 {%- assign zenkai_detail_category = 'tee' -%}
-{%- if zenkai_detail_template == 'gympin' or zenkai_detail_type contains 'pin' or zenkai_detail_type contains 'badge' or zenkai_detail_title == 'pin' or zenkai_detail_title contains ' pin' or zenkai_detail_title contains 'pin ' or zenkai_detail_title contains 'pins' or zenkai_detail_title contains 'badge' or zenkai_detail_title contains 'brooch' -%}
+{%- if zenkai_detail_template == 'collectible' or zenkai_detail_type contains 'collectible' or zenkai_detail_type contains 'figure' or zenkai_detail_type contains 'figurine' -%}
+  {%- assign zenkai_detail_category = 'collectible' -%}
+{%- elsif zenkai_detail_template == 'gympin' or zenkai_detail_type contains 'pin' or zenkai_detail_type contains 'badge' or zenkai_detail_title == 'pin' or zenkai_detail_title contains ' pin' or zenkai_detail_title contains 'pin ' or zenkai_detail_title contains 'pins' or zenkai_detail_title contains 'badge' or zenkai_detail_title contains 'brooch' -%}
   {%- assign zenkai_detail_category = 'pin' -%}
 {%- elsif zenkai_detail_type contains 'cap' or zenkai_detail_type contains 'hat' or zenkai_detail_title contains 'cap' or zenkai_detail_title contains 'hat' -%}
   {%- assign zenkai_detail_category = 'cap' -%}
@@ -24,6 +26,8 @@
 {%- assign zenkai_detail_specs_label = 'Fit &amp; sizing' -%}
 {%- if zenkai_detail_category == 'pin' -%}
   {%- assign zenkai_detail_specs_label = 'Pin details' -%}
+{%- elsif zenkai_detail_category == 'collectible' -%}
+  {%- assign zenkai_detail_specs_label = 'Display details' -%}
 {%- endif -%}
 
 <!-- Zenkai Custom Accordion -->
@@ -206,6 +210,13 @@
     <div id="zenkai-size-{{ section_id }}" class="zenkai-accordion__content is-active">
       <div class="zenkai-accordion__inner">
         {% case zenkai_detail_category %}
+          {% when 'collectible' %}
+            <p><strong>A finished display piece with detail from every angle.</strong></p>
+            <ul>
+              {% if section.settings.product_outcome_1 != blank %}<li>{{ section.settings.product_outcome_1 }}</li>{% endif %}
+              {% if section.settings.product_outcome_2 != blank %}<li>{{ section.settings.product_outcome_2 }}</li>{% endif %}
+              {% if section.settings.product_outcome_3 != blank %}<li>{{ section.settings.product_outcome_3 }}</li>{% endif %}
+            </ul>
           {% when 'hoodie' %}
             <p><strong>True-to-size retail fit: structured through the shoulders, comfortable through the body.</strong></p>
             <ul>
@@ -238,6 +249,8 @@
         <div class="zenkai-utility-note">
           {% if zenkai_detail_category == 'pin' %}
             <strong>Pin note:</strong> No sizing or fabric care needed. If a pin arrives damaged or a backing is missing, we'll make it right. <a href="/pages/policy">Full policy</a>
+          {% elsif zenkai_detail_category == 'collectible' %}
+            <strong>Collectible note:</strong> Small parts may be present. If your display piece arrives damaged or defective, contact us and we'll make it right. <a href="/pages/policy">Full policy</a>
           {% else %}
             <strong>Made-to-order note:</strong> Every piece is printed fresh when you order. If the size is off, we'll send one free exchange per order. If it arrives damaged or misprinted, we'll replace it. <a href="/pages/policy">Full policy</a>
           {% endif %}
@@ -255,11 +268,17 @@
       <div class="zenkai-accordion__inner">
         {% if zenkai_detail_category == 'pin' %}
           <p><strong>Ships ready to gift.</strong></p>
+        {% elsif zenkai_detail_category == 'collectible' %}
+          <p><strong>Ships ready to display.</strong></p>
         {% else %}
           <p><strong>Made to order in the USA.</strong></p>
         {% endif %}
         <ul>
-          <li>Most orders ship within 1 to 2 business days</li>
+          {% if zenkai_detail_category == 'collectible' %}
+            <li>Delivery timing is shown at checkout</li>
+          {% else %}
+            <li>Most orders ship within 1 to 2 business days</li>
+          {% endif %}
           <li>Free U.S. shipping on every order</li>
           <li>You'll get tracking the moment it ships</li>
         </ul>

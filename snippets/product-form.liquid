@@ -4,7 +4,7 @@
 {%- assign zenkai_cta_with_price = false -%}
 {%- assign zenkai_shipping_badge_text = 'Free shipping on every order' -%}
 {%- assign zenkai_guarantee_badge_text = '30-day first-item guarantee' -%}
-{%- if zenkai_product_category == 'pin' -%}
+{%- if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' -%}
   {%- assign zenkai_guarantee_badge_text = "Damaged or defective? We'll replace it" -%}
 {%- endif -%}
 {% if zenkai_cta_text == 'Add to Cart' %}
@@ -104,6 +104,8 @@
     </button>
     {% if zenkai_product_category == 'pin' %}
       <p class="zenkai-gift-nudge"><strong>Easy gift. No size guessing.</strong> A boxed collectible for someone who still remembers every badge.</p>
+    {% elsif zenkai_product_category == 'collectible' %}
+      <p class="zenkai-gift-nudge"><strong>Ready for the shelf.</strong> No size guessing—just one unmistakable display piece.</p>
     {% endif %}
     {% if zenkai_primary_proof_quote != blank %}
       <div class="zenkai-proof-nudge" aria-label="Customer review">
@@ -119,7 +121,7 @@
     </div>
   {% endif %}
 
-  {% if zenkai_product_category == 'pin' %}
+  {% if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' %}
     <div class="zenkai-pin-assurance-row" aria-label="Order confidence">
       <a href="/pages/policy">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
