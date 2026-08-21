@@ -561,6 +561,8 @@
         carouselIndex: 0,
         carouselTouchStartX: null
       };
+      var dialog = modal.querySelector('.zk-glow-upsell__dialog');
+      var closeButton = modal.querySelector('.zk-glow-upsell__close');
       var addButton = modal.querySelector('[data-zk-glow-add]');
       var statusNode = modal.querySelector('[data-zk-glow-status]');
       var carousel = modal.querySelector('[data-zk-glow-carousel]');
@@ -712,7 +714,18 @@
         document.body.classList.add('zk-glow-upsell-open');
         window.requestAnimationFrame(function() {
           modal.classList.add('is-open');
-          if (addButton) addButton.focus();
+          if (dialog) dialog.scrollTop = 0;
+          if (closeButton) {
+            try {
+              closeButton.focus({ preventScroll: true });
+            } catch (error) {
+              closeButton.focus();
+            }
+          }
+          if (dialog) dialog.scrollTop = 0;
+          window.requestAnimationFrame(function() {
+            if (dialog) dialog.scrollTop = 0;
+          });
         });
       }
 
