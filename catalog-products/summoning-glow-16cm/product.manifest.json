@@ -1,0 +1,69 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Summoning Glow — 16cm LED Dragon Display",
+  "handle": "summoning-glow-16cm-led-dragon-display",
+  "descriptionHtml": "<p><strong>Seven lights. One dragon. The room changes when it wakes.</strong></p><p>Summoning Glow turns a coiled dragon silhouette into an illuminated centerpiece. The painted green figure rises above seven translucent spheres while warm light moves through the clear base and sculpted amber energy effects.</p><h3>Why it earns center shelf</h3><ul><li><strong>Display presence:</strong> an approximately 6.3 in / 16 cm dragon figure with a layered, full-circle silhouette.</li><li><strong>Lights-on impact:</strong> a wired concentric-ring LED base creates a warm amber glow beneath the entire scene.</li><li><strong>Depth from every angle:</strong> translucent spheres, crystal-like effects, painted scales, and clear supports build a display that rewards a closer look.</li></ul><h3>What is included</h3><ul><li>Painted PVC dragon display figure and internal support stand</li><li>Wired clear LED display base</li><li>Seven separate translucent orange star-marked spheres</li><li>Translucent amber crystal and energy-effect pieces</li><li>Clear structural supports</li></ul><p><strong>Assembly:</strong> This display arrives in multiple components and requires assembly. Use the gallery reference to place the base, effects, spheres, and supports.</p><p><em>Collector note: Measurements are approximate. Small differences in paint, color, and finish may occur. Intended for display; contains small components and should be kept away from young children.</em></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "LED Collectible Figure",
+  "tags": [
+    "Collectible Figure",
+    "Dragon Display",
+    "LED Display",
+    "Shelf Decor",
+    "Desk Decor",
+    "Zenkai Collectible"
+  ],
+  "templateSuffix": "summoning-glow",
+  "seo": {
+    "title": "Summoning Glow LED Dragon Display | Zenkai Clothing",
+    "description": "A 16cm painted PVC dragon display with seven translucent spheres, sculpted energy effects, and a warm wired LED base. Assembly required."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-FIG-SG16-LED",
+      "price": "99.99",
+      "options": {
+        "Title": "Default Title"
+      },
+      "tracked": false,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "DENY",
+      "inventory": []
+    }
+  ],
+  "images": [
+    {
+      "source": "generated-images/gallery-01-hero.png",
+      "alt": "Illuminated green dragon display on a warm amber LED base with seven translucent spheres",
+      "variantSkus": [
+        "ZK-FIG-SG16-LED"
+      ]
+    },
+    {
+      "source": "generated-images/gallery-02-lights-off.png",
+      "alt": "Green coiled dragon collectible with its lights off on a clean studio background"
+    },
+    {
+      "source": "generated-images/gallery-03-three-quarter.png",
+      "alt": "Three-quarter view of the lit dragon display, amber effects, and seven spheres"
+    },
+    {
+      "source": "generated-images/gallery-04-detail.png",
+      "alt": "Close detail of the painted dragon, translucent effects, and glowing display base"
+    },
+    {
+      "source": "generated-images/gallery-05-components.png",
+      "alt": "Dragon display components arranged before assembly, including the LED base and seven spheres"
+    }
+  ]
+}

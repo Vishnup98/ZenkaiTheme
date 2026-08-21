@@ -2649,7 +2649,7 @@
       </div>
 
       <div class="zenkai-pdp-below">
-        {% if zenkai_product_category == 'pin' %}
+        {% if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' %}
           {%- assign zenkai_has_pin_story = false -%}
           {%- if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank or zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank -%}
             {%- assign zenkai_has_pin_story = true -%}
@@ -2744,6 +2744,7 @@
             </section>
           {% endif %}
 
+          {% if zenkai_product_category == 'pin' %}
           <section class="zenkai-pin-collector-photos" aria-label="Collector photos">
             <div class="zenkai-pin-collector-photos__header">
               <p class="zenkai-pin-collector-photos__eyebrow">As seen with collectors</p>
@@ -2819,6 +2820,7 @@
               </figure>
             </div>
           </section>
+          {% endif %}
 
           {%- assign zenkai_has_manual_reviews = false -%}
           {%- if zenkai_manual_review_quote_1 != blank or zenkai_manual_review_quote_2 != blank or zenkai_manual_review_quote_3 != blank -%}
@@ -2932,6 +2934,12 @@
       {% if zenkai_journey_region != blank %}
         {% unless isModal %}
           {% render 'journey-badge-upsell', zenkai_journey_region: zenkai_journey_region %}
+        {% endunless %}
+      {% endif %}
+
+      {% if zenkai_ptemplate == 'summoning-glow' %}
+        {% unless isModal %}
+          {% render 'summoning-glow-upsell' %}
         {% endunless %}
       {% endif %}
     </div>

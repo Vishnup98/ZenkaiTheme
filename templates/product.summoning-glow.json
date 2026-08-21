@@ -1,0 +1,126 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "blocks": {
+        "judge_me_reviews_preview_badge_summoning": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_summoning"
+      ],
+      "settings": {
+        "product_image_size": "large",
+        "product_image_type": "slider",
+        "product_zoom_enable": true,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_payment_button": true,
+        "product_signal_hook": "Seven lights. One dragon. The room changes when it wakes.",
+        "product_social_subheadline": "A coiled dragon, seven glowing spheres, and a warm LED base built to own the shelf after dark.",
+        "product_cta_text": "Add to Cart",
+        "product_cta_subcopy": "Display collectible. Assembly required.",
+        "product_outcome_1": "Painted PVC dragon · approximately 6.3 in / 16 cm",
+        "product_outcome_2": "Wired concentric LED base with a warm amber glow",
+        "product_outcome_3": "Seven translucent spheres and sculpted energy effects",
+        "product_context_heading": "Where it gets noticed",
+        "product_context_1": "The center shelf that needs one unmistakable silhouette",
+        "product_context_2": "The desk setup that gets better after dark",
+        "product_context_3": "The gift that becomes part of the room",
+        "product_proof_quote_1": "",
+        "product_proof_attribution_1": "",
+        "product_proof_quote_2": "",
+        "product_proof_attribution_2": "",
+        "hide_mobile_breadcrumbs": true,
+        "product_mobile_media_max_height": 52,
+        "product_sticky_atc_trigger_ratio": 10,
+        "product_show_review_summary_first": true,
+        "variant_type": "button",
+        "variant_labels_enable": false,
+        "sku_enable": false,
+        "inventory_enable": false,
+        "inventory_threshold": 10,
+        "inventory_transfers_enable": false,
+        "quantity_enable": false,
+        "mobile_sticky_atc_enable": true,
+        "show_dynamic_checkout_secondary": false,
+        "social_enable": false,
+        "product_ugc_heading": "In collector setups",
+        "product_pin_collector_image_desktop": "shopify://shop_images/story-01-shelf-centerpiece.png",
+        "product_pin_collector_image_mobile": "shopify://shop_images/gallery-01-hero.png",
+        "product_pin_quality_image_desktop": "shopify://shop_images/story-02-light-detail.png",
+        "product_pin_quality_image_mobile": "shopify://shop_images/gallery-04-detail.png",
+        "product_pin_lifestyle_image_desktop": "shopify://shop_images/story-03-desk-display.png",
+        "product_pin_lifestyle_image_mobile": "shopify://shop_images/story-03-desk-display.png",
+        "product_pin_collector_kicker": "Center shelf energy",
+        "product_pin_collector_heading": "The room changes when it wakes.",
+        "product_pin_collector_body": "Warm light moves through the clear rings, seven translucent spheres, and sculpted amber effects—turning the whole display into the focal point after dark.",
+        "product_pin_quality_kicker": "Layered light",
+        "product_pin_quality_heading": "Built for the details after dark.",
+        "product_pin_quality_body": "Painted scales, clear supports, translucent effects, and concentric LEDs give the scene depth from every angle.",
+        "product_pin_lifestyle_kicker": "Made to display",
+        "product_pin_lifestyle_heading": "Desk, shelf, or the spot everyone notices.",
+        "product_pin_lifestyle_body": "At approximately 16 cm tall, it brings real presence without taking over the entire setup.",
+        "product_manual_reviews_heading": "From collectors",
+        "product_manual_review_quote_1": "",
+        "product_manual_review_name_1": "",
+        "product_manual_review_meta_1": "",
+        "product_manual_review_quote_2": "",
+        "product_manual_review_name_2": "",
+        "product_manual_review_meta_2": "",
+        "product_manual_review_quote_3": "",
+        "product_manual_review_name_3": "",
+        "product_manual_review_meta_3": ""
+      }
+    },
+    "product-sections": {
+      "type": "product-sections",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "Same energy",
+        "per_row": "small"
+      }
+    },
+    "reviews": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_summoning": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "hide_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_summoning"
+      ],
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "product-sections",
+    "product-recommendations",
+    "reviews"
+  ]
+}

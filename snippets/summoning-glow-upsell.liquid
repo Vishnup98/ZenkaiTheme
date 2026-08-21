@@ -1,0 +1,614 @@
+{%- comment -%}
+  Summoning Glow after-add offer
+
+  This offer is intentionally scoped to the Summoning Glow PDP. Eternal Wish is
+  kept as its own product/SKU so it can be added as a true cart line. The source
+  product remains a Shopify draft until a separate launch approval.
+{%- endcomment -%}
+
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+  <div class="zk-glow-upsell" data-zk-glow-upsell hidden aria-hidden="true">
+    <div class="zk-glow-upsell__scrim" data-zk-glow-skip></div>
+    <section
+      class="zk-glow-upsell__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="zk-glow-upsell-title"
+      aria-describedby="zk-glow-upsell-copy">
+      <button type="button" class="zk-glow-upsell__close" data-zk-glow-skip aria-label="Skip this offer and open cart">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="zk-glow-upsell__media">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0625/0577/9305/files/08.jpg?v=1787297457"
+          alt="Eternal Wish green dragon and young hero display figure"
+          width="790"
+          height="803"
+          loading="eager">
+        <span class="zk-glow-upsell__badge">One-time cart offer</span>
+      </div>
+
+      <div class="zk-glow-upsell__copy">
+        <p class="zk-glow-upsell__eyebrow">Complete the display</p>
+        <h2 id="zk-glow-upsell-title">Add another legend to the shelf?</h2>
+        <p id="zk-glow-upsell-copy" class="zk-glow-upsell__intro">Pair Summoning Glow with a second coiled-dragon centerpiece before you head to cart.</p>
+
+        <div class="zk-glow-upsell__product-line">
+          <div>
+            <h3>Eternal Wish — 24cm Dragon &amp; Hero Display Figure</h3>
+            <p>Painted PVC · Finished display model · Approximately 9.4 in / 24 cm</p>
+          </div>
+          <strong>$49.99</strong>
+        </div>
+
+        <ul class="zk-glow-upsell__benefits" aria-label="Offer details">
+          <li>One separate Eternal Wish display figure</li>
+          <li>Added to your cart as its own SKU</li>
+          <li>No subscription or recurring charge</li>
+        </ul>
+
+        <button type="button" class="zk-glow-upsell__add" data-zk-glow-add>
+          <span>Add Eternal Wish — $49.99</span>
+        </button>
+        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, view my cart</button>
+        <p class="zk-glow-upsell__status" data-zk-glow-status role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </div>
+
+  <script type="application/json" data-zk-glow-upsell-config>
+    {
+      "mainProductId": {{ product.id | json }},
+      "upsellVariantId": 47934894473321,
+      "upsellProductId": 9420423463017,
+      "upsellSku": "ZK-FIG-EW24-PVC"
+    }
+  </script>
+
+  <style>
+    .zk-glow-upsell[hidden] { display: none !important; }
+
+    .zk-glow-upsell {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: #202225;
+      font-family: inherit;
+    }
+
+    .zk-glow-upsell__scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(12, 15, 18, 0.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .zk-glow-upsell__dialog {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+      width: min(940px, 100%);
+      max-height: min(760px, calc(100vh - 48px));
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 32px 100px rgba(0, 0, 0, 0.42);
+      transform: translateY(18px) scale(0.985);
+      opacity: 0;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .zk-glow-upsell.is-open .zk-glow-upsell__dialog {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .zk-glow-upsell__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      padding: 0;
+      border: 1px solid rgba(32, 34, 37, 0.12);
+      border-radius: 50%;
+      color: #202225;
+      background: rgba(255, 255, 255, 0.92);
+      cursor: pointer;
+    }
+
+    .zk-glow-upsell__media {
+      position: relative;
+      min-height: 100%;
+      background: #eef8f4;
+    }
+
+    .zk-glow-upsell__media::after {
+      position: absolute;
+      inset: auto 0 0;
+      height: 42%;
+      content: '';
+      background: linear-gradient(to top, rgba(15, 45, 37, 0.25), transparent);
+      pointer-events: none;
+    }
+
+    .zk-glow-upsell__media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 580px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .zk-glow-upsell__badge {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 1;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #fff;
+      background: #202225;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .zk-glow-upsell__copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px 48px 42px;
+    }
+
+    .zk-glow-upsell__eyebrow {
+      margin: 0 0 10px;
+      color: #14735d;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .zk-glow-upsell__copy h2 {
+      margin: 0;
+      color: #161819;
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .zk-glow-upsell__intro {
+      margin: 18px 0 22px;
+      color: #5a5f61;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .zk-glow-upsell__product-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: start;
+      padding: 18px 0;
+      border-top: 1px solid #dfe6e3;
+      border-bottom: 1px solid #dfe6e3;
+    }
+
+    .zk-glow-upsell__product-line h3 {
+      margin: 0 0 6px;
+      color: #202225;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .zk-glow-upsell__product-line p {
+      margin: 0;
+      color: #6a706f;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .zk-glow-upsell__product-line > strong {
+      color: #202225;
+      font-size: 1.05rem;
+      white-space: nowrap;
+    }
+
+    .zk-glow-upsell__benefits {
+      display: grid;
+      gap: 8px;
+      margin: 18px 0 22px;
+      padding: 0;
+      color: #3c4241;
+      font-size: 0.86rem;
+      list-style: none;
+    }
+
+    .zk-glow-upsell__benefits li {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .zk-glow-upsell__benefits li::before {
+      position: absolute;
+      top: 0.06em;
+      left: 0;
+      color: #14735d;
+      content: '✓';
+      font-weight: 900;
+    }
+
+    .zk-glow-upsell__add {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 20px;
+      border: 0;
+      border-radius: 10px;
+      color: #15221e;
+      background: #78d8bd;
+      box-shadow: 0 8px 22px rgba(35, 139, 111, 0.2);
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 140ms ease, background 140ms ease;
+    }
+
+    .zk-glow-upsell__add:hover {
+      background: #8ee4cb;
+      transform: translateY(-1px);
+    }
+
+    .zk-glow-upsell__add:disabled {
+      cursor: wait;
+      opacity: 0.68;
+      transform: none;
+    }
+
+    .zk-glow-upsell__skip {
+      align-self: center;
+      margin: 14px 0 0;
+      padding: 4px;
+      border: 0;
+      color: #5d6462;
+      background: transparent;
+      font: inherit;
+      font-size: 0.82rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .zk-glow-upsell__status {
+      min-height: 1.2em;
+      margin: 10px 0 0;
+      color: #b42318;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    body.zk-glow-upsell-open { overflow: hidden; }
+
+    @media (max-width: 767px) {
+      .zk-glow-upsell {
+        place-items: end center;
+        padding: 12px;
+      }
+
+      .zk-glow-upsell__dialog {
+        display: block;
+        max-height: calc(100vh - 24px);
+        overflow-y: auto;
+        border-radius: 20px;
+      }
+
+      .zk-glow-upsell__media {
+        min-height: 0;
+        aspect-ratio: 16 / 10;
+      }
+
+      .zk-glow-upsell__media img {
+        min-height: 0;
+        object-position: center 38%;
+      }
+
+      .zk-glow-upsell__badge {
+        left: 12px;
+        bottom: 12px;
+      }
+
+      .zk-glow-upsell__copy {
+        padding: 26px 22px 24px;
+      }
+
+      .zk-glow-upsell__copy h2 {
+        padding-right: 18px;
+        font-size: clamp(1.85rem, 9vw, 2.65rem);
+      }
+
+      .zk-glow-upsell__intro {
+        margin: 12px 0 16px;
+        font-size: 0.91rem;
+      }
+
+      .zk-glow-upsell__product-line {
+        gap: 12px;
+        padding: 14px 0;
+      }
+
+      .zk-glow-upsell__benefits {
+        margin: 14px 0 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .zk-glow-upsell__dialog,
+      .zk-glow-upsell__add { transition: none; }
+    }
+  </style>
+
+  <script>
+    (function() {
+      'use strict';
+
+      if (window.__zkSummoningGlowUpsellLoaded) return;
+      window.__zkSummoningGlowUpsellLoaded = true;
+
+      var modal = document.querySelector('[data-zk-glow-upsell]');
+      var configNode = document.querySelector('[data-zk-glow-upsell-config]');
+      if (!modal || !configNode) return;
+
+      var config;
+      try {
+        config = JSON.parse(configNode.textContent);
+      } catch (error) {
+        return;
+      }
+
+      var state = {
+        busy: false,
+        mainAdded: false,
+        previousFocus: null
+      };
+      var addButton = modal.querySelector('[data-zk-glow-add]');
+      var statusNode = modal.querySelector('[data-zk-glow-status]');
+
+      function getCleanXHR() {
+        return new Promise(function(resolve, reject) {
+          if (window.__zkGlowCleanXHRFrame && window.__zkGlowCleanXHRFrame.contentWindow) {
+            try {
+              resolve(new window.__zkGlowCleanXHRFrame.contentWindow.XMLHttpRequest());
+              return;
+            } catch (error) {}
+          }
+
+          var frame = document.createElement('iframe');
+          frame.style.cssText = 'display:none!important;width:0;height:0;border:0;position:absolute;';
+          frame.setAttribute('aria-hidden', 'true');
+          frame.src = 'about:blank';
+          document.body.appendChild(frame);
+          window.__zkGlowCleanXHRFrame = frame;
+          window.setTimeout(function() {
+            try {
+              resolve(new frame.contentWindow.XMLHttpRequest());
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
+        });
+      }
+
+      function request(method, url, body, contentType) {
+        return getCleanXHR().then(function(xhr) {
+          return new Promise(function(resolve, reject) {
+            xhr.open(method, url, true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            if (contentType) xhr.setRequestHeader('Content-Type', contentType);
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState !== 4) return;
+              var response = {};
+              try { response = JSON.parse(xhr.responseText); } catch (error) {}
+              if (xhr.status >= 200 && xhr.status < 300) {
+                resolve(response);
+              } else {
+                reject(new Error(response.description || response.message || 'That item could not be added.'));
+              }
+            };
+            xhr.onerror = function() { reject(new Error('That item could not be added.')); };
+            xhr.send(body || null);
+          });
+        });
+      }
+
+      function formBody(form) {
+        var source = new FormData(form);
+        var body = new URLSearchParams();
+        var hasQuantity = false;
+        source.forEach(function(value, key) {
+          if (!key || key.indexOf('data-') === 0) return;
+          if (key === 'quantity') hasQuantity = true;
+          body.append(key, value);
+        });
+        if (!hasQuantity) body.append('quantity', '1');
+        return body.toString();
+      }
+
+      function matchesMainForm(form) {
+        if (!form || !form.matches || !form.matches('form')) return false;
+        var productInput = form.querySelector('[name="data-product-id"]');
+        return Boolean(productInput && String(productInput.value) === String(config.mainProductId));
+      }
+
+      function quietCandyRack() {
+        try { document.body.classList.remove('candyrack-popup-show', 'cr-slider-open'); } catch (error) {}
+        try { if (window.CandyRack && window.CandyRack.hideSlider) window.CandyRack.hideSlider(); } catch (error) {}
+        [
+          '#candyrack-frame',
+          '#candyrack-slider-cart',
+          '.candyrack-slider-cart',
+          '.CandyRack-CartSlider'
+        ].forEach(function(selector) {
+          try {
+            document.querySelectorAll(selector).forEach(function(node) {
+              node.style.setProperty('display', 'none', 'important');
+              node.setAttribute('aria-hidden', 'true');
+            });
+          } catch (error) {}
+        });
+      }
+
+      function setBusy(button, busy) {
+        state.busy = busy;
+        if (!button) return;
+        button.disabled = busy;
+        button.classList.toggle('btn--loading', busy);
+        button.classList.toggle('is-loading', busy);
+      }
+
+      function setStatus(message) {
+        if (statusNode) statusNode.textContent = message || '';
+      }
+
+      function openModal() {
+        state.previousFocus = document.activeElement;
+        setStatus('');
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('zk-glow-upsell-open');
+        window.requestAnimationFrame(function() {
+          modal.classList.add('is-open');
+          if (addButton) addButton.focus();
+        });
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('zk-glow-upsell-open');
+        state.mainAdded = false;
+        window.setTimeout(function() { modal.hidden = true; }, 180);
+      }
+
+      function emit(target, name, detail) {
+        if (!target) return;
+        try { target.dispatchEvent(new CustomEvent(name, { detail: detail })); } catch (error) {}
+      }
+
+      function openCart() {
+        closeModal();
+        request('GET', '/cart.js').then(function(cart) {
+          if (window.jQuery) window.jQuery('body').trigger('updateCart', cart);
+          emit(document, 'cart:updated', { cart: cart });
+          emit(window, 'cart:updated', { cart: cart });
+          emit(document, 'upcart:refresh', { cart: cart });
+          emit(window, 'upcart:refresh', { cart: cart });
+
+          try {
+            if (typeof window.upcartRefreshCart === 'function') window.upcartRefreshCart();
+          } catch (error) {}
+
+          window.setTimeout(function() {
+            try {
+              if (typeof window.upcartOpenCart === 'function') {
+                window.upcartOpenCart();
+                return;
+              }
+            } catch (error) {}
+
+            var trigger = document.querySelector(
+              '#upCartStickyButton, [data-upcart-open], [data-cart-drawer-open], .js-drawer-open-cart, a[href="/cart"]'
+            );
+            if (trigger && typeof trigger.click === 'function') {
+              trigger.click();
+              return;
+            }
+            window.location.href = '/cart';
+          }, 500);
+        }).catch(function() {
+          window.location.href = '/cart';
+        });
+      }
+
+      function addMain(form, button) {
+        if (state.busy || state.mainAdded) return;
+        setBusy(button, true);
+        quietCandyRack();
+        request(
+          'POST',
+          '/cart/add.js?opens_cart=never',
+          formBody(form),
+          'application/x-www-form-urlencoded; charset=UTF-8'
+        ).then(function() {
+          state.mainAdded = true;
+          openModal();
+        }).catch(function(error) {
+          var oldError = form.querySelector('.errors');
+          if (oldError) oldError.remove();
+          var errorNode = document.createElement('div');
+          errorNode.className = 'errors text-center';
+          errorNode.textContent = error && error.message ? error.message : 'That item could not be added.';
+          form.insertBefore(errorNode, form.firstChild);
+        }).then(function() {
+          setBusy(button, false);
+        });
+      }
+
+      function intercept(event) {
+        var button = event.target && event.target.closest
+          ? event.target.closest('[data-add-to-cart], .add-to-cart, button[name="add"]')
+          : null;
+        var form = event.type === 'submit' ? event.target : button && button.form;
+        if (!matchesMainForm(form)) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+        addMain(form, button || form.querySelector('[data-add-to-cart]'));
+      }
+
+      document.addEventListener('click', intercept, true);
+      document.addEventListener('submit', intercept, true);
+
+      modal.addEventListener('click', function(event) {
+        if (event.target.closest('[data-zk-glow-add]')) {
+          if (state.busy) return;
+          setBusy(addButton, true);
+          setStatus('Adding Eternal Wish...');
+          quietCandyRack();
+          request(
+            'POST',
+            '/cart/add.js?upcart=1&opens_cart=never',
+            'id=' + encodeURIComponent(String(config.upsellVariantId)) + '&quantity=1',
+            'application/x-www-form-urlencoded; charset=UTF-8'
+          ).then(openCart).catch(function(error) {
+            setStatus(error && error.message ? error.message : 'This offer is not available yet.');
+            setBusy(addButton, false);
+          });
+          return;
+        }
+
+        if (event.target.closest('[data-zk-glow-skip]') && !state.busy) openCart();
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (modal.hidden || state.busy || event.key !== 'Escape') return;
+        openCart();
+      });
+    })();
+  </script>
+{%- endif -%}

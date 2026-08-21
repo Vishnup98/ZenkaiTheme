@@ -1,0 +1,71 @@
+{
+  "$schema": "./manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Example Zenkai Graphic Tee",
+  "handle": "example-zenkai-graphic-tee",
+  "descriptionHtml": "<p>Replace this example description before applying.</p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "T-Shirt",
+  "tags": [
+    "example",
+    "graphic-tee"
+  ],
+  "seo": {
+    "title": "Example Zenkai Graphic Tee",
+    "description": "Replace this example SEO description before applying."
+  },
+  "options": [
+    {
+      "name": "Color",
+      "values": [
+        "Black"
+      ]
+    },
+    {
+      "name": "Size",
+      "values": [
+        "S",
+        "M"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-EXAMPLE-BLK-S",
+      "price": "39.00",
+      "compareAtPrice": "49.00",
+      "options": {
+        "Color": "Black",
+        "Size": "S"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "DENY",
+      "weight": {
+        "value": 6,
+        "unit": "OUNCES"
+      },
+      "inventory": []
+    },
+    {
+      "sku": "ZK-EXAMPLE-BLK-M",
+      "price": "39.00",
+      "compareAtPrice": "49.00",
+      "options": {
+        "Color": "Black",
+        "Size": "M"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "DENY",
+      "weight": {
+        "value": 6.3,
+        "unit": "OUNCES"
+      },
+      "inventory": []
+    }
+  ],
+  "images": []
+}

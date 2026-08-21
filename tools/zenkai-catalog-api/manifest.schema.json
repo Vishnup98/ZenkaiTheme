@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zenkai-clothing.local/catalog-product-manifest.schema.json",
+  "title": "Zenkai Shopify Catalog Product Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "title",
+    "handle",
+    "options",
+    "variants"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "handle": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "descriptionHtml": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "productType": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "maxItems": 250,
+      "items": {
+        "type": "string"
+      }
+    },
+    "templateSuffix": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "category": {
+      "type": "string"
+    },
+    "collectionsToJoin": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^gid://shopify/Collection/[0-9]+$"
+      }
+    },
+    "seo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "options": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "values"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "values": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sku",
+          "price",
+          "options"
+        ],
+        "properties": {
+          "sku": {
+            "type": "string",
+            "minLength": 1
+          },
+          "price": {
+            "$ref": "#/$defs/money"
+          },
+          "compareAtPrice": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cost": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/money"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "barcode": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "options": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "tracked": {
+            "type": "boolean"
+          },
+          "requiresShipping": {
+            "type": "boolean"
+          },
+          "taxable": {
+            "type": "boolean"
+          },
+          "inventoryPolicy": {
+            "enum": [
+              "DENY",
+              "CONTINUE"
+            ]
+          },
+          "weight": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "unit"
+            ],
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0
+              },
+              "unit": {
+                "enum": [
+                  "GRAMS",
+                  "KILOGRAMS",
+                  "OUNCES",
+                  "POUNDS"
+                ]
+              }
+            }
+          },
+          "inventory": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "quantity"
+              ],
+              "properties": {
+                "locationId": {
+                  "type": "string",
+                  "pattern": "^gid://shopify/Location/[0-9]+$"
+                },
+                "locationName": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "oneOf": [
+                {
+                  "required": [
+                    "locationId"
+                  ],
+                  "not": {
+                    "required": [
+                      "locationName"
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "locationName"
+                  ],
+                  "not": {
+                    "required": [
+                      "locationId"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "alt": {
+            "type": "string"
+          },
+          "variantSkus": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "money": {
+      "type": "string",
+      "pattern": "^[0-9]+(?:\\.[0-9]{1,2})?$"
+    }
+  }
+}
