@@ -14,6 +14,8 @@
 - Variant: `gid://shopify/ProductVariant/47934894473321`
 - SKU: `ZK-FIG-EW24-PVC`
 - Price: `$49.99`
+- Compare-at price: `$99.99`
+- Offer narrative: `Complete the collectible set`
 - Quantity: one
 - Billing: ordinary one-time product line; no subscription
 
@@ -25,15 +27,17 @@
 4. If declined or dismissed, refresh/open the cart without adding Eternal Wish.
 5. If the upsell is unavailable, keep the modal open and show an inline error; never remove the main product.
 
-## Launch dependency
+## Launch state
 
-Eternal Wish is currently a Shopify `DRAFT` with no publications. The theme offer is ready, but the upsell line cannot be purchased until that product is deliberately moved to an unlisted/active state and made available to the Online Store channel. That status/publication change is not part of this build and requires separate approval.
+Both products are intended to use Shopify's `UNLISTED` status and be published only to the Online Store channel. They remain available by direct link and cart reference without appearing in Shopify-powered search, collections, recommendations, the sitemap, or Shopify Catalog.
 
 At launch, verify all of the following:
 
 - Eternal Wish is hidden from search, collections, recommendations, and ordinary browsing.
 - Its exact variant remains available at `$49.99` with SKU `ZK-FIG-EW24-PVC`.
+- Its compare-at price remains `$99.99`.
 - Direct product discovery is disabled to the extent supported by Shopify's unlisted status.
 - Accept, decline, close, and Escape flows work on desktop and mobile.
 - The native offer does not double-open Candy Rack or UpCart.
 - Cart lines, cart count, subtotal, and checkout all refresh correctly.
+- Most orders arrive at the customer's door within one business week.

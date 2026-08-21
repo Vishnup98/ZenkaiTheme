@@ -8,7 +8,7 @@
 - Price: `$99.99`
 - Product option: `Default Title` only
 - Theme template: `product.summoning-glow.json`
-- Launch state: remain `DRAFT` and unpublished until a separate publication approval
+- Launch state: `UNLISTED`, published only to Online Store, and reachable by direct link
 
 ## Source
 
@@ -35,7 +35,12 @@
 - Exact base diameter, total weight, or package dimensions
 - Retail or collector packaging
 - Official licensing or brand affiliation
-- A fixed fulfillment or delivery time
+- A guaranteed fulfillment or delivery time
+
+## Merchant-provided delivery language
+
+- Use the qualified operational statement: `Most orders arrive at your door within one business week.`
+- Do not rewrite this as a guarantee that every order arrives within five business days.
 - Customer reviews or customer-photo claims
 
 ## Image policy

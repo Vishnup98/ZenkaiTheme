@@ -24,10 +24,12 @@ The specifications and images in this folder match supplier product ID `10050071
 - Product weight and shipping-box dimensions.
 - Exact assembly requirements.
 - Material-safety certifications.
-- Fulfillment lead time or delivery promise.
+- A guaranteed fulfillment lead time or delivery promise.
 - Condition in which the collector box will arrive.
 
 Indexed customer feedback specifically mentions damaged outer/collector boxes. Treat "collector-box packaging" as a packaging description, not a guarantee of mint box condition.
+
+The merchant has supplied the qualified operational statement `Most orders arrive at your door within one business week.` This may be used in the offer, but it must not be rewritten as a guarantee for every order.
 
 ## Image selection
 

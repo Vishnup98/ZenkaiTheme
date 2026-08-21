@@ -31,6 +31,7 @@
     {
       "sku": "ZK-FIG-EW24-PVC",
       "price": "49.99",
+      "compareAtPrice": "99.99",
       "options": {
         "Title": "Default Title"
       },

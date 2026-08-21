@@ -51,3 +51,19 @@ Conservative restoration of the supplied 270×600 RGB desk snapshot: crop only t
 ### `customer-06-unboxed-components-upscaled.png`
 
 Conservative restoration of the supplied 432×960 customer unboxing photo: preserve the exact component inventory and positions, reflective package, white ring/cable, seven spheres, dragon, base, supports, bedding, and phone shadow; reduce blockiness/noise, improve restrained clarity, and increase resolution without turning it into catalog photography.
+
+## Complete-the-set popup artwork
+
+### Desktop popup image
+
+- Final file: `popup-images/complete-set-desktop.png`
+- Theme delivery file: `assets/summoning-glow-complete-set-desktop.jpg`
+- Built-in image-generation mode: referenced product mockup
+- Prompt summary: place the 16 cm illuminated Summoning Glow display beside the larger 24 cm Eternal Wish dragon-and-hero display on a dark emerald collector shelf; preserve honest relative scale, exactly two display products, seven orange spheres on Summoning Glow, and one young hero on one yellow cloud; no text, logos, packaging, hands, or extra objects.
+
+### Mobile popup image
+
+- Final file: `popup-images/complete-set-mobile.png`
+- Theme delivery file: `assets/summoning-glow-complete-set-mobile.jpg`
+- Built-in image-generation mode: referenced product mockup
+- Prompt summary: create a portrait composition of the same two-piece collectible set, with Eternal Wish centered as the larger companion and Summoning Glow lower in the foreground; preserve the same product-count, sphere-count, hero, text, logo, packaging, and accessory constraints.

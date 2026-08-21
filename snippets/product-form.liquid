@@ -7,7 +7,7 @@
 {%- if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' -%}
   {%- assign zenkai_guarantee_badge_text = "Damaged or defective? We'll replace it" -%}
 {%- endif -%}
-{% if zenkai_cta_text == 'Add to Cart' %}
+{% if zenkai_cta_text == 'Add to Cart' or zenkai_cta_text == 'Add to Bag' %}
   {%- assign zenkai_cta_with_price = true -%}
 {% endif %}
 {% if show_dynamic_checkout_secondary == false %}
@@ -106,6 +106,17 @@
       <p class="zenkai-gift-nudge"><strong>Easy gift. No size guessing.</strong> A boxed collectible for someone who still remembers every badge.</p>
     {% elsif zenkai_product_category == 'collectible' %}
       <p class="zenkai-gift-nudge"><strong>Ready for the shelf.</strong> No size guessing—just one unmistakable display piece.</p>
+    {% endif %}
+    {% if zenkai_ptemplate == 'summoning-glow' %}
+      <p class="zenkai-arrival-note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1" y="3" width="15" height="13"></rect>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+          <circle cx="5.5" cy="18.5" r="2.5"></circle>
+          <circle cx="18.5" cy="18.5" r="2.5"></circle>
+        </svg>
+        <span><strong>Fast tracked delivery:</strong> Most orders arrive at your door within one business week.</span>
+      </p>
     {% endif %}
     {% if zenkai_primary_proof_quote != blank %}
       <div class="zenkai-proof-nudge" aria-label="Customer review">

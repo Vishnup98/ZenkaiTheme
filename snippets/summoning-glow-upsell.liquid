@@ -3,7 +3,7 @@
 
   This offer is intentionally scoped to the Summoning Glow PDP. Eternal Wish is
   kept as its own product/SKU so it can be added as a true cart line. The source
-  product remains a Shopify draft until a separate launch approval.
+  product remains its own unlisted Shopify product and cart line.
 {%- endcomment -%}
 
 {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
@@ -22,38 +22,49 @@
       </button>
 
       <div class="zk-glow-upsell__media">
-        <img
-          src="https://cdn.shopify.com/s/files/1/0625/0577/9305/files/08.jpg?v=1787297457"
-          alt="Eternal Wish green dragon and young hero display figure"
-          width="790"
-          height="803"
-          loading="eager">
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcset="{{ 'summoning-glow-complete-set-mobile.jpg' | asset_url }}">
+          <img
+            src="{{ 'summoning-glow-complete-set-desktop.jpg' | asset_url }}"
+            alt="Summoning Glow and Eternal Wish green dragon collectibles displayed together"
+            width="1536"
+            height="1024"
+            loading="eager"
+            fetchpriority="high">
+        </picture>
         <span class="zk-glow-upsell__badge">One-time cart offer</span>
       </div>
 
       <div class="zk-glow-upsell__copy">
-        <p class="zk-glow-upsell__eyebrow">Complete the display</p>
-        <h2 id="zk-glow-upsell-title">Add another legend to the shelf?</h2>
-        <p id="zk-glow-upsell-copy" class="zk-glow-upsell__intro">Pair Summoning Glow with a second coiled-dragon centerpiece before you head to cart.</p>
+        <p class="zk-glow-upsell__eyebrow">Complete the collectible set</p>
+        <h2 id="zk-glow-upsell-title">Bring home the full summoning display.</h2>
+        <p id="zk-glow-upsell-copy" class="zk-glow-upsell__intro">You have the illuminated centerpiece. Add the larger 24 cm dragon-and-hero display and complete the pair for half price.</p>
 
         <div class="zk-glow-upsell__product-line">
           <div>
             <h3>Eternal Wish — 24cm Dragon &amp; Hero Display Figure</h3>
             <p>Painted PVC · Finished display model · Approximately 9.4 in / 24 cm</p>
           </div>
-          <strong>$49.99</strong>
+          <div class="zk-glow-upsell__price" aria-label="Regularly $99.99, now $49.99. Save $50.">
+            <s>$99.99</s>
+            <strong>$49.99</strong>
+            <span>Save $50</span>
+          </div>
         </div>
 
         <ul class="zk-glow-upsell__benefits" aria-label="Offer details">
-          <li>One separate Eternal Wish display figure</li>
-          <li>Added to your cart as its own SKU</li>
+          <li>The larger 24 cm companion display</li>
+          <li>One-time add-to-bag price</li>
+          <li>Most orders arrive within one business week</li>
           <li>No subscription or recurring charge</li>
         </ul>
 
         <button type="button" class="zk-glow-upsell__add" data-zk-glow-add>
-          <span>Add Eternal Wish — $49.99</span>
+          <span>Complete the set — add for $49.99</span>
         </button>
-        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, view my cart</button>
+        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, continue with Summoning Glow</button>
         <p class="zk-glow-upsell__status" data-zk-glow-status role="status" aria-live="polite"></p>
       </div>
     </section>
@@ -91,11 +102,11 @@
 
     .zk-glow-upsell__dialog {
       position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
-      width: min(940px, 100%);
+      display: block;
+      width: min(820px, 100%);
       max-height: min(760px, calc(100vh - 48px));
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 24px;
       background: #fff;
@@ -129,8 +140,8 @@
 
     .zk-glow-upsell__media {
       position: relative;
-      min-height: 100%;
-      background: #eef8f4;
+      height: 300px;
+      background: #06120f;
     }
 
     .zk-glow-upsell__media::after {
@@ -142,12 +153,16 @@
       pointer-events: none;
     }
 
+    .zk-glow-upsell__media picture,
     .zk-glow-upsell__media img {
       display: block;
       width: 100%;
       height: 100%;
-      min-height: 580px;
-      object-fit: cover;
+    }
+
+    .zk-glow-upsell__media img {
+      min-height: 0;
+      object-fit: contain;
       object-position: center;
     }
 
@@ -171,7 +186,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 50px 48px 42px;
+      padding: 28px 38px 32px;
     }
 
     .zk-glow-upsell__eyebrow {
@@ -186,13 +201,13 @@
     .zk-glow-upsell__copy h2 {
       margin: 0;
       color: #161819;
-      font-size: clamp(2rem, 4vw, 3.15rem);
-      line-height: 0.98;
+      font-size: clamp(1.85rem, 3.6vw, 2.7rem);
+      line-height: 1;
       letter-spacing: -0.045em;
     }
 
     .zk-glow-upsell__intro {
-      margin: 18px 0 22px;
+      margin: 12px 0 17px;
       color: #5a5f61;
       font-size: 1rem;
       line-height: 1.55;
@@ -222,16 +237,37 @@
       line-height: 1.4;
     }
 
-    .zk-glow-upsell__product-line > strong {
-      color: #202225;
-      font-size: 1.05rem;
+    .zk-glow-upsell__price {
+      display: grid;
+      justify-items: end;
+      gap: 2px;
       white-space: nowrap;
+    }
+
+    .zk-glow-upsell__price s {
+      color: #8b918f;
+      font-size: 0.82rem;
+    }
+
+    .zk-glow-upsell__price strong {
+      color: #202225;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .zk-glow-upsell__price span {
+      color: #14735d;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .zk-glow-upsell__benefits {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
-      margin: 18px 0 22px;
+      margin: 15px 0 18px;
       padding: 0;
       color: #3c4241;
       font-size: 0.86rem;
@@ -318,13 +354,13 @@
       }
 
       .zk-glow-upsell__media {
-        min-height: 0;
-        aspect-ratio: 16 / 10;
+        height: 250px;
       }
 
       .zk-glow-upsell__media img {
         min-height: 0;
-        object-position: center 38%;
+        object-fit: contain;
+        object-position: center;
       }
 
       .zk-glow-upsell__badge {
@@ -333,7 +369,7 @@
       }
 
       .zk-glow-upsell__copy {
-        padding: 26px 22px 24px;
+        padding: 22px 22px 24px;
       }
 
       .zk-glow-upsell__copy h2 {
@@ -352,6 +388,7 @@
       }
 
       .zk-glow-upsell__benefits {
+        grid-template-columns: 1fr;
         margin: 14px 0 18px;
       }
     }
