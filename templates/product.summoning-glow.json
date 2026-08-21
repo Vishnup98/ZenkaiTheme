@@ -56,11 +56,11 @@
         }
       },
       "block_order": [
+        "ugc_photo_rgb_desk",
+        "ugc_photo_desk_flash",
+        "ugc_photo_white_pc",
         "ugc_photo_red_pc_closeup",
         "ugc_photo_red_pc_wide",
-        "ugc_photo_white_pc",
-        "ugc_photo_desk_flash",
-        "ugc_photo_rgb_desk",
         "ugc_photo_unboxed"
       ],
       "settings": {
