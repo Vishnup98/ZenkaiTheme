@@ -9,10 +9,10 @@
 
 ## Offer
 
-- Product: `Eternal Wish — 24cm Dragon & Hero Display Figure`
+- Product: `Eternal Wish — 23cm Coiled Dragon & Rider Display`
 - Shopify product: `gid://shopify/Product/9420423463017`
 - Variant: `gid://shopify/ProductVariant/47934894473321`
-- SKU: `ZK-FIG-EW24-PVC`
+- SKU: `ZK-FIG-EW23-CD`
 - Price: `$49.99`
 - Compare-at price: `$99.99`
 - Offer narrative: `Complete the collectible set`
@@ -34,7 +34,7 @@ Both products are intended to use Shopify's `UNLISTED` status and be published o
 At launch, verify all of the following:
 
 - Eternal Wish is hidden from search, collections, recommendations, and ordinary browsing.
-- Its exact variant remains available at `$49.99` with SKU `ZK-FIG-EW24-PVC`.
+- Its exact variant remains available at `$49.99` with SKU `ZK-FIG-EW23-CD`.
 - Its compare-at price remains `$99.99`.
 - Direct product discovery is disabled to the extent supported by Shopify's unlisted status.
 - Accept, decline, close, and Escape flows work on desktop and mobile.

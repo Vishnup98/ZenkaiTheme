@@ -54,6 +54,8 @@ Conservative restoration of the supplied 432×960 customer unboxing photo: prese
 
 ## Complete-the-set popup artwork
 
+The original popup artwork below was built from supplier product `1005007113011680` and is superseded. The v2 artwork uses the merchant-confirmed product `1005012765836810`, the stated 23 cm height, and the four customer references in `../eternal-dragon-23cm/customer-images/`.
+
 ### Desktop popup image
 
 - Final file: `popup-images/complete-set-desktop.png`
@@ -67,3 +69,21 @@ Conservative restoration of the supplied 432×960 customer unboxing photo: prese
 - Theme delivery file: `assets/summoning-glow-complete-set-mobile.jpg`
 - Built-in image-generation mode: referenced product mockup
 - Prompt summary: place both complete displays on the same shelf plane at the same camera distance, with the 24 cm Eternal Wish display approximately 1.5× the rigid height of the 15–16 cm Summoning Glow dragon display; preserve exactly seven orange spheres and one young hero on one yellow cloud, with no text, logos, packaging, hands, or extra objects. The original foreground-perspective draft was rejected and regenerated because it overstated Summoning Glow's apparent size.
+
+### Corrected desktop popup image (v2)
+
+- Final file: `popup-images/complete-set-desktop-v2.png`
+- Theme delivery file: `assets/summoning-glow-complete-set-desktop-v2.jpg`
+- Built-in image-generation mode: referenced product mockup
+- References: Summoning Glow `generated-images/gallery-01-hero.png` plus all four merchant-supplied Eternal Wish customer photos.
+- Final prompt: create a dark emerald-black premium collector-shelf photograph containing exactly two separate complete products on the same shelf plane and at the same camera distance. Place Summoning Glow on the left with one green dragon, its full illuminated amber base, and exactly seven orange star-marked spheres. Place Eternal Wish on the right as the customer-referenced 23 cm painted-PVC display: exactly one continuous green serpentine dragon with one visible head, one body arranged into three broad coils, gold underbelly, dark branching horns, white cloud effects, rock peaks, gold lightning, and one small rider on one golden cloud. Keep both bases fully visible, use an honest approximately 1.5× nominal height relationship without foreground exaggeration, and include no text, logos, watermarks, packaging, hands, people, background figures, or extra objects.
+- A first v2 attempt was rejected before use because its prompt misread the three coils as three separate dragons. The accepted version was regenerated after indexed product matches and the customer references confirmed one continuous coiled dragon.
+
+### Corrected mobile popup image (v2)
+
+- Final file: `popup-images/complete-set-mobile-v2.png`
+- Theme delivery file: `assets/summoning-glow-complete-set-mobile-v2.jpg`
+- Built-in image-generation mode: referenced product mockup plus a targeted precise-object edit.
+- References: Summoning Glow `generated-images/gallery-01-hero.png`, the merchant-supplied Eternal Wish customer photos, and the immediately preceding mobile draft as the edit target.
+- Final prompt: preserve the two-product portrait composition, same shelf plane, corrected 23 cm Eternal Wish sculpt, one continuous dragon head/body, three broad coils, cloud-and-rock base, one rider, and believable painted-PVC texture. Keep Eternal Wish at approximately 1.45× the visual height of Summoning Glow. Change only Summoning Glow's sphere count by adding one separate matching orange star-marked sphere to the six-sphere draft, for exactly seven visible spheres total; keep every existing sphere and the right display unchanged. No text, logo, watermark, packaging, hands, people, or extra objects.
+- Two prior mobile drafts were rejected because they showed only six visible spheres. The accepted precise-object edit shows seven.

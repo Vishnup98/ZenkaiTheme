@@ -34,11 +34,16 @@
       "options": {
         "Title": "Default Title"
       },
-      "tracked": false,
+      "tracked": true,
       "requiresShipping": true,
       "taxable": true,
       "inventoryPolicy": "CONTINUE",
-      "inventory": []
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
     }
   ],
   "images": [

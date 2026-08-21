@@ -16,9 +16,9 @@ const MAIN = {
 
 const UPSELL = {
   id: "gid://shopify/Product/9420423463017",
-  handle: "eternal-wish-24cm-dragon-hero-display-figure",
+  handle: "eternal-wish-23cm-coiled-dragon-rider-display",
   variantId: "gid://shopify/ProductVariant/47934894473321",
-  sku: "ZK-FIG-EW24-PVC",
+  sku: "ZK-FIG-EW23-CD",
   price: "49.99",
   compareAtPrice: "99.99",
 };
@@ -27,6 +27,12 @@ const AUTOMATIC_PUBLICATION = {
   id: "gid://shopify/Publication/153815548009",
   name: "Microsoft Copilot",
 };
+
+const ONLINE_FULFILLMENT_LOCATION = {
+  id: "gid://shopify/Location/70087704681",
+  name: "PO BOX",
+};
+const INITIAL_SELLABLE_BUFFER = 100;
 
 const READ_QUERY = `
   query ReadUnlistedOffer($mainId: ID!, $upsellId: ID!) {
@@ -46,10 +52,21 @@ const READ_QUERY = `
           price
           compareAtPrice
           availableForSale
+          requiresComponents
           inventoryPolicy
           inventoryQuantity
           sellableOnlineQuantity
-          inventoryItem { id tracked }
+          inventoryItem {
+            id
+            tracked
+            inventoryLevels(first: 20) {
+              nodes {
+                id
+                location { id name isActive fulfillsOnlineOrders }
+                quantities(names: ["available"]) { name quantity }
+              }
+            }
+          }
           deliveryProfile {
             id
             name
@@ -62,6 +79,21 @@ const READ_QUERY = `
       }
       resourcePublications(first: 100) {
         nodes { isPublished publication { id name } }
+      }
+      marketResourcePublications: resourcePublicationsV2(
+        first: 100
+        catalogType: MARKET
+        onlyPublished: false
+      ) {
+        nodes {
+          isPublished
+          publishDate
+          publication {
+            id
+            autoPublish
+            catalog { id title status }
+          }
+        }
       }
     }
     upsell: product(id: $upsellId) {
@@ -78,10 +110,21 @@ const READ_QUERY = `
           price
           compareAtPrice
           availableForSale
+          requiresComponents
           inventoryPolicy
           inventoryQuantity
           sellableOnlineQuantity
-          inventoryItem { id tracked }
+          inventoryItem {
+            id
+            tracked
+            inventoryLevels(first: 20) {
+              nodes {
+                id
+                location { id name isActive fulfillsOnlineOrders }
+                quantities(names: ["available"]) { name quantity }
+              }
+            }
+          }
           deliveryProfile {
             id
             name
@@ -95,9 +138,31 @@ const READ_QUERY = `
       resourcePublications(first: 100) {
         nodes { isPublished publication { id name } }
       }
+      marketResourcePublications: resourcePublicationsV2(
+        first: 100
+        catalogType: MARKET
+        onlyPublished: false
+      ) {
+        nodes {
+          isPublished
+          publishDate
+          publication {
+            id
+            autoPublish
+            catalog { id title status }
+          }
+        }
+      }
     }
     publications(first: 100) {
       nodes { id name }
+    }
+    marketPublications: publications(first: 100, catalogType: MARKET) {
+      nodes {
+        id
+        autoPublish
+        catalog { id title status }
+      }
     }
   }
 `;
@@ -116,6 +181,29 @@ const VARIANT_UPDATE_MUTATION = `
     productVariantsBulkUpdate(productId: $productId, variants: $variants) {
       productVariants { id sku price compareAtPrice inventoryPolicy }
       userErrors { field message }
+    }
+  }
+`;
+
+const INVENTORY_ITEM_UPDATE_MUTATION = `
+  mutation SetOfferInventoryTracking($id: ID!, $input: InventoryItemInput!) {
+    inventoryItemUpdate(id: $id, input: $input) {
+      inventoryItem { id tracked }
+      userErrors { field message }
+    }
+  }
+`;
+
+const INVENTORY_SET_MUTATION = `
+  mutation InitializeOfferInventory($input: InventorySetQuantitiesInput!) {
+    inventorySetQuantities(input: $input) {
+      inventoryAdjustmentGroup {
+        createdAt
+        reason
+        referenceDocumentUri
+        changes { name delta }
+      }
+      userErrors { code field message }
     }
   }
 `;
@@ -180,6 +268,7 @@ function publicProduct(product, expected) {
     onlineStoreUrl: product.onlineStoreUrl,
     variant,
     publishedChannels: publishedChannels(product),
+    marketResourcePublications: product.marketResourcePublications?.nodes || [],
   };
 }
 
@@ -218,6 +307,74 @@ async function setMainCatalogCopy(client, manifest) {
   ) {
     fail("Shopify did not return the exact guarded Summoning Glow catalog copy.", { product });
   }
+}
+
+async function setInventoryTracking(client, product, expected) {
+  const variant = findVariant(product, expected);
+  const inventoryItemId = variant.inventoryItem?.id;
+  if (!inventoryItemId) fail(`Inventory item guard failed on ${product.title}.`);
+  if (variant.inventoryItem.tracked === true) return;
+
+  const data = await client.graphql(INVENTORY_ITEM_UPDATE_MUTATION, {
+    id: inventoryItemId,
+    input: { tracked: true },
+  });
+  assertNoUserErrors(data.inventoryItemUpdate, "inventoryItemUpdate");
+  if (
+    data.inventoryItemUpdate.inventoryItem?.id !== inventoryItemId ||
+    data.inventoryItemUpdate.inventoryItem?.tracked !== true
+  ) {
+    fail(`Shopify did not enable inventory tracking for ${product.title}.`);
+  }
+}
+
+function availableLevel(variant) {
+  return variant.inventoryItem?.inventoryLevels.nodes.find(
+    (level) => level.location.id === ONLINE_FULFILLMENT_LOCATION.id,
+  );
+}
+
+async function initializeSellableBuffer(client, products) {
+  const quantities = [];
+  for (const [product, expected] of products) {
+    const variant = findVariant(product, expected);
+    const level = availableLevel(variant);
+    if (!level) fail(`Online fulfillment inventory level is missing for ${product.title}.`);
+    if (
+      level.location.name !== ONLINE_FULFILLMENT_LOCATION.name ||
+      level.location.isActive !== true ||
+      level.location.fulfillsOnlineOrders !== true
+    ) {
+      fail(`Inventory-location guard failed for ${product.title}.`, { level });
+    }
+    const available = level.quantities.find((quantity) => quantity.name === "available")?.quantity;
+    if (!Number.isInteger(available)) fail(`Available inventory could not be read for ${product.title}.`);
+    if (available > 0) continue;
+    if (available < 0) {
+      fail(`Refusing to overwrite negative order-adjusted inventory for ${product.title}.`, { available });
+    }
+    quantities.push({
+      inventoryItemId: variant.inventoryItem.id,
+      locationId: ONLINE_FULFILLMENT_LOCATION.id,
+      quantity: INITIAL_SELLABLE_BUFFER,
+      changeFromQuantity: 0,
+    });
+  }
+  if (!quantities.length) return null;
+
+  const data = await client.graphql(INVENTORY_SET_MUTATION, {
+    input: {
+      name: "available",
+      reason: "correction",
+      referenceDocumentUri: "gid://analyticsmcpapp/OfferLaunch/9420750880873",
+      quantities,
+    },
+  });
+  assertNoUserErrors(data.inventorySetQuantities, "inventorySetQuantities");
+  if (!data.inventorySetQuantities.inventoryAdjustmentGroup) {
+    fail("Shopify did not confirm the guarded sellable inventory buffer.");
+  }
+  return data.inventorySetQuantities.inventoryAdjustmentGroup;
 }
 
 async function setMainSellability(client) {
@@ -293,7 +450,10 @@ function verifyFinal(state, onlineStore, mainManifest) {
   if (
     mainVariant.price !== MAIN.price ||
     mainVariant.inventoryPolicy !== "CONTINUE" ||
-    mainVariant.availableForSale !== true
+    mainVariant.availableForSale !== true ||
+    mainVariant.inventoryItem?.tracked !== true ||
+    mainVariant.inventoryQuantity < 1 ||
+    mainVariant.sellableOnlineQuantity < 1
   ) {
     fail("Summoning Glow final sellability verification failed.", { mainVariant });
   }
@@ -309,7 +469,10 @@ function verifyFinal(state, onlineStore, mainManifest) {
     upsellVariant.price !== UPSELL.price ||
     upsellVariant.compareAtPrice !== UPSELL.compareAtPrice ||
     upsellVariant.inventoryPolicy !== "CONTINUE" ||
-    upsellVariant.availableForSale !== true
+    upsellVariant.availableForSale !== true ||
+    upsellVariant.inventoryItem?.tracked !== true ||
+    upsellVariant.inventoryQuantity < 1 ||
+    upsellVariant.sellableOnlineQuantity < 1
   ) {
     fail("Eternal Wish final price verification failed.", { upsellVariant });
   }
@@ -349,6 +512,7 @@ async function run() {
     targetPublication: onlineStore,
     main: publicProduct(before.main, MAIN),
     upsell: publicProduct(before.upsell, UPSELL),
+    marketPublications: before.marketPublications.nodes,
     desired: {
       statuses: { main: "UNLISTED", upsell: "UNLISTED" },
       publications: [onlineStore],
@@ -357,6 +521,11 @@ async function run() {
       mainPrice: MAIN.price,
       upsellPrice: UPSELL.price,
       upsellCompareAtPrice: UPSELL.compareAtPrice,
+      initialSellableBuffer: {
+        quantity: INITIAL_SELLABLE_BUFFER,
+        location: ONLINE_FULFILLMENT_LOCATION,
+        behavior: "Initialize only when current available quantity is exactly zero; never reset a positive or negative order-adjusted level.",
+      },
     },
   };
 
@@ -373,6 +542,15 @@ async function run() {
   let stage = "setMainCatalogCopy";
   try {
     await setMainCatalogCopy(client, mainManifest);
+    stage = "setMainInventoryTracking";
+    await setInventoryTracking(client, before.main, MAIN);
+    stage = "setUpsellInventoryTracking";
+    await setInventoryTracking(client, before.upsell, UPSELL);
+    stage = "initializeSellableBuffer";
+    await initializeSellableBuffer(client, [
+      [before.main, MAIN],
+      [before.upsell, UPSELL],
+    ]);
     stage = "setMainSellability";
     await setMainSellability(client);
     stage = "setUpsellPrice";

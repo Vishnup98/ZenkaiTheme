@@ -1,0 +1,71 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Eternal Wish — 23cm Coiled Dragon & Rider Display",
+  "handle": "eternal-wish-23cm-coiled-dragon-rider-display",
+  "descriptionHtml": "<p><strong>One dragon. Three sweeping coils. A complete storm-wrapped scene.</strong></p><p>Eternal Wish sends one long green dragon winding through layered white cloud effects, jagged rock peaks, and sharp gold energy accents. The stacked silhouette creates depth from every angle, while a small rider on a golden cloud sits at the center of the action.</p><p>Look closer and the display keeps opening up: painted scales, a gold underbelly, branching horns, curling whiskers, individually sculpted claws, and a cloud-covered base that gives the entire piece enough presence to anchor a collector shelf.</p><h3>Display details</h3><ul><li>Approximately 9.05 in / 23 cm tall</li><li>Painted PVC construction</li><li>Single serpentine dragon arranged in three dramatic coils</li><li>White cloud-effect base with sculpted rocky peaks</li><li>Gold lightning accents and a small central rider detail</li><li>Freestanding finished display for a shelf or desk</li></ul><p><strong>A complete scene, not just another figure.</strong></p><p><em>Measurements are approximate and supplied by the seller. Customer photos show the finished product in real collections. Minor differences in paint, color, fit, and finish may occur. Intended for display; contains projecting and potentially small components and should be kept away from young children.</em></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "Collectible Figure",
+  "tags": [
+    "Anime Collectible",
+    "Collector Display",
+    "Coiled Dragon Display",
+    "Gift for Collectors",
+    "PVC Figure",
+    "Shelf Display"
+  ],
+  "templateSuffix": "eternal-wish",
+  "seo": {
+    "title": "Eternal Wish 23cm Coiled Dragon & Rider Display",
+    "description": "A 23cm painted PVC dragon-and-rider display with three sweeping coils, white cloud effects, gold energy accents, and a rocky base."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-FIG-EW23-CD",
+      "price": "49.99",
+      "compareAtPrice": "99.99",
+      "options": {
+        "Title": "Default Title"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "CONTINUE",
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "source": "customer-images/customer-01.png",
+      "alt": "Customer photo of the 23cm Eternal Wish coiled dragon and rider display from the front",
+      "variantSkus": [
+        "ZK-FIG-EW23-CD"
+      ]
+    },
+    {
+      "source": "customer-images/customer-02.png",
+      "alt": "Customer holding the Eternal Wish coiled dragon display beside a desk for scale"
+    },
+    {
+      "source": "customer-images/customer-03.png",
+      "alt": "Eternal Wish coiled dragon display shown beside other collector figures"
+    },
+    {
+      "source": "customer-images/customer-04.png",
+      "alt": "Angled customer view of the green dragons, cloud effects, and rocky display base"
+    }
+  ]
+}
