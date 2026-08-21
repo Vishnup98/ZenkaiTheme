@@ -42,4 +42,6 @@
 
 - Product and editorial images under `generated-images/` are AI-generated merchandising imagery based on the archived product references.
 - They must not be labeled as customer photos, reviews, UGC, or documentary proof.
-- Genuine customer review photos and their approved captions will be added separately after the user supplies them.
+- Genuine customer/collector photos supplied by the user are stored separately under `customer-photos/` and may be labeled as customer imagery.
+- Images 5–6 in that set were conservatively restored/upscaled, but remain genuine customer-photo derivatives rather than generated merchandising scenes.
+- No customer names, handles, ratings, or testimonial quotes have been supplied; none should be invented.

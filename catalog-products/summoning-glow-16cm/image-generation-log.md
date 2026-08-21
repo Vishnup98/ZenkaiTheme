@@ -39,3 +39,15 @@ Wide 3:2 dramatic product-detail image emphasizing the painted sculpt, transluce
 ### `story-03-desk-display.png`
 
 Wide 3:2 modern desk/display-console lifestyle scene with the exact illuminated product fully visible, one dragon, one base, and exactly seven large spheres; no people or implied customer testimonial.
+
+## Customer-photo restoration
+
+The six customer photos under `customer-photos/` were supplied by the user as genuine customer/collector images. Images 1–4 are used without generative editing. Images 5–6 were restored with native image-to-image generation because of their low source resolution.
+
+### `customer-05-rgb-desk-upscaled.png`
+
+Conservative restoration of the supplied 270×600 RGB desk snapshot: crop only the solid black letterbox bands, preserve the exact customer setup and seven-sphere display, reduce compression/chroma noise, recover restrained light detail, and increase resolution while retaining phone-camera softness and mixed RGB lighting. Do not redesign the product, rearrange the scene, or add/remove objects. A first attempt was rejected because it changed the loose foreground cable into a tool-like object; the accepted version explicitly preserves it as a loose cable.
+
+### `customer-06-unboxed-components-upscaled.png`
+
+Conservative restoration of the supplied 432×960 customer unboxing photo: preserve the exact component inventory and positions, reflective package, white ring/cable, seven spheres, dragon, base, supports, bedding, and phone shadow; reduce blockiness/noise, improve restrained clarity, and increase resolution without turning it into catalog photography.

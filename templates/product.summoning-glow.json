@@ -12,13 +12,56 @@
     "main": {
       "type": "product-template",
       "blocks": {
-        "judge_me_reviews_preview_badge_summoning": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+        "ugc_photo_red_pc_closeup": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-01-red-pc-closeup.png",
+            "caption": "Collector PC setup"
+          }
+        },
+        "ugc_photo_red_pc_wide": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-02-red-pc-wide.png",
+            "caption": "Built into the battlestation"
+          }
+        },
+        "ugc_photo_white_pc": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-03-white-pc-daylight.png",
+            "caption": "Lights off, still center stage"
+          }
+        },
+        "ugc_photo_desk_flash": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-04-desk-flash.png",
+            "caption": "Desk display"
+          }
+        },
+        "ugc_photo_rgb_desk": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-05-rgb-desk-upscaled.png",
+            "caption": "RGB setup"
+          }
+        },
+        "ugc_photo_unboxed": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/customer-06-unboxed-components-upscaled.png",
+            "caption": "Unboxed before assembly"
+          }
         }
       },
       "block_order": [
-        "judge_me_reviews_preview_badge_summoning"
+        "ugc_photo_red_pc_closeup",
+        "ugc_photo_red_pc_wide",
+        "ugc_photo_white_pc",
+        "ugc_photo_desk_flash",
+        "ugc_photo_rgb_desk",
+        "ugc_photo_unboxed"
       ],
       "settings": {
         "product_image_size": "large",
@@ -56,7 +99,7 @@
         "mobile_sticky_atc_enable": true,
         "show_dynamic_checkout_secondary": false,
         "social_enable": false,
-        "product_ugc_heading": "In collector setups",
+        "product_ugc_heading": "Seen with collectors",
         "product_pin_collector_image_desktop": "shopify://shop_images/story-01-shelf-centerpiece.png",
         "product_pin_collector_image_mobile": "shopify://shop_images/gallery-01-hero.png",
         "product_pin_quality_image_desktop": "shopify://shop_images/story-02-light-detail.png",
