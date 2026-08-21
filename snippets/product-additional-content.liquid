@@ -13,6 +13,10 @@
 {%- assign zenkai_detail_type = product.type | downcase -%}
 {%- assign zenkai_detail_title = product.title | downcase -%}
 {%- assign zenkai_detail_template = product.template_suffix | downcase -%}
+{%- assign zenkai_detail_defect_only = false -%}
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+  {%- assign zenkai_detail_defect_only = true -%}
+{%- endif -%}
 {%- assign zenkai_detail_category = 'tee' -%}
 {%- if zenkai_detail_template == 'collectible' or zenkai_detail_type contains 'collectible' or zenkai_detail_type contains 'figure' or zenkai_detail_type contains 'figurine' -%}
   {%- assign zenkai_detail_category = 'collectible' -%}
@@ -249,6 +253,8 @@
         <div class="zenkai-utility-note">
           {% if zenkai_detail_category == 'pin' %}
             <strong>Pin note:</strong> No sizing or fabric care needed. If a pin arrives damaged or a backing is missing, we'll make it right. <a href="/pages/policy">Full policy</a>
+          {% elsif zenkai_detail_defect_only %}
+            <strong>Collector-item return policy:</strong> Final sale. We do not accept returns for a change of mind or because the piece is not to your taste. If it arrives damaged or defective, contact us for a replacement or refund.
           {% elsif zenkai_detail_category == 'collectible' %}
             <strong>Collectible note:</strong> Small parts may be present. If your display piece arrives damaged or defective, contact us and we'll make it right. <a href="/pages/policy">Full policy</a>
           {% else %}

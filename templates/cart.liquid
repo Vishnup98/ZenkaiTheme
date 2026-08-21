@@ -1,3 +1,11 @@
+{%- assign zenkai_cart_has_defect_only_collectible = false -%}
+{%- for zenkai_cart_item in cart.items -%}
+  {%- if zenkai_cart_item.product.handle == 'summoning-glow-16cm-led-dragon-display' or zenkai_cart_item.product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+    {%- assign zenkai_cart_has_defect_only_collectible = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
 <div class="page-width page-content">
 
   <div id="CartPage" class="grid">
@@ -8,7 +16,11 @@
             {{ 'cart.general.title' | t }}
           </h1>
           <p class="cart__header-subtitle">
-            Free U.S. shipping, bundle savings, and your 30-day first-item guarantee are ready at checkout.
+            {% if zenkai_cart_has_defect_only_collectible %}
+              Free U.S. shipping, bundle savings, and product-specific order protection are ready at checkout.
+            {% else %}
+              Free U.S. shipping, bundle savings, and your 30-day first-item guarantee are ready at checkout.
+            {% endif %}
           </p>
         </header>
 
@@ -278,7 +290,11 @@
                 <div class="zenkai-cart-assurance" aria-label="Checkout confidence">
                   <span>Secure checkout</span>
                   <span>Ships in 1-2 business days</span>
-                  <span>30-day first-item guarantee</span>
+                  {% if zenkai_cart_has_defect_only_collectible %}
+                    <span>Collectibles: replacement/refund only for defects</span>
+                  {% else %}
+                    <span>30-day first-item guarantee</span>
+                  {% endif %}
                 </div>
 
                 {%- comment -%} Bundle tier progress — live nudge toward next savings threshold. Matches PDP bundle callout visual language. {%- endcomment -%}

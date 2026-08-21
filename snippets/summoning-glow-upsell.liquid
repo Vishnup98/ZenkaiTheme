@@ -14,7 +14,7 @@
       role="dialog"
       aria-modal="true"
       aria-labelledby="zk-glow-upsell-title"
-      aria-describedby="zk-glow-upsell-copy">
+      aria-describedby="zk-glow-upsell-copy zk-glow-upsell-policy">
       <button type="button" class="zk-glow-upsell__close" data-zk-glow-skip aria-label="Skip this offer and open cart">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M18 6 6 18M6 6l12 12"></path>
@@ -60,6 +60,8 @@
           <li>Most orders arrive within one business week</li>
           <li>No subscription or recurring charge</li>
         </ul>
+
+        <p id="zk-glow-upsell-policy" class="zk-glow-upsell__policy"><strong>Final sale:</strong> replacement or refund only if the display arrives damaged or defective.</p>
 
         <button type="button" class="zk-glow-upsell__add" data-zk-glow-add>
           <span>Complete the set — add for $49.99 &amp; checkout</span>
@@ -286,6 +288,19 @@
       color: #14735d;
       content: '✓';
       font-weight: 900;
+    }
+
+    .zk-glow-upsell__policy {
+      margin: -4px 0 14px;
+      color: #626866;
+      font-size: 0.76rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .zk-glow-upsell__policy strong {
+      color: #343937;
+      font-weight: 850;
     }
 
     .zk-glow-upsell__add {

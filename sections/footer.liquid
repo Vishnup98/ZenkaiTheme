@@ -1,6 +1,12 @@
 {%- assign show_selectors = false -%}
 {%- assign currency_selector = false -%}
 {%- assign locale_selector = false -%}
+{%- assign zenkai_defect_only_product_page = false -%}
+{%- if request.page_type == 'product' -%}
+  {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+    {%- assign zenkai_defect_only_product_page = true -%}
+  {%- endif -%}
+{%- endif -%}
 
 {%- if section.settings.show_currency_selector and shop.enabled_currencies.size > 1 -%}
   {%- assign currency_selector = true -%}
@@ -46,7 +52,11 @@
       <div class="site-footer__signals" aria-label="Store promises">
         <span>Free U.S. shipping</span>
         <span>Ships in 1-2 days</span>
-        <a href="/pages/policy">30-day first-item guarantee</a>
+        {% if zenkai_defect_only_product_page %}
+          <span>Defect-only replacement or refund</span>
+        {% else %}
+          <a href="/pages/policy">30-day first-item guarantee</a>
+        {% endif %}
       </div>
     </div>
 

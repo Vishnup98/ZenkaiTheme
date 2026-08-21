@@ -1,3 +1,10 @@
+{%- assign zenkai_defect_only_product_page = false -%}
+{%- if request.page_type == 'product' -%}
+  {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+    {%- assign zenkai_defect_only_product_page = true -%}
+  {%- endif -%}
+{%- endif -%}
+
 <div class="trust-bar-section">
   <div class="page-width">
     <div class="trust-bar">
@@ -9,10 +16,17 @@
         <span class="trust-bar__dot trust-bar__dot--two" aria-hidden="true"></span>
         <span class="trust-bar__text">Ships in 1–2 business days</span>
       </div>
-      <a href="/pages/policy" class="trust-bar__item trust-bar__item--link">
-        <span class="trust-bar__dot trust-bar__dot--three" aria-hidden="true"></span>
-        <span class="trust-bar__text">30-day first-item guarantee</span>
-      </a>
+      {% if zenkai_defect_only_product_page %}
+        <span class="trust-bar__item">
+          <span class="trust-bar__dot trust-bar__dot--three" aria-hidden="true"></span>
+          <span class="trust-bar__text">Defect-only replacement or refund</span>
+        </span>
+      {% else %}
+        <a href="/pages/policy" class="trust-bar__item trust-bar__item--link">
+          <span class="trust-bar__dot trust-bar__dot--three" aria-hidden="true"></span>
+          <span class="trust-bar__text">30-day first-item guarantee</span>
+        </a>
+      {% endif %}
     </div>
   </div>
 </div>
