@@ -37,6 +37,7 @@
         {% render 'summoning-glow-review-card', review_id: '3724', reviewer: 'Jimenez', date_iso: '2024-06-07', date_label: 'Jun 7, 2024', body: "This thing is amazing—I'm delighted. I put it in a glass display case, and it looks even better when turned on. The detail is excellent. I recommend it.", image_name: 'summoning-glow-review-87093554.jpg', image_width: 500, image_height: 1000 %}
       </div>
 
+      {%- if section.settings.show_more_reviews -%}
       <details class="sg-reviews__more">
         <summary>
           <span class="sg-reviews__more-closed">Show 12 more reviews</span>
@@ -58,6 +59,7 @@
           {% render 'summoning-glow-review-card', review_id: '17690', reviewer: 'mh88htc', date_iso: '2025-05-16', date_label: 'May 16, 2025', body: 'Really cool lamps! I love both of them!' %}
         </div>
       </details>
+      {%- endif -%}
     </div>
   </section>
 {%- endif -%}
@@ -77,6 +79,12 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Real setups, close-up details, and first impressions from customers."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_more_reviews",
+      "label": "Show the additional reviews disclosure",
+      "default": true
     }
   ],
   "presets": [
