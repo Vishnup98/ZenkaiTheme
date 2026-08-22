@@ -25,7 +25,7 @@
       </header>
 
       <div class="sg-reviews__toolbar" aria-label="Review overview">
-        <p class="sg-reviews__shown">Showing 6 featured reviews · 16 include customer photos</p>
+        <p class="sg-reviews__shown">18 reviews · 16 include customer photos</p>
       </div>
 
       <div class="sg-reviews__grid">
@@ -37,19 +37,7 @@
         {% render 'summoning-glow-review-card', review_id: '3724', reviewer: 'Jimenez', date_iso: '2024-06-07', date_label: 'Jun 7, 2024', body: "This thing is amazing—I'm delighted. I put it in a glass display case, and it looks even better when turned on. The detail is excellent. I recommend it.", image_name: 'summoning-glow-review-87093554.jpg', image_width: 500, image_height: 1000 %}
       </div>
 
-      {%- if section.settings.show_more_reviews -%}
-      <div class="sg-reviews__more">
-        <input
-          id="SummoningGlowReviewsMore-{{ section.id }}"
-          class="sg-reviews__more-toggle"
-          type="checkbox"
-          aria-label="Show or hide 12 additional customer reviews">
-        <label class="sg-reviews__more-label" for="SummoningGlowReviewsMore-{{ section.id }}">
-          <span class="sg-reviews__more-closed">Show 12 more reviews</span>
-          <span class="sg-reviews__more-open">Show fewer reviews</span>
-          <span class="sg-reviews__chevron" aria-hidden="true">⌄</span>
-        </label>
-        <div class="sg-reviews__grid sg-reviews__grid--more">
+      <div class="sg-reviews__grid sg-reviews__grid--more">
           {% render 'summoning-glow-review-card', review_id: '3730', reviewer: 'Maria', date_iso: '2024-05-01', date_label: 'May 1, 2024', body: 'It arrived earlier than expected, well packed, with all pieces intact. Everything works. ❤️', image_name: 'summoning-glow-review-87093560.jpg', image_width: 750, image_height: 1000, defer_image: true %}
           {% render 'summoning-glow-review-card', review_id: '3728', reviewer: 'Jenna', date_iso: '2024-04-20', date_label: 'Apr 20, 2024', body: 'Happy with the shipment—it arrived early and matched the description. Super pleased.', image_name: 'summoning-glow-review-87093558.jpg', image_width: 562, image_height: 1000, defer_image: true %}
           {% render 'summoning-glow-review-card', review_id: '3889', reviewer: 'Oscar', date_iso: '2024-04-03', date_label: 'Apr 3, 2024', body: 'Always fast and good quality.', image_name: 'summoning-glow-review-87093565.jpg', image_width: 1000, image_height: 750, defer_image: true %}
@@ -62,9 +50,7 @@
           {% render 'summoning-glow-review-card', review_id: '3731', reviewer: 'Shopper', date_iso: '2024-01-07', date_label: 'Jan 7, 2024', body: "It's very beautiful, just as it appears in the photos. I recommend it.", image_name: 'summoning-glow-review-87093561.jpg', image_width: 462, image_height: 1000, defer_image: true %}
           {% render 'summoning-glow-review-card', review_id: '85404', reviewer: 'Brianna', date_iso: '2026-01-03', date_label: 'Jan 3, 2026', body: 'Love it!' %}
           {% render 'summoning-glow-review-card', review_id: '17690', reviewer: 'mh88htc', date_iso: '2025-05-16', date_label: 'May 16, 2025', body: 'Really cool lamps! I love both of them!' %}
-        </div>
       </div>
-      {%- endif -%}
     </div>
   </section>
 {%- endif -%}
@@ -84,18 +70,6 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Real setups, close-up details, and first impressions from customers."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_more_reviews",
-      "label": "Show the additional reviews disclosure",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "suppress_additional_images",
-      "label": "QA: hide additional review photos",
-      "default": false
     }
   ],
   "presets": [

@@ -15,7 +15,6 @@
   class="sg-review-card{% if image_name != blank %} sg-review-card--with-photo{% endif %}"
   data-review-id="{{ review_id | escape }}">
   {%- if image_name != blank -%}
-    {%- unless defer_image and section.settings.suppress_additional_images -%}
     {%- assign image_webp = image_name | replace: '.jpg', '.webp' -%}
     <a
       class="sg-review-card__photo-button"
@@ -50,7 +49,6 @@
         </svg>
       </span>
     </a>
-    {%- endunless -%}
   {%- endif -%}
 
   <div class="sg-review-card__content">

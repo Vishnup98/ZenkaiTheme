@@ -192,7 +192,7 @@
   background-size: cover;
 }
 
-.sg-reviews__more-toggle:checked ~ .sg-reviews__grid--more .sg-review-card__photo--deferred {
+.sg-reviews__grid--more .sg-review-card__photo--deferred {
   background-image: var(--sg-review-photo);
 }
 
@@ -335,12 +335,8 @@
 }
 
 .sg-reviews__grid--more {
-  display: none;
-  margin-top: 24px;
-}
-
-.sg-reviews__more-toggle:checked ~ .sg-reviews__grid--more {
   display: grid;
+  margin-top: 18px;
 }
 
 .sg-review-lightbox {
