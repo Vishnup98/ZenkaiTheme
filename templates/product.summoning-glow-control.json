@@ -1,0 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * ISOLATED QA CONTROL TEMPLATE
+ *
+ * This mirrors the minimal review test template without the reviews section.
+ * It is intentionally not assigned to a product.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "settings": {
+        "product_image_size": "large",
+        "product_image_type": "slider",
+        "product_zoom_enable": true,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_payment_button": true,
+        "quantity_enable": false,
+        "mobile_sticky_atc_enable": true,
+        "show_dynamic_checkout_secondary": false,
+        "social_enable": false
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
