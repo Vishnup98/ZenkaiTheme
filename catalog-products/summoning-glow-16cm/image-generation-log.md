@@ -86,6 +86,18 @@ Final size map:
 - `standify-review-87093566-upscaled.png` — 750×1000
 - `standify-review-87093567-upscaled.png` — 750×1000
 
+## Upgraded-ridge review-photo merchandising edits
+
+The 12 review photos currently used by the native widget were edited separately with the built-in image-generation tool so the pictured package matches the merchant's upgraded offer. Four merchant-supplied product photos were used as exact references for the added translucent amber/yellow molded parts: two tall side/rear energy-ridge clusters and the jagged crystal-ridge ring around the outer/front edge of the illuminated base.
+
+Accepted full-resolution edits are preserved under `customer-photos/upgraded-ridge-edits/`. The legacy originals and conservative restorations remain unchanged in `customer-photos/legacy-originals/` and `customer-photos/legacy-upscaled/`.
+
+For assembled photos, the edit request preserved the original scene, camera angle, crop, background, furniture, cables, reflections, lighting, noise, and casual customer-photo character while replacing only the product assembly. Each accepted result has one green coiled dragon, exactly seven orange star spheres, clear supports, the LED base, two tall ridge clusters, and the outer/front ridge ring. One first-pass edit for review `87093553` was rejected because it contained eight spheres; the accepted precise-object correction removes the extra rear-center sphere and retains seven.
+
+For unboxing review `87093565`, the display was deliberately left unassembled. The edit adds the two ridge clusters and segmented outer ridge pieces as loose translucent plastic parts inside/on the existing packaging while preserving the packed layout and surrounding scene.
+
+Theme delivery derivatives replace the existing JPEG/WebP pairs for reviews `87093553`–`87093560` and `87093563`–`87093566`. They retain the widget's prior dimensions (450–1000 px wide, 750–1000 px tall) instead of serving the larger PNG masters. WebP is encoded at quality 72 with JPEG quality 82 as fallback.
+
 ## Complete-the-set popup artwork
 
 The original popup artwork below was built from supplier product `1005007113011680` and is superseded. The v2 artwork uses the merchant-confirmed product `1005012765836810`, the stated 23 cm height, and the four customer references in `../eternal-dragon-23cm/customer-images/`.
