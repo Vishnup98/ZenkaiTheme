@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "paid-landing": {
+      "type": "summoning-glow-paid-landing",
+      "settings": {}
+    },
     "main": {
       "type": "product-template",
       "blocks": {
@@ -149,6 +153,7 @@
     }
   },
   "order": [
+    "paid-landing",
     "main",
     "product-sections",
     "product-recommendations",

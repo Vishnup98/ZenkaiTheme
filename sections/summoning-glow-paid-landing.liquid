@@ -1,0 +1,182 @@
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+  {{ 'summoning-glow-paid-landing.css' | asset_url | stylesheet_tag }}
+
+  {%- assign sg_paid_variant = product.selected_or_first_available_variant -%}
+  <section
+    class="sg-paid-landing"
+    data-sg-paid-landing
+    data-product-section-selector="#ProductSection-{{ product.id }}"
+    hidden>
+    <div class="sg-paid-landing__inner">
+      <article
+        class="sg-paid-landing__journey sg-paid-landing__journey--reveal"
+        data-sg-lp-panel="reveal"
+        aria-labelledby="sg-paid-reveal-title-{{ section.id }}"
+        hidden>
+        <div class="sg-paid-landing__visual">
+          <img
+            src="{{ 'summoning-glow-lp-reveal-v1.jpg' | asset_url }}"
+            alt="Watch the shelf wake up with the Summoning Glow LED collector display"
+            width="1080"
+            height="1350"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+
+        <div class="sg-paid-landing__mobile-offer" aria-label="Summoning Glow quick purchase">
+          <div>
+            <span>Summoning Glow</span>
+            <strong>{{ sg_paid_variant.price | money }}</strong>
+          </div>
+          <button
+            type="button"
+            data-sg-lp-add
+            {% unless sg_paid_variant.available %}disabled{% endunless %}>
+            {% if sg_paid_variant.available %}Add to Bag{% else %}Sold out{% endif %}
+          </button>
+        </div>
+
+        <div class="sg-paid-landing__content">
+          <p class="sg-paid-landing__eyebrow">The light-reveal edit</p>
+          <h2 id="sg-paid-reveal-title-{{ section.id }}">Seven lights. One dragon. One unmistakable centerpiece.</h2>
+          <p class="sg-paid-landing__lede">Warm amber light moves through seven translucent spheres, clear rings, and sculpted effects—turning an empty shelf into the part of the room everyone notices.</p>
+
+          <div class="sg-paid-landing__offer" aria-label="Product and price">
+            <span>Summoning Glow</span>
+            <strong>{{ sg_paid_variant.price | money }}</strong>
+          </div>
+
+          <ul class="sg-paid-landing__confidence" role="list">
+            <li>Free U.S. shipping</li>
+            <li>Most orders arrive within one business week</li>
+            <li>Approximately 6 in / 15–16 cm dragon figure</li>
+          </ul>
+
+          <button
+            type="button"
+            class="sg-paid-landing__primary"
+            data-sg-lp-add
+            {% unless sg_paid_variant.available %}disabled{% endunless %}>
+            {% if sg_paid_variant.available %}
+              Add to Bag — {{ sg_paid_variant.price | money }}
+            {% else %}
+              Sold out
+            {% endif %}
+          </button>
+          <a class="sg-paid-landing__secondary" href="#ProductSection-{{ product.id }}" data-sg-lp-details>See the complete display</a>
+          <p class="sg-paid-landing__policy">Assembly required. Final sale for preference changes. If it arrives damaged or defective, we will replace it or refund it.</p>
+        </div>
+
+        <div class="sg-paid-landing__proof" aria-label="Light reveal product highlights">
+          <div>
+            <span>The reveal</span>
+            <strong>Warm concentric LEDs</strong>
+            <p>A wired illuminated base creates the amber shelf glow shown here.</p>
+          </div>
+          <div>
+            <span>The display</span>
+            <strong>Seven translucent spheres</strong>
+            <p>Arranged around one painted coiled dragon and sculpted energy effects.</p>
+          </div>
+          <div>
+            <span>The scale</span>
+            <strong>Made for a real shelf</strong>
+            <p>The dragon figure stands approximately 15–16 cm—not monument-sized.</p>
+          </div>
+        </div>
+      </article>
+
+      <article
+        class="sg-paid-landing__journey sg-paid-landing__journey--desk"
+        data-sg-lp-panel="desk"
+        aria-labelledby="sg-paid-desk-title-{{ section.id }}"
+        hidden>
+        <div class="sg-paid-landing__visual">
+          <img
+            src="{{ 'summoning-glow-lp-desk-v1.jpg' | asset_url }}"
+            alt="Built for the collector's shelf: Summoning Glow displayed beside a premium PC setup"
+            width="1080"
+            height="1350"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+
+        <div class="sg-paid-landing__mobile-offer" aria-label="Summoning Glow quick purchase">
+          <div>
+            <span>Summoning Glow</span>
+            <strong>{{ sg_paid_variant.price | money }}</strong>
+          </div>
+          <button
+            type="button"
+            data-sg-lp-add
+            {% unless sg_paid_variant.available %}disabled{% endunless %}>
+            {% if sg_paid_variant.available %}Add to Bag{% else %}Sold out{% endif %}
+          </button>
+        </div>
+
+        <div class="sg-paid-landing__content">
+          <p class="sg-paid-landing__eyebrow">The collector-desk edit</p>
+          <h2 id="sg-paid-desk-title-{{ section.id }}">The desk detail everyone notices first.</h2>
+          <p class="sg-paid-landing__lede">A complete illuminated centerpiece sized for the shelf beside your setup. The warm amber base stands apart from the rest of the room without turning your desk into rainbow clutter.</p>
+
+          <div class="sg-paid-landing__offer" aria-label="Product and price">
+            <span>Summoning Glow</span>
+            <strong>{{ sg_paid_variant.price | money }}</strong>
+          </div>
+
+          <ul class="sg-paid-landing__confidence" role="list">
+            <li>Free U.S. shipping</li>
+            <li>Most orders arrive within one business week</li>
+            <li>Approximately 6 in / 15–16 cm dragon figure</li>
+          </ul>
+
+          <button
+            type="button"
+            class="sg-paid-landing__primary"
+            data-sg-lp-add
+            {% unless sg_paid_variant.available %}disabled{% endunless %}>
+            {% if sg_paid_variant.available %}
+              Add to Bag — {{ sg_paid_variant.price | money }}
+            {% else %}
+              Sold out
+            {% endif %}
+          </button>
+          <a class="sg-paid-landing__secondary" href="#ProductSection-{{ product.id }}" data-sg-lp-details>See size, details, and customer setups</a>
+          <p class="sg-paid-landing__policy">Assembly required. Final sale for preference changes. If it arrives damaged or defective, we will replace it or refund it.</p>
+        </div>
+
+        <div class="sg-paid-landing__proof" aria-label="Collector desk product highlights">
+          <div>
+            <span>Setup scale</span>
+            <strong>Presence without takeover</strong>
+            <p>A roughly six-inch dragon figure that fits beside a desktop or inside a display case.</p>
+          </div>
+          <div>
+            <span>After dark</span>
+            <strong>One focused amber glow</strong>
+            <p>The product stays warm amber; the surrounding desk lighting is yours.</p>
+          </div>
+          <div>
+            <span>One complete scene</span>
+            <strong>Dragon, seven spheres, full base</strong>
+            <p>Clear supports and sculpted effects create depth from the front and sides.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <script src="{{ 'summoning-glow-paid-landing.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Summoning Glow paid LP",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Summoning Glow paid LP"
+    }
+  ]
+}
+{% endschema %}
