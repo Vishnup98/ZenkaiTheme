@@ -1,0 +1,75 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Summoning Glow Essential — RGB Dragon Display",
+  "handle": "summoning-glow-essential-rgb-dragon-display",
+  "descriptionHtml": "<p><strong>A cleaner summoning scene, built to glow in color.</strong></p><p>Summoning Glow Essential keeps the coiled green dragon, seven translucent star-marked spheres, and illuminated shelf presence while using a low-profile, open RGB base. The result is easier to place on a desk or shelf and puts the dragon silhouette at the center of the display.</p><h3>Why it earns the space</h3><ul><li><strong>Clean display profile:</strong> no tall energy ridges or outer crystal ring—just the dragon, seven spheres, clear supports, and light base.</li><li><strong>Color on command:</strong> the wired concentric-ring RGB base includes a remote for changing colors and lighting modes.</li><li><strong>Collector detail:</strong> painted scales, a cream underbelly, translucent spheres, and clear structural supports reward a closer look.</li></ul><h3>What is included</h3><ul><li>Painted PVC coiled dragon figure with yellow burst-shaped internal stand</li><li>Wired circular RGB LED display base with white rim and clear top</li><li>Remote control for light colors and modes</li><li>Seven separate translucent orange spheres with one through seven red stars</li><li>Three clear structural supports</li></ul><p><strong>Assembly:</strong> This display arrives in multiple components and requires assembly. Use the component image as a placement reference.</p><p><em>Collector note: The approximately 15–16 cm measurement refers to the dragon figure rather than the full base footprint. Measurements are approximate. Small differences in paint, color, and finish may occur. Intended for display; contains small components and should be kept away from young children.</em></p><h3>Collector-item return policy</h3><p><strong>Change-of-mind returns are not accepted.</strong> If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us within 7 days of delivery—or as soon as the expected delivery window has passed for a lost order—with your order number and any available photos. We will provide a replacement at no additional cost or a refund when a replacement is unavailable or as required by applicable law. <a href=\"/pages/policy\">View the full policy.</a></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "LED Collectible Figure",
+  "tags": [
+    "Collectible Figure",
+    "Dragon Display",
+    "LED Display",
+    "RGB Display",
+    "Shelf Decor",
+    "Desk Decor",
+    "Zenkai Collectible"
+  ],
+  "templateSuffix": "summoning-glow-essential",
+  "seo": {
+    "title": "Summoning Glow Essential RGB Dragon Display | Zenkai",
+    "description": "A clean coiled dragon display with seven translucent star-marked spheres, a remote-controlled RGB LED base, and clear supports. Dragon figure measures approximately 15–16 cm; assembly required."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-FIG-SGE16-RGB",
+      "price": "99.99",
+      "options": {
+        "Title": "Default Title"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "CONTINUE",
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "source": "generated-images/gallery-01-hero-v2.jpg",
+      "alt": "Summoning Glow Essential green coiled dragon on a slim RGB base with seven translucent spheres",
+      "variantSkus": [
+        "ZK-FIG-SGE16-RGB"
+      ]
+    },
+    {
+      "source": "generated-images/gallery-02-lights-off-v2.jpg",
+      "alt": "Summoning Glow Essential dragon display with its concentric RGB light rings switched off"
+    },
+    {
+      "source": "generated-images/gallery-03-three-quarter-v2.jpg",
+      "alt": "Illuminated RGB dragon display with seven orange spheres and no outer energy effects"
+    },
+    {
+      "source": "generated-images/gallery-04-detail-v2.jpg",
+      "alt": "Close detail of the painted green dragon, clear supports, RGB base, and seven star-marked spheres"
+    },
+    {
+      "source": "generated-images/gallery-05-components-v3.jpg",
+      "alt": "Summoning Glow Essential components including dragon, RGB base, remote, supports, and seven spheres"
+    }
+  ]
+}

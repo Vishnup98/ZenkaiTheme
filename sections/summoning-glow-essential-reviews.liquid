@@ -1,0 +1,93 @@
+{{ 'summoning-glow-reviews.css' | asset_url | stylesheet_tag }}
+
+{%- if product.handle == 'summoning-glow-essential-rgb-dragon-display' -%}
+  <section
+    id="SummoningGlowEssentialReviews-{{ section.id }}"
+    class="sg-reviews"
+    data-sg-reviews
+    aria-labelledby="SummoningGlowEssentialReviewsHeading-{{ section.id }}">
+    <div class="page-width">
+      <header class="sg-reviews__header">
+        <div class="sg-reviews__intro">
+          <p class="sg-reviews__eyebrow">Collector feedback</p>
+          <h2 id="SummoningGlowEssentialReviewsHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+          {%- if section.settings.subheading != blank -%}
+            <p class="sg-reviews__subheading">{{ section.settings.subheading | escape }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="sg-reviews__summary" aria-label="Rated 5 out of 5 stars from 18 customer reviews">
+          <strong class="sg-reviews__score">5.0</strong>
+          <div>
+            <div class="sg-reviews__stars" aria-hidden="true">★★★★★</div>
+            <p>Based on 18 reviews</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="sg-reviews__toolbar" aria-label="Review overview">
+        <p class="sg-reviews__shown">18 reviews · 16 include customer photos</p>
+      </div>
+
+      <div class="sg-reviews__grid" data-sg-review-grid>
+        {% render 'summoning-glow-essential-review-card', review_id: '3723', reviewer: 'Diaz', date_iso: '2024-06-22', date_label: 'Jun 22, 2024', body: 'Not cheap, but not very expensive either. Worth it. It includes a remote to change the colors, plus the Dragon Balls.', image_name: 'summoning-glow-essential-review-87093553.jpg', image_width: 750, image_height: 1000 %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3724', reviewer: 'Jimenez', date_iso: '2024-06-07', date_label: 'Jun 7, 2024', body: "This thing is amazing—I'm delighted. I put it in a glass display case, and it looks even better when turned on. The detail is excellent. I recommend it.", image_name: 'summoning-glow-essential-review-87093554.jpg', image_width: 500, image_height: 1000 %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3727', reviewer: 'Jazmin', date_iso: '2024-03-27', date_label: 'Mar 27, 2024', body: 'Great quality for the price. My only issue is that the ring for the seven balls feels a little large—or the balls feel a little small—so there is some extra space. Otherwise, everything is great.', image_name: 'summoning-glow-essential-review-87093557.jpg', image_width: 750, image_height: 1000 %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3738', reviewer: 'Shopper', date_iso: '2024-02-16', date_label: 'Feb 16, 2024', body: 'Arrived fast! Quality is okay for the price.', image_name: 'summoning-glow-essential-review-87093567.jpg', image_width: 750, image_height: 1000 %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3722', reviewer: 'Cruz', date_iso: '2024-02-15', date_label: 'Feb 15, 2024', body: "I loved this figure. The details on the dragon were impeccable, and the LED lights gave it an extra glow-up—I could almost feel it coming alive. The seller was fast and patient with me. I'll buy more items from this seller.", image_name: 'summoning-glow-essential-review-87093552.jpg', image_width: 750, image_height: 1000 %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3733', reviewer: 'Anna', date_iso: '2024-06-16', date_label: 'Jun 16, 2024', body: 'Good product—excellent for the price!', image_name: 'summoning-glow-essential-review-87093563.jpg', image_width: 750, image_height: 1000 %}
+      </div>
+
+      <template data-sg-review-page="2">
+        {% render 'summoning-glow-essential-review-card', review_id: '3737', reviewer: 'Carlos', date_iso: '2024-06-18', date_label: 'Jun 18, 2024', body: 'Loving it. Thanks, seller.', image_name: 'summoning-glow-essential-review-87093566.jpg', image_width: 750, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3725', reviewer: 'Gomez', date_iso: '2024-06-14', date_label: 'Jun 14, 2024', body: 'Very nice. It arrived well protected and earlier than expected. 100% recommended.', image_name: 'summoning-glow-essential-review-87093555.jpg', image_width: 450, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3729', reviewer: 'Elisa', date_iso: '2024-06-07', date_label: 'Jun 7, 2024', body: 'Photo-only review.', image_name: 'summoning-glow-essential-review-87093559.jpg', image_width: 450, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3730', reviewer: 'Maria', date_iso: '2024-05-01', date_label: 'May 1, 2024', body: 'It arrived earlier than expected, well packed, with all pieces intact. Everything works. ❤️', image_name: 'summoning-glow-essential-review-87093560.jpg', image_width: 750, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3728', reviewer: 'Jenna', date_iso: '2024-04-20', date_label: 'Apr 20, 2024', body: 'Happy with the shipment—it arrived early and matched the description. Super pleased.', image_name: 'summoning-glow-essential-review-87093558.jpg', image_width: 562, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3889', reviewer: 'Oscar', date_iso: '2024-04-03', date_label: 'Apr 3, 2024', body: 'Always fast and good quality.', image_name: 'summoning-glow-essential-review-87093565.jpg', image_width: 1000, image_height: 750, defer_image: true %}
+      </template>
+
+      <template data-sg-review-page="3">
+        {% render 'summoning-glow-essential-review-card', review_id: '3734', reviewer: 'Jada', date_iso: '2024-03-12', date_label: 'Mar 12, 2024', body: 'It arrived very well packed and looks very cool.', image_name: 'summoning-glow-essential-review-87093564.jpg', image_width: 750, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3726', reviewer: 'Pablo', date_iso: '2024-02-23', date_label: 'Feb 23, 2024', body: 'Excellent service and faster than I expected. The details are amazing, and the lights really elevate the product. My husband loves it!', image_name: 'summoning-glow-essential-review-87093556.jpg', image_width: 450, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3732', reviewer: 'James', date_iso: '2024-02-23', date_label: 'Feb 23, 2024', body: 'Very beautiful—I loved it. It was a little smaller than I expected, but still worth it.', image_name: 'summoning-glow-essential-review-87093562.jpg', image_width: 562, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '3731', reviewer: 'Shopper', date_iso: '2024-01-07', date_label: 'Jan 7, 2024', body: "It's very beautiful, just as it appears in the photos. I recommend it.", image_name: 'summoning-glow-essential-review-87093561.jpg', image_width: 462, image_height: 1000, defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '85404', reviewer: 'Brianna', date_iso: '2026-01-03', date_label: 'Jan 3, 2026', body: 'Love it!', defer_image: true %}
+        {% render 'summoning-glow-essential-review-card', review_id: '17690', reviewer: 'mh88htc', date_iso: '2025-05-16', date_label: 'May 16, 2025', body: 'Really cool lamps! I love both of them!', defer_image: true %}
+      </template>
+
+      <nav class="sg-reviews__pagination" aria-label="Customer review pages">
+        <button type="button" data-sg-review-previous disabled>Previous</button>
+        <span data-sg-review-page-status aria-live="polite">Page 1 of 3</span>
+        <button type="button" data-sg-review-next>Next</button>
+      </nav>
+    </div>
+  </section>
+
+  <script src="{{ 'summoning-glow-reviews.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Glow Essential reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loved by collectors"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Real setups, close-up details, and first impressions from customers."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Glow Essential reviews"
+    }
+  ]
+}
+{% endschema %}

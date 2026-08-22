@@ -1,0 +1,162 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "paid-landing": {
+      "type": "summoning-glow-essential-paid-landing",
+      "settings": {}
+    },
+    "main": {
+      "type": "product-template",
+      "blocks": {
+        "ugc_photo_rgb_display": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sg-essential-customer-01-rgb-display.jpg",
+            "caption": "RGB collector setup"
+          }
+        },
+        "ugc_photo_green_desk": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sg-essential-customer-02-green-desk.jpg",
+            "caption": "Lit on the desk"
+          }
+        },
+        "ugc_photo_daylight_remote": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sg-essential-customer-03-daylight-remote.jpg",
+            "caption": "Daylight view with remote"
+          }
+        },
+        "ugc_photo_red_rgb": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sg-essential-customer-04-red-rgb.jpg",
+            "caption": "Red light mode"
+          }
+        },
+        "ugc_photo_collector_shelf": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sg-essential-customer-05-collector-shelf.jpg",
+            "caption": "On the collector shelf"
+          }
+        },
+        "ugc_photo_blue_red_setup": {
+          "type": "ugc_photo",
+          "settings": {
+            "image": "shopify://shop_images/sg-essential-customer-06-blue-red-setup.jpg",
+            "caption": "Blue and red collector setup"
+          }
+        }
+      },
+      "block_order": [
+        "ugc_photo_rgb_display",
+        "ugc_photo_green_desk",
+        "ugc_photo_daylight_remote",
+        "ugc_photo_red_rgb",
+        "ugc_photo_collector_shelf",
+        "ugc_photo_blue_red_setup"
+      ],
+      "settings": {
+        "product_image_size": "large",
+        "product_image_type": "slider",
+        "product_zoom_enable": true,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_payment_button": true,
+        "product_signal_hook": "A cleaner summoning scene, built to glow in color.",
+        "product_social_subheadline": "One coiled dragon, seven translucent spheres, and a remote-controlled RGB base with a clean, open silhouette.",
+        "product_cta_text": "Add to Bag",
+        "product_cta_subcopy": "Display collectible. Assembly required.",
+        "product_outcome_1": "Painted PVC dragon · approximately 6 in / 15–16 cm",
+        "product_outcome_2": "Wired RGB light base with included remote",
+        "product_outcome_3": "Seven separate translucent star-marked spheres",
+        "product_context_heading": "Where it fits",
+        "product_context_1": "The shelf that needs color without visual clutter",
+        "product_context_2": "The desk setup that changes after dark",
+        "product_context_3": "The gift that becomes part of the room",
+        "product_proof_quote_1": "",
+        "product_proof_attribution_1": "",
+        "product_proof_quote_2": "",
+        "product_proof_attribution_2": "",
+        "hide_mobile_breadcrumbs": true,
+        "product_mobile_media_max_height": 52,
+        "product_sticky_atc_trigger_ratio": 10,
+        "product_show_review_summary_first": true,
+        "variant_type": "button",
+        "variant_labels_enable": false,
+        "sku_enable": false,
+        "inventory_enable": false,
+        "inventory_threshold": 10,
+        "inventory_transfers_enable": false,
+        "quantity_enable": false,
+        "mobile_sticky_atc_enable": true,
+        "show_dynamic_checkout_secondary": false,
+        "social_enable": false,
+        "product_ugc_heading": "Seen in the wild",
+        "product_pin_collector_image_desktop": "shopify://shop_images/sg-essential-story-01-shelf-centerpiece.jpg",
+        "product_pin_collector_image_mobile": "shopify://shop_images/sg-essential-gallery-01-hero.jpg",
+        "product_pin_quality_image_desktop": "shopify://shop_images/sg-essential-story-02-light-detail.jpg",
+        "product_pin_quality_image_mobile": "shopify://shop_images/sg-essential-gallery-04-detail.jpg",
+        "product_pin_lifestyle_image_desktop": "shopify://shop_images/sg-essential-story-03-desk-display.jpg",
+        "product_pin_lifestyle_image_mobile": "shopify://shop_images/sg-essential-story-03-desk-display.jpg",
+        "product_pin_collector_kicker": "Clean shelf energy",
+        "product_pin_collector_heading": "All seven lights. Less visual noise.",
+        "product_pin_collector_body": "The open circular base keeps the dragon and seven translucent spheres at the center of the scene, while the RGB rings bring the color after dark.",
+        "product_pin_quality_kicker": "Color on command",
+        "product_pin_quality_heading": "Set the mood from the remote.",
+        "product_pin_quality_body": "Switch colors and lighting modes without disturbing the display. The clear top and concentric light rings spread the glow across the full base.",
+        "product_pin_lifestyle_kicker": "Made to display",
+        "product_pin_lifestyle_heading": "Desk, shelf, or the spot everyone notices.",
+        "product_pin_lifestyle_body": "The approximately 15–16 cm dragon figure brings a strong silhouette while the low-profile base keeps the full setup easy to place.",
+        "product_manual_reviews_heading": "From collectors",
+        "product_manual_review_quote_1": "",
+        "product_manual_review_name_1": "",
+        "product_manual_review_meta_1": "",
+        "product_manual_review_quote_2": "",
+        "product_manual_review_name_2": "",
+        "product_manual_review_meta_2": "",
+        "product_manual_review_quote_3": "",
+        "product_manual_review_name_3": "",
+        "product_manual_review_meta_3": ""
+      }
+    },
+    "product-sections": {
+      "type": "product-sections",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "Same energy",
+        "per_row": "small"
+      }
+    },
+    "reviews": {
+      "type": "summoning-glow-essential-reviews",
+      "settings": {
+        "heading": "Loved by collectors",
+        "subheading": "Real setups, close-up details, and first impressions from customers."
+      }
+    }
+  },
+  "order": [
+    "paid-landing",
+    "main",
+    "product-sections",
+    "product-recommendations",
+    "reviews"
+  ]
+}

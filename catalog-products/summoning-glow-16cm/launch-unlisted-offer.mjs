@@ -6,13 +6,25 @@ import {
 } from "../../tools/zenkai-catalog-api/client.mjs";
 import { loadManifest } from "../../tools/zenkai-catalog-api/manifest.mjs";
 
-const MAIN = {
-  id: "gid://shopify/Product/9420750880873",
-  handle: "summoning-glow-16cm-led-dragon-display",
-  variantId: "gid://shopify/ProductVariant/47937153138793",
-  sku: "ZK-FIG-SG16-LED",
-  price: "99.99",
-};
+const ESSENTIAL_MODE = process.argv.includes("--essential");
+const MAIN = ESSENTIAL_MODE
+  ? {
+      id: "gid://shopify/Product/9421332807785",
+      handle: "summoning-glow-essential-rgb-dragon-display",
+      variantId: "gid://shopify/ProductVariant/47940570611817",
+      sku: "ZK-FIG-SGE16-RGB",
+      price: "99.99",
+    }
+  : {
+      id: "gid://shopify/Product/9420750880873",
+      handle: "summoning-glow-16cm-led-dragon-display",
+      variantId: "gid://shopify/ProductVariant/47937153138793",
+      sku: "ZK-FIG-SG16-LED",
+      price: "99.99",
+    };
+const MAIN_MANIFEST_PATH = ESSENTIAL_MODE
+  ? "catalog-products/summoning-glow-essential/product.manifest.json"
+  : "catalog-products/summoning-glow-16cm/product.manifest.json";
 
 const UPSELL = {
   id: "gid://shopify/Product/9420423463017",
@@ -35,6 +47,7 @@ const ONLINE_FULFILLMENT_LOCATION = {
 const TARGET_DELIVERY_PROFILE = {
   id: "gid://shopify/DeliveryProfile/94163271785",
   name: "Dsers Profile",
+  default: false,
 };
 const REQUIRED_SHIPPING_SCOPE = "write_shipping";
 const INITIAL_SELLABLE_BUFFER = 100;
@@ -328,7 +341,7 @@ function verifyTargetDeliveryProfile(profile) {
   if (
     profile?.id !== TARGET_DELIVERY_PROFILE.id ||
     profile?.name !== TARGET_DELIVERY_PROFILE.name ||
-    profile?.default !== false
+    profile?.default !== TARGET_DELIVERY_PROFILE.default
   ) {
     fail("Target delivery-profile identity guard failed; refusing shipping mutations.", {
       expected: TARGET_DELIVERY_PROFILE,
@@ -467,7 +480,7 @@ async function initializeSellableBuffer(client, products) {
     input: {
       name: "available",
       reason: "correction",
-      referenceDocumentUri: "gid://analyticsmcpapp/OfferLaunch/9420750880873",
+      referenceDocumentUri: `gid://analyticsmcpapp/OfferLaunch/${MAIN.id.split("/").pop()}`,
       quantities,
     },
   });
@@ -606,7 +619,7 @@ async function run() {
   const confirm = process.argv.includes("--confirm");
   const client = ShopifyAdminClient.fromEnvironment();
   const { manifest: mainManifest } = await loadManifest(
-    "catalog-products/summoning-glow-16cm/product.manifest.json",
+    MAIN_MANIFEST_PATH,
   );
   const access = await verifyZenkaiAccess(client);
   const before = await readState(client);

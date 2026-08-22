@@ -69,7 +69,7 @@
 {%- assign zenkai_ptitle = product.title | downcase -%}
 {%- assign zenkai_ptemplate = product.template_suffix | downcase -%}
 {%- assign zenkai_defect_only_collectible = false -%}
-{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
   {%- assign zenkai_defect_only_collectible = true -%}
 {%- endif -%}
 {%- assign zenkai_is_journey_product = false -%}
@@ -2982,7 +2982,7 @@
         {% endunless %}
       {% endif %}
 
-      {% if zenkai_ptemplate == 'summoning-glow' %}
+      {% if zenkai_ptemplate == 'summoning-glow' or zenkai_ptemplate == 'summoning-glow-essential' %}
         {% unless isModal %}
           {% render 'summoning-glow-upsell' %}
         {% endunless %}

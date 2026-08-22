@@ -6,7 +6,16 @@
   product remains its own unlisted Shopify product and cart line.
 {%- endcomment -%}
 
-{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' -%}
+  {%- if product.handle == 'summoning-glow-essential-rgb-dragon-display' -%}
+    {%- assign zenkai_glow_main_label = 'Summoning Glow Essential' -%}
+    {%- assign zenkai_glow_pair_desktop = 'summoning-glow-essential-complete-set-desktop.jpg' -%}
+    {%- assign zenkai_glow_pair_mobile = 'summoning-glow-essential-complete-set-mobile.jpg' -%}
+  {%- else -%}
+    {%- assign zenkai_glow_main_label = 'Summoning Glow' -%}
+    {%- assign zenkai_glow_pair_desktop = 'summoning-glow-complete-set-desktop-v2.jpg' -%}
+    {%- assign zenkai_glow_pair_mobile = 'summoning-glow-complete-set-mobile-v2.jpg' -%}
+  {%- endif -%}
   {%- assign zenkai_glow_companion = all_products['eternal-wish-23cm-coiled-dragon-rider-display'] -%}
   <div class="zk-glow-upsell" data-zk-glow-upsell hidden aria-hidden="true">
     <div class="zk-glow-upsell__scrim" data-zk-glow-skip></div>
@@ -28,10 +37,10 @@
             <picture>
               <source
                 media="(max-width: 767px)"
-                srcset="{{ 'summoning-glow-complete-set-mobile-v2.jpg' | asset_url }}">
+                srcset="{{ zenkai_glow_pair_mobile | asset_url }}">
               <img
-                src="{{ 'summoning-glow-complete-set-desktop-v2.jpg' | asset_url }}"
-                alt="Summoning Glow and the Eternal Wish coiled dragon and rider collectible displayed together"
+                src="{{ zenkai_glow_pair_desktop | asset_url }}"
+                alt="{{ zenkai_glow_main_label }} and the Eternal Wish coiled dragon and rider collectible displayed together"
                 width="1536"
                 height="1024"
                 loading="eager"
@@ -98,7 +107,7 @@
         <button type="button" class="zk-glow-upsell__add" data-zk-glow-add>
           <span>Complete the set — add for $49.99 &amp; checkout</span>
         </button>
-        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, checkout with Summoning Glow</button>
+        <button type="button" class="zk-glow-upsell__skip" data-zk-glow-skip>No thanks, checkout with {{ zenkai_glow_main_label }}</button>
         <p class="zk-glow-upsell__status" data-zk-glow-status role="status" aria-live="polite"></p>
       </div>
     </section>

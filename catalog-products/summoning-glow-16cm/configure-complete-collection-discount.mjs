@@ -5,12 +5,20 @@ import {
   verifyZenkaiAccess,
 } from "../../tools/zenkai-catalog-api/client.mjs";
 
-const MAIN = {
-  id: "gid://shopify/Product/9420750880873",
-  handle: "summoning-glow-16cm-led-dragon-display",
-  variantId: "gid://shopify/ProductVariant/47937153138793",
-  sku: "ZK-FIG-SG16-LED",
-};
+const ESSENTIAL_MODE = process.argv.includes("--essential");
+const MAIN = ESSENTIAL_MODE
+  ? {
+      id: "gid://shopify/Product/9421332807785",
+      handle: "summoning-glow-essential-rgb-dragon-display",
+      variantId: "gid://shopify/ProductVariant/47940570611817",
+      sku: "ZK-FIG-SGE16-RGB",
+    }
+  : {
+      id: "gid://shopify/Product/9420750880873",
+      handle: "summoning-glow-16cm-led-dragon-display",
+      variantId: "gid://shopify/ProductVariant/47937153138793",
+      sku: "ZK-FIG-SG16-LED",
+    };
 
 const UPSELL = {
   id: "gid://shopify/Product/9420423463017",
@@ -22,7 +30,7 @@ const UPSELL = {
 };
 
 const DISCOUNT = {
-  title: "Complete Collection",
+  title: ESSENTIAL_MODE ? "Essential Complete Collection" : "Complete Collection",
   amount: "50.00",
   requiredScope: "write_discounts",
 };
