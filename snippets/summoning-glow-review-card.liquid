@@ -13,47 +13,47 @@
 
 <article
   class="sg-review-card{% if image_name != blank %} sg-review-card--with-photo{% endif %}"
-  data-sg-review-card
-  data-review-id="{{ review_id | escape }}"
-  data-has-photo="{% if image_name != blank %}true{% else %}false{% endif %}"{% if initially_hidden %} hidden{% endif %}>
+  data-review-id="{{ review_id | escape }}">
   {%- if image_name != blank -%}
-    <button
+    {%- assign image_webp = image_name | replace: '.jpg', '.webp' -%}
+    <a
       class="sg-review-card__photo-button"
-      type="button"
-      data-sg-review-photo
-      data-photo-src="{{ image_name | asset_url }}"
-      data-photo-alt="Customer photo shared with {{ reviewer | escape }}'s review"
-      data-photo-caption="{{ reviewer | escape }} · {{ date_label | escape }}"
-      aria-label="Enlarge customer photo from {{ reviewer | escape }}">
-      <img
-        class="sg-review-card__photo"
-        src="{{ image_name | asset_url }}"
-        alt="Customer photo shared with {{ reviewer | escape }}'s review"
-        width="{{ image_width }}"
-        height="{{ image_height }}"
-        loading="lazy"
-        fetchpriority="low"
-        decoding="async">
+      href="{{ image_name | asset_url }}"
+      target="_blank"
+      rel="noopener"
+      aria-label="Open the full customer photo from {{ reviewer | escape }}'s review">
+      <picture>
+        <source srcset="{{ image_webp | asset_url }}" type="image/webp">
+        <img
+          class="sg-review-card__photo"
+          src="{{ image_name | asset_url }}"
+          alt="Customer photo shared with {{ reviewer | escape }}'s review"
+          width="{{ image_width }}"
+          height="{{ image_height }}"
+          loading="lazy"
+          fetchpriority="low"
+          decoding="async">
+      </picture>
       <span class="sg-review-card__zoom" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"></circle>
           <path d="m20 20-4-4M11 8v6M8 11h6"></path>
         </svg>
       </span>
-    </button>
+    </a>
   {%- endif -%}
 
   <div class="sg-review-card__content">
     <div class="sg-review-card__stars" aria-label="5 out of 5 stars">
       <span aria-hidden="true">★★★★★</span>
     </div>
-    <p class="sg-review-card__body{% if body == 'Photo-only review.' %} sg-review-card__body--photo-only{% endif %}">{{ body }}</p>
-    <footer class="sg-review-card__footer">
+    <p class="sg-review-card__body{% if body == 'Photo-only review.' %} sg-review-card__body--photo-only{% endif %}">{{ body | escape }}</p>
+    <div class="sg-review-card__footer">
       <span class="sg-review-card__avatar" aria-hidden="true">{{ reviewer | slice: 0, 1 | upcase }}</span>
       <span class="sg-review-card__identity">
-        <strong>{{ reviewer }}</strong>
-        <time datetime="{{ date_iso }}">{{ date_label }}</time>
+        <strong>{{ reviewer | escape }}</strong>
+        <time datetime="{{ date_iso | escape }}">{{ date_label | escape }}</time>
       </span>
-    </footer>
+    </div>
   </div>
 </article>

@@ -4,8 +4,6 @@
   <section
     id="SummoningGlowReviews-{{ section.id }}"
     class="sg-reviews"
-    data-sg-reviews
-    data-page-size="{{ section.settings.reviews_per_page }}"
     aria-labelledby="SummoningGlowReviewsHeading-{{ section.id }}">
     <div class="page-width">
       <header class="sg-reviews__header">
@@ -26,66 +24,42 @@
         </div>
       </header>
 
-      <div class="sg-reviews__toolbar" aria-label="Filter customer reviews">
-        <div class="sg-reviews__filters">
-          <button class="sg-reviews__filter is-active" type="button" data-sg-filter="all" aria-pressed="true">
-            All reviews <span>18</span>
-          </button>
-          <button class="sg-reviews__filter" type="button" data-sg-filter="photos" aria-pressed="false">
-            With photos <span>16</span>
-          </button>
-        </div>
-        <p class="sg-reviews__shown" data-sg-review-status aria-live="polite"></p>
+      <div class="sg-reviews__toolbar" aria-label="Review overview">
+        <p class="sg-reviews__shown">Showing 6 featured reviews · 16 include customer photos</p>
       </div>
 
-      <div class="sg-reviews__grid" data-sg-review-grid>
+      <div class="sg-reviews__grid">
         {% render 'summoning-glow-review-card', review_id: '3723', reviewer: 'Diaz', date_iso: '2024-06-22', date_label: 'Jun 22, 2024', body: 'Not cheap, but not very expensive either. Worth it. It includes a remote to change the colors, plus the Dragon Balls.', image_name: 'summoning-glow-review-87093553.jpg', image_width: 750, image_height: 1000 %}
         {% render 'summoning-glow-review-card', review_id: '3737', reviewer: 'Carlos', date_iso: '2024-06-18', date_label: 'Jun 18, 2024', body: 'Loving it. Thanks, seller.', image_name: 'summoning-glow-review-87093566.jpg', image_width: 750, image_height: 1000 %}
         {% render 'summoning-glow-review-card', review_id: '3733', reviewer: 'Anna', date_iso: '2024-06-16', date_label: 'Jun 16, 2024', body: 'Good product—excellent for the price!', image_name: 'summoning-glow-review-87093563.jpg', image_width: 750, image_height: 1000 %}
         {% render 'summoning-glow-review-card', review_id: '3725', reviewer: 'Gomez', date_iso: '2024-06-14', date_label: 'Jun 14, 2024', body: 'Very nice. It arrived well protected and earlier than expected. 100% recommended.', image_name: 'summoning-glow-review-87093555.jpg', image_width: 450, image_height: 1000 %}
         {% render 'summoning-glow-review-card', review_id: '3729', reviewer: 'Elisa', date_iso: '2024-06-07', date_label: 'Jun 7, 2024', body: 'Photo-only review.', image_name: 'summoning-glow-review-87093559.jpg', image_width: 450, image_height: 1000 %}
         {% render 'summoning-glow-review-card', review_id: '3724', reviewer: 'Jimenez', date_iso: '2024-06-07', date_label: 'Jun 7, 2024', body: "This thing is amazing—I'm delighted. I put it in a glass display case, and it looks even better when turned on. The detail is excellent. I recommend it.", image_name: 'summoning-glow-review-87093554.jpg', image_width: 500, image_height: 1000 %}
-        {% render 'summoning-glow-review-card', review_id: '3730', reviewer: 'Maria', date_iso: '2024-05-01', date_label: 'May 1, 2024', body: 'It arrived earlier than expected, well packed, with all pieces intact. Everything works. ❤️', image_name: 'summoning-glow-review-87093560.jpg', image_width: 750, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3728', reviewer: 'Jenna', date_iso: '2024-04-20', date_label: 'Apr 20, 2024', body: 'Happy with the shipment—it arrived early and matched the description. Super pleased.', image_name: 'summoning-glow-review-87093558.jpg', image_width: 562, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3889', reviewer: 'Oscar', date_iso: '2024-04-03', date_label: 'Apr 3, 2024', body: 'Always fast and good quality.', image_name: 'summoning-glow-review-87093565.jpg', image_width: 1000, image_height: 750, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3727', reviewer: 'Jazmin', date_iso: '2024-03-27', date_label: 'Mar 27, 2024', body: 'Great quality for the price. My only issue is that the ring for the seven balls feels a little large—or the balls feel a little small—so there is some extra space. Otherwise, everything is great.', image_name: 'summoning-glow-review-87093557.jpg', image_width: 750, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3734', reviewer: 'Jada', date_iso: '2024-03-12', date_label: 'Mar 12, 2024', body: 'It arrived very well packed and looks very cool.', image_name: 'summoning-glow-review-87093564.jpg', image_width: 750, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3726', reviewer: 'Pablo', date_iso: '2024-02-23', date_label: 'Feb 23, 2024', body: 'Excellent service and faster than I expected. The details are amazing, and the lights really elevate the product. My husband loves it!', image_name: 'summoning-glow-review-87093556.jpg', image_width: 450, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3732', reviewer: 'James', date_iso: '2024-02-23', date_label: 'Feb 23, 2024', body: 'Very beautiful—I loved it. It was a little smaller than I expected, but still worth it.', image_name: 'summoning-glow-review-87093562.jpg', image_width: 562, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3738', reviewer: 'Shopper', date_iso: '2024-02-16', date_label: 'Feb 16, 2024', body: 'Arrived fast! Quality is okay for the price.', image_name: 'summoning-glow-review-87093567.jpg', image_width: 750, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3722', reviewer: 'Cruz', date_iso: '2024-02-15', date_label: 'Feb 15, 2024', body: "I loved this figure. The details on the dragon were impeccable, and the LED lights gave it an extra glow-up—I could almost feel it coming alive. The seller was fast and patient with me. I'll buy more items from this seller.", image_name: 'summoning-glow-review-87093552.jpg', image_width: 750, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '3731', reviewer: 'Shopper', date_iso: '2024-01-07', date_label: 'Jan 7, 2024', body: "It's very beautiful, just as it appears in the photos. I recommend it.", image_name: 'summoning-glow-review-87093561.jpg', image_width: 462, image_height: 1000, initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '85404', reviewer: 'Brianna', date_iso: '2026-01-03', date_label: 'Jan 3, 2026', body: 'Love it!', initially_hidden: true %}
-        {% render 'summoning-glow-review-card', review_id: '17690', reviewer: 'mh88htc', date_iso: '2025-05-16', date_label: 'May 16, 2025', body: 'Really cool lamps! I love both of them!', initially_hidden: true %}
       </div>
 
-      <noscript>
-        <style>#SummoningGlowReviews-{{ section.id }} .sg-review-card[hidden] { display: block; }</style>
-      </noscript>
-
-      <div class="sg-reviews__more-wrap">
-        <button class="sg-reviews__more" type="button" data-sg-load-more hidden>Show more reviews</button>
-      </div>
+      <details class="sg-reviews__more">
+        <summary>
+          <span class="sg-reviews__more-closed">Show 12 more reviews</span>
+          <span class="sg-reviews__more-open">Show fewer reviews</span>
+          <span class="sg-reviews__chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="sg-reviews__grid sg-reviews__grid--more">
+          {% render 'summoning-glow-review-card', review_id: '3730', reviewer: 'Maria', date_iso: '2024-05-01', date_label: 'May 1, 2024', body: 'It arrived earlier than expected, well packed, with all pieces intact. Everything works. ❤️', image_name: 'summoning-glow-review-87093560.jpg', image_width: 750, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3728', reviewer: 'Jenna', date_iso: '2024-04-20', date_label: 'Apr 20, 2024', body: 'Happy with the shipment—it arrived early and matched the description. Super pleased.', image_name: 'summoning-glow-review-87093558.jpg', image_width: 562, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3889', reviewer: 'Oscar', date_iso: '2024-04-03', date_label: 'Apr 3, 2024', body: 'Always fast and good quality.', image_name: 'summoning-glow-review-87093565.jpg', image_width: 1000, image_height: 750 %}
+          {% render 'summoning-glow-review-card', review_id: '3727', reviewer: 'Jazmin', date_iso: '2024-03-27', date_label: 'Mar 27, 2024', body: 'Great quality for the price. My only issue is that the ring for the seven balls feels a little large—or the balls feel a little small—so there is some extra space. Otherwise, everything is great.', image_name: 'summoning-glow-review-87093557.jpg', image_width: 750, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3734', reviewer: 'Jada', date_iso: '2024-03-12', date_label: 'Mar 12, 2024', body: 'It arrived very well packed and looks very cool.', image_name: 'summoning-glow-review-87093564.jpg', image_width: 750, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3726', reviewer: 'Pablo', date_iso: '2024-02-23', date_label: 'Feb 23, 2024', body: 'Excellent service and faster than I expected. The details are amazing, and the lights really elevate the product. My husband loves it!', image_name: 'summoning-glow-review-87093556.jpg', image_width: 450, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3732', reviewer: 'James', date_iso: '2024-02-23', date_label: 'Feb 23, 2024', body: 'Very beautiful—I loved it. It was a little smaller than I expected, but still worth it.', image_name: 'summoning-glow-review-87093562.jpg', image_width: 562, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3738', reviewer: 'Shopper', date_iso: '2024-02-16', date_label: 'Feb 16, 2024', body: 'Arrived fast! Quality is okay for the price.', image_name: 'summoning-glow-review-87093567.jpg', image_width: 750, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3722', reviewer: 'Cruz', date_iso: '2024-02-15', date_label: 'Feb 15, 2024', body: "I loved this figure. The details on the dragon were impeccable, and the LED lights gave it an extra glow-up—I could almost feel it coming alive. The seller was fast and patient with me. I'll buy more items from this seller.", image_name: 'summoning-glow-review-87093552.jpg', image_width: 750, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '3731', reviewer: 'Shopper', date_iso: '2024-01-07', date_label: 'Jan 7, 2024', body: "It's very beautiful, just as it appears in the photos. I recommend it.", image_name: 'summoning-glow-review-87093561.jpg', image_width: 462, image_height: 1000 %}
+          {% render 'summoning-glow-review-card', review_id: '85404', reviewer: 'Brianna', date_iso: '2026-01-03', date_label: 'Jan 3, 2026', body: 'Love it!' %}
+          {% render 'summoning-glow-review-card', review_id: '17690', reviewer: 'mh88htc', date_iso: '2025-05-16', date_label: 'May 16, 2025', body: 'Really cool lamps! I love both of them!' %}
+        </div>
+      </details>
     </div>
-
-    <dialog class="sg-review-lightbox" data-sg-lightbox aria-label="Enlarged customer review photo">
-      <button class="sg-review-lightbox__close" type="button" data-sg-lightbox-close aria-label="Close enlarged photo">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"></path></svg>
-      </button>
-      <button class="sg-review-lightbox__arrow sg-review-lightbox__arrow--previous" type="button" data-sg-lightbox-previous aria-label="Previous customer photo">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-      </button>
-      <figure>
-        <img data-sg-lightbox-image alt="" width="1000" height="1000">
-        <figcaption data-sg-lightbox-caption></figcaption>
-      </figure>
-      <button class="sg-review-lightbox__arrow sg-review-lightbox__arrow--next" type="button" data-sg-lightbox-next aria-label="Next customer photo">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
-      </button>
-    </dialog>
   </section>
-
-  <script src="{{ 'summoning-glow-reviews.js' | asset_url }}" defer></script>
 {%- endif -%}
 
 {% schema %}
@@ -103,15 +77,6 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Real setups, close-up details, and first impressions from customers."
-    },
-    {
-      "type": "range",
-      "id": "reviews_per_page",
-      "label": "Reviews shown initially",
-      "min": 3,
-      "max": 12,
-      "step": 3,
-      "default": 6
     }
   ],
   "presets": [

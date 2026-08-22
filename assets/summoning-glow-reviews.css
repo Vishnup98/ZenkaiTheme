@@ -99,8 +99,7 @@
   gap: 10px;
 }
 
-.sg-reviews__filter,
-.sg-reviews__more {
+.sg-reviews__filter {
   appearance: none;
   border: 1px solid var(--sg-review-border);
   color: var(--sg-review-ink);
@@ -133,7 +132,7 @@
 }
 
 .sg-reviews__filter:focus-visible,
-.sg-reviews__more:focus-visible,
+.sg-reviews__more summary:focus-visible,
 .sg-review-card__photo-button:focus-visible,
 .sg-review-lightbox button:focus-visible {
   outline: 3px solid rgba(17, 42, 141, 0.3);
@@ -161,10 +160,6 @@
   box-shadow: 0 10px 28px rgba(23, 28, 55, 0.045);
 }
 
-.sg-review-card[hidden] {
-  display: none;
-}
-
 .sg-review-card__photo-button {
   position: relative;
   display: block;
@@ -175,6 +170,10 @@
   border-radius: 0;
   background: #e9ebf2;
   cursor: zoom-in;
+}
+
+.sg-review-card__photo-button picture {
+  display: block;
 }
 
 .sg-review-card__photo {
@@ -263,24 +262,65 @@
   line-height: 1.1;
 }
 
-.sg-reviews__more-wrap {
-  display: flex;
-  justify-content: center;
+.sg-reviews__more {
   margin-top: 30px;
 }
 
-.sg-reviews__more {
-  min-width: 190px;
+.sg-reviews__more summary {
+  display: flex;
+  width: fit-content;
+  min-width: 210px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
   padding: 15px 22px;
-  border-color: var(--sg-review-blue);
+  border: 1px solid var(--sg-review-blue);
   border-radius: 12px;
   color: var(--sg-review-blue);
+  background: #fff;
+  font-size: 0.88rem;
+  font-weight: 750;
+  line-height: 1;
+  list-style: none;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, transform 160ms ease;
 }
 
-.sg-reviews__more:hover {
+.sg-reviews__more summary::-webkit-details-marker {
+  display: none;
+}
+
+.sg-reviews__more summary:hover {
   color: #fff;
   background: var(--sg-review-blue);
   transform: translateY(-1px);
+}
+
+.sg-reviews__more-open {
+  display: none;
+}
+
+.sg-reviews__more[open] .sg-reviews__more-open {
+  display: inline;
+}
+
+.sg-reviews__more[open] .sg-reviews__more-closed {
+  display: none;
+}
+
+.sg-reviews__chevron {
+  font-size: 1.1rem;
+  line-height: 0.6;
+  transition: transform 160ms ease;
+}
+
+.sg-reviews__more[open] .sg-reviews__chevron {
+  transform: rotate(180deg);
+}
+
+.sg-reviews__grid--more {
+  margin-top: 24px;
 }
 
 .sg-review-lightbox {
@@ -435,7 +475,8 @@
 @media (prefers-reduced-motion: reduce) {
   .sg-review-card__photo,
   .sg-reviews__filter,
-  .sg-reviews__more {
+  .sg-reviews__more summary,
+  .sg-reviews__chevron {
     transition: none;
   }
 }
