@@ -16,11 +16,7 @@
             {{ 'cart.general.title' | t }}
           </h1>
           <p class="cart__header-subtitle">
-            {% if zenkai_cart_has_defect_only_collectible %}
-              Free U.S. shipping, bundle savings, and product-specific order protection are ready at checkout.
-            {% else %}
-              Free U.S. shipping, bundle savings, and your 30-day first-item guarantee are ready at checkout.
-            {% endif %}
+            Free U.S. shipping and bundle savings are ready at checkout.
           </p>
         </header>
 
@@ -290,11 +286,7 @@
                 <div class="zenkai-cart-assurance" aria-label="Checkout confidence">
                   <span>Secure checkout</span>
                   <span>Ships in 1-2 business days</span>
-                  {% if zenkai_cart_has_defect_only_collectible %}
-                    <span>Collectibles: final sale · order issues covered</span>
-                  {% else %}
-                    <span>30-day first-item guarantee</span>
-                  {% endif %}
+                  <span>Free U.S. shipping</span>
                 </div>
 
                 {%- comment -%} Bundle tier progress — live nudge toward next savings threshold. Matches PDP bundle callout visual language. {%- endcomment -%}

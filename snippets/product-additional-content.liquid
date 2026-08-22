@@ -13,11 +13,7 @@
 {%- assign zenkai_detail_type = product.type | downcase -%}
 {%- assign zenkai_detail_title = product.title | downcase -%}
 {%- assign zenkai_detail_template = product.template_suffix | downcase -%}
-{%- assign zenkai_detail_defect_only = false -%}
 {%- assign zenkai_detail_eternal_wish = false -%}
-{%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
-  {%- assign zenkai_detail_defect_only = true -%}
-{%- endif -%}
 {%- if product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
   {%- assign zenkai_detail_eternal_wish = true -%}
 {%- endif -%}
@@ -254,17 +250,6 @@
               <li>100% ring-spun cotton at a midweight feel - soft from day one, holds shape after washing</li>
             </ul>
         {% endcase %}
-        <div class="zenkai-utility-note">
-          {% if zenkai_detail_category == 'pin' %}
-            <strong>Pin note:</strong> No sizing or fabric care needed. If a pin arrives damaged or a backing is missing, we'll make it right. <a href="/pages/policy">Full policy</a>
-          {% elsif zenkai_detail_defect_only %}
-            <strong>Collector-item return policy:</strong> Change-of-mind returns are not accepted. Lost, damaged, defective, wrong, or materially misdescribed orders are covered by our replacement/refund policy. <a href="/pages/policy">Full policy</a>
-          {% elsif zenkai_detail_category == 'collectible' %}
-            <strong>Collectible note:</strong> Small parts may be present. If your display piece arrives damaged or defective, contact us and we'll make it right. <a href="/pages/policy">Full policy</a>
-          {% else %}
-            <strong>Made-to-order note:</strong> Every piece is printed fresh when you order. If the size is off, we'll send one free exchange per order. If it arrives damaged or misprinted, we'll replace it. <a href="/pages/policy">Full policy</a>
-          {% endif %}
-        </div>
       </div>
     </div>
   </div>
