@@ -141,6 +141,13 @@
       {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
         {%- assign zenkai_hide_bundle_promo = true -%}
       {%- endif -%}
+    {%- elsif request.page_type == 'cart' -%}
+      {%- for zenkai_header_cart_item in cart.items -%}
+        {%- if zenkai_header_cart_item.product.handle == 'summoning-glow-16cm-led-dragon-display' or zenkai_header_cart_item.product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+          {%- assign zenkai_hide_bundle_promo = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
     {%- endif -%}
     {%- unless zenkai_hide_bundle_promo -%}
       {% include 'promo-bar' %}

@@ -28,7 +28,7 @@
 {%- endif -%}
 
 <footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
-  {% if section.settings.show_newsletter %}
+  {% if section.settings.show_newsletter and zenkai_defect_only_context == false %}
     <div class="site-footer__section site-footer__section--newsletter" data-aos>
       <div class="page-width">
         {% if section.settings.newsletter_title != blank %}
@@ -60,7 +60,7 @@
         <span>Free U.S. shipping</span>
         <span>Ships in 1-2 days</span>
         {% if zenkai_defect_only_context %}
-          <span>Defect-only replacement or refund</span>
+          <span>Final sale · order issues covered</span>
         {% else %}
           <a href="/pages/policy">30-day first-item guarantee</a>
         {% endif %}

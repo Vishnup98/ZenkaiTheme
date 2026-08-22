@@ -1,3 +1,16 @@
+{%- assign zenkai_collectible_focus_context = false -%}
+{%- if request.page_type == 'product' -%}
+  {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+    {%- assign zenkai_collectible_focus_context = true -%}
+  {%- endif -%}
+{%- elsif request.page_type == 'cart' -%}
+  {%- for zenkai_layout_cart_item in cart.items -%}
+    {%- if zenkai_layout_cart_item.product.handle == 'summoning-glow-16cm-led-dragon-display' or zenkai_layout_cart_item.product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+      {%- assign zenkai_collectible_focus_context = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
@@ -83,6 +96,24 @@
   {% include 'critical-css' %}
   {% include 'load-css' %}
 
+  {%- if zenkai_collectible_focus_context -%}
+    <style>
+      body.zenkai-collectible-focus .klaviyo-form,
+      body.zenkai-collectible-focus [class*="klaviyo-form"],
+      body.zenkai-collectible-focus [class*="kl-private-reset-css"],
+      body.zenkai-collectible-focus [data-testid*="klaviyo" i],
+      body.zenkai-collectible-focus iframe[title*="klaviyo" i],
+      body.zenkai-collectible-focus [id*="smartsize" i],
+      body.zenkai-collectible-focus [class*="smartsize" i],
+      body.zenkai-collectible-focus [data-smartsize],
+      body.zenkai-collectible-focus [aria-label*="size guide" i] {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    </style>
+  {%- endif -%}
+
   <script src="{{ 'vendor-v2.js' | asset_url | split: '?' | first }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   {%- if request.page_type contains 'customers/' -%}
@@ -90,7 +121,7 @@
   {%- endif -%}
  </head>
 
-<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if settings.cart_type == 'sticky' and cart.item_count > 0 and template != 'cart' %} body--sticky-cart-open{% endif %}{% if cart.item_count > 0 %} cart-has-items{% endif %}" data-transitions="{{ settings.animate_page_transitions }}" ontouchstart="return true;">
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if settings.cart_type == 'sticky' and cart.item_count > 0 and template != 'cart' %} body--sticky-cart-open{% endif %}{% if cart.item_count > 0 %} cart-has-items{% endif %}{% if zenkai_collectible_focus_context %} zenkai-collectible-focus{% endif %}" data-transitions="{{ settings.animate_page_transitions }}" ontouchstart="return true;">
   <div id="OverscrollLoader" class="overscroll-loader" aria-hidden="true">
     <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--full-color icon-loader--full-color"><path class="icon-loader__close" d="M19 17.61l27.12 27.13m0-27.12L19 44.74"/><path class="icon-loader__path" d="M40 90a40 40 0 1 1 20 0"/></svg>
   </div>
@@ -133,7 +164,63 @@
       </div>
     </div>
 
-    {% section 'newsletter-popup' %}
+    {% unless zenkai_collectible_focus_context %}
+      {% section 'newsletter-popup' %}
+    {% endunless %}
+
+    {%- if zenkai_collectible_focus_context -%}
+      <script>
+        (function() {
+          var selectors = [
+            '.klaviyo-form',
+            '[class*="klaviyo-form"]',
+            '[class*="kl-private-reset-css"]',
+            '[data-testid*="klaviyo" i]',
+            'iframe[title*="klaviyo" i]',
+            '[id*="smartsize" i]',
+            '[class*="smartsize" i]',
+            '[data-smartsize]',
+            '[aria-label*="size guide" i]'
+          ];
+
+          function suppressCollectibleDistractions(root) {
+            var scope = root && root.querySelectorAll ? root : document;
+            selectors.forEach(function(selector) {
+              if (scope.matches && scope.matches(selector)) {
+                scope.hidden = true;
+                scope.setAttribute('aria-hidden', 'true');
+              }
+              scope.querySelectorAll(selector).forEach(function(node) {
+                node.hidden = true;
+                node.setAttribute('aria-hidden', 'true');
+              });
+            });
+
+            if (scope.matches && scope.matches('button, a') && (scope.textContent || '').trim().toLowerCase() === 'view size guide') {
+              scope.hidden = true;
+              scope.setAttribute('aria-hidden', 'true');
+            }
+            scope.querySelectorAll('button, a').forEach(function(node) {
+              if ((node.textContent || '').trim().toLowerCase() === 'view size guide') {
+                node.hidden = true;
+                node.setAttribute('aria-hidden', 'true');
+              }
+            });
+          }
+
+          suppressCollectibleDistractions(document);
+          if ('MutationObserver' in window) {
+            new MutationObserver(function(mutations) {
+              mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                  if (node.nodeType === 1) suppressCollectibleDistractions(node);
+                });
+              });
+            }).observe(document.body, { childList: true, subtree: true });
+          }
+        })();
+      </script>
+    {%- endif -%}
 
     {% include 'video-modal' %}
     {% if settings.animate_page_transition_style == 'page-logo' %}

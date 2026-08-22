@@ -12,7 +12,7 @@
   {%- assign zenkai_guarantee_badge_text = "Damaged or defective? We'll replace it" -%}
 {%- endif -%}
 {%- if zenkai_defect_only_collectible -%}
-  {%- assign zenkai_guarantee_badge_text = 'Final sale · defect-only replacement or refund' -%}
+  {%- assign zenkai_guarantee_badge_text = 'Final sale · order issues covered' -%}
 {%- endif -%}
 {% if zenkai_cta_text == 'Add to Cart' or zenkai_cta_text == 'Add to Bag' %}
   {%- assign zenkai_cta_with_price = true -%}
@@ -170,7 +170,7 @@
   {% if zenkai_defect_only_collectible %}
     <aside class="zenkai-defect-only-policy" aria-label="Collector-item return policy">
       <strong>Collector-item return policy</strong>
-      These displays are final sale. We do not accept returns for a change of mind or because the piece is not to your taste. If your display arrives damaged or defective, contact us for a replacement or refund.
+      Change-of-mind returns are not accepted. If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us for a replacement or refund. <a href="/pages/policy">Full policy</a>
     </aside>
   {% endif %}
 

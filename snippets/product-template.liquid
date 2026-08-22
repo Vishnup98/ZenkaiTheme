@@ -2598,7 +2598,7 @@
                 {% if zenkai_defect_only_collectible %}
                   <span class="zenkai-paid-proof-strip__item">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-                    Defect-only replacement or refund
+                    Final sale · order issues covered
                   </span>
                 {% elsif zenkai_product_category == 'collectible' %}
                   <span class="zenkai-paid-proof-strip__item">
@@ -2680,7 +2680,7 @@
                 </section>
               {% endif %}
 
-              {% unless zenkai_product_category == 'pin' %}
+              {% unless zenkai_product_category == 'pin' or zenkai_defect_only_collectible %}
                 {% include 'bundle-callout', bundle_slot: 'mobile' %}
               {% endunless %}
 
@@ -2982,7 +2982,7 @@
         </div>
       </div>
 
-      {% unless zenkai_product_category == 'pin' %}
+      {% unless zenkai_product_category == 'pin' or zenkai_defect_only_collectible %}
         <div class="zenkai-bundle-belt">
           {% include 'bundle-callout', bundle_slot: 'desktop' %}
         </div>

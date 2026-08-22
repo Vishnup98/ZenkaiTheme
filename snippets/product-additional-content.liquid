@@ -14,8 +14,12 @@
 {%- assign zenkai_detail_title = product.title | downcase -%}
 {%- assign zenkai_detail_template = product.template_suffix | downcase -%}
 {%- assign zenkai_detail_defect_only = false -%}
+{%- assign zenkai_detail_eternal_wish = false -%}
 {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
   {%- assign zenkai_detail_defect_only = true -%}
+{%- endif -%}
+{%- if product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+  {%- assign zenkai_detail_eternal_wish = true -%}
 {%- endif -%}
 {%- assign zenkai_detail_category = 'tee' -%}
 {%- if zenkai_detail_template == 'collectible' or zenkai_detail_type contains 'collectible' or zenkai_detail_type contains 'figure' or zenkai_detail_type contains 'figurine' -%}
@@ -254,7 +258,7 @@
           {% if zenkai_detail_category == 'pin' %}
             <strong>Pin note:</strong> No sizing or fabric care needed. If a pin arrives damaged or a backing is missing, we'll make it right. <a href="/pages/policy">Full policy</a>
           {% elsif zenkai_detail_defect_only %}
-            <strong>Collector-item return policy:</strong> Final sale. We do not accept returns for a change of mind or because the piece is not to your taste. If it arrives damaged or defective, contact us for a replacement or refund.
+            <strong>Collector-item return policy:</strong> Change-of-mind returns are not accepted. Lost, damaged, defective, wrong, or materially misdescribed orders are covered by our replacement/refund policy. <a href="/pages/policy">Full policy</a>
           {% elsif zenkai_detail_category == 'collectible' %}
             <strong>Collectible note:</strong> Small parts may be present. If your display piece arrives damaged or defective, contact us and we'll make it right. <a href="/pages/policy">Full policy</a>
           {% else %}
@@ -275,7 +279,11 @@
         {% if zenkai_detail_category == 'pin' %}
           <p><strong>Ships ready to gift.</strong></p>
         {% elsif zenkai_detail_category == 'collectible' %}
-          <p><strong>Arrives in multiple components, ready to assemble for display.</strong></p>
+          {% if zenkai_detail_eternal_wish %}
+            <p><strong>Packed for protected delivery as a layered sculpted display.</strong></p>
+          {% else %}
+            <p><strong>Arrives in multiple components, ready to assemble for display.</strong></p>
+          {% endif %}
         {% else %}
           <p><strong>Made to order in the USA.</strong></p>
         {% endif %}
@@ -304,9 +312,15 @@
           <p>The set reads playful and display-worthy: bright enamel color, classic badge shapes, and a polished finish that works on bags, jackets, cork boards, or shelves.</p>
           <p>It is easy to gift, easy to collect, and small enough to carry the reference every day.</p>
         {% elsif zenkai_detail_category == 'collectible' %}
-          <p><strong>For the shelf that needs one unmistakable silhouette.</strong></p>
-          <p>The coiled sculpt reads clearly in daylight; after dark, the concentric base and translucent effects turn the entire scene into a warm focal point.</p>
-          <p>Painted texture, clear supports, and layered light give you something new to notice from every angle.</p>
+          {% if zenkai_detail_eternal_wish %}
+            <p><strong>For the shelf that needs one unmistakable silhouette.</strong></p>
+            <p>Three sweeping green coils build a layered 23 cm scene around white cloud effects, gold lightning accents, rocky peaks, and a small rider on a golden cloud.</p>
+            <p>The painted textures and overlapping forms give the display a different read from the front, side, and three-quarter view.</p>
+          {% else %}
+            <p><strong>For the shelf that needs one unmistakable silhouette.</strong></p>
+            <p>The coiled sculpt reads clearly in daylight; after dark, the concentric base and translucent effects turn the entire scene into a warm focal point.</p>
+            <p>Painted texture, clear supports, and layered light give you something new to notice from every angle.</p>
+          {% endif %}
         {% else %}
           <p><strong>For the ones who like the reference, not the costume.</strong></p>
           <p>Every design is an original reimagining: sometimes playful, sometimes abstract, always made to feel like something you'd actually wear.</p>

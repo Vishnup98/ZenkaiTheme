@@ -291,14 +291,14 @@
                   <span>Secure checkout</span>
                   <span>Ships in 1-2 business days</span>
                   {% if zenkai_cart_has_defect_only_collectible %}
-                    <span>Collectibles: replacement/refund only for defects</span>
+                    <span>Collectibles: final sale · order issues covered</span>
                   {% else %}
                     <span>30-day first-item guarantee</span>
                   {% endif %}
                 </div>
 
                 {%- comment -%} Bundle tier progress — live nudge toward next savings threshold. Matches PDP bundle callout visual language. {%- endcomment -%}
-                <div class="zk-cart-tier" data-zk-cart-tier data-zk-count="{{ cart.item_count }}" style="margin-bottom: 1rem;">
+                <div class="zk-cart-tier{% if zenkai_cart_has_defect_only_collectible %} hide{% endif %}" data-zk-cart-tier data-zk-count="{{ cart.item_count }}" style="margin-bottom: 1rem;">
                   <span class="bundle-eyebrow" aria-hidden="true">
                     <span class="bundle-eyebrow__dot"></span>
                     <span class="bundle-eyebrow__text">Bundle &amp; save · Always on</span>
