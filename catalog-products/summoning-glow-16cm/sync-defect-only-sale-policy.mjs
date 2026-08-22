@@ -9,8 +9,10 @@ import {
 import { loadManifest } from "../../tools/zenkai-catalog-api/manifest.mjs";
 
 const CONFIRMED = process.argv.includes("--confirm");
-const POLICY_HTML =
+const LEGACY_POLICY_HTML =
   "<h3>Collector-item return policy</h3><p>These displays are final sale. We do not accept returns for a change of mind or because the piece is not to your taste. If your display arrives damaged or defective, contact us for a replacement or refund.</p>";
+const POLICY_HTML =
+  '<h3>Collector-item return policy</h3><p><strong>Change-of-mind returns are not accepted.</strong> If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us within 7 days of delivery—or as soon as the expected delivery window has passed for a lost order—with your order number and any available photos. We will provide a replacement at no additional cost or a refund when a replacement is unavailable or as required by applicable law. <a href="/pages/policy">View the full policy.</a></p>';
 
 const PRODUCTS = [
   {
@@ -93,6 +95,13 @@ async function desiredProducts() {
         templateSuffix: manifest.templateSuffix,
         desiredDescriptionHtml: manifest.descriptionHtml,
         previousDescriptionHtml: manifest.descriptionHtml.slice(0, -POLICY_HTML.length),
+        legacyDescriptionHtml:
+          (
+            manifest.descriptionHtml.slice(0, -POLICY_HTML.length) + LEGACY_POLICY_HTML
+          ).replace(
+            "Real-world photos show the finished product in display settings.",
+            "Customer photos show the finished product in real collections.",
+          ),
       };
     }),
   );
@@ -113,7 +122,11 @@ function verifyIdentity(product, desired) {
 
 function verifyAllowedCurrentCopy(product, desired) {
   const current = normalizeHtml(product.descriptionHtml);
-  const allowed = [desired.previousDescriptionHtml, desired.desiredDescriptionHtml].map(normalizeHtml);
+  const allowed = [
+    desired.previousDescriptionHtml,
+    desired.legacyDescriptionHtml,
+    desired.desiredDescriptionHtml,
+  ].map(normalizeHtml);
   if (!allowed.includes(current)) {
     fail("Refusing to overwrite unexpected live product-description copy.", {
       productId: product.id,
@@ -160,8 +173,9 @@ async function run() {
         normalizeHtml(product.descriptionHtml) === normalizeHtml(desired[index].desiredDescriptionHtml),
     })),
     policy: {
-      eligibility: "Replacement or refund only when the display arrives damaged or defective.",
-      excluded: "Change of mind or deciding the display is not to the customer's taste.",
+      eligibility:
+        "Replacement or refund for lost, damaged, defective, wrong, or materially misdescribed collectible orders.",
+      excluded: "Change-of-mind returns.",
     },
   };
 

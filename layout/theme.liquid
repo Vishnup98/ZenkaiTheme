@@ -106,7 +106,10 @@
       body.zenkai-collectible-focus [id*="smartsize" i],
       body.zenkai-collectible-focus [class*="smartsize" i],
       body.zenkai-collectible-focus [data-smartsize],
-      body.zenkai-collectible-focus [aria-label*="size guide" i] {
+      body.zenkai-collectible-focus [aria-label*="size guide" i],
+      body.zenkai-collectible-focus #aftersell-pdp-upsell,
+      body.zenkai-collectible-focus #candyrack-frame,
+      body.zenkai-collectible-focus iframe[src*="candyrack" i] {
         display: none !important;
         visibility: hidden !important;
         pointer-events: none !important;
@@ -180,7 +183,10 @@
             '[id*="smartsize" i]',
             '[class*="smartsize" i]',
             '[data-smartsize]',
-            '[aria-label*="size guide" i]'
+            '[aria-label*="size guide" i]',
+            '#aftersell-pdp-upsell',
+            '#candyrack-frame',
+            'iframe[src*="candyrack" i]'
           ];
 
           function suppressCollectibleDistractions(root) {
@@ -250,6 +256,7 @@
       var cartCopyPattern = /Add\s+(\d+)\s+more\s+items?\s+and\s+save\s+\$(\d+)/gi;
       var ignoredTags = /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/;
       var observedRoots = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
+      var suppressGenericUpsells = {{ zenkai_collectible_focus_context | json }};
       var appColors = {
         mint: '#63d6bf',
         mintHover: '#4fc5ae',
@@ -316,6 +323,18 @@
             setImportantStyle(el, name, vars[name]);
           });
         });
+
+        if (suppressGenericUpsells) {
+          forEachMatch(
+            root,
+            '.upcart-internal-rewards, .upcart-public-rewards',
+            function(rewards) {
+              setImportantStyle(rewards, 'display', 'none');
+              rewards.hidden = true;
+              rewards.setAttribute('aria-hidden', 'true');
+            }
+          );
+        }
 
         forEachMatch(root, [
           '#upCart .upcart-checkout-button',
