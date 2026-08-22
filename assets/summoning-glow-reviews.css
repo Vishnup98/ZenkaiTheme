@@ -132,7 +132,7 @@
 }
 
 .sg-reviews__filter:focus-visible,
-.sg-reviews__more summary:focus-visible,
+.sg-reviews__more-toggle:focus-visible + .sg-reviews__more-label,
 .sg-review-card__photo-button:focus-visible,
 .sg-review-lightbox button:focus-visible {
   outline: 3px solid rgba(17, 42, 141, 0.3);
@@ -192,7 +192,7 @@
   background-size: cover;
 }
 
-.sg-reviews__more[open] .sg-review-card__photo--deferred {
+.sg-reviews__more-toggle:checked ~ .sg-reviews__grid--more .sg-review-card__photo--deferred {
   background-image: var(--sg-review-photo);
 }
 
@@ -277,7 +277,15 @@
   margin-top: 30px;
 }
 
-.sg-reviews__more summary {
+.sg-reviews__more-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.sg-reviews__more-label {
   display: flex;
   width: fit-content;
   min-width: 210px;
@@ -298,11 +306,7 @@
   transition: color 160ms ease, background 160ms ease, transform 160ms ease;
 }
 
-.sg-reviews__more summary::-webkit-details-marker {
-  display: none;
-}
-
-.sg-reviews__more summary:hover {
+.sg-reviews__more-label:hover {
   color: #fff;
   background: var(--sg-review-blue);
   transform: translateY(-1px);
@@ -312,11 +316,11 @@
   display: none;
 }
 
-.sg-reviews__more[open] .sg-reviews__more-open {
+.sg-reviews__more-toggle:checked + .sg-reviews__more-label .sg-reviews__more-open {
   display: inline;
 }
 
-.sg-reviews__more[open] .sg-reviews__more-closed {
+.sg-reviews__more-toggle:checked + .sg-reviews__more-label .sg-reviews__more-closed {
   display: none;
 }
 
@@ -326,12 +330,17 @@
   transition: transform 160ms ease;
 }
 
-.sg-reviews__more[open] .sg-reviews__chevron {
+.sg-reviews__more-toggle:checked + .sg-reviews__more-label .sg-reviews__chevron {
   transform: rotate(180deg);
 }
 
 .sg-reviews__grid--more {
+  display: none;
   margin-top: 24px;
+}
+
+.sg-reviews__more-toggle:checked ~ .sg-reviews__grid--more {
+  display: grid;
 }
 
 .sg-review-lightbox {
@@ -486,7 +495,7 @@
 @media (prefers-reduced-motion: reduce) {
   .sg-review-card__photo,
   .sg-reviews__filter,
-  .sg-reviews__more summary,
+  .sg-reviews__more-label,
   .sg-reviews__chevron {
     transition: none;
   }
