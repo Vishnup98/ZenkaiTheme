@@ -16,15 +16,6 @@
   data-review-id="{{ review_id | escape }}">
   {%- if image_name != blank -%}
     {%- assign image_webp = image_name | replace: '.jpg', '.webp' -%}
-    {%- if photo_link_only -%}
-      <a
-        class="sg-review-card__photo-link"
-        href="{{ image_name | asset_url }}"
-        target="_blank"
-        rel="noopener">
-        View customer photo
-      </a>
-    {%- else -%}
     <a
       class="sg-review-card__photo-button"
       href="{{ image_name | asset_url }}"
@@ -50,7 +41,6 @@
         </svg>
       </span>
     </a>
-    {%- endif -%}
   {%- endif -%}
 
   <div class="sg-review-card__content">

@@ -176,25 +176,6 @@
   display: block;
 }
 
-.sg-review-card__photo-link {
-  display: flex;
-  min-height: 96px;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: var(--sg-review-blue);
-  background: #eef1fb;
-  font-size: 0.86rem;
-  font-weight: 750;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.sg-review-card__photo-link:hover {
-  color: #fff;
-  background: var(--sg-review-blue);
-}
-
 .sg-review-card__photo {
   display: block;
   width: 100%;
