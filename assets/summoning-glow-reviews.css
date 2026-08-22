@@ -185,6 +185,17 @@
   transition: transform 260ms ease;
 }
 
+.sg-review-card__photo--deferred {
+  background-color: #e9ebf2;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sg-reviews__more[open] .sg-review-card__photo--deferred {
+  background-image: var(--sg-review-photo);
+}
+
 .sg-review-card__photo-button:hover .sg-review-card__photo {
   transform: scale(1.025);
 }
