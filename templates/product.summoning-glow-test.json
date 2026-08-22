@@ -29,7 +29,8 @@
       "settings": {
         "heading": "Loved by collectors",
         "subheading": "Real setups, close-up details, and first impressions from customers.",
-        "show_more_reviews": true
+        "show_more_reviews": true,
+        "suppress_additional_images": true
       }
     }
   },
