@@ -1,0 +1,58 @@
+{%- comment -%}
+  Static review card used only by the Summoning Glow native reviews section.
+
+  Expected parameters:
+  - review_id
+  - reviewer
+  - date_iso
+  - date_label
+  - body
+  - image_name (optional theme asset filename)
+  - image_width / image_height (required when image_name is present)
+{%- endcomment -%}
+
+<article
+  class="sg-review-card{% if image_name != blank %} sg-review-card--with-photo{% endif %}"
+  data-sg-review-card
+  data-review-id="{{ review_id | escape }}"
+  data-has-photo="{% if image_name != blank %}true{% else %}false{% endif %}">
+  {%- if image_name != blank -%}
+    <button
+      class="sg-review-card__photo-button"
+      type="button"
+      data-sg-review-photo
+      data-photo-src="{{ image_name | asset_url }}"
+      data-photo-alt="Customer photo shared with {{ reviewer | escape }}'s review"
+      data-photo-caption="{{ reviewer | escape }} · {{ date_label | escape }}"
+      aria-label="Enlarge customer photo from {{ reviewer | escape }}">
+      <img
+        class="sg-review-card__photo"
+        src="{{ image_name | asset_url }}"
+        alt="Customer photo shared with {{ reviewer | escape }}'s review"
+        width="{{ image_width }}"
+        height="{{ image_height }}"
+        loading="lazy"
+        decoding="async">
+      <span class="sg-review-card__zoom" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4M11 8v6M8 11h6"></path>
+        </svg>
+      </span>
+    </button>
+  {%- endif -%}
+
+  <div class="sg-review-card__content">
+    <div class="sg-review-card__stars" aria-label="5 out of 5 stars">
+      <span aria-hidden="true">★★★★★</span>
+    </div>
+    <p class="sg-review-card__body{% if body == 'Photo-only review.' %} sg-review-card__body--photo-only{% endif %}">{{ body }}</p>
+    <footer class="sg-review-card__footer">
+      <span class="sg-review-card__avatar" aria-hidden="true">{{ reviewer | slice: 0, 1 | upcase }}</span>
+      <span class="sg-review-card__identity">
+        <strong>{{ reviewer }}</strong>
+        <time datetime="{{ date_iso }}">{{ date_label }}</time>
+      </span>
+    </footer>
+  </div>
+</article>

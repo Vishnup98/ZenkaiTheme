@@ -41,7 +41,7 @@
 
 - Use the qualified operational statement: `Most orders arrive at your door within one business week.`
 - Do not rewrite this as a guarantee that every order arrives within five business days.
-- Customer reviews or customer-photo claims
+- Customer reviews or customer-photo claims, except the separately sourced review set documented internally in `legacy-reviews.json`
 
 ## Image policy
 
@@ -49,4 +49,5 @@
 - They must not be labeled as customer photos, reviews, UGC, or documentary proof.
 - Genuine customer/collector photos supplied by the user are stored separately under `customer-photos/` and may be labeled as customer imagery.
 - Images 5–6 in that set were conservatively restored/upscaled, but remain genuine customer-photo derivatives rather than generated merchandising scenes.
-- No customer names, handles, ratings, or testimonial quotes have been supplied; none should be invented.
+- Sixteen additional review photos and their matching reviews were recovered from the merchant's former Standify product page on 2026-08-22. Their source data and minimally edited migration copy are preserved in `legacy-reviews.json`.
+- Legacy reviewer names, dates, ratings, and criticism must be preserved. The merchant states that reviewers authorized editorial rewriting, but identities must not be swapped or invented, experiences must not be fabricated, and imported reviews must not be marked as verified.

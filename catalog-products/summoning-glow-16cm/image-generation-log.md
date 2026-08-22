@@ -52,6 +52,40 @@ Conservative restoration of the supplied 270×600 RGB desk snapshot: crop only t
 
 Conservative restoration of the supplied 432×960 customer unboxing photo: preserve the exact component inventory and positions, reflective package, white ring/cable, seven spheres, dragon, base, supports, bedding, and phone shadow; reduce blockiness/noise, improve restrained clarity, and increase resolution without turning it into catalog photography.
 
+## Legacy Standify review-photo restoration
+
+Sixteen genuine review photos were recovered from the merchant's former Standify product page and saved under `customer-photos/legacy-originals/`. Each photo was edited separately with the built-in image-generation tool, then mechanically resized to exactly 2× its source dimensions and saved under `customer-photos/legacy-upscaled/`. The accepted outputs preserve the original aspect ratios, crops, backgrounds, lighting, visible wires, product variations, and candid imperfections.
+
+Final prompt used for each photo:
+
+```text
+Use case: precise-object-edit
+Asset type: legacy customer review photo for an ecommerce review gallery
+Primary request: Conservatively restore and upscale this exact customer photo by about 2× for web display. Reduce JPEG compression artifacts and mild noise, recover restrained natural clarity, and keep the photo candid.
+Input images: Image 1 is the edit target.
+Constraints: preserve the exact crop, aspect ratio, camera angle, product geometry, number and placement of every object, star markings, supports, wires, background, lighting direction, colors, reflections, and shadows. Do not add, remove, move, replace, relight, beautify, or redesign anything. Do not invent fine details that are not visible. No text, no watermark. The result must remain recognizably the same genuine customer photograph, only modestly cleaner and larger.
+Avoid: generative reinterpretation, studio polish, background replacement, object correction, altered LEDs, extra spheres, changed dragon anatomy, oversharpening, plastic-looking textures, HDR, aggressive denoising.
+```
+
+Final size map:
+
+- `standify-review-87093552-upscaled.png` — 750×1000
+- `standify-review-87093553-upscaled.png` — 750×1000
+- `standify-review-87093554-upscaled.png` — 500×1000
+- `standify-review-87093555-upscaled.png` — 450×1000
+- `standify-review-87093556-upscaled.png` — 450×1000
+- `standify-review-87093557-upscaled.png` — 750×1000
+- `standify-review-87093558-upscaled.png` — 562×1000
+- `standify-review-87093559-upscaled.png` — 450×1000
+- `standify-review-87093560-upscaled.png` — 750×1000
+- `standify-review-87093561-upscaled.png` — 462×1000
+- `standify-review-87093562-upscaled.png` — 562×1000
+- `standify-review-87093563-upscaled.png` — 750×1000
+- `standify-review-87093564-upscaled.png` — 750×1000
+- `standify-review-87093565-upscaled.png` — 1000×750
+- `standify-review-87093566-upscaled.png` — 750×1000
+- `standify-review-87093567-upscaled.png` — 750×1000
+
 ## Complete-the-set popup artwork
 
 The original popup artwork below was built from supplier product `1005007113011680` and is superseded. The v2 artwork uses the merchant-confirmed product `1005012765836810`, the stated 23 cm height, and the four customer references in `../eternal-dragon-23cm/customer-images/`.
