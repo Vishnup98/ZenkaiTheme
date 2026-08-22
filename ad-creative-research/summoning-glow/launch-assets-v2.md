@@ -52,9 +52,9 @@ https://zenkaiclothing.com/products/summoning-glow-16cm-led-dragon-display?lp=re
 
 ### Placement files
 
-- Feed 4:5: `ad-creative-research/summoning-glow/collector-desk-masters/collector-desk-feed-4x5-v1.png`
-- Stories/Reels 9:16: `ad-creative-research/summoning-glow/collector-desk-masters/collector-desk-story-9x16-v1.png`
-- Square 1:1: `ad-creative-research/summoning-glow/collector-desk-masters/collector-desk-square-1x1-v1.png`
+- Feed 4:5: `ad-creative-research/summoning-glow/collector-desk-masters/collector-desk-feed-4x5-v2.png`
+- Stories/Reels 9:16: `ad-creative-research/summoning-glow/collector-desk-masters/collector-desk-story-9x16-v2.png`
+- Square 1:1: `ad-creative-research/summoning-glow/collector-desk-masters/collector-desk-square-1x1-v2.png`
 
 ### Copy
 
@@ -92,7 +92,7 @@ https://zenkaiclothing.com/products/summoning-glow-16cm-led-dragon-display?lp=de
 - Assembly is required.
 - Preference/change-of-mind returns are final sale.
 - If the product arrives damaged or defective, the customer may receive a replacement or refund.
-- The artwork must retain exactly seven spheres with one unique red-star count from one through seven.
+- The artwork must retain exactly seven spheres with one unique red-star count from one through seven. The Collector Desk v2 masters were manually audited at full resolution and read `1, 2, 3, 4, 5, 6, 7` from left to right around the display.
 
 ## QA completed locally
 
