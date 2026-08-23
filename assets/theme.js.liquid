@@ -678,9 +678,10 @@ lazySizesConfig.expFactor = 4;
         if (!history.replaceState || !variant) {
           return;
         }
-  
-        var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?variant=' + variant.id;
-        window.history.replaceState({path: newurl}, '', newurl);
+
+        var newurl = new URL(window.location.href);
+        newurl.searchParams.set('variant', variant.id);
+        window.history.replaceState({path: newurl.toString()}, '', newurl.toString());
       },
   
       _updateMasterSelect: function(variant) {

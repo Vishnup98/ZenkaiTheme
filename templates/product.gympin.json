@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "gym_badge_paid_landing": {
+      "type": "gym-badge-paid-landing",
+      "settings": {}
+    },
     "main": {
       "type": "product-template",
       "blocks": {
@@ -170,6 +174,7 @@
     }
   },
   "order": [
+    "gym_badge_paid_landing",
     "main",
     "product-sections",
     "product-recommendations",

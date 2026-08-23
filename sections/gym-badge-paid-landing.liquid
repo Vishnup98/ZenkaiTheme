@@ -1,0 +1,240 @@
+{%- if product.template_suffix == 'gympin' -%}
+  {{ 'gym-badge-paid-landing.css' | asset_url | stylesheet_tag }}
+
+  {%- assign gb_collector_variant = nil -%}
+  {%- for variant in product.variants -%}
+    {%- assign gb_variant_title = variant.title | downcase -%}
+    {%- if gb_variant_title contains 'collector' or gb_variant_title contains '4 regions' or gb_variant_title contains 'all four' -%}
+      {%- assign gb_collector_variant = variant -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign gb_collector_variant = gb_collector_variant | default: product.selected_or_first_available_variant -%}
+  {%- assign gb_separate_total = 0 -%}
+  {%- for variant in product.variants -%}
+    {%- assign gb_separate_title = variant.title | downcase -%}
+    {%- unless gb_separate_title contains 'collector' or gb_separate_title contains '4 regions' or gb_separate_title contains 'all four' -%}
+      {%- assign gb_separate_total = gb_separate_total | plus: variant.price -%}
+    {%- endunless -%}
+  {%- endfor -%}
+  {%- assign gb_savings = gb_separate_total | minus: gb_collector_variant.price -%}
+  {%- assign gb_per_badge = gb_collector_variant.price | divided_by: 32 -%}
+
+  <section
+    class="gb-paid-landing"
+    data-gb-paid-landing
+    data-product-section-selector="#ProductSection-{{ product.id }}"
+    data-collector-variant-id="{{ gb_collector_variant.id }}"
+    data-collector-variant-title="{{ gb_collector_variant.title | escape }}"
+    hidden>
+    <div class="gb-paid-landing__frame">
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--complete"
+        data-gb-lp-panel="complete"
+        aria-labelledby="gb-paid-complete-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-ad-a-completion-45.webp' | asset_url }}"
+            alt="Four open presentation boxes containing the complete 32-badge collector set on a premium gaming shelf"
+            width="1122"
+            height="1402"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">The complete four-region collection</p>
+          <h1 id="gb-paid-complete-title-{{ section.id }}">Every badge. Every box. One finished collection.</h1>
+          <p class="gb-paid-landing__lede">All 32 hard-enamel badges arrive across four presentation boxes. No choosing a favorite region. No half-finished display.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Finish the Collection',
+            journey: 'complete',
+            product_id: product.id,
+            separate_total: gb_separate_total,
+            savings: gb_savings,
+            per_badge: gb_per_badge
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Complete collection highlights">
+          <div><span>The full run</span><strong>32 badges</strong><p>Eight hard-enamel badges from each of four regions.</p></div>
+          <div><span>Presentation</span><strong>4 display boxes</strong><p>Each regional set arrives in its own fitted collector box.</p></div>
+          <div><span>Collector value</span><strong>Save {{ gb_savings | money }}</strong><p>{{ gb_collector_variant.price | money }} together versus {{ gb_separate_total | money }} when purchased as four separate sets.</p></div>
+        </div>
+      </article>
+
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--premium"
+        data-gb-lp-panel="premium"
+        aria-labelledby="gb-paid-premium-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-ad-b-premium-45.webp' | asset_url }}"
+            alt="The complete four-box badge collection presented in a dark brass-lit collector cabinet"
+            width="1122"
+            height="1402"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">The definitive collector's set</p>
+          <h1 id="gb-paid-premium-title-{{ section.id }}">This is how the collection was meant to be owned.</h1>
+          <p class="gb-paid-landing__lede">Four fitted boxes. Thirty-two polished badges. A complete shelf piece that feels considered before the first box is even opened.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Own the Complete Set',
+            journey: 'premium',
+            product_id: product.id,
+            separate_total: gb_separate_total,
+            savings: gb_savings,
+            per_badge: gb_per_badge
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Premium collector set highlights">
+          <div><span>Four chapters</span><strong>One definitive set</strong><p>Every regional collection, boxed individually and sold together.</p></div>
+          <div><span>Made to display</span><strong>Presentation included</strong><p>The fitted black boxes turn the complete run into a shelf-ready artifact.</p></div>
+          <div><span>Better as a set</span><strong>{{ gb_collector_variant.price | money }} complete</strong><p>{{ gb_savings | money }} less than purchasing all four regional boxes separately.</p></div>
+        </div>
+      </article>
+
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--nostalgia"
+        data-gb-lp-panel="nostalgia"
+        aria-labelledby="gb-paid-nostalgia-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-ad-c-nostalgia-45.webp' | asset_url }}"
+            alt="The four-box badge collection displayed beside a nostalgic blue-hour gaming computer setup"
+            width="1122"
+            height="1402"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">The collection you remember earning</p>
+          <h1 id="gb-paid-nostalgia-title-{{ section.id }}">The set your younger self would have lost their mind over.</h1>
+          <p class="gb-paid-landing__lede">The badges that marked every milestone—now collected across four complete boxes and ready for the shelf beside the setup you finally built.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Bring Home All 32',
+            journey: 'nostalgia',
+            product_id: product.id,
+            separate_total: gb_separate_total,
+            savings: gb_savings,
+            per_badge: gb_per_badge
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Nostalgia collection highlights">
+          <div><span>Four regions</span><strong>Every milestone</strong><p>A complete 32-badge run in one purchase.</p></div>
+          <div><span>No favorite required</span><strong>Finish the map</strong><p>Keep all four sets together instead of stopping after the first eight.</p></div>
+          <div><span>Ready to gift</span><strong>No size guessing</strong><p>A boxed collectible for the person who still remembers every badge.</p></div>
+        </div>
+      </article>
+
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--proof"
+        data-gb-lp-panel="proof"
+        aria-labelledby="gb-paid-proof-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-ad-d-proof-45.webp' | asset_url }}"
+            alt="Studio close-up of the complete four-box hard-enamel badge collection showing raised metal detail"
+            width="1122"
+            height="1402"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">Look closer</p>
+          <h1 id="gb-paid-proof-title-{{ section.id }}">Hard enamel. Raised metal detail. All 32.</h1>
+          <p class="gb-paid-landing__lede">Glossy enamel color, polished raised edges, secure clutch backs, and four fitted presentation boxes. The detail holds up from across the room and up close.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: "Get the Collector's Pack",
+            journey: 'proof',
+            product_id: product.id,
+            separate_total: gb_separate_total,
+            savings: gb_savings,
+            per_badge: gb_per_badge
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Material quality highlights">
+          <div><span>Finish</span><strong>Glossy hard enamel</strong><p>Clean, saturated color held inside polished metal borders.</p></div>
+          <div><span>Detail</span><strong>Raised metal edges</strong><p>Dimensional lines give each badge definition and a premium feel.</p></div>
+          <div><span>Complete pack</span><strong>32 badges · 4 boxes</strong><p>The quality proof is repeated across the entire four-region collection.</p></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <script>
+    (function() {
+      var section = document.querySelector('[data-gb-paid-landing]');
+      var match = (window.location.search || '').match(/(?:^|[?&])lp=([^&]*)/i);
+      if (!section || !match) return;
+
+      var requested = match[1];
+      try {
+        requested = decodeURIComponent(requested.replace(/\+/g, ' '));
+      } catch (error) {
+        return;
+      }
+
+      requested = requested.replace(/^\s+|\s+$/g, '').toLowerCase();
+      if (['complete', 'premium', 'nostalgia', 'proof'].indexOf(requested) === -1) return;
+
+      var panel = section.querySelector('[data-gb-lp-panel="' + requested + '"]');
+      if (!panel) return;
+
+      var image = panel.querySelector('[data-gb-lp-src]');
+      if (image) image.src = image.getAttribute('data-gb-lp-src');
+      section.setAttribute('data-active-lp', requested);
+      section.hidden = false;
+      panel.hidden = false;
+      document.documentElement.setAttribute('data-gb-paid-lp', requested);
+      if (document.documentElement.className.indexOf('gb-paid-lp-active') === -1) {
+        document.documentElement.className += ' gb-paid-lp-active';
+      }
+    })();
+  </script>
+  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=1" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Gym badge paid LP",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Gym badge paid LP"
+    }
+  ]
+}
+{% endschema %}

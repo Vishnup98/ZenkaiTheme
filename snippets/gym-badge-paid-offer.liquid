@@ -1,0 +1,40 @@
+<div class="gb-paid-landing__offer" aria-label="Collector's Pack offer">
+  <div class="gb-paid-landing__price-row">
+    <div>
+      <span>4 Regions · 32 Badges</span>
+      <strong>{{ collector_variant.price | money }}</strong>
+    </div>
+    <div class="gb-paid-landing__saving">
+      <s>{{ separate_total | money }}</s>
+      <span>Save {{ savings | money }}</span>
+    </div>
+  </div>
+
+  <ul class="gb-paid-landing__confidence" role="list">
+    <li>Free U.S. shipping</li>
+    <li>Ships in 1–2 business days</li>
+    <li>Four fitted presentation boxes</li>
+  </ul>
+
+  <button
+    type="button"
+    class="gb-paid-landing__primary"
+    data-gb-lp-add
+    data-gb-lp-journey="{{ journey }}"
+    {% unless collector_variant.available %}disabled{% endunless %}>
+    {% if collector_variant.available %}
+      {{ cta_text }} — {{ collector_variant.price | money }}
+    {% else %}
+      Collector's Pack sold out
+    {% endif %}
+  </button>
+
+  <div class="gb-paid-landing__microproof" aria-label="Offer summary">
+    <span><strong>32</strong> hard-enamel badges</span>
+    <span><strong>4</strong> collector boxes</span>
+    <span><strong>{{ per_badge | money }}</strong> per badge</span>
+  </div>
+
+  <a class="gb-paid-landing__secondary" href="#ProductSection-{{ product_id }}" data-gb-lp-details>See exact contents and customer photos</a>
+  <p class="gb-paid-landing__policy">Final sale for preference changes. If your order arrives damaged, defective, incorrect, or incomplete, contact us within 7 days of delivery. <a href="/pages/policy">Full policy</a>.</p>
+</div>
