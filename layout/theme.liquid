@@ -363,6 +363,12 @@
       var ignoredTags = /^(SCRIPT|STYLE|NOSCRIPT|TEXTAREA)$/;
       var observedRoots = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
       var suppressGenericUpsells = {{ zenkai_collectible_focus_context | json }};
+
+      /* Focused collectible pages intentionally suppress UpCart/CandyRack and
+         render their own product-specific offer. Do not attach the global
+         shadow-root scanner or its delayed full-document rescans there. */
+      if (suppressGenericUpsells) return;
+
       var appColors = {
         mint: '#63d6bf',
         mintHover: '#4fc5ae',

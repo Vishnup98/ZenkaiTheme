@@ -254,8 +254,25 @@
     var el = document.querySelector('.header-wrapper');
     if (!el) return;
     var root = document.documentElement;
+    var lastHeight = -1;
+    var scheduled = false;
     var apply = function () {
-      root.style.setProperty('--header-height', el.offsetHeight + 'px');
+      if (scheduled) return;
+      scheduled = true;
+
+      var update = function () {
+        scheduled = false;
+        var height = Math.round(el.getBoundingClientRect().height);
+        if (height === lastHeight) return;
+        lastHeight = height;
+        root.style.setProperty('--header-height', height + 'px');
+      };
+
+      if (window.requestAnimationFrame) {
+        window.requestAnimationFrame(update);
+      } else {
+        window.setTimeout(update, 0);
+      }
     };
     apply();
     window.addEventListener('load', apply);

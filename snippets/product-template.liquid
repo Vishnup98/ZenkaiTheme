@@ -3499,7 +3499,10 @@
       }
     }, { capture: true, passive: false });
 
-    setInterval(function() {
+    var thumbSyncFrame = null;
+
+    function syncMobileThumbnails() {
+      thumbSyncFrame = null;
       if (typeof jQuery === 'undefined') return;
       var $slider = jQuery('[data-product-photos].slick-initialized');
       if (!$slider.length) return;
@@ -3512,10 +3515,48 @@
       var c = document.querySelector('[data-product-thumbs]');
       var a = document.querySelector('[data-product-thumb-item].is-active');
       if (c && a && c.scrollWidth > c.clientWidth) {
-        c.scrollTo({ left: a.offsetLeft - (c.clientWidth / 2) + (a.offsetWidth / 2), behavior: 'smooth' });
+        var targetLeft = a.offsetLeft - (c.clientWidth / 2) + (a.offsetWidth / 2);
+        if (Math.abs(c.scrollLeft - targetLeft) > 2) {
+          c.scrollTo({ left: targetLeft, behavior: 'auto' });
+        }
       }
       if (c) c.style.justifyContent = (c.scrollWidth <= c.clientWidth) ? 'center' : 'flex-start';
-    }, 500);
+    }
+
+    function requestMobileThumbnailSync() {
+      if (thumbSyncFrame !== null) return;
+      if (window.requestAnimationFrame) {
+        thumbSyncFrame = window.requestAnimationFrame(syncMobileThumbnails);
+      } else {
+        thumbSyncFrame = window.setTimeout(syncMobileThumbnails, 0);
+      }
+    }
+
+    function bindMobileThumbnailSync() {
+      if (typeof jQuery === 'undefined') return false;
+      var $slider = jQuery('[data-product-photos].slick-initialized');
+      if (!$slider.length) return false;
+
+      var slider = $slider.get(0);
+      if (slider && !slider.__zenkaiMobileThumbSync) {
+        slider.__zenkaiMobileThumbSync = true;
+        $slider.on('afterChange.zenkaiMobileThumbs', requestMobileThumbnailSync);
+      }
+      requestMobileThumbnailSync();
+      return true;
+    }
+
+    if (!bindMobileThumbnailSync()) {
+      var thumbBindAttempts = 0;
+      var thumbBindPoll = window.setInterval(function() {
+        thumbBindAttempts += 1;
+        if (bindMobileThumbnailSync() || thumbBindAttempts >= 40) {
+          window.clearInterval(thumbBindPoll);
+        }
+      }, 250);
+    }
+
+    window.addEventListener('resize', requestMobileThumbnailSync);
 
     setTimeout(function() {
       var title = document.querySelector('.product-single__title');
