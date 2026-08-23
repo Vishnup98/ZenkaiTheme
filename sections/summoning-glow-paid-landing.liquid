@@ -93,7 +93,7 @@
         hidden>
         <div class="sg-paid-landing__visual">
           <img
-            src="{{ 'summoning-glow-lp-desk-v2.jpg' | asset_url }}"
+            src="{{ 'summoning-glow-lp-desk-v3.png' | asset_url }}"
             alt="Built for the collector's shelf: Summoning Glow displayed beside a premium PC setup"
             width="1080"
             height="1350"
@@ -166,7 +166,36 @@
     </div>
   </section>
 
-  <script src="{{ 'summoning-glow-paid-landing.js' | asset_url }}" defer></script>
+  <script>
+    (function() {
+      var section = document.querySelector('[data-sg-paid-landing]');
+      var match = (window.location.search || '').match(/(?:^|[?&])lp=([^&]*)/i);
+      if (!section || !match) return;
+
+      var requested = match[1];
+      try {
+        requested = decodeURIComponent(requested.replace(/\+/g, ' '));
+      } catch (error) {
+        return;
+      }
+
+      requested = requested.replace(/^\s+|\s+$/g, '').toLowerCase();
+      if (requested !== 'reveal' && requested !== 'desk') return;
+
+      var panel = section.querySelector('[data-sg-lp-panel="' + requested + '"]');
+      if (!panel) return;
+
+      section.setAttribute('data-active-lp', requested);
+      section.hidden = false;
+      panel.hidden = false;
+      document.documentElement.setAttribute('data-sg-paid-lp', requested);
+
+      if (document.documentElement.className.indexOf('sg-paid-lp-active') === -1) {
+        document.documentElement.className += ' sg-paid-lp-active';
+      }
+    })();
+  </script>
+  <script src="{{ 'summoning-glow-paid-landing.js' | asset_url }}&amp;compat=3" defer></script>
 {%- endif -%}
 
 {% schema %}
