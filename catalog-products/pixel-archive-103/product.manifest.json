@@ -1,0 +1,80 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Pixel Archive — 103-Piece Retro Card Sticker Pack",
+  "handle": "pixel-archive-103-piece-retro-card-sticker-pack",
+  "descriptionHtml": "<p><strong>One hundred and three tiny character cards. One complete retro archive.</strong></p><p>Pixel Archive turns a full cast of familiar creatures into individually cut card-frame decals. Every sticker combines blocky game-era linework, a numbered-card layout, and its own color palette—giving the complete spread the energy of a collection screen brought into the real world.</p><h3>What is included</h3><ul><li>103 individually cut PVC adhesive decals</li><li>Mixed character-card designs with pixel-inspired artwork</li><li>Approximate individual size range: 1.6–3.1 in / 4–8 cm</li><li>Water-resistant printed surface with a white cutline border</li></ul><h3>Build your own archive</h3><p>Spread the pack across a laptop, notebook, journal, luggage, storage case, skateboard, or other clean smooth surface. Use the smaller cards as accents, then anchor the layout with the larger designs.</p><p><em>Application note: Clean and dry the surface before applying. Not intended for fabric or heavily textured finishes. Hand-wash decorated drinkware; dishwasher and long-term outdoor durability have not been verified. Dimensions are approximate and supplied by the seller. Minor differences in printing, cut alignment, color, and packaging may occur.</em></p><p><strong>Collector note:</strong> This is a third-party fan-made accessory and is not represented as an officially licensed product.</p><p><strong>California Proposition 65:</strong> This product may expose you to DEHP, a chemical known to the State of California to cause cancer and reproductive harm. Visit <a href=\"https://www.p65warnings.ca.gov/\">P65Warnings.ca.gov</a> for more information.</p><h3>Returns</h3><p>If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us with your order number and any available photos. <a href=\"/pages/policy\">View the full policy.</a></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "Sticker Pack",
+  "tags": [
+    "103 Piece Sticker Pack",
+    "Anime Stickers",
+    "Laptop Stickers",
+    "Pixel Art",
+    "PVC Decals",
+    "Retro Card Art",
+    "Sticker Collection"
+  ],
+  "templateSuffix": "pixel-archive",
+  "seo": {
+    "title": "Pixel Archive 103-Piece Retro Card Sticker Pack",
+    "description": "A 103-piece collection of individually cut PVC character-card decals with retro pixel-inspired artwork, sized approximately 4–8 cm."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-STK-PA103",
+      "price": "29.99",
+      "compareAtPrice": null,
+      "options": {
+        "Title": "Default Title"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "CONTINUE",
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "source": "source-images/pixel-archive-gallery-02-fanned-pack.jpg",
+      "alt": "Full 103-piece Pixel Archive sticker pack arranged in a layered fan",
+      "variantSkus": [
+        "ZK-STK-PA103"
+      ]
+    },
+    {
+      "source": "source-images/pixel-archive-gallery-01-complete-grid.jpg",
+      "alt": "Complete grid of all 103 retro card-style stickers included in the pack"
+    },
+    {
+      "source": "source-images/pixel-archive-gallery-03-blue-card-detail.jpg",
+      "alt": "Close-up of a blue retro card-style sticker showing the printed detail and white cutline"
+    },
+    {
+      "source": "source-images/pixel-archive-gallery-04-orange-card-detail.jpg",
+      "alt": "Close-up of an orange retro card-style sticker held between two fingers"
+    },
+    {
+      "source": "source-images/pixel-archive-gallery-05-navy-card-detail.jpg",
+      "alt": "Close-up of a navy retro card-style sticker showing its approximate hand-held scale"
+    },
+    {
+      "source": "source-images/pixel-archive-gallery-06-laptop-journal.jpg",
+      "alt": "Retro card-style stickers applied to a laptop and journal"
+    }
+  ]
+}
