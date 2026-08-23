@@ -187,7 +187,7 @@
   {%- assign zenkai_primary_proof_attribution = zenkai_proof_attribution_2 -%}
 {% endif %}
 
-{% if zenkai_primary_proof_quote != blank %}
+{% if zenkai_primary_proof_quote != blank and zenkai_product_category != 'sticker' %}
   {%- assign zenkai_show_social_proof_panel = true -%}
 {% endif %}
 
