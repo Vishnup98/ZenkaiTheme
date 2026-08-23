@@ -1,15 +1,22 @@
 {%- assign zenkai_collectible_focus_context = false -%}
 {%- if request.page_type == 'product' -%}
-  {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+  {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
     {%- assign zenkai_collectible_focus_context = true -%}
   {%- endif -%}
 {%- elsif request.page_type == 'cart' -%}
   {%- for zenkai_layout_cart_item in cart.items -%}
-    {%- if zenkai_layout_cart_item.product.handle == 'summoning-glow-16cm-led-dragon-display' or zenkai_layout_cart_item.product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+    {%- if zenkai_layout_cart_item.product.handle == 'summoning-glow-16cm-led-dragon-display' or zenkai_layout_cart_item.product.handle == 'summoning-glow-essential-rgb-dragon-display' or zenkai_layout_cart_item.product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
       {%- assign zenkai_collectible_focus_context = true -%}
       {%- break -%}
     {%- endif -%}
   {%- endfor -%}
+{%- endif -%}
+
+{%- assign zenkai_summoning_glow_landing_context = false -%}
+{%- if request.page_type == 'product' -%}
+  {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' -%}
+    {%- assign zenkai_summoning_glow_landing_context = true -%}
+  {%- endif -%}
 {%- endif -%}
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
@@ -96,7 +103,7 @@
   {% include 'critical-css' %}
   {% include 'load-css' %}
 
-  {%- if request.page_type == 'product' and product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+  {%- if zenkai_summoning_glow_landing_context -%}
     <script>
       (function() {
         var query = window.location.search || '';
@@ -174,7 +181,7 @@
       {% endif %}
     </div>
 
-    {%- if request.page_type == 'product' and product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+    {%- if zenkai_summoning_glow_landing_context -%}
       <script>
         (function() {
           var query = window.location.search || '';
