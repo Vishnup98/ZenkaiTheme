@@ -114,6 +114,12 @@
       });
 
       lightbox?.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeLightbox();
+          return;
+        }
+
         if (event.key === 'ArrowLeft') {
           event.preventDefault();
           showPhoto(activePhotoIndex - 1);

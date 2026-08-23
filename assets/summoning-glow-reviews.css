@@ -563,7 +563,7 @@ html.sg-review-lightbox-open body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .sg-reviews__grid > .sg-review-card {
+  .sg-reviews__grid > .sg-review-card:nth-child(n) {
     grid-column: auto;
   }
 }
