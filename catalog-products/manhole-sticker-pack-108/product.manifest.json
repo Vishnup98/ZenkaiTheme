@@ -1,0 +1,82 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Japan Underfoot — 108-Piece Manhole Art Sticker Pack",
+  "handle": "japan-underfoot-108-piece-manhole-art-sticker-pack",
+  "descriptionHtml": "<p><strong>Japan's most unexpected street art, collected in one 108-piece pack.</strong></p><p>Japan Underfoot turns the colorful creature-filled utility covers found across Japan into a deep assortment of circular decals. Every design feels like a tiny travel find: local scenery, bold linework, Japanese lettering, and a different cast built into each cover.</p><h3>What is included</h3><ul><li>One 108-piece multicolor sticker assortment</li><li>Individually cut self-adhesive vinyl decals</li><li>Circular Japanese manhole-art designs</li><li>A wide mix of characters, color palettes, and regional-style backgrounds</li></ul><h3>Where they work</h3><p>Apply to clean, smooth, dry surfaces such as laptops, notebooks, binders, luggage, phone cases, storage cases, and hand-washed bottles. Press each sticker firmly from the center outward after placing.</p><p><em>The stickers are sold as one complete assortment. Designs average about 1.5 inches across, with minor variation from piece to piece. The surface is water-resistant, but the pack has not been represented as dishwasher-safe. Minor differences in color, print alignment, and die-cut edges may occur. Clean and dry the surface before applying.</em></p><h3>Returns</h3><p>If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us with your order number and available photos. <a href=\"/pages/policy\">View the full policy.</a></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "Sticker Pack",
+  "tags": [
+    "108 Piece Set",
+    "Cart Upsell",
+    "Direct Ship",
+    "Gym Badge Companion",
+    "Japan",
+    "Manhole Art",
+    "Sticker Pack",
+    "Unlisted Offer",
+    "Vinyl Stickers"
+  ],
+  "templateSuffix": "manhole-sticker-pack",
+  "seo": {
+    "title": "Japan Underfoot 108-Piece Manhole Art Sticker Pack | Zenkai",
+    "description": "A 108-piece assortment of individually cut vinyl stickers inspired by Japan's colorful creature-filled utility-cover art for laptops, notebooks, luggage, cases, and more."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-STK-MH108",
+      "price": "29.99",
+      "compareAtPrice": null,
+      "options": {
+        "Title": "Default Title"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "CONTINUE",
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "source": "source-images/manhole-archive-108-01-full-assortment.webp",
+      "alt": "Full Japan Underfoot assortment of 108 circular manhole-art stickers on white",
+      "variantSkus": [
+        "ZK-STK-MH108"
+      ]
+    },
+    {
+      "source": "source-images/manhole-archive-108-02-sticker-detail.webp",
+      "alt": "Pile of colorful circular Japanese manhole-art vinyl stickers"
+    },
+    {
+      "source": "source-images/manhole-archive-108-03-assortment-detail.webp",
+      "alt": "Two enlarged manhole-art sticker designs over the full assortment"
+    },
+    {
+      "source": "source-images/manhole-archive-108-04-sticker-stack.webp",
+      "alt": "Blue floral circular sticker detail in front of the 108-piece assortment"
+    },
+    {
+      "source": "source-images/manhole-archive-108-05-scale-detail.webp",
+      "alt": "Orange and blue circular sticker detail in front of the full assortment"
+    },
+    {
+      "source": "source-images/manhole-archive-108-06-back-surface.webp",
+      "alt": "Circular manhole-art stickers placed on a laptop and spiral notebook"
+    }
+  ]
+}

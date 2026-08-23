@@ -1,0 +1,89 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Pixel Dex — 103-Piece Retro Sticker Pack",
+  "handle": "pixel-dex-103-piece-retro-sticker-pack",
+  "descriptionHtml": "<p><strong>One hundred and three stickers. One pocket-sized pixel archive.</strong></p><p>Pixel Dex turns the familiar monster-card silhouette into a full peel-and-place collection. The assortment mixes retro pixel artwork, bold card frames, and individually cut character shapes built for the gear that travels with you.</p><h3>What is included</h3><ul><li>One 103-piece multicolor sticker assortment</li><li>Individually cut self-adhesive PVC vinyl decals</li><li>A mix of rectangular card silhouettes and shaped character cutouts</li><li>Retro pixel-inspired artwork across the full pack</li></ul><h3>Where they work</h3><p>Apply to clean, smooth, dry surfaces such as laptops, notebooks, luggage, storage cases, phone cases, skateboards, and hand-washed bottles. Press each sticker firmly from the center outward after placing.</p><p><em>The stickers are sold as one complete assortment. Individual sticker sizing varies by design. The surface is water-resistant, but the pack has not been represented as dishwasher-safe. Minor differences in color, print alignment, and die-cut edges may occur. Clean and dry the surface before applying.</em></p><h3>Returns</h3><p>If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us with your order number and available photos. <a href=\"/pages/policy\">View the full policy.</a></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "Sticker Pack",
+  "tags": [
+    "103 Piece Set",
+    "Cart Upsell",
+    "Direct Ship",
+    "Gym Badge Companion",
+    "Pixel Art",
+    "Sticker Pack",
+    "Unlisted Offer",
+    "Vinyl Stickers"
+  ],
+  "templateSuffix": "sticker-pack",
+  "seo": {
+    "title": "Pixel Dex 103-Piece Retro Sticker Pack | Zenkai",
+    "description": "A 103-piece assortment of individually cut, self-adhesive PVC vinyl stickers with retro pixel-card artwork for laptops, notebooks, luggage, cases, and more."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Default Title"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-STK-PX103",
+      "price": "29.99",
+      "compareAtPrice": null,
+      "options": {
+        "Title": "Default Title"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "CONTINUE",
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "source": "source-images/pixel-dex-103-01-full-assortment.webp",
+      "alt": "Pixel Dex 103-piece retro card-style sticker assortment on a white background",
+      "variantSkus": [
+        "ZK-STK-PX103"
+      ]
+    },
+    {
+      "source": "source-images/pixel-dex-103-06-stacked-assortment.webp",
+      "alt": "Stacked assortment of colorful retro pixel-card vinyl stickers"
+    },
+    {
+      "source": "source-images/pixel-dex-103-05-laptop-notebook.webp",
+      "alt": "Pixel-card stickers placed on a laptop and spiral notebook"
+    },
+    {
+      "source": "source-images/pixel-dex-103-07-laptop-spread-a.webp",
+      "alt": "First half of the 103-piece sticker assortment arranged across a laptop"
+    },
+    {
+      "source": "source-images/pixel-dex-103-08-laptop-spread-b.webp",
+      "alt": "Second half of the 103-piece sticker assortment arranged across a laptop"
+    },
+    {
+      "source": "source-images/pixel-dex-103-02-featured-sticker.webp",
+      "alt": "Close product view showing the print texture and die-cut border on one sticker"
+    },
+    {
+      "source": "source-images/pixel-dex-103-03-blue-card-detail.webp",
+      "alt": "Blue retro pixel-card sticker detail in front of the full assortment"
+    },
+    {
+      "source": "source-images/pixel-dex-103-04-water-card-detail.webp",
+      "alt": "Water-themed retro pixel-card sticker detail in front of the full assortment"
+    }
+  ]
+}

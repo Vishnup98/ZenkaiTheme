@@ -17,9 +17,15 @@
 {%- if product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
   {%- assign zenkai_detail_eternal_wish = true -%}
 {%- endif -%}
+{%- assign zenkai_detail_direct_ship = false -%}
+{%- if product.tags contains 'Direct Ship' -%}
+  {%- assign zenkai_detail_direct_ship = true -%}
+{%- endif -%}
 {%- assign zenkai_detail_category = 'tee' -%}
 {%- if zenkai_detail_template == 'collectible' or zenkai_detail_type contains 'collectible' or zenkai_detail_type contains 'figure' or zenkai_detail_type contains 'figurine' -%}
   {%- assign zenkai_detail_category = 'collectible' -%}
+{%- elsif zenkai_detail_type contains 'sticker' or zenkai_detail_type contains 'decal' or zenkai_detail_title contains 'sticker' or zenkai_detail_title contains 'decal' -%}
+  {%- assign zenkai_detail_category = 'sticker' -%}
 {%- elsif zenkai_detail_template == 'gympin' or zenkai_detail_type contains 'pin' or zenkai_detail_type contains 'badge' or zenkai_detail_title == 'pin' or zenkai_detail_title contains ' pin' or zenkai_detail_title contains 'pin ' or zenkai_detail_title contains 'pins' or zenkai_detail_title contains 'badge' or zenkai_detail_title contains 'brooch' -%}
   {%- assign zenkai_detail_category = 'pin' -%}
 {%- elsif zenkai_detail_type contains 'cap' or zenkai_detail_type contains 'hat' or zenkai_detail_title contains 'cap' or zenkai_detail_title contains 'hat' -%}
@@ -30,6 +36,8 @@
 {%- assign zenkai_detail_specs_label = 'Fit &amp; sizing' -%}
 {%- if zenkai_detail_category == 'pin' -%}
   {%- assign zenkai_detail_specs_label = 'Pin details' -%}
+{%- elsif zenkai_detail_category == 'sticker' -%}
+  {%- assign zenkai_detail_specs_label = 'Sticker details' -%}
 {%- elsif zenkai_detail_category == 'collectible' -%}
   {%- assign zenkai_detail_specs_label = 'Display details' -%}
 {%- endif -%}
@@ -235,6 +243,13 @@
               <li>Polished hard enamel finish with secure metal clutch backings</li>
               <li>Made for backpacks, jackets, hats, cork boards, and display cases</li>
             </ul>
+          {% when 'sticker' %}
+            <p><strong>A complete individually cut vinyl decal pack with no trimming required.</strong></p>
+            <ul>
+              {% if section.settings.product_outcome_1 != blank %}<li>{{ section.settings.product_outcome_1 }}</li>{% endif %}
+              {% if section.settings.product_outcome_2 != blank %}<li>{{ section.settings.product_outcome_2 }}</li>{% endif %}
+              {% if section.settings.product_outcome_3 != blank %}<li>{{ section.settings.product_outcome_3 }}</li>{% endif %}
+            </ul>
           {% when 'cap' %}
             <p><strong>Clean structured fit with an adjustable strap closure.</strong></p>
             <ul>
@@ -263,6 +278,8 @@
       <div class="zenkai-accordion__inner">
         {% if zenkai_detail_category == 'pin' %}
           <p><strong>Ships ready to gift.</strong></p>
+        {% elsif zenkai_detail_category == 'sticker' %}
+          <p><strong>Packed as one complete sticker assortment{% if zenkai_detail_direct_ship %} and may arrive separately from other cart items{% endif %}.</strong></p>
         {% elsif zenkai_detail_category == 'collectible' %}
           {% if zenkai_detail_eternal_wish %}
             <p><strong>Packed for protected delivery as a layered sculpted display.</strong></p>
@@ -273,7 +290,7 @@
           <p><strong>Made to order in the USA.</strong></p>
         {% endif %}
         <ul>
-          {% if zenkai_detail_category == 'collectible' %}
+          {% if zenkai_detail_category == 'collectible' or zenkai_detail_direct_ship %}
             <li>Delivery timing is shown at checkout</li>
           {% else %}
             <li>Most orders ship within 1 to 2 business days</li>
@@ -296,6 +313,10 @@
           <p><strong>For collectors who want the whole badge run, not a random single.</strong></p>
           <p>The set reads playful and display-worthy: bright enamel color, classic badge shapes, and a polished finish that works on bags, jackets, cork boards, or shelves.</p>
           <p>It is easy to gift, easy to collect, and small enough to carry the reference every day.</p>
+        {% elsif zenkai_detail_category == 'sticker' %}
+          <p><strong>For collectors who want the whole visual system, not a handful of random decals.</strong></p>
+          <p>Every pack is built around one recognizable art direction, so the stickers work individually while still reading like a complete collection together.</p>
+          <p>Use them on clean, smooth, dry surfaces such as laptops, notebooks, luggage, storage cases, and hand-washed bottles.</p>
         {% elsif zenkai_detail_category == 'collectible' %}
           {% if zenkai_detail_eternal_wish %}
             <p><strong>For the shelf that needs one unmistakable silhouette.</strong></p>
@@ -318,7 +339,7 @@
   {% unless zenkai_detail_category == 'pin' %}
     <div class="zenkai-accordion__item">
       <button type="button" class="zenkai-accordion__trigger" aria-expanded="false" aria-controls="zenkai-brand-{{ section_id }}">
-        <span>{% if zenkai_detail_category == 'collectible' %}Story behind the display{% else %}Story behind the design{% endif %}</span>
+        <span>{% if zenkai_detail_category == 'collectible' %}Story behind the display{% elsif zenkai_detail_category == 'sticker' %}Story behind the collection{% else %}Story behind the design{% endif %}</span>
         <span class="zenkai-accordion__icon"></span>
       </button>
       <div id="zenkai-brand-{{ section_id }}" class="zenkai-accordion__content">
@@ -326,6 +347,9 @@
           {% if zenkai_detail_category == 'collectible' %}
             <p><strong>Familiar energy, rebuilt as a centerpiece.</strong></p>
             <p>Zenkai display pieces focus on unmistakable silhouettes, layered detail, and the kind of presence that changes the shelf around them.</p>
+          {% elsif zenkai_detail_category == 'sticker' %}
+            <p><strong>Familiar energy, collected one surface at a time.</strong></p>
+            <p>These packs turn a single visual idea into a deep assortment: enough variety to customize several everyday pieces without losing the thread that makes the collection feel complete.</p>
           {% else %}
             <p><strong>The references you grew up with, redrawn with a point of view.</strong></p>
             <p>Zenkai exists for the pieces you always wished existed: modern linework, subtle jokes, nostalgic energy, and prints that get noticed without feeling like a costume.</p>

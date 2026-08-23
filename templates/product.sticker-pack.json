@@ -1,0 +1,97 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "product_image_size": "large",
+        "product_image_type": "slider",
+        "product_zoom_enable": true,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_payment_button": true,
+        "product_signal_hook": "103 stickers. One pocket-sized pixel archive.",
+        "product_social_subheadline": "A full retro card-style assortment built for the gear that travels with you.",
+        "product_cta_text": "Add to Bag",
+        "product_cta_subcopy": "Free U.S. shipping. May arrive separately from other cart items.",
+        "product_outcome_1": "103 individually cut PVC vinyl stickers",
+        "product_outcome_2": "Retro card-style pixel artwork",
+        "product_outcome_3": "Self-adhesive and water-resistant",
+        "product_context_heading": "Where the pixel archive lands",
+        "product_context_1": "The laptop beside your badge case",
+        "product_context_2": "The notebook, binder, or storage box you reach for every day",
+        "product_context_3": "The luggage or bottle that needs one more recognizable detail",
+        "product_proof_quote_1": "",
+        "product_proof_attribution_1": "",
+        "product_proof_quote_2": "",
+        "product_proof_attribution_2": "",
+        "hide_mobile_breadcrumbs": true,
+        "product_mobile_media_max_height": 50,
+        "product_sticky_atc_trigger_ratio": 10,
+        "product_show_review_summary_first": false,
+        "variant_type": "button",
+        "variant_labels_enable": true,
+        "sku_enable": false,
+        "inventory_enable": true,
+        "inventory_threshold": 10,
+        "inventory_transfers_enable": false,
+        "quantity_enable": false,
+        "mobile_sticky_atc_enable": true,
+        "show_dynamic_checkout_secondary": false,
+        "social_enable": false,
+        "product_ugc_heading": "The full sticker spread",
+        "product_pin_collector_image_desktop": "shopify://shop_images/pixel-dex-103-07-laptop-spread-a.webp",
+        "product_pin_collector_image_mobile": "shopify://shop_images/pixel-dex-103-01-full-assortment.webp",
+        "product_pin_quality_image_desktop": "shopify://shop_images/pixel-dex-103-02-featured-sticker.webp",
+        "product_pin_quality_image_mobile": "shopify://shop_images/pixel-dex-103-03-blue-card-detail.webp",
+        "product_pin_lifestyle_image_desktop": "shopify://shop_images/pixel-dex-103-05-laptop-notebook.webp",
+        "product_pin_lifestyle_image_mobile": "shopify://shop_images/pixel-dex-103-05-laptop-notebook.webp",
+        "product_pin_collector_kicker": "The full deck",
+        "product_pin_collector_heading": "103 stickers. One complete pixel archive.",
+        "product_pin_collector_body": "Card frames, shaped cutouts, and a full range of colors make the assortment feel collected—not random.",
+        "product_pin_quality_kicker": "Individually cut",
+        "product_pin_quality_heading": "Peel. Place. Rebuild your setup.",
+        "product_pin_quality_body": "Each self-adhesive PVC vinyl piece arrives cut to its own silhouette, ready for a clean, smooth, dry surface.",
+        "product_pin_lifestyle_kicker": "Made for everyday gear",
+        "product_pin_lifestyle_heading": "Laptop, notebook, case, luggage.",
+        "product_pin_lifestyle_body": "Use one as the quiet reference or build an entire pixel wall across the things you carry.",
+        "product_manual_reviews_heading": "From collectors",
+        "product_manual_review_quote_1": "",
+        "product_manual_review_name_1": "",
+        "product_manual_review_meta_1": "",
+        "product_manual_review_quote_2": "",
+        "product_manual_review_name_2": "",
+        "product_manual_review_meta_2": "",
+        "product_manual_review_quote_3": "",
+        "product_manual_review_name_3": "",
+        "product_manual_review_meta_3": ""
+      }
+    },
+    "product-sections": {
+      "type": "product-sections",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "Same energy",
+        "per_row": "small"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-sections",
+    "product-recommendations"
+  ]
+}

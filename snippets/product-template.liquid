@@ -93,6 +93,8 @@
 {%- endif -%}
 {%- if zenkai_ptemplate == 'collectible' or zenkai_ptype contains 'collectible' or zenkai_ptype contains 'figure' or zenkai_ptype contains 'figurine' -%}
   {%- assign zenkai_product_category = 'collectible' -%}
+{%- elsif zenkai_ptemplate == 'sticker-pack' or zenkai_ptype contains 'sticker' or zenkai_ptype contains 'decal' or zenkai_ptitle contains 'sticker' or zenkai_ptitle contains 'decal' -%}
+  {%- assign zenkai_product_category = 'sticker' -%}
 {%- elsif zenkai_ptemplate == 'gympin' or zenkai_ptype contains 'pin' or zenkai_ptype contains 'badge' or zenkai_ptitle == 'pin' or zenkai_ptitle contains ' pin' or zenkai_ptitle contains 'pin ' or zenkai_ptitle contains 'pins' or zenkai_ptitle contains 'badge' or zenkai_ptitle contains 'brooch' -%}
   {%- assign zenkai_product_category = 'pin' -%}
 {%- elsif zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
@@ -124,6 +126,8 @@
 {%- assign zenkai_ugc_alt = 'Customer wearing Zenkai' -%}
 {%- if zenkai_product_category == 'pin' -%}
   {%- assign zenkai_ugc_alt = 'Customer photo of Zenkai pins' -%}
+{%- elsif zenkai_product_category == 'sticker' -%}
+  {%- assign zenkai_ugc_alt = 'Customer photo of the Zenkai sticker pack' -%}
 {%- elsif zenkai_product_category == 'collectible' -%}
   {%- assign zenkai_ugc_alt = 'Customer photo of a Zenkai display collectible' -%}
 {%- endif -%}
@@ -138,6 +142,11 @@
     {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
     {%- assign zenkai_type_trust = 'Hard enamel finish / Secure clutch backings' -%}
     {%- assign zenkai_type_fit = 'No sizing needed / Ready for bags, jackets, hats, and display boards' -%}
+    {%- assign zenkai_type_production = zenkai_outcome_3 -%}
+  {%- when 'sticker' -%}
+    {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
+    {%- assign zenkai_type_trust = zenkai_outcome_2 -%}
+    {%- assign zenkai_type_fit = 'No sizing needed / Individually cut and ready to place' -%}
     {%- assign zenkai_type_production = zenkai_outcome_3 -%}
   {%- when 'cap' -%}
     {%- assign zenkai_type_benefit = 'Structured dad cap — clean profile, every angle' -%}
@@ -2668,7 +2677,7 @@
                 </section>
               {% endif %}
 
-              {% unless zenkai_product_category == 'pin' or zenkai_defect_only_collectible %}
+              {% unless zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_defect_only_collectible %}
                 {% include 'bundle-callout', bundle_slot: 'mobile' %}
               {% endunless %}
 
@@ -2694,7 +2703,7 @@
       </div>
 
       <div class="zenkai-pdp-below">
-        {% if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' %}
+        {% if zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_product_category == 'collectible' %}
           {%- assign zenkai_has_pin_story = false -%}
           {%- if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank or zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank -%}
             {%- assign zenkai_has_pin_story = true -%}
@@ -2916,6 +2925,15 @@
             <p class="zenkai-brand-quote__text">Familiar energy. Built for the shelf.</p>
             <p class="zenkai-brand-quote__follow">Display pieces with unmistakable silhouettes, nostalgic energy, and details worth a second look.</p>
           </aside>
+        {% elsif zenkai_product_category == 'sticker' %}
+          <aside class="zenkai-brand-quote" aria-label="Brand story">
+            <p class="zenkai-brand-quote__text">Familiar energy. Collected one surface at a time.</p>
+            {% if product.handle == 'japan-underfoot-108-piece-manhole-art-sticker-pack' %}
+              <p class="zenkai-brand-quote__follow">A 108-piece tour of Japan's colorful utility-cover art, made for laptops, notebooks, cases, luggage, and everyday gear.</p>
+            {% else %}
+              <p class="zenkai-brand-quote__follow">A 103-piece pixel archive made for laptops, notebooks, cases, luggage, and the everyday gear beside your badge collection.</p>
+            {% endif %}
+          </aside>
         {% elsif zenkai_product_category != 'pin' %}
           <aside class="zenkai-brand-quote" aria-label="Brand story">
             <p class="zenkai-brand-quote__text">Original designs. Familiar energy. Made to feel like real clothes.</p>
@@ -2970,7 +2988,7 @@
         </div>
       </div>
 
-      {% unless zenkai_product_category == 'pin' or zenkai_defect_only_collectible %}
+      {% unless zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_defect_only_collectible %}
         <div class="zenkai-bundle-belt">
           {% include 'bundle-callout', bundle_slot: 'desktop' %}
         </div>
@@ -2987,6 +3005,7 @@
           {% render 'summoning-glow-upsell' %}
         {% endunless %}
       {% endif %}
+
     </div>
   </div>
 

@@ -1,0 +1,97 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "product_image_size": "large",
+        "product_image_type": "slider",
+        "product_zoom_enable": true,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "enable_payment_button": true,
+        "product_signal_hook": "108 pieces of Japan's most unexpected street art.",
+        "product_social_subheadline": "A creature-filled tour of Japan, collected one circular sticker at a time.",
+        "product_cta_text": "Add to Bag",
+        "product_cta_subcopy": "Free U.S. shipping. May arrive separately from other cart items.",
+        "product_outcome_1": "108 individually cut vinyl stickers",
+        "product_outcome_2": "Japanese manhole-art designs",
+        "product_outcome_3": "Self-adhesive and water-resistant",
+        "product_context_heading": "A whole trip hiding in the details",
+        "product_context_1": "The laptop beside your badge collection",
+        "product_context_2": "The notebook or binder that travels every day",
+        "product_context_3": "The luggage, case, or bottle that needs one small discovery",
+        "product_proof_quote_1": "",
+        "product_proof_attribution_1": "",
+        "product_proof_quote_2": "",
+        "product_proof_attribution_2": "",
+        "hide_mobile_breadcrumbs": true,
+        "product_mobile_media_max_height": 50,
+        "product_sticky_atc_trigger_ratio": 10,
+        "product_show_review_summary_first": false,
+        "variant_type": "button",
+        "variant_labels_enable": true,
+        "sku_enable": false,
+        "inventory_enable": true,
+        "inventory_threshold": 10,
+        "inventory_transfers_enable": false,
+        "quantity_enable": false,
+        "mobile_sticky_atc_enable": true,
+        "show_dynamic_checkout_secondary": false,
+        "social_enable": false,
+        "product_ugc_heading": "Collected in the wild",
+        "product_pin_collector_image_desktop": "shopify://shop_images/manhole-archive-108-01-full-assortment.webp",
+        "product_pin_collector_image_mobile": "shopify://shop_images/manhole-archive-108-01-full-assortment.webp",
+        "product_pin_quality_image_desktop": "shopify://shop_images/manhole-archive-108-03-assortment-detail.webp",
+        "product_pin_quality_image_mobile": "shopify://shop_images/manhole-archive-108-04-sticker-stack.webp",
+        "product_pin_lifestyle_image_desktop": "shopify://shop_images/manhole-archive-108-06-back-surface.webp",
+        "product_pin_lifestyle_image_mobile": "shopify://shop_images/manhole-archive-108-06-back-surface.webp",
+        "product_pin_collector_kicker": "The complete route",
+        "product_pin_collector_heading": "108 tiny windows into Japan.",
+        "product_pin_collector_body": "Every circular design brings together Japanese lettering, local-style scenery, and a different creature-filled moment.",
+        "product_pin_quality_kicker": "Individually cut",
+        "product_pin_quality_heading": "A full assortment, ready to place.",
+        "product_pin_quality_body": "Each vinyl piece arrives cut to its circular silhouette, ready for a clean, smooth, dry surface.",
+        "product_pin_lifestyle_kicker": "Made for everyday gear",
+        "product_pin_lifestyle_heading": "Laptop, notebook, case, luggage.",
+        "product_pin_lifestyle_body": "Place one as a tiny travel reference or turn an entire surface into a map of discoveries.",
+        "product_manual_reviews_heading": "From collectors",
+        "product_manual_review_quote_1": "",
+        "product_manual_review_name_1": "",
+        "product_manual_review_meta_1": "",
+        "product_manual_review_quote_2": "",
+        "product_manual_review_name_2": "",
+        "product_manual_review_meta_2": "",
+        "product_manual_review_quote_3": "",
+        "product_manual_review_name_3": "",
+        "product_manual_review_meta_3": ""
+      }
+    },
+    "product-sections": {
+      "type": "product-sections",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "Same energy",
+        "per_row": "small"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-sections",
+    "product-recommendations"
+  ]
+}
