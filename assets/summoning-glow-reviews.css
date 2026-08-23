@@ -607,18 +607,23 @@ html.sg-review-lightbox-open body {
 
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 1) .sg-review-card__photo-button,
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 4) .sg-review-card__photo-button,
-  .sg-reviews__grid > .sg-review-card:nth-child(6n + 6) .sg-review-card__photo-button,
+  .sg-reviews__grid > .sg-review-card:nth-child(6n + 6) .sg-review-card__photo-button {
+    height: 100%;
+    min-height: 510px;
+  }
+
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 1) .sg-review-card__photo-button picture,
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 4) .sg-review-card__photo-button picture,
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 6) .sg-review-card__photo-button picture {
-    height: 100%;
+    position: absolute;
+    inset: 0;
   }
 
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 1) .sg-review-card__photo,
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 4) .sg-review-card__photo,
   .sg-reviews__grid > .sg-review-card:nth-child(6n + 6) .sg-review-card__photo {
     height: 100%;
-    min-height: 510px;
+    min-height: 0;
     aspect-ratio: auto;
   }
 
