@@ -86,6 +86,48 @@
       "headline": "A gift they’ll display.",
       "description": "Summoning Glow · $99.99.",
       "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=collector_gift"
+    },
+    {
+      "id": "lights_off_test",
+      "landingVariant": "transform",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/07-lights-off-test-feed-4x5-v2.jpg",
+        "story9x16": "optimized/story-9x16/07-lights-off-test-story-9x16-v2.jpg",
+        "square1x1": "optimized/square-1x1/07-lights-off-test-square-1x1-v2.jpg"
+      },
+      "primaryText": "Can your favorite display pass the lights-off test? This one keeps its sculpted collector detail in daylight, then becomes ambient RGB after dark. Seven spheres, one remote, $99.99. Assembly required.",
+      "headline": "Passes the lights-off test.",
+      "description": "Collectible by day · RGB after dark.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=lights_off_test"
+    },
+    {
+      "id": "customer_camera_roll",
+      "landingVariant": "review",
+      "sourceType": "authentic_customer_photo_ai_layout",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/08-customer-camera-roll-feed-4x5-v1.jpg",
+        "story9x16": "optimized/story-9x16/08-customer-camera-roll-story-9x16-v1.jpg",
+        "square1x1": "optimized/square-1x1/08-customer-camera-roll-square-1x1-v1.jpg"
+      },
+      "primaryText": "Four real customer setups. Four different rooms. One display that keeps becoming the shelf people photograph. See the complete product, included pieces, and customer photos. $99.99. Assembly required.",
+      "headline": "Real shelves. Real customer photos.",
+      "description": "See it in customer setups.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=review&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=customer_camera_roll"
+    },
+    {
+      "id": "gallery_exhibit",
+      "landingVariant": "transform",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/09-museum-placard-feed-4x5-v2.jpg",
+        "story9x16": "optimized/story-9x16/09-gallery-exhibit-story-9x16-v2.jpg",
+        "square1x1": "optimized/square-1x1/09-gallery-exhibit-square-1x1-v2.jpg"
+      },
+      "primaryText": "Treat the shelf like an exhibit. A painted coiled dragon, seven translucent spheres, and a remote-controlled RGB base turn one display into the centerpiece. $99.99. Assembly required.",
+      "headline": "Display it like the centerpiece it is.",
+      "description": "Painted PVC · seven spheres · RGB base.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=gallery_exhibit"
     }
   ]
 }

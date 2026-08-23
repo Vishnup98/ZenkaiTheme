@@ -74,8 +74,52 @@ Prompt direction: Create a restrained giftable collector scene with the complete
 - `A GIFT THEY’LL DISPLAY`
 - `$99.99`
 
+## 07 — Lights-off test
+
+References:
+
+- `catalog-products/summoning-glow-essential/generated-images/gallery-02-lights-off-v2.jpg`
+- `catalog-products/summoning-glow-essential/generated-images/gallery-01-hero-v2.jpg`
+
+Prompt direction: Create a same-camera daylight-versus-dark split that makes the product itself the proof. Keep the exact no-ridge product centered across both halves, with all seven spheres visible and the right half illuminated by the RGB base. Render exactly:
+
+- `PASSES THE LIGHTS-OFF TEST.`
+- `COLLECTIBLE BY DAY · RGB AFTER DARK`
+- `$99.99`
+
+The final v2 4:5 master preserves the complete one-through-seven sphere progression, uses the split at the center of the product rather than a generic before/after collage, and intensifies the dark-half LED ring, sphere transmission, and colored environmental spill without changing the daylight half. Native 9:16 and 1:1 versions preserve the same centered split and were recomposed separately rather than cropped.
+
+## 08 — Customer camera roll
+
+References:
+
+- `catalog-products/summoning-glow-essential/customer-photos/essential-customer-01-rgb-display.jpg`
+- `catalog-products/summoning-glow-essential/customer-photos/essential-customer-03-daylight-remote.jpg`
+- `catalog-products/summoning-glow-essential/customer-photos/essential-customer-05-collector-shelf.jpg`
+- `catalog-products/summoning-glow-essential/customer-photos/essential-customer-06-blue-red-setup.jpg`
+
+Prompt direction: Preserve all four authentic customer phone photos, including their real rooms, imperfect lighting, original crops, visible accessories, and naturally obscured product parts. Use AI only to create a tactile camera-roll/contact-sheet layout and the typography. Do not invent social handles, engagement counts, dates, comments, or interface chrome. Render exactly:
+
+- `SEEN IN THE WILD`
+- `REAL SHELVES. REAL CUSTOMER PHOTOS.`
+- `$99.99`
+
+The 9:16 version retains all four photos in a readable two-by-two contact sheet and leaves a clean lower interface-safe zone. The 1:1 version uses a compact two-by-two grid with the same authentic source-photo content.
+
+## 09 — Gallery exhibit
+
+Reference: `catalog-products/summoning-glow-essential/generated-images/gallery-01-hero-v2.jpg`
+
+Prompt direction: Present the exact Essential display at real tabletop scale on a restrained dark gallery plinth. Use a warm architectural spotlight without claiming licensing, rarity, an artist, or “museum quality.” Keep all seven spheres visible. Render exactly:
+
+- `DISPLAY IT LIKE THE CENTERPIECE IT IS.`
+- `$99.99`
+
+The initial pass included a factual museum-style placard. The final v2 removes the placard and its stand, reconstructing that corner as a seamless continuation of the matte-black plinth while preserving the product, headline, and price. Native 9:16 and 1:1 versions retain the placard-free gallery treatment; the Story version places the price above a clean lower interface-safe zone.
+
 ## Output handling
 
 - PNG generation masters are retained in `feed-4x5`, `story-9x16`, and `square-1x1`.
 - Upload-ready JPGs are in `optimized`, resized to 1080×1350, 1080×1920, or 1080×1080 and compressed at quality 88.
 - The three landing-page hero copies are optimized JPGs in `assets/` and are loaded only when their matching `lp` variant is active.
+- The approved wave-two concepts have native 4:5, 9:16, and 1:1 PNG masters plus upload-ready 1080×1350, 1080×1920, and 1080×1080 JPGs.

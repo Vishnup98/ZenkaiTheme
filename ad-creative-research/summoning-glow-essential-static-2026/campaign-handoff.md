@@ -1,6 +1,10 @@
 # Summoning Glow static campaign handoff
 
-Status: creative and landing-page build only. No Meta campaign, ad set, creative, or ad has been created or published.
+Status: creative package complete and Meta media uploaded. Campaign `52587406407522` is paused, the ad set is configured for website purchases, and all 18 placement files are in Account Images. No ad creative or ad has been created because Meta rejected creative creation from the connected development-mode app (`1885183`). Nothing is spending.
+
+Ads Manager: <https://adsmanager.facebook.com/adsmanager/manage/ads?act=511019028990462&selected_campaign_ids=52587406407522&selected_adset_ids=52587406414122>
+
+Detailed upload hashes and manual completion instructions: `meta-upload-handoff.md`
 
 ## Positioning
 
@@ -30,6 +34,9 @@ Product truth that every formal proof asset must preserve:
 | Shelf centerpiece | `optimized/feed-4x5/04-shelf-centerpiece-feed-4x5-v1.jpg` | — | — | `?lp=transform` |
 | Pablo review | `optimized/feed-4x5/05-review-pablo-feed-4x5-v1.jpg` | `optimized/story-9x16/05-review-pablo-story-9x16-v1.jpg` | `optimized/square-1x1/05-review-pablo-square-1x1-v1.jpg` | `?lp=review` |
 | Gift | `optimized/feed-4x5/06-gift-feed-4x5-v1.jpg` | — | — | `?lp=transform` |
+| Lights-off test | `optimized/feed-4x5/07-lights-off-test-feed-4x5-v2.jpg` | `optimized/story-9x16/07-lights-off-test-story-9x16-v2.jpg` | `optimized/square-1x1/07-lights-off-test-square-1x1-v2.jpg` | `?lp=transform` |
+| Customer camera roll | `optimized/feed-4x5/08-customer-camera-roll-feed-4x5-v1.jpg` | `optimized/story-9x16/08-customer-camera-roll-story-9x16-v1.jpg` | `optimized/square-1x1/08-customer-camera-roll-square-1x1-v1.jpg` | `?lp=review` |
+| Gallery exhibit | `optimized/feed-4x5/09-museum-placard-feed-4x5-v2.jpg` | `optimized/story-9x16/09-gallery-exhibit-story-9x16-v2.jpg` | `optimized/square-1x1/09-gallery-exhibit-square-1x1-v2.jpg` | `?lp=transform` |
 
 The optimized JPGs are upload-ready. PNG files in the placement folders are archival generation masters.
 
@@ -95,19 +102,51 @@ Description: Summoning Glow · $99.99.
 
 Destination: `/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=collector_gift`
 
+### 07 — Lights-off test
+
+Primary text: Can your favorite display pass the lights-off test? This one keeps its sculpted collector detail in daylight, then becomes ambient RGB after dark. Seven spheres, one remote, $99.99. Assembly required.
+
+Headline: Passes the lights-off test.
+
+Description: Collectible by day · RGB after dark.
+
+Destination: `/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=lights_off_test`
+
+### 08 — Customer camera roll
+
+Primary text: Four real customer setups. Four different rooms. One display that keeps becoming the shelf people photograph. See the complete product, included pieces, and customer photos. $99.99. Assembly required.
+
+Headline: Real shelves. Real customer photos.
+
+Description: See it in customer setups.
+
+Destination: `/products/summoning-glow-essential-rgb-dragon-display?lp=review&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=customer_camera_roll`
+
+### 09 — Gallery exhibit
+
+Primary text: Treat the shelf like an exhibit. A painted coiled dragon, seven translucent spheres, and a remote-controlled RGB base turn one display into the centerpiece. $99.99. Assembly required.
+
+Headline: Display it like the centerpiece it is.
+
+Description: Painted PVC · seven spheres · RGB base.
+
+Destination: `/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=gallery_exhibit`
+
 ## Recommended first campaign package
 
 - One Sales campaign using the purchase conversion event.
 - One broad prospecting ad set to start, with automatic placements and the three placement-native asset sets attached to their corresponding ads.
-- Six distinct ads—one per motivation above—rather than six cosmetic versions of the same hook.
-- Keep Transformation, Complete Set, and Review as the first three priority cells; each has 4:5, 9:16, and 1:1 files.
-- Use the remaining feed concepts to identify the next motivation worth expanding into Story and square variants.
+- Six distinct full-placement ads—Transformation, Complete Set, Pablo Review, Lights-off Test, Customer Camera Roll, and Gallery Exhibit—rather than cosmetic variants of one hook.
+- Each launch ad has a placement-native 4:5, 9:16, and 1:1 asset set.
+- Keep Daylight Detail, Shelf Centerpiece, and Gift as feed-only backups until performance justifies expanding them.
 - Keep the current campaign unpublished until the product, rights, inventory, pixel event, destination URLs, and final budget are checked.
+- Lights-off Test, Customer Camera Roll, and Gallery Exhibit were approved as the second concept wave and now have placement-native 4:5, 9:16, and 1:1 variants.
 
 ## Provenance and truth rules
 
-- Transformation, Complete Set, Daylight Detail, Shelf Centerpiece, and Gift are AI-generated merchandising composites based on the actual product configuration. They must not be labeled as customer photos.
+- Transformation, Complete Set, Daylight Detail, Shelf Centerpiece, Gift, Lights-off Test, and Gallery Exhibit are AI-generated merchandising composites based on the actual product configuration. They must not be labeled as customer photos.
 - The Pablo creative uses an authentic customer setup photo as its source and Pablo’s exact review language; AI was used for restoration, crop, layout, and typography.
+- Customer Camera Roll uses four authentic customer phone photos. AI was used for the contact-sheet layout and typography; the asset should be described as customer photos, not as unedited social posts or screenshots.
 - Never add “official,” “licensed,” or an affiliation claim unless documentation supports it.
 - Do not invent scarcity, delivery speed, inventory counts, discount anchors, review totals, or free-shipping claims.
 - The 15–16 cm measurement refers to the dragon figure, not the full base footprint.
