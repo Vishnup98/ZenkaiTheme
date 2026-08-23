@@ -93,8 +93,6 @@
 {%- endif -%}
 {%- if zenkai_ptemplate == 'collectible' or zenkai_ptype contains 'collectible' or zenkai_ptype contains 'figure' or zenkai_ptype contains 'figurine' -%}
   {%- assign zenkai_product_category = 'collectible' -%}
-{%- elsif zenkai_ptype contains 'sticker' or zenkai_ptype contains 'decal' or zenkai_ptitle contains 'sticker' or zenkai_ptitle contains 'decal' -%}
-  {%- assign zenkai_product_category = 'sticker' -%}
 {%- elsif zenkai_ptemplate == 'gympin' or zenkai_ptype contains 'pin' or zenkai_ptype contains 'badge' or zenkai_ptitle == 'pin' or zenkai_ptitle contains ' pin' or zenkai_ptitle contains 'pin ' or zenkai_ptitle contains 'pins' or zenkai_ptitle contains 'badge' or zenkai_ptitle contains 'brooch' -%}
   {%- assign zenkai_product_category = 'pin' -%}
 {%- elsif zenkai_ptype contains 'cap' or zenkai_ptype contains 'hat' or zenkai_ptitle contains 'cap' or zenkai_ptitle contains 'hat' -%}
@@ -126,8 +124,6 @@
 {%- assign zenkai_ugc_alt = 'Customer wearing Zenkai' -%}
 {%- if zenkai_product_category == 'pin' -%}
   {%- assign zenkai_ugc_alt = 'Customer photo of Zenkai pins' -%}
-{%- elsif zenkai_product_category == 'sticker' -%}
-  {%- assign zenkai_ugc_alt = 'Customer photo of a Zenkai sticker collection' -%}
 {%- elsif zenkai_product_category == 'collectible' -%}
   {%- assign zenkai_ugc_alt = 'Customer photo of a Zenkai display collectible' -%}
 {%- endif -%}
@@ -142,11 +138,6 @@
     {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
     {%- assign zenkai_type_trust = 'Hard enamel finish / Secure clutch backings' -%}
     {%- assign zenkai_type_fit = 'No sizing needed / Ready for bags, jackets, hats, and display boards' -%}
-    {%- assign zenkai_type_production = zenkai_outcome_3 -%}
-  {%- when 'sticker' -%}
-    {%- assign zenkai_type_benefit = zenkai_outcome_1 -%}
-    {%- assign zenkai_type_trust = 'Individually cut PVC adhesive decals / Water-resistant surface' -%}
-    {%- assign zenkai_type_fit = 'No sizing needed / Made for clean, smooth, dry surfaces' -%}
     {%- assign zenkai_type_production = zenkai_outcome_3 -%}
   {%- when 'cap' -%}
     {%- assign zenkai_type_benefit = 'Structured dad cap — clean profile, every angle' -%}
@@ -1851,7 +1842,7 @@
       object-fit: cover;
     }
 
-    {% if zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' %}
+    {% if zenkai_product_category == 'pin' %}
       #ProductSection-{{ section_id }} .product__main-photos,
       #ProductSection-{{ section_id }} .product__main-photos-wrapper,
       #ProductSection-{{ section_id }} [data-product-photos],
@@ -2677,7 +2668,7 @@
                 </section>
               {% endif %}
 
-              {% unless zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_defect_only_collectible %}
+              {% unless zenkai_product_category == 'pin' or zenkai_defect_only_collectible %}
                 {% include 'bundle-callout', bundle_slot: 'mobile' %}
               {% endunless %}
 
@@ -2703,7 +2694,7 @@
       </div>
 
       <div class="zenkai-pdp-below">
-        {% if zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_product_category == 'collectible' %}
+        {% if zenkai_product_category == 'pin' or zenkai_product_category == 'collectible' %}
           {%- assign zenkai_has_pin_story = false -%}
           {%- if zenkai_pin_collector_image_desktop != blank or zenkai_pin_collector_image_mobile != blank or zenkai_pin_quality_image_desktop != blank or zenkai_pin_quality_image_mobile != blank or zenkai_pin_lifestyle_image_desktop != blank or zenkai_pin_lifestyle_image_mobile != blank -%}
             {%- assign zenkai_has_pin_story = true -%}
@@ -2925,11 +2916,6 @@
             <p class="zenkai-brand-quote__text">Familiar energy. Built for the shelf.</p>
             <p class="zenkai-brand-quote__follow">Display pieces with unmistakable silhouettes, nostalgic energy, and details worth a second look.</p>
           </aside>
-        {% elsif zenkai_product_category == 'sticker' %}
-          <aside class="zenkai-brand-quote" aria-label="Brand story">
-            <p class="zenkai-brand-quote__text">A whole collection in one pack.</p>
-            <p class="zenkai-brand-quote__follow">Built for laptops, bottles, notebooks, luggage, and the surfaces that deserve a little more personality.</p>
-          </aside>
         {% elsif zenkai_product_category != 'pin' %}
           <aside class="zenkai-brand-quote" aria-label="Brand story">
             <p class="zenkai-brand-quote__text">Original designs. Familiar energy. Made to feel like real clothes.</p>
@@ -2938,7 +2924,7 @@
         {% endif %}
 
         {% if has_ugc %}
-          <section class="zenkai-ugc-gallery zenkai-ugc-gallery--desktop{% if zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' %} zenkai-ugc-gallery--pin-mobile{% endif %}" aria-label="{{ zenkai_ugc_heading }}">
+          <section class="zenkai-ugc-gallery zenkai-ugc-gallery--desktop{% if zenkai_product_category == 'pin' %} zenkai-ugc-gallery--pin-mobile{% endif %}" aria-label="{{ zenkai_ugc_heading }}">
             <h2 class="zenkai-ugc-heading">{{ zenkai_ugc_heading }}</h2>
             <div class="zenkai-ugc-carousel" data-ugc-carousel>
               <div class="zenkai-ugc-track" data-ugc-track>
@@ -2984,7 +2970,7 @@
         </div>
       </div>
 
-      {% unless zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_defect_only_collectible %}
+      {% unless zenkai_product_category == 'pin' or zenkai_defect_only_collectible %}
         <div class="zenkai-bundle-belt">
           {% include 'bundle-callout', bundle_slot: 'desktop' %}
         </div>
@@ -2999,12 +2985,6 @@
       {% if zenkai_ptemplate == 'summoning-glow' or zenkai_ptemplate == 'summoning-glow-essential' %}
         {% unless isModal %}
           {% render 'summoning-glow-upsell' %}
-        {% endunless %}
-      {% endif %}
-
-      {% if product.handle == '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' %}
-        {% unless isModal %}
-          {% render 'gym-badge-sticker-upsell', section_id: section_id %}
         {% endunless %}
       {% endif %}
     </div>
