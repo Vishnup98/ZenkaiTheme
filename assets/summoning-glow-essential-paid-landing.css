@@ -20,15 +20,27 @@
     linear-gradient(145deg, #030605 0%, var(--sge-lp-bg) 54%, #0b1815 100%);
 }
 
-.sge-paid-landing[data-active-lp='desk'] {
-  --sge-lp-bg: #080b18;
-  --sge-lp-surface: #111525;
-  --sge-lp-surface-strong: #181d31;
-  --sge-lp-muted: #c7cbd7;
+.sge-paid-landing[data-active-lp='complete'] {
+  --sge-lp-bg: #140e05;
+  --sge-lp-surface: #20180b;
+  --sge-lp-surface-strong: #2a1f0f;
+  --sge-lp-muted: #d8ccba;
   background:
-    radial-gradient(circle at 8% 20%, rgba(24, 160, 203, 0.16), transparent 30rem),
-    radial-gradient(circle at 92% 42%, rgba(109, 62, 210, 0.16), transparent 30rem),
-    linear-gradient(145deg, #03040a 0%, var(--sge-lp-bg) 54%, #0d1120 100%);
+    radial-gradient(circle at 8% 20%, rgba(244, 185, 59, 0.2), transparent 30rem),
+    radial-gradient(circle at 92% 42%, rgba(148, 92, 25, 0.16), transparent 30rem),
+    linear-gradient(145deg, #080502 0%, var(--sge-lp-bg) 54%, #1b1207 100%);
+}
+
+.sge-paid-landing[data-active-lp='review'] {
+  --sge-lp-bg: #10100c;
+  --sge-lp-surface: #1a1b15;
+  --sge-lp-surface-strong: #22231b;
+  --sge-lp-muted: #d0d1c7;
+  --sge-lp-accent: #ffc452;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(255, 196, 82, 0.17), transparent 31rem),
+    radial-gradient(circle at 88% 62%, rgba(37, 116, 77, 0.17), transparent 30rem),
+    linear-gradient(145deg, #050504 0%, var(--sge-lp-bg) 54%, #0c1710 100%);
 }
 
 .sge-paid-landing::before {
@@ -121,6 +133,31 @@
   color: var(--sge-lp-muted);
   font-size: clamp(1rem, 1.35vw, 1.16rem);
   line-height: 1.62;
+}
+
+.sge-paid-landing__quote {
+  max-width: 39rem;
+  margin: 22px 0 0;
+  padding: 0 0 0 18px;
+  border-left: 3px solid var(--sge-lp-accent);
+}
+
+.sge-paid-landing__quote p {
+  margin: 0;
+  color: var(--sge-lp-muted);
+  font-size: clamp(0.96rem, 1.2vw, 1.08rem);
+  line-height: 1.55;
+}
+
+.sge-paid-landing__quote cite {
+  display: block;
+  margin-top: 10px;
+  color: var(--sge-lp-text);
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .sge-paid-landing__offer {

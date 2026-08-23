@@ -5,8 +5,16 @@
   if (!section) return;
 
   var params = new URLSearchParams(window.location.search);
-  var requested = (params.get('lp') || '').trim().toLowerCase();
-  if (requested !== 'reveal' && requested !== 'desk') return;
+  var requestedParam = (params.get('lp') || '').trim().toLowerCase();
+  var aliases = {
+    reveal: 'transform',
+    desk: 'transform',
+    transformation: 'transform',
+    kit: 'complete',
+    testimonial: 'review'
+  };
+  var requested = aliases[requestedParam] || requestedParam;
+  if (['transform', 'complete', 'review'].indexOf(requested) === -1) return;
 
   var panel = section.querySelector('[data-sge-lp-panel="' + requested + '"]');
   if (!panel) return;
@@ -15,6 +23,11 @@
   if (activeImage) {
     activeImage.loading = 'eager';
     activeImage.fetchPriority = 'high';
+    var activeSource = activeImage.getAttribute('data-src');
+    if (activeSource) {
+      activeImage.src = activeSource;
+      activeImage.removeAttribute('data-src');
+    }
   }
 
   section.dataset.activeLp = requested;
@@ -26,13 +39,17 @@
   var productSectionSelector = section.getAttribute('data-product-section-selector');
   var productSection = productSectionSelector ? document.querySelector(productSectionSelector) : null;
   var content = {
-    reveal: {
-      hook: 'All seven lights. None of the extra visual noise.',
-      subheadline: 'One coiled dragon, seven translucent spheres, and a remote-controlled RGB base with a clean, open silhouette.'
+    transform: {
+      hook: 'Your shelf after one switch.',
+      subheadline: 'One coiled dragon, seven translucent spheres, and a remote-controlled RGB base built to become the centerpiece.'
     },
-    desk: {
-      hook: 'The desk glow, toned down in all the right places.',
-      subheadline: 'A low-profile RGB display with enough presence to anchor the setup—without the tall explosion pieces.'
+    complete: {
+      hook: 'All seven. One remote.',
+      subheadline: 'The complete RGB display: coiled dragon, seven one-through-seven-star spheres, light base, remote, cable, and clear supports.'
+    },
+    review: {
+      hook: '“The lights really elevate the product.”',
+      subheadline: 'See the verified-customer setup, then explore the close-up detail, included pieces, and RGB controls.'
     }
   };
 
@@ -65,7 +82,8 @@
       if (window.dataLayer && typeof window.dataLayer.push === 'function') {
         window.dataLayer.push({
           event: 'summoning_glow_essential_paid_lp_add',
-          landing_variant: requested
+          landing_variant: requested,
+          landing_variant_requested: requestedParam
         });
       }
 
@@ -78,7 +96,8 @@
       if (window.dataLayer && typeof window.dataLayer.push === 'function') {
         window.dataLayer.push({
           event: 'summoning_glow_essential_paid_lp_details',
-          landing_variant: requested
+          landing_variant: requested,
+          landing_variant_requested: requestedParam
         });
       }
     });
@@ -87,7 +106,8 @@
   if (window.dataLayer && typeof window.dataLayer.push === 'function') {
     window.dataLayer.push({
       event: 'summoning_glow_essential_paid_lp_view',
-      landing_variant: requested
+      landing_variant: requested,
+      landing_variant_requested: requestedParam
     });
   }
 

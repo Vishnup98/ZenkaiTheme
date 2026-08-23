@@ -9,23 +9,24 @@
     hidden>
     <div class="sge-paid-landing__inner">
       <article
-        class="sge-paid-landing__journey sge-paid-landing__journey--reveal"
-        data-sge-lp-panel="reveal"
-        aria-labelledby="sge-paid-reveal-title-{{ section.id }}"
+        class="sge-paid-landing__journey"
+        data-sge-lp-panel="transform"
+        aria-labelledby="sge-paid-transform-title-{{ section.id }}"
         hidden>
         <div class="sge-paid-landing__visual">
           <img
-            src="{{ 'summoning-glow-essential-lp-reveal-v1.jpg' | asset_url }}"
-            alt="Summoning Glow Essential RGB dragon display with seven star-marked spheres"
-            width="1254"
-            height="1254"
+            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+            data-src="{{ 'summoning-glow-paid-transform-v1.jpg' | asset_url }}"
+            alt="Summoning Glow RGB dragon display illuminated on a collector shelf"
+            width="1080"
+            height="1350"
             loading="lazy"
             fetchpriority="low">
         </div>
 
-        <div class="sge-paid-landing__mobile-offer" aria-label="Summoning Glow Essential quick purchase">
+        <div class="sge-paid-landing__mobile-offer" aria-label="Summoning Glow quick purchase">
           <div>
-            <span>Summoning Glow Essential</span>
+            <span>Summoning Glow</span>
             <strong>{{ sge_paid_variant.price | money }}</strong>
           </div>
           <button type="button" data-sge-lp-add {% unless sge_paid_variant.available %}disabled{% endunless %}>
@@ -34,18 +35,18 @@
         </div>
 
         <div class="sge-paid-landing__content">
-          <p class="sge-paid-landing__eyebrow">The clean-light edit</p>
-          <h2 id="sge-paid-reveal-title-{{ section.id }}">All seven lights. None of the extra visual noise.</h2>
-          <p class="sge-paid-landing__lede">A coiled green dragon, seven translucent star-marked spheres, and a remote-controlled RGB base—built with the cleaner, open silhouette.</p>
+          <p class="sge-paid-landing__eyebrow">The collector centerpiece</p>
+          <h2 id="sge-paid-transform-title-{{ section.id }}">Your shelf after one switch.</h2>
+          <p class="sge-paid-landing__lede">A coiled green dragon, seven translucent star-marked spheres, and a remote-controlled RGB base turn an open spot into the focal point of the room.</p>
 
           <div class="sge-paid-landing__offer" aria-label="Product and price">
-            <span>Summoning Glow Essential</span>
+            <span>Summoning Glow</span>
             <strong>{{ sge_paid_variant.price | money }}</strong>
           </div>
 
           <ul class="sge-paid-landing__confidence" role="list">
-            <li>Free U.S. shipping</li>
-            <li>RGB lighting remote included</li>
+            <li>Seven separate star-marked spheres</li>
+            <li>RGB lighting remote and cable included</li>
             <li>Approximately 6 in / 15–16 cm dragon figure</li>
           </ul>
 
@@ -56,43 +57,44 @@
           <p class="sge-paid-landing__policy">Assembly required. Final sale for preference changes. If it arrives damaged or defective, we will replace it or refund it.</p>
         </div>
 
-        <div class="sge-paid-landing__proof" aria-label="Essential RGB display highlights">
+        <div class="sge-paid-landing__proof" aria-label="Summoning Glow product highlights">
           <div>
-            <span>The light</span>
+            <span>One switch</span>
             <strong>RGB color by remote</strong>
             <p>Change colors and lighting modes without moving the display.</p>
           </div>
           <div>
-            <span>The set</span>
-            <strong>Seven separate spheres</strong>
-            <p>One through seven red stars, arranged around the dragon.</p>
+            <span>All seven</span>
+            <strong>One through seven red stars</strong>
+            <p>Seven separate translucent spheres arranged around the dragon.</p>
           </div>
           <div>
-            <span>The silhouette</span>
-            <strong>Clean, open, and easy to place</strong>
-            <p>No tall explosion ridges or outer crystal-effect ring.</p>
+            <span>Made to display</span>
+            <strong>Desk, shelf, or display case</strong>
+            <p>Clear supports keep the dragon composition open from the front and sides.</p>
           </div>
         </div>
       </article>
 
       <article
-        class="sge-paid-landing__journey sge-paid-landing__journey--desk"
-        data-sge-lp-panel="desk"
-        aria-labelledby="sge-paid-desk-title-{{ section.id }}"
+        class="sge-paid-landing__journey"
+        data-sge-lp-panel="complete"
+        aria-labelledby="sge-paid-complete-title-{{ section.id }}"
         hidden>
         <div class="sge-paid-landing__visual">
           <img
-            src="{{ 'summoning-glow-essential-lp-desk-v1.jpg' | asset_url }}"
-            alt="Summoning Glow Essential RGB dragon display on a modern wooden desk"
-            width="1536"
-            height="1024"
+            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+            data-src="{{ 'summoning-glow-paid-complete-v1.jpg' | asset_url }}"
+            alt="Summoning Glow components including dragon, base, remote, cable, supports, and seven spheres"
+            width="1080"
+            height="1350"
             loading="lazy"
             fetchpriority="low">
         </div>
 
-        <div class="sge-paid-landing__mobile-offer" aria-label="Summoning Glow Essential quick purchase">
+        <div class="sge-paid-landing__mobile-offer" aria-label="Summoning Glow quick purchase">
           <div>
-            <span>Summoning Glow Essential</span>
+            <span>Summoning Glow</span>
             <strong>{{ sge_paid_variant.price | money }}</strong>
           </div>
           <button type="button" data-sge-lp-add {% unless sge_paid_variant.available %}disabled{% endunless %}>
@@ -101,43 +103,114 @@
         </div>
 
         <div class="sge-paid-landing__content">
-          <p class="sge-paid-landing__eyebrow">The collector-desk edit</p>
-          <h2 id="sge-paid-desk-title-{{ section.id }}">The desk glow, toned down in all the right places.</h2>
-          <p class="sge-paid-landing__lede">The low-profile circular base keeps the scene easy to place. Switch the RGB color from the remote, then let the dragon and seven spheres do the rest.</p>
+          <p class="sge-paid-landing__eyebrow">Everything in the display</p>
+          <h2 id="sge-paid-complete-title-{{ section.id }}">All seven. One remote.</h2>
+          <p class="sge-paid-landing__lede">The full display includes the painted coiled dragon, seven separate one-through-seven-star spheres, the circular RGB base, remote, cable, and three clear supports.</p>
 
           <div class="sge-paid-landing__offer" aria-label="Product and price">
-            <span>Summoning Glow Essential</span>
+            <span>Summoning Glow</span>
             <strong>{{ sge_paid_variant.price | money }}</strong>
           </div>
 
           <ul class="sge-paid-landing__confidence" role="list">
-            <li>Free U.S. shipping</li>
-            <li>RGB lighting remote included</li>
-            <li>Approximately 6 in / 15–16 cm dragon figure</li>
+            <li>Complete seven-sphere display</li>
+            <li>Remote-controlled wired RGB base</li>
+            <li>Component guide included on the product page</li>
+          </ul>
+
+          <button type="button" class="sge-paid-landing__primary" data-sge-lp-add {% unless sge_paid_variant.available %}disabled{% endunless %}>
+            {% if sge_paid_variant.available %}Add the Complete Display — {{ sge_paid_variant.price | money }}{% else %}Sold out{% endif %}
+          </button>
+          <a class="sge-paid-landing__secondary" href="#ProductSection-{{ product.id }}" data-sge-lp-details>See size, assembly, and close-up details</a>
+          <p class="sge-paid-landing__policy">Assembly required. Final sale for preference changes. If it arrives damaged or defective, we will replace it or refund it.</p>
+        </div>
+
+        <div class="sge-paid-landing__proof" aria-label="Summoning Glow box contents">
+          <div>
+            <span>The figure</span>
+            <strong>Painted coiled dragon</strong>
+            <p>Detailed green scales, cream underbelly, and a strong front-facing silhouette.</p>
+          </div>
+          <div>
+            <span>The set</span>
+            <strong>Seven separate spheres</strong>
+            <p>One through seven red stars, presented as a complete display.</p>
+          </div>
+          <div>
+            <span>The light</span>
+            <strong>Base, remote, and cable</strong>
+            <p>Control the RGB colors and lighting modes from the included remote.</p>
+          </div>
+        </div>
+      </article>
+
+      <article
+        class="sge-paid-landing__journey"
+        data-sge-lp-panel="review"
+        aria-labelledby="sge-paid-review-title-{{ section.id }}"
+        hidden>
+        <div class="sge-paid-landing__visual">
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+            data-src="{{ 'summoning-glow-paid-review-pablo-v1.jpg' | asset_url }}"
+            alt="Verified customer photo of the illuminated Summoning Glow display"
+            width="1080"
+            height="1350"
+            loading="lazy"
+            fetchpriority="low">
+        </div>
+
+        <div class="sge-paid-landing__mobile-offer" aria-label="Summoning Glow quick purchase">
+          <div>
+            <span>Summoning Glow</span>
+            <strong>{{ sge_paid_variant.price | money }}</strong>
+          </div>
+          <button type="button" data-sge-lp-add {% unless sge_paid_variant.available %}disabled{% endunless %}>
+            {% if sge_paid_variant.available %}Add to Bag{% else %}Sold out{% endif %}
+          </button>
+        </div>
+
+        <div class="sge-paid-landing__content">
+          <p class="sge-paid-landing__eyebrow">From a verified customer</p>
+          <h2 id="sge-paid-review-title-{{ section.id }}">“The lights really elevate the product.”</h2>
+          <blockquote class="sge-paid-landing__quote">
+            <p>“Excellent service and faster than I expected. The details are amazing, and the lights really elevate the product. My husband loves it!”</p>
+            <cite>— Pablo, verified customer</cite>
+          </blockquote>
+
+          <div class="sge-paid-landing__offer" aria-label="Product and price">
+            <span>Summoning Glow</span>
+            <strong>{{ sge_paid_variant.price | money }}</strong>
+          </div>
+
+          <ul class="sge-paid-landing__confidence" role="list">
+            <li>Real customer photo shown</li>
+            <li>RGB lighting remote and cable included</li>
+            <li>Seven separate star-marked spheres</li>
           </ul>
 
           <button type="button" class="sge-paid-landing__primary" data-sge-lp-add {% unless sge_paid_variant.available %}disabled{% endunless %}>
             {% if sge_paid_variant.available %}Add to Bag — {{ sge_paid_variant.price | money }}{% else %}Sold out{% endif %}
           </button>
-          <a class="sge-paid-landing__secondary" href="#ProductSection-{{ product.id }}" data-sge-lp-details>See size, details, and customer setups</a>
+          <a class="sge-paid-landing__secondary" href="#ProductSection-{{ product.id }}" data-sge-lp-details>See more customer setups</a>
           <p class="sge-paid-landing__policy">Assembly required. Final sale for preference changes. If it arrives damaged or defective, we will replace it or refund it.</p>
         </div>
 
-        <div class="sge-paid-landing__proof" aria-label="Collector desk product highlights">
+        <div class="sge-paid-landing__proof" aria-label="Customer and product proof">
           <div>
-            <span>Setup scale</span>
-            <strong>Presence without takeover</strong>
-            <p>A roughly six-inch dragon figure suited to desks, shelves, and display cases.</p>
+            <span>In a real home</span>
+            <strong>Customer-photo proof</strong>
+            <p>The review creative uses the customer’s setup photo as its source and their exact words.</p>
           </div>
           <div>
-            <span>After dark</span>
-            <strong>Your color, from the remote</strong>
-            <p>Use the concentric RGB lighting to match the rest of the room.</p>
+            <span>Close-up detail</span>
+            <strong>Painted scales and translucent spheres</strong>
+            <p>The dragon and star-marked spheres reward a closer look in daylight and after dark.</p>
           </div>
           <div>
-            <span>One clean scene</span>
-            <strong>Dragon, seven spheres, slim base</strong>
-            <p>Clear supports keep the composition open from the front and sides.</p>
+            <span>Color on command</span>
+            <strong>Remote-controlled RGB</strong>
+            <p>Match the display to the rest of the room without disturbing the setup.</p>
           </div>
         </div>
       </article>
@@ -149,11 +222,11 @@
 
 {% schema %}
 {
-  "name": "Glow Essential paid LP",
+  "name": "Summoning Glow paid LP",
   "settings": [],
   "presets": [
     {
-      "name": "Glow Essential paid LP"
+      "name": "Summoning Glow paid LP"
     }
   ]
 }

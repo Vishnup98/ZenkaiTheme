@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "status": "creative_ready_campaign_not_created",
+  "product": {
+    "name": "Summoning Glow — RGB Dragon Display",
+    "handle": "summoning-glow-essential-rgb-dragon-display",
+    "price": "99.99",
+    "currency": "USD"
+  },
+  "campaignSlug": "summoning_glow_static_2026",
+  "creatives": [
+    {
+      "id": "transformation",
+      "landingVariant": "transform",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/01-transformation-feed-4x5-v1.jpg",
+        "story9x16": "optimized/story-9x16/01-transformation-story-9x16-v1.jpg",
+        "square1x1": "optimized/square-1x1/01-transformation-square-1x1-v1.jpg"
+      },
+      "primaryText": "Most displays disappear when the room gets dark. This one becomes the room. One coiled dragon, seven translucent spheres, and remote-controlled RGB lighting. $99.99. Assembly required.",
+      "headline": "Your shelf after one switch.",
+      "description": "All seven spheres + RGB remote.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=transformation"
+    },
+    {
+      "id": "complete_set",
+      "landingVariant": "complete",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/02-complete-set-feed-4x5-v1.jpg",
+        "story9x16": "optimized/story-9x16/02-complete-set-story-9x16-v1.jpg",
+        "square1x1": "optimized/square-1x1/02-complete-set-square-1x1-v1.jpg"
+      },
+      "primaryText": "Yes—the display includes all seven separate spheres, with the one-through-seven red-star progression, plus the dragon, RGB base, remote, cable, and clear supports. $99.99. Assembly required.",
+      "headline": "All seven. One remote.",
+      "description": "The complete RGB collector display.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=complete&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=complete_set"
+    },
+    {
+      "id": "daylight_detail",
+      "landingVariant": "transform",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/03-daylight-detail-feed-4x5-v1.jpg"
+      },
+      "primaryText": "Display art by day. RGB atmosphere after dark. The painted dragon and translucent spheres carry the shelf before the lights are even switched on.",
+      "headline": "It looks this good before you turn it on.",
+      "description": "Collector detail + RGB lighting.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=daylight_detail"
+    },
+    {
+      "id": "shelf_centerpiece",
+      "landingVariant": "transform",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/04-shelf-centerpiece-feed-4x5-v1.jpg"
+      },
+      "primaryText": "That empty shelf does not need more clutter. It needs one centerpiece. Summoning Glow combines sculpted detail, all seven spheres, and remote-controlled color in one display.",
+      "headline": "The centerpiece your shelf was missing.",
+      "description": "RGB collector display · $99.99.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=shelf_centerpiece"
+    },
+    {
+      "id": "pablo_review",
+      "landingVariant": "review",
+      "sourceType": "authentic_customer_photo_ai_layout",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/05-review-pablo-feed-4x5-v1.jpg",
+        "story9x16": "optimized/story-9x16/05-review-pablo-story-9x16-v1.jpg",
+        "square1x1": "optimized/square-1x1/05-review-pablo-square-1x1-v1.jpg"
+      },
+      "primaryText": "“The details are amazing, and the lights really elevate the product. My husband loves it!” — Pablo, verified customer. See the display, included pieces, and customer setups.",
+      "headline": "The lights really elevate the product.",
+      "description": "See the verified-customer setup.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=review&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=pablo_review"
+    },
+    {
+      "id": "collector_gift",
+      "landingVariant": "transform",
+      "sourceType": "ai_merchandising_composite",
+      "files": {
+        "feed4x5": "optimized/feed-4x5/06-gift-feed-4x5-v1.jpg"
+      },
+      "primaryText": "For the collector who has everything: a display they will notice in daylight and switch on after dark. Seven spheres, remote-controlled RGB, and a sculpted coiled dragon.",
+      "headline": "A gift they’ll display.",
+      "description": "Summoning Glow · $99.99.",
+      "destinationPath": "/products/summoning-glow-essential-rgb-dragon-display?lp=transform&utm_source=meta&utm_medium=paid_social&utm_campaign=summoning_glow_static_2026&utm_content=collector_gift"
+    }
+  ]
+}
