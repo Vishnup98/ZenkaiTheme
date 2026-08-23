@@ -96,6 +96,28 @@
   {% include 'critical-css' %}
   {% include 'load-css' %}
 
+  {%- if request.page_type == 'product' and product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+    <script>
+      (function() {
+        var query = window.location.search || '';
+        if (!/(?:^|[?&])lp=(?:reveal|desk)(?:&|$)/i.test(query)) return;
+
+        document.documentElement.className += ' sg-paid-lp-requested';
+
+        var paidLandingStylesheet = document.createElement('link');
+        paidLandingStylesheet.rel = 'stylesheet';
+        paidLandingStylesheet.href = theme.stylesheet;
+        paidLandingStylesheet.setAttribute('data-sg-paid-lp-stylesheet', '');
+        document.head.appendChild(paidLandingStylesheet);
+      })();
+    </script>
+    <style>
+      html.sg-paid-lp-requested .splash-screen { display: none !important; }
+      html.sg-paid-lp-requested .page-container { display: block !important; visibility: visible !important; }
+      html.sg-paid-lp-requested .transition-body { opacity: 1 !important; visibility: visible !important; }
+    </style>
+  {%- endif -%}
+
   {%- if zenkai_collectible_focus_context -%}
     <style>
       body.zenkai-collectible-focus .klaviyo-form,
@@ -151,6 +173,69 @@
         <span class="loader-text">{{ 'general.accessibility.loading' | t }}</span>
       {% endif %}
     </div>
+
+    {%- if request.page_type == 'product' and product.handle == 'summoning-glow-16cm-led-dragon-display' -%}
+      <script>
+        (function() {
+          var query = window.location.search || '';
+          var isPaidLandingPage = /(?:^|[?&])lp=(?:reveal|desk)(?:&|$)/i.test(query);
+
+          if (!isPaidLandingPage) return;
+
+          var hasReleasedPaidLandingPage = false;
+
+          function releasePaidLandingPage() {
+            if (hasReleasedPaidLandingPage) return;
+
+            var pageContainer = document.getElementById('PageContainer');
+            if (!pageContainer) return;
+
+            hasReleasedPaidLandingPage = true;
+
+            var splashScreen = document.querySelector('.splash-screen');
+            var transitionBody = document.querySelector('.transition-body');
+
+            if (splashScreen) {
+              splashScreen.style.setProperty('display', 'none', 'important');
+              splashScreen.hidden = true;
+              splashScreen.setAttribute('aria-hidden', 'true');
+            }
+
+            pageContainer.style.setProperty('display', 'block', 'important');
+            pageContainer.style.setProperty('visibility', 'visible', 'important');
+
+            if (transitionBody) {
+              transitionBody.style.setProperty('opacity', '1', 'important');
+              transitionBody.style.setProperty('visibility', 'visible', 'important');
+            }
+
+            document.body.className = document.body.className
+              .replace(/(?:^|\s)unloading(?:\s|$)/g, ' ')
+              .replace(/\s+/g, ' ');
+
+            if (document.body.className.indexOf('loaded') === -1) {
+              document.body.className += ' loaded';
+            }
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', releasePaidLandingPage);
+          } else {
+            releasePaidLandingPage();
+          }
+
+          window.addEventListener('pageshow', releasePaidLandingPage);
+          window.setTimeout(releasePaidLandingPage, 2500);
+        })();
+      </script>
+      <noscript>
+        <style>
+          .splash-screen { display: none !important; }
+          .page-container { display: block !important; visibility: visible !important; }
+          .transition-body { opacity: 1 !important; visibility: visible !important; }
+        </style>
+      </noscript>
+    {%- endif -%}
 
     <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
