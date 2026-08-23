@@ -283,6 +283,20 @@
 
           function suppressCollectibleDistractions(root) {
             var scope = root && root.querySelectorAll ? root : document;
+
+            function neutralizeSmartSizeScript(node) {
+              if (!node || node.tagName !== 'SCRIPT' || node.id !== 'smartsizeScript') return;
+              node.type = 'application/json';
+              node.removeAttribute('src');
+            }
+
+            if (scope.matches && scope.matches('#smartsizeScript')) {
+              neutralizeSmartSizeScript(scope);
+            }
+            if (scope.querySelectorAll) {
+              scope.querySelectorAll('#smartsizeScript').forEach(neutralizeSmartSizeScript);
+            }
+
             selectors.forEach(function(selector) {
               if (scope.matches && scope.matches(selector)) {
                 scope.hidden = true;
