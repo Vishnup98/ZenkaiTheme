@@ -306,7 +306,24 @@ html.sg-paid-lp-active [data-product-category='collectible'] .page-content {
 }
 
 html.sg-paid-lp-active .sg-reviews {
+  --sg-review-muted: #4f5b55;
+  --sg-review-border: rgba(18, 60, 49, 0.19);
   background: transparent;
+}
+
+@media (max-width: 767px) {
+  html.sg-paid-lp-active [data-product-category='collectible'] .product__main-photos-wrapper {
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    background: transparent !important;
+  }
+}
+
+@media (max-width: 620px) {
+  html.sg-paid-lp-active [data-product-category='collectible'] .zenkai-ugc-heading {
+    color: #f4faf7;
+    text-shadow: 0 2px 18px rgba(2, 10, 8, 0.32);
+  }
 }
 
 @media (max-width: 900px) {
