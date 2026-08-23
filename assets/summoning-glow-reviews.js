@@ -114,12 +114,6 @@
       });
 
       lightbox?.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          closeLightbox();
-          return;
-        }
-
         if (event.key === 'ArrowLeft') {
           event.preventDefault();
           showPhoto(activePhotoIndex - 1);
@@ -129,6 +123,13 @@
           event.preventDefault();
           showPhoto(activePhotoIndex + 1);
         }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape' || !lightbox?.open) return;
+
+        event.preventDefault();
+        closeLightbox();
       });
 
       lightbox?.addEventListener('close', cleanUpLightbox);
