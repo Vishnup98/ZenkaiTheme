@@ -43,8 +43,8 @@
                 alt="{{ zenkai_glow_main_label }} and the Eternal Wish coiled dragon and rider collectible displayed together"
                 width="1536"
                 height="1024"
-                loading="eager"
-                fetchpriority="high">
+                loading="lazy"
+                fetchpriority="low">
             </picture>
           </div>
           {%- for zenkai_glow_companion_image in zenkai_glow_companion.images limit: 3 -%}
@@ -716,6 +716,11 @@
       function openModal() {
         setStatus('');
         showCarouselSlide(0);
+        var activeCarouselImage = modal.querySelector('[data-zk-glow-carousel-slide] img');
+        if (activeCarouselImage) {
+          activeCarouselImage.loading = 'eager';
+          activeCarouselImage.fetchPriority = 'high';
+        }
         modal.hidden = false;
         modal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('zk-glow-upsell-open');

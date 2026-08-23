@@ -11,6 +11,12 @@
   var panel = section.querySelector('[data-sge-lp-panel="' + requested + '"]');
   if (!panel) return;
 
+  var activeImage = panel.querySelector('.sge-paid-landing__visual img');
+  if (activeImage) {
+    activeImage.loading = 'eager';
+    activeImage.fetchPriority = 'high';
+  }
+
   section.dataset.activeLp = requested;
   section.hidden = false;
   panel.hidden = false;
