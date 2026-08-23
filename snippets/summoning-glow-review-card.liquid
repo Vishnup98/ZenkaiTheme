@@ -7,13 +7,18 @@
   - date_iso
   - date_label
   - body
+  - lead (optional editorial pull quote)
+  - detail (optional supporting copy; the full review remains verbatim)
   - image_name (optional theme asset filename)
   - image_width / image_height (required when image_name is present)
+  - photo_position (optional object-position value)
 {%- endcomment -%}
 
+{%- assign review_lead = lead | default: body -%}
 <article
   class="sg-review-card{% if image_name != blank %} sg-review-card--with-photo{% endif %}"
-  data-review-id="{{ review_id | escape }}">
+  data-review-id="{{ review_id | escape }}"
+  style="--sg-review-photo-position: {{ photo_position | default: '50% 50%' }};">
   {%- if image_name != blank -%}
     {%- assign image_webp = image_name | replace: '.jpg', '.webp' -%}
     <button
@@ -37,6 +42,7 @@
           fetchpriority="low"
           decoding="async">
       </picture>
+      <span class="sg-review-card__photo-label" aria-hidden="true">Customer photo</span>
       <span class="sg-review-card__zoom" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="7"></circle>
@@ -47,15 +53,30 @@
   {%- endif -%}
 
   <div class="sg-review-card__content">
-    <div class="sg-review-card__stars" aria-label="5 out of 5 stars">
-      <span aria-hidden="true">★★★★★</span>
+    <div class="sg-review-card__rating" aria-label="5 out of 5 stars">
+      {% render 'summoning-glow-review-stars' %}
+      <span aria-hidden="true">5.0</span>
     </div>
-    <p class="sg-review-card__body{% if body == 'Photo-only review.' %} sg-review-card__body--photo-only{% endif %}">{{ body | escape }}</p>
+
+    {%- if body == 'Photo-only review.' -%}
+      <p class="sg-review-card__photo-note">Shared their collector setup.</p>
+    {%- else -%}
+      <blockquote class="sg-review-card__quote">
+        <p class="sg-review-card__lead">{{ review_lead | escape }}</p>
+        {%- if detail != blank -%}
+          <p class="sg-review-card__detail">{{ detail | escape }}</p>
+        {%- endif -%}
+      </blockquote>
+    {%- endif -%}
+
     <div class="sg-review-card__footer">
-      <span class="sg-review-card__avatar" aria-hidden="true">{{ reviewer | slice: 0, 1 | upcase }}</span>
       <span class="sg-review-card__identity">
         <strong>{{ reviewer | escape }}</strong>
-        <time datetime="{{ date_iso | escape }}">{{ date_label | escape }}</time>
+        <span class="sg-review-card__credit">
+          <time datetime="{{ date_iso | escape }}">{{ date_label | escape }}</time>
+          <span aria-hidden="true">·</span>
+          <span>{% if image_name != blank %}Customer photo{% else %}Collector review{% endif %}</span>
+        </span>
       </span>
     </div>
   </div>
