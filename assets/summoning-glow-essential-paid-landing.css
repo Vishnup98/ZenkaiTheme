@@ -372,7 +372,7 @@ html.sge-paid-lp-active .sg-reviews {
   background: transparent;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   html.sge-paid-lp-active [data-product-category='collectible'] .product__main-photos-wrapper {
     border-top: 0 !important;
     border-bottom: 0 !important;
