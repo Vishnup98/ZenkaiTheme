@@ -15,9 +15,7 @@
   position: relative;
   overflow: hidden;
   color: var(--sge-lp-text);
-  background:
-    radial-gradient(circle at 12% 18%, rgba(244, 185, 59, 0.13), transparent 32rem),
-    linear-gradient(145deg, #030605 0%, var(--sge-lp-bg) 54%, #0b1815 100%);
+  background: radial-gradient(circle at 12% 18%, rgba(244, 185, 59, 0.13), transparent 32rem);
 }
 
 .sge-paid-landing[data-active-lp='complete'] {
@@ -27,8 +25,7 @@
   --sge-lp-muted: #d8ccba;
   background:
     radial-gradient(circle at 8% 20%, rgba(244, 185, 59, 0.2), transparent 30rem),
-    radial-gradient(circle at 92% 42%, rgba(148, 92, 25, 0.16), transparent 30rem),
-    linear-gradient(145deg, #080502 0%, var(--sge-lp-bg) 54%, #1b1207 100%);
+    radial-gradient(circle at 92% 42%, rgba(148, 92, 25, 0.16), transparent 30rem);
 }
 
 .sge-paid-landing[data-active-lp='review'] {
@@ -39,12 +36,12 @@
   --sge-lp-accent: #ffc452;
   background:
     radial-gradient(circle at 14% 16%, rgba(255, 196, 82, 0.17), transparent 31rem),
-    radial-gradient(circle at 88% 62%, rgba(37, 116, 77, 0.17), transparent 30rem),
-    linear-gradient(145deg, #050504 0%, var(--sge-lp-bg) 54%, #0c1710 100%);
+    radial-gradient(circle at 88% 62%, rgba(37, 116, 77, 0.17), transparent 30rem);
 }
 
 .sge-paid-landing::before {
   position: absolute;
+  z-index: 0;
   inset: 0;
   content: '';
   background-image:
@@ -322,8 +319,55 @@ html.sge-paid-lp-active .zenkai-breadcrumb {
   display: none !important;
 }
 
+html.sge-paid-lp-active #MainContent {
+  background: linear-gradient(
+    180deg,
+    #030605 0%,
+    #08120f 10%,
+    #172823 20%,
+    #455751 32%,
+    #98a6a2 45%,
+    #d5dcda 58%,
+    #fbfcff 75%,
+    #fbfcff 100%
+  );
+}
+
+html.sge-paid-lp-active[data-sge-paid-lp='complete'] #MainContent {
+  background: linear-gradient(
+    180deg,
+    #080502 0%,
+    #140e05 10%,
+    #2c1d0c 20%,
+    #675a45 32%,
+    #aaa291 45%,
+    #dedbd4 58%,
+    #fbfcff 75%,
+    #fbfcff 100%
+  );
+}
+
+html.sge-paid-lp-active[data-sge-paid-lp='review'] #MainContent {
+  background: linear-gradient(
+    180deg,
+    #050504 0%,
+    #10100c 10%,
+    #17221b 20%,
+    #53625b 32%,
+    #9fa8a3 45%,
+    #dadedc 58%,
+    #fbfcff 75%,
+    #fbfcff 100%
+  );
+}
+
 html.sge-paid-lp-active [data-product-category='collectible'] .page-content {
   padding-top: 30px !important;
+  background: transparent !important;
+}
+
+html.sge-paid-lp-active .sg-reviews {
+  background: transparent;
 }
 
 @media (max-width: 900px) {

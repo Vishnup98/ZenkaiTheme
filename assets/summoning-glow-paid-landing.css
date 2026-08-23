@@ -12,21 +12,10 @@
   --sg-lp-accent: #f0b832;
   --sg-lp-cta: #63d6bf;
   --sg-lp-cta-text: #0b201c;
-  --sg-lp-transition: linear-gradient(
-    180deg,
-    rgba(11, 24, 21, 0) 0%,
-    rgba(16, 35, 30, 0.88) 16%,
-    #3e514b 42%,
-    #899793 66%,
-    #d9e0df 86%,
-    #fbfcff 100%
-  );
   position: relative;
   overflow: hidden;
   color: var(--sg-lp-text);
-  background:
-    radial-gradient(circle at 12% 18%, rgba(240, 184, 50, 0.12), transparent 32rem),
-    linear-gradient(145deg, #030605 0%, var(--sg-lp-bg) 54%, #0b1815 100%);
+  background: radial-gradient(circle at 12% 18%, rgba(240, 184, 50, 0.12), transparent 32rem);
 }
 
 .sg-paid-landing[data-active-lp='desk'] {
@@ -34,19 +23,9 @@
   --sg-lp-surface: #111525;
   --sg-lp-surface-strong: #181d31;
   --sg-lp-muted: #c4c7d5;
-  --sg-lp-transition: linear-gradient(
-    180deg,
-    rgba(13, 17, 32, 0) 0%,
-    rgba(19, 25, 45, 0.9) 16%,
-    #41495d 42%,
-    #9197a6 66%,
-    #dce0e8 86%,
-    #fbfcff 100%
-  );
   background:
     radial-gradient(circle at 8% 20%, rgba(24, 160, 203, 0.16), transparent 30rem),
-    radial-gradient(circle at 92% 42%, rgba(109, 62, 210, 0.16), transparent 30rem),
-    linear-gradient(145deg, #03040a 0%, var(--sg-lp-bg) 54%, #0d1120 100%);
+    radial-gradient(circle at 92% 42%, rgba(109, 62, 210, 0.16), transparent 30rem);
 }
 
 .sg-paid-landing::before {
@@ -60,24 +39,12 @@
   pointer-events: none;
 }
 
-.sg-paid-landing::after {
-  position: absolute;
-  z-index: 0;
-  right: 0;
-  bottom: -1px;
-  left: 0;
-  height: clamp(164px, 14vw, 236px);
-  content: '';
-  background: var(--sg-lp-transition);
-  pointer-events: none;
-}
-
 .sg-paid-landing__inner {
   position: relative;
   z-index: 1;
   width: min(1420px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 42px 0 clamp(164px, 14vw, 228px);
+  padding: 42px 0 36px;
 }
 
 .sg-paid-landing__journey {
@@ -305,18 +272,47 @@ html.sg-paid-lp-active .zenkai-breadcrumb {
   display: none !important;
 }
 
+html.sg-paid-lp-active #MainContent {
+  background: linear-gradient(
+    180deg,
+    #030605 0%,
+    #08120f 10%,
+    #172823 20%,
+    #455751 32%,
+    #98a6a2 45%,
+    #d5dcda 58%,
+    #fbfcff 75%,
+    #fbfcff 100%
+  );
+}
+
+html.sg-paid-lp-active[data-sg-paid-lp='desk'] #MainContent {
+  background: linear-gradient(
+    180deg,
+    #03040a 0%,
+    #080b18 10%,
+    #171c30 20%,
+    #4b5265 32%,
+    #9da3b0 45%,
+    #dadee6 58%,
+    #fbfcff 75%,
+    #fbfcff 100%
+  );
+}
+
 html.sg-paid-lp-active [data-product-category='collectible'] .page-content {
   padding-top: 30px !important;
+  background: transparent !important;
+}
+
+html.sg-paid-lp-active .sg-reviews {
+  background: transparent;
 }
 
 @media (max-width: 900px) {
   .sg-paid-landing__inner {
     width: min(100% - 28px, 720px);
-    padding: 18px 0 142px;
-  }
-
-  .sg-paid-landing::after {
-    height: 150px;
+    padding: 18px 0 24px;
   }
 
   .sg-paid-landing__journey {
