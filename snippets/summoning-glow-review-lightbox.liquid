@@ -1,0 +1,39 @@
+<dialog
+  class="sg-review-lightbox"
+  data-sg-review-lightbox
+  aria-label="Customer photo viewer">
+  <button
+    type="button"
+    class="sg-review-lightbox__close"
+    data-sg-lightbox-close
+    aria-label="Close customer photo viewer">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M6 6l12 12M18 6L6 18"></path>
+    </svg>
+  </button>
+
+  <button
+    type="button"
+    class="sg-review-lightbox__arrow sg-review-lightbox__arrow--previous"
+    data-sg-lightbox-previous
+    aria-label="View previous customer photo">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m15 18-6-6 6-6"></path>
+    </svg>
+  </button>
+
+  <figure>
+    <img data-sg-lightbox-image alt="" width="1200" height="1200">
+    <figcaption data-sg-lightbox-caption aria-live="polite"></figcaption>
+  </figure>
+
+  <button
+    type="button"
+    class="sg-review-lightbox__arrow sg-review-lightbox__arrow--next"
+    data-sg-lightbox-next
+    aria-label="View next customer photo">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+  </button>
+</dialog>
