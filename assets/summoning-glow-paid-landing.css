@@ -311,6 +311,20 @@ html.sg-paid-lp-active .sg-reviews {
   background: transparent;
 }
 
+html.sg-paid-lp-active [data-product-category='collectible'] .product__main-photos-wrapper > .product__photo-zoom {
+  position: absolute !important;
+  z-index: 2;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
 @media (max-width: 768px) {
   html.sg-paid-lp-active [data-product-category='collectible'] .product__main-photos-wrapper {
     border-top: 0 !important;
