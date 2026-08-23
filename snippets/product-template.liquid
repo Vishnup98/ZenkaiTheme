@@ -3013,6 +3013,8 @@
   /* Restyle Rokt upsell widget — lives inside #aftersell-pdp-upsell shadow DOM,
      so we pierce the shadow root and override inline custom properties there. */
   (function() {
+    if (document.body && document.body.classList.contains('zenkai-collectible-focus')) return;
+
     var vars = {
       '--pdp-widget-padding-top': '0.75rem',
       '--pdp-widget-padding-bottom': '0.75rem',
