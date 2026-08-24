@@ -192,6 +192,30 @@
         </div>
       </article>
     </div>
+
+    <aside
+      class="gb-paid-landing__sticky"
+      data-gb-lp-sticky
+      aria-label="Collector's Pack quick purchase"
+      hidden>
+      <div class="gb-paid-landing__sticky-summary">
+        <span>Collector's Pack</span>
+        <strong>32 badges · 4 boxes</strong>
+      </div>
+      <div class="gb-paid-landing__sticky-buy">
+        <span class="gb-paid-landing__sticky-price">{{ gb_collector_variant.price | money }}</span>
+        <button
+          type="button"
+          data-gb-lp-sticky-add
+          {% unless gb_collector_variant.available %}disabled{% endunless %}>
+          {% if gb_collector_variant.available %}
+            Add all 32
+          {% else %}
+            Sold out
+          {% endif %}
+        </button>
+      </div>
+    </aside>
   </section>
 
   <script>
@@ -224,7 +248,7 @@
       }
     })();
   </script>
-  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=1" defer></script>
+  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=2" defer></script>
 {%- endif -%}
 
 {% schema %}

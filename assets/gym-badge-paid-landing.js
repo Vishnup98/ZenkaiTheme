@@ -16,6 +16,8 @@
   var productSection = productSectionSelector ? document.querySelector(productSectionSelector) : null;
   var collectorVariantId = section.getAttribute('data-collector-variant-id');
   var collectorVariantTitle = (section.getAttribute('data-collector-variant-title') || '').toLowerCase();
+  var sticky = section.querySelector('[data-gb-lp-sticky]');
+  var stickyButton = section.querySelector('[data-gb-lp-sticky-add]');
   var pageCopy = {
     complete: {
       hook: 'Every badge. Every box.',
@@ -115,34 +117,81 @@
     panel.querySelectorAll('[data-gb-lp-add]').forEach(function (button) {
       button.disabled = !mainButton || mainButton.disabled;
     });
+    if (stickyButton) stickyButton.disabled = !mainButton || mainButton.disabled;
   }
 
   selectCollectorVariant();
   window.setTimeout(syncHeroButtons, 80);
 
+  function addCollectorPack(placement) {
+    selectCollectorVariant();
+
+    window.setTimeout(function () {
+      var mainButton = getMainButton();
+      if (!mainButton || mainButton.disabled) {
+        if (productSection) productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      if (window.dataLayer && typeof window.dataLayer.push === 'function') {
+        window.dataLayer.push({
+          event: 'gym_badge_paid_lp_add',
+          landing_variant: requested,
+          cta_placement: placement,
+          product_variant_id: collectorVariantId
+        });
+      }
+
+      mainButton.click();
+    }, 80);
+  }
+
   panel.querySelectorAll('[data-gb-lp-add]').forEach(function (button) {
     button.addEventListener('click', function () {
-      selectCollectorVariant();
-
-      window.setTimeout(function () {
-        var mainButton = getMainButton();
-        if (!mainButton || mainButton.disabled) {
-          if (productSection) productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          return;
-        }
-
-        if (window.dataLayer && typeof window.dataLayer.push === 'function') {
-          window.dataLayer.push({
-            event: 'gym_badge_paid_lp_add',
-            landing_variant: requested,
-            product_variant_id: collectorVariantId
-          });
-        }
-
-        mainButton.click();
-      }, 80);
+      addCollectorPack('inline');
     });
   });
+
+  if (stickyButton) {
+    stickyButton.addEventListener('click', function () {
+      addCollectorPack('sticky');
+    });
+  }
+
+  function isInViewport(element) {
+    if (!element) return false;
+    var rect = element.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+  }
+
+  function syncStickyVisibility() {
+    if (!sticky) return;
+
+    var inlineVisible = false;
+    panel.querySelectorAll('[data-gb-lp-add]').forEach(function (button) {
+      if (isInViewport(button)) inlineVisible = true;
+    });
+
+    var mainButtonVisible = isInViewport(getMainButton());
+    var showSticky = window.scrollY > 140 && !inlineVisible && !mainButtonVisible;
+    sticky.hidden = !showSticky;
+    sticky.classList.toggle('is-visible', showSticky);
+  }
+
+  var stickyFrame = null;
+  function requestStickySync() {
+    if (stickyFrame !== null) return;
+    stickyFrame = window.requestAnimationFrame(function () {
+      stickyFrame = null;
+      syncStickyVisibility();
+    });
+  }
+
+  if (sticky) {
+    window.addEventListener('scroll', requestStickySync, { passive: true });
+    window.addEventListener('resize', requestStickySync);
+    window.setTimeout(syncStickyVisibility, 100);
+  }
 
   panel.querySelectorAll('[data-gb-lp-details]').forEach(function (link) {
     link.addEventListener('click', function () {

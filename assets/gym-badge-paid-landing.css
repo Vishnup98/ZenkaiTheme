@@ -337,6 +337,112 @@ html.gb-paid-lp-active .zk-promo-bar {
   display: none !important;
 }
 
+html.gb-paid-lp-active .zenkai-sticky-atc {
+  display: none !important;
+}
+
+.gb-paid-landing__sticky[hidden] {
+  display: none !important;
+}
+
+.gb-paid-landing__sticky {
+  position: fixed;
+  right: auto;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(780px, calc(100% - 36px));
+  min-height: 76px;
+  padding: 11px 12px 11px 18px;
+  border: 1px solid rgba(242, 215, 154, 0.42);
+  background: rgba(9, 10, 10, 0.96);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.48);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(100% + 32px));
+  transition: opacity 180ms ease, transform 220ms ease;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.gb-paid-landing__sticky.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.gb-paid-landing__sticky-summary {
+  min-width: 0;
+}
+
+.gb-paid-landing__sticky-summary span {
+  display: block;
+  color: var(--gb-gold-light);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.gb-paid-landing__sticky-summary strong {
+  display: block;
+  margin-top: 4px;
+  color: #fffdf8;
+  font-family: var(--typeHeaderPrimary, Georgia, serif);
+  font-size: 19px;
+  line-height: 1.1;
+}
+
+.gb-paid-landing__sticky-buy {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 14px;
+  margin-left: 22px;
+}
+
+.gb-paid-landing__sticky-price {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.gb-paid-landing__sticky button {
+  min-width: 190px;
+  min-height: 52px;
+  padding: 13px 20px;
+  border: 1px solid var(--gb-gold);
+  border-radius: 0;
+  background: linear-gradient(135deg, #f2d79a 0%, #c89a42 100%);
+  box-shadow: 0 10px 24px rgba(200, 154, 66, 0.24);
+  color: #17140d;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.055em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.gb-paid-landing__sticky button:hover,
+.gb-paid-landing__sticky button:focus-visible {
+  filter: brightness(1.06);
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+.gb-paid-landing__sticky button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.75);
+  opacity: 0.52;
+}
+
 html.gb-paid-lp-active .product-single__header > .zenkai-signal-hook,
 html.gb-paid-lp-active .product-single__header > .product-single__title,
 html.gb-paid-lp-active .product-single__header > .zenkai-social-subheadline {
@@ -485,10 +591,46 @@ html.gb-paid-lp-active .product-single__header > .zenkai-social-subheadline {
     padding: 10px 4px;
     font-size: 9px;
   }
+
+  .gb-paid-landing__sticky {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+    width: calc(100% - 16px);
+    min-height: 68px;
+    padding: 9px 9px 9px 12px;
+  }
+
+  .gb-paid-landing__sticky-summary span {
+    font-size: 8px;
+  }
+
+  .gb-paid-landing__sticky-summary strong {
+    margin-top: 3px;
+    font-family: var(--typeBasePrimary, Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .gb-paid-landing__sticky-buy {
+    gap: 8px;
+    margin-left: 10px;
+  }
+
+  .gb-paid-landing__sticky-price {
+    font-size: 14px;
+  }
+
+  .gb-paid-landing__sticky button {
+    min-width: 126px;
+    min-height: 48px;
+    padding: 11px 12px;
+    font-size: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gb-paid-landing__primary {
+  .gb-paid-landing__primary,
+  .gb-paid-landing__sticky {
     transition: none;
   }
 }
