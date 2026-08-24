@@ -5,12 +5,12 @@
 - Account: `act_511019028990462`
 - Campaign: `SG Essential | US | Purchase | Broad | $35 Cost Cap | Launch v1`
 - Campaign ID: `52587406407522`
-- Campaign status: `PAUSED`
+- Campaign status: `ACTIVE`
 - Campaign budget: `$105/day`
 - Bid strategy: `COST_CAP`
 - Ad set: `Summoning Glow Essential | US | Broad | Purchase | $35 CPA`
 - Ad set ID: `52587406414122`
-- Ad set effective status: `CAMPAIGN_PAUSED`
+- Ad set effective status: `ACTIVE`
 - Cost cap: `$35`
 - Geography: United States, broad Advantage audience, ages 18–65
 - Optimization: website Purchase
@@ -18,8 +18,9 @@
 - Attribution: 7-day click / 1-day view
 - Ads created: `6`
 - Uploaded Account Images: `18`
-- Current ad review status: `PENDING_REVIEW` with no reported issues (campaign remains paused)
+- Current ad delivery status: all six ads `ACTIVE` with no reported issues or review feedback
 - Credential source: macOS Keychain item `Zenkai Meta Ads API` (`zenkai_app`, app ID `1892053714944478`)
+- Activated: 2026-08-24 after destination, price, availability, placement, and Meta issue preflight passed
 
 Ads Manager:
 
@@ -38,7 +39,7 @@ The six placement-native ads were created through the published `zenkai_app` on 
 | `SGE_08_CustomerCameraRoll_Static_PlacementNative` | `52587953920922` | `1790101098650490` | `IN_PROCESS` |
 | `SGE_09_GalleryExhibit_Static_PlacementNative_v2` | `52587953934122` | `1985274788803207` | `IN_PROCESS` |
 
-The first QA pass found no creative issues or review feedback. The ads progressed from Meta's transient `IN_PROCESS` creation state to `PENDING_REVIEW`; neither state overrides the paused campaign. Do not activate the campaign until all six placement previews, final review results, and the `$105/day` budget have been approved.
+The first QA pass found no creative issues or review feedback. The ads progressed from `IN_PROCESS` to `PENDING_REVIEW`, then all six became `ACTIVE`. Before activation, all six live destinations returned HTTP 200, preserved their landing-page and UTM parameters, matched the corresponding Meta creative exactly, and resolved to the available $99.99 product. The campaign was then activated without changing its `$105/day` budget or `$35` cost cap.
 
 ## Uploaded Account Images
 
@@ -82,4 +83,4 @@ For each ad, the uploader configured:
 - Use the matching copy and destination from `campaign-handoff.md`.
 - CTA: `Shop Now`.
 - Meta's returned creative specification shows generated text, overlays, background generation, animation, music, auto-cropping, and other Advantage+ transformations opted out.
-- Keep each ad active beneath the paused campaign so a later campaign-level activation is sufficient.
+- Each ad and the parent campaign are active. Pause at campaign level if delivery needs to stop across the full test.
