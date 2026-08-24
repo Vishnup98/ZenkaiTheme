@@ -18,7 +18,7 @@
 - Attribution: 7-day click / 1-day view
 - Ads created: `6`
 - Uploaded Account Images: `18`
-- Current ad review status: `IN_PROCESS` (campaign remains paused)
+- Current ad review status: `PENDING_REVIEW` with no reported issues (campaign remains paused)
 - Credential source: macOS Keychain item `Zenkai Meta Ads API` (`zenkai_app`, app ID `1892053714944478`)
 
 Ads Manager:
@@ -38,7 +38,7 @@ The six placement-native ads were created through the published `zenkai_app` on 
 | `SGE_08_CustomerCameraRoll_Static_PlacementNative` | `52587953920922` | `1790101098650490` | `IN_PROCESS` |
 | `SGE_09_GalleryExhibit_Static_PlacementNative_v2` | `52587953934122` | `1985274788803207` | `IN_PROCESS` |
 
-The first QA pass found no creative issues or review feedback. `IN_PROCESS` is Meta's transient post-creation review state; it does not override the paused campaign. Do not activate the campaign until all six placement previews, final review results, and the `$105/day` budget have been approved.
+The first QA pass found no creative issues or review feedback. The ads progressed from Meta's transient `IN_PROCESS` creation state to `PENDING_REVIEW`; neither state overrides the paused campaign. Do not activate the campaign until all six placement previews, final review results, and the `$105/day` budget have been approved.
 
 ## Uploaded Account Images
 
