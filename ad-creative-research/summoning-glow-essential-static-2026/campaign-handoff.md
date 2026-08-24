@@ -1,10 +1,10 @@
 # Summoning Glow static campaign handoff
 
-Status: creative package complete and Meta media uploaded. Campaign `52587406407522` is paused, the ad set is configured for website purchases, and all 18 placement files are in Account Images. No ad creative or ad has been created because Meta rejected creative creation from the connected development-mode app (`1885183`). Nothing is spending.
+Status: creative package complete and deployed to Meta. Campaign `52587406407522` is paused, the ad set is configured for website purchases, all 18 placement files are in Account Images, and all six placement-native ads have been created through the published `zenkai_app`. Meta initially returned `IN_PROCESS` while the new ads entered review. Nothing is spending.
 
 Ads Manager: <https://adsmanager.facebook.com/adsmanager/manage/ads?act=511019028990462&selected_campaign_ids=52587406407522&selected_adset_ids=52587406414122>
 
-Detailed upload hashes and manual completion instructions: `meta-upload-handoff.md`
+Detailed upload hashes, ad IDs, creative IDs, and deployment status: `meta-upload-handoff.md`
 
 ## Positioning
 
@@ -139,7 +139,7 @@ Destination: `/products/summoning-glow-essential-rgb-dragon-display?lp=transform
 - Six distinct full-placement ads—Transformation, Complete Set, Pablo Review, Lights-off Test, Customer Camera Roll, and Gallery Exhibit—rather than cosmetic variants of one hook.
 - Each launch ad has a placement-native 4:5, 9:16, and 1:1 asset set.
 - Keep Daylight Detail, Shelf Centerpiece, and Gift as feed-only backups until performance justifies expanding them.
-- Keep the current campaign unpublished until the product, rights, inventory, pixel event, destination URLs, and final budget are checked.
+- Keep the current campaign paused until the product, rights, inventory, pixel event, destination URLs, placement previews, review results, and final budget are checked.
 - Lights-off Test, Customer Camera Roll, and Gallery Exhibit were approved as the second concept wave and now have placement-native 4:5, 9:16, and 1:1 variants.
 
 ## Provenance and truth rules

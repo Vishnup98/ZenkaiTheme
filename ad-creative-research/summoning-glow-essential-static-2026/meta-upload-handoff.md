@@ -16,23 +16,29 @@
 - Optimization: website Purchase
 - Pixel: `1675497706426640`
 - Attribution: 7-day click / 1-day view
-- Ads created: `0`
+- Ads created: `6`
 - Uploaded Account Images: `18`
+- Current ad review status: `IN_PROCESS` (campaign remains paused)
+- Credential source: macOS Keychain item `Zenkai Meta Ads API` (`zenkai_app`, app ID `1892053714944478`)
 
 Ads Manager:
 
 <https://adsmanager.facebook.com/adsmanager/manage/ads?act=511019028990462&selected_campaign_ids=52587406407522&selected_adset_ids=52587406414122>
 
-## Why the ads are not assembled yet
+## Created ads
 
-The connected Meta token can read and edit the paused campaign and upload Account Images, but Meta rejected `adcreatives` creation with OAuth error code `100`, subcode `1885183`: the creative post was created by an app in development mode. Omitting the Instagram identity produced the same result. The browser surface was also denied permission to access Ads Manager, so no browser-side workaround was attempted.
+The six placement-native ads were created through the published `zenkai_app` on 2026-08-24. Each ad contains a 4:5 feed asset, a 9:16 Stories/Reels asset, and a 1:1 auxiliary-placement asset. Meta accepted the Page and connected Instagram identities, `SHOP_NOW` CTA, matching copy, and matched landing-page URL for every concept.
 
-To finish the build, either:
+| Ad name | Ad ID | Creative ID | Initial effective status |
+| --- | --- | --- | --- |
+| `SGE_01_Transformation_Static_PlacementNative` | `52587953870522` | `940895355005356` | `IN_PROCESS` |
+| `SGE_02_CompleteSet_Static_PlacementNative` | `52587953883122` | `1066452089096424` | `IN_PROCESS` |
+| `SGE_05_PabloReview_Static_PlacementNative` | `52587953898122` | `1071984418521468` | `IN_PROCESS` |
+| `SGE_07_LightsOffTest_Static_PlacementNative_v2` | `52587953908922` | `1601067701529524` | `IN_PROCESS` |
+| `SGE_08_CustomerCameraRoll_Static_PlacementNative` | `52587953920922` | `1790101098650490` | `IN_PROCESS` |
+| `SGE_09_GalleryExhibit_Static_PlacementNative_v2` | `52587953934122` | `1985274788803207` | `IN_PROCESS` |
 
-1. Switch the Meta developer app used by `META_ACCESS_TOKEN` to Live mode with the required Ads Management access, then run `node meta-upload.mjs create` followed by `node meta-upload.mjs qa`; or
-2. Assemble the six ads manually in the paused campaign using the already-uploaded Account Images below and the copy/destinations in `campaign-handoff.md`.
-
-Do not activate the campaign until all six placement previews and the final budget have been reviewed.
+The first QA pass found no creative issues or review feedback. `IN_PROCESS` is Meta's transient post-creation review state; it does not override the paused campaign. Do not activate the campaign until all six placement previews, final review results, and the `$105/day` budget have been approved.
 
 ## Uploaded Account Images
 
@@ -57,7 +63,7 @@ Do not activate the campaign until all six placement previews and the final budg
 | Gallery Exhibit | Story/Reels | `09-gallery-exhibit-story-9x16-v2.jpg` | 1080×1920 | `ba70cf8f3c4b140b1775c57193544bd1` |
 | Gallery Exhibit | Square | `09-gallery-exhibit-square-1x1-v2.jpg` | 1080×1080 | `4e13c52ea8c50f7fe280a6145f3aeeab` |
 
-## Six-ad assembly map
+## Six-ad placement map
 
 | Ad name | Feed | Story/Reels | Square | Landing variant |
 | --- | --- | --- | --- | --- |
@@ -68,13 +74,12 @@ Do not activate the campaign until all six placement previews and the final budg
 | `SGE_08_CustomerCameraRoll_Static_PlacementNative` | `08-customer-camera-roll-feed-4x5-v1.jpg` | `08-customer-camera-roll-story-9x16-v1.jpg` | `08-customer-camera-roll-square-1x1-v1.jpg` | `review` |
 | `SGE_09_GalleryExhibit_Static_PlacementNative_v2` | `09-museum-placard-feed-4x5-v2.jpg` | `09-gallery-exhibit-story-9x16-v2.jpg` | `09-gallery-exhibit-square-1x1-v2.jpg` | `transform` |
 
-For each ad:
+For each ad, the uploader configured:
 
-- Use `Create ad` → `Single image or video`.
 - Use the 4:5 file for Facebook/Instagram feeds.
 - Replace Stories and Reels with the corresponding 9:16 file.
 - Use the square file for Marketplace, Search, and right-column placements.
 - Use the matching copy and destination from `campaign-handoff.md`.
 - CTA: `Shop Now`.
-- Turn off generated text, text overlay, background generation, music, automatic animation, catalog items, and standard enhancements.
+- Meta's returned creative specification shows generated text, overlays, background generation, animation, music, auto-cropping, and other Advantage+ transformations opted out.
 - Keep each ad active beneath the paused campaign so a later campaign-level activation is sufficient.

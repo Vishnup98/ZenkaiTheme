@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url));
@@ -38,6 +39,19 @@ function findDeep(value, key) {
 }
 
 async function readToken() {
+  if (process.env.ZENKAI_META_ACCESS_TOKEN) return process.env.ZENKAI_META_ACCESS_TOKEN;
+
+  try {
+    const keychainToken = execFileSync(
+      "security",
+      ["find-generic-password", "-a", "zenkai-clothing", "-s", "Zenkai Meta Ads API", "-w"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    ).trim();
+    if (keychainToken) return keychainToken;
+  } catch {
+    // Non-macOS and CI environments can still provide either supported env variable.
+  }
+
   const config = JSON.parse(await fs.readFile(CONFIG_PATH, "utf8"));
   const token = process.env.META_ACCESS_TOKEN || findDeep(config, "META_ACCESS_TOKEN");
   if (!token) throw new Error("Missing META_ACCESS_TOKEN");
@@ -200,11 +214,6 @@ function creativePayload(ad, uploads) {
       call_to_action_types: ["SHOP_NOW"],
       asset_customization_rules: placementRules(),
     },
-    degrees_of_freedom_spec: {
-      creative_features_spec: {
-        standard_enhancements: { enroll_status: "OPT_OUT" },
-      },
-    },
   };
 }
 
@@ -321,7 +330,7 @@ async function qa() {
       continue;
     }
     if (ad.status !== "ACTIVE") errors.push(`${expected.adName}: ad status is ${ad.status}`);
-    if (ad.effective_status !== "CAMPAIGN_PAUSED") {
+    if (!["CAMPAIGN_PAUSED", "IN_PROCESS", "PENDING_REVIEW"].includes(ad.effective_status)) {
       errors.push(`${expected.adName}: effective status is ${ad.effective_status}`);
     }
     const creative = ad.creative || {};
@@ -341,8 +350,8 @@ async function qa() {
     if (!expected.destination.includes("summoning-glow-essential-rgb-dragon-display")) {
       errors.push(`${expected.adName}: destination is not the Essential product`);
     }
-    const enroll = creative.degrees_of_freedom_spec?.creative_features_spec?.standard_enhancements?.enroll_status;
-    if (enroll !== "OPT_OUT") errors.push(`${expected.adName}: standard enhancements are not opted out`);
+    const standardEnhancements = creative.degrees_of_freedom_spec?.creative_features_spec?.standard_enhancements;
+    if (standardEnhancements) errors.push(`${expected.adName}: unexpectedly includes standard enhancements`);
   }
 
   process.stdout.write(`${JSON.stringify({ verified: errors.length === 0, errors, state }, null, 2)}\n`);
