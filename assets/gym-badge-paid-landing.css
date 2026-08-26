@@ -246,6 +246,30 @@
   opacity: 0.52;
 }
 
+.gb-paid-landing__buyer-quote {
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(99, 214, 191, 0.22);
+  background: rgba(99, 214, 191, 0.07);
+}
+
+.gb-paid-landing__buyer-quote blockquote {
+  margin: 0;
+  color: #f7f2e8;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.gb-paid-landing__buyer-quote figcaption {
+  margin-top: 7px;
+  color: var(--gb-cta);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
 .gb-paid-landing__microproof {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -339,6 +363,22 @@
 
 html.gb-paid-lp-active .zk-promo-bar {
   display: none !important;
+}
+
+html.gb-paid-lp-active .site-header .site-navigation,
+html.gb-paid-lp-active .site-header .header-item--navigation > .site-nav,
+html.gb-paid-lp-active .site-header .zenkai-header-menu,
+html.gb-paid-lp-active .site-header .header-item--icons .site-nav__link--icon:not(.site-nav__link--cart) {
+  display: none !important;
+}
+
+html.gb-paid-lp-active .announcement__link {
+  cursor: default;
+  pointer-events: none;
+}
+
+html.gb-paid-lp-active .gb-paid-lp-announcement {
+  font-weight: 800;
 }
 
 html.gb-paid-lp-active .zenkai-sticky-atc {
@@ -557,6 +597,10 @@ html.gb-paid-lp-active .product-section .gb-paid-lp-direct-note::before {
   content: "✓ ";
   color: #16866f;
   font-weight: 900;
+}
+
+html.gb-paid-lp-active .product-section .zenkai-proof-nudge[hidden] {
+  display: none !important;
 }
 
 @media (max-width: 900px) {

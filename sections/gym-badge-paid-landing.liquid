@@ -21,8 +21,6 @@
       {%- endif -%}
     {%- endunless -%}
   {%- endfor -%}
-  {%- assign gb_per_badge = gb_collector_variant.price | divided_by: 32 -%}
-
   <section
     class="gb-paid-landing"
     data-gb-paid-landing
@@ -53,14 +51,13 @@
 
         <div class="gb-paid-landing__content">
           <p class="gb-paid-landing__eyebrow">The complete four-region collection</p>
-          <h1 id="gb-paid-complete-title-{{ section.id }}">Every badge. Every box. One finished collection.</h1>
+          <h1 id="gb-paid-complete-title-{{ section.id }}">All four regions. All 32 badges.</h1>
           <p class="gb-paid-landing__lede">All 32 hard-enamel badges arrive across four presentation boxes. No choosing a favorite region. No half-finished display.</p>
           {% render 'gym-badge-paid-offer',
             collector_variant: gb_collector_variant,
-            cta_text: 'Finish the Collection',
+            cta_text: 'Get All 32',
             journey: 'complete',
-            separate_total: gb_separate_total,
-            per_badge: gb_per_badge
+            separate_total: gb_separate_total
           %}
         </div>
 
@@ -96,10 +93,9 @@
           <p class="gb-paid-landing__lede">Four fitted boxes. Thirty-two polished badges. A complete shelf piece that feels considered before the first box is even opened.</p>
           {% render 'gym-badge-paid-offer',
             collector_variant: gb_collector_variant,
-            cta_text: 'Own the Complete Set',
+            cta_text: 'Get All 32',
             journey: 'premium',
-            separate_total: gb_separate_total,
-            per_badge: gb_per_badge
+            separate_total: gb_separate_total
           %}
         </div>
 
@@ -135,10 +131,9 @@
           <p class="gb-paid-landing__lede">The badges that marked every milestone—now collected across four complete boxes and ready for the shelf beside the setup you finally built.</p>
           {% render 'gym-badge-paid-offer',
             collector_variant: gb_collector_variant,
-            cta_text: 'Bring Home All 32',
+            cta_text: 'Get All 32',
             journey: 'nostalgia',
-            separate_total: gb_separate_total,
-            per_badge: gb_per_badge
+            separate_total: gb_separate_total
           %}
         </div>
 
@@ -174,10 +169,9 @@
           <p class="gb-paid-landing__lede">Glossy enamel color, polished raised edges, secure clutch backs, and four fitted presentation boxes. The detail holds up from across the room and up close.</p>
           {% render 'gym-badge-paid-offer',
             collector_variant: gb_collector_variant,
-            cta_text: "Get the Collector's Pack",
+            cta_text: 'Get All 32',
             journey: 'proof',
-            separate_total: gb_separate_total,
-            per_badge: gb_per_badge
+            separate_total: gb_separate_total
           %}
         </div>
 
@@ -207,7 +201,7 @@
           data-gb-lp-sticky-add
           {% unless gb_collector_variant.available %}disabled{% endunless %}>
           {% if gb_collector_variant.available %}
-            Add all 32
+            Get all 32
           {% else %}
             Sold out
           {% endif %}

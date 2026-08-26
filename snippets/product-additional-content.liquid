@@ -290,7 +290,10 @@
           <p><strong>Made to order in the USA.</strong></p>
         {% endif %}
         <ul>
-          {% if zenkai_detail_category == 'collectible' or zenkai_detail_direct_ship %}
+          {% if zenkai_detail_template == 'gympin' %}
+            <li>Most orders ship within 1 to 2 business days</li>
+            <li>Typical U.S. delivery is one business week</li>
+          {% elsif zenkai_detail_category == 'collectible' or zenkai_detail_direct_ship %}
             <li>Delivery timing is shown at checkout</li>
           {% else %}
             <li>Most orders ship within 1 to 2 business days</li>

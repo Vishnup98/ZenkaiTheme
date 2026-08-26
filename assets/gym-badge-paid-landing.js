@@ -48,6 +48,23 @@
   document.documentElement.classList.add('gb-paid-lp-active');
   document.documentElement.dataset.gbPaidLp = requested;
 
+  function simplifyPaidHeader() {
+    var rotatingAnnouncement = document.querySelector('.announcement__text--rotating');
+    if (rotatingAnnouncement) {
+      var staticAnnouncement = rotatingAnnouncement.cloneNode(false);
+      staticAnnouncement.classList.remove('announcement__text--rotating');
+      staticAnnouncement.classList.add('gb-paid-lp-announcement');
+      staticAnnouncement.removeAttribute('data-rotating-messages');
+      staticAnnouncement.textContent = 'Free U.S. shipping · Typical U.S. delivery: 1 business week';
+      rotatingAnnouncement.parentNode.replaceChild(staticAnnouncement, rotatingAnnouncement);
+    }
+
+    var announcementLink = document.querySelector('.announcement__link');
+    if (announcementLink) announcementLink.removeAttribute('href');
+  }
+
+  simplifyPaidHeader();
+
   var activeImage = panel.querySelector('[data-gb-lp-src]');
   if (activeImage && !activeImage.getAttribute('src')) {
     activeImage.src = activeImage.getAttribute('data-gb-lp-src');
@@ -177,7 +194,13 @@
     regionDetails.appendChild(regionSummary);
     regionDetails.appendChild(regionChoices);
     fieldset.appendChild(collectorOption);
-    fieldset.appendChild(regionDetails);
+
+    var mainButton = getMainButton();
+    if (mainButton) {
+      mainButton.insertAdjacentElement('afterend', regionDetails);
+    } else {
+      fieldset.appendChild(regionDetails);
+    }
   }
 
   function moveCustomerProofForward() {
@@ -203,8 +226,41 @@
     var note = document.createElement('p');
     note.className = 'gb-paid-lp-direct-note';
     note.setAttribute('data-gb-lp-direct-note', '');
-    note.textContent = 'Continues directly to secure checkout.';
+    note.textContent = 'Goes directly to secure checkout · Free U.S. shipping.';
     mainButton.insertAdjacentElement('afterend', note);
+
+    var shippingBadgeText = productSection.querySelector('.zenkai-shipping-badge__text');
+    if (shippingBadgeText) {
+      shippingBadgeText.textContent = 'Typical U.S. delivery: 1 business week';
+    }
+  }
+
+  function moveBuyerQuoteForward() {
+    if (!productSection || panel.querySelector('[data-gb-lp-buyer-quote]')) return;
+
+    var source = productSection.querySelector('.zenkai-proof-nudge');
+    var sourceQuote = source ? source.querySelector('.zenkai-proof-nudge__quote') : null;
+    var sourceAttribution = source ? source.querySelector('.zenkai-proof-nudge__attr') : null;
+    var primaryButton = panel.querySelector('.gb-paid-landing__primary');
+    if (!sourceQuote || !primaryButton) return;
+
+    var proof = document.createElement('figure');
+    proof.className = 'gb-paid-landing__buyer-quote';
+    proof.setAttribute('data-gb-lp-buyer-quote', '');
+    proof.setAttribute('aria-label', 'Verified buyer review');
+
+    var quote = document.createElement('blockquote');
+    quote.textContent = sourceQuote.textContent.trim();
+    proof.appendChild(quote);
+
+    var attribution = document.createElement('figcaption');
+    attribution.textContent = sourceAttribution && sourceAttribution.textContent.trim()
+      ? sourceAttribution.textContent.trim()
+      : 'Verified Zenkai buyer';
+    proof.appendChild(attribution);
+
+    primaryButton.insertAdjacentElement('afterend', proof);
+    source.hidden = true;
   }
 
   if (productSection) {
@@ -230,6 +286,7 @@
   enhanceVariantPicker();
   moveCustomerProofForward();
   addDirectCheckoutNote();
+  moveBuyerQuoteForward();
 
   function getShopifyRoot() {
     var root = window.Shopify && window.Shopify.routes && window.Shopify.routes.root
