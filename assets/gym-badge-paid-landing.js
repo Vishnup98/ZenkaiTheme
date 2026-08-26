@@ -55,7 +55,7 @@
       staticAnnouncement.classList.remove('announcement__text--rotating');
       staticAnnouncement.classList.add('gb-paid-lp-announcement');
       staticAnnouncement.removeAttribute('data-rotating-messages');
-      staticAnnouncement.textContent = 'Free U.S. shipping · Typical U.S. delivery: 1 business week';
+      staticAnnouncement.textContent = 'Free U.S. shipping · Typical U.S. delivery: 1 week';
       rotatingAnnouncement.parentNode.replaceChild(staticAnnouncement, rotatingAnnouncement);
     }
 
