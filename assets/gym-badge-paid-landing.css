@@ -449,6 +449,112 @@ html.gb-paid-lp-active .product-single__header > .zenkai-social-subheadline {
   display: none !important;
 }
 
+html.gb-paid-lp-active .product-section .zenkai-type-switcher {
+  display: none !important;
+}
+
+html.gb-paid-lp-active .gb-paid-landing > .zenkai-pin-collector-photos--paid-placement {
+  --zenkai-dark: #16312d;
+  --zenkai-cta: #63d6bf;
+  width: min(1450px, calc(100% - clamp(28px, 6.4vw, 108px)));
+  margin: 0 auto clamp(30px, 4vw, 56px);
+  scroll-margin-top: 18px;
+  border-color: rgba(99, 214, 191, 0.2);
+  background: var(--zenkai-dark);
+}
+
+.gb-paid-landing__checkout-status {
+  position: fixed;
+  right: 18px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 108px);
+  z-index: 55;
+  max-width: min(420px, calc(100% - 36px));
+  margin: 0;
+  padding: 12px 15px;
+  border: 1px solid rgba(242, 215, 154, 0.52);
+  background: #16312d;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.gb-paid-landing__checkout-status[hidden] {
+  display: none !important;
+}
+
+.gb-paid-landing__checkout-status.is-error {
+  border-color: rgba(255, 170, 154, 0.65);
+  background: #4b201d;
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-variant-picker > .variant__label {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-region-options {
+  flex: 0 0 100%;
+  width: 100%;
+  margin-top: 0.2rem;
+  border: 1px solid rgba(26, 27, 46, 0.12);
+  border-radius: 10px;
+  background: rgba(248, 249, 249, 0.82);
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-region-options summary {
+  position: relative;
+  padding: 0.72rem 2.25rem 0.72rem 0.82rem;
+  color: #475552;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.35;
+  list-style: none;
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-region-options summary::-webkit-details-marker {
+  display: none;
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-region-options summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 0.82rem;
+  color: #16312d;
+  font-size: 1.1rem;
+  font-weight: 900;
+  transform: translateY(-50%);
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-region-options[open] summary::after {
+  content: "−";
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-region-options__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0 0.72rem 0.72rem;
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-direct-note {
+  margin: 0.55rem 0 0;
+  color: #5e6d69;
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.35;
+  text-align: center;
+}
+
+html.gb-paid-lp-active .product-section .gb-paid-lp-direct-note::before {
+  content: "✓ ";
+  color: #16866f;
+  font-weight: 900;
+}
+
 @media (max-width: 900px) {
   .gb-paid-landing__frame {
     padding: 14px 14px 28px;
@@ -555,6 +661,18 @@ html.gb-paid-lp-active .product-single__header > .zenkai-social-subheadline {
     border-top: 1px solid var(--gb-line);
     border-left: 0;
   }
+
+  html.gb-paid-lp-active .gb-paid-landing > .zenkai-pin-collector-photos--paid-placement {
+    width: 100%;
+    margin: 0;
+    padding-top: 1.2rem;
+    padding-bottom: 1.3rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(99, 214, 191, 0.2);
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 520px) {
@@ -625,6 +743,17 @@ html.gb-paid-lp-active .product-single__header > .zenkai-social-subheadline {
     min-height: 48px;
     padding: 11px 12px;
     font-size: 10px;
+  }
+
+  .gb-paid-landing__checkout-status {
+    right: 8px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+    max-width: calc(100% - 16px);
+    font-size: 12px;
+  }
+
+  html.gb-paid-lp-active .product-section .gb-paid-lp-region-options summary {
+    font-size: 0.75rem;
   }
 }
 

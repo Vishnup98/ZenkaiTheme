@@ -4,7 +4,7 @@
   {%- assign enable_section = true -%}
 {%- endif -%}
 
-{%- if template contains 'product' and section.settings.enable_product -%}
+{%- if template contains 'product' and section.settings.enable_product and product.template_suffix != 'gympin' -%}
   {%- assign enable_section = true -%}
 {%- endif -%}
 

@@ -16,8 +16,13 @@
   var productSection = productSectionSelector ? document.querySelector(productSectionSelector) : null;
   var collectorVariantId = section.getAttribute('data-collector-variant-id');
   var collectorVariantTitle = (section.getAttribute('data-collector-variant-title') || '').toLowerCase();
+  var singleRegionPrice = section.getAttribute('data-single-region-price') || '$29.99';
   var sticky = section.querySelector('[data-gb-lp-sticky]');
   var stickyButton = section.querySelector('[data-gb-lp-sticky-add]');
+  var checkoutStatus = section.querySelector('[data-gb-lp-checkout-status]');
+  var checkoutInFlight = false;
+  var checkoutStatusTimer = null;
+  var productVariants = [];
   var pageCopy = {
     complete: {
       hook: 'Every badge. Every box.',
@@ -54,6 +59,154 @@
     // Storage may be unavailable in privacy-restricted browsing modes.
   }
 
+  function getMainButton() {
+    return productSection ? productSection.querySelector('[data-add-to-cart]') : null;
+  }
+
+  function getProductForm() {
+    return productSection ? productSection.querySelector('.product-single__form') : null;
+  }
+
+  if (productSection) {
+    var variantJson = productSection.querySelector('[data-variant-json]');
+    if (variantJson) {
+      try {
+        productVariants = JSON.parse(variantJson.textContent || '[]');
+      } catch (error) {
+        productVariants = [];
+      }
+    }
+  }
+
+  function getSelectedVariantId() {
+    var checkedInput = productSection ? productSection.querySelector('[data-variant-input]:checked') : null;
+    if (checkedInput && productVariants.length) {
+      var checkedValue = checkedInput.value;
+      for (var index = 0; index < productVariants.length; index += 1) {
+        var variant = productVariants[index];
+        if (variant.title === checkedValue ||
+            (variant.options && variant.options.length === 1 && variant.options[0] === checkedValue)) {
+          return String(variant.id);
+        }
+      }
+    }
+
+    var select = productSection ? productSection.querySelector('[data-product-select]') : null;
+    return select && select.value ? select.value : collectorVariantId;
+  }
+
+  function isCollectorLabel(value) {
+    var label = (value || '').toLowerCase();
+    return label.indexOf('collector') !== -1 ||
+      label.indexOf('4 regions') !== -1 ||
+      label.indexOf('4-region') !== -1 ||
+      label.indexOf('all four') !== -1 ||
+      (collectorVariantTitle && label === collectorVariantTitle);
+  }
+
+  function selectCollectorVariant() {
+    if (!productSection) return false;
+
+    var collectorInput = null;
+    var inputs = productSection.querySelectorAll('[data-variant-input]');
+    for (var index = 0; index < inputs.length; index += 1) {
+      if (isCollectorLabel(inputs[index].value)) {
+        collectorInput = inputs[index];
+        break;
+      }
+    }
+
+    var select = productSection.querySelector('[data-product-select]');
+    if (collectorInput && !collectorInput.checked) collectorInput.click();
+    if (select && collectorVariantId) {
+      select.value = collectorVariantId;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    return Boolean(collectorInput || (select && select.value === collectorVariantId));
+  }
+
+  function enhanceVariantPicker() {
+    if (!productSection) return;
+
+    var fieldset = productSection.querySelector('.variant-input-wrap');
+    if (!fieldset || fieldset.hasAttribute('data-gb-paid-lp-picker')) return;
+
+    var collectorOption = fieldset.querySelector('.variant-input--collector');
+    var regionOptions = Array.prototype.filter.call(fieldset.children, function (child) {
+      return child.classList &&
+        child.classList.contains('variant-input') &&
+        !child.classList.contains('variant-input--collector');
+    });
+    if (!collectorOption || !regionOptions.length) return;
+
+    fieldset.setAttribute('data-gb-paid-lp-picker', 'true');
+    fieldset.classList.add('gb-paid-lp-variant-picker');
+
+    var legend = fieldset.querySelector('legend');
+    if (legend) {
+      legend.classList.remove('hidden-label');
+      legend.textContent = 'Choose your collection';
+    }
+
+    var regionDetails = document.createElement('details');
+    regionDetails.className = 'gb-paid-lp-region-options';
+    var regionSummary = document.createElement('summary');
+    regionSummary.textContent = 'Prefer one region? Choose one boxed set — ' + singleRegionPrice;
+    var regionChoices = document.createElement('div');
+    regionChoices.className = 'gb-paid-lp-region-options__choices';
+
+    regionOptions.forEach(function (option) {
+      regionChoices.appendChild(option);
+      var input = option.querySelector('[data-variant-input]');
+      if (input && input.checked) regionDetails.open = true;
+      if (input) {
+        input.addEventListener('change', function () {
+          if (input.checked) regionDetails.open = true;
+        });
+      }
+    });
+
+    var collectorInput = collectorOption.querySelector('[data-variant-input]');
+    if (collectorInput) {
+      collectorInput.addEventListener('change', function () {
+        if (collectorInput.checked) regionDetails.open = false;
+      });
+    }
+
+    regionDetails.appendChild(regionSummary);
+    regionDetails.appendChild(regionChoices);
+    fieldset.appendChild(collectorOption);
+    fieldset.appendChild(regionDetails);
+  }
+
+  function moveCustomerProofForward() {
+    if (!productSection) return;
+
+    var customerProof = productSection.querySelector('.zenkai-pin-collector-photos');
+    if (!customerProof) {
+      panel.querySelectorAll('[data-gb-lp-details]').forEach(function (link) {
+        link.setAttribute('href', productSectionSelector || '#');
+      });
+      return;
+    }
+
+    customerProof.id = 'gb-paid-customer-proof';
+    customerProof.classList.add('zenkai-pin-collector-photos--paid-placement');
+    section.insertBefore(customerProof, sticky || null);
+  }
+
+  function addDirectCheckoutNote() {
+    var mainButton = getMainButton();
+    if (!mainButton || productSection.querySelector('[data-gb-lp-direct-note]')) return;
+
+    var note = document.createElement('p');
+    note.className = 'gb-paid-lp-direct-note';
+    note.setAttribute('data-gb-lp-direct-note', '');
+    note.textContent = 'Continues directly to secure checkout.';
+    mainButton.insertAdjacentElement('afterend', note);
+  }
+
   if (productSection) {
     var hook = productSection.querySelector('.zenkai-signal-hook');
     var subheadline = productSection.querySelector('.zenkai-social-subheadline');
@@ -73,77 +226,128 @@
     }
   }
 
-  function getMainButton() {
-    return productSection ? productSection.querySelector('[data-add-to-cart]') : null;
-  }
-
-  function isCollectorLabel(value) {
-    var label = (value || '').toLowerCase();
-    return label.indexOf('collector') !== -1 ||
-      label.indexOf('4 regions') !== -1 ||
-      label.indexOf('all four') !== -1 ||
-      (collectorVariantTitle && label === collectorVariantTitle);
-  }
-
-  function selectCollectorVariant() {
-    if (!productSection) return false;
-
-    var collectorInput = null;
-    var inputs = productSection.querySelectorAll('[data-variant-input]');
-    for (var index = 0; index < inputs.length; index += 1) {
-      if (isCollectorLabel(inputs[index].value)) {
-        collectorInput = inputs[index];
-        break;
-      }
-    }
-
-    if (collectorInput) {
-      if (!collectorInput.checked) collectorInput.click();
-      return true;
-    }
-
-    var select = productSection.querySelector('[data-product-select]');
-    if (select && collectorVariantId) {
-      select.value = collectorVariantId;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
-      return select.value === collectorVariantId;
-    }
-
-    return false;
-  }
-
-  function syncHeroButtons() {
-    var mainButton = getMainButton();
-    panel.querySelectorAll('[data-gb-lp-add]').forEach(function (button) {
-      button.disabled = !mainButton || mainButton.disabled;
-    });
-    if (stickyButton) stickyButton.disabled = !mainButton || mainButton.disabled;
-  }
-
   selectCollectorVariant();
-  window.setTimeout(syncHeroButtons, 80);
+  enhanceVariantPicker();
+  moveCustomerProofForward();
+  addDirectCheckoutNote();
+
+  function getShopifyRoot() {
+    var root = window.Shopify && window.Shopify.routes && window.Shopify.routes.root
+      ? window.Shopify.routes.root
+      : '/';
+    return root.charAt(root.length - 1) === '/' ? root : root + '/';
+  }
+
+  function showCheckoutStatus(message, isError) {
+    if (!checkoutStatus) return;
+
+    window.clearTimeout(checkoutStatusTimer);
+    checkoutStatus.textContent = message;
+    checkoutStatus.hidden = false;
+    checkoutStatus.classList.toggle('is-error', Boolean(isError));
+
+    if (isError) {
+      checkoutStatusTimer = window.setTimeout(function () {
+        checkoutStatus.hidden = true;
+      }, 9000);
+    }
+  }
+
+  function setCheckoutBusy(isBusy) {
+    section.querySelectorAll('[data-gb-lp-add], [data-gb-lp-sticky-add]').forEach(function (button) {
+      if (!button.hasAttribute('data-gb-lp-original-label')) {
+        button.setAttribute('data-gb-lp-original-label', button.textContent.trim());
+        button.setAttribute('data-gb-lp-original-disabled', button.disabled ? 'true' : 'false');
+      }
+
+      button.disabled = isBusy || button.getAttribute('data-gb-lp-original-disabled') === 'true';
+      button.setAttribute('aria-busy', isBusy ? 'true' : 'false');
+      button.textContent = isBusy
+        ? 'Opening checkout…'
+        : button.getAttribute('data-gb-lp-original-label');
+    });
+
+    var mainButton = getMainButton();
+    if (mainButton) {
+      mainButton.classList.toggle('btn--loading', isBusy);
+      mainButton.setAttribute('aria-busy', isBusy ? 'true' : 'false');
+    }
+  }
+
+  function pushCheckoutEvent(variantId, placement) {
+    if (!window.dataLayer || typeof window.dataLayer.push !== 'function') return;
+
+    window.dataLayer.push({
+      event: 'gym_badge_paid_lp_add',
+      landing_variant: requested,
+      cta_placement: placement,
+      checkout_destination: 'direct',
+      product_variant_id: String(variantId)
+    });
+  }
+
+  function checkoutVariant(variantId, placement) {
+    if (checkoutInFlight) return;
+    if (!variantId || !/^\d+$/.test(String(variantId))) {
+      showCheckoutStatus('Please choose a set, then try checkout again.', true);
+      return;
+    }
+
+    checkoutInFlight = true;
+    setCheckoutBusy(true);
+    showCheckoutStatus('Adding your set and opening secure checkout…', false);
+    pushCheckoutEvent(variantId, placement);
+
+    var root = getShopifyRoot();
+    window.fetch(root + 'cart/add.js', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        items: [{
+          id: Number(variantId),
+          quantity: 1
+        }]
+      })
+    })
+      .then(function (response) {
+        return response.json().then(function (payload) {
+          if (!response.ok) {
+            throw new Error(payload.description || payload.message || 'Could not add this set.');
+          }
+          return payload;
+        });
+      })
+      .then(function () {
+        if (window.dataLayer && typeof window.dataLayer.push === 'function') {
+          window.dataLayer.push({
+            event: 'gym_badge_paid_lp_checkout_redirect',
+            landing_variant: requested,
+            cta_placement: placement,
+            product_variant_id: String(variantId)
+          });
+        }
+        showCheckoutStatus('Set added. Opening secure checkout…', false);
+        window.location.assign(root + 'checkout');
+      })
+      .catch(function (error) {
+        checkoutInFlight = false;
+        setCheckoutBusy(false);
+        showCheckoutStatus(
+          error && error.message
+            ? error.message + ' Please try again.'
+            : 'We could not open checkout. Please try again.',
+          true
+        );
+      });
+  }
 
   function addCollectorPack(placement) {
     selectCollectorVariant();
-
-    window.setTimeout(function () {
-      var mainButton = getMainButton();
-      if (!mainButton || mainButton.disabled) {
-        if (productSection) productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-
-      if (window.dataLayer && typeof window.dataLayer.push === 'function') {
-        window.dataLayer.push({
-          event: 'gym_badge_paid_lp_add',
-          landing_variant: requested,
-          cta_placement: placement,
-          product_variant_id: collectorVariantId
-        });
-      }
-
-      mainButton.click();
-    }, 80);
+    checkoutVariant(collectorVariantId, placement);
   }
 
   panel.querySelectorAll('[data-gb-lp-add]').forEach(function (button) {
@@ -156,6 +360,31 @@
     stickyButton.addEventListener('click', function () {
       addCollectorPack('sticky');
     });
+  }
+
+  var mainButton = getMainButton();
+  var productForm = getProductForm();
+  if (mainButton) {
+    document.addEventListener('click', function (event) {
+      var clickedButton = event.target.closest ? event.target.closest('[data-add-to-cart]') : null;
+      if (clickedButton !== mainButton) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      checkoutVariant(getSelectedVariantId(), 'product_form');
+    }, true);
+  }
+
+  if (productForm) {
+    document.addEventListener('submit', function (event) {
+      if (event.target !== productForm) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      checkoutVariant(getSelectedVariantId(), 'product_form');
+    }, true);
   }
 
   function isInViewport(element) {
@@ -210,14 +439,6 @@
       event: 'gym_badge_paid_lp_view',
       landing_variant: requested,
       product_variant_id: collectorVariantId
-    });
-  }
-
-  var mainButton = getMainButton();
-  if (mainButton && window.MutationObserver) {
-    new MutationObserver(syncHeroButtons).observe(mainButton, {
-      attributes: true,
-      attributeFilter: ['disabled']
     });
   }
 })();

@@ -11,13 +11,16 @@
   {%- endfor -%}
   {%- assign gb_collector_variant = gb_collector_variant | default: product.selected_or_first_available_variant -%}
   {%- assign gb_separate_total = 0 -%}
+  {%- assign gb_single_region_price = nil -%}
   {%- for variant in product.variants -%}
     {%- assign gb_separate_title = variant.title | downcase -%}
     {%- unless gb_separate_title contains 'collector' or gb_separate_title contains '4 regions' or gb_separate_title contains 'all four' -%}
       {%- assign gb_separate_total = gb_separate_total | plus: variant.price -%}
+      {%- if gb_single_region_price == nil -%}
+        {%- assign gb_single_region_price = variant.price -%}
+      {%- endif -%}
     {%- endunless -%}
   {%- endfor -%}
-  {%- assign gb_savings = gb_separate_total | minus: gb_collector_variant.price -%}
   {%- assign gb_per_badge = gb_collector_variant.price | divided_by: 32 -%}
 
   <section
@@ -26,6 +29,7 @@
     data-product-section-selector="#ProductSection-{{ product.id }}"
     data-collector-variant-id="{{ gb_collector_variant.id }}"
     data-collector-variant-title="{{ gb_collector_variant.title | escape }}"
+    data-single-region-price="{{ gb_single_region_price | money }}"
     hidden>
     <div class="gb-paid-landing__frame">
       <article
@@ -55,9 +59,7 @@
             collector_variant: gb_collector_variant,
             cta_text: 'Finish the Collection',
             journey: 'complete',
-            product_id: product.id,
             separate_total: gb_separate_total,
-            savings: gb_savings,
             per_badge: gb_per_badge
           %}
         </div>
@@ -65,7 +67,7 @@
         <div class="gb-paid-landing__proof" aria-label="Complete collection highlights">
           <div><span>The full run</span><strong>32 badges</strong><p>Eight hard-enamel badges from each of four regions.</p></div>
           <div><span>Presentation</span><strong>4 display boxes</strong><p>Each regional set arrives in its own fitted collector box.</p></div>
-          <div><span>Collector value</span><strong>Save {{ gb_savings | money }}</strong><p>{{ gb_collector_variant.price | money }} together versus {{ gb_separate_total | money }} when purchased as four separate sets.</p></div>
+          <div><span>Collector value</span><strong>Save $20</strong><p>{{ gb_collector_variant.price | money }} together versus {{ gb_separate_total | money }} when purchased as four separate sets.</p></div>
         </div>
       </article>
 
@@ -96,9 +98,7 @@
             collector_variant: gb_collector_variant,
             cta_text: 'Own the Complete Set',
             journey: 'premium',
-            product_id: product.id,
             separate_total: gb_separate_total,
-            savings: gb_savings,
             per_badge: gb_per_badge
           %}
         </div>
@@ -106,7 +106,7 @@
         <div class="gb-paid-landing__proof" aria-label="Premium collector set highlights">
           <div><span>Four chapters</span><strong>One definitive set</strong><p>Every regional collection, boxed individually and sold together.</p></div>
           <div><span>Made to display</span><strong>Presentation included</strong><p>The fitted black boxes turn the complete run into a shelf-ready artifact.</p></div>
-          <div><span>Better as a set</span><strong>{{ gb_collector_variant.price | money }} complete</strong><p>{{ gb_savings | money }} less than purchasing all four regional boxes separately.</p></div>
+          <div><span>Better as a set</span><strong>{{ gb_collector_variant.price | money }} complete</strong><p>$20 less than purchasing all four regional boxes separately.</p></div>
         </div>
       </article>
 
@@ -137,9 +137,7 @@
             collector_variant: gb_collector_variant,
             cta_text: 'Bring Home All 32',
             journey: 'nostalgia',
-            product_id: product.id,
             separate_total: gb_separate_total,
-            savings: gb_savings,
             per_badge: gb_per_badge
           %}
         </div>
@@ -178,9 +176,7 @@
             collector_variant: gb_collector_variant,
             cta_text: "Get the Collector's Pack",
             journey: 'proof',
-            product_id: product.id,
             separate_total: gb_separate_total,
-            savings: gb_savings,
             per_badge: gb_per_badge
           %}
         </div>
@@ -192,6 +188,8 @@
         </div>
       </article>
     </div>
+
+    <p class="gb-paid-landing__checkout-status" data-gb-lp-checkout-status role="status" aria-live="polite" hidden></p>
 
     <aside
       class="gb-paid-landing__sticky"
@@ -248,7 +246,7 @@
       }
     })();
   </script>
-  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=2" defer></script>
+  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=3" defer></script>
 {%- endif -%}
 
 {% schema %}
