@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "title": "Evolution Pin Set",
   "handle": "evolution-pin-set",
-  "descriptionHtml": "<p>Eight colorful enamel pins, collected as one complete set. Each pin features glossy color, raised dark metal outlines, and a secure clutch-style backing.</p><ul><li>Complete 8-piece collection</li><li>One set only—no mystery assortment</li><li>Made for backpacks, jackets, hats, cork boards, and display panels</li><li>Free U.S. shipping</li></ul>",
+  "descriptionHtml": "<p>Eight colorful enamel pins, collected as one complete set. Each pin features glossy color, raised dark metal outlines, and a secure clutch-style backing.</p><ul><li>Complete 8-piece collection</li><li>One set only—no mystery assortment</li><li>Made for backpacks, jackets, hats, cork boards, and display panels</li><li>U.S. delivery available</li></ul>",
   "vendor": "Zenkai Clothing",
   "productType": "Enamel Pin Set",
   "tags": [
@@ -17,7 +17,7 @@
   "templateSuffix": "evolution-pin-set",
   "seo": {
     "title": "Evolution Pin Set | 8-Piece Enamel Pin Collection",
-    "description": "Get the complete eight-piece Evolution Pin Set with glossy color, raised dark outlines, secure backings, and free U.S. shipping."
+    "description": "Get the complete eight-piece Evolution Pin Set with glossy color, raised dark outlines, secure backings, and U.S. delivery available."
   },
   "options": [
     {
@@ -34,7 +34,7 @@
       "options": {
         "Set": "8-Pin Collection"
       },
-      "tracked": false,
+      "tracked": true,
       "requiresShipping": true,
       "taxable": true,
       "inventoryPolicy": "CONTINUE",
@@ -42,7 +42,12 @@
         "value": 4,
         "unit": "OUNCES"
       },
-      "inventory": []
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
     }
   ],
   "images": [
