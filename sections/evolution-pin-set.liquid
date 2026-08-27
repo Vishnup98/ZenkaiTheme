@@ -1,0 +1,269 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign hero_media = product.media.first -%}
+{%- assign lifestyle_media = product.media[1] | default: hero_media -%}
+{%- assign hand_media = product.media[2] | default: lifestyle_media -%}
+
+{{ 'evolution-pin-set.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="ProductSection-{{ product.id }}"
+  class="evo-pin-page"
+  data-evolution-pin-page
+  data-section-id="{{ product.id }}"
+  data-section-type="product-template"
+  data-enable-history-state="true"
+  data-variant-type="button"
+  data-product-category="pin">
+  <div class="evo-pin-page__ambient evo-pin-page__ambient--one" aria-hidden="true"></div>
+  <div class="evo-pin-page__ambient evo-pin-page__ambient--two" aria-hidden="true"></div>
+
+  <div class="evo-pin-shell">
+    <nav class="evo-pin-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ routes.all_products_collection_url }}">All products</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ product.title }}</span>
+    </nav>
+
+    <section class="evo-pin-hero" aria-labelledby="evo-pin-title-{{ section.id }}">
+      <div class="evo-pin-gallery" data-evo-gallery>
+        <div class="evo-pin-gallery__stage">
+          {%- if hero_media != blank -%}
+            <img
+              class="evo-pin-gallery__main"
+              src="{{ hero_media.preview_image | image_url: width: 1600 }}"
+              srcset="{{ hero_media.preview_image | image_url: width: 720 }} 720w, {{ hero_media.preview_image | image_url: width: 1100 }} 1100w, {{ hero_media.preview_image | image_url: width: 1600 }} 1600w"
+              sizes="(min-width: 990px) 56vw, 100vw"
+              width="{{ hero_media.preview_image.width }}"
+              height="{{ hero_media.preview_image.height }}"
+              alt="{{ hero_media.alt | default: product.title | escape }}"
+              loading="eager"
+              fetchpriority="high"
+              data-evo-main-image>
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'evo-pin-gallery__placeholder' }}
+          {%- endif -%}
+          <div class="evo-pin-gallery__badge" aria-label="Complete collection">
+            <span>8</span>
+            <small>pins included</small>
+          </div>
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="evo-pin-gallery__thumbs" aria-label="Product gallery">
+            {%- for media in product.media limit: 6 -%}
+              {%- if media.media_type == 'image' -%}
+                <button
+                  class="evo-pin-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                  type="button"
+                  aria-label="Show product image {{ forloop.index }}"
+                  aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-evo-thumb
+                  data-full-src="{{ media.preview_image | image_url: width: 1600 }}"
+                  data-full-srcset="{{ media.preview_image | image_url: width: 720 }} 720w, {{ media.preview_image | image_url: width: 1100 }} 1100w, {{ media.preview_image | image_url: width: 1600 }} 1600w"
+                  data-alt="{{ media.alt | default: product.title | escape }}">
+                  <img
+                    src="{{ media.preview_image | image_url: width: 240 }}"
+                    width="{{ media.preview_image.width }}"
+                    height="{{ media.preview_image.height }}"
+                    alt=""
+                    loading="lazy">
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="evo-pin-offer">
+        <p class="evo-pin-eyebrow">The complete eight</p>
+        <h1 id="evo-pin-title-{{ section.id }}">{{ product.title }}</h1>
+        <p class="evo-pin-offer__lede">Eight tiny forms. One complete little lineup. Made for the bag, jacket, board, or desk that still needs one more detail.</p>
+
+        <div class="evo-pin-price" data-price-wrapper>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s data-product-price-compare>{{ current_variant.compare_at_price | money }}</s>
+          {%- endif -%}
+          <span data-product-price>{{ current_variant.price | money }}</span>
+        </div>
+
+        <div class="evo-pin-trust" aria-label="Order highlights">
+          <span><b aria-hidden="true">✓</b> All 8 included</span>
+          <span><b aria-hidden="true">✓</b> Free U.S. shipping</span>
+          <span><b aria-hidden="true">✓</b> Secure checkout</span>
+        </div>
+
+        <div class="evo-pin-option" aria-label="Selected option">
+          <div>
+            <span class="evo-pin-option__label">Your set</span>
+            <strong>8-Pin Collection</strong>
+          </div>
+          <span class="evo-pin-option__status">Complete set</span>
+          <p>No single pins. No mystery assortment. The full color lineup arrives together.</p>
+        </div>
+
+        {%- form 'product', product, id: 'EvolutionPinForm', class: 'product-single__form evo-pin-form' -%}
+          <select name="id" class="no-js" data-product-select aria-label="Product variant">
+            {%- for variant in product.variants -%}
+              <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
+            {%- endfor -%}
+          </select>
+          <button
+            class="evo-pin-form__submit add-to-cart"
+            type="submit"
+            name="add"
+            data-add-to-cart
+            data-cta-label="Add the 8-Pin Set"
+            data-cta-price="false"
+            {% unless current_variant.available %}disabled{% endunless %}>
+            <span data-add-to-cart-text>
+              {%- if current_variant.available -%}
+                Add the 8-Pin Set — {{ current_variant.price | money }}
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </span>
+          </button>
+          <div class="hide" aria-hidden="true" data-variant-json>{{ product.variants | json }}</div>
+        {%- endform -%}
+
+        <p class="evo-pin-gift-note"><strong>Easy gift. Zero size guessing.</strong> One complete collector set, ready to split across a few favorite places—or keep together.</p>
+
+        <div class="evo-pin-mini-proof">
+          <span aria-hidden="true">✦</span>
+          <p><strong>The lineup is the point.</strong> Each color has its own mood; all eight make the set feel finished.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="evo-pin-manifesto" aria-labelledby="evo-pin-manifesto-{{ section.id }}">
+    <div class="evo-pin-shell evo-pin-manifesto__grid">
+      <div>
+        <p class="evo-pin-eyebrow">No choosing favorites</p>
+        <h2 id="evo-pin-manifesto-{{ section.id }}">All eight, or it is not the collection.</h2>
+      </div>
+      <p>Built as one deliberate set: eight glossy enamel pins, eight distinct color stories, and one satisfying arrangement from the moment you open it.</p>
+    </div>
+    <div class="evo-pin-shell evo-pin-proof-grid" aria-label="Collection details">
+      <article>
+        <span>01</span>
+        <h3>Complete by design</h3>
+        <p>Every pin shown is included. No random pull, duplicate, or separate add-on required.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>Small, glossy, graphic</h3>
+        <p>Bright enamel color and raised dark outlines keep the details readable up close and at a glance.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>Made to move around</h3>
+        <p>Keep the set together or spread the eight across bags, jackets, hats, and display boards.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="evo-pin-story evo-pin-story--dark" aria-labelledby="evo-pin-story-one-{{ section.id }}">
+    <div class="evo-pin-shell evo-pin-story__grid">
+      <div class="evo-pin-story__image">
+        {%- if lifestyle_media != blank -%}
+          <img
+            src="{{ lifestyle_media.preview_image | image_url: width: 1500 }}"
+            srcset="{{ lifestyle_media.preview_image | image_url: width: 720 }} 720w, {{ lifestyle_media.preview_image | image_url: width: 1100 }} 1100w, {{ lifestyle_media.preview_image | image_url: width: 1500 }} 1500w"
+            sizes="(min-width: 900px) 54vw, 100vw"
+            width="{{ lifestyle_media.preview_image.width }}"
+            height="{{ lifestyle_media.preview_image.height }}"
+            alt="{{ lifestyle_media.alt | default: 'The complete eight-pin collection arranged on a canvas bag' | escape }}"
+            loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="evo-pin-story__copy">
+        <p class="evo-pin-eyebrow">Wear the whole color story</p>
+        <h2 id="evo-pin-story-one-{{ section.id }}">Pick a spot. Keep the set together.</h2>
+        <p>A dark canvas bag turns the eight colors into one graphic little constellation. A jacket makes it louder. A board lets the full lineup sit still for once.</p>
+        <ul>
+          <li>Eight coordinated enamel pins</li>
+          <li>Secure metal clutch-style backings</li>
+          <li>Designed for fabric and pin displays</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="evo-pin-inhand" aria-labelledby="evo-pin-inhand-{{ section.id }}">
+    <div class="evo-pin-shell evo-pin-inhand__grid">
+      <div class="evo-pin-inhand__copy">
+        <p class="evo-pin-eyebrow">The useful scale check</p>
+        <h2 id="evo-pin-inhand-{{ section.id }}">Small enough to pin. Complete enough to display.</h2>
+        <p>The in-hand view is the honest one: a compact eight-piece set with enough color and character to read as a collection, not a handful of random singles.</p>
+        <div class="evo-pin-spec-row">
+          <div><strong>8</strong><span>pins total</span></div>
+          <div><strong>1</strong><span>complete option</span></div>
+          <div><strong>$30</strong><span>for the set</span></div>
+        </div>
+      </div>
+      <div class="evo-pin-inhand__image">
+        {%- if hand_media != blank -%}
+          <img
+            src="{{ hand_media.preview_image | image_url: width: 1400 }}"
+            srcset="{{ hand_media.preview_image | image_url: width: 720 }} 720w, {{ hand_media.preview_image | image_url: width: 1050 }} 1050w, {{ hand_media.preview_image | image_url: width: 1400 }} 1400w"
+            sizes="(min-width: 900px) 48vw, 100vw"
+            width="{{ hand_media.preview_image.width }}"
+            height="{{ hand_media.preview_image.height }}"
+            alt="{{ hand_media.alt | default: 'All eight enamel pins held together on a display card' | escape }}"
+            loading="lazy">
+        {%- endif -%}
+        <span>All eight shown · All eight included</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="evo-pin-details" aria-labelledby="evo-pin-details-{{ section.id }}">
+    <div class="evo-pin-shell evo-pin-details__grid">
+      <div>
+        <p class="evo-pin-eyebrow">The short version</p>
+        <h2 id="evo-pin-details-{{ section.id }}">Everything you need to know.</h2>
+        <p>One set, one price, no sizing chart, no option maze.</p>
+      </div>
+      <div class="evo-pin-accordions">
+        <details open>
+          <summary>What arrives <span aria-hidden="true">+</span></summary>
+          <div><p>One complete eight-piece enamel pin collection with metal clutch-style backings. The product gallery shows the full set included in your order.</p></div>
+        </details>
+        <details>
+          <summary>Where to use them <span aria-hidden="true">+</span></summary>
+          <div><p>Made for backpacks, jackets, hats, canvas bags, cork boards, shadow boxes, and pin display panels. Use the eight together or split them across a few surfaces.</p></div>
+        </details>
+        <details>
+          <summary>Shipping <span aria-hidden="true">+</span></summary>
+          <div><p>Free U.S. shipping on every order. Tracking is sent as soon as the set is on its way.</p></div>
+        </details>
+        <details>
+          <summary>Care <span aria-hidden="true">+</span></summary>
+          <div><p>Remove pins before washing a garment or bag. Wipe the enamel gently with a dry, soft cloth and keep the backings secured between wears.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="evo-pin-sticky" data-evo-sticky aria-hidden="true">
+    <div>
+      <span>8-Pin Collection</span>
+      <strong>{{ current_variant.price | money }}</strong>
+    </div>
+    <button type="button" data-evo-sticky-add{% unless current_variant.available %} disabled{% endunless %}>
+      {%- if current_variant.available -%}Add set{%- else -%}Sold out{%- endif -%}
+    </button>
+  </div>
+</div>
+
+<script src="{{ 'evolution-pin-set.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Evolution pin set",
+  "settings": []
+}
+{% endschema %}
