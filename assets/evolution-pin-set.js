@@ -33,18 +33,33 @@
 
     if (stickyButton && mainButton) {
       stickyButton.addEventListener('click', function () {
-        mainButton.click();
+        var liveButton = root.querySelector('[data-add-to-cart]');
+        if (liveButton) liveButton.click();
       });
     }
 
     if (sticky && mainButton && 'IntersectionObserver' in window) {
+      var setStickyVisibility = function (shouldShow) {
+        sticky.classList.toggle('is-visible', shouldShow);
+        sticky.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+      };
+
+      var updateStickyFromLiveButton = function () {
+        var liveButton = root.querySelector('[data-add-to-cart]');
+        if (!liveButton) return;
+        setStickyVisibility(liveButton.getBoundingClientRect().bottom < 0);
+      };
+
       var observer = new IntersectionObserver(function (entries) {
         var entry = entries[0];
         var shouldShow = !entry.isIntersecting && entry.boundingClientRect.top < 0;
-        sticky.classList.toggle('is-visible', shouldShow);
-        sticky.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+        setStickyVisibility(shouldShow);
       }, { threshold: 0 });
       observer.observe(mainButton);
+
+      window.addEventListener('scroll', updateStickyFromLiveButton, { passive: true });
+      window.addEventListener('resize', updateStickyFromLiveButton);
+      window.requestAnimationFrame(updateStickyFromLiveButton);
     }
   }
 
