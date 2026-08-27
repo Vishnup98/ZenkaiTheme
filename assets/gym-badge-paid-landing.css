@@ -51,6 +51,13 @@
   --gb-line: rgba(156, 199, 255, 0.26);
 }
 
+.gb-paid-landing__journey--og-four {
+  --gb-gold: #63d6bf;
+  --gb-gold-light: #c8fff4;
+  --gb-line: rgba(99, 214, 191, 0.25);
+  --gb-panel: #101924;
+}
+
 .gb-paid-landing__journey--proof {
   --gb-gold: #e7ca8a;
   --gb-gold-light: #fff0c8;
@@ -162,6 +169,10 @@
   font-size: clamp(31px, 3vw, 45px);
   letter-spacing: -0.03em;
   line-height: 1.1;
+}
+
+.gb-paid-landing__price-row--solo {
+  justify-content: flex-start;
 }
 
 .gb-paid-landing__saving {
@@ -359,6 +370,112 @@
   color: var(--gb-muted);
   font-size: 13px;
   line-height: 1.55;
+}
+
+.gb-paid-landing__completion-map {
+  grid-area: proof;
+  border-top: 1px solid var(--gb-line);
+  border-bottom: 1px solid var(--gb-line);
+  background: rgba(16, 25, 36, 0.56);
+}
+
+.gb-paid-landing__completion-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(22px, 2.8vw, 38px);
+  border-bottom: 1px solid var(--gb-line);
+}
+
+.gb-paid-landing__completion-header p {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--gb-gold);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gb-paid-landing__completion-header h2 {
+  max-width: 760px;
+  margin: 0;
+  color: #fffdf8;
+  font-family: var(--typeHeaderPrimary, Georgia, serif);
+  font-size: clamp(24px, 2.5vw, 38px);
+  line-height: 1.08;
+  text-align: right;
+}
+
+.gb-paid-landing__completion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.gb-paid-landing__completion-grid article {
+  min-width: 0;
+  padding: clamp(21px, 2.4vw, 34px);
+}
+
+.gb-paid-landing__completion-grid article + article {
+  border-left: 1px solid var(--gb-line);
+}
+
+.gb-paid-landing__completion-grid span {
+  display: block;
+  color: var(--gb-muted);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.gb-paid-landing__completion-grid strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--gb-gold-light);
+  font-family: var(--typeHeaderPrimary, Georgia, serif);
+  font-size: clamp(27px, 2.6vw, 40px);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.gb-paid-landing__completion-grid p {
+  margin: 10px 0 0;
+  color: var(--gb-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.gb-paid-landing__collection-reframe {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  margin: 0 clamp(22px, 2.8vw, 38px) clamp(22px, 2.8vw, 38px);
+  padding: clamp(24px, 4vw, 46px);
+  border: 1px solid var(--gb-line);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(99, 214, 191, 0.09), transparent 62%),
+    #101a29;
+}
+
+.gb-paid-landing__collection-reframe h3 {
+  margin: 8px 0 0;
+  color: #fff;
+  font-family: var(--typeHeaderPrimary, Georgia, serif);
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.gb-paid-landing__collection-reframe p {
+  margin: 0;
+  color: var(--gb-muted);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.65;
 }
 
 html.gb-paid-lp-active .zk-promo-bar {
@@ -716,6 +833,43 @@ html.gb-paid-lp-active .product-section .zenkai-proof-nudge[hidden] {
     border-left: 0;
   }
 
+  .gb-paid-landing__completion-header {
+    display: block;
+    padding: 24px 4px;
+  }
+
+  .gb-paid-landing__completion-header h2 {
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .gb-paid-landing__completion-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gb-paid-landing__completion-grid article {
+    padding: 22px 4px;
+  }
+
+  .gb-paid-landing__completion-grid article + article {
+    border-left: 0;
+  }
+
+  .gb-paid-landing__completion-grid article:nth-child(even) {
+    padding-left: 18px;
+    border-left: 1px solid var(--gb-line);
+  }
+
+  .gb-paid-landing__completion-grid article:nth-child(n + 3) {
+    border-top: 1px solid var(--gb-line);
+  }
+
+  .gb-paid-landing__collection-reframe {
+    grid-template-columns: 1fr;
+    margin: 4px 0 26px;
+    padding: 24px 20px;
+  }
+
   html.gb-paid-lp-active .gb-paid-landing > .zenkai-pin-collector-photos--paid-placement {
     width: 100%;
     margin: 0;
@@ -762,6 +916,23 @@ html.gb-paid-lp-active .product-section .zenkai-proof-nudge[hidden] {
   .gb-paid-landing__microproof span {
     padding: 10px 4px;
     font-size: 9px;
+  }
+
+  .gb-paid-landing__completion-header {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .gb-paid-landing__completion-grid article {
+    padding: 19px 8px;
+  }
+
+  .gb-paid-landing__completion-grid article:nth-child(even) {
+    padding-left: 12px;
+  }
+
+  .gb-paid-landing__completion-grid p {
+    font-size: 11px;
   }
 
   .gb-paid-landing__sticky {

@@ -1,18 +1,25 @@
+{%- assign gb_show_savings = show_savings -%}
+{%- if gb_show_savings == nil -%}
+  {%- assign gb_show_savings = true -%}
+{%- endif -%}
+
 <div class="gb-paid-landing__offer" aria-label="Collector's Pack offer">
-  <div class="gb-paid-landing__price-row">
+  <div class="gb-paid-landing__price-row{% unless gb_show_savings %} gb-paid-landing__price-row--solo{% endunless %}">
     <div>
       <span>4 Regions · 32 Badges</span>
       <strong>{{ collector_variant.price | money }}</strong>
     </div>
-    <div class="gb-paid-landing__saving">
-      <s>{{ separate_total | money }}</s>
-      <span>Save $20</span>
-    </div>
+    {% if gb_show_savings %}
+      <div class="gb-paid-landing__saving">
+        <s>{{ separate_total | money }}</s>
+        <span>Save $20</span>
+      </div>
+    {% endif %}
   </div>
 
   <ul class="gb-paid-landing__confidence" role="list">
     <li>Free U.S. shipping</li>
-    <li>Ships in 1–2 business days</li>
+    <li>Typical U.S. delivery: 1 business week</li>
     <li>Four fitted presentation boxes</li>
   </ul>
 

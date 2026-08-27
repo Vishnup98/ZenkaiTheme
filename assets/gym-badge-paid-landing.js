@@ -6,7 +6,7 @@
 
   var params = new URLSearchParams(window.location.search);
   var requested = (params.get('lp') || '').trim().toLowerCase();
-  var supported = ['complete', 'premium', 'nostalgia', 'proof'].indexOf(requested) !== -1;
+  var supported = ['complete', 'og-four', 'premium', 'nostalgia', 'proof'].indexOf(requested) !== -1;
   if (!supported) return;
 
   var panel = section.querySelector('[data-gb-lp-panel="' + requested + '"]');
@@ -27,6 +27,10 @@
     complete: {
       hook: 'Every badge. Every box.',
       subheadline: 'The complete 32-badge collection across four fitted presentation boxes.'
+    },
+    'og-four': {
+      hook: 'The OG four. All 32.',
+      subheadline: 'Kanto, Johto, Hoenn, and Sinnoh—together in one complete hard-enamel collection.'
     },
     premium: {
       hook: "The definitive collector's set.",
@@ -55,7 +59,7 @@
       staticAnnouncement.classList.remove('announcement__text--rotating');
       staticAnnouncement.classList.add('gb-paid-lp-announcement');
       staticAnnouncement.removeAttribute('data-rotating-messages');
-      staticAnnouncement.textContent = 'Free U.S. shipping · Typical U.S. delivery: 1 week';
+      staticAnnouncement.textContent = 'Free U.S. shipping · Typical U.S. delivery: 1 business week';
       rotatingAnnouncement.parentNode.replaceChild(staticAnnouncement, rotatingAnnouncement);
     }
 

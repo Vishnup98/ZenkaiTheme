@@ -69,6 +69,76 @@
       </article>
 
       <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--og-four"
+        data-gb-lp-panel="og-four"
+        aria-labelledby="gb-paid-og-four-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-og-four-lp-hero-45.webp' | asset_url }}"
+            alt="All 32 glossy hard-enamel badges from Kanto, Johto, Hoenn, and Sinnoh arranged in chronological order under natural sunlight"
+            width="2000"
+            height="2500"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">Kanto · Johto · Hoenn · Sinnoh</p>
+          <h1 id="gb-paid-og-four-title-{{ section.id }}">The 32 badges you remember. Finally together.</h1>
+          <p class="gb-paid-landing__lede">Eight hard-enamel badges from each of the original four regions, collected across four fitted presentation boxes.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Get All 32',
+            journey: 'og-four',
+            separate_total: gb_separate_total,
+            show_savings: false
+          %}
+        </div>
+
+        <section class="gb-paid-landing__completion-map" aria-labelledby="gb-paid-og-four-map-title-{{ section.id }}">
+          <header class="gb-paid-landing__completion-header">
+            <p>32/32 from the OG four</p>
+            <h2 id="gb-paid-og-four-map-title-{{ section.id }}">Complete across Kanto, Johto, Hoenn, and Sinnoh.</h2>
+          </header>
+          <div class="gb-paid-landing__completion-grid">
+            <article>
+              <span>01 · Kanto</span>
+              <strong>8 / 32</strong>
+              <p>Where the journey started.</p>
+            </article>
+            <article>
+              <span>02 · Johto</span>
+              <strong>16 / 32</strong>
+              <p>The world opened up.</p>
+            </article>
+            <article>
+              <span>03 · Hoenn</span>
+              <strong>24 / 32</strong>
+              <p>A new map, another eight.</p>
+            </article>
+            <article>
+              <span>04 · Sinnoh</span>
+              <strong>32 / 32</strong>
+              <p>The classic run, complete.</p>
+            </article>
+          </div>
+
+          <div class="gb-paid-landing__collection-reframe">
+            <div>
+              <span class="gb-paid-landing__eyebrow">From souvenir to collection</span>
+              <h3>One region is a souvenir. The OG four are the collection.</h3>
+            </div>
+            <p>Four fitted presentation boxes. Eight hard-enamel badges per region. The classic 32, finally collected in one place.</p>
+          </div>
+        </section>
+      </article>
+
+      <article
         class="gb-paid-landing__journey gb-paid-landing__journey--premium"
         data-gb-lp-panel="premium"
         aria-labelledby="gb-paid-premium-title-{{ section.id }}"
@@ -224,7 +294,7 @@
       }
 
       requested = requested.replace(/^\s+|\s+$/g, '').toLowerCase();
-      if (['complete', 'premium', 'nostalgia', 'proof'].indexOf(requested) === -1) return;
+      if (['complete', 'og-four', 'premium', 'nostalgia', 'proof'].indexOf(requested) === -1) return;
 
       var panel = section.querySelector('[data-gb-lp-panel="' + requested + '"]');
       if (!panel) return;
@@ -240,7 +310,7 @@
       }
     })();
   </script>
-  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=3" defer></script>
+  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=4" defer></script>
 {%- endif -%}
 
 {% schema %}
