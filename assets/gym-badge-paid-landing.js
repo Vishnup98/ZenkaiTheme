@@ -6,7 +6,7 @@
 
   var params = new URLSearchParams(window.location.search);
   var requested = (params.get('lp') || '').trim().toLowerCase();
-  var supported = ['complete', 'og-four', 'premium', 'nostalgia', 'proof'].indexOf(requested) !== -1;
+  var supported = ['complete', 'og-four', '32-of-32', 'collector', 'shelf', 'collection', 'premium', 'nostalgia', 'proof'].indexOf(requested) !== -1;
   if (!supported) return;
 
   var panel = section.querySelector('[data-gb-lp-panel="' + requested + '"]');
@@ -31,6 +31,22 @@
     'og-four': {
       hook: 'The OG four. All 32.',
       subheadline: 'Kanto, Johto, Hoenn, and Sinnoh—together in one complete hard-enamel collection.'
+    },
+    '32-of-32': {
+      hook: '32 of 32. Nothing missing.',
+      subheadline: 'The complete four-region badge collection across four fitted presentation boxes.'
+    },
+    collector: {
+      hook: 'Not just merchandise. Your complete collection.',
+      subheadline: 'All 32 polished hard-enamel badges, organized from Kanto through Sinnoh.'
+    },
+    shelf: {
+      hook: 'The collection your shelf was waiting for.',
+      subheadline: 'All four original regions, boxed and ready for the space you finally built.'
+    },
+    collection: {
+      hook: 'One box is a souvenir. Four is the collection.',
+      subheadline: 'The complete 32-badge run from Kanto through Sinnoh in four fitted presentation boxes.'
     },
     premium: {
       hook: "The definitive collector's set.",

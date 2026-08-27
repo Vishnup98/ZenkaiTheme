@@ -139,6 +139,160 @@
       </article>
 
       <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--32-of-32"
+        data-gb-lp-panel="32-of-32"
+        aria-labelledby="gb-paid-32-of-32-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-new-32-of-32-lp-hero-45.webp' | asset_url }}"
+            alt="The complete 32-badge collection arranged by Kanto, Johto, Hoenn, and Sinnoh in chronological order"
+            width="1254"
+            height="1568"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">32 of 32 · Nothing missing</p>
+          <h1 id="gb-paid-32-of-32-title-{{ section.id }}">The complete four-region badge collection.</h1>
+          <p class="gb-paid-landing__lede">Kanto, Johto, Hoenn, and Sinnoh. Eight hard-enamel badges from each region—32 total—across four fitted presentation boxes.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Get All 32',
+            journey: '32-of-32',
+            separate_total: gb_separate_total
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="32 of 32 collection highlights">
+          <div><span>Completion</span><strong>32 / 32</strong><p>Every badge from the four-region run, collected in one order.</p></div>
+          <div><span>Chronological set</span><strong>Kanto to Sinnoh</strong><p>Four distinct eight-badge regional collections with nothing skipped.</p></div>
+          <div><span>Presentation</span><strong>Four fitted boxes</strong><p>Each regional set arrives boxed, organized, and ready to place.</p></div>
+        </div>
+      </article>
+
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--collector"
+        data-gb-lp-panel="collector"
+        aria-labelledby="gb-paid-collector-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-new-collector-lp-hero-45.webp' | asset_url }}"
+            alt="All four regional badge sets catalogued together as one premium 32-badge collector's collection"
+            width="1254"
+            height="1568"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">Not just merchandise</p>
+          <h1 id="gb-paid-collector-title-{{ section.id }}">Your complete collection.</h1>
+          <p class="gb-paid-landing__lede">Four boxed regional sets presented as one deliberate collector's piece. All 32 polished hard-enamel badges, organized from Kanto through Sinnoh.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Own The Collection',
+            journey: 'collector',
+            separate_total: gb_separate_total,
+            show_savings: false
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Complete collector's set highlights">
+          <div><span>Collector identity</span><strong>The complete set</strong><p>More than one favorite region: the full four-region collection.</p></div>
+          <div><span>Premium finish</span><strong>Hard enamel · Raised metal</strong><p>Glossy color and polished borders across every one of the 32 badges.</p></div>
+          <div><span>Considered presentation</span><strong>Four fitted boxes</strong><p>Each chapter is organized separately while the collection stays together.</p></div>
+        </div>
+      </article>
+
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--shelf"
+        data-gb-lp-panel="shelf"
+        aria-labelledby="gb-paid-shelf-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-new-shelf-lp-hero-45.webp' | asset_url }}"
+            alt="Four open regional badge presentation boxes arranged beside a refined adult gaming and collector setup"
+            width="1254"
+            height="1568"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">Built for the setup</p>
+          <h1 id="gb-paid-shelf-title-{{ section.id }}">The collection your shelf was waiting for.</h1>
+          <p class="gb-paid-landing__lede">All four original regions in four fitted presentation boxes—the complete 32-badge collection, ready for the space you finally built.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Get All 32',
+            journey: 'shelf',
+            separate_total: gb_separate_total,
+            show_savings: false
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Shelf collection highlights">
+          <div><span>One visual statement</span><strong>All four regions</strong><p>A complete collection has more presence than a single unfinished chapter.</p></div>
+          <div><span>Presentation included</span><strong>Four fitted boxes</strong><p>Open them for display or keep every regional set protected and organized.</p></div>
+          <div><span>Exact contents</span><strong>32 hard-enamel badges</strong><p>Eight badges each from Kanto, Johto, Hoenn, and Sinnoh.</p></div>
+        </div>
+      </article>
+
+      <article
+        class="gb-paid-landing__journey gb-paid-landing__journey--collection"
+        data-gb-lp-panel="collection"
+        aria-labelledby="gb-paid-collection-title-{{ section.id }}"
+        hidden>
+        <div class="gb-paid-landing__visual">
+          <img
+            data-gb-lp-src="{{ 'gym-badge-new-collection-lp-hero-45.webp' | asset_url }}"
+            alt="Four complete eight-badge regional collections arranged together in chronological order"
+            width="1254"
+            height="1568"
+            loading="eager"
+            fetchpriority="high">
+        </div>
+        <div class="gb-paid-landing__mobile-offer" aria-label="Collector's Pack quick purchase">
+          <div><span>32 badges · 4 boxes</span><strong>{{ gb_collector_variant.price | money }}</strong></div>
+          <button type="button" data-gb-lp-add {% unless gb_collector_variant.available %}disabled{% endunless %}>{% if gb_collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button>
+        </div>
+
+        <div class="gb-paid-landing__content">
+          <p class="gb-paid-landing__eyebrow">From souvenir to collection</p>
+          <h1 id="gb-paid-collection-title-{{ section.id }}">One box is a souvenir. Four is the collection.</h1>
+          <p class="gb-paid-landing__lede">Go beyond a favorite region. Own the complete 32-badge run from Kanto through Sinnoh, organized across four fitted presentation boxes.</p>
+          {% render 'gym-badge-paid-offer',
+            collector_variant: gb_collector_variant,
+            cta_text: 'Get The Collection',
+            journey: 'collection',
+            separate_total: gb_separate_total
+          %}
+        </div>
+
+        <div class="gb-paid-landing__proof" aria-label="Four-region collection highlights">
+          <div><span>One region</span><strong>A favorite souvenir</strong><p>A single boxed set captures one chapter of the journey.</p></div>
+          <div><span>Four regions</span><strong>The complete collection</strong><p>Kanto, Johto, Hoenn, and Sinnoh together in chronological order.</p></div>
+          <div><span>The full run</span><strong>32 badges · 4 boxes</strong><p>Eight polished hard-enamel badges in each fitted regional box.</p></div>
+        </div>
+      </article>
+
+      <article
         class="gb-paid-landing__journey gb-paid-landing__journey--premium"
         data-gb-lp-panel="premium"
         aria-labelledby="gb-paid-premium-title-{{ section.id }}"
@@ -294,7 +448,7 @@
       }
 
       requested = requested.replace(/^\s+|\s+$/g, '').toLowerCase();
-      if (['complete', 'og-four', 'premium', 'nostalgia', 'proof'].indexOf(requested) === -1) return;
+      if (['complete', 'og-four', '32-of-32', 'collector', 'shelf', 'collection', 'premium', 'nostalgia', 'proof'].indexOf(requested) === -1) return;
 
       var panel = section.querySelector('[data-gb-lp-panel="' + requested + '"]');
       if (!panel) return;
@@ -310,7 +464,7 @@
       }
     })();
   </script>
-  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=4" defer></script>
+  <script src="{{ 'gym-badge-paid-landing.js' | asset_url }}&amp;v=5" defer></script>
 {%- endif -%}
 
 {% schema %}
