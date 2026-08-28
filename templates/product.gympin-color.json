@@ -1,0 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * Alternate preview template for the Gym Badge Pin Set.
+ * Open the product with ?view=gympin-color to use this view.
+ * The assigned product.gympin template and paid landing pages remain unchanged.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-color",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
