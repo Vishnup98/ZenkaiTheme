@@ -42,6 +42,10 @@
 {%- assign open_box_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-open-box-in-hand.jpg?v=1779381316' -%}
 {%- assign sunlight_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-enamel-detail-sunlight.jpg?v=1779381316' -%}
 {%- assign closeup_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-collector-detail-closeup.jpg?v=1779381316' -%}
+{%- assign hero_eyebrow = section.settings.hero_eyebrow | default: 'The complete four-region collection' -%}
+{%- assign hero_heading_line_1 = section.settings.hero_heading_line_1 | default: 'The OG Four.' -%}
+{%- assign hero_heading_line_2 = section.settings.hero_heading_line_2 | default: 'All 32.' -%}
+{%- assign hero_lede = section.settings.hero_lede | default: 'Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, ready for the shelf.' -%}
 
 {{ 'gym-badge-color.css' | asset_url | stylesheet_tag }}
 
@@ -144,9 +148,9 @@
       </div>
 
       <div class="gb-color-offer">
-        <p class="gb-color-eyebrow">The complete four-region collection</p>
-        <h1 id="gb-color-title-{{ section.id }}">{{ product.title }}</h1>
-        <p class="gb-color-offer__lede">Kanto, Johto, Hoenn, and Sinnoh—all 32 hard-enamel badges in four fitted boxes. Bright, nostalgic, and ready to take over a shelf.</p>
+        <p class="gb-color-eyebrow">{{ hero_eyebrow | escape }}</p>
+        <h1 id="gb-color-title-{{ section.id }}">{{ hero_heading_line_1 | escape }}<br>{{ hero_heading_line_2 | escape }}</h1>
+        <p class="gb-color-offer__lede">{{ hero_lede | escape }}</p>
 
         <div class="gb-color-price" data-gb-color-price-wrap data-price-wrapper>
           <s data-gb-color-compare data-product-price-compare{% unless current_is_collector %} hidden{% endunless %}>{{ separate_total | money }}</s>
@@ -154,12 +158,6 @@
           <small data-gb-color-price-note>
             {%- if current_is_collector -%}32 badges · 4 fitted boxes{%- else -%}8-badge regional set{%- endif -%}
           </small>
-        </div>
-
-        <div class="gb-color-trust" aria-label="Order highlights">
-          <span><b aria-hidden="true">✓</b> 2,200+ orders shipped</span>
-          <span><b aria-hidden="true">✓</b> Free U.S. shipping</span>
-          <span><b aria-hidden="true">✓</b> Secure checkout</span>
         </div>
 
         {%- assign form_id = 'GymBadgeColorForm-' | append: section.id -%}
@@ -170,7 +168,26 @@
             {%- endfor -%}
           </select>
 
-          <div class="gb-color-choice" aria-label="Choose your badge set">
+          <button
+            class="btn btn--full gb-color-form__submit add-to-cart zenkai-primary-cta"
+            type="submit"
+            name="add"
+            data-add-to-cart
+            data-gb-color-submit
+            aria-live="polite"
+            {% unless current_variant.available %}disabled{% endunless %}>
+            <span data-add-to-cart-text data-gb-color-submit-text>
+              {%- if current_variant.available -%}
+                {%- if current_is_collector -%}Add all 32 — {{ current_variant.price | money }}{%- else -%}Add {{ current_variant.title }} — {{ current_variant.price | money }}{%- endif -%}
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </span>
+          </button>
+
+          <p class="gb-color-form__confidence">Free U.S. shipping · Ships in 1–2 business days</p>
+
+          <div class="gb-color-choice" aria-label="Collector Pack selection">
             <div class="gb-color-choice__heading">
               <div>
                 <span>Best value</span>
@@ -205,58 +222,16 @@
                 <strong>{{ collector_variant.price | money }}</strong>
               </span>
             </button>
-
-            <div class="gb-color-choice__alternative">
-              <span>Or start with one region</span>
-              <small>8 badges · {{ single_region_price | money }} each</small>
-            </div>
-
-            <div class="gb-color-region-options">
-              {%- for variant in product.variants -%}
-                {%- unless variant.id == collector_variant.id -%}
-                  {%- assign variant_media = product.media[forloop.index0] | default: product.featured_media -%}
-                  <button
-                    class="gb-color-region-option{% if variant.id == current_variant.id %} is-selected{% endif %}"
-                    type="button"
-                    aria-pressed="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
-                    data-gb-color-variant
-                    data-variant-id="{{ variant.id }}"
-                    data-variant-title="{{ variant.title | escape }}"
-                    data-price="{{ variant.price | money | escape }}"
-                    data-price-note="8-badge regional set"
-                    data-compare=""
-                    data-is-collector="false"
-                    data-media-id="{{ variant_media.id }}"
-                    data-image-src="{{ variant_media.preview_image | image_url: width: 1600 }}"
-                    data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
-                    data-image-alt="{{ variant_media.alt | default: variant.title | escape }}"
-                    {% unless variant.available %}disabled{% endunless %}>
-                    <span aria-hidden="true"></span>
-                    <strong>{{ variant.title }}</strong>
-                  </button>
-                {%- endunless -%}
-              {%- endfor -%}
-            </div>
           </div>
 
-          <button
-            class="btn btn--full gb-color-form__submit add-to-cart zenkai-primary-cta"
-            type="submit"
-            name="add"
-            data-add-to-cart
-            data-gb-color-submit
-            aria-live="polite"
-            {% unless current_variant.available %}disabled{% endunless %}>
-            <span data-add-to-cart-text data-gb-color-submit-text>
-              {%- if current_variant.available -%}
-                {%- if current_is_collector -%}Add all 32 — {{ current_variant.price | money }}{%- else -%}Add {{ current_variant.title }} — {{ current_variant.price | money }}{%- endif -%}
-              {%- else -%}
-                Sold out
-              {%- endif -%}
-            </span>
-          </button>
           <div class="hide" aria-hidden="true" data-variant-json>{{ product.variants | json }}</div>
         {%- endform -%}
+
+        <div class="gb-color-trust" aria-label="Order highlights">
+          <span><b aria-hidden="true">✓</b> 2,200+ orders shipped</span>
+          <span><b aria-hidden="true">✓</b> Free U.S. shipping</span>
+          <span><b aria-hidden="true">✓</b> Secure checkout</span>
+        </div>
 
         <p class="gb-color-gift-note"><strong>Easy gift. Zero size guessing.</strong> Four bright chapters, already boxed and ready to open.</p>
       </div>
@@ -296,6 +271,44 @@
           {%- endunless -%}
         {%- endfor -%}
       </div>
+
+      <details class="gb-color-single-region-shop">
+        <summary>
+          <span><strong>Only want one region?</strong> Shop an individual 8-badge box.</span>
+          <small>From {{ single_region_price | money }}</small>
+          <b aria-hidden="true">+</b>
+        </summary>
+        <div class="gb-color-single-region-shop__inner">
+          <p>Choose a regional box below. Your selection will appear in the sticky add-to-cart bar.</p>
+          <div class="gb-color-region-options">
+            {%- for variant in product.variants -%}
+              {%- unless variant.id == collector_variant.id -%}
+                {%- assign variant_media = product.media[forloop.index0] | default: product.featured_media -%}
+                <button
+                  class="gb-color-region-option{% if variant.id == current_variant.id %} is-selected{% endif %}"
+                  type="button"
+                  aria-pressed="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
+                  data-gb-color-variant
+                  data-variant-id="{{ variant.id }}"
+                  data-variant-title="{{ variant.title | escape }}"
+                  data-price="{{ variant.price | money | escape }}"
+                  data-price-note="8-badge regional set"
+                  data-compare=""
+                  data-is-collector="false"
+                  data-media-id="{{ variant_media.id }}"
+                  data-image-src="{{ variant_media.preview_image | image_url: width: 1600 }}"
+                  data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
+                  data-image-alt="{{ variant_media.alt | default: variant.title | escape }}"
+                  {% unless variant.available %}disabled{% endunless %}>
+                  <span aria-hidden="true"></span>
+                  <strong>{{ variant.title }}</strong>
+                  <small>{{ variant.price | money }}</small>
+                </button>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -381,7 +394,7 @@
       <div>
         <p class="gb-color-pill">The short version</p>
         <h2 id="gb-color-details-title-{{ section.id }}">Everything you need to know.</h2>
-        <p>Choose one familiar region, or get the complete four-box display at the best per-badge price.</p>
+        <p>The Collector Pack brings all four regions together at the best per-badge price. Individual regional boxes remain available beneath the four-region lineup.</p>
       </div>
       <div class="gb-color-accordions">
         <details open>
@@ -422,6 +435,31 @@
 {% schema %}
 {
   "name": "Gym badge color view",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero eyebrow",
+      "default": "The complete four-region collection"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_line_1",
+      "label": "Hero heading line 1",
+      "default": "The OG Four."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading_line_2",
+      "label": "Hero heading line 2",
+      "default": "All 32."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_lede",
+      "label": "Hero lead",
+      "default": "Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, ready for the shelf."
+    }
+  ]
 }
 {% endschema %}

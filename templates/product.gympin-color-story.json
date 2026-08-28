@@ -1,0 +1,22 @@
+/*
+ * ------------------------------------------------------------
+ * Colorful message-matched view for the four-region story angle.
+ * Open the Gym Badge product with ?view=gympin-color-story.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-color",
+      "settings": {
+        "hero_eyebrow": "One region is a favorite.",
+        "hero_heading_line_1": "All four.",
+        "hero_heading_line_2": "The whole story.",
+        "hero_lede": "Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, together in one Collector Pack."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

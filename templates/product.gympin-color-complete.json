@@ -1,0 +1,22 @@
+/*
+ * ------------------------------------------------------------
+ * Colorful message-matched view for the 32-of-32 completion angle.
+ * Open the Gym Badge product with ?view=gympin-color-complete.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-color",
+      "settings": {
+        "hero_eyebrow": "The four regions you remember",
+        "hero_heading_line_1": "32 of 32.",
+        "hero_heading_line_2": "Complete.",
+        "hero_lede": "The OG four, together at last—32 glossy hard-enamel badges across four fitted presentation boxes."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
