@@ -110,16 +110,17 @@
             {%- endfor -%}
           </select>
           <button
-            class="evo-pin-form__submit add-to-cart"
+            class="btn btn--full evo-pin-form__submit add-to-cart zenkai-primary-cta"
             type="submit"
             name="add"
             data-add-to-cart
-            data-cta-label="Add the 8-Pin Set"
-            data-cta-price="false"
+            data-cta-label="Add 8-Pin Collection"
+            data-cta-price="true"
+            aria-live="polite"
             {% unless current_variant.available %}disabled{% endunless %}>
             <span data-add-to-cart-text>
               {%- if current_variant.available -%}
-                Add the 8-Pin Set — {{ current_variant.price | money }}
+                Add 8-Pin Collection - {{ current_variant.price | money }}
               {%- else -%}
                 Sold out
               {%- endif -%}
@@ -249,13 +250,19 @@
   </section>
 
   <div class="evo-pin-sticky" data-evo-sticky aria-hidden="true">
-    <div>
-      <span>8-Pin Collection</span>
-      <strong>{{ current_variant.price | money }}</strong>
+    <div class="evo-pin-sticky__inner">
+      <div class="evo-pin-sticky__meta">
+        <strong class="evo-pin-sticky__price">{{ current_variant.price | money }}</strong>
+        <span class="evo-pin-sticky__variant">8-Pin Collection</span>
+      </div>
+      <button
+        class="btn evo-pin-sticky__button zenkai-sticky-atc__button"
+        type="button"
+        data-evo-sticky-add
+        {% unless current_variant.available %}disabled{% endunless %}>
+        {%- if current_variant.available -%}Add 8-Pin Collection{%- else -%}Sold out{%- endif -%}
+      </button>
     </div>
-    <button type="button" data-evo-sticky-add{% unless current_variant.available %} disabled{% endunless %}>
-      {%- if current_variant.available -%}Add set{%- else -%}Sold out{%- endif -%}
-    </button>
   </div>
 </div>
 

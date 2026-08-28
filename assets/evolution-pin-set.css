@@ -9,6 +9,10 @@
   --evo-lilac: #d9d1ff;
   --evo-orange: #f7a354;
   --evo-dark: #1f2422;
+  --evo-zenkai-cta: #63d6bf;
+  --evo-zenkai-cta-hover: #4fc5ae;
+  --evo-zenkai-cta-active: #35ad98;
+  --evo-zenkai-cta-ink: #102522;
   position: relative;
   overflow: hidden;
   color: var(--evo-ink);
@@ -305,39 +309,69 @@
 
 .evo-pin-form__submit {
   position: relative;
+  overflow: hidden;
   width: 100%;
   min-height: 58px;
   padding: 16px 22px;
-  border: 2px solid var(--evo-ink);
-  border-radius: 14px;
-  color: var(--evo-ink);
-  background: var(--evo-citrus);
-  box-shadow: 5px 5px 0 var(--evo-ink);
+  border: 0;
+  border-radius: 12px;
+  color: var(--evo-zenkai-cta-ink) !important;
+  background: var(--evo-zenkai-cta) !important;
+  box-shadow: 0 18px 30px rgba(89, 183, 167, 0.22), 0 6px 20px -2px rgba(89, 183, 167, 0.34);
   font-family: inherit;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.2;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.01em;
+  text-transform: none;
   cursor: pointer;
-  transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
 .evo-pin-form__submit:hover,
 .evo-pin-form__submit:focus-visible {
-  background: var(--evo-citrus-dark);
-  transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 var(--evo-ink);
-  outline: 0;
+  background: var(--evo-zenkai-cta-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 20px 32px rgba(89, 183, 167, 0.28), 0 8px 24px -2px rgba(89, 183, 167, 0.4);
 }
 
 .evo-pin-form__submit:active {
-  transform: translate(5px, 5px);
-  box-shadow: none;
+  transform: scale(0.98);
+  box-shadow: 0 8px 18px rgba(89, 183, 167, 0.22);
 }
 
 .evo-pin-form__submit:disabled {
-  opacity: 0.5;
+  color: rgba(16, 37, 34, 0.7) !important;
+  background: rgba(89, 183, 167, 0.35) !important;
+  box-shadow: none;
+  transform: none;
   cursor: not-allowed;
+}
+
+.evo-pin-form__submit:focus-visible {
+  outline: 2px solid var(--evo-zenkai-cta);
+  outline-offset: 2px;
+}
+
+.evo-pin-form__submit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.14) 50%, rgba(255, 255, 255, 0.08) 55%, transparent 60%);
+  background-size: 200% 100%;
+  animation: evo-zenkai-shimmer 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.evo-pin-form__submit:disabled::after {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes evo-zenkai-shimmer {
+  0%, 75% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .evo-pin-gift-note {
@@ -647,7 +681,101 @@
   line-height: 1.7;
 }
 
-.evo-pin-sticky { display: none; }
+.evo-pin-sticky {
+  position: fixed;
+  z-index: 50;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 12px 24px calc(12px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  background: rgba(22, 49, 45, 0.96);
+  box-shadow: 0 -12px 34px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(100%);
+  transition: opacity 180ms ease, transform 180ms ease;
+  backdrop-filter: blur(14px);
+}
+
+.evo-pin-sticky.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.evo-pin-sticky__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(1240px, 100%);
+  margin-inline: auto;
+}
+
+.evo-pin-sticky__meta { min-width: 0; }
+
+.evo-pin-sticky__price,
+.evo-pin-sticky__variant { display: block; }
+
+.evo-pin-sticky__price {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.evo-pin-sticky__variant {
+  margin-top: 3px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+button.evo-pin-sticky__button,
+button.evo-pin-sticky__button:not(.btn--secondary):not(.btn--tertiary) {
+  flex: 0 0 auto;
+  min-width: 210px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 12px;
+  color: var(--evo-zenkai-cta-ink) !important;
+  background: var(--evo-zenkai-cta) !important;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: none;
+  box-shadow: 0 6px 18px rgba(89, 183, 167, 0.28);
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+button.evo-pin-sticky__button:hover,
+button.evo-pin-sticky__button:focus-visible {
+  color: var(--evo-zenkai-cta-ink) !important;
+  background: var(--evo-zenkai-cta-hover) !important;
+  box-shadow: 0 8px 22px rgba(89, 183, 167, 0.36);
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+button.evo-pin-sticky__button:active {
+  background: var(--evo-zenkai-cta-active) !important;
+  transform: scale(0.97);
+}
+
+button.evo-pin-sticky__button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
 
 @media (max-width: 989px) {
   .evo-pin-shell { width: min(100% - 32px, 760px); }
@@ -721,7 +849,6 @@
   }
 
   .evo-pin-option { padding: 14px; }
-  .evo-pin-form__submit { min-height: 56px; }
 
   .evo-pin-manifesto,
   .evo-pin-story,
@@ -754,61 +881,27 @@
   .evo-pin-spec-row strong { font-size: 21px; }
 
   .evo-pin-sticky {
-    position: fixed;
-    z-index: 50;
-    right: 10px;
-    bottom: 10px;
-    left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 10px 10px 10px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    right: 12px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+    left: 12px;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
-    color: #fffdf8;
-    background: rgba(23, 23, 19, 0.95);
-    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.28);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(18px);
-    transition: opacity 180ms ease, transform 180ms ease;
-    backdrop-filter: blur(14px);
+    background: rgba(22, 49, 45, 0.94);
+    box-shadow: 0 20px 36px rgba(0, 0, 0, 0.24);
+    transform: translateY(calc(100% + 24px));
   }
 
-  .evo-pin-sticky.is-visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
+  .evo-pin-sticky__inner { gap: 9px; }
+  .evo-pin-sticky__price { font-size: 14px; }
+  .evo-pin-sticky__variant { font-size: 12px; }
 
-  .evo-pin-sticky div span,
-  .evo-pin-sticky div strong { display: block; }
-
-  .evo-pin-sticky div span {
-    color: rgba(255, 255, 255, 0.68);
-    font-size: 10px;
-    font-weight: 750;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .evo-pin-sticky div strong {
-    margin-top: 2px;
-    font-size: 15px;
-  }
-
-  .evo-pin-sticky button {
-    min-width: 112px;
-    min-height: 43px;
-    padding: 10px 17px;
-    border: 0;
-    border-radius: 10px;
-    color: var(--evo-ink);
-    background: var(--evo-citrus);
-    font: inherit;
+  button.evo-pin-sticky__button,
+  button.evo-pin-sticky__button:not(.btn--secondary):not(.btn--tertiary) {
+    min-width: 144px;
+    min-height: 48px;
+    padding: 11px 13px;
     font-size: 12px;
-    font-weight: 900;
   }
 }
 
@@ -818,4 +911,6 @@
   .evo-pin-form__submit,
   .evo-pin-sticky,
   .evo-pin-accordions summary span { transition: none; }
+
+  .evo-pin-form__submit::after { animation: none; }
 }
