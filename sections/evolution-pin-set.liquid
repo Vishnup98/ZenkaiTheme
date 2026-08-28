@@ -77,9 +77,9 @@
       </div>
 
       <div class="evo-pin-offer">
-        <p class="evo-pin-eyebrow">The complete eight</p>
-        <h1 id="evo-pin-title-{{ section.id }}">{{ product.title }}</h1>
-        <p class="evo-pin-offer__lede">Eight tiny forms. One complete little lineup. Made for the bag, jacket, board, or desk that still needs one more detail.</p>
+        <p class="evo-pin-eyebrow" data-evo-hero-eyebrow>The complete eight</p>
+        <h1 id="evo-pin-title-{{ section.id }}" data-evo-hero-title>{{ product.title }}</h1>
+        <p class="evo-pin-offer__lede" data-evo-hero-lede>Eight tiny forms. One complete little lineup. Made for the bag, jacket, board, or desk that still needs one more detail.</p>
 
         <div class="evo-pin-price" data-price-wrapper>
           {%- if current_variant.compare_at_price > current_variant.price -%}
@@ -104,6 +104,7 @@
         </div>
 
         {%- form 'product', product, id: 'EvolutionPinForm', class: 'product-single__form evo-pin-form' -%}
+          <input type="hidden" name="properties[_Landing angle]" value="" data-evo-angle-input>
           <select name="id" class="no-js" data-product-select aria-label="Product variant">
             {%- for variant in product.variants -%}
               <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
@@ -129,11 +130,11 @@
           <div class="hide" aria-hidden="true" data-variant-json>{{ product.variants | json }}</div>
         {%- endform -%}
 
-        <p class="evo-pin-gift-note"><strong>Easy gift. Zero size guessing.</strong> One complete collector set, ready to split across a few favorite places—or keep together.</p>
+        <p class="evo-pin-gift-note" data-evo-gift-note><strong>Easy gift. Zero size guessing.</strong> One complete collector set, ready to split across a few favorite places—or keep together.</p>
 
         <div class="evo-pin-mini-proof">
           <span aria-hidden="true">✦</span>
-          <p><strong>The lineup is the point.</strong> Each color has its own mood; all eight make the set feel finished.</p>
+          <p data-evo-mini-proof><strong>The lineup is the point.</strong> Each color has its own mood; all eight make the set feel finished.</p>
         </div>
       </div>
     </section>
@@ -142,23 +143,23 @@
   <section class="evo-pin-manifesto" aria-labelledby="evo-pin-manifesto-{{ section.id }}">
     <div class="evo-pin-shell evo-pin-manifesto__grid">
       <div>
-        <p class="evo-pin-eyebrow">No choosing favorites</p>
-        <h2 id="evo-pin-manifesto-{{ section.id }}">All eight, or it is not the collection.</h2>
+        <p class="evo-pin-eyebrow" data-evo-manifesto-eyebrow>No choosing favorites</p>
+        <h2 id="evo-pin-manifesto-{{ section.id }}" data-evo-manifesto-title>All eight, or it is not the collection.</h2>
       </div>
-      <p>Built as one deliberate set: eight glossy enamel pins, eight distinct color stories, and one satisfying arrangement from the moment you open it.</p>
+      <p data-evo-manifesto-copy>Built as one deliberate set: eight glossy enamel pins, eight distinct color stories, and one satisfying arrangement from the moment you open it.</p>
     </div>
     <div class="evo-pin-shell evo-pin-proof-grid" aria-label="Collection details">
-      <article>
+      <article data-evo-proof-card>
         <span>01</span>
         <h3>Complete by design</h3>
         <p>Every pin shown is included. No random pull, duplicate, or separate add-on required.</p>
       </article>
-      <article>
+      <article data-evo-proof-card>
         <span>02</span>
         <h3>Small, glossy, graphic</h3>
         <p>Bright enamel color and raised dark outlines keep the details readable up close and at a glance.</p>
       </article>
-      <article>
+      <article data-evo-proof-card>
         <span>03</span>
         <h3>Made to move around</h3>
         <p>Keep the set together or spread the eight across bags, jackets, hats, and display boards.</p>
@@ -181,9 +182,9 @@
         {%- endif -%}
       </div>
       <div class="evo-pin-story__copy">
-        <p class="evo-pin-eyebrow">Wear the whole color story</p>
-        <h2 id="evo-pin-story-one-{{ section.id }}">Pick a spot. Keep the set together.</h2>
-        <p>A dark canvas bag turns the eight colors into one graphic little constellation. A jacket makes it louder. A board lets the full lineup sit still for once.</p>
+        <p class="evo-pin-eyebrow" data-evo-story-eyebrow>Wear the whole color story</p>
+        <h2 id="evo-pin-story-one-{{ section.id }}" data-evo-story-title>Pick a spot. Keep the set together.</h2>
+        <p data-evo-story-copy>A dark canvas bag turns the eight colors into one graphic little constellation. A jacket makes it louder. A board lets the full lineup sit still for once.</p>
         <ul>
           <li>Eight coordinated enamel pins</li>
           <li>Secure metal clutch-style backings</li>
@@ -264,6 +265,77 @@
       </button>
     </div>
   </div>
+
+  <script type="application/json" data-evo-angle-config>
+    {
+      "completion": {
+        "heroImage": {{ 'evolution-angle-completion-hero-45.webp' | asset_url | json }},
+        "heroAlt": "The complete eight-pin collection arranged as a satisfying collector checklist",
+        "heroEyebrow": "8 of 8 · complete",
+        "heroTitle": "All eight. Nothing missing.",
+        "heroLede": "No random assortment, no choosing one favorite, no half-finished lineup. The complete eight-pin collection arrives together for $30.",
+        "giftLead": "Completion, instantly.",
+        "giftCopy": "One order turns the whole color lineup into a finished collection.",
+        "miniLead": "Exactly what is shown.",
+        "miniCopy": "Eight distinct enamel pins, with no duplicate or mystery pull.",
+        "manifestoEyebrow": "The satisfying full set",
+        "manifestoTitle": "The little click of a collection becoming complete.",
+        "manifestoCopy": "Every color, every tiny mood, and every design shown is already here. Open one package and the set is finished.",
+        "proof": [
+          ["8 / 8 from the start", "Every pin in the lineup arrives together in one order."],
+          ["No mystery assortment", "The exact eight shown are the exact eight included."],
+          ["One finished display", "Keep the rows together or spread the full set across your favorite places."]
+        ],
+        "storyEyebrow": "The complete color story",
+        "storyTitle": "Eight designs make the display feel finished.",
+        "storyCopy": "Together, the colors read like one deliberate collection. Split them up later if you want—the satisfying part is knowing none are missing."
+      },
+      "nostalgia": {
+        "heroImage": {{ 'evolution-angle-nostalgia-hero-45.webp' | asset_url | json }},
+        "heroAlt": "The complete eight-pin collection held beside a warm blue-hour collector desk",
+        "heroEyebrow": "A little piece of the adventure",
+        "heroTitle": "The set your younger self would have loved.",
+        "heroLede": "Eight familiar little moods, now small enough for the bag, board, or shelf beside the setup you finally built.",
+        "giftLead": "Grown-up shelf. Same soft spot.",
+        "giftCopy": "A complete little lineup that makes an ordinary corner feel strangely familiar.",
+        "miniLead": "The feeling is the point.",
+        "miniCopy": "A colorful reminder of the adventures that never really left.",
+        "manifestoEyebrow": "Tiny time machine",
+        "manifestoTitle": "Some collections are really little ways back.",
+        "manifestoCopy": "The colors, the different personalities, the urge to keep the whole crew together—some things still land exactly the way they used to.",
+        "proof": [
+          ["The whole crew", "All eight arrive together, so the memory feels complete from day one."],
+          ["Made for now", "Glossy enamel and secure backings for the bag, jacket, board, or shelf you use today."],
+          ["Easy to keep close", "One compact set with enough color to change the feeling of a familiar space."]
+        ],
+        "storyEyebrow": "Put the memory somewhere visible",
+        "storyTitle": "A little nostalgia that gets to leave the shelf.",
+        "storyCopy": "Pin the full crew to a daily bag, let one peek out from a jacket, or keep the eight together where you can see them."
+      },
+      "style": {
+        "heroImage": {{ 'evolution-angle-style-hero-45.webp' | asset_url | json }},
+        "heroAlt": "The complete eight-pin collection styling a charcoal canvas bag in an editorial fabric collage",
+        "heroEyebrow": "Make the bag yours",
+        "heroTitle": "Your bag is about to get a lot less boring.",
+        "heroLede": "Eight bright enamel pins turn plain canvas, denim, or a display board into something unmistakably yours.",
+        "giftLead": "One set. Endless placements.",
+        "giftCopy": "Keep the color story together or move each little mood wherever it fits.",
+        "miniLead": "Color does the work.",
+        "miniCopy": "Black outlines and glossy enamel stay readable against denim, canvas, and dark fabric.",
+        "manifestoEyebrow": "Small detail · big shift",
+        "manifestoTitle": "A tiny detail can change the whole thing.",
+        "manifestoCopy": "The bag stays useful. The jacket still goes with everything. Eight bright little pins just make the surface feel like it belongs to you.",
+        "proof": [
+          ["Instant transformation", "A plain canvas panel becomes a full color statement in a few minutes."],
+          ["Eight styling pieces", "Cluster the set, balance the colors, or give each pin its own place."],
+          ["Easy to rearrange", "Secure clutch-style backings let the layout change whenever your mood does."]
+        ],
+        "storyEyebrow": "Wear the whole color story",
+        "storyTitle": "Start with the bag you already carry.",
+        "storyCopy": "Dark canvas makes the eight colors pop. Denim softens them. A display board turns the full lineup into graphic wall art."
+      }
+    }
+  </script>
 </div>
 
 <script src="{{ 'evolution-pin-set.js' | asset_url }}" defer></script>

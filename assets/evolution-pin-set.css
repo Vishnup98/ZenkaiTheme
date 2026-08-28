@@ -111,6 +111,62 @@
 .evo-pin-gallery__stage:hover .evo-pin-gallery__main { transform: scale(1.018); }
 .evo-pin-gallery__main.is-changing { opacity: 0.45; }
 
+.evo-pin-page[data-active-angle] .evo-pin-hero {
+  grid-template-columns: minmax(0, 1.03fr) minmax(380px, 0.82fr);
+}
+
+.evo-pin-page[data-active-angle] .evo-pin-gallery__stage {
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 28px 74px rgba(48, 39, 28, 0.18);
+}
+
+.evo-pin-page[data-active-angle] .evo-pin-gallery__main {
+  object-fit: cover;
+}
+
+.evo-pin-page[data-active-angle] .evo-pin-gallery__thumbs {
+  display: none;
+}
+
+.evo-pin-page[data-active-angle="completion"] {
+  --evo-citrus: #e7ff43;
+  --evo-lilac: #dcd5ff;
+  --evo-orange: #ffad69;
+}
+
+.evo-pin-page[data-active-angle="nostalgia"] {
+  --evo-cream: #f2ede4;
+  --evo-citrus: #f1ff77;
+  --evo-lilac: #cfc9ff;
+  --evo-orange: #ffac63;
+}
+
+.evo-pin-page[data-active-angle="nostalgia"] .evo-pin-gallery__stage {
+  border-color: rgba(255, 199, 121, 0.34);
+  background: #07172d;
+  box-shadow: 0 30px 78px rgba(5, 21, 46, 0.28);
+}
+
+.evo-pin-page[data-active-angle="nostalgia"] .evo-pin-gallery__badge {
+  background: #ffb363;
+}
+
+.evo-pin-page[data-active-angle="style"] {
+  --evo-citrus: #dcff4f;
+  --evo-lilac: #cfc9ff;
+  --evo-orange: #ff7c23;
+}
+
+.evo-pin-page[data-active-angle="style"] .evo-pin-gallery__stage {
+  border-color: rgba(255, 124, 35, 0.18);
+  background: #17191b;
+  box-shadow: 0 30px 78px rgba(23, 25, 27, 0.24);
+}
+
+.evo-pin-page[data-active-angle="style"] .evo-pin-gallery__badge {
+  background: #ff8a3d;
+}
+
 .evo-pin-gallery__badge {
   position: absolute;
   right: 18px;
@@ -937,6 +993,10 @@ button.evo-pin-sticky__button:disabled {
   .evo-pin-inhand__grid,
   .evo-pin-details__grid { grid-template-columns: 1fr; }
 
+  .evo-pin-page[data-active-angle] .evo-pin-hero {
+    grid-template-columns: 1fr;
+  }
+
   .evo-pin-hero {
     gap: 28px;
     padding-bottom: 64px;
@@ -971,6 +1031,10 @@ button.evo-pin-sticky__button:disabled {
     width: calc(100% + 24px);
     margin-left: -12px;
     border-radius: 0 0 22px 22px;
+  }
+
+  .evo-pin-page[data-active-angle] .evo-pin-gallery__stage {
+    aspect-ratio: 4 / 5;
   }
 
   .evo-pin-gallery__badge {
