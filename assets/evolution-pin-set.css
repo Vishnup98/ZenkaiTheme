@@ -414,9 +414,48 @@
 
 .evo-pin-manifesto {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(72px, 9vw, 124px) 0;
   border-top: 1px solid var(--evo-line);
   background: var(--evo-paper);
+}
+
+.evo-pin-manifesto::before,
+.evo-pin-manifesto::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.evo-pin-manifesto::before {
+  top: -170px;
+  right: -110px;
+  width: 430px;
+  height: 430px;
+  background: #dff4ff;
+}
+
+.evo-pin-manifesto::after {
+  bottom: -210px;
+  left: -170px;
+  width: 370px;
+  height: 370px;
+  background: #ffe1c4;
+}
+
+.evo-pin-manifesto .evo-pin-eyebrow,
+.evo-pin-inhand .evo-pin-eyebrow,
+.evo-pin-details .evo-pin-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: var(--evo-ink);
+  background: var(--evo-citrus);
 }
 
 .evo-pin-manifesto__grid {
@@ -451,13 +490,23 @@
 .evo-pin-proof-grid article {
   min-height: 238px;
   padding: 26px;
-  border: 1px solid var(--evo-line);
+  border: 2px solid var(--evo-ink);
   border-radius: 20px;
-  background: var(--evo-cream);
+  background: #fff1d8;
+  box-shadow: 5px 6px 0 var(--evo-ink);
 }
 
-.evo-pin-proof-grid article:nth-child(2) { background: #edf8ff; }
-.evo-pin-proof-grid article:nth-child(3) { background: #f0ecff; }
+.evo-pin-proof-grid article:nth-child(1) { transform: rotate(-0.45deg); }
+
+.evo-pin-proof-grid article:nth-child(2) {
+  background: #dff4ff;
+  transform: translateY(-9px);
+}
+
+.evo-pin-proof-grid article:nth-child(3) {
+  background: #e6e0ff;
+  transform: rotate(0.45deg);
+}
 
 .evo-pin-proof-grid article > span {
   display: inline-grid;
@@ -467,9 +516,13 @@
   margin-bottom: 40px;
   border: 1px solid var(--evo-ink);
   border-radius: 50%;
+  background: var(--evo-orange);
   font-size: 11px;
   font-weight: 850;
 }
+
+.evo-pin-proof-grid article:nth-child(2) > span { background: #bce7ff; }
+.evo-pin-proof-grid article:nth-child(3) > span { background: var(--evo-lilac); }
 
 .evo-pin-proof-grid h3 {
   margin: 0;
@@ -489,8 +542,36 @@
 .evo-pin-story { padding: clamp(64px, 8vw, 110px) 0; }
 
 .evo-pin-story--dark {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   color: #f8f4ea;
   background: var(--evo-dark);
+}
+
+.evo-pin-story--dark::before,
+.evo-pin-story--dark::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.evo-pin-story--dark::before {
+  top: -210px;
+  right: -150px;
+  width: 470px;
+  height: 470px;
+  background: rgba(231, 255, 102, 0.1);
+}
+
+.evo-pin-story--dark::after {
+  right: 27%;
+  bottom: -250px;
+  width: 390px;
+  height: 390px;
+  background: rgba(217, 209, 255, 0.08);
 }
 
 .evo-pin-story__grid {
@@ -502,8 +583,9 @@
 
 .evo-pin-story__image {
   overflow: hidden;
+  border: 6px solid var(--evo-paper);
   border-radius: 26px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.28);
+  box-shadow: 11px 13px 0 var(--evo-orange), 0 25px 70px rgba(0, 0, 0, 0.28);
   transform: rotate(-1deg);
 }
 
@@ -527,32 +609,55 @@
 
 .evo-pin-story__copy ul {
   display: grid;
-  gap: 13px;
+  gap: 9px;
   margin: 28px 0 0;
-  padding: 23px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.17);
+  padding: 0;
   list-style: none;
 }
 
 .evo-pin-story__copy li {
   position: relative;
-  padding-left: 25px;
+  padding: 11px 14px 11px 39px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  background: rgba(231, 255, 102, 0.08);
   font-size: 14px;
   font-weight: 700;
 }
 
+.evo-pin-story__copy li:nth-child(2) { background: rgba(217, 209, 255, 0.09); }
+.evo-pin-story__copy li:nth-child(3) { background: rgba(247, 163, 84, 0.1); }
+
 .evo-pin-story__copy li::before {
   content: "✓";
   position: absolute;
-  left: 0;
+  left: 14px;
   color: var(--evo-citrus);
   font-weight: 900;
 }
 
 .evo-pin-inhand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(72px, 9vw, 124px) 0;
   background: #d9d1ff;
 }
+
+.evo-pin-inhand::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -170px;
+  bottom: -220px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: rgba(231, 255, 102, 0.62);
+  pointer-events: none;
+}
+
+.evo-pin-inhand .evo-pin-eyebrow { background: var(--evo-paper); }
 
 .evo-pin-inhand__grid {
   display: grid;
@@ -576,9 +681,14 @@
 }
 
 .evo-pin-spec-row div {
-  padding: 14px 8px;
-  border-top: 1px solid rgba(23, 23, 19, 0.28);
+  padding: 15px 11px;
+  border: 1px solid rgba(23, 23, 19, 0.24);
+  border-radius: 14px;
+  background: var(--evo-paper);
 }
+
+.evo-pin-spec-row div:nth-child(2) { background: #dff4ff; }
+.evo-pin-spec-row div:nth-child(3) { background: var(--evo-citrus); }
 
 .evo-pin-spec-row strong,
 .evo-pin-spec-row span { display: block; }
@@ -629,9 +739,27 @@
 }
 
 .evo-pin-details {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: clamp(72px, 9vw, 124px) 0;
-  background: var(--evo-paper);
+  background: linear-gradient(115deg, #eff9ff 0%, var(--evo-paper) 58%);
 }
+
+.evo-pin-details::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -210px;
+  left: -180px;
+  width: 410px;
+  height: 410px;
+  border-radius: 50%;
+  background: #ffe1c4;
+  pointer-events: none;
+}
+
+.evo-pin-details .evo-pin-eyebrow { background: var(--evo-orange); }
 
 .evo-pin-details__grid {
   display: grid;
@@ -648,15 +776,30 @@
   line-height: 1.6;
 }
 
-.evo-pin-accordions { border-top: 1px solid var(--evo-line); }
-.evo-pin-accordions details { border-bottom: 1px solid var(--evo-line); }
+.evo-pin-accordions { display: grid; gap: 10px; }
+
+.evo-pin-accordions details {
+  overflow: hidden;
+  border: 1px solid var(--evo-line);
+  border-radius: 15px;
+  background: var(--evo-paper);
+}
+
+.evo-pin-accordions details:nth-child(2) { background: #edf8ff; }
+.evo-pin-accordions details:nth-child(3) { background: #fff1e4; }
+.evo-pin-accordions details:nth-child(4) { background: #f0ecff; }
+
+.evo-pin-accordions details[open] {
+  border-color: rgba(23, 23, 19, 0.55);
+  box-shadow: 4px 5px 0 var(--evo-ink);
+}
 
 .evo-pin-accordions summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 22px 0;
+  padding: 19px 20px;
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
@@ -666,13 +809,21 @@
 .evo-pin-accordions summary::-webkit-details-marker { display: none; }
 
 .evo-pin-accordions summary span {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 50%;
+  background: var(--evo-citrus);
   font-size: 24px;
   font-weight: 400;
+  line-height: 1;
   transition: transform 180ms ease;
 }
 
 .evo-pin-accordions details[open] summary span { transform: rotate(45deg); }
-.evo-pin-accordions details > div { padding: 0 44px 22px 0; }
+.evo-pin-accordions details > div { padding: 0 54px 21px 20px; }
 
 .evo-pin-accordions details p {
   margin: 0;
@@ -802,7 +953,10 @@ button.evo-pin-sticky__button:disabled {
   .evo-pin-details__grid { gap: 34px; }
 
   .evo-pin-proof-grid { grid-template-columns: 1fr; }
-  .evo-pin-proof-grid article { min-height: 0; }
+  .evo-pin-proof-grid article {
+    min-height: 0;
+    transform: none !important;
+  }
   .evo-pin-proof-grid article > span { margin-bottom: 26px; }
   .evo-pin-inhand__copy { order: 2; }
   .evo-pin-inhand__image { order: 1; }
@@ -879,6 +1033,41 @@ button.evo-pin-sticky__button:disabled {
   }
 
   .evo-pin-spec-row strong { font-size: 21px; }
+
+  .evo-pin-manifesto::before {
+    top: -110px;
+    right: -185px;
+    width: 330px;
+    height: 330px;
+  }
+
+  .evo-pin-manifesto::after {
+    bottom: -170px;
+    left: -220px;
+    width: 320px;
+    height: 320px;
+  }
+
+  .evo-pin-story--dark::before {
+    top: -150px;
+    right: -190px;
+    width: 340px;
+    height: 340px;
+  }
+
+  .evo-pin-inhand::before {
+    right: -220px;
+    bottom: -180px;
+    width: 350px;
+    height: 350px;
+  }
+
+  .evo-pin-details::before {
+    top: -170px;
+    left: -230px;
+    width: 350px;
+    height: 350px;
+  }
 
   .evo-pin-sticky {
     right: 12px;
