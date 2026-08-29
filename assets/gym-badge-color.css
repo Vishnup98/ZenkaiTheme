@@ -1609,6 +1609,10 @@ button.gb-color-form__submit::after {
     border-bottom: 2px solid var(--gb-ink);
   }
 
+  .gb-color-story-card--featured {
+    gap: 0;
+  }
+
   .gb-color-story-card--featured .gb-color-story-card__media img {
     min-height: 0;
     aspect-ratio: 1.79;
