@@ -18,6 +18,7 @@
     var stickyButton = root.querySelector('[data-gb-color-sticky-add]');
     var collectorButton = root.querySelector('[data-gb-color-variant][data-is-collector="true"]');
     var chooseCollectorButton = root.querySelector('[data-gb-color-choose-collector]');
+    var regionPurchaseCards = root.querySelectorAll('[data-gb-color-region-purchase]');
 
     function setMainImage(source) {
       if (!mainImage || !source || !source.dataset.imageSrc) return;
@@ -63,6 +64,10 @@
         item.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
       });
 
+      regionPurchaseCards.forEach(function (card) {
+        card.classList.toggle('is-selected', card.dataset.variantId === button.dataset.variantId);
+      });
+
       if (variantSelect) {
         variantSelect.value = button.dataset.variantId;
         variantSelect.dispatchEvent(new Event('change', { bubbles: true }));
@@ -99,6 +104,11 @@
     variantButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         selectVariant(button);
+
+        if (button.hasAttribute('data-gb-color-region-add')) {
+          var liveSubmit = root.querySelector('[data-gb-color-submit]');
+          if (liveSubmit && !liveSubmit.disabled) liveSubmit.click();
+        }
       });
     });
 

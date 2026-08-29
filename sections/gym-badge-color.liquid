@@ -279,31 +279,55 @@
           <b aria-hidden="true">+</b>
         </summary>
         <div class="gb-color-single-region-shop__inner">
-          <p>Choose a regional box below. Your selection will appear in the sticky add-to-cart bar.</p>
+          <p>Choose a regional box and add it right here—each one includes eight badges in its own fitted white presentation box.</p>
           <div class="gb-color-region-options">
             {%- for variant in product.variants -%}
               {%- unless variant.id == collector_variant.id -%}
                 {%- assign variant_media = product.media[forloop.index0] | default: product.featured_media -%}
-                <button
-                  class="gb-color-region-option{% if variant.id == current_variant.id %} is-selected{% endif %}"
-                  type="button"
-                  aria-pressed="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
-                  data-gb-color-variant
-                  data-variant-id="{{ variant.id }}"
-                  data-variant-title="{{ variant.title | escape }}"
-                  data-price="{{ variant.price | money | escape }}"
-                  data-price-note="8-badge regional set"
-                  data-compare=""
-                  data-is-collector="false"
-                  data-media-id="{{ variant_media.id }}"
-                  data-image-src="{{ variant_media.preview_image | image_url: width: 1600 }}"
-                  data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
-                  data-image-alt="{{ variant_media.alt | default: variant.title | escape }}"
-                  {% unless variant.available %}disabled{% endunless %}>
-                  <span aria-hidden="true"></span>
-                  <strong>{{ variant.title }}</strong>
-                  <small>{{ variant.price | money }}</small>
-                </button>
+                <article
+                  class="gb-color-region-purchase{% if variant.id == current_variant.id %} is-selected{% endif %}"
+                  data-gb-color-region-purchase
+                  data-variant-id="{{ variant.id }}">
+                  <div class="gb-color-region-purchase__media">
+                    <img
+                      src="{{ variant_media.preview_image | image_url: width: 600 }}"
+                      srcset="{{ variant_media.preview_image | image_url: width: 360 }} 360w, {{ variant_media.preview_image | image_url: width: 600 }} 600w"
+                      sizes="(min-width: 990px) 220px, (min-width: 600px) 40vw, 44vw"
+                      width="{{ variant_media.preview_image.width }}"
+                      height="{{ variant_media.preview_image.height }}"
+                      alt="{{ variant_media.alt | default: variant.title | escape }}"
+                      loading="lazy">
+                  </div>
+                  <div class="gb-color-region-purchase__body">
+                    <div class="gb-color-region-purchase__heading">
+                      <div>
+                        <strong>{{ variant.title }}</strong>
+                        <span>8 badges · 1 fitted box</span>
+                      </div>
+                      <small>{{ variant.price | money }}</small>
+                    </div>
+                    <button
+                      class="gb-color-region-purchase__add{% if variant.id == current_variant.id %} is-selected{% endif %}"
+                      type="button"
+                      aria-pressed="{% if variant.id == current_variant.id %}true{% else %}false{% endif %}"
+                      aria-label="{% if variant.available %}Add {{ variant.title | escape }} regional badge box for {{ variant.price | money | escape }}{% else %}{{ variant.title | escape }} regional badge box is sold out{% endif %}"
+                      data-gb-color-variant
+                      data-gb-color-region-add
+                      data-variant-id="{{ variant.id }}"
+                      data-variant-title="{{ variant.title | escape }}"
+                      data-price="{{ variant.price | money | escape }}"
+                      data-price-note="8-badge regional set"
+                      data-compare=""
+                      data-is-collector="false"
+                      data-media-id="{{ variant_media.id }}"
+                      data-image-src="{{ variant_media.preview_image | image_url: width: 1600 }}"
+                      data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
+                      data-image-alt="{{ variant_media.alt | default: variant.title | escape }}"
+                      {% unless variant.available %}disabled{% endunless %}>
+                      {%- if variant.available -%}Add {{ variant.title }} — {{ variant.price | money }}{%- else -%}Sold out{%- endif -%}
+                    </button>
+                  </div>
+                </article>
               {%- endunless -%}
             {%- endfor -%}
           </div>
