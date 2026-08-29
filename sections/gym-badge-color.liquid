@@ -42,6 +42,9 @@
 {%- assign open_box_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-open-box-in-hand.jpg?v=1779381316' -%}
 {%- assign sunlight_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-enamel-detail-sunlight.jpg?v=1779381316' -%}
 {%- assign closeup_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/gym-badge-collector-detail-closeup.jpg?v=1779381316' -%}
+{%- assign collector_story_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/collector_hero_desktop.jpg?v=1779355245' -%}
+{%- assign quality_story_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/quality_desktop.jpg?v=1779355937' -%}
+{%- assign lifestyle_story_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/lifestyle_desktop.png?v=1779357560' -%}
 {%- assign hero_eyebrow = section.settings.hero_eyebrow | default: 'The complete four-region collection' -%}
 {%- assign hero_heading_line_1 = section.settings.hero_heading_line_1 | default: 'The OG Four.' -%}
 {%- assign hero_heading_line_2 = section.settings.hero_heading_line_2 | default: 'All 32.' -%}
@@ -386,6 +389,66 @@
             loading="lazy">
         {%- endif -%}
         <span>All 32 shown · All 32 included</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="gb-color-story" aria-label="Ways to collect, display, gift, and wear the gym badge pins">
+    <div class="gb-color-shell">
+      <article class="gb-color-story-card gb-color-story-card--featured">
+        <div class="gb-color-story-card__media">
+          <img
+            src="{{ collector_story_url }}&amp;width=1400"
+            srcset="{{ collector_story_url }}&amp;width=720 720w, {{ collector_story_url }}&amp;width=1050 1050w, {{ collector_story_url }}&amp;width=1400 1400w, {{ collector_story_url }}&amp;width=1800 1800w"
+            sizes="(min-width: 990px) 62vw, 100vw"
+            width="1800"
+            height="1005"
+            alt="The complete four-box gym badge Collector Pack"
+            loading="lazy">
+        </div>
+        <div class="gb-color-story-card__copy">
+          <p class="gb-color-eyebrow">Collector's pack</p>
+          <h2>32 badges.<br>4 boxed sets.<br>Save $20.</h2>
+          <p>Four boxed sets, one complete badge run. Built for the shelf, the bag, or the collector who wants the full map.</p>
+        </div>
+      </article>
+
+      <div class="gb-color-story__grid">
+        <article class="gb-color-story-card gb-color-story-card--quality">
+          <div class="gb-color-story-card__media">
+            <img
+              src="{{ quality_story_url }}&amp;width=900"
+              srcset="{{ quality_story_url }}&amp;width=600 600w, {{ quality_story_url }}&amp;width=900 900w, {{ quality_story_url }}&amp;width=1200 1200w"
+              sizes="(min-width: 990px) 50vw, 100vw"
+              width="1200"
+              height="896"
+              alt="Close-up proof of the glossy hard-enamel badges and raised metal trim"
+              loading="lazy">
+          </div>
+          <div class="gb-color-story-card__copy">
+            <p class="gb-color-eyebrow">Quality proof</p>
+            <h3>Glossy hard enamel.<br>Raised metal trim.</h3>
+            <p>Polished color, raised metal edges, and secure clutch backs.</p>
+          </div>
+        </article>
+
+        <article class="gb-color-story-card gb-color-story-card--lifestyle">
+          <div class="gb-color-story-card__media">
+            <img
+              src="{{ lifestyle_story_url }}&amp;width=900"
+              srcset="{{ lifestyle_story_url }}&amp;width=600 600w, {{ lifestyle_story_url }}&amp;width=900 900w, {{ lifestyle_story_url }}&amp;width=1200 1200w"
+              sizes="(min-width: 990px) 50vw, 100vw"
+              width="1200"
+              height="896"
+              alt="Gym badge pins styled for display, gifting, and wearing"
+              loading="lazy">
+          </div>
+          <div class="gb-color-story-card__copy">
+            <p class="gb-color-eyebrow">Made to show</p>
+            <h3>Display it.<br>Gift it. Wear it.</h3>
+            <p>Small enough to wear. Clean enough to display.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>

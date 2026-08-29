@@ -256,6 +256,8 @@
 .gb-color-regions h2,
 .gb-color-detail h2,
 .gb-color-collector h2,
+.gb-color-story h2,
+.gb-color-story h3,
 .gb-color-inhand h2,
 .gb-color-details h2 {
   margin: 0;
@@ -695,6 +697,7 @@ button.gb-color-form__submit::after {
 .gb-color-regions,
 .gb-color-detail,
 .gb-color-collector,
+.gb-color-story,
 .gb-color-inhand,
 .gb-color-details {
   position: relative;
@@ -1151,6 +1154,134 @@ button.gb-color-form__submit::after {
   text-transform: uppercase;
 }
 
+.gb-color-story {
+  background: linear-gradient(135deg, #fffdf8 0%, #f3fbff 48%, #fff1e4 100%);
+}
+
+.gb-color-story::before,
+.gb-color-story::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.gb-color-story::before {
+  top: -190px;
+  left: -130px;
+  width: 390px;
+  height: 390px;
+  background: rgba(217, 209, 255, 0.72);
+}
+
+.gb-color-story::after {
+  right: -120px;
+  bottom: -220px;
+  width: 430px;
+  height: 430px;
+  background: rgba(231, 255, 102, 0.5);
+}
+
+.gb-color-story-card {
+  overflow: hidden;
+  border: 2px solid var(--gb-ink);
+  border-radius: 24px;
+  background: var(--gb-paper);
+  box-shadow: 8px 9px 0 var(--gb-ink);
+}
+
+.gb-color-story-card--featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.7fr);
+  align-items: stretch;
+}
+
+.gb-color-story-card__media {
+  overflow: hidden;
+  background: #eee9df;
+}
+
+.gb-color-story-card--featured .gb-color-story-card__media {
+  border-right: 2px solid var(--gb-ink);
+}
+
+.gb-color-story-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gb-color-story-card--featured .gb-color-story-card__media img {
+  min-height: 430px;
+}
+
+.gb-color-story-card__copy {
+  padding: clamp(25px, 4vw, 48px);
+}
+
+.gb-color-story-card--featured .gb-color-story-card__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--gb-citrus);
+}
+
+.gb-color-story-card .gb-color-eyebrow {
+  color: #5e5a51;
+}
+
+.gb-color-story-card h2,
+.gb-color-story-card h3 {
+  margin: 0;
+  color: var(--gb-ink);
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-weight: 850;
+  letter-spacing: -0.045em;
+}
+
+.gb-color-story-card h2 {
+  font-size: clamp(34px, 3.7vw, 54px);
+  line-height: 0.98;
+}
+
+.gb-color-story-card h3 {
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.02;
+}
+
+.gb-color-story-card__copy > p:last-child {
+  margin: 20px 0 0;
+  color: #565149;
+  font-size: 16px;
+  line-height: 1.58;
+}
+
+.gb-color-story__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.gb-color-story__grid .gb-color-story-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.gb-color-story__grid .gb-color-story-card__media {
+  aspect-ratio: 1.34;
+  border-bottom: 2px solid var(--gb-ink);
+}
+
+.gb-color-story-card--quality .gb-color-story-card__copy {
+  background: #dff4ff;
+}
+
+.gb-color-story-card--lifestyle .gb-color-story-card__copy {
+  background: #ffd8cf;
+}
+
 .gb-color-inhand {
   background: #fff3dd;
 }
@@ -1432,6 +1563,7 @@ button.gb-color-form__submit::after {
   .gb-color-section-intro,
   .gb-color-detail__grid,
   .gb-color-collector__grid,
+  .gb-color-story-card--featured,
   .gb-color-inhand__heading,
   .gb-color-details__grid {
     grid-template-columns: 1fr;
@@ -1450,6 +1582,7 @@ button.gb-color-form__submit::after {
   .gb-color-section-intro,
   .gb-color-detail__grid,
   .gb-color-collector__grid,
+  .gb-color-story-card--featured,
   .gb-color-inhand__heading,
   .gb-color-details__grid {
     gap: 34px;
@@ -1469,6 +1602,16 @@ button.gb-color-form__submit::after {
 
   .gb-color-collector__image {
     order: 1;
+  }
+
+  .gb-color-story-card--featured .gb-color-story-card__media {
+    border-right: 0;
+    border-bottom: 2px solid var(--gb-ink);
+  }
+
+  .gb-color-story-card--featured .gb-color-story-card__media img {
+    min-height: 0;
+    aspect-ratio: 1.79;
   }
 
   .gb-color-inhand__track {
@@ -1613,6 +1756,7 @@ button.gb-color-form__submit::after {
   .gb-color-regions,
   .gb-color-detail,
   .gb-color-collector,
+  .gb-color-story,
   .gb-color-inhand,
   .gb-color-details {
     padding-block: 68px;
@@ -1621,6 +1765,8 @@ button.gb-color-form__submit::after {
   .gb-color-section-intro h2,
   .gb-color-detail h2,
   .gb-color-collector h2,
+  .gb-color-story h2,
+  .gb-color-story h3,
   .gb-color-inhand h2,
   .gb-color-details h2 {
     font-size: clamp(35px, 11vw, 49px);
@@ -1671,6 +1817,34 @@ button.gb-color-form__submit::after {
     border-radius: 16px;
     box-shadow: 7px 8px 0 var(--gb-ink);
     transform: none;
+  }
+
+  .gb-color-story-card {
+    border-radius: 17px;
+    box-shadow: 6px 7px 0 var(--gb-ink);
+  }
+
+  .gb-color-story-card__copy {
+    padding: 24px 20px 26px;
+  }
+
+  .gb-color-story-card h2 {
+    font-size: clamp(35px, 10.5vw, 47px);
+  }
+
+  .gb-color-story-card h3 {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .gb-color-story-card__copy > p:last-child {
+    margin-top: 15px;
+    font-size: 15px;
+  }
+
+  .gb-color-story__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 16px;
   }
 
   .gb-color-inhand__track {
