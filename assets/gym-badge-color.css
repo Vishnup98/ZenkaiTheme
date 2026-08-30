@@ -1861,6 +1861,14 @@ button.gb-color-form__submit::after {
     padding-block: 68px;
   }
 
+  .gb-color-inhand {
+    padding-block: 54px;
+  }
+
+  .gb-color-inhand__heading {
+    gap: 12px;
+  }
+
   .gb-color-section-intro h2,
   .gb-color-detail h2,
   .gb-color-collector h2,
@@ -1947,26 +1955,21 @@ button.gb-color-form__submit::after {
   }
 
   .gb-color-inhand__track {
-    display: flex;
-    gap: 11px;
-    width: calc(100% + 24px);
-    margin-left: -12px;
-    padding: 4px 12px 12px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .gb-color-inhand__track::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 0;
+    padding: 0;
+    overflow: visible;
   }
 
   .gb-color-inhand__track figure {
-    flex: 0 0 68vw;
+    width: 100%;
     min-height: 0;
     aspect-ratio: 3 / 4;
     transform: none !important;
-    scroll-snap-align: center;
   }
 
   .gb-color-inhand__track figure img {
@@ -1975,7 +1978,7 @@ button.gb-color-form__submit::after {
 
   .gb-color-inhand__wide {
     width: 100%;
-    margin-top: 14px !important;
+    margin-top: 12px !important;
     aspect-ratio: 1500 / 726;
   }
 
