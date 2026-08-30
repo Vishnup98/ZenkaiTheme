@@ -327,6 +327,34 @@
     primaryButton.insertAdjacentElement('afterend', proof);
   }
 
+  function hideRepeatedBuyerQuote() {
+    var matchedProof = buyerProof[requested] || null;
+    if (!productSection || !matchedProof || !matchedProof.quote) return;
+
+    function normalizeQuote(value) {
+      return String(value || '')
+        .replace(/[“”"']/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+    }
+
+    var matchedQuote = normalizeQuote(matchedProof.quote);
+    var lowerReviews = productSection.querySelectorAll(
+      '.zenkai-proof-nudge, .zenkai-context-review, .zenkai-pin-photo-card--quote'
+    );
+
+    for (var index = 0; index < lowerReviews.length; index += 1) {
+      var review = lowerReviews[index];
+      var quote = review.querySelector('blockquote, .zenkai-proof-nudge__quote');
+      if (!quote || normalizeQuote(quote.textContent) !== matchedQuote) continue;
+
+      review.hidden = true;
+      review.setAttribute('data-gb-lp-matched-duplicate', '');
+      break;
+    }
+  }
+
   if (productSection) {
     var hook = productSection.querySelector('.zenkai-signal-hook');
     var subheadline = productSection.querySelector('.zenkai-social-subheadline');
@@ -351,6 +379,7 @@
   moveCustomerProofForward();
   addDirectCheckoutNote();
   moveBuyerQuoteForward();
+  hideRepeatedBuyerQuote();
 
   function getShopifyRoot() {
     var root = window.Shopify && window.Shopify.routes && window.Shopify.routes.root
