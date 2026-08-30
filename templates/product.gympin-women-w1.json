@@ -3,7 +3,7 @@
     "main": {
       "type": "gym-badge-color",
       "settings": {
-        "landing_variant": "women",
+        "landing_variant": "women-w1",
         "force_collector": true,
         "direct_checkout": true,
         "show_gallery_thumbs": false,

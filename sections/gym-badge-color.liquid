@@ -63,6 +63,11 @@
 {%- assign region_sequence = 'kanto|Kanto,johto|Johto,hoenn|Hoenn,sinnoh|Sinnoh' | split: ',' -%}
 {%- assign landing_variant = section.settings.landing_variant | default: 'standard' -%}
 {%- assign page_theme = landing_variant -%}
+{%- if landing_variant == 'women' or landing_variant == 'women-w1' or landing_variant == 'women-w2' or landing_variant == 'women-w4' -%}
+  {%- assign page_theme = 'women-cozy' -%}
+{%- elsif landing_variant == 'women-w3' -%}
+  {%- assign page_theme = 'women-editorial' -%}
+{%- endif -%}
 {%- assign hero_eyebrow = 'The complete four-region collection' -%}
 {%- assign hero_heading_line_1 = 'The OG Four.' -%}
 {%- assign hero_heading_line_2 = 'All 32.' -%}
@@ -102,30 +107,47 @@
   {%- assign featured_heading_line_3 = 'One complete set.' -%}
 {%- endif -%}
 {%- assign featured_body = 'Four boxed sets, one complete badge run. Built for the shelf, the bag, or the collector who wants the full map.' -%}
+{%- assign story_aria_label = 'Ways to collect, display, gift, and wear the gym badge pins' -%}
+{%- assign lifestyle_alt = 'Gym badge pins styled for display, gifting, and wearing' -%}
+{%- assign lifestyle_eyebrow = 'Made to show' -%}
+{%- assign lifestyle_heading_line_1 = 'Display it.' -%}
+{%- assign lifestyle_heading_line_2 = 'Gift it. Wear it.' -%}
+{%- assign lifestyle_body = 'Small enough to wear. Clean enough to display.' -%}
 
 {%- case landing_variant -%}
-  {%- when 'women' -%}
-    {%- assign hero_eyebrow = 'For women who grew up collecting' -%}
-    {%- assign hero_heading_line_1 = 'You never outgrew' -%}
-    {%- assign hero_heading_line_2 = 'the badge hunt.' -%}
-    {%- assign hero_lede = 'You just made room for the complete four-region collection—32 glossy enamel badges, organized in four fitted boxes and ready for your shelf.' -%}
-    {%- assign gift_note_heading = 'The nostalgia stayed.' -%}
-    {%- assign gift_note_body = 'Now it has a place to live.' -%}
-    {%- assign angle_eyebrow = 'Made for your shelf' -%}
-    {%- assign angle_heading = 'A collection that still feels like yours.' -%}
-    {%- assign angle_body = 'Kanto, Johto, Hoenn, and Sinnoh—together in one bright, display-ready set.' -%}
+  {%- when 'women', 'women-w1', 'women-w2', 'women-w3', 'women-w4' -%}
+    {%- assign hero_eyebrow = 'For the ladies who never outgrew the badge hunt' -%}
+    {%- assign hero_heading_line_1 = 'The collection you wanted then.' -%}
+    {%- assign hero_heading_line_2 = 'Ready for your shelf now.' -%}
+    {%- assign hero_lede = 'Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel pins in four fitted boxes, arranged in the order you remember.' -%}
+    {%- assign gift_note_heading = 'This one is for your collection.' -%}
+    {%- assign gift_note_body = 'No occasion required. All four regions, together at last.' -%}
+    {%- assign angle_eyebrow = 'For the collection you kept thinking about' -%}
+    {%- assign angle_heading = 'You remember earning them. Now see them all together.' -%}
+    {%- assign angle_body = 'The original four-region run, arranged in order and boxed to display.' -%}
     {%- assign angle_card_1_title = 'Choose it for yourself' -%}
-    {%- assign angle_card_1_body = 'No occasion required. Just the complete four-region set you always wanted.' -%}
+    {%- assign angle_card_1_body = 'No gift occasion required. Build the shelf you actually want.' -%}
     {%- assign angle_card_2_title = 'All four, in order' -%}
     {%- assign angle_card_2_body = 'Thirty-two badges from Kanto through Sinnoh, organized across four fitted boxes.' -%}
-    {%- assign angle_card_3_title = 'Made to be seen' -%}
+    {%- assign angle_card_3_title = 'Made to display' -%}
     {%- assign angle_card_3_body = 'Glossy enamel and polished metal edges bring every familiar shape to life.' -%}
+    {%- assign regions_eyebrow = 'The four chapters you remember' -%}
+    {%- assign regions_heading_line_1 = 'Kanto to Sinnoh,' -%}
+    {%- assign regions_heading_line_2 = 'back together.' -%}
+    {%- assign regions_body = 'Each region has its own colors and memories. Side by side, the full 32-badge run finally clicks into place.' -%}
     {%- assign collector_eyebrow = 'The collection we wanted then' -%}
     {%- assign collector_heading_line_1 = 'Every badge.' -%}
     {%- assign collector_heading_line_2 = 'Every chapter.' -%}
     {%- assign collector_heading_line_3 = 'Finally together.' -%}
+    {%- assign collector_body = 'The original four-region run, arranged in order and ready to take its place on your shelf.' -%}
     {%- assign featured_heading_line_3 = 'Made to show.' -%}
-    {%- assign featured_body = 'The original four-region run, boxed by chapter and ready for the space that finally feels like yours.' -%}
+    {%- assign featured_body = 'The original four-region run, boxed by chapter and designed to look intentional on a shelf, pin board, or display wall.' -%}
+    {%- assign story_aria_label = 'Ways to collect, display, style, and wear the gym badge pins' -%}
+    {%- assign lifestyle_alt = 'Gym badge pins styled for display and wearing' -%}
+    {%- assign lifestyle_eyebrow = 'Make the collection yours' -%}
+    {%- assign lifestyle_heading_line_1 = 'Box it. Frame it.' -%}
+    {%- assign lifestyle_heading_line_2 = 'Wear a favorite.' -%}
+    {%- assign lifestyle_body = 'Keep each region together, build a full display, or choose one badge for a jacket or bag.' -%}
   {%- when 'gift-daughter' -%}
     {%- assign hero_eyebrow = 'A surprisingly specific gift' -%}
     {%- assign hero_heading_line_1 = 'A gift for the daughter' -%}
@@ -313,11 +335,10 @@
 {%- assign gb_lifestyle_quote_meta = 'Customer review' -%}
 
 {%- case landing_variant -%}
-  {%- when 'women' -%}
-    {%- assign gb_offer_quote = gb_quote_nostalgia -%}
-    {%- assign gb_offer_quote_meta = 'S.P. · Verified buyer' -%}
-    {%- assign gb_inhand_quote = gb_quote_full_set -%}
-    {%- assign gb_inhand_quote_meta = 'Verified buyer' -%}
+  {%- when 'women', 'women-w1', 'women-w2', 'women-w3', 'women-w4' -%}
+    {%- assign gb_offer_quote = gb_quote_full_set -%}
+    {%- assign gb_offer_quote_meta = 'Verified buyer' -%}
+    {%- assign gb_inhand_quote = blank -%}
     {%- assign gb_detail_quote = blank -%}
     {%- assign gb_collector_quote = blank -%}
     {%- assign gb_lifestyle_quote = blank -%}
@@ -380,6 +401,9 @@
 {%- assign hero_alt = section.settings.hero_alt | default: 'All 32 glossy hard-enamel badges arranged in chronological order from Kanto through Sinnoh' -%}
 
 {{ 'gym-badge-color.css' | asset_url | stylesheet_tag }}
+{%- if landing_variant contains 'women' -%}
+  {{ 'gym-badge-women.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 
 {%- if gym_badge_page_available -%}
 <div
@@ -725,79 +749,6 @@
         {%- endfor -%}
       </div>
 
-      <details class="gb-color-single-region-shop">
-        <summary>
-          <span><strong>Only want one region?</strong> Shop an individual 8-badge box.</span>
-          <small>From {{ single_region_price | money }}</small>
-          <b aria-hidden="true">+</b>
-        </summary>
-        <div class="gb-color-single-region-shop__inner">
-          <p>Choose a regional box and add it right here—each one includes eight badges in its own fitted white presentation box.</p>
-          <div class="gb-color-region-options">
-            {%- for region_entry in region_sequence -%}
-              {%- assign region_parts = region_entry | split: '|' -%}
-              {%- assign region_key = region_parts[0] -%}
-              {%- assign region_label = region_parts[1] -%}
-              {%- assign region_index = forloop.index0 -%}
-              {%- assign region_variant = blank -%}
-              {%- for candidate_variant in product.variants -%}
-                {%- assign candidate_title_downcase = candidate_variant.title | downcase -%}
-                {%- if candidate_variant.id != collector_variant.id and candidate_title_downcase contains region_key -%}
-                  {%- assign region_variant = candidate_variant -%}
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-              {%- if region_variant != blank -%}
-                {%- assign variant_media = region_variant.featured_media | default: product.media[region_index] | default: product.featured_media -%}
-                <article
-                  class="gb-color-region-purchase{% if region_variant.id == current_variant.id %} is-selected{% endif %}"
-                  data-gb-color-region-purchase
-                  data-variant-id="{{ region_variant.id }}">
-                  <div class="gb-color-region-purchase__media">
-                    <img
-                      src="{{ variant_media.preview_image | image_url: width: 600 }}"
-                      srcset="{{ variant_media.preview_image | image_url: width: 360 }} 360w, {{ variant_media.preview_image | image_url: width: 600 }} 600w"
-                      sizes="(min-width: 990px) 220px, (min-width: 600px) 40vw, 44vw"
-                      width="{{ variant_media.preview_image.width }}"
-                      height="{{ variant_media.preview_image.height }}"
-                      alt="{{ variant_media.alt | default: region_label | escape }}"
-                      loading="lazy">
-                  </div>
-                  <div class="gb-color-region-purchase__body">
-                    <div class="gb-color-region-purchase__heading">
-                      <div>
-                        <strong>{{ region_label }}</strong>
-                        <span>8 badges · 1 fitted box</span>
-                      </div>
-                      <small>{{ region_variant.price | money }}</small>
-                    </div>
-                    <button
-                      class="gb-color-region-purchase__add{% if region_variant.id == current_variant.id %} is-selected{% endif %}"
-                      type="button"
-                      aria-pressed="{% if region_variant.id == current_variant.id %}true{% else %}false{% endif %}"
-                      aria-label="{% if region_variant.available %}Add {{ region_label | escape }} regional badge box for {{ region_variant.price | money | escape }}{% else %}{{ region_label | escape }} regional badge box is sold out{% endif %}"
-                      data-gb-color-variant
-                      data-gb-color-region-add
-                      data-variant-id="{{ region_variant.id }}"
-                      data-variant-title="{{ region_label | escape }}"
-                      data-price="{{ region_variant.price | money | escape }}"
-                      data-price-note="8-badge regional set"
-                      data-compare=""
-                      data-is-collector="false"
-                      data-media-id="{{ variant_media.id }}"
-                      data-image-src="{{ variant_media.preview_image | image_url: width: 1600 }}"
-                      data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
-                      data-image-alt="{{ variant_media.alt | default: region_label | escape }}"
-                      {% unless region_variant.available %}disabled{% endunless %}>
-                      {%- if region_variant.available -%}Get {{ region_label }} — {{ region_variant.price | money }}{%- else -%}Sold out{%- endif -%}
-                    </button>
-                  </div>
-                </article>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-        </div>
-      </details>
     </div>
   </section>
 
@@ -876,7 +827,85 @@
     </div>
   </section>
 
-  <section class="gb-color-story" aria-label="Ways to collect, display, gift, and wear the gym badge pins">
+  <section class="gb-color-single-region-fallback" aria-label="Individual regional badge boxes">
+    <div class="gb-color-shell">
+      <details class="gb-color-single-region-shop">
+        <summary>
+          <span><strong>Only want one region?</strong> Shop an individual 8-badge box.</span>
+          <small>From {{ single_region_price | money }}</small>
+          <b aria-hidden="true">+</b>
+        </summary>
+        <div class="gb-color-single-region-shop__inner">
+          <p>Choose a regional box and add it right here—each one includes eight badges in its own fitted white presentation box.</p>
+          <div class="gb-color-region-options">
+            {%- for region_entry in region_sequence -%}
+              {%- assign region_parts = region_entry | split: '|' -%}
+              {%- assign region_key = region_parts[0] -%}
+              {%- assign region_label = region_parts[1] -%}
+              {%- assign region_index = forloop.index0 -%}
+              {%- assign region_variant = blank -%}
+              {%- for candidate_variant in product.variants -%}
+                {%- assign candidate_title_downcase = candidate_variant.title | downcase -%}
+                {%- if candidate_variant.id != collector_variant.id and candidate_title_downcase contains region_key -%}
+                  {%- assign region_variant = candidate_variant -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if region_variant != blank -%}
+                {%- assign variant_media = region_variant.featured_media | default: product.media[region_index] | default: product.featured_media -%}
+                <article
+                  class="gb-color-region-purchase{% if region_variant.id == current_variant.id %} is-selected{% endif %}"
+                  data-gb-color-region-purchase
+                  data-variant-id="{{ region_variant.id }}">
+                  <div class="gb-color-region-purchase__media">
+                    <img
+                      src="{{ variant_media.preview_image | image_url: width: 600 }}"
+                      srcset="{{ variant_media.preview_image | image_url: width: 360 }} 360w, {{ variant_media.preview_image | image_url: width: 600 }} 600w"
+                      sizes="(min-width: 990px) 220px, (min-width: 600px) 40vw, 44vw"
+                      width="{{ variant_media.preview_image.width }}"
+                      height="{{ variant_media.preview_image.height }}"
+                      alt="{{ variant_media.alt | default: region_label | escape }}"
+                      loading="lazy">
+                  </div>
+                  <div class="gb-color-region-purchase__body">
+                    <div class="gb-color-region-purchase__heading">
+                      <div>
+                        <strong>{{ region_label }}</strong>
+                        <span>8 badges · 1 fitted box</span>
+                      </div>
+                      <small>{{ region_variant.price | money }}</small>
+                    </div>
+                    <button
+                      class="gb-color-region-purchase__add{% if region_variant.id == current_variant.id %} is-selected{% endif %}"
+                      type="button"
+                      aria-pressed="{% if region_variant.id == current_variant.id %}true{% else %}false{% endif %}"
+                      aria-label="{% if region_variant.available %}Add {{ region_label | escape }} regional badge box for {{ region_variant.price | money | escape }}{% else %}{{ region_label | escape }} regional badge box is sold out{% endif %}"
+                      data-gb-color-variant
+                      data-gb-color-region-add
+                      data-variant-id="{{ region_variant.id }}"
+                      data-variant-title="{{ region_label | escape }}"
+                      data-price="{{ region_variant.price | money | escape }}"
+                      data-price-note="8-badge regional set"
+                      data-compare=""
+                      data-is-collector="false"
+                      data-media-id="{{ variant_media.id }}"
+                      data-image-src="{{ variant_media.preview_image | image_url: width: 1600 }}"
+                      data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
+                      data-image-alt="{{ variant_media.alt | default: region_label | escape }}"
+                      {% unless region_variant.available %}disabled{% endunless %}>
+                      {%- if region_variant.available -%}Get {{ region_label }} — {{ region_variant.price | money }}{%- else -%}Sold out{%- endif -%}
+                    </button>
+                  </div>
+                </article>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="gb-color-story" aria-label="{{ story_aria_label | escape }}">
     <div class="gb-color-shell">
       <article class="gb-color-story-card gb-color-story-card--featured">
         <div class="gb-color-story-card__media">
@@ -923,13 +952,13 @@
               sizes="(min-width: 990px) 50vw, 100vw"
               width="1200"
               height="896"
-              alt="Gym badge pins styled for display, gifting, and wearing"
+              alt="{{ lifestyle_alt | escape }}"
               loading="lazy">
           </div>
           <div class="gb-color-story-card__copy">
-            <p class="gb-color-eyebrow">Made to show</p>
-            <h3>Display it.<br>Gift it. Wear it.</h3>
-            <p>Small enough to wear. Clean enough to display.</p>
+            <p class="gb-color-eyebrow">{{ lifestyle_eyebrow | escape }}</p>
+            <h3>{{ lifestyle_heading_line_1 | escape }}<br>{{ lifestyle_heading_line_2 | escape }}</h3>
+            <p>{{ lifestyle_body | escape }}</p>
             {%- if gb_lifestyle_quote != blank -%}
               <aside class="gb-color-proof-drop gb-color-proof-drop--micro gb-color-proof-drop--delight" aria-label="Buyer review">
                 <p class="gb-color-review__quote">{{ gb_lifestyle_quote | escape }}</p>
@@ -1006,7 +1035,11 @@
       "default": "standard",
       "options": [
         { "value": "standard", "label": "Standard color" },
-        { "value": "women", "label": "Women collectors" },
+        { "value": "women", "label": "Women collectors (legacy/W1)" },
+        { "value": "women-w1", "label": "Women W1 · Never outgrew it" },
+        { "value": "women-w2", "label": "Women W2 · Its own shelf" },
+        { "value": "women-w3", "label": "Women W3 · Women collect" },
+        { "value": "women-w4", "label": "Women W4 · No occasion" },
         { "value": "gift-daughter", "label": "Gift for daughter" },
         { "value": "gift-son", "label": "Gift for son" },
         { "value": "gift-girlfriend", "label": "Gift for girlfriend" },

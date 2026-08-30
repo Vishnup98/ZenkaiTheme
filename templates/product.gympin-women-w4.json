@@ -3,12 +3,12 @@
     "main": {
       "type": "gym-badge-color",
       "settings": {
-        "landing_variant": "women",
+        "landing_variant": "women-w4",
         "force_collector": true,
         "direct_checkout": true,
         "show_gallery_thumbs": false,
-        "hero_asset": "gym-badge-women-w1-hero-45.png",
-        "hero_alt": "Four fitted boxes holding the 32-badge collector pack in a cozy pastel gaming room"
+        "hero_asset": "gym-badge-women-w4-hero-45.png",
+        "hero_alt": "Four fitted badge boxes arranged in a cozy pastel collector room"
       }
     }
   },

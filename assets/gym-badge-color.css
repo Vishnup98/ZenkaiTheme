@@ -1251,6 +1251,16 @@ button.gb-color-form__submit::after {
   background: rgba(247, 241, 232, 0.86);
 }
 
+.gb-color-single-region-fallback {
+  padding: 0 0 clamp(64px, 8vw, 104px);
+  background: var(--gb-lilac);
+}
+
+.gb-color-single-region-fallback .gb-color-single-region-shop {
+  margin-top: 0;
+  background: rgba(255, 253, 248, 0.92);
+}
+
 .gb-color-single-region-shop[open] {
   border-color: rgba(23, 23, 19, 0.42);
   box-shadow: 5px 6px 0 var(--gb-ink);

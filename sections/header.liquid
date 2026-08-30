@@ -3,7 +3,7 @@
 {%- if request.page_type == 'product' -%}
   {%- if product.handle == '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
     {%- if template.suffix contains 'gympin-color'
-      or template.suffix == 'gympin-women'
+      or template.suffix contains 'gympin-women'
       or template.suffix contains 'gympin-gift'
       or template.suffix == 'gympin-completion'
       or template.suffix == 'gympin-collection'
