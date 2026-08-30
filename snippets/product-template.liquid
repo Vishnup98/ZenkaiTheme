@@ -3666,9 +3666,9 @@
   })();
 </script>
 
+{% if zenkai_ptemplate == 'gympin' %}
 <script>
   (function() {
-    if (window.innerWidth >= 768) return;
 
     var productSection = document.getElementById('ProductSection-{{ section_id }}');
     if (!productSection) return;
@@ -3695,12 +3695,12 @@
       if (!activateProductThumbnail(thumb)) return;
       event.preventDefault();
       event.stopPropagation();
-      requestMobileThumbnailSync();
+      requestProductThumbnailSync();
     }, true);
 
     var thumbSyncFrame = null;
 
-    function syncMobileThumbnails() {
+    function syncProductThumbnails() {
       thumbSyncFrame = null;
       var $slider = getProductSlider();
       if (!$slider) return;
@@ -3708,6 +3708,7 @@
       var items = productSection.querySelectorAll('[data-product-thumb-item]');
       for (var i = 0; i < items.length; i++) {
         var isActive = parseInt(items[i].getAttribute('data-index'), 10) === current;
+        items[i].classList.toggle('thumb--current', isActive);
         items[i].classList.toggle('is-active', isActive);
       }
       var c = productSection.querySelector('[data-product-thumbs]');
@@ -3721,39 +3722,39 @@
       if (c) c.style.justifyContent = (c.scrollWidth <= c.clientWidth) ? 'center' : 'flex-start';
     }
 
-    function requestMobileThumbnailSync() {
+    function requestProductThumbnailSync() {
       if (thumbSyncFrame !== null) return;
       if (window.requestAnimationFrame) {
-        thumbSyncFrame = window.requestAnimationFrame(syncMobileThumbnails);
+        thumbSyncFrame = window.requestAnimationFrame(syncProductThumbnails);
       } else {
-        thumbSyncFrame = window.setTimeout(syncMobileThumbnails, 0);
+        thumbSyncFrame = window.setTimeout(syncProductThumbnails, 0);
       }
     }
 
-    function bindMobileThumbnailSync() {
+    function bindProductThumbnailSync() {
       var $slider = getProductSlider();
       if (!$slider) return false;
 
       var slider = $slider.get(0);
-      if (slider && !slider.__zenkaiMobileThumbSync) {
-        slider.__zenkaiMobileThumbSync = true;
-        $slider.on('afterChange.zenkaiMobileThumbs', requestMobileThumbnailSync);
+      if (slider && !slider.__zenkaiProductThumbSync) {
+        slider.__zenkaiProductThumbSync = true;
+        $slider.on('afterChange.zenkaiProductThumbs', requestProductThumbnailSync);
       }
-      requestMobileThumbnailSync();
+      requestProductThumbnailSync();
       return true;
     }
 
-    if (!bindMobileThumbnailSync()) {
+    if (!bindProductThumbnailSync()) {
       var thumbBindAttempts = 0;
       var thumbBindPoll = window.setInterval(function() {
         thumbBindAttempts += 1;
-        if (bindMobileThumbnailSync() || thumbBindAttempts >= 40) {
+        if (bindProductThumbnailSync() || thumbBindAttempts >= 40) {
           window.clearInterval(thumbBindPoll);
         }
       }, 250);
     }
 
-    window.addEventListener('resize', requestMobileThumbnailSync);
+    window.addEventListener('resize', requestProductThumbnailSync);
 
     setTimeout(function() {
       var title = document.querySelector('.product-single__title');
@@ -3769,3 +3770,4 @@
     }, 500);
   })();
 </script>
+{% endif %}
