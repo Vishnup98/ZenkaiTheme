@@ -1397,6 +1397,104 @@ button.gb-color-form__submit::after {
   text-transform: uppercase;
 }
 
+.gb-color-buyer-notes {
+  margin-top: 32px;
+}
+
+.gb-color-buyer-notes__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 13px;
+}
+
+.gb-color-buyer-notes__heading h3 {
+  margin: 0;
+  color: var(--gb-ink);
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: 24px;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.gb-color-buyer-notes__heading > span {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: var(--gb-ink);
+  background: var(--gb-paper);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.gb-color-buyer-notes__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.gb-color-buyer-note {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  border: 2px solid var(--gb-ink);
+  border-radius: 17px;
+  box-shadow: 4px 5px 0 var(--gb-ink);
+}
+
+.gb-color-buyer-note--collector {
+  background: #efff9a;
+}
+
+.gb-color-buyer-note--gift {
+  background: #ffd8cf;
+}
+
+.gb-color-buyer-note--nostalgia {
+  background: #dff4ff;
+}
+
+.gb-color-buyer-note blockquote {
+  margin: 0;
+  color: var(--gb-ink);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.48;
+}
+
+.gb-color-buyer-note footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 8px;
+  margin-top: auto;
+  padding-top: 15px;
+  color: #5d594f;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.gb-color-buyer-note footer strong {
+  color: var(--gb-ink);
+  font-weight: 900;
+}
+
+.gb-color-buyer-note footer::before {
+  content: "✓";
+  color: #5f8c3a;
+  font-weight: 900;
+}
+
 .gb-color-details {
   background: linear-gradient(115deg, #eff9ff 0%, var(--gb-paper) 56%, #fff1e4 100%);
 }
@@ -2060,6 +2158,43 @@ button.gb-color-form__submit::after {
   .gb-color-inhand__wide img {
     height: 100%;
     min-height: 0;
+  }
+
+  .gb-color-buyer-notes {
+    margin-top: 25px;
+  }
+
+  .gb-color-buyer-notes__heading {
+    margin-bottom: 11px;
+  }
+
+  .gb-color-buyer-notes__heading h3 {
+    font-size: 20px;
+  }
+
+  .gb-color-buyer-notes__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+  }
+
+  .gb-color-buyer-note {
+    padding: 14px;
+    border-radius: 14px;
+    box-shadow: 3px 4px 0 var(--gb-ink);
+  }
+
+  .gb-color-buyer-note:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .gb-color-buyer-note blockquote {
+    font-size: 12px;
+    line-height: 1.46;
+  }
+
+  .gb-color-buyer-note footer {
+    padding-top: 11px;
+    font-size: 8px;
   }
 
   .gb-color-sticky {
