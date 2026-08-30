@@ -81,7 +81,7 @@
 
 .gb-color-page[data-gb-theme^="women-"] .gb-women-rating-proof {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 17px;
   margin-top: 14px;
@@ -143,12 +143,38 @@
   font-weight: 900;
 }
 
+.gb-women-rating-proof__orders {
+  display: grid;
+  align-content: center;
+  min-width: 118px;
+  padding-left: 17px;
+  border-left: 1px solid rgba(244, 225, 255, 0.2);
+}
+
+.gb-women-rating-proof__orders strong {
+  color: #fffaff;
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.gb-women-rating-proof__orders span {
+  margin-top: 4px;
+  color: rgba(255, 250, 255, 0.76);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.055em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
 .gb-women-rating-inline {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px auto;
   align-items: center;
-  justify-content: center;
-  gap: 5px 8px;
+  gap: 9px;
   margin-bottom: 9px;
   padding: 8px 10px;
   border: 1px solid rgba(72, 48, 91, 0.13);
@@ -158,17 +184,34 @@
   text-align: center;
 }
 
+.gb-women-rating-inline__rating,
+.gb-women-rating-inline__orders {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5px 7px;
+}
+
+.gb-women-rating-inline__divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(72, 48, 91, 0.16);
+}
+
 .gb-women-rating-inline .gb-women-rating-stars {
   font-size: 11px;
 }
 
-.gb-women-rating-inline strong {
+.gb-women-rating-inline__rating strong,
+.gb-women-rating-inline__orders strong {
   color: #24172e;
   font-size: 13px;
   font-weight: 900;
 }
 
-.gb-women-rating-inline > span:last-child {
+.gb-women-rating-inline__rating > span:last-child,
+.gb-women-rating-inline__orders > span:last-child {
   color: #5d4e65;
   font-size: 10px;
   font-weight: 800;
@@ -1237,6 +1280,7 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-rating-proof {
+    grid-template-columns: auto 1fr;
     gap: 14px;
     margin-top: 11px;
     padding: 13px 16px;
@@ -1256,9 +1300,35 @@
     font-size: 11px;
   }
 
+  .gb-women-rating-proof__orders {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 7px;
+    min-width: 0;
+    padding: 10px 0 0;
+    border-top: 1px solid rgba(244, 225, 255, 0.18);
+    border-left: 0;
+  }
+
+  .gb-women-rating-proof__orders strong {
+    font-size: 17px;
+  }
+
+  .gb-women-rating-proof__orders span {
+    margin-top: 0;
+  }
+
   .gb-women-rating-inline {
+    grid-template-columns: 1fr;
     margin-bottom: 8px;
     padding: 7px 9px;
+  }
+
+  .gb-women-rating-inline__divider {
+    width: 100%;
+    height: 1px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
