@@ -5,9 +5,9 @@
   --gb-line: rgba(221, 189, 117, 0.25);
   --gb-gold: #d8b263;
   --gb-gold-light: #f2d79a;
-  --gb-cta: #0b8067;
-  --gb-cta-hover: #08745e;
-  --gb-cta-ink: #ffffff;
+  --gb-cta: #68e2ca;
+  --gb-cta-hover: #7eecd6;
+  --gb-cta-ink: #09241f;
   --gb-shadow: rgba(0, 0, 0, 0.45);
   background:
     radial-gradient(circle at 78% 14%, rgba(216, 178, 99, 0.12), transparent 34rem),

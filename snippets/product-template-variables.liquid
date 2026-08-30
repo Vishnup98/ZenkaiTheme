@@ -1,4 +1,14 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign zenkai_variable_template = product.template_suffix | downcase -%}
+{%- if zenkai_variable_template == 'gympin' and product.selected_variant == blank -%}
+  {%- for zenkai_default_variant in product.variants -%}
+    {%- assign zenkai_default_variant_title = zenkai_default_variant.title | downcase -%}
+    {%- if zenkai_default_variant_title contains 'collector' or zenkai_default_variant_title contains '4 region' or zenkai_default_variant_title contains '4-region' -%}
+      {%- assign current_variant = zenkai_default_variant -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 {%- assign days_price_valid_until = 10 | times: 86400 -%}
 {%- assign gtin_option = 'gtin' -%}
 {%- assign is_barcode_available = false -%}

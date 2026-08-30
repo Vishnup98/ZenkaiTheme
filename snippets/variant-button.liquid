@@ -19,6 +19,17 @@
     {%- assign is_size_option = true -%}
   {% endif %}
   {%- assign option_index = forloop.index -%}
+  {%- assign selected_option_value = option_drop.selected_value -%}
+  {%- if current_variant != blank -%}
+    {%- case option_index -%}
+      {%- when 1 -%}
+        {%- assign selected_option_value = current_variant.option1 -%}
+      {%- when 2 -%}
+        {%- assign selected_option_value = current_variant.option2 -%}
+      {%- when 3 -%}
+        {%- assign selected_option_value = current_variant.option3 -%}
+    {%- endcase -%}
+  {%- endif -%}
   <fieldset class="variant-input-wrap{% if is_color %} variant-input-wrap--color zk-color-picker{% endif %}"
     name="{{ option_drop.name }}"
     data-index="option{{ option_index }}"
@@ -51,7 +62,7 @@
         data-index="option{{ option_index }}"
         data-value="{{ value | escape }}">
         <input type="radio"
-          {% if option.selected_value == value and product.available %} checked="checked"{% endif %}
+          {% if selected_option_value == value and product.available %} checked="checked"{% endif %}
           value="{{ value | escape }}"
           data-index="option{{ option_index }}"
           name="{{ option.name }}"

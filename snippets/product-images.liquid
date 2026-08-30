@@ -6,7 +6,7 @@
 {% endcomment %}
 {%- assign force_jpg = false -%}
 
-{%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+{%- assign featured_media = current_variant.featured_media | default: product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
 
 {% comment %}
   Can set thumbnail position to 'below', but only suggested
