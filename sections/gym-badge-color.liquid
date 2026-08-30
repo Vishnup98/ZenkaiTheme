@@ -591,10 +591,10 @@
         </div>
 
         {%- if gb_offer_quote != blank -%}
-          <figure class="gb-color-buyer-quote">
-            <blockquote>{{ gb_offer_quote | escape }}</blockquote>
-            <figcaption>{{ gb_offer_quote_meta | escape }}</figcaption>
-          </figure>
+          <aside class="gb-color-buyer-quote" aria-label="Buyer review">
+            <p class="gb-color-review__quote">{{ gb_offer_quote | escape }}</p>
+            <p class="gb-color-review__attribution">{{ gb_offer_quote_meta | escape }}</p>
+          </aside>
         {%- endif -%}
 
         <p class="gb-color-gift-note"><strong>{{ gift_note_heading | escape }}</strong> {{ gift_note_body | escape }}</p>
@@ -636,10 +636,10 @@
       </figure>
 
       {%- if gb_inhand_quote != blank -%}
-        <figure class="gb-color-proof-drop gb-color-proof-drop--inhand">
-          <blockquote>{{ gb_inhand_quote | escape }}</blockquote>
-          <figcaption>{{ gb_inhand_quote_meta | escape }}</figcaption>
-        </figure>
+        <aside class="gb-color-proof-drop gb-color-proof-drop--inhand" aria-label="Buyer review">
+          <p class="gb-color-review__quote">{{ gb_inhand_quote | escape }}</p>
+          <p class="gb-color-review__attribution">{{ gb_inhand_quote_meta | escape }}</p>
+        </aside>
       {%- endif -%}
     </div>
   </section>
@@ -823,10 +823,10 @@
           <li>Secure clutch-style backs</li>
         </ul>
         {%- if gb_detail_quote != blank -%}
-          <figure class="gb-color-proof-drop gb-color-proof-drop--compact gb-color-proof-drop--gift">
-            <blockquote>{{ gb_detail_quote | escape }}</blockquote>
-            <figcaption>{{ gb_detail_quote_meta | escape }}</figcaption>
-          </figure>
+          <aside class="gb-color-proof-drop gb-color-proof-drop--compact gb-color-proof-drop--gift" aria-label="Buyer review">
+            <p class="gb-color-review__quote">{{ gb_detail_quote | escape }}</p>
+            <p class="gb-color-review__attribution">{{ gb_detail_quote_meta | escape }}</p>
+          </aside>
         {%- endif -%}
       </div>
     </div>
@@ -839,10 +839,10 @@
         <h2 id="gb-color-collector-title-{{ section.id }}">{{ collector_heading_line_1 | escape }}<br>{{ collector_heading_line_2 | escape }}<br>{{ collector_heading_line_3 | escape }}</h2>
         <p>{{ collector_body | escape }} Get all four for {{ collector_variant.price | money }}{% if collector_has_savings %}—{{ collector_savings_money }} less than buying the boxes separately{% endif %}.</p>
         {%- if gb_collector_quote != blank -%}
-          <figure class="gb-color-proof-drop gb-color-proof-drop--compact gb-color-proof-drop--nostalgia">
-            <blockquote>{{ gb_collector_quote | escape }}</blockquote>
-            <figcaption>{{ gb_collector_quote_meta | escape }}</figcaption>
-          </figure>
+          <aside class="gb-color-proof-drop gb-color-proof-drop--compact gb-color-proof-drop--nostalgia" aria-label="Buyer review">
+            <p class="gb-color-review__quote">{{ gb_collector_quote | escape }}</p>
+            <p class="gb-color-review__attribution">{{ gb_collector_quote_meta | escape }}</p>
+          </aside>
         {%- endif -%}
         <div class="gb-color-collector__stats">
           <div><strong>32</strong><span>badges total</span></div>
@@ -931,10 +931,10 @@
             <h3>Display it.<br>Gift it. Wear it.</h3>
             <p>Small enough to wear. Clean enough to display.</p>
             {%- if gb_lifestyle_quote != blank -%}
-              <figure class="gb-color-proof-drop gb-color-proof-drop--micro gb-color-proof-drop--delight">
-                <blockquote>{{ gb_lifestyle_quote | escape }}</blockquote>
-                <figcaption>{{ gb_lifestyle_quote_meta | escape }}</figcaption>
-              </figure>
+              <aside class="gb-color-proof-drop gb-color-proof-drop--micro gb-color-proof-drop--delight" aria-label="Buyer review">
+                <p class="gb-color-review__quote">{{ gb_lifestyle_quote | escape }}</p>
+                <p class="gb-color-review__attribution">{{ gb_lifestyle_quote_meta | escape }}</p>
+              </aside>
             {%- endif -%}
           </div>
         </article>
