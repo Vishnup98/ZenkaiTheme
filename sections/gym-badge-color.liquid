@@ -1,14 +1,18 @@
 {%- assign collector_variant = blank -%}
 {%- assign collector_variant_index = 0 -%}
 {%- assign single_region_price = 0 -%}
+{%- assign separate_total = 0 -%}
 
 {%- for variant in product.variants -%}
   {%- assign variant_title_downcase = variant.title | downcase -%}
   {%- if variant_title_downcase contains 'collector' or variant_title_downcase contains '4 regions' or variant_title_downcase contains '4 region' -%}
     {%- assign collector_variant = variant -%}
     {%- assign collector_variant_index = forloop.index0 -%}
-  {%- elsif single_region_price == 0 -%}
-    {%- assign single_region_price = variant.price -%}
+  {%- else -%}
+    {%- assign separate_total = separate_total | plus: variant.price -%}
+    {%- if single_region_price == 0 -%}
+      {%- assign single_region_price = variant.price -%}
+    {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
 
@@ -17,9 +21,11 @@
 {%- endif -%}
 
 {%- assign current_variant = collector_variant -%}
-{%- if product.selected_variant != blank -%}
-  {%- assign current_variant = product.selected_variant -%}
-{%- endif -%}
+{%- unless section.settings.force_collector -%}
+  {%- if product.selected_variant != blank -%}
+    {%- assign current_variant = product.selected_variant -%}
+  {%- endif -%}
+{%- endunless -%}
 {%- unless current_variant.available -%}
   {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- endunless -%}
@@ -32,7 +38,12 @@
   {%- endif -%}
 {%- endfor -%}
 
-{%- assign separate_total = single_region_price | times: 4 -%}
+{%- assign collector_savings = separate_total | minus: collector_variant.price -%}
+{%- assign collector_has_savings = false -%}
+{%- if collector_savings > 0 -%}
+  {%- assign collector_has_savings = true -%}
+{%- endif -%}
+{%- assign collector_savings_money = collector_savings | money -%}
 {%- assign current_is_collector = false -%}
 {%- if current_variant.id == collector_variant.id -%}
   {%- assign current_is_collector = true -%}
@@ -47,10 +58,305 @@
 {%- assign collector_story_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/collector_hero_desktop.jpg?v=1779355245' -%}
 {%- assign quality_story_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/quality_desktop.jpg?v=1779355937' -%}
 {%- assign lifestyle_story_url = 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/lifestyle_desktop.png?v=1779357560' -%}
-{%- assign hero_eyebrow = section.settings.hero_eyebrow | default: 'The complete four-region collection' -%}
-{%- assign hero_heading_line_1 = section.settings.hero_heading_line_1 | default: 'The OG Four.' -%}
-{%- assign hero_heading_line_2 = section.settings.hero_heading_line_2 | default: 'All 32.' -%}
-{%- assign hero_lede = section.settings.hero_lede | default: 'Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, ready for the shelf.' -%}
+{%- assign landing_variant = section.settings.landing_variant | default: 'standard' -%}
+{%- assign page_theme = landing_variant -%}
+{%- assign hero_eyebrow = 'The complete four-region collection' -%}
+{%- assign hero_heading_line_1 = 'The OG Four.' -%}
+{%- assign hero_heading_line_2 = 'All 32.' -%}
+{%- assign hero_lede = 'Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, ready for the shelf.' -%}
+{%- assign gift_note_heading = 'Easy gift. Zero size guessing.' -%}
+{%- assign gift_note_body = 'Four bright chapters, already boxed and ready to open.' -%}
+{%- assign angle_eyebrow = 'Why collectors choose all four' -%}
+{%- assign angle_heading = 'Four chapters feel different together.' -%}
+{%- assign angle_body = 'A favorite region is a memory. The full four-region run turns those memories into one deliberate collection.' -%}
+{%- assign angle_card_1_title = 'Nothing skipped' -%}
+{%- assign angle_card_1_body = 'Kanto, Johto, Hoenn, and Sinnoh together in chronological order.' -%}
+{%- assign angle_card_2_title = 'Made to display' -%}
+{%- assign angle_card_2_body = 'Four fitted presentation boxes keep every regional set organized.' -%}
+{%- assign angle_card_3_title = 'Better together' -%}
+{%- if collector_has_savings -%}
+  {%- assign angle_card_3_body = 'Get all four together and save ' | append: collector_savings_money | append: ' compared with four separate boxes.' -%}
+{%- else -%}
+  {%- assign angle_card_3_body = 'Get all four regions together in one complete Collector Pack.' -%}
+{%- endif -%}
+{%- assign angle_card_4_title = blank -%}
+{%- assign angle_card_4_body = blank -%}
+{%- assign regions_eyebrow = 'A collection in four chapters' -%}
+{%- assign regions_heading_line_1 = 'The OG four,' -%}
+{%- assign regions_heading_line_2 = 'side by side.' -%}
+{%- assign regions_body = 'Each box has its own color rhythm. The Collector Pack is where the full lineup clicks into place.' -%}
+{%- assign collector_eyebrow = 'The best view is all four' -%}
+{%- assign collector_heading_line_1 = 'One shelf.' -%}
+{%- assign collector_heading_line_2 = 'Four chapters.' -%}
+{%- assign collector_heading_line_3 = 'Nothing missing.' -%}
+{%- assign collector_body = 'The Collector Pack puts Kanto, Johto, Hoenn, and Sinnoh together in one purchase.' -%}
+{%- assign featured_eyebrow = "Collector's pack" -%}
+{%- assign featured_heading_line_1 = '32 badges.' -%}
+{%- assign featured_heading_line_2 = '4 boxed sets.' -%}
+{%- if collector_has_savings -%}
+  {%- assign featured_heading_line_3 = 'Save ' | append: collector_savings_money | append: '.' -%}
+{%- else -%}
+  {%- assign featured_heading_line_3 = 'One complete set.' -%}
+{%- endif -%}
+{%- assign featured_body = 'Four boxed sets, one complete badge run. Built for the shelf, the bag, or the collector who wants the full map.' -%}
+
+{%- case landing_variant -%}
+  {%- when 'women' -%}
+    {%- assign hero_eyebrow = 'For women who grew up collecting' -%}
+    {%- assign hero_heading_line_1 = 'You never outgrew' -%}
+    {%- assign hero_heading_line_2 = 'the badge hunt.' -%}
+    {%- assign hero_lede = 'You just made room for the complete four-region collection—32 glossy enamel badges, organized in four fitted boxes and ready for your shelf.' -%}
+    {%- assign gift_note_heading = 'The nostalgia stayed.' -%}
+    {%- assign gift_note_body = 'Now it has a place to live.' -%}
+    {%- assign angle_eyebrow = 'Made for your shelf' -%}
+    {%- assign angle_heading = 'A collection that still feels like yours.' -%}
+    {%- assign angle_body = 'Kanto, Johto, Hoenn, and Sinnoh—together in one bright, display-ready set.' -%}
+    {%- assign angle_card_1_title = 'Choose it for yourself' -%}
+    {%- assign angle_card_1_body = 'No occasion required. Just the complete four-region set you always wanted.' -%}
+    {%- assign angle_card_2_title = 'All four, in order' -%}
+    {%- assign angle_card_2_body = 'Thirty-two badges from Kanto through Sinnoh, organized across four fitted boxes.' -%}
+    {%- assign angle_card_3_title = 'Made to be seen' -%}
+    {%- assign angle_card_3_body = 'Glossy enamel and polished metal edges bring every familiar shape to life.' -%}
+    {%- assign collector_eyebrow = 'The collection we wanted then' -%}
+    {%- assign collector_heading_line_1 = 'Every badge.' -%}
+    {%- assign collector_heading_line_2 = 'Every chapter.' -%}
+    {%- assign collector_heading_line_3 = 'Finally together.' -%}
+    {%- assign featured_heading_line_3 = 'Made to show.' -%}
+    {%- assign featured_body = 'The original four-region run, boxed by chapter and ready for the space that finally feels like yours.' -%}
+  {%- when 'gift-daughter' -%}
+    {%- assign hero_eyebrow = 'A surprisingly specific gift' -%}
+    {%- assign hero_heading_line_1 = 'A gift for the daughter' -%}
+    {%- assign hero_heading_line_2 = 'who remembers every badge.' -%}
+    {%- assign hero_lede = 'Four original regions, 32 hard-enamel badges, and no size guessing—the collection she will not expect someone else to find.' -%}
+    {%- assign gift_note_heading = 'No size guessing.' -%}
+    {%- assign gift_note_body = 'Four fitted presentation boxes make it feel like a real gift before the first one is opened.' -%}
+    {%- assign angle_eyebrow = 'A gift that feels personal' -%}
+    {%- assign angle_heading = 'She’ll know you paid attention.' -%}
+    {%- assign angle_body = 'The four original regions make it instantly recognizable, while 32 badges across four boxes make it feel like a real collector gift.' -%}
+    {%- assign angle_card_1_title = 'Chosen for her' -%}
+    {%- assign angle_card_1_body = 'A familiar four-region collection instead of another generic gaming gift.' -%}
+    {%- assign angle_card_2_title = 'A full unboxing moment' -%}
+    {%- assign angle_card_2_body = 'Four fitted boxes reveal the collection one region at a time.' -%}
+    {%- assign angle_card_3_title = 'Easy to get right' -%}
+    {%- assign angle_card_3_body = 'No apparel size, fit, or color preference to guess.' -%}
+    {%- assign collector_eyebrow = 'A gift with the whole story' -%}
+    {%- assign collector_heading_line_1 = 'Four regions.' -%}
+    {%- assign collector_heading_line_2 = 'Thirty-two badges.' -%}
+    {%- assign collector_heading_line_3 = 'Nothing missing.' -%}
+    {%- assign featured_heading_line_3 = 'One real gift.' -%}
+    {%- assign featured_body = 'Four fitted boxes turn a familiar collection into a gift that looks thoughtful before it is even opened.' -%}
+  {%- when 'gift-son' -%}
+    {%- assign hero_eyebrow = 'For the son who is hard to surprise' -%}
+    {%- assign hero_heading_line_1 = 'A gift for the son' -%}
+    {%- assign hero_heading_line_2 = 'who remembers the badge hunt.' -%}
+    {%- assign hero_lede = 'All 32 from the original four-region run, organized across four fitted boxes and ready to display.' -%}
+    {%- assign gift_note_heading = 'Something beyond another game.' -%}
+    {%- assign gift_note_body = 'Give him the four-region collection he may not expect to unwrap.' -%}
+    {%- assign angle_eyebrow = 'A gift he will not expect' -%}
+    {%- assign angle_heading = 'Give him something he will not already have.' -%}
+    {%- assign angle_body = 'The badges he remembers, collected across four fitted boxes and ready for the shelf—without guessing a clothing size.' -%}
+    {%- assign angle_card_1_title = 'The badges he remembers' -%}
+    {%- assign angle_card_1_body = 'All 32 from the original four-region run, collected in one place.' -%}
+    {%- assign angle_card_2_title = 'Four boxes to open' -%}
+    {%- assign angle_card_2_body = 'Four fitted presentation boxes arrive organized by region.' -%}
+    {%- assign angle_card_3_title = 'No sizing problem' -%}
+    {%- assign angle_card_3_body = 'A collector gift without guessing fit, color, or fabric.' -%}
+    {%- assign collector_eyebrow = 'A collection he may not expect' -%}
+    {%- assign collector_heading_line_1 = 'The memories are there.' -%}
+    {%- assign collector_heading_line_2 = 'Now the badges' -%}
+    {%- assign collector_heading_line_3 = 'can be too.' -%}
+    {%- assign featured_heading_line_3 = 'Ready for his shelf.' -%}
+    {%- assign featured_body = 'The original four-region run in four fitted boxes—recognizable, complete, and ready to display.' -%}
+  {%- when 'gift-girlfriend' -%}
+    {%- assign hero_eyebrow = 'For the girlfriend who is hard to surprise' -%}
+    {%- assign hero_heading_line_1 = 'A gift for the girlfriend' -%}
+    {%- assign hero_heading_line_2 = 'who never forgot the badge hunt.' -%}
+    {%- assign hero_lede = 'The original four-region badge collection—32 glossy hard-enamel badges across four fitted presentation boxes.' -%}
+    {%- assign gift_note_heading = 'Specific enough to feel personal.' -%}
+    {%- assign gift_note_body = 'Complete enough to feel like a real collector gift.' -%}
+    {%- assign angle_eyebrow = 'A gift that says more' -%}
+    {%- assign angle_heading = 'The gift that says, “I actually know what you like.”' -%}
+    {%- assign angle_body = 'Not a generic reference or another shirt. This is the complete collection she remembers, presented as one intentional gift.' -%}
+    {%- assign angle_card_1_title = 'She’ll recognize it instantly' -%}
+    {%- assign angle_card_1_body = 'The original four regions make it clear that this was chosen for her.' -%}
+    {%- assign angle_card_2_title = 'All 32, not one loose pin' -%}
+    {%- assign angle_card_2_body = 'Four fitted boxes turn a small collectible into a complete gift.' -%}
+    {%- assign angle_card_3_title = 'No size guessing' -%}
+    {%- assign angle_card_3_body = 'A personal gift without guessing a size, fit, or favorite color.' -%}
+    {%- assign collector_eyebrow = 'The one she will not expect' -%}
+    {%- assign collector_heading_line_1 = 'Personal.' -%}
+    {%- assign collector_heading_line_2 = 'Complete.' -%}
+    {%- assign collector_heading_line_3 = 'Ready to give.' -%}
+    {%- assign featured_heading_line_3 = 'Ready to surprise her.' -%}
+    {%- assign featured_body = 'Four fitted boxes and all 32 badges make the collection feel deliberate, specific, and complete.' -%}
+  {%- when 'gift-boyfriend' -%}
+    {%- assign hero_eyebrow = 'For the fan who is hard to surprise' -%}
+    {%- assign hero_heading_line_1 = 'A gift for the boyfriend' -%}
+    {%- assign hero_heading_line_2 = 'who still remembers the badges.' -%}
+    {%- assign hero_lede = 'Four regions. Thirty-two hard-enamel badges. One gift he will not expect you to find.' -%}
+    {%- assign gift_note_heading = 'No sizing. No guesswork.' -%}
+    {%- assign gift_note_body = 'Just the four-region collection he remembers earning.' -%}
+    {%- assign angle_eyebrow = 'A gift that feels personal' -%}
+    {%- assign angle_heading = 'Give him the collection he remembers earning.' -%}
+    {%- assign angle_body = 'All 32 badges from the original four regions arrive organized, display-ready, and unmistakably chosen for him.' -%}
+    {%- assign angle_card_1_title = 'He’ll know what they mean' -%}
+    {%- assign angle_card_1_body = 'The badges he remembers, presented together in chronological order.' -%}
+    {%- assign angle_card_2_title = 'All 32 in one gift' -%}
+    {%- assign angle_card_2_body = 'Four fitted boxes make the collection feel complete when it is opened.' -%}
+    {%- assign angle_card_3_title = 'No size to guess' -%}
+    {%- assign angle_card_3_body = 'A collector gift that avoids the usual apparel sizing problem.' -%}
+    {%- assign collector_eyebrow = 'The collection he remembers earning' -%}
+    {%- assign collector_heading_line_1 = 'Four regions.' -%}
+    {%- assign collector_heading_line_2 = 'Every badge.' -%}
+    {%- assign collector_heading_line_3 = 'One specific gift.' -%}
+    {%- assign featured_heading_line_3 = 'Ready for his shelf.' -%}
+    {%- assign featured_body = 'Give him the original four-region collection in four fitted boxes, ready for the shelf or display case.' -%}
+  {%- when 'gift' -%}
+    {%- assign hero_eyebrow = 'One very specific gift' -%}
+    {%- assign hero_heading_line_1 = 'The gift that says,' -%}
+    {%- assign hero_heading_line_2 = '“I actually know what you like.”' -%}
+    {%- assign hero_lede = 'The complete four-region collection—32 glossy hard-enamel badges across four fitted presentation boxes.' -%}
+    {%- assign gift_note_heading = 'No size guessing.' -%}
+    {%- assign gift_note_body = 'Just one complete, recognizable collection.' -%}
+    {%- assign angle_eyebrow = 'Why it feels personal' -%}
+    {%- assign angle_heading = 'A gift they’ll recognize instantly.' -%}
+    {%- assign angle_body = 'Thirty-two familiar badges and four fitted boxes make this feel thoughtful, complete, and ready to open.' -%}
+    {%- assign angle_card_1_title = 'They’ll recognize it instantly' -%}
+    {%- assign angle_card_1_body = 'Four familiar regions and all 32 badges make the reference clear.' -%}
+    {%- assign angle_card_2_title = 'Four boxes to open' -%}
+    {%- assign angle_card_2_body = 'Each regional set arrives in its own fitted presentation box.' -%}
+    {%- assign angle_card_3_title = 'No size to guess' -%}
+    {%- assign angle_card_3_body = 'A personal gift without having to guess apparel fit or style.' -%}
+    {%- assign collector_eyebrow = 'One gift, the whole story' -%}
+    {%- assign collector_heading_line_1 = 'Four regions.' -%}
+    {%- assign collector_heading_line_2 = 'Four boxes.' -%}
+    {%- assign collector_heading_line_3 = 'All 32.' -%}
+    {%- assign featured_heading_line_3 = 'One specific gift.' -%}
+    {%- assign featured_body = 'The whole four-region run arrives organized, display-ready, and unmistakably chosen on purpose.' -%}
+  {%- when 'completion' -%}
+    {%- assign hero_eyebrow = '32 of 32 · Nothing missing' -%}
+    {%- assign hero_heading_line_1 = 'The complete four-region' -%}
+    {%- assign hero_heading_line_2 = 'badge collection.' -%}
+    {%- assign hero_lede = 'Kanto, Johto, Hoenn, and Sinnoh—eight glossy hard-enamel badges from each region, 32 total.' -%}
+    {%- assign gift_note_heading = 'Complete the original four.' -%}
+    {%- assign gift_note_body = 'All 32 badges arrive together in one order.' -%}
+    {%- assign angle_eyebrow = '32 of 32' -%}
+    {%- assign angle_heading = 'The last empty space disappears.' -%}
+    {%- assign angle_body = 'No half-finished display and no favorite region left behind. Every badge from the original four-region run arrives together.' -%}
+    {%- assign angle_card_1_title = '8 / 32 · Kanto' -%}
+    {%- assign angle_card_1_body = 'Where the journey started.' -%}
+    {%- assign angle_card_2_title = '16 / 32 · Johto' -%}
+    {%- assign angle_card_2_body = 'The world opened up.' -%}
+    {%- assign angle_card_3_title = '24 / 32 · Hoenn' -%}
+    {%- assign angle_card_3_body = 'A new map, another eight.' -%}
+    {%- assign angle_card_4_title = '32 / 32 · Sinnoh' -%}
+    {%- assign angle_card_4_body = 'The classic run, complete.' -%}
+    {%- assign collector_eyebrow = 'Nothing missing' -%}
+    {%- assign collector_heading_line_1 = 'One order.' -%}
+    {%- assign collector_heading_line_2 = 'Four regions.' -%}
+    {%- assign collector_heading_line_3 = '32 of 32.' -%}
+  {%- when 'collection' -%}
+    {%- assign hero_eyebrow = 'From souvenir to collection' -%}
+    {%- assign hero_heading_line_1 = 'One box is a souvenir.' -%}
+    {%- assign hero_heading_line_2 = 'Four is the collection.' -%}
+    {%- assign hero_lede = 'Go beyond one favorite region. Own the complete 32-badge run from Kanto through Sinnoh across four fitted presentation boxes.' -%}
+    {%- assign gift_note_heading = 'One favorite is a memory.' -%}
+    {%- assign gift_note_body = 'All four together become the collection.' -%}
+    {%- assign angle_eyebrow = 'Why all four belong together' -%}
+    {%- assign angle_heading = 'One region starts the shelf. Four complete it.' -%}
+    {%- assign angle_body = 'Kanto, Johto, Hoenn, and Sinnoh come together as one chronological, display-ready collection.' -%}
+    {%- assign angle_card_1_title = 'One region' -%}
+    {%- assign angle_card_1_body = 'A favorite souvenir from one part of the journey.' -%}
+    {%- assign angle_card_2_title = 'Four regions' -%}
+    {%- assign angle_card_2_body = 'The whole original story, organized from Kanto through Sinnoh.' -%}
+    {%- assign angle_card_3_title = 'The full run' -%}
+    {%- assign angle_card_3_body = 'Thirty-two polished badges across four fitted boxes.' -%}
+  {%- when 'og-four' -%}
+    {%- assign hero_eyebrow = 'Kanto · Johto · Hoenn · Sinnoh' -%}
+    {%- assign hero_heading_line_1 = 'The 32 badges you remember.' -%}
+    {%- assign hero_heading_line_2 = 'Finally together.' -%}
+    {%- assign hero_lede = 'Eight glossy hard-enamel badges from each of the original four regions, collected across four fitted presentation boxes.' -%}
+    {%- assign gift_note_heading = 'The original four.' -%}
+    {%- assign gift_note_body = 'The chapters that made the collection unforgettable.' -%}
+    {%- assign angle_eyebrow = 'The classic run' -%}
+    {%- assign angle_heading = 'Complete across Kanto, Johto, Hoenn, and Sinnoh.' -%}
+    {%- assign angle_body = 'Four regions in chronological order, from the first badge remembered to the final chapter of the classic run.' -%}
+    {%- assign angle_card_1_title = '01 · Kanto' -%}
+    {%- assign angle_card_1_body = 'Where the journey started.' -%}
+    {%- assign angle_card_2_title = '02 · Johto' -%}
+    {%- assign angle_card_2_body = 'The world opened up.' -%}
+    {%- assign angle_card_3_title = '03 · Hoenn' -%}
+    {%- assign angle_card_3_body = 'A new map, another eight.' -%}
+    {%- assign angle_card_4_title = '04 · Sinnoh' -%}
+    {%- assign angle_card_4_body = 'The original four-region run, complete.' -%}
+{%- endcase -%}
+
+{%- assign gb_quote_delivery_gift = 'They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.' -%}
+{%- assign gb_quote_nostalgia = "Wauw they look amazing … and it brings great nostalgia. Let's go to the elite four." -%}
+{%- assign gb_quote_quality_gift = 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.' -%}
+{%- assign gb_quote_son = 'My son loved it!' -%}
+{%- assign gb_quote_pretty_gift = 'Very pretty and nice material too, perfect for gifting.' -%}
+
+{%- assign gb_offer_quote = gb_quote_nostalgia -%}
+{%- assign gb_offer_quote_meta = 'S.P. · Customer review' -%}
+{%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+{%- assign gb_inhand_quote_meta = 'Customer review' -%}
+{%- assign gb_detail_quote = gb_quote_pretty_gift -%}
+{%- assign gb_detail_quote_meta = 'Customer review' -%}
+{%- assign gb_collector_quote = gb_quote_nostalgia -%}
+{%- assign gb_collector_quote_meta = 'S.P. · Customer review' -%}
+{%- assign gb_lifestyle_quote = gb_quote_son -%}
+{%- assign gb_lifestyle_quote_meta = 'Customer review' -%}
+
+{%- case landing_variant -%}
+  {%- when 'women' -%}
+    {%- assign gb_offer_quote = gb_quote_nostalgia -%}
+    {%- assign gb_offer_quote_meta = 'S.P. · Customer review' -%}
+    {%- assign gb_inhand_quote = blank -%}
+    {%- assign gb_detail_quote = blank -%}
+    {%- assign gb_collector_quote = blank -%}
+    {%- assign gb_lifestyle_quote = blank -%}
+  {%- when 'gift-daughter', 'gift-girlfriend' -%}
+    {%- assign gb_offer_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_inhand_quote = blank -%}
+    {%- assign gb_detail_quote = blank -%}
+    {%- assign gb_collector_quote = blank -%}
+    {%- assign gb_lifestyle_quote = blank -%}
+  {%- when 'gift-son' -%}
+    {%- assign gb_offer_quote = gb_quote_son -%}
+    {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+    {%- assign gb_detail_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_lifestyle_quote = gb_quote_delivery_gift -%}
+    {%- assign gb_lifestyle_quote_meta = 'Oliver S. · Customer review' -%}
+  {%- when 'gift-boyfriend' -%}
+    {%- assign gb_offer_quote = gb_quote_quality_gift -%}
+    {%- assign gb_inhand_quote = blank -%}
+    {%- assign gb_detail_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_lifestyle_quote = blank -%}
+  {%- when 'gift' -%}
+    {%- assign gb_offer_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+    {%- assign gb_detail_quote = blank -%}
+    {%- assign gb_collector_quote = blank -%}
+    {%- assign gb_lifestyle_quote = gb_quote_delivery_gift -%}
+    {%- assign gb_lifestyle_quote_meta = 'Oliver S. · Customer review' -%}
+  {%- when 'completion', 'collection', 'og-four' -%}
+    {%- assign gb_offer_quote = gb_quote_nostalgia -%}
+    {%- assign gb_offer_quote_meta = 'S.P. · Customer review' -%}
+    {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+    {%- assign gb_detail_quote = blank -%}
+    {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_lifestyle_quote = blank -%}
+{%- endcase -%}
+
+{%- if section.settings.hero_eyebrow != blank -%}{%- assign hero_eyebrow = section.settings.hero_eyebrow -%}{%- endif -%}
+{%- if section.settings.hero_heading_line_1 != blank -%}{%- assign hero_heading_line_1 = section.settings.hero_heading_line_1 -%}{%- endif -%}
+{%- if section.settings.hero_heading_line_2 != blank -%}{%- assign hero_heading_line_2 = section.settings.hero_heading_line_2 -%}{%- endif -%}
+{%- if section.settings.hero_lede != blank -%}{%- assign hero_lede = section.settings.hero_lede -%}{%- endif -%}
+{%- assign hero_asset = section.settings.hero_asset | strip -%}
+{%- assign hero_alt = section.settings.hero_alt | default: 'All 32 glossy hard-enamel badges arranged in chronological order from Kanto through Sinnoh' -%}
 
 {{ 'gym-badge-color.css' | asset_url | stylesheet_tag }}
 
@@ -63,24 +369,43 @@
   data-enable-history-state="false"
   data-variant-type="button"
   data-product-category="pin"
-  data-collector-variant-id="{{ collector_variant.id }}">
+  data-collector-variant-id="{{ collector_variant.id }}"
+  data-gb-landing-variant="{{ landing_variant | escape }}"
+  data-gb-theme="{{ page_theme | escape }}"
+  data-gb-force-collector="{% if section.settings.force_collector %}true{% else %}false{% endif %}"
+  data-gb-direct-checkout="{% if section.settings.direct_checkout %}true{% else %}false{% endif %}">
 
   <div class="gb-color-page__orb gb-color-page__orb--one" aria-hidden="true"></div>
   <div class="gb-color-page__orb gb-color-page__orb--two" aria-hidden="true"></div>
 
   <div class="gb-color-shell">
-    <nav class="gb-color-breadcrumb" aria-label="Breadcrumb">
-      <a href="{{ routes.root_url }}">Home</a>
-      <span aria-hidden="true">/</span>
-      <a href="{{ routes.all_products_collection_url }}">All products</a>
-      <span aria-hidden="true">/</span>
-      <span aria-current="page">{{ product.title }}</span>
-    </nav>
+    {%- unless section.settings.direct_checkout -%}
+      <nav class="gb-color-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="{{ routes.all_products_collection_url }}">All products</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">32-Badge Collector Pack</span>
+      </nav>
+    {%- endunless -%}
 
     <section class="gb-color-hero" aria-labelledby="gb-color-title-{{ section.id }}">
       <div class="gb-color-gallery" data-gb-color-gallery>
-        <div class="gb-color-gallery__stage">
-          {%- if current_media != blank -%}
+        <div class="gb-color-gallery__stage{% if hero_asset != blank %} gb-color-gallery__stage--portrait{% endif %}">
+          {%- if hero_asset != blank -%}
+            <img
+              class="gb-color-gallery__main"
+              src="{{ hero_asset | asset_img_url: '1400x' }}"
+              srcset="{{ hero_asset | asset_img_url: '720x' }} 720w, {{ hero_asset | asset_img_url: '1100x' }} 1100w, {{ hero_asset | asset_img_url: '1400x' }} 1400w, {{ hero_asset | asset_url }} 2000w"
+              sizes="(min-width: 990px) 56vw, 100vw"
+              width="2000"
+              height="2500"
+              alt="{{ hero_alt | escape }}"
+              loading="eager"
+              fetchpriority="high"
+              data-gb-color-main-image
+              data-gb-color-custom-hero>
+          {%- elsif current_media != blank -%}
             <img
               class="gb-color-gallery__main"
               src="{{ current_media.preview_image | image_url: width: 1600 }}"
@@ -103,7 +428,7 @@
           </div>
         </div>
 
-        {%- if product.media.size > 1 -%}
+        {%- if section.settings.show_gallery_thumbs and product.media.size > 1 -%}
           <div class="gb-color-gallery__thumbs" aria-label="Product gallery">
             {%- if collector_media != blank -%}
               <button
@@ -159,9 +484,9 @@
 
         <div class="gb-color-primary-purchase">
           <div class="gb-color-price" data-gb-color-price-wrap data-price-wrapper>
-            <s data-gb-color-compare data-product-price-compare{% unless current_is_collector %} hidden{% endunless %}>{{ separate_total | money }}</s>
+            <s data-gb-color-compare data-product-price-compare{% unless current_is_collector and collector_has_savings %} hidden{% endunless %}>{{ separate_total | money }}</s>
             <span data-gb-color-price data-product-price>{{ current_variant.price | money }}</span>
-            <em class="medium-up--hide" data-gb-color-saving{% unless current_is_collector %} hidden{% endunless %}>Save $20</em>
+            <em class="medium-up--hide" data-gb-color-saving data-gb-has-savings="{% if collector_has_savings %}true{% else %}false{% endif %}"{% unless current_is_collector and collector_has_savings %} hidden{% endunless %}>{% if collector_has_savings %}Save {{ collector_savings_money }}{% endif %}</em>
             <small data-gb-color-price-note>
               {%- if current_is_collector -%}Collector Pack · 32 badges · 4 fitted boxes{%- else -%}8-badge regional set{%- endif -%}
             </small>
@@ -185,22 +510,23 @@
               {% unless current_variant.available %}disabled{% endunless %}>
               <span data-add-to-cart-text data-gb-color-submit-text>
                 {%- if current_variant.available -%}
-                  {%- if current_is_collector -%}Add all 32 — {{ current_variant.price | money }}{%- else -%}Add {{ current_variant.title }} — {{ current_variant.price | money }}{%- endif -%}
+                  {%- if current_is_collector -%}Get All 32 — {{ current_variant.price | money }}{%- else -%}Get {{ current_variant.title }} — {{ current_variant.price | money }}{%- endif -%}
                 {%- else -%}
                   Sold out
                 {%- endif -%}
               </span>
             </button>
 
-            <p class="gb-color-form__confidence">Free U.S. shipping · Ships in 1–2 business days</p>
+            <p class="gb-color-form__confidence">Free U.S. shipping · Secure checkout · Typical U.S. delivery: 1 business week</p>
 
+            {%- unless section.settings.force_collector -%}
             <div class="gb-color-choice" aria-label="Collector Pack selection">
               <div class="gb-color-choice__heading">
                 <div>
                   <span>Best value</span>
                   <strong>All 4 Regions</strong>
                 </div>
-                <em>Save $20</em>
+                <em>{% if collector_has_savings %}Save {{ collector_savings_money }}{% else %}All four{% endif %}</em>
               </div>
 
               <button
@@ -212,7 +538,7 @@
                 data-variant-title="{{ collector_variant.title | escape }}"
                 data-price="{{ collector_variant.price | money | escape }}"
                 data-price-note="Collector Pack · 32 badges · 4 fitted boxes"
-                data-compare="{{ separate_total | money | escape }}"
+                data-compare="{% if collector_has_savings %}{{ separate_total | money | escape }}{% endif %}"
                 data-is-collector="true"
                 data-media-id="{{ collector_media.id }}"
                 data-image-src="{{ collector_media.preview_image | image_url: width: 1600 }}"
@@ -230,27 +556,39 @@
                 </span>
               </button>
             </div>
+            {%- endunless -%}
 
             <div class="hide" aria-hidden="true" data-variant-json>{{ product.variants | json }}</div>
           {%- endform -%}
         </div>
 
         <div class="gb-color-trust" aria-label="Order highlights">
-          <span><b aria-hidden="true">✓</b> 2,200+ orders shipped</span>
+          <span><b aria-hidden="true">✓</b> 32 badges · 4 fitted boxes</span>
           <span><b aria-hidden="true">✓</b> Free U.S. shipping</span>
           <span><b aria-hidden="true">✓</b> Secure checkout</span>
         </div>
 
-        <p class="gb-color-gift-note"><strong>Easy gift. Zero size guessing.</strong> Four bright chapters, already boxed and ready to open.</p>
+        {%- if gb_offer_quote != blank -%}
+          <figure class="gb-color-buyer-quote">
+            <blockquote>“{{ gb_offer_quote | escape }}”</blockquote>
+            <figcaption>{{ gb_offer_quote_meta | escape }}</figcaption>
+          </figure>
+        {%- endif -%}
+
+        <p class="gb-color-gift-note"><strong>{{ gift_note_heading | escape }}</strong> {{ gift_note_body | escape }}</p>
+
+        <p class="gb-color-policy-note">Damaged, missing, incorrect, or not as described? We’ll make it right. <a href="/pages/policy">Full collector policy</a>.</p>
       </div>
     </section>
   </div>
 
+  <p class="gb-color-checkout-status" data-gb-color-checkout-status role="status" aria-live="polite" hidden></p>
+
   <section class="gb-color-inhand" aria-labelledby="gb-color-inhand-title-{{ section.id }}">
     <div class="gb-color-shell">
       <div class="gb-color-inhand__heading">
-        <div><p class="gb-color-pill">Seen in the wild</p><h2 id="gb-color-inhand-title-{{ section.id }}">Actually in hand.</h2></div>
-        <p>Real scale, real shine, and a few good answers to “where would I put them?”</p>
+        <div><p class="gb-color-pill">Real collector photos</p><h2 id="gb-color-inhand-title-{{ section.id }}">Actually in hand.</h2></div>
+        <p>Boxed, displayed, and close enough to see the enamel finish.</p>
       </div>
       <div class="gb-color-inhand__track">
         <figure>
@@ -275,7 +613,46 @@
         <figcaption>Up close</figcaption>
       </figure>
 
-      {% render 'gym-badge-buyer-notes', section_id: section.id %}
+      {%- if gb_inhand_quote != blank -%}
+        <figure class="gb-color-proof-drop gb-color-proof-drop--inhand">
+          <blockquote>“{{ gb_inhand_quote | escape }}”</blockquote>
+          <figcaption>{{ gb_inhand_quote_meta | escape }}</figcaption>
+        </figure>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="gb-color-angle" aria-labelledby="gb-color-angle-title-{{ section.id }}">
+    <div class="gb-color-shell">
+      <div class="gb-color-angle__intro">
+        <p class="gb-color-pill">{{ angle_eyebrow | escape }}</p>
+        <h2 id="gb-color-angle-title-{{ section.id }}">{{ angle_heading | escape }}</h2>
+        <p>{{ angle_body | escape }}</p>
+      </div>
+      <div class="gb-color-angle__grid{% if angle_card_4_title != blank %} gb-color-angle__grid--four{% endif %}">
+        <article>
+          <span>01</span>
+          <h3>{{ angle_card_1_title | escape }}</h3>
+          <p>{{ angle_card_1_body | escape }}</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>{{ angle_card_2_title | escape }}</h3>
+          <p>{{ angle_card_2_body | escape }}</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>{{ angle_card_3_title | escape }}</h3>
+          <p>{{ angle_card_3_body | escape }}</p>
+        </article>
+        {%- if angle_card_4_title != blank -%}
+          <article>
+            <span>04</span>
+            <h3>{{ angle_card_4_title | escape }}</h3>
+            <p>{{ angle_card_4_body | escape }}</p>
+          </article>
+        {%- endif -%}
+      </div>
     </div>
   </section>
 
@@ -283,10 +660,10 @@
     <div class="gb-color-shell">
       <div class="gb-color-section-intro">
         <div>
-          <p class="gb-color-pill">A collection in four chapters</p>
-          <h2 id="gb-color-regions-title-{{ section.id }}">The OG four,<br>side by side.</h2>
+          <p class="gb-color-pill">{{ regions_eyebrow | escape }}</p>
+          <h2 id="gb-color-regions-title-{{ section.id }}">{{ regions_heading_line_1 | escape }}<br>{{ regions_heading_line_2 | escape }}</h2>
         </div>
-        <p>Each box has its own color rhythm. The Collector Pack is where the full lineup clicks into place.</p>
+        <p>{{ regions_body | escape }}</p>
       </div>
 
       <div class="gb-color-region-grid">
@@ -365,7 +742,7 @@
                       data-image-srcset="{{ variant_media.preview_image | image_url: width: 720 }} 720w, {{ variant_media.preview_image | image_url: width: 1100 }} 1100w, {{ variant_media.preview_image | image_url: width: 1600 }} 1600w"
                       data-image-alt="{{ variant_media.alt | default: variant.title | escape }}"
                       {% unless variant.available %}disabled{% endunless %}>
-                      {%- if variant.available -%}Add {{ variant.title }} — {{ variant.price | money }}{%- else -%}Sold out{%- endif -%}
+                      {%- if variant.available -%}Get {{ variant.title }} — {{ variant.price | money }}{%- else -%}Sold out{%- endif -%}
                     </button>
                   </div>
                 </article>
@@ -392,12 +769,18 @@
       <div class="gb-color-detail__copy">
         <p class="gb-color-eyebrow">Color worth getting close to</p>
         <h2 id="gb-color-detail-title-{{ section.id }}">The badges do the talking.</h2>
-        <p>Black display foam gives every color a clean stage. Up close, the polished edges and glossy enamel keep the shapes crisp without making the page feel like a trophy room.</p>
+        <p>Black display foam gives every color a clean stage. Up close, polished edges and glossy enamel keep every familiar shape crisp.</p>
         <ul>
           <li>Glossy hard-enamel color</li>
           <li>Raised polished-metal edges</li>
           <li>Secure clutch-style backs</li>
         </ul>
+        {%- if gb_detail_quote != blank -%}
+          <figure class="gb-color-proof-drop gb-color-proof-drop--compact gb-color-proof-drop--gift">
+            <blockquote>“{{ gb_detail_quote | escape }}”</blockquote>
+            <figcaption>{{ gb_detail_quote_meta | escape }}</figcaption>
+          </figure>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -405,18 +788,33 @@
   <section class="gb-color-collector" aria-labelledby="gb-color-collector-title-{{ section.id }}">
     <div class="gb-color-shell gb-color-collector__grid">
       <div class="gb-color-collector__copy">
-        <p class="gb-color-pill">The best view is all four</p>
-        <h2 id="gb-color-collector-title-{{ section.id }}">One shelf.<br>Four chapters.<br>Nothing missing.</h2>
-        <p>The Collector Pack puts Kanto, Johto, Hoenn, and Sinnoh together for {{ collector_variant.price | money }}—about $20 less than buying the four boxes separately.</p>
+        <p class="gb-color-pill">{{ collector_eyebrow | escape }}</p>
+        <h2 id="gb-color-collector-title-{{ section.id }}">{{ collector_heading_line_1 | escape }}<br>{{ collector_heading_line_2 | escape }}<br>{{ collector_heading_line_3 | escape }}</h2>
+        <p>{{ collector_body | escape }} Get all four for {{ collector_variant.price | money }}{% if collector_has_savings %}—{{ collector_savings_money }} less than buying the boxes separately{% endif %}.</p>
+        {%- if gb_collector_quote != blank -%}
+          <figure class="gb-color-proof-drop gb-color-proof-drop--compact gb-color-proof-drop--nostalgia">
+            <blockquote>“{{ gb_collector_quote | escape }}”</blockquote>
+            <figcaption>{{ gb_collector_quote_meta | escape }}</figcaption>
+          </figure>
+        {%- endif -%}
         <div class="gb-color-collector__stats">
           <div><strong>32</strong><span>badges total</span></div>
           <div><strong>4</strong><span>fitted boxes</span></div>
-          <div><strong>$20</strong><span>collector savings</span></div>
+          <div>{% if collector_has_savings %}<strong>{{ collector_savings_money }}</strong><span>collector savings</span>{% else %}<strong>1</strong><span>complete set</span>{% endif %}</div>
         </div>
-        <button class="gb-color-collector__choose" type="button" data-gb-color-choose-collector>Choose the Collector Pack — {{ collector_variant.price | money }}</button>
+        <button class="gb-color-collector__choose" type="button" data-gb-color-choose-collector>Get All 32 — {{ collector_variant.price | money }}</button>
       </div>
       <div class="gb-color-collector__image">
-        {%- if collector_media != blank -%}
+        {%- if hero_asset != blank -%}
+          <img
+            src="{{ hero_asset | asset_img_url: '1400x' }}"
+            srcset="{{ hero_asset | asset_img_url: '720x' }} 720w, {{ hero_asset | asset_img_url: '1100x' }} 1100w, {{ hero_asset | asset_img_url: '1400x' }} 1400w, {{ hero_asset | asset_url }} 2000w"
+            sizes="(min-width: 900px) 52vw, 100vw"
+            width="2000"
+            height="2500"
+            alt="{{ hero_alt | escape }}"
+            loading="lazy">
+        {%- elsif collector_media != blank -%}
           <img
             src="{{ collector_media.preview_image | image_url: width: 1500 }}"
             srcset="{{ collector_media.preview_image | image_url: width: 720 }} 720w, {{ collector_media.preview_image | image_url: width: 1100 }} 1100w, {{ collector_media.preview_image | image_url: width: 1500 }} 1500w"
@@ -445,9 +843,9 @@
             loading="lazy">
         </div>
         <div class="gb-color-story-card__copy">
-          <p class="gb-color-eyebrow">Collector's pack</p>
-          <h2>32 badges.<br>4 boxed sets.<br>Save $20.</h2>
-          <p>Four boxed sets, one complete badge run. Built for the shelf, the bag, or the collector who wants the full map.</p>
+          <p class="gb-color-eyebrow">{{ featured_eyebrow | escape }}</p>
+          <h2>{{ featured_heading_line_1 | escape }}<br>{{ featured_heading_line_2 | escape }}<br>{{ featured_heading_line_3 | escape }}</h2>
+          <p>{{ featured_body | escape }}</p>
         </div>
       </article>
 
@@ -485,6 +883,12 @@
             <p class="gb-color-eyebrow">Made to show</p>
             <h3>Display it.<br>Gift it. Wear it.</h3>
             <p>Small enough to wear. Clean enough to display.</p>
+            {%- if gb_lifestyle_quote != blank -%}
+              <figure class="gb-color-proof-drop gb-color-proof-drop--micro gb-color-proof-drop--delight">
+                <blockquote>“{{ gb_lifestyle_quote | escape }}”</blockquote>
+                <figcaption>{{ gb_lifestyle_quote_meta | escape }}</figcaption>
+              </figure>
+            {%- endif -%}
           </div>
         </article>
       </div>
@@ -505,7 +909,7 @@
         </details>
         <details>
           <summary>Why choose the Collector Pack <span aria-hidden="true">+</span></summary>
-          <div><p>You get Kanto, Johto, Hoenn, and Sinnoh together for {{ collector_variant.price | money }}, saving about $20 compared with purchasing the four regional sets separately.</p></div>
+          <div><p>You get Kanto, Johto, Hoenn, and Sinnoh together for {{ collector_variant.price | money }}{% if collector_has_savings %}, saving {{ collector_savings_money }} compared with purchasing the four regional sets separately{% endif %}.</p></div>
         </details>
         <details>
           <summary>Where to use them <span aria-hidden="true">+</span></summary>
@@ -525,8 +929,8 @@
         <strong data-gb-color-sticky-price>{{ current_variant.price | money }}</strong>
         <span data-gb-color-sticky-label>{% if current_is_collector %}Collector Pack · 32 badges{% else %}{{ current_variant.title }} · 8 badges{% endif %}</span>
       </div>
-      <button class="gb-color-sticky__button" type="button" data-gb-color-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
-        {% if current_is_collector %}Add all 32{% else %}Add {{ current_variant.title }}{% endif %}
+      <button class="gb-color-sticky__button" type="button" data-gb-color-sticky-add tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>
+        {% if current_is_collector %}Get All 32{% else %}Get {{ current_variant.title }}{% endif %}
       </button>
     </div>
   </div>
@@ -539,28 +943,70 @@
   "name": "Gym badge color view",
   "settings": [
     {
+      "type": "select",
+      "id": "landing_variant",
+      "label": "Landing-page journey",
+      "default": "standard",
+      "options": [
+        { "value": "standard", "label": "Standard color" },
+        { "value": "women", "label": "Women collectors" },
+        { "value": "gift-daughter", "label": "Gift for daughter" },
+        { "value": "gift-son", "label": "Gift for son" },
+        { "value": "gift-girlfriend", "label": "Gift for girlfriend" },
+        { "value": "gift-boyfriend", "label": "Gift for boyfriend" },
+        { "value": "gift", "label": "Universal gift" },
+        { "value": "completion", "label": "32 of 32 completion" },
+        { "value": "collection", "label": "Souvenir to collection" },
+        { "value": "og-four", "label": "OG four nostalgia" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "force_collector",
+      "label": "Preselect the Collector Pack",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "direct_checkout",
+      "label": "Send primary CTAs directly to checkout",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gallery_thumbs",
+      "label": "Show hero gallery thumbnails",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "hero_asset",
+      "label": "Optional theme asset filename"
+    },
+    {
+      "type": "text",
+      "id": "hero_alt",
+      "label": "Optional hero alt text"
+    },
+    {
       "type": "text",
       "id": "hero_eyebrow",
-      "label": "Hero eyebrow",
-      "default": "The complete four-region collection"
+      "label": "Optional hero eyebrow override"
     },
     {
       "type": "text",
       "id": "hero_heading_line_1",
-      "label": "Hero heading line 1",
-      "default": "The OG Four."
+      "label": "Optional hero heading line 1 override"
     },
     {
       "type": "text",
       "id": "hero_heading_line_2",
-      "label": "Hero heading line 2",
-      "default": "All 32."
+      "label": "Optional hero heading line 2 override"
     },
     {
       "type": "textarea",
       "id": "hero_lede",
-      "label": "Hero lead",
-      "default": "Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, ready for the shelf."
+      "label": "Optional hero lead override"
     }
   ]
 }

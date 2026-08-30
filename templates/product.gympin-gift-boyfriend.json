@@ -1,15 +1,9 @@
-/*
- * ------------------------------------------------------------
- * Colorful message-matched view for the 32-of-32 completion angle.
- * Open the Gym Badge product with ?view=gympin-color-complete.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
       "type": "gym-badge-color",
       "settings": {
-        "landing_variant": "completion",
+        "landing_variant": "gift-boyfriend",
         "force_collector": true,
         "direct_checkout": true,
         "show_gallery_thumbs": false,
@@ -18,7 +12,5 @@
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

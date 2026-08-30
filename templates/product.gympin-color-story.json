@@ -9,10 +9,12 @@
     "main": {
       "type": "gym-badge-color",
       "settings": {
-        "hero_eyebrow": "One region is a favorite.",
-        "hero_heading_line_1": "All four.",
-        "hero_heading_line_2": "The whole story.",
-        "hero_lede": "Kanto, Johto, Hoenn, and Sinnoh—32 glossy hard-enamel badges across four fitted boxes, together in one Collector Pack."
+        "landing_variant": "collection",
+        "force_collector": true,
+        "direct_checkout": true,
+        "show_gallery_thumbs": false,
+        "hero_asset": "gym-badge-og-four-lp-hero-45.webp",
+        "hero_alt": "All 32 glossy hard-enamel badges arranged from Kanto through Sinnoh in chronological order"
       }
     }
   },

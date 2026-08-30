@@ -263,8 +263,9 @@
 .gb-paid-landing__buyer-quote {
   margin: 16px 0 0;
   padding: 14px 16px;
-  border: 1px solid rgba(99, 214, 191, 0.22);
-  background: rgba(99, 214, 191, 0.07);
+  border: 1px solid var(--gb-line);
+  border-left: 3px solid var(--gb-gold);
+  background: rgba(255, 255, 255, 0.035);
 }
 
 .gb-paid-landing__buyer-quote blockquote {
@@ -277,7 +278,7 @@
 
 .gb-paid-landing__buyer-quote figcaption {
   margin-top: 7px;
-  color: var(--gb-cta);
+  color: var(--gb-gold-light);
   font-size: 10px;
   font-weight: 850;
   letter-spacing: 0.09em;

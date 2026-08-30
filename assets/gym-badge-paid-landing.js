@@ -61,6 +61,44 @@
       subheadline: 'Glossy hard enamel, raised metal detail, secure clutch backs, and all 32 badges.'
     }
   };
+  var buyerProof = {
+    complete: {
+      quote: 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.',
+      attribution: 'Verified buyer'
+    },
+    'og-four': {
+      quote: "Wauw they look amazing, I really feel like a Pokemon trainer and it brings great nostalgia. Let's go to the elite four.",
+      attribution: 'S.P. · Verified buyer'
+    },
+    '32-of-32': {
+      quote: 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.',
+      attribution: 'Verified buyer'
+    },
+    collector: {
+      quote: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
+      attribution: 'Verified buyer'
+    },
+    shelf: {
+      quote: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
+      attribution: 'Verified buyer'
+    },
+    collection: {
+      quote: 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.',
+      attribution: 'Verified buyer'
+    },
+    premium: {
+      quote: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
+      attribution: 'Verified buyer'
+    },
+    nostalgia: {
+      quote: "Wauw they look amazing, I really feel like a Pokemon trainer and it brings great nostalgia. Let's go to the elite four.",
+      attribution: 'S.P. · Verified buyer'
+    },
+    proof: {
+      quote: 'Very pretty and nice material too, perfect for gifting.',
+      attribution: 'Verified buyer'
+    }
+  };
 
   section.dataset.activeLp = requested;
   section.hidden = false;
@@ -256,13 +294,22 @@
   }
 
   function moveBuyerQuoteForward() {
-    if (!productSection || panel.querySelector('[data-gb-lp-buyer-quote]')) return;
+    if (panel.querySelector('[data-gb-lp-buyer-quote]')) return;
 
-    var source = productSection.querySelector('.zenkai-proof-nudge');
+    var source = productSection ? productSection.querySelector('.zenkai-proof-nudge') : null;
     var sourceQuote = source ? source.querySelector('.zenkai-proof-nudge__quote') : null;
     var sourceAttribution = source ? source.querySelector('.zenkai-proof-nudge__attr') : null;
     var primaryButton = panel.querySelector('.gb-paid-landing__primary');
-    if (!sourceQuote || !primaryButton) return;
+    var matchedProof = buyerProof[requested] || null;
+    var quoteText = matchedProof && matchedProof.quote
+      ? matchedProof.quote
+      : (sourceQuote ? sourceQuote.textContent.trim() : '');
+    var attributionText = matchedProof && matchedProof.attribution
+      ? matchedProof.attribution
+      : (sourceAttribution && sourceAttribution.textContent.trim()
+        ? sourceAttribution.textContent.trim()
+        : 'Verified buyer');
+    if (!quoteText || !primaryButton) return;
 
     var proof = document.createElement('figure');
     proof.className = 'gb-paid-landing__buyer-quote';
@@ -270,17 +317,14 @@
     proof.setAttribute('aria-label', 'Verified buyer review');
 
     var quote = document.createElement('blockquote');
-    quote.textContent = sourceQuote.textContent.trim();
+    quote.textContent = '“' + quoteText + '”';
     proof.appendChild(quote);
 
     var attribution = document.createElement('figcaption');
-    attribution.textContent = sourceAttribution && sourceAttribution.textContent.trim()
-      ? sourceAttribution.textContent.trim()
-      : 'Verified Zenkai buyer';
+    attribution.textContent = attributionText;
     proof.appendChild(attribution);
 
     primaryButton.insertAdjacentElement('afterend', proof);
-    source.hidden = true;
   }
 
   if (productSection) {
