@@ -38,7 +38,7 @@
 {%- assign zenkai_pin_lifestyle_image_desktop = product_pin_lifestyle_image_desktop -%}
 {%- assign zenkai_pin_lifestyle_image_mobile = product_pin_lifestyle_image_mobile -%}
 {%- assign zenkai_pin_collector_kicker = product_pin_collector_kicker | default: "Collector's pack" -%}
-{%- assign zenkai_pin_collector_heading = product_pin_collector_heading | default: '32 badges. 4 boxed sets. Save $20.' -%}
+{%- assign zenkai_pin_collector_heading = product_pin_collector_heading | default: '32 badges. 4 boxed sets. Save $19.97.' -%}
 {%- assign zenkai_pin_collector_body = product_pin_collector_body | default: 'Choose one region if you know your favorite. Choose the collector pack when you want the full badge run.' -%}
 {%- assign zenkai_pin_quality_kicker = product_pin_quality_kicker | default: 'Quality proof' -%}
 {%- assign zenkai_pin_quality_heading = product_pin_quality_heading | default: 'Glossy hard enamel. Raised metal trim.' -%}
@@ -2731,7 +2731,7 @@
                   {% if current_variant.compare_at_price > current_variant.price %}
                     <span class="you-save">
                       {% if zenkai_current_variant_is_collector %}
-                        Save $20
+                        Save $19.97
                       {% else %}
                         Save {{ current_variant.compare_at_price | minus: current_variant.price | money }}
                       {% endif %}
@@ -3476,7 +3476,7 @@
         }
 
         if (savingsBadge) {
-          savingsBadge.textContent = 'Save $20';
+          savingsBadge.textContent = 'Save $19.97';
         }
       }
 
@@ -3491,7 +3491,7 @@
         }
 
         if (variantLabel.toLowerCase().indexOf('collector') !== -1) {
-          return 'Get All 32';
+          return ctaLabel && ctaLabel !== 'Add to Cart' ? ctaLabel : 'Get All 32';
         }
 
         return 'Add ' + variantLabel + ' Set';

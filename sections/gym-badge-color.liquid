@@ -166,10 +166,10 @@
 
 {%- case landing_variant -%}
   {%- when 'women', 'women-w1' -%}
-    {%- assign hero_eyebrow = 'For the ladies who never outgrew the badge hunt' -%}
+    {%- assign hero_eyebrow = blank -%}
     {%- assign hero_heading_line_1 = 'You never stopped wanting' -%}
     {%- assign hero_heading_line_2 = 'your full set.' -%}
-    {%- assign hero_lede = 'The collection you chased then is ready for the shelf you built now. Kanto through Sinnoh—32 glossy hard-enamel pins in four fitted boxes, waiting to become yours.' -%}
+    {%- assign hero_lede = 'Kanto through Sinnoh—the 32-badge collection you always meant to finish, now organized across four fitted display boxes.' -%}
     {%- assign gift_note_heading = 'The nostalgia stayed.' -%}
     {%- assign gift_note_body = 'Now your collection gets a real place to live.' -%}
     {%- assign women_value_1_label = 'The era you remember' -%}
@@ -202,14 +202,14 @@
     {%- assign women_quality_point_2_body = 'Polished raised lines keep every familiar outline sharp up close.' -%}
     {%- assign women_quality_point_3_title = 'Four chapters ready to arrange' -%}
     {%- assign women_quality_point_3_body = 'Keep each region boxed, line up all four, or move the badges into a frame of your own.' -%}
-    {%- assign women_final_eyebrow = 'Your younger self already decided' -%}
+    {%- assign women_final_eyebrow = 'You already know which set you want' -%}
     {%- assign women_final_heading = 'Bring home the collection your younger self never forgot.' -%}
     {%- assign women_final_body = 'You have already pictured all four boxes in your space. Make that shelf—and the complete 32-badge run—yours.' -%}
   {%- when 'women-w2' -%}
-    {%- assign hero_eyebrow = 'For the girl who wanted every badge—and the woman who still does' -%}
-    {%- assign hero_heading_line_1 = 'The shelf is ready.' -%}
-    {%- assign hero_heading_line_2 = 'Your full set is too.' -%}
-    {%- assign hero_lede = 'You can already picture all four boxes in the room you made yours—not loose pins in a drawer, but one complete visual story waiting for its place.' -%}
+    {%- assign hero_eyebrow = blank -%}
+    {%- assign hero_heading_line_1 = 'Your complete set.' -%}
+    {%- assign hero_heading_line_2 = 'Ready for your shelf.' -%}
+    {%- assign hero_lede = 'Kanto through Sinnoh—the 32-badge collection you always meant to finish, now organized across four fitted display boxes.' -%}
     {%- assign gift_note_heading = 'Make the setup unmistakably yours.' -%}
     {%- assign gift_note_body = 'The complete collection is the detail that finishes the space.' -%}
     {%- assign women_value_1_label = 'Your complete visual story' -%}
@@ -246,10 +246,10 @@
     {%- assign women_final_heading = 'Put your complete collection in its place.' -%}
     {%- assign women_final_body = 'You have already chosen the shelf, the setup, and the feeling. Now make all four chapters part of the room.' -%}
   {%- when 'women-w3' -%}
-    {%- assign hero_eyebrow = 'Yes, women collect' -%}
+    {%- assign hero_eyebrow = blank -%}
     {%- assign hero_heading_line_1 = 'Yes. We want' -%}
     {%- assign hero_heading_line_2 = 'all 32.' -%}
-    {%- assign hero_lede = 'Kanto through Sinnoh, organized across four fitted boxes for the collector who knows one region was never the whole story.' -%}
+    {%- assign hero_lede = 'Kanto through Sinnoh—the 32-badge collection you always meant to finish, now organized across four fitted display boxes.' -%}
     {%- assign gift_note_heading = 'Your collection. Your call.' -%}
     {%- assign gift_note_body = 'Choose the complete set because complete is what you wanted.' -%}
     {%- assign women_value_1_label = 'The full original story' -%}
@@ -286,10 +286,10 @@
     {%- assign women_final_heading = 'Take home the complete version.' -%}
     {%- assign women_final_body = 'You knew one favorite would not be enough. Choose all 32 and make the full original run yours.' -%}
   {%- when 'women-w4' -%}
-    {%- assign hero_eyebrow = 'Ladies, you do not need an occasion' -%}
-    {%- assign hero_heading_line_1 = 'Wanting the complete set' -%}
+    {%- assign hero_eyebrow = blank -%}
+    {%- assign hero_heading_line_1 = 'The complete set' -%}
     {%- assign hero_heading_line_2 = 'is reason enough.' -%}
-    {%- assign hero_lede = 'You already found exactly what you want: all 32, across four fitted boxes, chosen by you and ready to become yours now.' -%}
+    {%- assign hero_lede = 'Kanto through Sinnoh—the 32-badge collection you always meant to finish, now organized across four fitted display boxes.' -%}
     {%- assign gift_note_heading = 'No hint dropping required.' -%}
     {%- assign gift_note_body = 'Get the exact collection you meant.' -%}
     {%- assign women_value_1_label = 'Exactly what you chose' -%}
@@ -717,7 +717,7 @@
       </div>
 
       <div class="gb-color-offer">
-        <p class="gb-color-eyebrow">{{ hero_eyebrow | escape }}</p>
+        {%- if hero_eyebrow != blank -%}<p class="gb-color-eyebrow">{{ hero_eyebrow | escape }}</p>{%- endif -%}
         <h1 id="gb-color-title-{{ section.id }}">{{ hero_heading_line_1 | escape }}<br>{{ hero_heading_line_2 | escape }}</h1>
         <p class="gb-color-offer__lede">{{ hero_lede | escape }}</p>
 
@@ -764,7 +764,7 @@
               {% unless current_variant.available %}disabled{% endunless %}>
               <span data-add-to-cart-text data-gb-color-submit-text>
                 {%- if current_variant.available -%}
-                  {%- if current_is_collector -%}Get All 32 — {{ current_variant.price | money }}{%- else -%}Get {{ current_variant.title }} — {{ current_variant.price | money }}{%- endif -%}
+                  {%- if current_is_collector and is_women_journey -%}Complete My Collection — {{ current_variant.price | money }}{%- elsif current_is_collector -%}Get All 32 — {{ current_variant.price | money }}{%- else -%}Get {{ current_variant.title }} — {{ current_variant.price | money }}{%- endif -%}
                 {%- else -%}
                   Sold out
                 {%- endif -%}
@@ -773,7 +773,7 @@
 
             <p class="gb-color-form__confidence">
               {%- if is_women_journey -%}
-                Free U.S. shipping · Typical U.S. delivery in 1 business week
+                Free U.S. shipping · Typically arrives in 5–7 business days
               {%- else -%}
                 ★ 4.8/5 from 95 Shop ratings · Free U.S. shipping · 1-week U.S. delivery
               {%- endif -%}
@@ -1300,7 +1300,7 @@
         <span data-gb-color-sticky-label>{% if current_is_collector %}Collector Pack · 32 badges{% else %}{{ current_variant.title }} · 8 badges{% endif %}</span>
       </div>
       <button class="gb-color-sticky__button" type="button" data-gb-color-sticky-add tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>
-        {% if current_is_collector %}Get All 32{% else %}Get {{ current_variant.title }}{% endif %}
+        {% if current_is_collector and is_women_journey %}Complete My Collection{% elsif current_is_collector %}Get All 32{% else %}Get {{ current_variant.title }}{% endif %}
       </button>
     </div>
   </div>

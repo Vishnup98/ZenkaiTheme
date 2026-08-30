@@ -76,6 +76,19 @@
     </div>
 
     <div class="gb-women-proof__gallery">
+      {%- if collector_media != blank -%}
+        <figure class="gb-women-proof__frame gb-women-proof__frame--complete">
+          <img
+            src="{{ collector_media.preview_image | image_url: width: 1400 }}"
+            srcset="{{ collector_media.preview_image | image_url: width: 720 }} 720w, {{ collector_media.preview_image | image_url: width: 1100 }} 1100w, {{ collector_media.preview_image | image_url: width: 1400 }} 1400w"
+            sizes="(min-width: 990px) 1180px, 100vw"
+            width="{{ collector_media.preview_image.width }}"
+            height="{{ collector_media.preview_image.height }}"
+            alt="All 32 badges shown together in four fitted Collector Pack boxes"
+            loading="lazy">
+          <figcaption>Complete Pack · All 32 · 4 fitted boxes</figcaption>
+        </figure>
+      {%- endif -%}
       <figure class="gb-women-proof__frame gb-women-proof__frame--displayed">
         <img src="{{ framed_display_url }}&amp;width=900" width="677" height="1200" alt="Gym badges arranged in a framed shadow box" loading="lazy">
         <figcaption>{{ women_proof_caption_1 | escape }}</figcaption>
@@ -157,8 +170,8 @@
         <div><strong>4</strong><span>fitted boxes</span></div>
         <div>{% if collector_has_savings %}<strong>{{ collector_savings_money }}</strong><span>saved together</span>{% else %}<strong>1</strong><span>complete set</span>{% endif %}</div>
       </div>
-      <button class="gb-women-cta" type="button" data-gb-color-choose-collector>Get All 32 — {{ collector_variant.price | money }}</button>
-      <p class="gb-women-cta-note">Free U.S. shipping · Typical U.S. delivery in 1 business week</p>
+      <button class="gb-women-cta" type="button" data-gb-color-choose-collector>Complete My Collection — {{ collector_variant.price | money }}</button>
+      <p class="gb-women-cta-note">Free U.S. shipping · Typically arrives in 5–7 business days</p>
     </div>
   </div>
 </section>
@@ -199,7 +212,7 @@
         <strong>{{ collector_variant.price | money }}</strong>
         <span>32 badges · 4 fitted boxes</span>
       </div>
-      <button class="gb-women-cta gb-women-cta--final" type="button" data-gb-color-choose-collector>Get All 32 — {{ collector_variant.price | money }}</button>
+      <button class="gb-women-cta gb-women-cta--final" type="button" data-gb-color-choose-collector>Complete My Collection — {{ collector_variant.price | money }}</button>
       <div class="gb-women-final__trust" aria-label="Order promises">
         <span>✓ Free U.S. shipping</span>
         <span>✓ Secure checkout</span>
@@ -214,7 +227,7 @@
       </details>
       <details>
         <summary>Shipping <span aria-hidden="true">+</span></summary>
-        <p>Most orders ship within 1–2 business days, with typical U.S. delivery in about one business week. U.S. shipping is free.</p>
+        <p>Most orders ship within 1–2 business days and typically arrive in 5–7 business days. U.S. shipping is free.</p>
       </details>
       <details>
         <summary>Collector policy <span aria-hidden="true">+</span></summary>

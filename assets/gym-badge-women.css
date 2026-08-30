@@ -629,6 +629,18 @@
   transform: rotate(-0.6deg);
 }
 
+.gb-women-proof__frame.gb-women-proof__frame--complete {
+  grid-column: 1 / -1;
+  min-height: 0;
+  aspect-ratio: 16 / 8;
+  transform: none;
+}
+
+.gb-women-proof__frame.gb-women-proof__frame--complete img {
+  min-height: 0;
+  object-fit: contain;
+}
+
 .gb-women-proof__frame--boxed {
   transform: translateY(10px);
 }
@@ -1274,91 +1286,114 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-hero {
-    gap: 14px;
-    padding-top: 12px;
-    padding-bottom: 30px;
+    gap: 8px;
+    padding-top: 6px;
+    padding-bottom: 18px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-rating-proof {
-    grid-template-columns: auto 1fr;
-    gap: 14px;
-    margin-top: 11px;
-    padding: 13px 16px;
-    border-radius: 15px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 8px 10px;
+    border-radius: 13px;
   }
 
   .gb-women-rating-proof__score {
-    min-width: 76px;
-    padding-right: 14px;
+    min-width: 55px;
+    padding-right: 8px;
   }
 
   .gb-women-rating-proof__score strong {
-    font-size: 29px;
+    font-size: 22px;
+  }
+
+  .gb-women-rating-proof__score span {
+    font-size: 10px;
+  }
+
+  .gb-women-rating-stars {
+    font-size: 10px;
   }
 
   .gb-women-rating-proof__copy p {
-    font-size: 11px;
+    margin-top: 3px;
+    font-size: 9px;
   }
 
   .gb-women-rating-proof__orders {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 7px;
-    min-width: 0;
-    padding: 10px 0 0;
-    border-top: 1px solid rgba(244, 225, 255, 0.18);
-    border-left: 0;
+    grid-column: auto;
+    display: grid;
+    min-width: 90px;
+    padding: 0 0 0 8px;
+    border-top: 0;
+    border-left: 1px solid rgba(244, 225, 255, 0.18);
   }
 
   .gb-women-rating-proof__orders strong {
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .gb-women-rating-proof__orders span {
-    margin-top: 0;
+    margin-top: 3px;
+    font-size: 7px;
   }
 
   .gb-women-rating-inline {
-    grid-template-columns: 1fr;
-    margin-bottom: 8px;
-    padding: 7px 9px;
+    grid-template-columns: minmax(0, 1fr) 1px auto;
+    gap: 6px;
+    margin-bottom: 6px;
+    padding: 6px 7px;
   }
 
   .gb-women-rating-inline__divider {
-    width: 100%;
-    height: 1px;
+    width: 1px;
+    height: 22px;
+  }
+
+  .gb-women-rating-inline__rating,
+  .gb-women-rating-inline__orders {
+    gap: 4px;
+  }
+
+  .gb-women-rating-inline__rating > span:last-child {
+    display: none;
+  }
+
+  .gb-women-rating-inline__orders > span:last-child {
+    font-size: 8px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
     width: 100%;
     margin-left: 0;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1;
     border-width: 4px;
     border-radius: 20px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__main {
-    object-position: 50% 50%;
+    object-position: 50% 43%;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
-    padding: 21px 18px;
+    padding: 17px 15px;
     border-radius: 20px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer h1 {
-    font-size: clamp(36px, 10.4vw, 45px);
+    font-size: clamp(32px, 9.5vw, 40px);
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer__lede {
-    font-size: 16px;
-    line-height: 1.55;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.4;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-primary-purchase {
-    padding: 14px;
+    margin-top: 11px;
+    padding: 12px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-memory,
@@ -1416,6 +1451,16 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     margin-top: 22px;
+  }
+
+  .gb-women-proof__frame.gb-women-proof__frame--complete {
+    grid-column: 1 / -1;
+    aspect-ratio: 1;
+  }
+
+  .gb-women-proof__frame.gb-women-proof__frame--complete,
+  .gb-women-proof__frame.gb-women-proof__frame--complete img {
+    min-height: 0;
   }
 
   .gb-women-proof__frame,

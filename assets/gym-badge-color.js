@@ -29,6 +29,7 @@
     var directCheckout = root.dataset.gbDirectCheckout === 'true';
     var forceCollector = root.dataset.gbForceCollector === 'true';
     var landingVariant = root.dataset.gbLandingVariant || 'standard';
+    var isWomenJourney = landingVariant.indexOf('women') !== -1;
     var checkoutInFlight = false;
     var checkoutStatusTimer = null;
 
@@ -235,7 +236,9 @@
       var isCollector = button.dataset.isCollector === 'true';
       var variantTitle = button.dataset.variantTitle || '';
       var variantPrice = button.dataset.price || '';
-      var label = isCollector ? 'Get All 32' : 'Get ' + variantTitle;
+      var label = isCollector
+        ? (isWomenJourney ? 'Complete My Collection' : 'Get All 32')
+        : 'Get ' + variantTitle;
 
       if (countBadge) {
         countBadge.setAttribute('aria-label', isCollector
