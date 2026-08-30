@@ -270,6 +270,7 @@
 
 .gb-paid-landing__buyer-quote blockquote {
   margin: 0;
+  padding: 0;
   color: #f7f2e8;
   font-size: 13px;
   font-weight: 700;
