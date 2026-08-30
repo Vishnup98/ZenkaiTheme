@@ -220,6 +220,10 @@
   font-weight: 900;
 }
 
+.gb-paid-landing__confidence li.gb-paid-landing__confidence-rating::before {
+  content: "★";
+}
+
 .gb-paid-landing__primary {
   width: 100%;
   min-height: 58px;
@@ -648,6 +652,10 @@ html.gb-paid-lp-active .product-single__header > .zenkai-social-subheadline {
 
 html.gb-paid-lp-active .product-section .zenkai-type-switcher {
   display: none !important;
+}
+
+html.gb-paid-lp-active .product-section .zenkai-paid-proof-strip__item--shop-rating {
+  display: none;
 }
 
 html.gb-paid-lp-active .product-section {

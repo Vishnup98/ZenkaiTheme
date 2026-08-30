@@ -2741,15 +2741,20 @@
               <div class="zenkai-paid-proof-strip" aria-label="Order confidence">
                 <span class="zenkai-paid-proof-strip__item">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  2,200+ orders shipped
+                  2,800+ orders shipped and counting
                 </span>
                 <span class="zenkai-paid-proof-strip__item">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                   Free U.S. shipping
                 </span>
-                <span class="zenkai-paid-proof-strip__item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-                  Secure checkout
+                <span class="zenkai-paid-proof-strip__item{% if zenkai_ptemplate == 'gympin' %} zenkai-paid-proof-strip__item--shop-rating{% endif %}">
+                  {% if zenkai_ptemplate == 'gympin' %}
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m12 2.6 2.88 5.83 6.43.94-4.66 4.54 1.1 6.41L12 17.3l-5.75 3.02 1.1-6.41-4.66-4.54 6.43-.94L12 2.6z"></path></svg>
+                    4.8/5 · 95 Shop ratings
+                  {% else %}
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                    Secure checkout
+                  {% endif %}
                 </span>
               </div>
 
