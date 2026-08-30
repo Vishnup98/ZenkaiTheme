@@ -1,4 +1,8 @@
 {%- assign main_menu = linklists[section.settings.main_menu_link_list] -%}
+{%- assign zenkai_is_gym_color_paid = false -%}
+{%- if request.page_type == 'product' and template.suffix contains 'gympin-color' -%}
+  {%- assign zenkai_is_gym_color_paid = true -%}
+{%- endif -%}
 
 {% comment %}
   menu_alignment options:
@@ -128,17 +132,64 @@
   {% endstyle %}
 {% endif %}
 
+{% if zenkai_is_gym_color_paid %}
+  {% style %}
+    .header-wrapper--gym-color-paid .header-item--navigation,
+    .header-wrapper--gym-color-paid .zenkai-header-menu,
+    .header-wrapper--gym-color-paid .header-item--icons .site-nav__link--icon:not(.site-nav__link--cart) {
+      display: none !important;
+    }
+
+    .header-wrapper--gym-color-paid .announcement__link {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .header-wrapper--gym-color-paid .site-header .page-width {
+        padding-right: 12px !important;
+        padding-left: 12px !important;
+      }
+
+      .header-wrapper--gym-color-paid .header-layout {
+        min-height: 38px !important;
+        justify-content: space-between !important;
+        gap: 0;
+        padding: 1px 6px !important;
+      }
+
+      .header-wrapper--gym-color-paid .header-item--logo {
+        flex-basis: 48px !important;
+      }
+
+      .header-wrapper--gym-color-paid .header-item--icons {
+        flex: 0 0 auto !important;
+        margin-left: auto !important;
+      }
+
+      .header-wrapper--gym-color-paid .site-header__logo a,
+      .header-wrapper--gym-color-paid .is-light .site-header__logo .logo--inverted {
+        max-width: 48px !important;
+      }
+
+      .header-wrapper--gym-color-paid .zenkai-mobile-cart {
+        padding: 7px 5px;
+      }
+    }
+  {% endstyle %}
+{% endif %}
+
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
   <div
     data-header-style="{{ section.settings.header_style }}"
-    class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}">
+    class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}{% if zenkai_is_gym_color_paid %} header-wrapper--gym-color-paid{% endif %}">
 
     {% comment %} Bundle promo bar — placed inside header-wrapper so it sits in the
        same positioning context as the announcement bar (guaranteed visible on mobile).
        The collectible offer pages have their own focused purchase journey. {% endcomment %}
     {%- assign zenkai_hide_bundle_promo = false -%}
     {%- if request.page_type == 'product' -%}
-      {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
+      {%- if zenkai_is_gym_color_paid or product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
         {%- assign zenkai_hide_bundle_promo = true -%}
       {%- endif -%}
     {%- elsif request.page_type == 'cart' -%}

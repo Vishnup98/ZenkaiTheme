@@ -9,10 +9,14 @@
       <a href="{{ section.settings.announcement_link }}" class="announcement__link">
     {% endif %}
 
-    <div class="announcement__text announcement__text--rotating"
-         data-rotating-messages='["Free U.S. shipping", "Ships in 1–2 days", "Nostalgia, drawn properly"]'>
-      {{ section.settings.announcement_text | strip_html }}
-    </div>
+    {% if zenkai_is_gym_color_paid %}
+      <div class="announcement__text announcement__text--static">Free U.S. shipping</div>
+    {% else %}
+      <div class="announcement__text announcement__text--rotating"
+           data-rotating-messages='["Free U.S. shipping", "Ships in 1–2 days", "Nostalgia, drawn properly"]'>
+        {{ section.settings.announcement_text | strip_html }}
+      </div>
+    {% endif %}
 
     {% if section.settings.announcement_link != blank %}
       </a>

@@ -1304,7 +1304,7 @@ button.gb-color-form__submit::after {
 
 .gb-color-inhand__track {
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 0.72fr) minmax(0, 1.3fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 15px;
   margin-top: 48px;
 }
@@ -1332,6 +1332,10 @@ button.gb-color-form__submit::after {
   transform: rotate(0.6deg);
 }
 
+.gb-color-inhand figure:nth-child(4) {
+  transform: translateY(8px) rotate(-0.35deg);
+}
+
 .gb-color-inhand figure img {
   display: block;
   width: 100%;
@@ -1340,7 +1344,19 @@ button.gb-color-form__submit::after {
   object-fit: cover;
 }
 
+.gb-color-inhand__track figure {
+  aspect-ratio: 3 / 4;
+}
+
+.gb-color-inhand__wide {
+  min-height: 0 !important;
+  margin-top: 22px !important;
+  aspect-ratio: 1500 / 726;
+  transform: none !important;
+}
+
 .gb-color-inhand__wide img {
+  min-height: 0;
   object-position: center;
 }
 
@@ -1621,10 +1637,6 @@ button.gb-color-form__submit::after {
   .gb-color-inhand__track {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .gb-color-inhand__wide {
-    grid-column: 1 / -1;
-  }
 }
 
 @media (max-width: 749px) {
@@ -1866,16 +1878,27 @@ button.gb-color-form__submit::after {
     display: none;
   }
 
-  .gb-color-inhand figure,
-  .gb-color-inhand__wide {
-    flex: 0 0 76vw;
-    min-height: 380px;
+  .gb-color-inhand__track figure {
+    flex: 0 0 68vw;
+    min-height: 0;
+    aspect-ratio: 3 / 4;
     transform: none !important;
     scroll-snap-align: center;
   }
 
-  .gb-color-inhand figure img {
-    min-height: 380px;
+  .gb-color-inhand__track figure img {
+    min-height: 0;
+  }
+
+  .gb-color-inhand__wide {
+    width: 100%;
+    margin-top: 14px !important;
+    aspect-ratio: 1500 / 726;
+  }
+
+  .gb-color-inhand__wide img {
+    height: 100%;
+    min-height: 0;
   }
 
   .gb-color-sticky {
