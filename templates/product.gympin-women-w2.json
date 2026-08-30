@@ -10,7 +10,13 @@
         "hero_asset": "gym-badge-women-w2-hero-45.png",
         "hero_alt": "Complete four-region badge collection displayed in a softly lit pastel gamer room"
       }
+    },
+    "native_product": {
+      "type": "gym-badge-women-native-product",
+      "settings": {
+        "landing_variant": "women-w2"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "native_product"]
 }

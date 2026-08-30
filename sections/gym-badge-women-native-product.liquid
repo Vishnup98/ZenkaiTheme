@@ -1,0 +1,121 @@
+{%- assign women_native_variant = section.settings.landing_variant | default: 'women-w1' -%}
+{%- assign women_native_hook = 'The complete set, up close.' -%}
+{%- assign women_native_subheadline = 'See the glossy enamel, fitted boxes, and all 32 badges that bring the original four-region run together.' -%}
+{%- assign women_collector_variant = nil -%}
+{%- for women_candidate_variant in product.variants -%}
+  {%- assign women_candidate_title = women_candidate_variant.title | downcase -%}
+  {%- if women_candidate_title contains 'collector' or women_candidate_title contains '4 region' or women_candidate_title contains '4-region' or women_candidate_title contains 'all four' -%}
+    {%- assign women_collector_variant = women_candidate_variant -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign women_collector_variant = women_collector_variant | default: product.selected_or_first_available_variant -%}
+
+{%- case women_native_variant -%}
+  {%- when 'women-w2' -%}
+    {%- assign women_native_hook = 'The detail that finishes the shelf.' -%}
+    {%- assign women_native_subheadline = 'Four fitted regional boxes give the full 32-badge collection a clean, intentional place in your setup.' -%}
+  {%- when 'women-w3' -%}
+    {%- assign women_native_hook = 'Every region earns its place.' -%}
+    {%- assign women_native_subheadline = 'All 32 badges, organized by region for the collector who wants the complete run—not one token favorite.' -%}
+  {%- when 'women-w4' -%}
+    {%- assign women_native_hook = 'The exact set you came for.' -%}
+    {%- assign women_native_subheadline = 'All 32 badges, four fitted boxes, and no compromise on which region you actually wanted.' -%}
+{%- endcase -%}
+
+{{ 'gym-badge-women-native.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="gb-women-native-product"
+  data-gb-women-native-product
+  data-gb-women-native-variant="{{ women_native_variant | escape }}"
+  data-gb-women-native-collector-id="{{ women_collector_variant.id }}">
+  <header class="gb-women-native-product__intro">
+    <p>The complete collection, up close</p>
+    <h2>All four regions. Every detail.</h2>
+    <span>Four fitted boxes, 32 glossy enamel badges, and the original four-region run together in one place.</span>
+  </header>
+
+  {% include 'product-template',
+    section_id: product.id,
+    product_template_override: 'gympin',
+    force_collector_variant: true,
+    product_embed_buybox_only: true,
+    product_hide_gift_nudge: true,
+    product_signal_hook: women_native_hook,
+    product_social_subheadline: women_native_subheadline,
+    product_cta_text: 'Get All 32',
+    product_cta_subcopy: 'Free U.S. shipping · Typical U.S. delivery: 1 business week',
+    product_outcome_1: '8 hard-enamel badges per region',
+    product_outcome_2: 'Raised metal trim and glossy enamel finish',
+    product_outcome_3: 'Collector Pack includes all 4 boxed sets',
+    product_context_heading: 'The complete run, organized to display',
+    product_context_1: 'Kanto through Sinnoh arranged as one chronological collection',
+    product_context_2: 'Each regional set kept together in its own fitted box',
+    product_context_3: 'Ready for your shelf, setup, pin display, or one favorite badge to wear',
+    product_proof_quote_1: 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.',
+    product_proof_attribution_1: 'Verified buyer',
+    product_proof_quote_2: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
+    product_proof_attribution_2: 'Customer review',
+    hide_mobile_breadcrumbs: true,
+    product_mobile_media_max_height: 44,
+    product_sticky_atc_trigger_ratio: 8,
+    product_show_review_summary_first: false,
+    product_image_size: 'large',
+    product_image_type: 'slider',
+    product_zoom_enable: true,
+    variant_type: 'button',
+    variant_labels_enable: true,
+    sku_enable: false,
+    quantity_enable: false,
+    inventory_enable: true,
+    inventory_threshold: 10,
+    inventory_transfers_enable: false,
+    enable_payment_button: true,
+    mobile_sticky_atc_enable: false,
+    show_dynamic_checkout_secondary: true,
+    social_enable: false,
+    video_looping: true,
+    video_style: 'muted'
+  %}
+
+  <script>
+    theme.productStrings = {
+      addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }}
+    };
+
+    var womenNativeCta = document.querySelector('#ProductSection-{{ product.id }} [data-product-cta-default]');
+    if (womenNativeCta) {
+      theme.productStrings.addToCart = womenNativeCta.getAttribute('data-product-cta-default');
+    }
+  </script>
+
+  <p class="gb-women-native-product__status" data-gb-women-native-status role="status" aria-live="polite" hidden></p>
+</div>
+
+<script src="{{ 'gym-badge-women-native.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Women native product",
+  "settings": [
+    {
+      "type": "select",
+      "id": "landing_variant",
+      "label": "Copy journey",
+      "default": "women-w1",
+      "options": [
+        { "value": "women-w1", "label": "W1 · Never outgrew it" },
+        { "value": "women-w2", "label": "W2 · Its own shelf" },
+        { "value": "women-w3", "label": "W3 · Women collect" },
+        { "value": "women-w4", "label": "W4 · No occasion" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Women native product" }
+  ]
+}
+{% endschema %}

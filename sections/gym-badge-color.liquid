@@ -499,7 +499,7 @@
 
 {%- if gym_badge_page_available -%}
 <div
-  id="ProductSection-{{ product.id }}"
+  id="{% if is_women_journey %}GymBadgeColorSection-{{ section.id }}{% else %}ProductSection-{{ product.id }}{% endif %}"
   class="gb-color-page"
   data-gb-color-page
   data-section-id="{{ section.id }}"
@@ -719,6 +719,28 @@
       </div>
     </section>
   </div>
+
+  {%- if is_women_journey -%}
+    <section class="gb-women-value" aria-label="Collector Pack value">
+      <div class="gb-color-shell gb-women-value__grid">
+        <article>
+          <span>The full run</span>
+          <strong>32 badges</strong>
+          <p>Eight hard-enamel badges from each of four regions.</p>
+        </article>
+        <article>
+          <span>Presentation</span>
+          <strong>4 display boxes</strong>
+          <p>Each regional set arrives in its own fitted collector box.</p>
+        </article>
+        <article>
+          <span>Collector value</span>
+          <strong>{% if collector_has_savings %}Save $20{% else %}All four together{% endif %}</strong>
+          <p>{{ collector_variant.price | money }} together versus {{ separate_total | money }} when purchased as four separate sets.</p>
+        </article>
+      </div>
+    </section>
+  {%- endif -%}
 
   <p class="gb-color-checkout-status" data-gb-color-checkout-status role="status" aria-live="polite" hidden></p>
 

@@ -1,6 +1,12 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
-{%- assign zenkai_variable_template = product.template_suffix | downcase -%}
-{%- if zenkai_variable_template == 'gympin' and product.selected_variant == blank -%}
+{%- assign zenkai_variable_template = product_template_override | default: product.template_suffix | downcase -%}
+{%- assign zenkai_default_to_collector = false -%}
+{%- if force_collector_variant -%}
+  {%- assign zenkai_default_to_collector = true -%}
+{%- elsif zenkai_variable_template == 'gympin' and product.selected_variant == blank -%}
+  {%- assign zenkai_default_to_collector = true -%}
+{%- endif -%}
+{%- if zenkai_default_to_collector -%}
   {%- for zenkai_default_variant in product.variants -%}
     {%- assign zenkai_default_variant_title = zenkai_default_variant.title | downcase -%}
     {%- if zenkai_default_variant_title contains 'collector' or zenkai_default_variant_title contains '4 region' or zenkai_default_variant_title contains '4-region' -%}

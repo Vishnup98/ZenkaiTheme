@@ -94,13 +94,34 @@
       </figure>
     </div>
 
-    {%- if gb_offer_quote != blank -%}
-      <aside class="gb-women-proof__quote" aria-label="Buyer review">
-        <span aria-hidden="true">“</span>
-        <p>{{ gb_offer_quote | escape }}</p>
-        <small>{{ gb_offer_quote_meta | escape }}</small>
-      </aside>
-    {%- endif -%}
+    <section class="gb-women-testimonials" aria-labelledby="gb-women-testimonials-title-{{ section.id }}">
+      <div class="gb-women-testimonials__heading">
+        <p>Real reactions after delivery</p>
+        <h3 id="gb-women-testimonials-title-{{ section.id }}">What collectors noticed first.</h3>
+      </div>
+      <div class="gb-women-testimonials__grid">
+        <figure>
+          <blockquote>“They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.”</blockquote>
+          <figcaption>Oliver S. · Verified buyer</figcaption>
+        </figure>
+        <figure>
+          <blockquote>“The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.”</blockquote>
+          <figcaption>Customer review</figcaption>
+        </figure>
+        <figure>
+          <blockquote>“Very pretty and nice material too, perfect for gifting.”</blockquote>
+          <figcaption>Customer review</figcaption>
+        </figure>
+        <figure>
+          <blockquote>“My son loved it!”</blockquote>
+          <figcaption>Customer review</figcaption>
+        </figure>
+        <figure>
+          <blockquote>“Wauw, they look amazing. It brings great nostalgia. Let's go to the elite four.”</blockquote>
+          <figcaption>S.P. · Verified buyer</figcaption>
+        </figure>
+      </div>
+    </section>
   </div>
 </section>
 

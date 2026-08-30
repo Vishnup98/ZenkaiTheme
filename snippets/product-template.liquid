@@ -67,7 +67,7 @@
 
 {%- assign zenkai_ptype = product.type | downcase -%}
 {%- assign zenkai_ptitle = product.title | downcase -%}
-{%- assign zenkai_ptemplate = product.template_suffix | downcase -%}
+{%- assign zenkai_ptemplate = product_template_override | default: product.template_suffix | downcase -%}
 {%- assign zenkai_defect_only_collectible = false -%}
 {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
   {%- assign zenkai_defect_only_collectible = true -%}
@@ -2696,6 +2696,8 @@
 
               {% if isModal %}
                 <p class="h2 product-single__title">{{ product.title }}</p>
+              {% elsif product_embed_buybox_only %}
+                <h2 class="h2 product-single__title">{{ product.title }}</h2>
               {% else %}
                 <h1 class="h2 product-single__title">{{ product.title }}</h1>
               {% endif %}
@@ -2772,7 +2774,8 @@
                   product_cta_text: zenkai_cta_text,
                   product_cta_note: zenkai_cta_subcopy,
                   product_cta_subcopy: zenkai_cta_subcopy,
-                  show_dynamic_checkout_secondary: zenkai_secondary_checkout
+                  show_dynamic_checkout_secondary: zenkai_secondary_checkout,
+                  hide_gift_nudge: product_hide_gift_nudge
                 %}
               {% else %}
                 <div id="ProductFormPlaceholder-{{ section_id }}" data-url="{{ product.url | within: collection }}" data-template="{{ product.template_suffix }}" class="product-form-holder">
@@ -2850,6 +2853,7 @@
         </div>
       </div>
 
+      {% unless product_embed_buybox_only %}
       <div class="zenkai-pdp-below">
         {% if zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_product_category == 'collectible' %}
           {%- assign zenkai_has_pin_story = false -%}
@@ -3165,6 +3169,7 @@
           {% endif %}
         </div>
       </div>
+      {% endunless %}
 
       {% unless zenkai_product_category == 'pin' or zenkai_product_category == 'sticker' or zenkai_defect_only_collectible %}
         <div class="zenkai-bundle-belt">

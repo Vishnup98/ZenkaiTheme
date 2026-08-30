@@ -10,7 +10,13 @@
         "hero_asset": "gym-badge-women-w4-hero-45.png",
         "hero_alt": "Four fitted badge boxes arranged in a cozy pastel collector room"
       }
+    },
+    "native_product": {
+      "type": "gym-badge-women-native-product",
+      "settings": {
+        "landing_variant": "women-w4"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "native_product"]
 }

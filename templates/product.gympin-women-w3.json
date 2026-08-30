@@ -10,7 +10,13 @@
         "hero_asset": "gym-badge-women-w3-hero-45.png",
         "hero_alt": "All 32 badges across four fitted boxes in a premium navy collector layout"
       }
+    },
+    "native_product": {
+      "type": "gym-badge-women-native-product",
+      "settings": {
+        "landing_variant": "women-w3"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "native_product"]
 }

@@ -10,7 +10,13 @@
         "hero_asset": "gym-badge-women-w1-hero-45.png",
         "hero_alt": "Four fitted boxes holding the 32-badge collector pack in a cozy pastel gaming room"
       }
+    },
+    "native_product": {
+      "type": "gym-badge-women-native-product",
+      "settings": {
+        "landing_variant": "women-w1"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "native_product"]
 }
