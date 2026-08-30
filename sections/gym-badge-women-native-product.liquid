@@ -1,6 +1,16 @@
 {%- assign women_native_variant = section.settings.landing_variant | default: 'women-w1' -%}
-{%- assign women_native_hook = 'The complete set, up close.' -%}
-{%- assign women_native_subheadline = 'See the glossy enamel, fitted boxes, and all 32 badges that bring the original four-region run together.' -%}
+{%- assign women_native_eyebrow = 'Your complete collection, up close' -%}
+{%- assign women_native_heading = 'See the full run you are about to make yours.' -%}
+{%- assign women_native_body = 'Four fitted boxes, 32 glossy enamel badges, and every original chapter together in one place.' -%}
+{%- assign women_native_hook = 'Your complete set is right here.' -%}
+{%- assign women_native_subheadline = 'Choose all 32 together and open the original four-region run as one collection.' -%}
+{%- assign women_native_outcome_1 = 'Every chapter arrives together instead of one region at a time' -%}
+{%- assign women_native_outcome_2 = 'Glossy color and raised detail you will notice the moment yours opens' -%}
+{%- assign women_native_outcome_3 = 'Four fitted boxes ready for you to arrange from day one' -%}
+{%- assign women_native_context_heading = 'You already know where yours would go' -%}
+{%- assign women_native_context_1 = 'Beside the games and pieces that already make the space feel like yours' -%}
+{%- assign women_native_context_2 = 'All four chapters together instead of one unfinished favorite' -%}
+{%- assign women_native_context_3 = 'Ready for your shelf, setup, frame, or one badge you decide to wear' -%}
 {%- assign women_collector_variant = nil -%}
 {%- for women_candidate_variant in product.variants -%}
   {%- assign women_candidate_title = women_candidate_variant.title | downcase -%}
@@ -12,15 +22,58 @@
 {%- assign women_collector_variant = women_collector_variant | default: product.selected_or_first_available_variant -%}
 
 {%- case women_native_variant -%}
+  {%- when 'women-w1' -%}
+    {%- assign women_native_eyebrow = 'The collection you remember, ready to be yours' -%}
+    {%- assign women_native_heading = 'Open the full run you never stopped wanting.' -%}
+    {%- assign women_native_body = 'All four chapters arrive together: 32 glossy enamel badges in four fitted boxes, ready for the shelf you have now.' -%}
+    {%- assign women_native_hook = 'Your complete set is right here.' -%}
+    {%- assign women_native_subheadline = 'Choose all 32 now and turn the era you remember into the collection you can finally hold.' -%}
+    {%- assign women_native_outcome_1 = 'Every chapter you remember arrives in the same order you chased it' -%}
+    {%- assign women_native_outcome_2 = 'Glossy color and raised detail make the memories feel new in your hand' -%}
+    {%- assign women_native_outcome_3 = 'Four fitted boxes keep the whole story together wherever you display it' -%}
+    {%- assign women_native_context_heading = 'You already know where yours would go' -%}
+    {%- assign women_native_context_1 = 'Beside the games you still replay and the things you never really outgrew' -%}
+    {%- assign women_native_context_2 = 'All four chapters together instead of stopping after one region' -%}
+    {%- assign women_native_context_3 = 'Ready for the shelf, setup, or frame you are already picturing' -%}
   {%- when 'women-w2' -%}
-    {%- assign women_native_hook = 'The detail that finishes the shelf.' -%}
-    {%- assign women_native_subheadline = 'Four fitted regional boxes give the full 32-badge collection a clean, intentional place in your setup.' -%}
+    {%- assign women_native_eyebrow = 'Picture the moment it reaches your room' -%}
+    {%- assign women_native_heading = 'This is the collection that finishes the shelf.' -%}
+    {%- assign women_native_body = 'Four fitted boxes give all 32 badges a clean, intentional place in the setup you already made yours.' -%}
+    {%- assign women_native_hook = 'You already know where yours will go.' -%}
+    {%- assign women_native_subheadline = 'Open all four, decide how they belong in the room, and turn the shelf in your head into the one you see every day.' -%}
+    {%- assign women_native_outcome_1 = 'Four distinct chapters become one complete visual story in your space' -%}
+    {%- assign women_native_outcome_2 = 'Glossy enamel adds the color your eye keeps returning to' -%}
+    {%- assign women_native_outcome_3 = 'Four fitted boxes arrive ready for you to line up or style your way' -%}
+    {%- assign women_native_context_heading = 'The collection is already arranged for your space' -%}
+    {%- assign women_native_context_1 = 'Line all four beside your setup for one clean chronological display' -%}
+    {%- assign women_native_context_2 = 'Frame the full run when you want all 32 to read as one piece' -%}
+    {%- assign women_native_context_3 = 'Keep each chapter boxed and let the colors become part of the room' -%}
   {%- when 'women-w3' -%}
-    {%- assign women_native_hook = 'Every region earns its place.' -%}
-    {%- assign women_native_subheadline = 'All 32 badges, organized by region for the collector who wants the complete run—not one token favorite.' -%}
+    {%- assign women_native_eyebrow = 'Your collection. Your call.' -%}
+    {%- assign women_native_heading = 'Every region earns its place.' -%}
+    {%- assign women_native_body = 'All 32 badges, organized across four fitted boxes because one favorite was never the whole story.' -%}
+    {%- assign women_native_hook = 'Take home the full original run.' -%}
+    {%- assign women_native_subheadline = 'Kanto through Sinnoh, together in the collection you chose for yourself.' -%}
+    {%- assign women_native_outcome_1 = 'All four original chapters arranged in chronological order' -%}
+    {%- assign women_native_outcome_2 = 'Polished enamel and raised detail that hold up to your standards' -%}
+    {%- assign women_native_outcome_3 = 'Four fitted boxes that present the collection as intentionally complete' -%}
+    {%- assign women_native_context_heading = 'Give the full run the shelf presence it deserves.' -%}
+    {%- assign women_native_context_1 = 'Keep the complete chronology visible from Kanto through Sinnoh' -%}
+    {%- assign women_native_context_2 = 'Give all 32 the organized presence of one complete collection' -%}
+    {%- assign women_native_context_3 = 'Display the regions boxed, or move the badges into a frame of your own' -%}
   {%- when 'women-w4' -%}
-    {%- assign women_native_hook = 'The exact set you came for.' -%}
-    {%- assign women_native_subheadline = 'All 32 badges, four fitted boxes, and no compromise on which region you actually wanted.' -%}
+    {%- assign women_native_eyebrow = 'No occasion between you and the exact set' -%}
+    {%- assign women_native_heading = 'Choose it now. Open all four when it arrives.' -%}
+    {%- assign women_native_body = 'All 32 arrive in four fitted boxes, ready for the moment you open the exact set you chose.' -%}
+    {%- assign women_native_hook = 'The exact set you chose is ready.' -%}
+    {%- assign women_native_subheadline = 'No date on the calendar required—the complete collection is already the one you wanted.' -%}
+    {%- assign women_native_outcome_1 = 'All four regions arrive together because that is the set you picked' -%}
+    {%- assign women_native_outcome_2 = 'Glossy color and raised detail make the choice feel right when you open the boxes' -%}
+    {%- assign women_native_outcome_3 = 'Four fitted boxes are ready for the place you already imagined' -%}
+    {%- assign women_native_context_heading = 'Picture opening the exact set you chose.' -%}
+    {%- assign women_native_context_1 = 'Unbox all four regions together in one complete moment' -%}
+    {%- assign women_native_context_2 = 'Give the collection a place in your room from day one' -%}
+    {%- assign women_native_context_3 = 'Keep it boxed, frame the badges, or arrange the full run your way' -%}
 {%- endcase -%}
 
 {{ 'gym-badge-women-native.css' | asset_url | stylesheet_tag }}
@@ -31,9 +84,9 @@
   data-gb-women-native-variant="{{ women_native_variant | escape }}"
   data-gb-women-native-collector-id="{{ women_collector_variant.id }}">
   <header class="gb-women-native-product__intro">
-    <p>The complete collection, up close</p>
-    <h2>All four regions. Every detail.</h2>
-    <span>Four fitted boxes, 32 glossy enamel badges, and the original four-region run together in one place.</span>
+    <p>{{ women_native_eyebrow | escape }}</p>
+    <h2>{{ women_native_heading | escape }}</h2>
+    <span>{{ women_native_body | escape }}</span>
   </header>
 
   {% include 'product-template',
@@ -46,17 +99,17 @@
     product_social_subheadline: women_native_subheadline,
     product_cta_text: 'Get All 32',
     product_cta_subcopy: 'Free U.S. shipping · Typical U.S. delivery: 1 business week',
-    product_outcome_1: '8 hard-enamel badges per region',
-    product_outcome_2: 'Raised metal trim and glossy enamel finish',
-    product_outcome_3: 'Collector Pack includes all 4 boxed sets',
-    product_context_heading: 'The complete run, organized to display',
-    product_context_1: 'Kanto through Sinnoh arranged as one chronological collection',
-    product_context_2: 'Each regional set kept together in its own fitted box',
-    product_context_3: 'Ready for your shelf, setup, pin display, or one favorite badge to wear',
-    product_proof_quote_1: 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.',
-    product_proof_attribution_1: 'Verified buyer',
+    product_outcome_1: women_native_outcome_1,
+    product_outcome_2: women_native_outcome_2,
+    product_outcome_3: women_native_outcome_3,
+    product_context_heading: women_native_context_heading,
+    product_context_1: women_native_context_1,
+    product_context_2: women_native_context_2,
+    product_context_3: women_native_context_3,
+    product_proof_quote_1: "Wauw they look amazing … it brings great nostalgia. Let's go to the elite four.",
+    product_proof_attribution_1: 'S.P. · Verified buyer',
     product_proof_quote_2: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
-    product_proof_attribution_2: 'Customer review',
+    product_proof_attribution_2: 'Verified buyer',
     hide_mobile_breadcrumbs: true,
     product_mobile_media_max_height: 44,
     product_sticky_atc_trigger_ratio: 8,

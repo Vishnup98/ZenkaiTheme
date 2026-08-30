@@ -138,108 +138,193 @@
 {%- assign women_final_eyebrow = 'The complete collector pack' -%}
 {%- assign women_final_heading = 'All 32. Ready when you are.' -%}
 {%- assign women_final_body = 'Four regions, four fitted boxes, and one complete display-ready collection.' -%}
+{%- assign women_value_1_label = 'Your full run' -%}
+{%- assign women_value_1_title = '32 badges' -%}
+{%- assign women_value_1_body = 'Every badge from the original four-region era, ready to become your collection.' -%}
+{%- assign women_value_2_label = 'Ready for your shelf' -%}
+{%- assign women_value_2_title = '4 fitted boxes' -%}
+{%- assign women_value_2_body = 'Open one fitted box for each chapter, then arrange the complete story your way.' -%}
+{%- assign women_value_3_label = 'The complete choice' -%}
+{%- if collector_has_savings -%}
+  {%- assign women_value_3_title = 'Save ' | append: collector_savings_money -%}
+{%- else -%}
+  {%- assign women_value_3_title = 'All four together' -%}
+{%- endif -%}
+{%- assign women_value_3_body = 'Bring home the satisfying version now instead of piecing it together one box at a time.' -%}
+{%- assign women_testimonials_eyebrow = 'Real reactions after delivery' -%}
+{%- assign women_testimonials_heading = 'What collectors notice when theirs arrives.' -%}
+{%- assign women_proof_caption_1 = 'Collector-framed display' -%}
+{%- assign women_proof_caption_2 = 'One fitted region box' -%}
+{%- assign women_proof_caption_3 = 'Opened after delivery' -%}
+{%- assign women_proof_caption_4 = 'Enamel gloss in natural light' -%}
+{%- assign women_quality_point_1_title = 'Color your shelf catches first' -%}
+{%- assign women_quality_point_1_body = 'Saturated glossy enamel makes every familiar badge read clearly from across the room.' -%}
+{%- assign women_quality_point_2_title = 'Details you recognize immediately' -%}
+{%- assign women_quality_point_2_body = 'Polished raised borders keep the shapes you remember crisp when yours are in hand.' -%}
+{%- assign women_quality_point_3_title = 'Four boxes ready for your space' -%}
+{%- assign women_quality_point_3_body = 'Keep each chapter together, line up all four, or build the collection into your own display.' -%}
 
 {%- case landing_variant -%}
   {%- when 'women', 'women-w1' -%}
     {%- assign hero_eyebrow = 'For the ladies who never outgrew the badge hunt' -%}
     {%- assign hero_heading_line_1 = 'You never stopped wanting' -%}
-    {%- assign hero_heading_line_2 = 'the full set.' -%}
-    {%- assign hero_lede = 'You just stopped seeing a collection that felt grown-up enough for the space you built. Kanto through Sinnoh—32 glossy hard-enamel pins in four fitted boxes.' -%}
+    {%- assign hero_heading_line_2 = 'your full set.' -%}
+    {%- assign hero_lede = 'The collection you chased then is ready for the shelf you built now. Kanto through Sinnoh—32 glossy hard-enamel pins in four fitted boxes, waiting to become yours.' -%}
     {%- assign gift_note_heading = 'The nostalgia stayed.' -%}
-    {%- assign gift_note_body = 'Now it gets a real place to live.' -%}
+    {%- assign gift_note_body = 'Now your collection gets a real place to live.' -%}
+    {%- assign women_value_1_label = 'The era you remember' -%}
+    {%- assign women_value_1_body = 'Every classic win from Kanto through Sinnoh, together in the collection you wanted then.' -%}
+    {%- assign women_value_2_label = 'The way yours arrives' -%}
+    {%- assign women_value_2_body = 'Open one fitted box for each chapter, then decide exactly where all four belong.' -%}
+    {%- assign women_value_3_label = 'Bring every chapter home' -%}
+    {%- assign women_value_3_body = 'Kanto through Sinnoh arrive together, ready to become the collection you always imagined.' -%}
     {%- assign women_memory_eyebrow = 'The feeling came back immediately' -%}
-    {%- assign women_memory_heading = 'You remember what each badge meant.' -%}
-    {%- assign women_memory_body = 'One more win. One more city. One more empty spot filled. Seeing all four regions together brings the whole era back—not as a loose memory, but as a collection you can finally finish.' -%}
-    {%- assign women_beat_1_title = 'Kanto started the hunt' -%}
-    {%- assign women_beat_1_body = 'The first eight made every win feel real.' -%}
-    {%- assign women_beat_2_title = 'Johto made the world bigger' -%}
-    {%- assign women_beat_2_body = 'Another region, another eight, and more to chase.' -%}
-    {%- assign women_beat_3_title = 'Hoenn and Sinnoh completed the era' -%}
-    {%- assign women_beat_3_body = 'The full four-region run finally belongs together.' -%}
-    {%- assign women_proof_heading = 'It looks this good off-screen, too.' -%}
-    {%- assign women_proof_body = 'Real customer photos of the fitted boxes, saturated color, and glossy enamel finish.' -%}
-    {%- assign women_desire_eyebrow = 'The shelf you have now' -%}
-    {%- assign women_desire_heading = 'Give the collection the place it deserved then.' -%}
-    {%- assign women_desire_body = 'Four fitted boxes keep every chapter together and make the full run feel intentional beside your setup, books, figures, or pin display.' -%}
-    {%- assign women_quality_heading = 'It should feel as good in your hand as it did in your memory.' -%}
+    {%- assign women_memory_heading = 'You remember exactly how earning each one felt.' -%}
+    {%- assign women_memory_body = 'One more win. One more city. One more empty spot filled. Seeing all four regions together brings the whole era back—not as a loose memory, but as the collection you can finally call yours.' -%}
+    {%- assign women_beat_1_title = 'The first eight started your story' -%}
+    {%- assign women_beat_1_body = 'Every new badge made the next part of the world feel earned.' -%}
+    {%- assign women_beat_2_title = 'Johto made the world feel bigger' -%}
+    {%- assign women_beat_2_body = 'Eight more badges, a new region, and another chapter you still remember.' -%}
+    {%- assign women_beat_3_title = 'Now all four chapters can be yours' -%}
+    {%- assign women_beat_3_body = 'The complete original run finally belongs together—and this time it belongs to you.' -%}
+    {%- assign women_proof_eyebrow = 'Real arrivals. The feeling is real.' -%}
+    {%- assign women_proof_heading = 'This is the moment the memory becomes something you can hold.' -%}
+    {%- assign women_proof_body = 'These customer photos show the fitted boxes, saturated enamel, and polished finish you will see when your own collection arrives.' -%}
+    {%- assign women_desire_eyebrow = 'You already know where yours would go' -%}
+    {%- assign women_desire_heading = 'The collection that stayed with you finally has a place.' -%}
+    {%- assign women_desire_body = 'Beside the games you still replay. Above the setup you made your own. Or on the shelf that has been waiting for something this unmistakably yours.' -%}
+    {%- assign women_quality_eyebrow = 'The first thing you will notice when you open yours' -%}
+    {%- assign women_quality_heading = 'The memories are familiar. The finish feels brand new.' -%}
+    {%- assign women_quality_body = 'Tilt each badge into the light and the color, raised borders, and familiar shapes make the collection feel real in a way the memory alone never could.' -%}
+    {%- assign women_quality_point_1_title = 'Color that brings every badge back' -%}
+    {%- assign women_quality_point_1_body = 'Glossy, saturated hard enamel keeps every familiar color vivid.' -%}
+    {%- assign women_quality_point_2_title = 'Shapes you know before you read the label' -%}
+    {%- assign women_quality_point_2_body = 'Polished raised lines keep every familiar outline sharp up close.' -%}
+    {%- assign women_quality_point_3_title = 'Four chapters ready to arrange' -%}
+    {%- assign women_quality_point_3_body = 'Keep each region boxed, line up all four, or move the badges into a frame of your own.' -%}
     {%- assign women_final_eyebrow = 'Your younger self already decided' -%}
-    {%- assign women_final_heading = 'Bring home the complete four-region run.' -%}
-    {%- assign women_final_body = 'All 32. Four fitted boxes. One purchase. No favorite region left behind.' -%}
+    {%- assign women_final_heading = 'Bring home the collection your younger self never forgot.' -%}
+    {%- assign women_final_body = 'You have already pictured all four boxes in your space. Make that shelf—and the complete 32-badge run—yours.' -%}
   {%- when 'women-w2' -%}
-    {%- assign hero_eyebrow = 'For the girl who always wanted every badge' -%}
+    {%- assign hero_eyebrow = 'For the girl who wanted every badge—and the woman who still does' -%}
     {%- assign hero_heading_line_1 = 'The shelf is ready.' -%}
-    {%- assign hero_heading_line_2 = 'So is the full set.' -%}
-    {%- assign hero_lede = 'Not loose pins in a drawer. Four complete regional boxes that look like they were always meant to live together.' -%}
+    {%- assign hero_heading_line_2 = 'Your full set is too.' -%}
+    {%- assign hero_lede = 'You can already picture all four boxes in the room you made yours—not loose pins in a drawer, but one complete visual story waiting for its place.' -%}
     {%- assign gift_note_heading = 'Make the setup unmistakably yours.' -%}
     {%- assign gift_note_body = 'The complete collection is the detail that finishes the space.' -%}
+    {%- assign women_value_1_label = 'Your complete visual story' -%}
+    {%- assign women_value_1_body = 'All 32 turn the shelf into a finished four-chapter collection instead of one isolated favorite.' -%}
+    {%- assign women_value_2_label = 'Ready for your shelf' -%}
+    {%- assign women_value_2_body = 'Line up the four fitted boxes on the shelf—or move the badges into a framed display of your own.' -%}
+    {%- assign women_value_3_label = 'The satisfying version' -%}
+    {%- assign women_value_3_body = 'Choose the complete arrangement now instead of noticing the chapters that are still missing.' -%}
     {%- assign women_memory_eyebrow = 'A setup should feel like yours' -%}
     {%- assign women_memory_heading = 'The details are what turn a room into your room.' -%}
     {%- assign women_memory_body = 'Your colors, your games, your collections—the things you choose are what make the space personal. The full four-region run gives the shelf a story instead of one unfinished chapter.' -%}
     {%- assign women_beat_1_title = 'Four distinct chapters' -%}
-    {%- assign women_beat_1_body = 'Each region has its own color rhythm and memories.' -%}
+    {%- assign women_beat_1_body = 'Each region brings its own color rhythm and memories into your space.' -%}
     {%- assign women_beat_2_title = 'One complete visual story' -%}
-    {%- assign women_beat_2_body = 'All 32 make more of a statement than a single box.' -%}
+    {%- assign women_beat_2_body = 'All 32 turn your shelf into a statement instead of one unfinished chapter.' -%}
     {%- assign women_beat_3_title = 'Display-ready from day one' -%}
-    {%- assign women_beat_3_body = 'Four fitted boxes keep the collection clean and intentional.' -%}
-    {%- assign women_proof_heading = 'Yes, the colors are this good in person.' -%}
-    {%- assign women_proof_body = 'Real collector photos show the boxes, enamel finish, and how the badges look once they leave the product page.' -%}
-    {%- assign women_desire_eyebrow = 'From saved image to real shelf' -%}
+    {%- assign women_beat_3_body = 'Open four fitted boxes and decide exactly how your collection will live in the room.' -%}
+    {%- assign women_proof_eyebrow = 'From real shelves, not a render' -%}
+    {%- assign women_proof_heading = 'This is how the collection looks once it is on display.' -%}
+    {%- assign women_proof_body = 'Real collector photos show the fitted boxes, enamel finish, and polished color that catches the eye on a shelf.' -%}
+    {%- assign women_desire_eyebrow = 'You already know where yours will live' -%}
     {%- assign women_desire_heading = 'Stop picturing it. Put it where it belongs.' -%}
-    {%- assign women_desire_body = 'Open all four together, line them up beside the setup, or frame the full run. The collection is already organized for the space you made yours.' -%}
-    {%- assign women_quality_heading = 'The finish makes it décor, not clutter.' -%}
-    {%- assign women_final_eyebrow = 'The space is waiting' -%}
-    {%- assign women_final_heading = 'Give the collection its own shelf.' -%}
-    {%- assign women_final_body = 'All four regions, all 32 badges, and four fitted boxes that arrive ready to display.' -%}
+    {%- assign women_desire_body = 'Open all four together, line them up beside your setup, or frame the full run. The collection is already organized for the space you made yours.' -%}
+    {%- assign women_quality_eyebrow = 'What makes it belong in the room' -%}
+    {%- assign women_quality_heading = 'The details turn your collection into part of the setup.' -%}
+    {%- assign women_quality_body = 'In daylight, the enamel catches color. Up close, the polished borders keep every shape crisp. Together, the four boxes feel like part of the display instead of an afterthought.' -%}
+    {%- assign women_quality_point_1_title = 'The color your shelf catches first' -%}
+    {%- assign women_quality_point_1_body = 'Glossy enamel gives the complete run the saturated color that makes the display feel alive.' -%}
+    {%- assign women_quality_point_2_title = 'Polished lines that stay intentional' -%}
+    {%- assign women_quality_point_2_body = 'Raised metal borders keep every badge crisp enough to hold its own in the display.' -%}
+    {%- assign women_quality_point_3_title = 'Four boxes you can style your way' -%}
+    {%- assign women_quality_point_3_body = 'Line yours up, stack the chapters, or frame all 32 into one complete visual story.' -%}
+    {%- assign women_final_eyebrow = 'You already pictured the finished shelf' -%}
+    {%- assign women_final_heading = 'Put your complete collection in its place.' -%}
+    {%- assign women_final_body = 'You have already chosen the shelf, the setup, and the feeling. Now make all four chapters part of the room.' -%}
   {%- when 'women-w3' -%}
     {%- assign hero_eyebrow = 'Yes, women collect' -%}
-    {%- assign hero_heading_line_1 = 'Not one favorite.' -%}
-    {%- assign hero_heading_line_2 = 'We want all 32.' -%}
-    {%- assign hero_lede = 'A complete four-region collection for women who collect because they love collecting—not because someone else picked it for them.' -%}
-    {%- assign gift_note_heading = 'The collector is you.' -%}
+    {%- assign hero_heading_line_1 = 'Yes. We want' -%}
+    {%- assign hero_heading_line_2 = 'all 32.' -%}
+    {%- assign hero_lede = 'Kanto through Sinnoh, organized across four fitted boxes for the collector who knows one region was never the whole story.' -%}
+    {%- assign gift_note_heading = 'Your collection. Your call.' -%}
     {%- assign gift_note_body = 'Choose the complete set because complete is what you wanted.' -%}
-    {%- assign women_memory_eyebrow = 'No watered-down version' -%}
+    {%- assign women_value_1_label = 'The full original story' -%}
+    {%- assign women_value_1_body = 'Every chapter from Kanto through Sinnoh together, because one region was never the whole story.' -%}
+    {%- assign women_value_2_label = 'Your collection has presence' -%}
+    {%- assign women_value_2_body = 'Four fitted boxes give your shelf the deliberate, organized display a complete run deserves.' -%}
+    {%- assign women_value_3_label = 'Complete by design' -%}
+    {%- assign women_value_3_body = 'Choose all four together because the complete 32-badge run is what you came for.' -%}
+    {%- assign women_memory_eyebrow = 'A complete collection feels different' -%}
     {%- assign women_memory_heading = 'You know the difference between a souvenir and a collection.' -%}
-    {%- assign women_memory_body = 'You know the regions. You remember the badges. And you do not need one token favorite standing in for the entire era. The full run is the point.' -%}
-    {%- assign women_beat_1_title = 'No token favorite' -%}
-    {%- assign women_beat_1_body = 'Kanto is the beginning, not the whole story.' -%}
-    {%- assign women_beat_2_title = 'No half-finished display' -%}
-    {%- assign women_beat_2_body = 'Four regions give the collection its full presence.' -%}
-    {%- assign women_beat_3_title = 'The complete original run' -%}
-    {%- assign women_beat_3_body = 'Thirty-two badges, organized across four fitted boxes.' -%}
-    {%- assign women_proof_heading = 'Serious collection. Real finish.' -%}
-    {%- assign women_proof_body = 'Customer photos show the glossy enamel, polished edges, and fitted presentation boxes as they actually arrive.' -%}
+    {%- assign women_memory_body = 'You know the regions. You remember the badges. Seeing the full chronology together is what turns the memory into a collection with presence.' -%}
+    {%- assign women_beat_1_title = 'Your story does not stop at one region' -%}
+    {%- assign women_beat_1_body = 'Kanto is the beginning of what you collect, not the limit of it.' -%}
+    {%- assign women_beat_2_title = 'Your shelf does not need an unfinished version' -%}
+    {%- assign women_beat_2_body = 'All four regions give the collection the presence you already know it should have.' -%}
+    {%- assign women_beat_3_title = 'Your complete original run' -%}
+    {%- assign women_beat_3_body = 'Thirty-two badges, four fitted boxes, and the full original run arranged the way you wanted it.' -%}
+    {%- assign women_proof_eyebrow = 'Real collectors. Real arrivals.' -%}
+    {%- assign women_proof_heading = 'Your complete set holds its own off-screen.' -%}
+    {%- assign women_proof_body = 'Customer photos show how the glossy enamel, polished edges, and fitted boxes look when the complete set arrives.' -%}
     {%- assign women_desire_eyebrow = 'A collection with presence' -%}
-    {%- assign women_desire_heading = 'All four boxes make the statement.' -%}
-    {%- assign women_desire_body = 'The complete set reads differently on a shelf: deliberate, organized, and unmistakably chosen by someone who knows exactly what she collects.' -%}
-    {%- assign women_quality_heading = 'A complete set should look complete up close, too.' -%}
-    {%- assign women_final_eyebrow = 'Your collection. Your call.' -%}
-    {%- assign women_final_heading = 'Choose the complete set.' -%}
-    {%- assign women_final_body = 'All 32 across the original four-region run. Nothing skipped and no favorite required.' -%}
+    {%- assign women_desire_heading = 'Let the shelf show exactly what you collect.' -%}
+    {%- assign women_desire_body = 'All four boxes together look deliberate, chronological, and unmistakably complete.' -%}
+    {%- assign women_quality_eyebrow = 'Details worthy of the space you give them' -%}
+    {%- assign women_quality_heading = 'If it is going on your shelf, the finish has to earn its place.' -%}
+    {%- assign women_quality_body = 'Your standards do not stop at owning all 32. The color, raised metal, and fitted presentation should look complete from across the room and hold up in your hand.' -%}
+    {%- assign women_quality_point_1_title = 'Color with real presence' -%}
+    {%- assign women_quality_point_1_body = 'Saturated enamel makes your complete run read immediately instead of fading into the shelf.' -%}
+    {%- assign women_quality_point_2_title = 'Crisp raised-metal edges' -%}
+    {%- assign women_quality_point_2_body = 'Polished borders keep every familiar shape defined when inspected up close.' -%}
+    {%- assign women_quality_point_3_title = 'A complete set that presents like one' -%}
+    {%- assign women_quality_point_3_body = 'Four fitted boxes keep the complete run organized in chronological order.' -%}
+    {%- assign women_final_eyebrow = 'Your collection. Your standards.' -%}
+    {%- assign women_final_heading = 'Take home the complete version.' -%}
+    {%- assign women_final_body = 'You knew one favorite would not be enough. Choose all 32 and make the full original run yours.' -%}
   {%- when 'women-w4' -%}
-    {%- assign hero_eyebrow = 'No birthday. No permission slip.' -%}
+    {%- assign hero_eyebrow = 'Ladies, you do not need an occasion' -%}
     {%- assign hero_heading_line_1 = 'Wanting the complete set' -%}
-    {%- assign hero_heading_line_2 = 'is the occasion.' -%}
-    {%- assign hero_lede = 'You already know what you want: all 32, across four fitted boxes, chosen by you and ready for your shelf.' -%}
+    {%- assign hero_heading_line_2 = 'is reason enough.' -%}
+    {%- assign hero_lede = 'You already found exactly what you want: all 32, across four fitted boxes, chosen by you and ready to become yours now.' -%}
     {%- assign gift_note_heading = 'No hint dropping required.' -%}
     {%- assign gift_note_body = 'Get the exact collection you meant.' -%}
-    {%- assign women_memory_eyebrow = 'Stop waiting to be guessed correctly' -%}
-    {%- assign women_memory_heading = 'The easiest gift to get exactly right is the one you choose yourself.' -%}
-    {%- assign women_memory_body = 'No hoping someone remembers the region. No settling for something almost right. No saving it for a date on the calendar. You saw the full set and knew.' -%}
-    {%- assign women_beat_1_title = 'Exactly the set you wanted' -%}
-    {%- assign women_beat_1_body = 'All four regions instead of one almost-right favorite.' -%}
-    {%- assign women_beat_2_title = 'Exactly where you will display it' -%}
-    {%- assign women_beat_2_body = 'Four fitted boxes arrive organized and ready for the shelf.' -%}
-    {%- assign women_beat_3_title = 'Exactly because you chose it' -%}
-    {%- assign women_beat_3_body = 'Wanting the complete collection is reason enough.' -%}
-    {%- assign women_proof_heading = 'No surprises—except how good they look in person.' -%}
-    {%- assign women_proof_body = 'Real customer photos show the fitted boxes, glossy enamel, and display-ready finish.' -%}
-    {%- assign women_desire_eyebrow = 'A just-because gift to yourself' -%}
-    {%- assign women_desire_heading = 'Open all four. Finish the collection.' -%}
-    {%- assign women_desire_body = 'The full four-region run arrives together, already organized across four fitted boxes. No waiting for someone else to find it.' -%}
-    {%- assign women_quality_heading = 'The exact set should feel worth choosing.' -%}
+    {%- assign women_value_1_label = 'Exactly what you chose' -%}
+    {%- assign women_value_1_body = 'All four regions together, exactly as you wanted them.' -%}
+    {%- assign women_value_2_label = 'Yours from day one' -%}
+    {%- assign women_value_2_body = 'Four fitted boxes arrive ready for you to open, arrange, and give a place in your room.' -%}
+    {%- assign women_value_3_label = 'One decision, complete' -%}
+    {%- assign women_value_3_body = 'Bring home every region together instead of piecing the collection together later.' -%}
+    {%- assign women_memory_eyebrow = 'You already know what you want' -%}
+    {%- assign women_memory_heading = 'The collection you choose for yourself is impossible to get wrong.' -%}
+    {%- assign women_memory_body = 'No date on the calendar required. You saw all four together and already knew where they would go.' -%}
+    {%- assign women_beat_1_title = 'Exactly the set you picked' -%}
+    {%- assign women_beat_1_body = 'All four regions together, exactly as you wanted them.' -%}
+    {%- assign women_beat_2_title = 'Exactly where yours will go' -%}
+    {%- assign women_beat_2_body = 'Four fitted boxes arrive organized and ready for the place you already pictured.' -%}
+    {%- assign women_beat_3_title = 'Exactly when you want it' -%}
+    {%- assign women_beat_3_body = 'Wanting the complete collection now is already reason enough.' -%}
+    {%- assign women_proof_eyebrow = 'See what arrives at your door' -%}
+    {%- assign women_proof_heading = 'Four boxes. All 32. See what arrives.' -%}
+    {%- assign women_proof_body = 'Real customer photos show the fitted boxes, glossy enamel, and polished finish that will greet you when yours arrives.' -%}
+    {%- assign women_desire_eyebrow = 'The exact collection you chose' -%}
+    {%- assign women_desire_heading = 'Picture opening all four at once.' -%}
+    {%- assign women_desire_body = 'Kanto through Sinnoh arrive together, ready for the shelf you already chose.' -%}
+    {%- assign women_quality_eyebrow = 'The moment yours arrives' -%}
+    {%- assign women_quality_heading = 'Open the boxes and know you chose the right set.' -%}
+    {%- assign women_quality_body = 'The glossy color, raised detail, and fitted presentation make your just-because choice feel considered the moment all four are in your hands.' -%}
+    {%- assign women_quality_point_1_title = 'Color worth choosing for yourself' -%}
+    {%- assign women_quality_point_1_body = 'Saturated glossy enamel gives every badge the vivid finish you pictured.' -%}
+    {%- assign women_quality_point_2_title = 'Details that make the choice feel right' -%}
+    {%- assign women_quality_point_2_body = 'Polished raised borders keep the familiar shapes crisp when you open yours.' -%}
+    {%- assign women_quality_point_3_title = 'Four boxes, ready from day one' -%}
+    {%- assign women_quality_point_3_body = 'The complete run arrives organized, boxed by region, and ready for the shelf.' -%}
     {%- assign women_final_eyebrow = 'No occasion required' -%}
-    {%- assign women_final_heading = 'Get all 32 because you want them.' -%}
-    {%- assign women_final_body = 'The complete original four-region run, chosen by you and ready for the shelf.' -%}
+    {%- assign women_final_heading = 'Make the complete set yours.' -%}
+    {%- assign women_final_body = 'You found all four regions, pictured where they belong, and chose the collection you actually wanted.' -%}
   {%- when 'gift-daughter' -%}
     {%- assign hero_eyebrow = 'A surprisingly specific gift' -%}
     {%- assign hero_heading_line_1 = 'A gift for the daughter' -%}
@@ -750,19 +835,22 @@
     <section class="gb-women-value" aria-label="Collector Pack value">
       <div class="gb-color-shell gb-women-value__grid">
         <article>
-          <span>The full run</span>
-          <strong>32 badges</strong>
-          <p>Eight hard-enamel badges from each of four regions.</p>
+          <span>{{ women_value_1_label | escape }}</span>
+          <strong>{{ women_value_1_title | escape }}</strong>
+          <p>{{ women_value_1_body | escape }}</p>
         </article>
         <article>
-          <span>Presentation</span>
-          <strong>4 display boxes</strong>
-          <p>Each regional set arrives in its own fitted collector box.</p>
+          <span>{{ women_value_2_label | escape }}</span>
+          <strong>{{ women_value_2_title | escape }}</strong>
+          <p>{{ women_value_2_body | escape }}</p>
         </article>
         <article>
-          <span>Collector value</span>
-          <strong>{% if collector_has_savings %}Save $20{% else %}All four together{% endif %}</strong>
-          <p>{{ collector_variant.price | money }} together versus {{ separate_total | money }} when purchased as four separate sets.</p>
+          <span>{{ women_value_3_label | escape }}</span>
+          <strong>{{ women_value_3_title | escape }}</strong>
+          <p>{{ women_value_3_body | escape }}</p>
+          {%- if collector_has_savings -%}
+            <small class="gb-women-value__comparison">{{ collector_variant.price | money }} together versus {{ separate_total | money }} separately.</small>
+          {%- endif -%}
         </article>
       </div>
     </section>
@@ -807,6 +895,18 @@
       women_quality_eyebrow: women_quality_eyebrow,
       women_quality_heading: women_quality_heading,
       women_quality_body: women_quality_body,
+      women_quality_point_1_title: women_quality_point_1_title,
+      women_quality_point_1_body: women_quality_point_1_body,
+      women_quality_point_2_title: women_quality_point_2_title,
+      women_quality_point_2_body: women_quality_point_2_body,
+      women_quality_point_3_title: women_quality_point_3_title,
+      women_quality_point_3_body: women_quality_point_3_body,
+      women_testimonials_eyebrow: women_testimonials_eyebrow,
+      women_testimonials_heading: women_testimonials_heading,
+      women_proof_caption_1: women_proof_caption_1,
+      women_proof_caption_2: women_proof_caption_2,
+      women_proof_caption_3: women_proof_caption_3,
+      women_proof_caption_4: women_proof_caption_4,
       women_final_eyebrow: women_final_eyebrow,
       women_final_heading: women_final_heading,
       women_final_body: women_final_body

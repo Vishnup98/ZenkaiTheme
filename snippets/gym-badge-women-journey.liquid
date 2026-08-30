@@ -78,31 +78,31 @@
     <div class="gb-women-proof__gallery">
       <figure class="gb-women-proof__frame gb-women-proof__frame--displayed">
         <img src="{{ framed_display_url }}&amp;width=900" width="677" height="1200" alt="Gym badges arranged in a framed shadow box" loading="lazy">
-        <figcaption>Framed by a collector</figcaption>
+        <figcaption>{{ women_proof_caption_1 | escape }}</figcaption>
       </figure>
       <figure class="gb-women-proof__frame gb-women-proof__frame--boxed">
         <img src="{{ open_box_url }}&amp;width=900" width="675" height="1200" alt="Open gym badge presentation box photographed in hand" loading="lazy">
-        <figcaption>Actually in hand</figcaption>
+        <figcaption>{{ women_proof_caption_2 | escape }}</figcaption>
       </figure>
       <figure class="gb-women-proof__frame gb-women-proof__frame--opened">
         <img src="{{ collector_open_box_url }}&amp;width=1000" width="1124" height="1500" alt="Open regional badge presentation box photographed by a collector" loading="lazy">
-        <figcaption>Opened after delivery</figcaption>
+        <figcaption>{{ women_proof_caption_3 | escape }}</figcaption>
       </figure>
       <figure class="gb-women-proof__frame gb-women-proof__frame--detail">
         <img src="{{ closeup_url }}&amp;width=1400" width="1500" height="726" alt="Close-up view of colorful enamel badges" loading="lazy">
-        <figcaption>Gloss and color up close</figcaption>
+        <figcaption>{{ women_proof_caption_4 | escape }}</figcaption>
       </figure>
     </div>
 
     <section class="gb-women-testimonials" aria-labelledby="gb-women-testimonials-title-{{ section.id }}">
       <div class="gb-women-testimonials__heading">
-        <p>Real reactions after delivery</p>
-        <h3 id="gb-women-testimonials-title-{{ section.id }}">What collectors noticed first.</h3>
+        <p>{{ women_testimonials_eyebrow | escape }}</p>
+        <h3 id="gb-women-testimonials-title-{{ section.id }}">{{ women_testimonials_heading | escape }}</h3>
       </div>
-      <div class="gb-women-testimonials__grid">
+      <div class="gb-women-testimonials__grid" tabindex="0" aria-label="Customer reviews">
         <figure>
-          <blockquote>“They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.”</blockquote>
-          <figcaption>Oliver S. · Verified buyer</figcaption>
+          <blockquote>“Wauw they look amazing … it brings great nostalgia. Let's go to the elite four.”</blockquote>
+          <figcaption>S.P. · Verified buyer</figcaption>
         </figure>
         <figure>
           <blockquote>“The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.”</blockquote>
@@ -113,12 +113,12 @@
           <figcaption>Verified buyer</figcaption>
         </figure>
         <figure>
-          <blockquote>“My son loved it!”</blockquote>
-          <figcaption>Verified buyer</figcaption>
+          <blockquote>“They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.”</blockquote>
+          <figcaption>Oliver S. · Verified buyer</figcaption>
         </figure>
         <figure>
-          <blockquote>“Wauw, they look amazing. It brings great nostalgia. Let's go to the elite four.”</blockquote>
-          <figcaption>S.P. · Verified buyer</figcaption>
+          <blockquote>“My son loved it!”</blockquote>
+          <figcaption>Verified buyer</figcaption>
         </figure>
       </div>
     </section>
@@ -170,9 +170,9 @@
       <h2 id="gb-women-quality-title-{{ section.id }}">{{ women_quality_heading | escape }}</h2>
       <p>{{ women_quality_body | escape }}</p>
       <ul>
-        <li><span aria-hidden="true">✦</span><div><strong>Glossy hard enamel</strong><small>Clean, saturated color inside polished metal borders.</small></div></li>
-        <li><span aria-hidden="true">✦</span><div><strong>Raised metal detail</strong><small>Crisp lines give every familiar shape definition.</small></div></li>
-        <li><span aria-hidden="true">✦</span><div><strong>Four fitted boxes</strong><small>Every regional set stays organized and display-ready.</small></div></li>
+        <li><span aria-hidden="true">✦</span><div><strong>{{ women_quality_point_1_title | escape }}</strong><small>{{ women_quality_point_1_body | escape }}</small></div></li>
+        <li><span aria-hidden="true">✦</span><div><strong>{{ women_quality_point_2_title | escape }}</strong><small>{{ women_quality_point_2_body | escape }}</small></div></li>
+        <li><span aria-hidden="true">✦</span><div><strong>{{ women_quality_point_3_title | escape }}</strong><small>{{ women_quality_point_3_body | escape }}</small></div></li>
       </ul>
     </div>
     <div class="gb-women-quality__image">
