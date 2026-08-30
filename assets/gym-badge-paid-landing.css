@@ -621,7 +621,7 @@ html.gb-paid-lp-active .product-section .zenkai-type-switcher {
 }
 
 html.gb-paid-lp-active .product-section {
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 html.gb-paid-lp-active .gb-paid-landing > .zenkai-pin-collector-photos--paid-placement {
@@ -1000,6 +1000,15 @@ html.gb-paid-lp-active .product-section [data-gb-lp-matched-duplicate][hidden] {
 
   html.gb-paid-lp-active .product-section .gb-paid-lp-region-options summary {
     font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 340px) {
+  html.gb-paid-lp-active .product-section .product__photos {
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 
