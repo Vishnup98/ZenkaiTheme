@@ -55,10 +55,10 @@
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-hero {
   grid-template-columns: minmax(0, 1.06fr) minmax(390px, 0.94fr);
-  gap: clamp(34px, 4.4vw, 64px);
+  gap: clamp(28px, 3.8vw, 52px);
   align-items: center;
-  padding-top: clamp(34px, 5vw, 70px);
-  padding-bottom: clamp(78px, 9vw, 122px);
+  padding-top: clamp(28px, 3.8vw, 52px);
+  padding-bottom: clamp(42px, 4.8vw, 64px);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage {
@@ -80,7 +80,7 @@
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
-  padding: clamp(28px, 3.4vw, 45px);
+  padding: clamp(25px, 2.8vw, 38px);
   border: 1px solid rgba(244, 225, 255, 0.2);
   border-radius: 28px;
   color: var(--gb-women-white);
@@ -111,7 +111,7 @@
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-primary-purchase {
-  margin-top: 22px;
+  margin-top: 17px;
   padding: 17px;
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 19px;
@@ -167,7 +167,7 @@
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-women-value {
-  padding: 0 0 clamp(58px, 7vw, 92px);
+  padding: 0 0 clamp(38px, 4.8vw, 62px);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-women-value__grid {
@@ -185,7 +185,7 @@
 
 .gb-color-page[data-gb-theme^="women-"] .gb-women-value article {
   min-width: 0;
-  padding: clamp(24px, 3vw, 38px);
+  padding: clamp(20px, 2.4vw, 30px);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-women-value article + article {
@@ -214,7 +214,7 @@
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-women-value p {
-  margin: 11px 0 0;
+  margin: 8px 0 0;
   color: rgba(255, 250, 255, 0.82);
   font-size: 15px;
   font-weight: 600;
@@ -236,7 +236,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(86px, 10vw, 138px) 0;
+  padding: clamp(48px, 5vw, 72px) 0;
 }
 
 .gb-women-section-heading {
@@ -244,7 +244,7 @@
 }
 
 .gb-women-kicker {
-  margin: 0 0 16px;
+  margin: 0 0 11px;
   color: #bfa5dc;
   font-size: 12px;
   font-weight: 900;
@@ -271,7 +271,7 @@
 .gb-women-quality__copy > p:not(.gb-women-kicker),
 .gb-women-final__card > p:not(.gb-women-kicker) {
   max-width: 760px;
-  margin: 22px 0 0;
+  margin: 15px 0 0;
   font-size: 18px;
   line-height: 1.62;
 }
@@ -308,15 +308,15 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 15px;
-  margin-top: 48px;
+  margin-top: 30px;
 }
 
 .gb-women-memory__beats article {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 16px;
-  min-height: 158px;
-  padding: 23px;
+  min-height: 0;
+  padding: 20px;
   border: 1px solid rgba(242, 220, 255, 0.15);
   border-radius: 19px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045));
@@ -348,7 +348,7 @@
 }
 
 .gb-women-memory__beats p {
-  margin: 10px 0 0;
+  margin: 7px 0 0;
   color: rgba(255, 250, 255, 0.82);
   font-size: 14px;
   font-weight: 550;
@@ -359,7 +359,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
-  margin-top: 42px;
+  margin-top: 28px;
 }
 
 .gb-women-region-run__card {
@@ -389,7 +389,7 @@
 }
 
 .gb-women-region-run__copy {
-  padding: 18px;
+  padding: 15px;
 }
 
 .gb-women-region-run__copy > div {
@@ -409,7 +409,7 @@
 }
 
 .gb-women-region-run__copy h3 {
-  margin: 17px 0 0;
+  margin: 11px 0 0;
   color: var(--gb-women-white);
   font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
   font-size: 27px;
@@ -462,13 +462,13 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  margin-top: 50px;
+  margin-top: 32px;
 }
 
 .gb-women-proof__frame {
   position: relative;
   overflow: hidden;
-  min-height: 450px;
+  min-height: 380px;
   margin: 0;
   border: 7px solid rgba(255, 250, 255, 0.94);
   border-radius: 18px;
@@ -499,7 +499,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 450px;
+  min-height: 380px;
   object-fit: cover;
 }
 
@@ -523,12 +523,12 @@
 }
 
 .gb-women-testimonials {
-  margin-top: clamp(34px, 5vw, 58px);
+  margin-top: clamp(28px, 3.4vw, 42px);
 }
 
 .gb-women-testimonials__heading {
   width: min(720px, 100%);
-  margin: 0 auto 22px;
+  margin: 0 auto 16px;
   text-align: center;
 }
 
@@ -561,13 +561,13 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  align-content: start;
+  gap: 17px;
   min-width: 0;
-  min-height: 158px;
+  min-height: 0;
   margin: 0;
-  padding: clamp(22px, 2.6vw, 30px);
+  padding: clamp(19px, 2.1vw, 25px);
   border: 1px solid rgba(245, 224, 255, 0.24);
   border-radius: 20px;
   background:
@@ -604,7 +604,7 @@
 }
 
 .gb-women-testimonials figcaption {
-  margin-top: 28px;
+  margin-top: 0;
   color: rgba(255, 250, 255, 0.78);
   font-size: 10px;
   font-weight: 900;
@@ -646,7 +646,7 @@
 .gb-women-desire__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.86fr);
-  gap: clamp(48px, 7vw, 94px);
+  gap: clamp(32px, 4.7vw, 62px);
   align-items: center;
 }
 
@@ -696,7 +696,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 18px;
 }
 
 .gb-women-desire__stats div {
@@ -785,7 +785,7 @@
 .gb-women-quality__grid {
   display: grid;
   grid-template-columns: minmax(360px, 0.84fr) minmax(0, 1.08fr);
-  gap: clamp(48px, 7vw, 94px);
+  gap: clamp(32px, 4.7vw, 62px);
   align-items: center;
 }
 
@@ -801,7 +801,7 @@
 .gb-women-quality__copy ul {
   display: grid;
   gap: 10px;
-  margin: 30px 0 0;
+  margin: 20px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -878,7 +878,7 @@
 .gb-women-final__card {
   width: min(890px, 100%);
   margin: 0 auto;
-  padding: clamp(34px, 6vw, 72px);
+  padding: clamp(28px, 4.2vw, 48px);
   border: 1px solid rgba(246, 226, 255, 0.17);
   border-radius: 30px;
   background:
@@ -906,7 +906,7 @@
   align-items: baseline;
   justify-content: center;
   gap: 8px 12px;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
 .gb-women-final__price s {
@@ -951,7 +951,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   width: min(1040px, 100%);
-  margin: 24px auto 0;
+  margin: 16px auto 0;
 }
 
 .gb-women-final__details details {
@@ -1088,7 +1088,7 @@
 
   .gb-women-desire__grid,
   .gb-women-quality__grid {
-    gap: 40px;
+    gap: 28px;
   }
 
   .gb-women-quality__copy {
@@ -1106,7 +1106,7 @@
 
 @media (max-width: 749px) {
   .gb-color-page[data-gb-theme^="women-"] .gb-women-value {
-    padding-bottom: 48px;
+    padding-bottom: 32px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-value__grid {
@@ -1115,7 +1115,7 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-value article {
-    padding: 22px 20px;
+    padding: 18px 20px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-value article + article {
@@ -1124,9 +1124,9 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-hero {
-    gap: 17px;
-    padding-top: 14px;
-    padding-bottom: 44px;
+    gap: 14px;
+    padding-top: 12px;
+    padding-bottom: 30px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
@@ -1142,7 +1142,7 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
-    padding: 24px 19px;
+    padding: 21px 18px;
     border-radius: 20px;
   }
 
@@ -1164,7 +1164,7 @@
   .gb-color-page[data-gb-theme^="women-"] .gb-women-desire,
   .gb-color-page[data-gb-theme^="women-"] .gb-women-quality,
   .gb-color-page[data-gb-theme^="women-"] .gb-women-final {
-    padding: 58px 0;
+    padding: 42px 0;
   }
 
   .gb-women-section-heading h2,
@@ -1178,23 +1178,23 @@
   .gb-women-desire__copy > p:not(.gb-women-kicker),
   .gb-women-quality__copy > p:not(.gb-women-kicker),
   .gb-women-final__card > p:not(.gb-women-kicker) {
-    margin-top: 16px;
+    margin-top: 12px;
     font-size: 15px;
     line-height: 1.55;
   }
 
   .gb-women-memory__beats {
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 22px;
   }
 
   .gb-women-memory__beats article {
-    padding: 18px;
+    padding: 16px;
   }
 
   .gb-women-region-run {
     gap: 10px;
-    margin-top: 26px;
+    margin-top: 20px;
   }
 
   .gb-women-region-run__copy {
@@ -1213,12 +1213,12 @@
   .gb-women-proof__gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 22px;
   }
 
   .gb-women-proof__frame,
   .gb-women-proof__frame img {
-    min-height: 280px;
+    min-height: 230px;
   }
 
   .gb-women-proof__frame {
@@ -1248,7 +1248,7 @@
   }
 
   .gb-women-testimonials {
-    margin-top: 28px;
+    margin-top: 22px;
   }
 
   .gb-women-testimonials__grid {
@@ -1259,7 +1259,8 @@
   .gb-women-testimonials figure {
     grid-column: auto !important;
     min-height: 0;
-    padding: 20px;
+    gap: 14px;
+    padding: 17px 18px;
   }
 
   .gb-women-testimonials blockquote {
@@ -1268,7 +1269,7 @@
   }
 
   .gb-women-testimonials figcaption {
-    margin-top: 22px;
+    margin-top: 0;
     font-size: 10px;
   }
 
@@ -1280,7 +1281,7 @@
 
   .gb-women-desire__stats {
     gap: 7px;
-    margin-top: 22px;
+    margin-top: 16px;
   }
 
   .gb-women-desire__stats div {
@@ -1296,12 +1297,12 @@
   }
 
   .gb-women-final__card {
-    padding: 32px 20px;
+    padding: 25px 20px;
     border-radius: 22px;
   }
 
   .gb-women-final__price {
-    margin-top: 22px;
+    margin-top: 17px;
   }
 
   .gb-women-final__trust {
