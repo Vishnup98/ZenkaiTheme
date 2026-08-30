@@ -1603,56 +1603,86 @@
   }
 
   .zenkai-context-review {
-    margin: 0.9rem 0 0;
-    padding: 0.75rem 0.82rem;
-    border: 1px solid rgba(89, 183, 167, 0.16);
-    border-left: 3px solid var(--zenkai-accent);
-    border-radius: 12px;
-    background: var(--zenkai-surface-alt);
+    display: grid;
+    grid-template-columns: 1.7rem minmax(0, 1fr);
+    column-gap: 0.62rem;
+    row-gap: 0.25rem;
+    align-content: start;
+    min-height: 0;
+    margin: 0.78rem 0 0;
+    padding: 0.72rem 0.78rem;
+    border: 1px solid rgba(89, 183, 167, 0.2);
+    border-radius: 10px;
+    background: linear-gradient(110deg, rgba(89, 183, 167, 0.14), rgba(89, 183, 167, 0.035));
   }
 
+  .zenkai-context-review::before {
+    content: "“";
+    display: grid;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    place-items: center;
+    align-self: start;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--zenkai-accent);
+    font-family: Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .zenkai-context-review__quote,
   .zenkai-context-review blockquote {
+    grid-column: 2;
     margin: 0;
     padding: 0;
     color: var(--zenkai-ink);
     font-size: 0.8rem;
     font-weight: 720;
-    line-height: 1.45;
+    letter-spacing: -0.006em;
+    line-height: 1.42;
   }
 
+  .zenkai-context-review__attribution,
   .zenkai-context-review figcaption {
-    margin-top: 0.42rem;
+    grid-column: 2;
+    margin: 0;
     color: var(--zenkai-muted);
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-weight: 850;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
     text-transform: uppercase;
   }
 
+  .zenkai-context-review__attribution::before,
   .zenkai-context-review figcaption::before {
-    content: "✓";
-    margin-right: 0.34rem;
-    color: var(--zenkai-accent);
+    content: none;
   }
 
   .zenkai-context-review--dark {
     max-width: 46rem;
     margin-top: 0.85rem;
     border-color: rgba(255, 255, 255, 0.12);
-    border-left-color: var(--zenkai-cta);
-    background: rgba(255, 255, 255, 0.055);
+    background: linear-gradient(110deg, rgba(99, 214, 191, 0.12), rgba(255, 255, 255, 0.035));
   }
 
+  .zenkai-context-review--dark::before {
+    color: var(--zenkai-dark);
+    background: var(--zenkai-cta);
+  }
+
+  .zenkai-context-review--dark .zenkai-context-review__quote,
   .zenkai-context-review--dark blockquote {
     color: #fff;
   }
 
+  .zenkai-context-review--dark .zenkai-context-review__attribution,
   .zenkai-context-review--dark figcaption {
     color: rgba(255, 255, 255, 0.65);
-  }
-
-  .zenkai-context-review--dark figcaption::before {
-    color: var(--zenkai-cta);
   }
 
   .zenkai-manual-reviews {
@@ -2826,10 +2856,10 @@
                     <h2 class="zenkai-pin-story-card__heading">{{ zenkai_pin_collector_heading }}</h2>
                     <p class="zenkai-pin-story-card__body">{{ zenkai_pin_collector_body }}</p>
                     {% if zenkai_ptemplate == 'gympin' and zenkai_manual_review_quote_3 != blank %}
-                      <figure class="zenkai-context-review">
-                        <blockquote>“{{ zenkai_manual_review_quote_3 }}”</blockquote>
-                        <figcaption>{{ zenkai_manual_review_name_3 | default: 'Verified buyer' }}{% if zenkai_manual_review_meta_3 != blank %} · {{ zenkai_manual_review_meta_3 }}{% endif %}</figcaption>
-                      </figure>
+                      <aside class="zenkai-context-review" aria-label="Customer review">
+                        <p class="zenkai-context-review__quote">{{ zenkai_manual_review_quote_3 }}</p>
+                        <p class="zenkai-context-review__attribution">{{ zenkai_manual_review_name_3 | default: 'Verified buyer' }}{% if zenkai_manual_review_meta_3 != blank %} · {{ zenkai_manual_review_meta_3 }}{% endif %}</p>
+                      </aside>
                     {% endif %}
                   </div>
                 </article>
@@ -2861,10 +2891,10 @@
                         <h2 class="zenkai-pin-story-card__heading">{{ zenkai_pin_quality_heading }}</h2>
                         <p class="zenkai-pin-story-card__body">{{ zenkai_pin_quality_body }}</p>
                         {% if zenkai_ptemplate == 'gympin' %}
-                          <figure class="zenkai-context-review">
-                            <blockquote>“Very pretty and nice material too, perfect for gifting.”</blockquote>
-                            <figcaption>Customer review</figcaption>
-                          </figure>
+                          <aside class="zenkai-context-review" aria-label="Customer review">
+                            <p class="zenkai-context-review__quote">Very pretty and nice material too, perfect for gifting.</p>
+                            <p class="zenkai-context-review__attribution">Customer review</p>
+                          </aside>
                         {% endif %}
                       </div>
                     </article>
@@ -2894,10 +2924,10 @@
                         <h2 class="zenkai-pin-story-card__heading">{{ zenkai_pin_lifestyle_heading }}</h2>
                         <p class="zenkai-pin-story-card__body">{{ zenkai_pin_lifestyle_body }}</p>
                         {% if zenkai_ptemplate == 'gympin' %}
-                          <figure class="zenkai-context-review">
-                            <blockquote>“My son loved it!”</blockquote>
-                            <figcaption>Customer review</figcaption>
-                          </figure>
+                          <aside class="zenkai-context-review" aria-label="Customer review">
+                            <p class="zenkai-context-review__quote">My son loved it!</p>
+                            <p class="zenkai-context-review__attribution">Customer review</p>
+                          </aside>
                         {% endif %}
                       </div>
                     </article>
@@ -2987,10 +3017,10 @@
               </figure>
             </div>
             {% if zenkai_proof_quote_2 != blank %}
-              <figure class="zenkai-context-review zenkai-context-review--dark">
-                <blockquote>“{{ zenkai_proof_quote_2 }}”</blockquote>
-                <figcaption>{{ zenkai_proof_attribution_2 | default: 'Verified buyer' }}</figcaption>
-              </figure>
+              <aside class="zenkai-context-review zenkai-context-review--dark" aria-label="Customer review">
+                <p class="zenkai-context-review__quote">{{ zenkai_proof_quote_2 }}</p>
+                <p class="zenkai-context-review__attribution">{{ zenkai_proof_attribution_2 | default: 'Verified buyer' }}</p>
+              </aside>
             {% endif %}
           </section>
           {% endif %}

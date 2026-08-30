@@ -261,35 +261,64 @@
 }
 
 .gb-paid-landing__buyer-quote {
-  margin: 16px 0 0;
-  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  column-gap: 11px;
+  row-gap: 5px;
+  align-content: start;
+  min-height: 0;
+  margin: 12px 0 0;
+  padding: 13px 14px;
   border: 1px solid var(--gb-line);
-  border-left: 3px solid var(--gb-gold);
-  background: rgba(255, 255, 255, 0.035);
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018));
 }
 
+.gb-paid-landing__buyer-quote::before {
+  content: "“";
+  display: grid;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  place-items: center;
+  align-self: start;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #0e1715;
+  background: var(--gb-gold);
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.gb-paid-landing__buyer-quote-text,
 .gb-paid-landing__buyer-quote blockquote {
+  grid-column: 2;
   margin: 0;
   padding: 0;
   color: #f7f2e8;
   font-size: 13px;
-  font-weight: 700;
-  line-height: 1.5;
+  font-weight: 720;
+  letter-spacing: -0.006em;
+  line-height: 1.44;
 }
 
+.gb-paid-landing__buyer-quote-attribution,
 .gb-paid-landing__buyer-quote figcaption {
-  margin-top: 7px;
+  grid-column: 2;
+  margin: 0;
   color: var(--gb-gold-light);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 850;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 
 .gb-paid-landing__microproof {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 12px;
+  margin-top: 10px;
   border: 1px solid var(--gb-line);
 }
 
@@ -314,7 +343,7 @@
 
 .gb-paid-landing__secondary {
   display: block;
-  margin: 17px auto 0;
+  margin: 14px auto 0;
   color: var(--gb-cta);
   font-size: 13px;
   font-weight: 700;
@@ -325,7 +354,7 @@
 
 .gb-paid-landing__policy {
   max-width: 600px;
-  margin: 15px auto 0;
+  margin: 12px auto 0;
   color: #8f8a81;
   font-size: 11px;
   line-height: 1.5;
@@ -925,7 +954,14 @@ html.gb-paid-lp-active .product-section [data-gb-lp-matched-duplicate][hidden] {
 
   .gb-paid-landing__confidence {
     display: grid;
-    gap: 9px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    margin: 16px 0;
+    font-size: 11px;
+  }
+
+  .gb-paid-landing__confidence li:last-child {
+    grid-column: 1 / -1;
   }
 
   .gb-paid-landing__primary {

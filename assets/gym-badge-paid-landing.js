@@ -311,16 +311,18 @@
         : 'Verified buyer');
     if (!quoteText || !primaryButton) return;
 
-    var proof = document.createElement('figure');
+    var proof = document.createElement('aside');
     proof.className = 'gb-paid-landing__buyer-quote';
     proof.setAttribute('data-gb-lp-buyer-quote', '');
     proof.setAttribute('aria-label', 'Verified buyer review');
 
-    var quote = document.createElement('blockquote');
-    quote.textContent = '“' + quoteText + '”';
+    var quote = document.createElement('p');
+    quote.className = 'gb-paid-landing__buyer-quote-text';
+    quote.textContent = quoteText;
     proof.appendChild(quote);
 
-    var attribution = document.createElement('figcaption');
+    var attribution = document.createElement('p');
+    attribution.className = 'gb-paid-landing__buyer-quote-attribution';
     attribution.textContent = attributionText;
     proof.appendChild(attribution);
 
@@ -346,7 +348,7 @@
 
     for (var index = 0; index < lowerReviews.length; index += 1) {
       var review = lowerReviews[index];
-      var quote = review.querySelector('blockquote, .zenkai-proof-nudge__quote');
+      var quote = review.querySelector('blockquote, .zenkai-proof-nudge__quote, .zenkai-context-review__quote');
       if (!quote || normalizeQuote(quote.textContent) !== matchedQuote) continue;
 
       review.hidden = true;
