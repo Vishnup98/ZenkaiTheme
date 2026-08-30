@@ -140,9 +140,23 @@
       display: none !important;
     }
 
-    .header-wrapper--gym-color-paid .announcement__link {
-      cursor: default;
-      pointer-events: none;
+    .header-wrapper--gym-color-paid .header-layout {
+      position: relative;
+    }
+
+    .header-wrapper--gym-color-paid .gb-color-header-shipping {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 0;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      line-height: 1;
+      text-transform: uppercase;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
     }
 
     @media only screen and (max-width: 768px) {
@@ -152,7 +166,7 @@
       }
 
       .header-wrapper--gym-color-paid .header-layout {
-        min-height: 38px !important;
+        min-height: 42px !important;
         justify-content: space-between !important;
         gap: 0;
         padding: 1px 6px !important;
@@ -174,6 +188,11 @@
 
       .header-wrapper--gym-color-paid .zenkai-mobile-cart {
         padding: 7px 5px;
+      }
+
+      .header-wrapper--gym-color-paid .gb-color-header-shipping {
+        font-size: 9px;
+        letter-spacing: 0.08em;
       }
     }
   {% endstyle %}
@@ -204,9 +223,11 @@
       {% include 'promo-bar' %}
     {%- endunless -%}
 
-    {% comment %} Show announcement bar on all pages {% endcomment %}
+    {% comment %} Paid Gym Badge views carry shipping in the logo row. {% endcomment %}
     {% if section.settings.show_announcement %}
-      {% include 'announcement-bar' %}
+      {%- unless zenkai_is_gym_color_paid -%}
+        {% include 'announcement-bar' %}
+      {%- endunless -%}
     {% endif %}
 
     {% comment %}
@@ -277,6 +298,9 @@
           {% comment %}
             Center mobile logo if icons are not visible
           {% endcomment %}
+          {% if zenkai_is_gym_color_paid %}
+            <p class="gb-color-header-shipping">Free U.S. shipping</p>
+          {% endif %}
           <div class="header-item header-item--icons">
             {% include 'header-icons' %}
           </div>

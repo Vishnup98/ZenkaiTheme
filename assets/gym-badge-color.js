@@ -10,6 +10,7 @@
     var price = root.querySelector('[data-gb-color-price]');
     var compare = root.querySelector('[data-gb-color-compare]');
     var priceNote = root.querySelector('[data-gb-color-price-note]');
+    var saving = root.querySelector('[data-gb-color-saving]');
     var submit = root.querySelector('[data-gb-color-submit]');
     var submitText = root.querySelector('[data-gb-color-submit-text]');
     var sticky = root.querySelector('[data-gb-color-sticky]');
@@ -85,6 +86,8 @@
         compare.textContent = button.dataset.compare || '';
         compare.hidden = !button.dataset.compare;
       }
+
+      if (saving) saving.hidden = !isCollector;
 
       if (submit) submit.disabled = button.disabled;
       if (submitText) submitText.textContent = label + ' — ' + variantPrice;
