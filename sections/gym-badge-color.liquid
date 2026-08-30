@@ -613,6 +613,18 @@
             {%- endfor -%}
           </div>
         {%- endif -%}
+
+        {%- if is_women_journey -%}
+          <aside class="gb-women-rating-proof" aria-label="Rated 4.8 out of 5 from 95 Shop ratings">
+            <div class="gb-women-rating-proof__score" aria-hidden="true">
+              <strong>4.8</strong><span>/5</span>
+            </div>
+            <div class="gb-women-rating-proof__copy">
+              <span class="gb-women-rating-stars" aria-hidden="true">★★★★★</span>
+              <p><strong>95</strong> Shop ratings</p>
+            </div>
+          </aside>
+        {%- endif -%}
       </div>
 
       <div class="gb-color-offer">
@@ -638,6 +650,14 @@
               {%- endfor -%}
             </select>
 
+            {%- if is_women_journey -%}
+              <div class="gb-women-rating-inline" aria-label="Rated 4.8 out of 5 from 95 Shop ratings">
+                <span class="gb-women-rating-stars" aria-hidden="true">★★★★★</span>
+                <strong>4.8/5</strong>
+                <span>from 95 Shop ratings</span>
+              </div>
+            {%- endif -%}
+
             <button
               class="btn btn--full gb-color-form__submit add-to-cart zenkai-primary-cta"
               type="submit"
@@ -655,7 +675,13 @@
               </span>
             </button>
 
-            <p class="gb-color-form__confidence">★ 4.8/5 from 95 Shop ratings · Free U.S. shipping · 1-week U.S. delivery</p>
+            <p class="gb-color-form__confidence">
+              {%- if is_women_journey -%}
+                Free U.S. shipping · Typical U.S. delivery in 1 business week
+              {%- else -%}
+                ★ 4.8/5 from 95 Shop ratings · Free U.S. shipping · 1-week U.S. delivery
+              {%- endif -%}
+            </p>
 
             {%- unless section.settings.force_collector -%}
             <div class="gb-color-choice" aria-label="Collector Pack selection">

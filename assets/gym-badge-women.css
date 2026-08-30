@@ -79,6 +79,102 @@
   display: none;
 }
 
+.gb-color-page[data-gb-theme^="women-"] .gb-women-rating-proof {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 17px;
+  margin-top: 14px;
+  padding: 14px 18px;
+  border: 1px solid rgba(244, 225, 255, 0.22);
+  border-radius: 18px;
+  color: var(--gb-women-white);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(117, 78, 153, 0.3), transparent 39%),
+    linear-gradient(145deg, rgba(29, 17, 40, 0.97), rgba(48, 28, 64, 0.95) 62%, rgba(25, 49, 55, 0.94));
+  box-shadow: 0 17px 38px rgba(27, 14, 36, 0.2);
+}
+
+.gb-women-rating-proof__score {
+  display: flex;
+  align-items: baseline;
+  min-width: 84px;
+  padding-right: 17px;
+  border-right: 1px solid rgba(244, 225, 255, 0.2);
+}
+
+.gb-women-rating-proof__score strong {
+  color: #fffaff;
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.gb-women-rating-proof__score span {
+  color: rgba(255, 250, 255, 0.72);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.gb-women-rating-proof__copy {
+  min-width: 0;
+}
+
+.gb-women-rating-stars {
+  color: #f6c963;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.gb-women-rating-proof__copy p {
+  margin: 5px 0 0;
+  color: rgba(255, 250, 255, 0.82);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.gb-women-rating-proof__copy p strong {
+  color: #fffaff;
+  font-weight: 900;
+}
+
+.gb-women-rating-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5px 8px;
+  margin-bottom: 9px;
+  padding: 8px 10px;
+  border: 1px solid rgba(72, 48, 91, 0.13);
+  border-radius: 12px;
+  color: #493855;
+  background: rgba(217, 201, 240, 0.32);
+  text-align: center;
+}
+
+.gb-women-rating-inline .gb-women-rating-stars {
+  font-size: 11px;
+}
+
+.gb-women-rating-inline strong {
+  color: #24172e;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.gb-women-rating-inline > span:last-child {
+  color: #5d4e65;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+
 .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
   padding: clamp(25px, 2.8vw, 38px);
   border: 1px solid rgba(244, 225, 255, 0.2);
@@ -1127,6 +1223,31 @@
     gap: 14px;
     padding-top: 12px;
     padding-bottom: 30px;
+  }
+
+  .gb-color-page[data-gb-theme^="women-"] .gb-women-rating-proof {
+    gap: 14px;
+    margin-top: 11px;
+    padding: 13px 16px;
+    border-radius: 15px;
+  }
+
+  .gb-women-rating-proof__score {
+    min-width: 76px;
+    padding-right: 14px;
+  }
+
+  .gb-women-rating-proof__score strong {
+    font-size: 29px;
+  }
+
+  .gb-women-rating-proof__copy p {
+    font-size: 11px;
+  }
+
+  .gb-women-rating-inline {
+    margin-bottom: 8px;
+    padding: 7px 9px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
