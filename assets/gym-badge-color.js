@@ -350,6 +350,15 @@
 
     if (sticky && submit && 'IntersectionObserver' in window) {
       var setStickyVisibility = function (shouldShow) {
+        if (shouldShow) {
+          var liveMainSubmit = root.querySelector('[data-gb-color-submit]');
+          if (liveMainSubmit) {
+            var liveMainSubmitRect = liveMainSubmit.getBoundingClientRect();
+            if (liveMainSubmitRect.bottom > 0 && liveMainSubmitRect.top < window.innerHeight) {
+              shouldShow = false;
+            }
+          }
+        }
         sticky.classList.toggle('is-visible', shouldShow);
         sticky.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
         if (stickyButton) stickyButton.tabIndex = shouldShow ? 0 : -1;

@@ -1314,7 +1314,10 @@
   }
 
   .gb-women-rating-inline__rating > span:last-child {
-    display: none;
+    display: block;
+    flex-basis: 100%;
+    font-size: 8px;
+    line-height: 1.15;
   }
 
   .gb-women-rating-inline__orders > span:last-child {
@@ -1324,13 +1327,14 @@
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
     width: 100%;
     margin-left: 0;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 5;
     border-width: 4px;
     border-radius: 20px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__main {
-    object-position: 50% 66%;
+    object-fit: contain;
+    object-position: 50% 50%;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
