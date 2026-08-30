@@ -11,6 +11,10 @@
     var compare = root.querySelector('[data-gb-color-compare]');
     var priceNote = root.querySelector('[data-gb-color-price-note]');
     var saving = root.querySelector('[data-gb-color-saving]');
+    var countBadge = root.querySelector('[data-gb-color-count]');
+    var countNumber = root.querySelector('[data-gb-color-count-number]');
+    var countLabel = root.querySelector('[data-gb-color-count-label]');
+    var countDetail = root.querySelector('[data-gb-color-count-detail]');
     var submit = root.querySelector('[data-gb-color-submit]');
     var submitText = root.querySelector('[data-gb-color-submit-text]');
     var sticky = root.querySelector('[data-gb-color-sticky]');
@@ -23,13 +27,13 @@
     var form = root.querySelector('.gb-color-form');
     var checkoutStatus = root.querySelector('[data-gb-color-checkout-status]');
     var directCheckout = root.dataset.gbDirectCheckout === 'true';
+    var forceCollector = root.dataset.gbForceCollector === 'true';
     var landingVariant = root.dataset.gbLandingVariant || 'standard';
     var checkoutInFlight = false;
     var checkoutStatusTimer = null;
 
     function setMainImage(source) {
       if (!mainImage || !source || !source.dataset.imageSrc) return;
-      if (mainImage.hasAttribute('data-gb-color-custom-hero')) return;
 
       mainImage.classList.add('is-changing');
       window.setTimeout(function () {
@@ -83,10 +87,28 @@
     }
 
     function setCheckoutBusy(isBusy, trigger) {
+      var controls = [];
       [submit, stickyButton, chooseCollectorButton, trigger].forEach(function (button) {
+        if (button && controls.indexOf(button) === -1) controls.push(button);
+      });
+      variantButtons.forEach(function (button) {
+        if (controls.indexOf(button) === -1) controls.push(button);
+      });
+
+      root.classList.toggle('is-checkout-busy', isBusy);
+
+      controls.forEach(function (button) {
         if (!button) return;
         button.classList.toggle('is-checkout-busy', isBusy);
         button.setAttribute('aria-busy', isBusy ? 'true' : 'false');
+
+        if (isBusy && !button.dataset.gbCheckoutWasDisabled) {
+          button.dataset.gbCheckoutWasDisabled = button.disabled ? 'true' : 'false';
+          button.disabled = true;
+        } else if (button.dataset.gbCheckoutWasDisabled) {
+          button.disabled = button.dataset.gbCheckoutWasDisabled === 'true';
+          delete button.dataset.gbCheckoutWasDisabled;
+        }
       });
 
       if (submitText) {
@@ -111,6 +133,23 @@
       });
     }
 
+    function pushLandingViewEvent(variantId) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'gym_badge_color_landing_view',
+        landing_page_variant: landingVariant,
+        collector_variant_id: String(root.dataset.collectorVariantId || ''),
+        selected_variant_id: String(variantId || ''),
+        direct_checkout: directCheckout
+      });
+
+      try {
+        window.sessionStorage.setItem('gym_badge_landing_variant', landingVariant);
+      } catch (error) {
+        return;
+      }
+    }
+
     function getSelectedVariantId() {
       if (variantSelect && variantSelect.value) return variantSelect.value;
       return root.dataset.collectorVariantId || '';
@@ -131,7 +170,11 @@
       pushCheckoutEvent('gym_badge_color_checkout_start', variantId);
 
       var shopifyRoot = getShopifyRoot();
-      fetch(shopifyRoot + 'cart/add.js', {
+      var controller = typeof window.AbortController === 'function' ? new window.AbortController() : null;
+      var checkoutTimeout = window.setTimeout(function () {
+        if (controller) controller.abort();
+      }, 12000);
+      var requestOptions = {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -139,8 +182,12 @@
           'Accept': 'application/json'
         },
         body: JSON.stringify({ items: [{ id: Number(variantId), quantity: 1 }] })
-      })
+      };
+      if (controller) requestOptions.signal = controller.signal;
+
+      fetch(shopifyRoot + 'cart/add.js', requestOptions)
         .then(function (response) {
+          window.clearTimeout(checkoutTimeout);
           if (!response.ok) {
             return response.json().catch(function () { return {}; }).then(function (payload) {
               throw new Error(payload.description || payload.message || 'This option could not be added.');
@@ -153,9 +200,13 @@
           window.location.assign(shopifyRoot + 'checkout');
         })
         .catch(function (error) {
+          window.clearTimeout(checkoutTimeout);
           checkoutInFlight = false;
           setCheckoutBusy(false, trigger);
-          showCheckoutStatus(error && error.message ? error.message : 'Checkout could not open. Please try again.', true);
+          var message = error && error.name === 'AbortError'
+            ? 'Checkout took too long to open. Please try again.'
+            : (error && error.message ? error.message : 'Checkout could not open. Please try again.');
+          showCheckoutStatus(message, true);
         });
     }
 
@@ -182,6 +233,15 @@
       var variantTitle = button.dataset.variantTitle || '';
       var variantPrice = button.dataset.price || '';
       var label = isCollector ? 'Get All 32' : 'Get ' + variantTitle;
+
+      if (countBadge) {
+        countBadge.setAttribute('aria-label', isCollector
+          ? 'Collector Pack includes 32 badges in four boxes'
+          : variantTitle + ' includes eight badges in one box');
+      }
+      if (countNumber) countNumber.textContent = isCollector ? '32' : '8';
+      if (countLabel) countLabel.textContent = 'badges';
+      if (countDetail) countDetail.textContent = isCollector ? '4 fitted boxes' : '1 fitted box';
 
       if (price) price.textContent = variantPrice;
       if (priceNote) priceNote.textContent = button.dataset.priceNote || '';
@@ -218,6 +278,13 @@
         }
       });
     });
+
+    var initialVariantId = getSelectedVariantId();
+    if (forceCollector && root.dataset.collectorVariantId) {
+      initialVariantId = root.dataset.collectorVariantId;
+      updateUrl(initialVariantId);
+    }
+    pushLandingViewEvent(initialVariantId);
 
     thumbs.forEach(function (thumb) {
       thumb.addEventListener('click', function () {
@@ -277,6 +344,7 @@
       var setStickyVisibility = function (shouldShow) {
         sticky.classList.toggle('is-visible', shouldShow);
         sticky.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+        if (stickyButton) stickyButton.tabIndex = shouldShow ? 0 : -1;
       };
 
       var updateStickyFromSubmit = function () {

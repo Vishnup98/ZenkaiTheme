@@ -30,6 +30,49 @@
   font-family: var(--typeBasePrimary), var(--typeBaseFallback), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+.gb-color-unavailable {
+  min-height: 60vh;
+  padding: clamp(72px, 10vw, 140px) 20px;
+  color: #102522;
+  background: #f7f2e7;
+  text-align: center;
+}
+
+.gb-color-unavailable .gb-color-shell {
+  max-width: 720px;
+}
+
+.gb-color-unavailable h1 {
+  margin: 18px 0 14px;
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: clamp(36px, 6vw, 66px);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.gb-color-unavailable p:not(.gb-color-pill) {
+  max-width: 560px;
+  margin: 0 auto 26px;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.gb-color-unavailable a.gb-color-form__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding: 0 24px;
+  border: 2px solid #102522;
+  border-radius: 14px;
+  color: #102522;
+  background: #63d6bf;
+  box-shadow: 4px 5px 0 #102522;
+  font-weight: 900;
+  text-decoration: none;
+}
+
 .gb-color-page[data-gb-theme="women"] {
   --gb-accent-one: #f2c8ff;
   --gb-accent-two: #ffc6c8;

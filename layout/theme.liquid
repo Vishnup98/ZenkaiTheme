@@ -1,5 +1,17 @@
 {%- assign zenkai_collectible_focus_context = false -%}
+{%- assign zenkai_gym_badge_paid_context = false -%}
 {%- if request.page_type == 'product' -%}
+  {%- if product.handle == '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
+    {%- if template.suffix contains 'gympin-color'
+      or template.suffix == 'gympin-women'
+      or template.suffix contains 'gympin-gift'
+      or template.suffix == 'gympin-completion'
+      or template.suffix == 'gympin-collection'
+      or template.suffix == 'gympin-og-four' -%}
+      {%- assign zenkai_gym_badge_paid_context = true -%}
+      {%- assign zenkai_collectible_focus_context = true -%}
+    {%- endif -%}
+  {%- endif -%}
   {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
     {%- assign zenkai_collectible_focus_context = true -%}
   {%- endif -%}
@@ -254,7 +266,9 @@
           {{ content_for_layout }}
         </main>
 
-        {% section 'social' %}
+        {%- unless zenkai_gym_badge_paid_context -%}
+          {% section 'social' %}
+        {%- endunless -%}
         {% section 'footer' %}
       </div>
     </div>

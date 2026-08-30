@@ -2,7 +2,18 @@
 {%- assign currency_selector = false -%}
 {%- assign locale_selector = false -%}
 {%- assign zenkai_defect_only_context = false -%}
+{%- assign zenkai_gym_badge_paid_context = false -%}
 {%- if request.page_type == 'product' -%}
+  {%- if product.handle == '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
+    {%- if template.suffix contains 'gympin-color'
+      or template.suffix == 'gympin-women'
+      or template.suffix contains 'gympin-gift'
+      or template.suffix == 'gympin-completion'
+      or template.suffix == 'gympin-collection'
+      or template.suffix == 'gympin-og-four' -%}
+      {%- assign zenkai_gym_badge_paid_context = true -%}
+    {%- endif -%}
+  {%- endif -%}
   {%- if product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
     {%- assign zenkai_defect_only_context = true -%}
   {%- endif -%}
@@ -28,7 +39,7 @@
 {%- endif -%}
 
 <footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
-  {% if section.settings.show_newsletter and zenkai_defect_only_context == false %}
+  {% if section.settings.show_newsletter and zenkai_defect_only_context == false and zenkai_gym_badge_paid_context == false %}
     <div class="site-footer__section site-footer__section--newsletter" data-aos>
       <div class="page-width">
         {% if section.settings.newsletter_title != blank %}
@@ -54,11 +65,11 @@
   <div class="page-width site-footer__inner">
 
     <div class="site-footer__brand">
-      <a href="{{ routes.root_url }}" class="site-footer__wordmark">{{ shop.name }}</a>
+      {% if zenkai_gym_badge_paid_context %}<span class="site-footer__wordmark">{{ shop.name }}</span>{% else %}<a href="{{ routes.root_url }}" class="site-footer__wordmark">{{ shop.name }}</a>{% endif %}
       <p class="site-footer__tagline">Original reimaginings of the favorites you grew up with.</p>
       <div class="site-footer__signals" aria-label="Store promises">
         <span>Free U.S. shipping</span>
-        <span>Ships in 1-2 days</span>
+        <span>{% if zenkai_gym_badge_paid_context %}Typical U.S. delivery: 1 business week{% else %}Ships in 1-2 days{% endif %}</span>
         <span>Secure checkout</span>
       </div>
     </div>
@@ -129,13 +140,13 @@
       {%- endform -%}
     {%- endif -%}
 
-    {% if section.settings.show_social_icons %}
+    {% if section.settings.show_social_icons and zenkai_gym_badge_paid_context == false %}
       <div class="site-footer__section site-footer__social">
         {% include 'social-icons', social_class: 'footer__social' %}
       </div>
     {% endif %}
 
-    {% if linklists[section.settings.menu].links.size > 0 %}
+    {% if linklists[section.settings.menu].links.size > 0 and zenkai_gym_badge_paid_context == false %}
       <nav class="site-footer__section site-footer__nav" aria-label="Footer">
         <ul class="no-bullets inline-list site-footer__linklist">
           {% for link in linklists[section.settings.menu].links %}
