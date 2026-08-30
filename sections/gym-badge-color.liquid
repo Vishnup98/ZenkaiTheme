@@ -291,63 +291,81 @@
     {%- assign angle_card_4_body = 'The original four-region run, complete.' -%}
 {%- endcase -%}
 
+{%- assign gb_quote_full_set = 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.' -%}
 {%- assign gb_quote_delivery_gift = 'They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.' -%}
-{%- assign gb_quote_nostalgia = "Wauw they look amazing … and it brings great nostalgia. Let's go to the elite four." -%}
+{%- assign gb_quote_nostalgia = "Wauw they look amazing, I really feel like a Pokemon trainer and it brings great nostalgia. Let's go to the elite four." -%}
 {%- assign gb_quote_quality_gift = 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.' -%}
 {%- assign gb_quote_son = 'My son loved it!' -%}
 {%- assign gb_quote_pretty_gift = 'Very pretty and nice material too, perfect for gifting.' -%}
 
-{%- assign gb_offer_quote = gb_quote_nostalgia -%}
-{%- assign gb_offer_quote_meta = 'S.P. · Customer review' -%}
+{%- assign gb_offer_quote = gb_quote_full_set -%}
+{%- assign gb_offer_quote_meta = 'Verified buyer' -%}
 {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
 {%- assign gb_inhand_quote_meta = 'Customer review' -%}
 {%- assign gb_detail_quote = gb_quote_pretty_gift -%}
 {%- assign gb_detail_quote_meta = 'Customer review' -%}
 {%- assign gb_collector_quote = gb_quote_nostalgia -%}
-{%- assign gb_collector_quote_meta = 'S.P. · Customer review' -%}
+{%- assign gb_collector_quote_meta = 'S.P. · Verified buyer' -%}
 {%- assign gb_lifestyle_quote = gb_quote_son -%}
 {%- assign gb_lifestyle_quote_meta = 'Customer review' -%}
 
 {%- case landing_variant -%}
   {%- when 'women' -%}
     {%- assign gb_offer_quote = gb_quote_nostalgia -%}
-    {%- assign gb_offer_quote_meta = 'S.P. · Customer review' -%}
-    {%- assign gb_inhand_quote = blank -%}
+    {%- assign gb_offer_quote_meta = 'S.P. · Verified buyer' -%}
+    {%- assign gb_inhand_quote = gb_quote_full_set -%}
+    {%- assign gb_inhand_quote_meta = 'Verified buyer' -%}
     {%- assign gb_detail_quote = blank -%}
     {%- assign gb_collector_quote = blank -%}
     {%- assign gb_lifestyle_quote = blank -%}
   {%- when 'gift-daughter', 'gift-girlfriend' -%}
     {%- assign gb_offer_quote = gb_quote_pretty_gift -%}
-    {%- assign gb_inhand_quote = blank -%}
+    {%- assign gb_offer_quote_meta = 'Customer review' -%}
+    {%- assign gb_inhand_quote = gb_quote_full_set -%}
+    {%- assign gb_inhand_quote_meta = 'Verified buyer' -%}
     {%- assign gb_detail_quote = blank -%}
-    {%- assign gb_collector_quote = blank -%}
+    {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_collector_quote_meta = 'S.P. · Verified buyer' -%}
     {%- assign gb_lifestyle_quote = blank -%}
   {%- when 'gift-son' -%}
     {%- assign gb_offer_quote = gb_quote_son -%}
+    {%- assign gb_offer_quote_meta = 'Customer review' -%}
     {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+    {%- assign gb_inhand_quote_meta = 'Customer review' -%}
     {%- assign gb_detail_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_detail_quote_meta = 'Customer review' -%}
     {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_collector_quote_meta = 'S.P. · Verified buyer' -%}
     {%- assign gb_lifestyle_quote = gb_quote_delivery_gift -%}
-    {%- assign gb_lifestyle_quote_meta = 'Oliver S. · Customer review' -%}
+    {%- assign gb_lifestyle_quote_meta = 'Oliver S. · Verified buyer' -%}
   {%- when 'gift-boyfriend' -%}
     {%- assign gb_offer_quote = gb_quote_quality_gift -%}
-    {%- assign gb_inhand_quote = blank -%}
+    {%- assign gb_offer_quote_meta = 'Customer review' -%}
+    {%- assign gb_inhand_quote = gb_quote_full_set -%}
+    {%- assign gb_inhand_quote_meta = 'Verified buyer' -%}
     {%- assign gb_detail_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_detail_quote_meta = 'Customer review' -%}
     {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_collector_quote_meta = 'S.P. · Verified buyer' -%}
     {%- assign gb_lifestyle_quote = blank -%}
   {%- when 'gift' -%}
     {%- assign gb_offer_quote = gb_quote_pretty_gift -%}
+    {%- assign gb_offer_quote_meta = 'Customer review' -%}
     {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+    {%- assign gb_inhand_quote_meta = 'Customer review' -%}
     {%- assign gb_detail_quote = blank -%}
-    {%- assign gb_collector_quote = blank -%}
+    {%- assign gb_collector_quote = gb_quote_full_set -%}
+    {%- assign gb_collector_quote_meta = 'Verified buyer' -%}
     {%- assign gb_lifestyle_quote = gb_quote_delivery_gift -%}
-    {%- assign gb_lifestyle_quote_meta = 'Oliver S. · Customer review' -%}
+    {%- assign gb_lifestyle_quote_meta = 'Oliver S. · Verified buyer' -%}
   {%- when 'completion', 'collection', 'og-four' -%}
-    {%- assign gb_offer_quote = gb_quote_nostalgia -%}
-    {%- assign gb_offer_quote_meta = 'S.P. · Customer review' -%}
+    {%- assign gb_offer_quote = gb_quote_full_set -%}
+    {%- assign gb_offer_quote_meta = 'Verified buyer' -%}
     {%- assign gb_inhand_quote = gb_quote_quality_gift -%}
+    {%- assign gb_inhand_quote_meta = 'Customer review' -%}
     {%- assign gb_detail_quote = blank -%}
     {%- assign gb_collector_quote = gb_quote_nostalgia -%}
+    {%- assign gb_collector_quote_meta = 'S.P. · Verified buyer' -%}
     {%- assign gb_lifestyle_quote = blank -%}
 {%- endcase -%}
 

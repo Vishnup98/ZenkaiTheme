@@ -76,11 +76,11 @@
     },
     collector: {
       quote: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
-      attribution: 'Verified buyer'
+      attribution: 'Customer review'
     },
     shelf: {
       quote: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
-      attribution: 'Verified buyer'
+      attribution: 'Customer review'
     },
     collection: {
       quote: 'The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.',
@@ -88,7 +88,7 @@
     },
     premium: {
       quote: 'The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.',
-      attribution: 'Verified buyer'
+      attribution: 'Customer review'
     },
     nostalgia: {
       quote: "Wauw they look amazing, I really feel like a Pokemon trainer and it brings great nostalgia. Let's go to the elite four.",
@@ -96,7 +96,7 @@
     },
     proof: {
       quote: 'Very pretty and nice material too, perfect for gifting.',
-      attribution: 'Verified buyer'
+      attribution: 'Customer review'
     }
   };
 
