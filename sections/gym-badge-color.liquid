@@ -417,8 +417,8 @@
           {%- if hero_asset != blank -%}
             <img
               class="gb-color-gallery__main"
-              src="{{ hero_asset | asset_img_url: '1400x' }}"
-              srcset="{{ hero_asset | asset_img_url: '720x' }} 720w, {{ hero_asset | asset_img_url: '1100x' }} 1100w, {{ hero_asset | asset_img_url: '1400x' }} 1400w, {{ hero_asset | asset_url }} 2000w"
+              src="{{ hero_asset | asset_url }}&amp;width=1400"
+              srcset="{{ hero_asset | asset_url }}&amp;width=720 720w, {{ hero_asset | asset_url }}&amp;width=1100 1100w, {{ hero_asset | asset_url }}&amp;width=1400 1400w, {{ hero_asset | asset_url }} 2000w"
               sizes="(min-width: 990px) 56vw, 100vw"
               width="2000"
               height="2500"
@@ -854,8 +854,8 @@
       <div class="gb-color-collector__image">
         {%- if hero_asset != blank -%}
           <img
-            src="{{ hero_asset | asset_img_url: '1400x' }}"
-            srcset="{{ hero_asset | asset_img_url: '720x' }} 720w, {{ hero_asset | asset_img_url: '1100x' }} 1100w, {{ hero_asset | asset_img_url: '1400x' }} 1400w, {{ hero_asset | asset_url }} 2000w"
+            src="{{ hero_asset | asset_url }}&amp;width=1400"
+            srcset="{{ hero_asset | asset_url }}&amp;width=720 720w, {{ hero_asset | asset_url }}&amp;width=1100 1100w, {{ hero_asset | asset_url }}&amp;width=1400 1400w, {{ hero_asset | asset_url }} 2000w"
             sizes="(min-width: 900px) 52vw, 100vw"
             width="2000"
             height="2500"
