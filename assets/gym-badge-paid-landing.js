@@ -340,7 +340,7 @@
     }
 
     var matchedQuote = normalizeQuote(matchedProof.quote);
-    var lowerReviews = productSection.querySelectorAll(
+    var lowerReviews = document.querySelectorAll(
       '.zenkai-proof-nudge, .zenkai-context-review, .zenkai-pin-photo-card--quote'
     );
 
