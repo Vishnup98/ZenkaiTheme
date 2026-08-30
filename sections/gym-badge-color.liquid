@@ -739,21 +739,6 @@
               {%- endfor -%}
             </select>
 
-            {%- if is_women_journey -%}
-              <div class="gb-women-rating-inline" aria-label="Rated 4.8 out of 5 from 95 Shop ratings, with more than 2,800 orders and counting">
-                <div class="gb-women-rating-inline__rating">
-                  <span class="gb-women-rating-stars" aria-hidden="true">★★★★★</span>
-                  <strong>4.8/5</strong>
-                  <span>from 95 Shop ratings</span>
-                </div>
-                <span class="gb-women-rating-inline__divider" aria-hidden="true"></span>
-                <div class="gb-women-rating-inline__orders">
-                  <strong>2,800+</strong>
-                  <span>Orders And Counting</span>
-                </div>
-              </div>
-            {%- endif -%}
-
             <button
               class="btn btn--full gb-color-form__submit add-to-cart zenkai-primary-cta"
               type="submit"
@@ -770,6 +755,21 @@
                 {%- endif -%}
               </span>
             </button>
+
+            {%- if is_women_journey -%}
+              <div class="gb-women-rating-inline" aria-label="Rated 4.8 out of 5 from 95 Shop ratings, with more than 2,800 orders and counting">
+                <div class="gb-women-rating-inline__rating">
+                  <span class="gb-women-rating-stars" aria-hidden="true">★★★★★</span>
+                  <strong>4.8/5</strong>
+                  <span>from 95 Shop ratings</span>
+                </div>
+                <span class="gb-women-rating-inline__divider" aria-hidden="true"></span>
+                <div class="gb-women-rating-inline__orders">
+                  <strong>2,800+</strong>
+                  <span>Orders And Counting</span>
+                </div>
+              </div>
+            {%- endif -%}
 
             <p class="gb-color-form__confidence">
               {%- if is_women_journey -%}

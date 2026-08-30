@@ -1292,57 +1292,14 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-women-rating-proof {
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    gap: 8px;
-    margin-top: 6px;
-    padding: 8px 10px;
-    border-radius: 13px;
-  }
-
-  .gb-women-rating-proof__score {
-    min-width: 55px;
-    padding-right: 8px;
-  }
-
-  .gb-women-rating-proof__score strong {
-    font-size: 22px;
-  }
-
-  .gb-women-rating-proof__score span {
-    font-size: 10px;
-  }
-
-  .gb-women-rating-stars {
-    font-size: 10px;
-  }
-
-  .gb-women-rating-proof__copy p {
-    margin-top: 3px;
-    font-size: 9px;
-  }
-
-  .gb-women-rating-proof__orders {
-    grid-column: auto;
-    display: grid;
-    min-width: 90px;
-    padding: 0 0 0 8px;
-    border-top: 0;
-    border-left: 1px solid rgba(244, 225, 255, 0.18);
-  }
-
-  .gb-women-rating-proof__orders strong {
-    font-size: 15px;
-  }
-
-  .gb-women-rating-proof__orders span {
-    margin-top: 3px;
-    font-size: 7px;
+    display: none;
   }
 
   .gb-women-rating-inline {
     grid-template-columns: minmax(0, 1fr) 1px auto;
     gap: 6px;
-    margin-bottom: 6px;
+    margin-top: 7px;
+    margin-bottom: 0;
     padding: 6px 7px;
   }
 
@@ -1367,13 +1324,13 @@
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
     width: 100%;
     margin-left: 0;
-    aspect-ratio: 1;
+    aspect-ratio: 16 / 9;
     border-width: 4px;
     border-radius: 20px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__main {
-    object-position: 50% 43%;
+    object-position: 50% 66%;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {

@@ -358,12 +358,18 @@
       var updateStickyFromSubmit = function () {
         var liveSubmit = root.querySelector('[data-gb-color-submit]');
         if (!liveSubmit) return;
-        setStickyVisibility(liveSubmit.getBoundingClientRect().bottom < 0);
+        var submitRect = liveSubmit.getBoundingClientRect();
+        var submitIsVisible = submitRect.bottom > 0 && submitRect.top < window.innerHeight;
+        var shouldLeadOnMobile = isWomenJourney && window.matchMedia('(max-width: 749px)').matches;
+        setStickyVisibility(shouldLeadOnMobile ? !submitIsVisible : submitRect.bottom < 0);
       };
 
       var observer = new IntersectionObserver(function (entries) {
         var entry = entries[0];
-        setStickyVisibility(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+        var shouldLeadOnMobile = isWomenJourney && window.matchMedia('(max-width: 749px)').matches;
+        setStickyVisibility(shouldLeadOnMobile
+          ? !entry.isIntersecting
+          : !entry.isIntersecting && entry.boundingClientRect.top < 0);
       }, { threshold: 0 });
 
       observer.observe(submit);
