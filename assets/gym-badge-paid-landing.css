@@ -620,6 +620,10 @@ html.gb-paid-lp-active .product-section .zenkai-type-switcher {
   display: none !important;
 }
 
+html.gb-paid-lp-active .product-section {
+  overflow-x: clip;
+}
+
 html.gb-paid-lp-active .gb-paid-landing > .zenkai-pin-collector-photos--paid-placement {
   --zenkai-dark: #16312d;
   --zenkai-cta: #63d6bf;
