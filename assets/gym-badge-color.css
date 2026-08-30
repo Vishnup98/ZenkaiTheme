@@ -1674,6 +1674,11 @@ button.gb-color-form__submit::after {
   .gb-color-hero {
     gap: 18px;
     padding-top: 10px;
+    padding-bottom: 36px;
+  }
+
+  .gb-color-page__orb--two {
+    display: none;
   }
 
   .gb-color-gallery__stage {
@@ -1858,15 +1863,85 @@ button.gb-color-form__submit::after {
   .gb-color-story,
   .gb-color-inhand,
   .gb-color-details {
-    padding-block: 68px;
+    padding-block: 48px;
   }
 
-  .gb-color-inhand {
-    padding-block: 54px;
+  .gb-color-section-intro,
+  .gb-color-inhand__heading {
+    gap: 14px;
   }
 
   .gb-color-inhand__heading {
     gap: 12px;
+  }
+
+  .gb-color-detail__grid,
+  .gb-color-collector__grid,
+  .gb-color-details__grid {
+    gap: 28px;
+  }
+
+  .gb-color-inhand::before {
+    top: 28px;
+    left: -96px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .gb-color-regions::before {
+    top: 30px;
+    right: -110px;
+    width: 230px;
+    height: 230px;
+  }
+
+  .gb-color-regions::after {
+    bottom: 28px;
+    left: -100px;
+    width: 210px;
+    height: 210px;
+  }
+
+  .gb-color-detail::before {
+    top: 28px;
+    right: -110px;
+    width: 230px;
+    height: 230px;
+  }
+
+  .gb-color-detail::after {
+    right: 20%;
+    bottom: 28px;
+    width: 210px;
+    height: 210px;
+  }
+
+  .gb-color-collector::before {
+    right: -110px;
+    bottom: 28px;
+    width: 230px;
+    height: 230px;
+  }
+
+  .gb-color-story::before {
+    top: 28px;
+    left: -100px;
+    width: 220px;
+    height: 220px;
+  }
+
+  .gb-color-story::after {
+    right: -120px;
+    bottom: 28px;
+    width: 240px;
+    height: 240px;
+  }
+
+  .gb-color-details::before {
+    top: 28px;
+    left: -110px;
+    width: 230px;
+    height: 230px;
   }
 
   .gb-color-section-intro h2,
@@ -1888,7 +1963,7 @@ button.gb-color-form__submit::after {
 
   .gb-color-region-grid {
     gap: 12px;
-    margin-top: 34px;
+    margin-top: 28px;
   }
 
   .gb-color-region-card__copy {
