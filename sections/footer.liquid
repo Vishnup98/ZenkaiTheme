@@ -38,7 +38,7 @@
   {%- assign show_selectors = true -%}
 {%- endif -%}
 
-<footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
+<footer class="site-footer{% if template.suffix contains 'gympin-women' %} site-footer--gym-women{% endif %}" data-section-id="{{ section.id }}" data-section-type="footer-section">
   {% if section.settings.show_newsletter and zenkai_defect_only_context == false and zenkai_gym_badge_paid_context == false %}
     <div class="site-footer__section site-footer__section--newsletter" data-aos>
       <div class="page-width">

@@ -1,0 +1,204 @@
+<section class="gb-women-memory" aria-labelledby="gb-women-memory-title-{{ section.id }}">
+  <div class="gb-color-shell">
+    <div class="gb-women-section-heading">
+      <p class="gb-women-kicker">{{ women_memory_eyebrow | escape }}</p>
+      <h2 id="gb-women-memory-title-{{ section.id }}">{{ women_memory_heading | escape }}</h2>
+      <p>{{ women_memory_body | escape }}</p>
+    </div>
+
+    <div class="gb-women-memory__beats" aria-label="The complete four-region journey">
+      <article>
+        <span>01</span>
+        <div><h3>{{ women_beat_1_title | escape }}</h3><p>{{ women_beat_1_body | escape }}</p></div>
+      </article>
+      <article>
+        <span>02</span>
+        <div><h3>{{ women_beat_2_title | escape }}</h3><p>{{ women_beat_2_body | escape }}</p></div>
+      </article>
+      <article>
+        <span>03</span>
+        <div><h3>{{ women_beat_3_title | escape }}</h3><p>{{ women_beat_3_body | escape }}</p></div>
+      </article>
+    </div>
+
+    <div class="gb-women-region-run">
+      {%- for region_entry in region_sequence -%}
+        {%- assign region_parts = region_entry | split: '|' -%}
+        {%- assign region_key = region_parts[0] -%}
+        {%- assign region_label = region_parts[1] -%}
+        {%- assign region_index = forloop.index0 -%}
+        {%- assign region_variant = blank -%}
+        {%- for candidate_variant in product.variants -%}
+          {%- assign candidate_title_downcase = candidate_variant.title | downcase -%}
+          {%- if candidate_variant.id != collector_variant.id and candidate_title_downcase contains region_key -%}
+            {%- assign region_variant = candidate_variant -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if region_variant != blank -%}
+          {%- assign variant_media = region_variant.featured_media | default: product.media[region_index] | default: product.featured_media -%}
+          {%- assign region_progress = forloop.index | times: 8 -%}
+          {%- case region_key -%}
+            {%- when 'kanto' -%}{%- assign region_moment = 'Where the hunt began.' -%}
+            {%- when 'johto' -%}{%- assign region_moment = 'The world opened up.' -%}
+            {%- when 'hoenn' -%}{%- assign region_moment = 'A new map, another eight.' -%}
+            {%- else -%}{%- assign region_moment = 'The classic run, complete.' -%}
+          {%- endcase -%}
+          <article class="gb-women-region-run__card">
+            <div class="gb-women-region-run__media">
+              <img
+                src="{{ variant_media.preview_image | image_url: width: 720 }}"
+                srcset="{{ variant_media.preview_image | image_url: width: 420 }} 420w, {{ variant_media.preview_image | image_url: width: 720 }} 720w"
+                sizes="(min-width: 990px) 24vw, (min-width: 600px) 50vw, 100vw"
+                width="{{ variant_media.preview_image.width }}"
+                height="{{ variant_media.preview_image.height }}"
+                alt="{{ variant_media.alt | default: region_label | escape }}"
+                loading="lazy">
+            </div>
+            <div class="gb-women-region-run__copy">
+              <div><span>0{{ forloop.index }}</span><strong>{{ region_progress }} / 32</strong></div>
+              <h3>{{ region_label }}</h3>
+              <p>{{ region_moment }}</p>
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<section class="gb-women-proof" aria-labelledby="gb-women-proof-title-{{ section.id }}">
+  <div class="gb-color-shell">
+    <div class="gb-women-section-heading gb-women-section-heading--light">
+      <p class="gb-women-kicker">{{ women_proof_eyebrow | escape }}</p>
+      <h2 id="gb-women-proof-title-{{ section.id }}">{{ women_proof_heading | escape }}</h2>
+      <p>{{ women_proof_body | escape }}</p>
+    </div>
+
+    <div class="gb-women-proof__gallery">
+      <figure class="gb-women-proof__frame gb-women-proof__frame--displayed">
+        <img src="{{ framed_display_url }}&amp;width=900" width="677" height="1200" alt="Gym badges arranged in a framed shadow box" loading="lazy">
+        <figcaption>Framed by a collector</figcaption>
+      </figure>
+      <figure class="gb-women-proof__frame gb-women-proof__frame--boxed">
+        <img src="{{ open_box_url }}&amp;width=900" width="675" height="1200" alt="Open gym badge presentation box photographed in hand" loading="lazy">
+        <figcaption>Actually in hand</figcaption>
+      </figure>
+      <figure class="gb-women-proof__frame gb-women-proof__frame--opened">
+        <img src="{{ collector_open_box_url }}&amp;width=1000" width="1124" height="1500" alt="Open regional badge presentation box photographed by a collector" loading="lazy">
+        <figcaption>Opened after delivery</figcaption>
+      </figure>
+      <figure class="gb-women-proof__frame gb-women-proof__frame--detail">
+        <img src="{{ closeup_url }}&amp;width=1400" width="1500" height="726" alt="Close-up view of colorful enamel badges" loading="lazy">
+        <figcaption>Gloss and color up close</figcaption>
+      </figure>
+    </div>
+
+    {%- if gb_offer_quote != blank -%}
+      <aside class="gb-women-proof__quote" aria-label="Buyer review">
+        <span aria-hidden="true">“</span>
+        <p>{{ gb_offer_quote | escape }}</p>
+        <small>{{ gb_offer_quote_meta | escape }}</small>
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="gb-women-desire" aria-labelledby="gb-women-desire-title-{{ section.id }}">
+  <div class="gb-color-shell gb-women-desire__grid">
+    <div class="gb-women-desire__visual">
+      {%- if hero_asset != blank -%}
+        <img
+          src="{{ hero_asset | asset_url }}&amp;width=1400"
+          srcset="{{ hero_asset | asset_url }}&amp;width=720 720w, {{ hero_asset | asset_url }}&amp;width=1100 1100w, {{ hero_asset | asset_url }}&amp;width=1400 1400w, {{ hero_asset | asset_url }} 2000w"
+          sizes="(min-width: 990px) 52vw, 100vw"
+          width="2000"
+          height="2500"
+          alt="{{ hero_alt | escape }}"
+          loading="lazy">
+      {%- elsif collector_media != blank -%}
+        <img
+          src="{{ collector_media.preview_image | image_url: width: 1500 }}"
+          width="{{ collector_media.preview_image.width }}"
+          height="{{ collector_media.preview_image.height }}"
+          alt="{{ collector_media.alt | default: 'The complete four-region badge collection' | escape }}"
+          loading="lazy">
+      {%- endif -%}
+      <span>All 32 shown · All 32 included</span>
+    </div>
+
+    <div class="gb-women-desire__copy">
+      <p class="gb-women-kicker">{{ women_desire_eyebrow | escape }}</p>
+      <h2 id="gb-women-desire-title-{{ section.id }}">{{ women_desire_heading | escape }}</h2>
+      <p>{{ women_desire_body | escape }}</p>
+      <div class="gb-women-desire__stats" aria-label="Collector Pack contents">
+        <div><strong>32</strong><span>badges</span></div>
+        <div><strong>4</strong><span>fitted boxes</span></div>
+        <div>{% if collector_has_savings %}<strong>{{ collector_savings_money }}</strong><span>saved together</span>{% else %}<strong>1</strong><span>complete set</span>{% endif %}</div>
+      </div>
+      <button class="gb-women-cta" type="button" data-gb-color-choose-collector>Get All 32 — {{ collector_variant.price | money }}</button>
+      <p class="gb-women-cta-note">Free U.S. shipping · Typical U.S. delivery in 1 business week</p>
+    </div>
+  </div>
+</section>
+
+<section class="gb-women-quality" aria-labelledby="gb-women-quality-title-{{ section.id }}">
+  <div class="gb-color-shell gb-women-quality__grid">
+    <div class="gb-women-quality__copy">
+      <p class="gb-women-kicker">{{ women_quality_eyebrow | escape }}</p>
+      <h2 id="gb-women-quality-title-{{ section.id }}">{{ women_quality_heading | escape }}</h2>
+      <p>{{ women_quality_body | escape }}</p>
+      <ul>
+        <li><span aria-hidden="true">✦</span><div><strong>Glossy hard enamel</strong><small>Clean, saturated color inside polished metal borders.</small></div></li>
+        <li><span aria-hidden="true">✦</span><div><strong>Raised metal detail</strong><small>Crisp lines give every familiar shape definition.</small></div></li>
+        <li><span aria-hidden="true">✦</span><div><strong>Four fitted boxes</strong><small>Every regional set stays organized and display-ready.</small></div></li>
+      </ul>
+    </div>
+    <div class="gb-women-quality__image">
+      <img
+        src="{{ sunlight_url }}&amp;width=1400"
+        srcset="{{ sunlight_url }}&amp;width=720 720w, {{ sunlight_url }}&amp;width=1050 1050w, {{ sunlight_url }}&amp;width=1400 1400w"
+        sizes="(min-width: 990px) 48vw, 100vw"
+        width="1500"
+        height="1199"
+        alt="Loose enamel badges catching natural sunlight"
+        loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="gb-women-final" aria-labelledby="gb-women-final-title-{{ section.id }}">
+  <div class="gb-color-shell">
+    <div class="gb-women-final__card">
+      <p class="gb-women-kicker">{{ women_final_eyebrow | escape }}</p>
+      <h2 id="gb-women-final-title-{{ section.id }}">{{ women_final_heading | escape }}</h2>
+      <p>{{ women_final_body | escape }}</p>
+      <div class="gb-women-final__price">
+        {%- if collector_has_savings -%}<s>{{ separate_total | money }}</s>{%- endif -%}
+        <strong>{{ collector_variant.price | money }}</strong>
+        <span>32 badges · 4 fitted boxes</span>
+      </div>
+      <button class="gb-women-cta gb-women-cta--final" type="button" data-gb-color-choose-collector>Get All 32 — {{ collector_variant.price | money }}</button>
+      <div class="gb-women-final__trust" aria-label="Order promises">
+        <span>✓ Free U.S. shipping</span>
+        <span>✓ Secure checkout</span>
+        <span>✓ Damaged or incorrect? We make it right.</span>
+      </div>
+    </div>
+
+    <div class="gb-women-final__details">
+      <details open>
+        <summary>What arrives <span aria-hidden="true">+</span></summary>
+        <p>Four fitted presentation boxes containing eight hard-enamel badges each—32 badges total across Kanto, Johto, Hoenn, and Sinnoh.</p>
+      </details>
+      <details>
+        <summary>Shipping <span aria-hidden="true">+</span></summary>
+        <p>Most orders ship within 1–2 business days, with typical U.S. delivery in about one business week. U.S. shipping is free.</p>
+      </details>
+      <details>
+        <summary>Collector policy <span aria-hidden="true">+</span></summary>
+        <p>Damaged, missing, incorrect, or not as described? We’ll make it right. <a href="/pages/policy">Read the full collector policy</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>

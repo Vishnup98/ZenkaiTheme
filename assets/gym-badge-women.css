@@ -1,63 +1,78 @@
-/*
- * W1-W4 women collector landing-page art direction.
- * This stylesheet is loaded only by the isolated women journey templates.
- */
+/* Isolated W1-W4 women collector journey. */
 
 .gb-color-page[data-gb-theme="women-cozy"] {
-  --gb-cream: #f5eff8;
+  --gb-cream: #d9cef0;
   --gb-paper: #fffaff;
-  --gb-ink: #1b1627;
-  --gb-muted: #6b6275;
-  --gb-line: rgba(47, 36, 62, 0.14);
-  --gb-lilac: #e2d5f3;
-  --gb-dark: #241830;
-  --gb-accent-one: #e4d0fa;
-  --gb-accent-two: #f1cddd;
-  --gb-accent-three: #cce8e8;
-  --gb-accent-four: #cfd8fa;
-  --gb-orb-one: rgba(204, 183, 245, 0.66);
-  --gb-orb-two: rgba(244, 187, 218, 0.46);
+  --gb-ink: #181222;
+  --gb-muted: #6b6075;
+  --gb-line: rgba(45, 30, 61, 0.16);
+  --gb-dark: #21142c;
+  --gb-cta: #69d8c3;
+  --gb-cta-hover: #7ce4d0;
+  --gb-cta-active: #4fc1ab;
+  --gb-cta-ink: #102722;
+  --gb-women-deep: #171020;
+  --gb-women-plum: #2c1a3a;
+  --gb-women-violet: #6f4f93;
+  --gb-women-lavender: #d9c9f0;
+  --gb-women-blush: #edcfdf;
+  --gb-women-aqua: #cae7e7;
+  --gb-women-white: #fffaff;
   background:
-    radial-gradient(circle at 87% 8%, rgba(201, 181, 242, 0.42), transparent 29%),
-    radial-gradient(circle at 7% 25%, rgba(170, 218, 226, 0.31), transparent 23%),
-    linear-gradient(180deg, #f7f2fb 0%, #f3edf7 100%);
+    radial-gradient(circle at 8% 6%, rgba(255, 213, 235, 0.78), transparent 23%),
+    radial-gradient(circle at 91% 9%, rgba(163, 139, 226, 0.66), transparent 28%),
+    radial-gradient(circle at 50% 44%, rgba(207, 235, 235, 0.44), transparent 31%),
+    linear-gradient(145deg, #ecd9e9 0%, #d5c7ec 46%, #c8dde3 100%);
 }
 
 .gb-color-page[data-gb-theme="women-editorial"] {
-  --gb-cream: #0c121e;
+  --gb-cream: #0a101a;
   --gb-paper: #fffaf4;
-  --gb-ink: #101522;
-  --gb-muted: #697180;
+  --gb-ink: #111520;
+  --gb-muted: #66707d;
   --gb-line: rgba(255, 255, 255, 0.12);
-  --gb-lilac: #d8d2ed;
-  --gb-dark: #0d1522;
-  --gb-accent-one: #ddd3ee;
-  --gb-accent-two: #dfbbc8;
-  --gb-accent-three: #bddbdc;
-  --gb-accent-four: #c8d1eb;
-  --gb-orb-one: rgba(81, 65, 118, 0.52);
-  --gb-orb-two: rgba(45, 112, 125, 0.28);
+  --gb-dark: #0b121d;
+  --gb-cta: #69d8c3;
+  --gb-cta-hover: #7ce4d0;
+  --gb-cta-active: #4fc1ab;
+  --gb-cta-ink: #102722;
+  --gb-women-deep: #080d16;
+  --gb-women-plum: #111827;
+  --gb-women-violet: #685886;
+  --gb-women-lavender: #d8d0e8;
+  --gb-women-blush: #ddc1cb;
+  --gb-women-aqua: #c4dedd;
+  --gb-women-white: #fffaf4;
   background:
-    radial-gradient(circle at 88% 7%, rgba(91, 73, 132, 0.42), transparent 28%),
-    linear-gradient(145deg, #090e18 0%, #111827 58%, #0b121d 100%);
+    radial-gradient(circle at 85% 4%, rgba(91, 75, 126, 0.46), transparent 28%),
+    linear-gradient(145deg, #080d16 0%, #121927 58%, #0b121d 100%);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-page__orb {
+  filter: blur(54px);
+  opacity: 0.5;
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-hero {
-  gap: clamp(34px, 4.6vw, 66px);
-  padding-top: clamp(18px, 3vw, 44px);
-  padding-bottom: clamp(70px, 8vw, 110px);
+  grid-template-columns: minmax(0, 1.06fr) minmax(390px, 0.94fr);
+  gap: clamp(34px, 4.4vw, 64px);
+  align-items: center;
+  padding-top: clamp(34px, 5vw, 70px);
+  padding-bottom: clamp(78px, 9vw, 122px);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage {
-  border: 1px solid rgba(255, 255, 255, 0.68);
-  border-radius: 26px;
+  border: 7px solid rgba(255, 250, 255, 0.52);
+  border-radius: 28px;
+  background: #251630;
   box-shadow:
-    0 28px 70px rgba(35, 24, 49, 0.2),
-    0 0 0 8px rgba(255, 255, 255, 0.2);
+    0 34px 80px rgba(33, 18, 43, 0.32),
+    0 0 0 1px rgba(255, 255, 255, 0.62),
+    0 0 52px rgba(156, 111, 203, 0.2);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage::after {
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__count {
@@ -65,319 +80,869 @@
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
-  padding: clamp(26px, 3.4vw, 42px);
-  border: 1px solid rgba(255, 255, 255, 0.78);
+  padding: clamp(28px, 3.4vw, 45px);
+  border: 1px solid rgba(244, 225, 255, 0.2);
   border-radius: 28px;
-  background: rgba(255, 250, 255, 0.8);
-  box-shadow: 0 26px 64px rgba(45, 31, 59, 0.15);
-  backdrop-filter: blur(18px);
+  color: var(--gb-women-white);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(117, 78, 153, 0.32), transparent 34%),
+    linear-gradient(145deg, rgba(29, 17, 40, 0.96), rgba(48, 28, 64, 0.94) 62%, rgba(25, 49, 55, 0.93));
+  box-shadow: 0 30px 76px rgba(27, 14, 36, 0.3);
+  backdrop-filter: blur(20px);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-offer > .gb-color-eyebrow {
-  color: #6e5181;
+  color: #d9c5f2;
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-offer h1 {
-  font-size: clamp(39px, 4.35vw, 59px);
+  color: var(--gb-women-white);
+  font-size: clamp(41px, 4.45vw, 62px);
   font-weight: 900;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-offer__lede {
-  color: #554c60;
+  color: rgba(255, 250, 255, 0.78);
+  font-size: 17px;
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-primary-purchase {
-  padding: 16px;
-  border: 1px solid rgba(56, 41, 73, 0.11);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.58);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  margin-top: 22px;
+  padding: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 19px;
+  color: var(--gb-ink);
+  background: rgba(255, 250, 255, 0.94);
+  box-shadow: 0 18px 44px rgba(5, 3, 8, 0.2);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-price > span,
+.gb-color-page[data-gb-theme^="women-"] .gb-color-primary-purchase .gb-color-price small {
+  color: var(--gb-ink);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-buyer-quote {
+  border-color: rgba(244, 226, 255, 0.15);
+  color: var(--gb-women-white);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-buyer-quote .gb-color-review__quote {
+  color: rgba(255, 250, 255, 0.9);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-buyer-quote .gb-color-review__attribution {
+  color: rgba(255, 250, 255, 0.58);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-gift-note,
+.gb-color-page[data-gb-theme^="women-"] .gb-color-policy-note {
+  color: rgba(255, 250, 255, 0.72);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-color-gift-note strong,
+.gb-color-page[data-gb-theme^="women-"] .gb-color-policy-note a {
+  color: var(--gb-women-white);
 }
 
 .gb-color-page[data-gb-theme^="women-"] button.gb-color-form__submit,
 .gb-color-page[data-gb-theme^="women-"] button.gb-color-form__submit:not(.btn--secondary):not(.btn--tertiary),
-.gb-color-page[data-gb-theme^="women-"] .gb-color-collector__choose,
 .gb-color-page[data-gb-theme^="women-"] .gb-color-sticky__button {
-  box-shadow: 0 10px 28px rgba(49, 153, 139, 0.28);
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-buyer-quote,
-.gb-color-page[data-gb-theme^="women-"] .gb-color-proof-drop {
-  border-color: rgba(62, 45, 78, 0.12);
-  background: rgba(255, 250, 255, 0.76);
-  box-shadow: 0 12px 34px rgba(42, 30, 56, 0.08);
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-pill {
-  background: #dcd0f1;
-  transform: none;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-angle__grid article,
-.gb-color-page[data-gb-theme^="women-"] .gb-color-region-card,
-.gb-color-page[data-gb-theme^="women-"] .gb-color-story-card {
-  border: 1px solid rgba(44, 33, 58, 0.18);
-  box-shadow: 0 20px 48px rgba(40, 29, 53, 0.12);
-  transform: none;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-angle__grid article:nth-child(2),
-.gb-color-page[data-gb-theme^="women-"] .gb-color-region-card:nth-child(2),
-.gb-color-page[data-gb-theme^="women-"] .gb-color-region-card:nth-child(3),
-.gb-color-page[data-gb-theme^="women-"] .gb-color-region-card:nth-child(4) {
-  transform: none;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-region-card__media,
-.gb-color-page[data-gb-theme^="women-"] .gb-color-story-card--featured .gb-color-story-card__media,
-.gb-color-page[data-gb-theme^="women-"] .gb-color-story__grid .gb-color-story-card__media {
-  border-color: rgba(44, 33, 58, 0.14);
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-detail {
-  background:
-    radial-gradient(circle at 84% 14%, rgba(159, 126, 202, 0.22), transparent 28%),
-    linear-gradient(135deg, #1d1429 0%, #2b1b39 52%, #15303a 100%);
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-detail__image {
-  border-color: rgba(255, 250, 255, 0.94);
-  box-shadow: 0 28px 62px rgba(8, 4, 16, 0.34), 0 0 0 1px rgba(237, 202, 255, 0.28);
-  transform: none;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-collector__image {
-  border-color: rgba(255, 250, 255, 0.95);
-  box-shadow: 0 28px 64px rgba(38, 27, 52, 0.2);
-  transform: none;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-story-card--featured .gb-color-story-card__copy {
-  background: #d9cff0;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-story-card--quality .gb-color-story-card__copy {
-  background: #d7ecee;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-story-card--lifestyle .gb-color-story-card__copy {
-  background: #eed1df;
-}
-
-.gb-color-page[data-gb-theme^="women-"] .gb-color-single-region-shop,
-.gb-color-page[data-gb-theme^="women-"] .gb-color-accordions details {
-  border-color: rgba(44, 33, 58, 0.14);
-  box-shadow: 0 14px 36px rgba(40, 29, 53, 0.08);
+  box-shadow: 0 11px 30px rgba(63, 190, 167, 0.3);
 }
 
 .gb-color-page[data-gb-theme^="women-"] .gb-color-sticky {
-  background: rgba(28, 19, 39, 0.95);
-  box-shadow: 0 -14px 38px rgba(10, 6, 16, 0.24);
+  background: rgba(22, 13, 31, 0.96);
+  box-shadow: 0 -14px 38px rgba(8, 4, 12, 0.28);
 }
 
-/* W1, W2, and W4: cozy pastel gamer-room continuation. */
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand {
-  color: #fffaff;
+.gb-color-page[data-gb-theme^="women-"] .gb-women-memory,
+.gb-color-page[data-gb-theme^="women-"] .gb-women-proof,
+.gb-color-page[data-gb-theme^="women-"] .gb-women-desire,
+.gb-color-page[data-gb-theme^="women-"] .gb-women-quality,
+.gb-color-page[data-gb-theme^="women-"] .gb-women-final {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(86px, 10vw, 138px) 0;
+}
+
+.gb-women-section-heading {
+  max-width: 900px;
+}
+
+.gb-women-kicker {
+  margin: 0 0 16px;
+  color: #bfa5dc;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.17em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.gb-women-section-heading h2,
+.gb-women-desire__copy h2,
+.gb-women-quality__copy h2,
+.gb-women-final__card h2 {
+  margin: 0;
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: clamp(43px, 5.7vw, 76px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.gb-women-section-heading > p:last-child,
+.gb-women-desire__copy > p:not(.gb-women-kicker),
+.gb-women-quality__copy > p:not(.gb-women-kicker),
+.gb-women-final__card > p:not(.gb-women-kicker) {
+  max-width: 760px;
+  margin: 22px 0 0;
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+/* Memory and completion: one continuous save-file-style chapter. */
+.gb-color-page[data-gb-theme^="women-"] .gb-women-memory {
+  color: var(--gb-women-white);
   background:
-    radial-gradient(circle at 12% 12%, rgba(142, 105, 190, 0.3), transparent 30%),
-    radial-gradient(circle at 88% 88%, rgba(79, 162, 172, 0.2), transparent 28%),
-    linear-gradient(140deg, #20162c 0%, #382446 52%, #223943 100%);
+    radial-gradient(circle at 12% 18%, rgba(135, 91, 181, 0.27), transparent 28%),
+    radial-gradient(circle at 88% 76%, rgba(65, 156, 166, 0.18), transparent 26%),
+    radial-gradient(circle at 13% 13%, rgba(255,255,255,0.65) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 67% 29%, rgba(255,255,255,0.42) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 84% 10%, rgba(255,255,255,0.5) 0 1px, transparent 1.7px),
+    linear-gradient(145deg, #171020 0%, #2c1a3a 54%, #18323a 100%);
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand h2,
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand__heading > p {
-  color: #fffaff;
+.gb-color-page[data-gb-theme^="women-"] .gb-women-memory::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.25;
+  background-image: radial-gradient(rgba(255,255,255,0.4) 0.8px, transparent 0.8px);
+  background-size: 38px 38px;
+  mask-image: linear-gradient(to bottom, #000, transparent 72%);
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand__heading > p {
-  opacity: 0.76;
+.gb-women-memory .gb-women-section-heading > p:last-child {
+  color: rgba(255, 250, 255, 0.75);
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand__heading .gb-color-pill {
-  color: #261b31;
-  background: #d8c5f2;
+.gb-women-memory__beats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-top: 48px;
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand__track > figure,
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-inhand__wide {
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 20px 46px rgba(7, 4, 13, 0.32);
+.gb-women-memory__beats article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  min-height: 158px;
+  padding: 23px;
+  border: 1px solid rgba(242, 220, 255, 0.15);
+  border-radius: 19px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-angle {
-  border-color: rgba(62, 44, 80, 0.1);
+.gb-women-memory__beats article > span {
+  display: grid;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  color: #251831;
+  background: #d6c6ee;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.gb-women-memory__beats h3 {
+  margin: 2px 0 0;
+  color: var(--gb-women-white);
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: 23px;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.gb-women-memory__beats p {
+  margin: 10px 0 0;
+  color: rgba(255, 250, 255, 0.65);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.gb-women-region-run {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 42px;
+}
+
+.gb-women-region-run__card {
+  overflow: hidden;
+  border: 1px solid rgba(246, 226, 255, 0.17);
+  border-radius: 21px;
+  background: rgba(11, 7, 16, 0.42);
+  box-shadow: 0 22px 48px rgba(7, 3, 11, 0.25);
+}
+
+.gb-women-region-run__media {
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: #f6eef8;
+}
+
+.gb-women-region-run__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 380ms ease;
+}
+
+.gb-women-region-run__card:hover .gb-women-region-run__media img {
+  transform: scale(1.025);
+}
+
+.gb-women-region-run__copy {
+  padding: 18px;
+}
+
+.gb-women-region-run__copy > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gb-women-region-run__copy > div span,
+.gb-women-region-run__copy > div strong {
+  color: #cbb6e6;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.gb-women-region-run__copy h3 {
+  margin: 17px 0 0;
+  color: var(--gb-women-white);
+  font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback), sans-serif;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+
+.gb-women-region-run__copy p {
+  margin: 7px 0 0;
+  color: rgba(255, 250, 255, 0.62);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* Real-customer proof as a room-board collage, not a generic gallery. */
+.gb-color-page[data-gb-theme^="women-"] .gb-women-proof {
+  color: var(--gb-women-white);
   background:
-    radial-gradient(circle at 90% 5%, rgba(212, 187, 245, 0.48), transparent 26%),
-    linear-gradient(135deg, #faf5fc 0%, #f3ebf8 54%, #edf6f5 100%);
+    radial-gradient(circle at 7% 84%, rgba(77, 164, 173, 0.19), transparent 25%),
+    radial-gradient(circle at 90% 14%, rgba(136, 91, 178, 0.26), transparent 27%),
+    linear-gradient(155deg, #20152a 0%, #33203f 58%, #1b3037 100%);
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-angle__grid article:nth-child(1) {
-  background: #e2d4f3;
+.gb-women-section-heading--light > p:last-child {
+  color: rgba(255, 250, 255, 0.72);
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-angle__grid article:nth-child(2) {
-  background: #efd0df;
+.gb-women-proof__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 50px;
 }
 
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-angle__grid article:nth-child(3) {
-  background: #d2e9e9;
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-regions {
-  background: linear-gradient(145deg, #fffafd 0%, #f8f1f7 100%);
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-regions::before {
-  background: #d9edf0;
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-regions::after {
-  background: #efd6e3;
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-collector,
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-single-region-fallback {
-  background: linear-gradient(135deg, #ddd1ef 0%, #ead8e9 55%, #d8eaeb 100%);
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-collector::before {
-  background: rgba(177, 222, 216, 0.58);
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-story {
-  background: linear-gradient(135deg, #f8f2fb 0%, #eef7f6 48%, #f8eef3 100%);
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-story::before {
-  background: rgba(202, 183, 234, 0.62);
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-story::after {
-  background: rgba(186, 226, 222, 0.52);
-}
-
-.gb-color-page[data-gb-theme="women-cozy"] .gb-color-details {
-  background: linear-gradient(120deg, #edf5f5 0%, #fffafd 52%, #f0e7f7 100%);
-}
-
-/* W3: confident navy editorial continuation. */
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-gallery__stage {
-  border-color: rgba(220, 203, 169, 0.3);
+.gb-women-proof__frame {
+  position: relative;
+  overflow: hidden;
+  min-height: 450px;
+  margin: 0;
+  border: 7px solid rgba(255, 250, 255, 0.94);
   border-radius: 18px;
-  box-shadow: 0 32px 76px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(220, 203, 169, 0.16);
+  background: #fffaff;
+  box-shadow: 0 24px 55px rgba(7, 3, 10, 0.34);
+}
+
+.gb-women-proof__frame--displayed {
+  transform: rotate(-0.6deg);
+}
+
+.gb-women-proof__frame--boxed {
+  transform: translateY(10px);
+}
+
+.gb-women-proof__frame--opened {
+  transform: rotate(0.6deg);
+}
+
+.gb-women-proof__frame--detail {
+  grid-column: 1 / -1;
+  min-height: 0;
+  aspect-ratio: 1500 / 726;
+  transform: none;
+}
+
+.gb-women-proof__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+  object-fit: cover;
+}
+
+.gb-women-proof__frame--detail img {
+  min-height: 0;
+}
+
+.gb-women-proof__frame figcaption {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #21142c;
+  background: #d9c9f0;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gb-women-proof__quote {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 17px;
+  width: min(790px, 100%);
+  margin: 30px auto 0;
+  padding: 24px 28px;
+  border: 1px solid rgba(245, 224, 255, 0.16);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+}
+
+.gb-women-proof__quote > span {
+  grid-row: 1 / span 2;
+  color: #d9c4ee;
+  font-family: Georgia, serif;
+  font-size: 45px;
+  line-height: 0.8;
+}
+
+.gb-women-proof__quote p,
+.gb-women-proof__quote small {
+  margin: 0;
+}
+
+.gb-women-proof__quote p {
+  color: rgba(255, 250, 255, 0.92);
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.gb-women-proof__quote small {
+  margin-top: 6px;
+  color: rgba(255, 250, 255, 0.52);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+/* Desire: move from nostalgia to imagining the set in her actual room. */
+.gb-color-page[data-gb-theme^="women-"] .gb-women-desire {
+  color: var(--gb-ink);
+  background:
+    radial-gradient(circle at 8% 13%, rgba(237, 196, 222, 0.78), transparent 23%),
+    radial-gradient(circle at 90% 83%, rgba(181, 224, 224, 0.7), transparent 24%),
+    linear-gradient(145deg, #eee1ec 0%, #dcd1ef 52%, #d7e8e9 100%);
+}
+
+.gb-women-desire__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.86fr);
+  gap: clamp(48px, 7vw, 94px);
+  align-items: center;
+}
+
+.gb-women-desire__visual {
+  position: relative;
+  overflow: hidden;
+  border: 8px solid rgba(255, 250, 255, 0.9);
+  border-radius: 27px;
+  background: #251631;
+  box-shadow: 0 32px 76px rgba(42, 25, 53, 0.26);
+}
+
+.gb-women-desire__visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.gb-women-desire__visual > span {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  padding: 9px 12px;
+  border-radius: 999px;
+  color: #fffaff;
+  background: rgba(22, 13, 30, 0.86);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.gb-women-desire__copy .gb-women-kicker,
+.gb-women-quality__copy .gb-women-kicker {
+  color: #73568a;
+}
+
+.gb-women-desire__copy > p:not(.gb-women-kicker) {
+  color: #54495d;
+}
+
+.gb-women-desire__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.gb-women-desire__stats div {
+  padding: 15px 13px;
+  border: 1px solid rgba(43, 29, 57, 0.12);
+  border-radius: 15px;
+  background: rgba(255, 250, 255, 0.66);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.gb-women-desire__stats strong,
+.gb-women-desire__stats span {
+  display: block;
+}
+
+.gb-women-desire__stats strong {
+  font-size: 23px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.gb-women-desire__stats span {
+  margin-top: 6px;
+  color: #675a70;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gb-women-cta {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 18px;
+  padding: 15px 20px;
+  border: 0;
+  border-radius: 15px;
+  color: var(--gb-cta-ink);
+  background: var(--gb-cta);
+  box-shadow: 0 12px 30px rgba(46, 149, 133, 0.27);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.gb-women-cta:hover,
+.gb-women-cta:focus-visible {
+  background: var(--gb-cta-hover);
+  box-shadow: 0 15px 36px rgba(46, 149, 133, 0.35);
+  outline: 2px solid #17231f;
+  outline-offset: -3px;
+  transform: translateY(-1px);
+}
+
+.gb-women-cta:active {
+  background: var(--gb-cta-active);
+  transform: scale(0.988);
+}
+
+.gb-women-cta:disabled,
+.gb-women-cta.is-checkout-busy {
+  cursor: wait;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.gb-women-cta-note {
+  margin: 10px 0 0;
+  color: #665a6e;
+  font-size: 9px;
+  font-weight: 750;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Reassurance: premium detail without restarting the sales argument. */
+.gb-color-page[data-gb-theme^="women-"] .gb-women-quality {
+  color: var(--gb-women-white);
+  background:
+    radial-gradient(circle at 86% 16%, rgba(128, 91, 170, 0.3), transparent 27%),
+    radial-gradient(circle at 14% 88%, rgba(65, 151, 162, 0.18), transparent 25%),
+    linear-gradient(145deg, #171020 0%, #2b1a39 56%, #18313a 100%);
+}
+
+.gb-women-quality__grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.84fr) minmax(0, 1.08fr);
+  gap: clamp(48px, 7vw, 94px);
+  align-items: center;
+}
+
+.gb-women-quality__copy > p:not(.gb-women-kicker) {
+  color: rgba(255, 250, 255, 0.72);
+}
+
+.gb-women-quality__copy .gb-women-kicker {
+  color: #ceb8e7;
+}
+
+.gb-women-quality__copy ul {
+  display: grid;
+  gap: 10px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gb-women-quality__copy li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 15px 17px;
+  border: 1px solid rgba(245, 224, 255, 0.14);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.gb-women-quality__copy li > span {
+  color: #d4c0ec;
+  font-size: 16px;
+}
+
+.gb-women-quality__copy li strong,
+.gb-women-quality__copy li small {
+  display: block;
+}
+
+.gb-women-quality__copy li strong {
+  color: var(--gb-women-white);
+  font-size: 14px;
+}
+
+.gb-women-quality__copy li small {
+  margin-top: 4px;
+  color: rgba(255, 250, 255, 0.6);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.gb-women-quality__image {
+  overflow: hidden;
+  border: 8px solid rgba(255, 250, 255, 0.94);
+  border-radius: 27px;
+  background: #fffaff;
+  box-shadow: 0 30px 72px rgba(5, 2, 8, 0.38);
+}
+
+.gb-women-quality__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.25;
+  object-fit: cover;
+}
+
+/* Final decision: one close, one CTA, then only practical reassurance. */
+.gb-color-page[data-gb-theme^="women-"] .gb-women-final {
+  color: var(--gb-women-white);
+  background:
+    radial-gradient(circle at 50% 4%, rgba(145, 98, 188, 0.34), transparent 29%),
+    radial-gradient(circle at 90% 90%, rgba(62, 151, 160, 0.15), transparent 23%),
+    linear-gradient(165deg, #130d1b 0%, #261633 56%, #14282f 100%);
+}
+
+.gb-color-page[data-gb-theme^="women-"] .gb-women-final::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.18;
+  background-image: radial-gradient(rgba(255,255,255,0.5) 0.8px, transparent 0.9px);
+  background-size: 42px 42px;
+}
+
+.gb-women-final__card {
+  width: min(890px, 100%);
+  margin: 0 auto;
+  padding: clamp(34px, 6vw, 72px);
+  border: 1px solid rgba(246, 226, 255, 0.17);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(128, 89, 169, 0.24), transparent 31%),
+    rgba(255, 255, 255, 0.07);
+  box-shadow: 0 30px 76px rgba(5, 2, 8, 0.32);
+  text-align: center;
+  backdrop-filter: blur(18px);
+}
+
+.gb-women-final__card .gb-women-kicker {
+  margin-inline: auto;
+}
+
+.gb-women-final__card > p:not(.gb-women-kicker) {
+  margin-right: auto;
+  margin-left: auto;
+  color: rgba(255, 250, 255, 0.74);
+}
+
+.gb-women-final__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px 12px;
+  margin-top: 28px;
+}
+
+.gb-women-final__price s {
+  color: rgba(255, 250, 255, 0.46);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.gb-women-final__price strong {
+  color: var(--gb-women-white);
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.gb-women-final__price span {
+  flex: 1 0 100%;
+  color: rgba(255, 250, 255, 0.58);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gb-women-cta--final {
+  max-width: 560px;
+}
+
+.gb-women-final__trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px 17px;
+  margin-top: 18px;
+  color: rgba(255, 250, 255, 0.65);
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.gb-women-final__details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: min(1040px, 100%);
+  margin: 24px auto 0;
+}
+
+.gb-women-final__details details {
+  overflow: hidden;
+  border: 1px solid rgba(246, 226, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.gb-women-final__details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 18px;
+  color: var(--gb-women-white);
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+  list-style: none;
+}
+
+.gb-women-final__details summary::-webkit-details-marker {
+  display: none;
+}
+
+.gb-women-final__details summary span {
+  color: #cdb8e6;
+  font-size: 18px;
+  font-weight: 500;
+  transition: transform 160ms ease;
+}
+
+.gb-women-final__details details[open] summary span {
+  transform: rotate(45deg);
+}
+
+.gb-women-final__details details p {
+  margin: 0;
+  padding: 0 18px 18px;
+  color: rgba(255, 250, 255, 0.61);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.gb-women-final__details a {
+  color: #d7c5ef;
+  font-weight: 800;
+}
+
+.site-footer--gym-women {
+  border-top: 1px solid rgba(238, 217, 255, 0.1);
+  color: rgba(255, 250, 255, 0.72) !important;
+  background:
+    radial-gradient(circle at 82% 0%, rgba(107, 73, 143, 0.22), transparent 31%),
+    linear-gradient(90deg, #130c1b 0%, #251531 56%, #14272d 100%) !important;
+}
+
+.site-footer--gym-women a,
+.site-footer--gym-women .site-footer__linklist a,
+.site-footer--gym-women .site-footer__title {
+  color: rgba(255, 250, 255, 0.8) !important;
+}
+
+/* W3 retains the same conversion flow with a cleaner navy editorial surface. */
+.gb-color-page[data-gb-theme="women-editorial"] .gb-color-gallery__stage {
+  border-width: 2px;
+  border-color: rgba(218, 198, 163, 0.25);
+  border-radius: 17px;
+  box-shadow: 0 34px 82px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(218, 198, 163, 0.12);
 }
 
 .gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer {
-  border-color: rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  color: #fffaf4;
-  background: rgba(13, 20, 33, 0.78);
-  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.34);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer h1,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-price > span,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-gift-note strong,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-policy-note a {
-  color: #fffaf4;
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer > .gb-color-eyebrow {
-  color: #cfc1e6;
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer__lede,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-gift-note,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-policy-note,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-form__confidence,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-price small,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-offer .gb-color-price s {
-  color: rgba(255, 250, 244, 0.7);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-primary-purchase {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-inhand,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle {
-  color: #fffaf4;
-  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 88% 15%, rgba(82, 68, 122, 0.32), transparent 28%),
-    linear-gradient(140deg, #0b111d 0%, #141c2a 62%, #101925 100%);
+    radial-gradient(circle at 100% 0%, rgba(90, 76, 124, 0.25), transparent 34%),
+    rgba(10, 16, 27, 0.9);
 }
 
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-inhand h2,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle h2,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-inhand__heading > p,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle__intro > p:last-child {
-  color: #fffaf4;
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-memory,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-proof,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-quality,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-final {
+  background:
+    radial-gradient(circle at 86% 12%, rgba(86, 71, 122, 0.26), transparent 27%),
+    linear-gradient(150deg, #080d16 0%, #131b29 58%, #0c1720 100%);
 }
 
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-inhand__heading > p,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle__intro > p:last-child {
-  opacity: 0.72;
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-memory::after,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-final::before {
+  opacity: 0.08;
 }
 
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle__grid article {
-  color: #101522;
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-memory__beats article,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-region-run__card,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-final__card,
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-final__details details {
+  border-radius: 12px;
 }
 
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle__grid article:nth-child(1) {
-  background: #ddd3ee;
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle__grid article:nth-child(2) {
-  background: #dfbbc8;
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-angle__grid article:nth-child(3) {
-  background: #bddbdc;
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-regions,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-details {
-  background: linear-gradient(135deg, #fffaf4 0%, #f0eee9 100%);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-collector,
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-single-region-fallback {
-  background: linear-gradient(135deg, #d9d5e7 0%, #d7e2e4 100%);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-story {
-  background: linear-gradient(145deg, #0b111d 0%, #151d2a 100%);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-story-card {
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.3);
-}
-
-.gb-color-page[data-gb-theme="women-editorial"] .gb-color-sticky {
-  background: rgba(8, 13, 22, 0.96);
+.gb-color-page[data-gb-theme="women-editorial"] .gb-women-desire {
+  background: linear-gradient(145deg, #f1eee9 0%, #dcd7e5 52%, #d7e3e3 100%);
 }
 
 @media (max-width: 989px) {
+  .gb-color-page[data-gb-theme^="women-"] .gb-color-hero,
+  .gb-women-desire__grid,
+  .gb-women-quality__grid {
+    grid-template-columns: 1fr;
+  }
+
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
-    padding: 26px;
+    position: static;
+  }
+
+  .gb-women-memory__beats {
+    grid-template-columns: 1fr;
+  }
+
+  .gb-women-memory__beats article {
+    min-height: 0;
+  }
+
+  .gb-women-region-run {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gb-women-desire__grid,
+  .gb-women-quality__grid {
+    gap: 40px;
+  }
+
+  .gb-women-quality__copy {
+    order: 2;
+  }
+
+  .gb-women-quality__image {
+    order: 1;
+  }
+
+  .gb-women-final__details {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 749px) {
   .gb-color-page[data-gb-theme^="women-"] .gb-color-hero {
-    gap: 18px;
+    gap: 17px;
     padding-top: 14px;
-    padding-bottom: 42px;
+    padding-bottom: 44px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-gallery__stage--portrait {
     width: 100%;
     margin-left: 0;
     aspect-ratio: 4 / 5;
+    border-width: 4px;
     border-radius: 20px;
   }
 
@@ -386,22 +951,157 @@
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer {
-    padding: 21px 18px;
+    padding: 24px 19px;
     border-radius: 20px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-offer h1 {
-    font-size: clamp(34px, 9.4vw, 43px);
+    font-size: clamp(36px, 10.4vw, 45px);
+  }
+
+  .gb-color-page[data-gb-theme^="women-"] .gb-color-offer__lede {
+    font-size: 14px;
   }
 
   .gb-color-page[data-gb-theme^="women-"] .gb-color-primary-purchase {
-    margin-top: 15px;
     padding: 14px;
   }
 
-  .gb-color-page[data-gb-theme^="women-"] .gb-color-angle__grid article,
-  .gb-color-page[data-gb-theme^="women-"] .gb-color-region-card,
-  .gb-color-page[data-gb-theme^="women-"] .gb-color-story-card {
-    box-shadow: 0 14px 34px rgba(40, 29, 53, 0.12);
+  .gb-color-page[data-gb-theme^="women-"] .gb-women-memory,
+  .gb-color-page[data-gb-theme^="women-"] .gb-women-proof,
+  .gb-color-page[data-gb-theme^="women-"] .gb-women-desire,
+  .gb-color-page[data-gb-theme^="women-"] .gb-women-quality,
+  .gb-color-page[data-gb-theme^="women-"] .gb-women-final {
+    padding: 58px 0;
+  }
+
+  .gb-women-section-heading h2,
+  .gb-women-desire__copy h2,
+  .gb-women-quality__copy h2,
+  .gb-women-final__card h2 {
+    font-size: clamp(36px, 10.5vw, 47px);
+  }
+
+  .gb-women-section-heading > p:last-child,
+  .gb-women-desire__copy > p:not(.gb-women-kicker),
+  .gb-women-quality__copy > p:not(.gb-women-kicker),
+  .gb-women-final__card > p:not(.gb-women-kicker) {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .gb-women-memory__beats {
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .gb-women-memory__beats article {
+    padding: 18px;
+  }
+
+  .gb-women-region-run {
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .gb-women-region-run__copy {
+    padding: 13px;
+  }
+
+  .gb-women-region-run__copy h3 {
+    margin-top: 11px;
+    font-size: 21px;
+  }
+
+  .gb-women-region-run__copy p {
+    font-size: 10px;
+  }
+
+  .gb-women-proof__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .gb-women-proof__frame,
+  .gb-women-proof__frame img {
+    min-height: 280px;
+  }
+
+  .gb-women-proof__frame {
+    border-width: 4px;
+    border-radius: 13px;
+    transform: none;
+  }
+
+  .gb-women-proof__frame--opened {
+    grid-column: 1 / -1;
+    aspect-ratio: 4 / 3;
+  }
+
+  .gb-women-proof__frame--opened img {
+    min-height: 0;
+  }
+
+  .gb-women-proof__frame--detail {
+    grid-column: 1 / -1;
+  }
+
+  .gb-women-proof__frame figcaption {
+    right: 7px;
+    bottom: 7px;
+    padding: 6px 8px;
+    font-size: 7px;
+  }
+
+  .gb-women-proof__quote {
+    margin-top: 18px;
+    padding: 18px;
+  }
+
+  .gb-women-desire__visual,
+  .gb-women-quality__image {
+    border-width: 5px;
+    border-radius: 20px;
+  }
+
+  .gb-women-desire__stats {
+    gap: 7px;
+    margin-top: 22px;
+  }
+
+  .gb-women-desire__stats div {
+    padding: 12px 9px;
+  }
+
+  .gb-women-desire__stats strong {
+    font-size: 19px;
+  }
+
+  .gb-women-cta {
+    min-height: 54px;
+  }
+
+  .gb-women-final__card {
+    padding: 32px 20px;
+    border-radius: 22px;
+  }
+
+  .gb-women-final__price {
+    margin-top: 22px;
+  }
+
+  .gb-women-final__trust {
+    display: grid;
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gb-women-region-run__media img,
+  .gb-women-cta,
+  .gb-women-final__details summary span {
+    transition: none !important;
   }
 }

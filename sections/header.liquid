@@ -1,7 +1,11 @@
 {%- assign main_menu = linklists[section.settings.main_menu_link_list] -%}
 {%- assign zenkai_is_gym_color_paid = false -%}
+{%- assign zenkai_is_gym_women = false -%}
 {%- if request.page_type == 'product' -%}
   {%- if product.handle == '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
+    {%- if template.suffix contains 'gympin-women' -%}
+      {%- assign zenkai_is_gym_women = true -%}
+    {%- endif -%}
     {%- if template.suffix contains 'gympin-color'
       or template.suffix contains 'gympin-women'
       or template.suffix contains 'gympin-gift'
@@ -168,6 +172,18 @@
       white-space: nowrap;
     }
 
+    .header-wrapper--gym-women .site-header {
+      border-bottom: 1px solid rgba(236, 214, 255, 0.12);
+      background:
+        radial-gradient(circle at 78% 0%, rgba(116, 74, 150, 0.28), transparent 32%),
+        linear-gradient(90deg, #171020 0%, #2a1839 54%, #18333b 100%) !important;
+      box-shadow: 0 10px 32px rgba(11, 6, 16, 0.2);
+    }
+
+    .header-wrapper--gym-women .gb-color-header-shipping {
+      color: #f4eaff;
+    }
+
     @media only screen and (max-width: 768px) {
       .header-wrapper--gym-color-paid .site-header .page-width {
         padding-right: 12px !important;
@@ -210,7 +226,7 @@
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
   <div
     data-header-style="{{ section.settings.header_style }}"
-    class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}{% if zenkai_is_gym_color_paid %} header-wrapper--gym-color-paid{% endif %}">
+    class="header-wrapper{% if overlay_header %} header-wrapper--overlay is-light{% endif %}{% if zenkai_is_gym_color_paid %} header-wrapper--gym-color-paid{% endif %}{% if zenkai_is_gym_women %} header-wrapper--gym-women{% endif %}">
 
     {% comment %} Bundle promo bar — placed inside header-wrapper so it sits in the
        same positioning context as the announcement bar (guaranteed visible on mobile).

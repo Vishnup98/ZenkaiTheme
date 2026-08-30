@@ -22,7 +22,7 @@
     var stickyLabel = root.querySelector('[data-gb-color-sticky-label]');
     var stickyButton = root.querySelector('[data-gb-color-sticky-add]');
     var collectorButton = root.querySelector('[data-gb-color-variant][data-is-collector="true"]');
-    var chooseCollectorButton = root.querySelector('[data-gb-color-choose-collector]');
+    var chooseCollectorButtons = root.querySelectorAll('[data-gb-color-choose-collector]');
     var regionPurchaseCards = root.querySelectorAll('[data-gb-color-region-purchase]');
     var form = root.querySelector('.gb-color-form');
     var checkoutStatus = root.querySelector('[data-gb-color-checkout-status]');
@@ -88,8 +88,11 @@
 
     function setCheckoutBusy(isBusy, trigger) {
       var controls = [];
-      [submit, stickyButton, chooseCollectorButton, trigger].forEach(function (button) {
+      [submit, stickyButton, trigger].forEach(function (button) {
         if (button && controls.indexOf(button) === -1) controls.push(button);
+      });
+      chooseCollectorButtons.forEach(function (button) {
+        if (controls.indexOf(button) === -1) controls.push(button);
       });
       variantButtons.forEach(function (button) {
         if (controls.indexOf(button) === -1) controls.push(button);
@@ -307,15 +310,17 @@
       });
     });
 
-    if (chooseCollectorButton && collectorButton) {
-      chooseCollectorButton.addEventListener('click', function () {
-        selectVariant(collectorButton);
-        if (directCheckout) {
-          checkoutSelectedVariant(chooseCollectorButton);
-          return;
-        }
-        var offer = root.querySelector('.gb-color-offer');
-        if (offer) offer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (chooseCollectorButtons.length && collectorButton) {
+      chooseCollectorButtons.forEach(function (chooseCollectorButton) {
+        chooseCollectorButton.addEventListener('click', function () {
+          selectVariant(collectorButton);
+          if (directCheckout) {
+            checkoutSelectedVariant(chooseCollectorButton);
+            return;
+          }
+          var offer = root.querySelector('.gb-color-offer');
+          if (offer) offer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
       });
     }
 
