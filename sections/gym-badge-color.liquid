@@ -161,7 +161,7 @@
           <div class="gb-color-price" data-gb-color-price-wrap data-price-wrapper>
             <s data-gb-color-compare data-product-price-compare{% unless current_is_collector %} hidden{% endunless %}>{{ separate_total | money }}</s>
             <span data-gb-color-price data-product-price>{{ current_variant.price | money }}</span>
-            <em data-gb-color-saving{% unless current_is_collector %} hidden{% endunless %}>Save $20</em>
+            <em class="medium-up--hide" data-gb-color-saving{% unless current_is_collector %} hidden{% endunless %}>Save $20</em>
             <small data-gb-color-price-note>
               {%- if current_is_collector -%}Collector Pack · 32 badges · 4 fitted boxes{%- else -%}8-badge regional set{%- endif -%}
             </small>
