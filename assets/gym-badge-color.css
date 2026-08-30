@@ -1757,6 +1757,7 @@ button.gb-color-form__submit::after {
 
   .gb-color-form {
     margin-top: 11px;
+    margin-bottom: 0;
   }
 
   .gb-color-choice {
@@ -1774,7 +1775,7 @@ button.gb-color-form__submit::after {
     font-size: 9px;
   }
 
-  .gb-color-trust,
+  .gb-color-offer .gb-color-trust,
   .gb-color-gift-note {
     display: none;
   }
