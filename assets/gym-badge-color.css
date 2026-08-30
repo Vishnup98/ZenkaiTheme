@@ -308,6 +308,7 @@
 }
 
 .gb-color-price em {
+  display: none;
   margin-left: auto;
   padding: 6px 9px;
   border-radius: 999px;
@@ -1749,6 +1750,10 @@ button.gb-color-form__submit::after {
 
   .gb-color-price > span {
     font-size: 27px;
+  }
+
+  .gb-color-price em {
+    display: inline-flex;
   }
 
   .gb-color-price small {
