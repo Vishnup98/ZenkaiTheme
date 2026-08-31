@@ -1,6 +1,17 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign current_variant_sellable = current_variant.available -%}
+{%- if current_variant.inventory_policy == 'continue' -%}
+  {%- assign current_variant_sellable = true -%}
+{%- endif -%}
 {%- assign hero_media = product.media.first -%}
-{%- assign lineup_media = product.media[1] | default: hero_media -%}
+{%- assign lineup_media = blank -%}
+{%- for media in product.media -%}
+  {%- if media.media_type == 'image' and media.alt contains 'Customer' -%}
+    {%- assign lineup_media = media -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign lineup_media = lineup_media | default: hero_media -%}
 {%- assign savings = current_variant.compare_at_price | minus: current_variant.price -%}
 
 {{ 'evolution-companions.css' | asset_url | stylesheet_tag }}
@@ -50,26 +61,28 @@
         </div>
 
         {%- if product.media.size > 1 -%}
-          <div class="evo-plush-gallery__thumbs" aria-label="Product and customer photo gallery">
-            {%- for media in product.media limit: 7 -%}
-              {%- if media.media_type == 'image' -%}
-                <button
-                  class="evo-plush-gallery__thumb{% if forloop.first %} is-active{% endif %}"
-                  type="button"
-                  aria-label="Show image {{ forloop.index }} of {{ product.media.size }}"
-                  aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-                  data-evo-plush-thumb
-                  data-full-src="{{ media.preview_image | image_url: width: 1800 }}"
-                  data-full-srcset="{{ media.preview_image | image_url: width: 720 }} 720w, {{ media.preview_image | image_url: width: 1200 }} 1200w, {{ media.preview_image | image_url: width: 1800 }} 1800w"
-                  data-alt="{{ media.alt | default: product.title | escape }}">
-                  <img
-                    src="{{ media.preview_image | image_url: width: 280 }}"
-                    width="{{ media.preview_image.width }}"
-                    height="{{ media.preview_image.height }}"
-                    alt=""
-                    loading="lazy">
-                </button>
-              {%- endif -%}
+          <div class="evo-plush-gallery__thumbs" aria-label="Product gallery">
+            {%- for media in product.media -%}
+              {%- unless media.alt contains 'Customer' -%}
+                {%- if media.media_type == 'image' -%}
+                  <button
+                    class="evo-plush-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                    type="button"
+                    aria-label="Show {{ media.alt | default: product.title | escape }}"
+                    aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                    data-evo-plush-thumb
+                    data-full-src="{{ media.preview_image | image_url: width: 1800 }}"
+                    data-full-srcset="{{ media.preview_image | image_url: width: 720 }} 720w, {{ media.preview_image | image_url: width: 1200 }} 1200w, {{ media.preview_image | image_url: width: 1800 }} 1800w"
+                    data-alt="{{ media.alt | default: product.title | escape }}">
+                    <img
+                      src="{{ media.preview_image | image_url: width: 280 }}"
+                      width="{{ media.preview_image.width }}"
+                      height="{{ media.preview_image.height }}"
+                      alt=""
+                      loading="lazy">
+                  </button>
+                {%- endif -%}
+              {%- endunless -%}
             {%- endfor -%}
           </div>
         {%- endif -%}
@@ -119,7 +132,7 @@
           <input type="hidden" name="quantity" value="1">
           <select name="id" class="no-js" data-product-select aria-label="Product variant">
             {%- for variant in product.variants -%}
-              <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
+              <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available or variant.inventory_policy == 'continue' %} disabled{% endunless %}>{{ variant.title }}</option>
             {%- endfor -%}
           </select>
           <button
@@ -128,9 +141,9 @@
             name="add"
             data-add-to-cart
             aria-live="polite"
-            {% unless current_variant.available %}disabled{% endunless %}>
+            {% unless current_variant_sellable %}disabled{% endunless %}>
             <span data-add-to-cart-text>
-              {%- if current_variant.available -%}
+              {%- if current_variant_sellable -%}
                 Get the Complete 8-Pack — {{ current_variant.price | money }}
               {%- else -%}
                 Sold out
@@ -214,8 +227,8 @@
         <p>Real customer photos show the fabric, embroidery, scale, and little personality changes from costume to costume.</p>
       </div>
       <div class="evo-plush-ugc__grid">
-        {%- for media in product.media offset: 1 limit: 6 -%}
-          {%- if media.media_type == 'image' -%}
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' and media.alt contains 'Customer' -%}
             <figure>
               <img
                 src="{{ media.preview_image | image_url: width: 900 }}"
@@ -294,8 +307,8 @@
         <strong>{{ current_variant.price | money }}</strong>
         <span>Complete 8-Plush Set</span>
       </div>
-      <button type="button" data-evo-plush-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
-        {%- if current_variant.available -%}Get the 8-Pack{%- else -%}Sold out{%- endif -%}
+      <button type="button" data-evo-plush-sticky-add {% unless current_variant_sellable %}disabled{% endunless %}>
+        {%- if current_variant_sellable -%}Get the 8-Pack{%- else -%}Sold out{%- endif -%}
       </button>
     </div>
   </div>
