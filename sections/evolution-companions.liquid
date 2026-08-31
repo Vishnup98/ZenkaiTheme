@@ -5,10 +5,14 @@
 {%- endif -%}
 {%- assign hero_media = product.media.first -%}
 {%- assign lineup_media = blank -%}
+{%- assign product_gallery_count = 0 -%}
 {%- for media in product.media -%}
   {%- if media.media_type == 'image' and media.alt contains 'Customer' -%}
-    {%- assign lineup_media = media -%}
-    {%- break -%}
+    {%- if lineup_media == blank -%}
+      {%- assign lineup_media = media -%}
+    {%- endif -%}
+  {%- elsif media.media_type == 'image' -%}
+    {%- assign product_gallery_count = product_gallery_count | plus: 1 -%}
   {%- endif -%}
 {%- endfor -%}
 {%- assign lineup_media = lineup_media | default: hero_media -%}
@@ -60,7 +64,7 @@
           </div>
         </div>
 
-        {%- if product.media.size > 1 -%}
+        {%- if product_gallery_count > 1 -%}
           <div class="evo-plush-gallery__thumbs" aria-label="Product gallery">
             {%- for media in product.media -%}
               {%- unless media.alt contains 'Customer' -%}
