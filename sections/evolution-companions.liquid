@@ -1,0 +1,311 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign hero_media = product.media.first -%}
+{%- assign lineup_media = product.media[1] | default: hero_media -%}
+{%- assign savings = current_variant.compare_at_price | minus: current_variant.price -%}
+
+{{ 'evolution-companions.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="ProductSection-{{ product.id }}"
+  class="evo-plush-page"
+  data-evo-plush-page
+  data-section-id="{{ product.id }}"
+  data-section-type="product-template"
+  data-enable-history-state="true">
+  <div class="evo-plush-page__glow evo-plush-page__glow--pink" aria-hidden="true"></div>
+  <div class="evo-plush-page__glow evo-plush-page__glow--blue" aria-hidden="true"></div>
+
+  <div class="evo-plush-shell">
+    <nav class="evo-plush-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>Private collector offer</span>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Complete 8-pack</span>
+    </nav>
+
+    <section class="evo-plush-hero" aria-labelledby="evo-plush-title-{{ section.id }}">
+      <div class="evo-plush-gallery" data-evo-plush-gallery>
+        <div class="evo-plush-gallery__stage">
+          {%- if hero_media != blank -%}
+            <img
+              class="evo-plush-gallery__main"
+              src="{{ hero_media.preview_image | image_url: width: 1800 }}"
+              srcset="{{ hero_media.preview_image | image_url: width: 720 }} 720w, {{ hero_media.preview_image | image_url: width: 1200 }} 1200w, {{ hero_media.preview_image | image_url: width: 1800 }} 1800w"
+              sizes="(min-width: 990px) 58vw, 100vw"
+              width="{{ hero_media.preview_image.width }}"
+              height="{{ hero_media.preview_image.height }}"
+              alt="{{ hero_media.alt | default: product.title | escape }}"
+              loading="eager"
+              fetchpriority="high"
+              data-evo-plush-main-image>
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'evo-plush-gallery__placeholder' }}
+          {%- endif -%}
+          <div class="evo-plush-gallery__badge" aria-label="Eight plush toys included">
+            <strong>8</strong>
+            <span>plushes</span>
+            <small>one complete set</small>
+          </div>
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="evo-plush-gallery__thumbs" aria-label="Product and customer photo gallery">
+            {%- for media in product.media limit: 7 -%}
+              {%- if media.media_type == 'image' -%}
+                <button
+                  class="evo-plush-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                  type="button"
+                  aria-label="Show image {{ forloop.index }} of {{ product.media.size }}"
+                  aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-evo-plush-thumb
+                  data-full-src="{{ media.preview_image | image_url: width: 1800 }}"
+                  data-full-srcset="{{ media.preview_image | image_url: width: 720 }} 720w, {{ media.preview_image | image_url: width: 1200 }} 1200w, {{ media.preview_image | image_url: width: 1800 }} 1800w"
+                  data-alt="{{ media.alt | default: product.title | escape }}">
+                  <img
+                    src="{{ media.preview_image | image_url: width: 280 }}"
+                    width="{{ media.preview_image.width }}"
+                    height="{{ media.preview_image.height }}"
+                    alt=""
+                    loading="lazy">
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="evo-plush-offer">
+        <p class="evo-plush-eyebrow">Private collector offer · Complete 8-pack</p>
+        <h1 id="evo-plush-title-{{ section.id }}">{{ product.title }}</h1>
+        <p class="evo-plush-offer__lede">Eight different costumes. Eight soft little personalities. One box that makes the whole shelf feel complete.</p>
+
+        <div class="evo-plush-price" aria-label="Sale price">
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s>{{ current_variant.compare_at_price | money }}</s>
+          {%- endif -%}
+          <strong>{{ current_variant.price | money }}</strong>
+          {%- if savings > 0 -%}<span>Save {{ savings | money }}</span>{%- endif -%}
+        </div>
+
+        <div class="evo-plush-palette" aria-label="Eight costume colors included">
+          <span style="--swatch:#f4a9bb" title="Pink"></span>
+          <span style="--swatch:#bfa5e8" title="Lavender"></span>
+          <span style="--swatch:#b9e6f3" title="Icy blue"></span>
+          <span style="--swatch:#4ba9d7" title="Blue"></span>
+          <span style="--swatch:#f3792d" title="Orange"></span>
+          <span style="--swatch:#f3d64f" title="Yellow"></span>
+          <span style="--swatch:#d6bf68" title="Gold"></span>
+          <span style="--swatch:#2f3036" title="Black"></span>
+          <em>Every color shown is included</em>
+        </div>
+
+        <div class="evo-plush-trust" aria-label="Offer highlights">
+          <span><b aria-hidden="true">✓</b> All 8 included</span>
+          <span><b aria-hidden="true">✓</b> Soft cotton shell</span>
+          <span><b aria-hidden="true">✓</b> PP cotton fill</span>
+        </div>
+
+        <div class="evo-plush-option" aria-label="Selected option">
+          <div>
+            <span>Your set</span>
+            <strong>Complete 8-Plush Collection</strong>
+          </div>
+          <mark>Best value</mark>
+          <p>No random pull, no duplicate, and no choosing only one. The entire color lineup arrives together.</p>
+        </div>
+
+        {%- form 'product', product, id: 'EvolutionCompanionsForm', class: 'product-single__form evo-plush-form' -%}
+          <input type="hidden" name="quantity" value="1">
+          <select name="id" class="no-js" data-product-select aria-label="Product variant">
+            {%- for variant in product.variants -%}
+              <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
+            {%- endfor -%}
+          </select>
+          <button
+            class="btn btn--full evo-plush-form__submit add-to-cart zenkai-primary-cta"
+            type="submit"
+            name="add"
+            data-add-to-cart
+            aria-live="polite"
+            {% unless current_variant.available %}disabled{% endunless %}>
+            <span data-add-to-cart-text>
+              {%- if current_variant.available -%}
+                Get the Complete 8-Pack — {{ current_variant.price | money }}
+              {%- else -%}
+                Sold out
+              {%- endif -%}
+            </span>
+          </button>
+          <div class="hide" aria-hidden="true" data-variant-json>{{ product.variants | json }}</div>
+        {%- endform -%}
+
+        <p class="evo-plush-shipping-note"><strong>Unlisted collector offer.</strong> Direct-shipped with tracking and may arrive separately from other items.</p>
+        <div class="evo-plush-mini-proof">
+          <span aria-hidden="true">♥</span>
+          <p><strong>Customer-loved softness.</strong> Made to be hugged, gifted, photographed, and lined up together.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="evo-plush-manifesto" aria-labelledby="evo-plush-manifesto-{{ section.id }}">
+    <div class="evo-plush-shell evo-plush-manifesto__intro">
+      <div>
+        <p class="evo-plush-eyebrow">The full wardrobe</p>
+        <h2 id="evo-plush-manifesto-{{ section.id }}">Picking one was never really the plan.</h2>
+      </div>
+      <p>The magic is in the lineup: eight distinct color stories, eight different silhouettes, and one tiny brown companion at the center of every costume.</p>
+    </div>
+    <div class="evo-plush-shell evo-plush-proof-grid">
+      <article>
+        <span>01</span>
+        <h3>Exactly eight</h3>
+        <p>Every design shown in the hero arrives in the set. No mystery assortment or duplicate filling a spot.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>Soft from ears to paws</h3>
+        <p>A cotton-textile exterior, PP cotton fill, and embroidered details give each companion its cuddly finish.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>Gift the whole crew</h3>
+        <p>Keep the complete set, split it between friends, or turn one shelf into a very soft color spectrum.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="evo-plush-story" aria-labelledby="evo-plush-story-{{ section.id }}">
+    <div class="evo-plush-shell evo-plush-story__grid">
+      <div class="evo-plush-story__image">
+        {%- if lineup_media != blank -%}
+          <img
+            src="{{ lineup_media.preview_image | image_url: width: 1600 }}"
+            srcset="{{ lineup_media.preview_image | image_url: width: 720 }} 720w, {{ lineup_media.preview_image | image_url: width: 1100 }} 1100w, {{ lineup_media.preview_image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 900px) 55vw, 100vw"
+            width="{{ lineup_media.preview_image.width }}"
+            height="{{ lineup_media.preview_image.height }}"
+            alt="{{ lineup_media.alt | default: 'Customer photo of the complete eight-plush lineup' | escape }}"
+            loading="lazy">
+        {%- endif -%}
+        <span>Real customer photo · complete lineup</span>
+      </div>
+      <div class="evo-plush-story__copy">
+        <p class="evo-plush-eyebrow">No favorite left behind</p>
+        <h2 id="evo-plush-story-{{ section.id }}">Eight moods. One very soft collection.</h2>
+        <p>From ribboned pink and icy blue to flame orange and moon black, the set moves through the whole palette without losing the soft brown face at the center.</p>
+        <ul>
+          <li>Pink, lavender, icy blue, and bright blue</li>
+          <li>Orange, yellow, warm gold, and black</li>
+          <li>Eight separate plush toys—not one toy with spare outfits</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="evo-plush-ugc" aria-labelledby="evo-plush-ugc-{{ section.id }}">
+    <div class="evo-plush-shell">
+      <div class="evo-plush-ugc__heading">
+        <div>
+          <p class="evo-plush-eyebrow">Seen in the wild</p>
+          <h2 id="evo-plush-ugc-{{ section.id }}">Soft enough for the bed. Cute enough for the shelf.</h2>
+        </div>
+        <p>Real customer photos show the fabric, embroidery, scale, and little personality changes from costume to costume.</p>
+      </div>
+      <div class="evo-plush-ugc__grid">
+        {%- for media in product.media offset: 1 limit: 6 -%}
+          {%- if media.media_type == 'image' -%}
+            <figure>
+              <img
+                src="{{ media.preview_image | image_url: width: 900 }}"
+                srcset="{{ media.preview_image | image_url: width: 420 }} 420w, {{ media.preview_image | image_url: width: 700 }} 700w, {{ media.preview_image | image_url: width: 900 }} 900w"
+                sizes="(min-width: 900px) 33vw, 50vw"
+                width="{{ media.preview_image.width }}"
+                height="{{ media.preview_image.height }}"
+                alt="{{ media.alt | default: 'Customer photo of an Evolution Companion plush' | escape }}"
+                loading="lazy">
+            </figure>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="evo-plush-reviews" aria-labelledby="evo-plush-reviews-{{ section.id }}">
+    <div class="evo-plush-shell">
+      <p class="evo-plush-eyebrow">From customers</p>
+      <h2 id="evo-plush-reviews-{{ section.id }}">The kind of cute that turns into “one more.”</h2>
+      <div class="evo-plush-reviews__grid">
+        <blockquote>
+          <div aria-label="5 out of 5 stars">★★★★★</div>
+          <p>“Super adorable! I got the flareon first and had to grab some more for friends.”</p>
+          <cite>Customer review</cite>
+        </blockquote>
+        <blockquote>
+          <div aria-label="5 out of 5 stars">★★★★★</div>
+          <p>“Amazing delivery product excellent condition”</p>
+          <cite>Customer review</cite>
+        </blockquote>
+        <blockquote>
+          <div aria-label="5 out of 5 stars">★★★★★</div>
+          <p>“Shipping took longer than anticipated but with the holidays it is not too surprising. For the price and quality, i am okay with the longer wait. Would purchase again.”</p>
+          <cite>Customer review</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="evo-plush-details" aria-labelledby="evo-plush-details-{{ section.id }}">
+    <div class="evo-plush-shell evo-plush-details__grid">
+      <div>
+        <p class="evo-plush-eyebrow">Before they arrive</p>
+        <h2 id="evo-plush-details-{{ section.id }}">Everything worth knowing.</h2>
+        <p>One complete set, one option, and a clear look at what will show up.</p>
+      </div>
+      <div class="evo-plush-accordions">
+        <details open>
+          <summary>What arrives <span aria-hidden="true">+</span></summary>
+          <div><p>Eight separate brown plush companions—one in each pink, lavender, icy blue, bright blue, orange, yellow, warm gold, and black costume shown in the gallery.</p></div>
+        </details>
+        <details>
+          <summary>Materials and care <span aria-hidden="true">+</span></summary>
+          <div><p>Soft cotton-textile exteriors with PP cotton filling and embroidered details. Spot clean gently with a damp cloth and air dry. Do not machine wash.</p></div>
+        </details>
+        <details>
+          <summary>Shipping <span aria-hidden="true">+</span></summary>
+          <div><p>This direct-shipped collector set may arrive separately from other products. Tracking is sent after dispatch, and transit can take longer around holidays.</p></div>
+        </details>
+        <details>
+          <summary>Age guidance <span aria-hidden="true">+</span></summary>
+          <div><p>Not suitable for children under 3 years old. Remove all packing materials before use and inspect seams periodically.</p></div>
+        </details>
+        <details>
+          <summary>Returns <span aria-hidden="true">+</span></summary>
+          <div><p>If the set is lost, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full policy.</a></p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="evo-plush-sticky" data-evo-plush-sticky aria-hidden="true">
+    <div class="evo-plush-sticky__inner">
+      <div>
+        <strong>{{ current_variant.price | money }}</strong>
+        <span>Complete 8-Plush Set</span>
+      </div>
+      <button type="button" data-evo-plush-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
+        {%- if current_variant.available -%}Get the 8-Pack{%- else -%}Sold out{%- endif -%}
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'evolution-companions.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Evolution companions",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,90 @@
+{
+  "$schema": "../../tools/zenkai-catalog-api/manifest.schema.json",
+  "schemaVersion": 1,
+  "title": "Evolution Companions — Complete 8-Plush Collector Set",
+  "handle": "evolution-companions-complete-8-plush-collector-set",
+  "descriptionHtml": "<p><strong>All eight soft companions, together in one complete collector set.</strong></p><p>Evolution Companions brings the full color lineup home at once: eight small brown plush toys, each dressed in its own removable-looking elemental hood and cape costume.</p><h3>What is included</h3><ul><li>Eight individual plush toys</li><li>One pink-and-white ribbon costume</li><li>One lavender gem-eared costume</li><li>One icy pale-blue finned costume</li><li>One bright-blue aquatic costume</li><li>One orange flame costume</li><li>One yellow lightning costume</li><li>One warm golden leaf costume</li><li>One black moon-ring costume</li></ul><h3>Materials and care</h3><ul><li>Soft cotton-textile exterior</li><li>PP cotton filling</li><li>Embroidered facial details</li><li>Spot clean gently and air dry</li></ul><p><em>The full set is direct-shipped and may arrive separately from other items in your order. Tracking is provided after dispatch. Transit can take longer around holidays. Small differences in stitching, embroidery placement, color, and finish are normal for soft plush goods. Not suitable for children under 3 years old.</em></p><h3>Returns</h3><p>If your order is lost in transit, arrives damaged or defective, contains the wrong item, or is materially different from its description, contact us with your order number and available photos. <a href=\"/pages/policy\">View the full policy.</a></p>",
+  "vendor": "Zenkai Clothing",
+  "productType": "Plush Collector Set",
+  "templateSuffix": "evolution-companions",
+  "tags": [
+    "8 Piece Set",
+    "Aftersell Upsell",
+    "Cart Upsell",
+    "Complete Collection",
+    "Direct Ship",
+    "One Click Upsell",
+    "Plush Collector Set",
+    "Post Purchase Upsell",
+    "Unlisted Offer"
+  ],
+  "seo": {
+    "title": "Evolution Companions Complete 8-Plush Set | Zenkai",
+    "description": "The complete eight-piece Evolution Companions plush collector set with soft cotton-textile shells, PP cotton filling, embroidered details, and eight distinct elemental costumes."
+  },
+  "options": [
+    {
+      "name": "Title",
+      "values": [
+        "Complete 8-Plush Set"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "sku": "ZK-PLUSH-EVO-8",
+      "price": "160.00",
+      "compareAtPrice": "200.00",
+      "options": {
+        "Title": "Complete 8-Plush Set"
+      },
+      "tracked": true,
+      "requiresShipping": true,
+      "taxable": true,
+      "inventoryPolicy": "CONTINUE",
+      "weight": {
+        "value": 32,
+        "unit": "OUNCES"
+      },
+      "inventory": [
+        {
+          "locationName": "PO BOX",
+          "quantity": 100
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "source": "generated-images/evolution-companions-8-pack-hero.png",
+      "alt": "Complete set of eight brown plush companions in pink, lavender, pale blue, blue, orange, yellow, gold, and black elemental costumes",
+      "variantSkus": [
+        "ZK-PLUSH-EVO-8"
+      ]
+    },
+    {
+      "source": "customer-photos/customer-01-complete-lineup.png",
+      "alt": "Customer photo of all eight plush companions arranged together on a sofa"
+    },
+    {
+      "source": "customer-photos/customer-02-pink-purple-orange.png",
+      "alt": "Customer photo of the pink, lavender, and orange plush companions"
+    },
+    {
+      "source": "customer-photos/customer-03-purple-closeup.png",
+      "alt": "Customer close-up of the lavender gem-eared plush companion"
+    },
+    {
+      "source": "customer-photos/customer-04-pink-closeup.png",
+      "alt": "Customer close-up of the pink-and-white ribboned plush companion"
+    },
+    {
+      "source": "customer-photos/customer-05-blue-shelf.png",
+      "alt": "Customer photo of the blue aquatic plush companion on a collector shelf"
+    },
+    {
+      "source": "customer-photos/customer-06-black-closeup.png",
+      "alt": "Customer close-up of the black and yellow moon-ring plush companion"
+    }
+  ]
+}
