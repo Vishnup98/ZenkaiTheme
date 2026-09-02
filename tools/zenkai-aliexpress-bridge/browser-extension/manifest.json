@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Zenkai AliExpress Checkout",
+  "description": "Prepares reviewed Zenkai fulfillment checkouts in the existing signed-in AliExpress browser and stops before order submission.",
+  "version": "1.0.19",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlYLtRNSb5qMmOEhVpOxwQaV2MBVXAwfwudVnBcCyIbO9SD3wMWTpMUAP2mzvoDJkaT4HvMMN5Wczz2hlNYVrAmtArjIuWfVI7/oKkrM1XrC7C1BDoxq5723Znq3//eVhPpbTQLnzCcuy1RwpnsvgviJG0PDb488axNHDI3r5cS/rK4h+3ybTWKoFE0o37X1Jxr3F7ZgWaJb0/DACWIb0uyJIQY1wE14f78rqdZj80ZaNMkXbggfrYz2tha5XBQAI56pG7ez6P0FlVOya8x8NsUPacV/NlnbtEM3mi0KSDsu7drNsICdA8Zh9sdepHxC/KFCafNBqf5uwnAbRijdWUwIDAQAB",
+  "permissions": [
+    "alarms",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:4317/*",
+    "http://localhost:4317/*",
+    "https://*.aliexpress.com/*",
+    "https://*.aliexpress.us/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://127.0.0.1:4317/*",
+        "http://localhost:4317/*"
+      ],
+      "js": ["dashboard-bridge.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_title": "Zenkai AliExpress Checkout",
+    "default_popup": "popup.html"
+  }
+}

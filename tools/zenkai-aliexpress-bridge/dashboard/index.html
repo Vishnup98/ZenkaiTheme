@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="Local Zenkai Shopify to AliExpress fulfillment review desk">
+    <title>Zenkai Fulfillment Desk</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="./bootstrap.js"></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Zenkai Fulfillment Desk home">
+        <span class="brand-mark" aria-hidden="true">Z</span>
+        <span>
+          <strong>ZENKAI</strong>
+          <small>FULFILLMENT DESK</small>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span class="local-pill"><span class="pulse"></span> Local &amp; private</span>
+        <a class="button button-quiet" id="header-orders-link" href="https://www.aliexpress.com/p/order/index.html" target="_blank" rel="noreferrer">Open AliExpress orders ↗</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">SHOPIFY → ALIEXPRESS</p>
+          <h1>Review every package<br>before it becomes an order.</h1>
+          <p class="intro-copy">Customer details, current supplier pricing, tracked shipping, and the exact SKU plan—together in one deliberate review step.</p>
+        </div>
+        <div class="policy-note">
+          <span class="policy-number" id="split-threshold">$2.00</span>
+          <span>minimum savings required<br>for every extra package</span>
+        </div>
+      </section>
+
+      <section class="summary-panel" aria-label="Fulfillment summary">
+        <div class="summary-item">
+          <span class="summary-label">Orders</span>
+          <strong id="summary-orders">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Ready to review</span>
+          <strong id="summary-ready">—</strong>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Supplier packages</span>
+          <strong id="summary-packages">—</strong>
+        </div>
+        <div class="summary-item summary-cost">
+          <span class="summary-label">Live quote before tax</span>
+          <strong id="summary-cost">—</strong>
+        </div>
+        <button class="button button-dark" id="refresh-button" type="button">Refresh prices &amp; plans</button>
+      </section>
+
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CURRENT BATCH</p>
+          <h2>Order review</h2>
+        </div>
+        <p id="generated-at">Loading the latest Shopify and AliExpress data…</p>
+      </div>
+
+      <section id="notice" class="notice" hidden role="status"></section>
+      <section id="orders" class="orders" aria-live="polite">
+        <article class="loading-card">
+          <div class="loading-line loading-line-short"></div>
+          <div class="loading-line"></div>
+          <div class="loading-line"></div>
+          <p>Reading Shopify orders and quoting AliExpress fulfillment…</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>The Chrome extension reuses your signed-in AliExpress profile, clears and rebuilds the cart with exact SKUs, and always stops before Place order. Order submission and payment stay manual.</p>
+      <a id="footer-orders-link" href="https://www.aliexpress.com/p/order/index.html" target="_blank" rel="noreferrer">AliExpress “To Pay” orders ↗</a>
+    </footer>
+  </body>
+</html>
