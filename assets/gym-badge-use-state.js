@@ -273,6 +273,79 @@
     button.addEventListener('click', function () { beginCheckout(button); });
   });
 
+  var regionCarousel = root.querySelector('[data-gb-use-region-carousel]');
+  if (regionCarousel) {
+    var regionViewport = regionCarousel.querySelector('[data-gb-use-region-viewport]');
+    var regionSlides = Array.prototype.slice.call(regionCarousel.querySelectorAll('[data-gb-use-region-slide]'));
+    var regionTabs = Array.prototype.slice.call(regionCarousel.querySelectorAll('[data-gb-use-region-index]'));
+    var regionPrev = regionCarousel.querySelector('[data-gb-use-region-prev]');
+    var regionNext = regionCarousel.querySelector('[data-gb-use-region-next]');
+    var regionFrame = null;
+    var activeRegionIndex = 0;
+
+    function updateRegionControls() {
+      if (!regionViewport || !regionSlides.length) return;
+      var viewportLeft = regionViewport.getBoundingClientRect().left;
+      var nearestDistance = Infinity;
+
+      regionSlides.forEach(function (slide, index) {
+        var distance = Math.abs(slide.getBoundingClientRect().left - viewportLeft);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          activeRegionIndex = index;
+        }
+      });
+
+      regionTabs.forEach(function (tab, index) {
+        tab.setAttribute('aria-current', index === activeRegionIndex ? 'true' : 'false');
+      });
+      if (regionPrev) regionPrev.disabled = activeRegionIndex === 0;
+      if (regionNext) regionNext.disabled = activeRegionIndex === regionSlides.length - 1;
+    }
+
+    function requestRegionUpdate() {
+      if (regionFrame) return;
+      regionFrame = window.requestAnimationFrame(function () {
+        regionFrame = null;
+        updateRegionControls();
+      });
+    }
+
+    function showRegion(index) {
+      if (!regionViewport || !regionSlides.length) return;
+      var nextIndex = Math.max(0, Math.min(regionSlides.length - 1, index));
+      var firstLeft = regionSlides[0].offsetLeft;
+      regionViewport.scrollTo({
+        left: regionSlides[nextIndex].offsetLeft - firstLeft,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+      activeRegionIndex = nextIndex;
+      updateRegionControls();
+    }
+
+    regionTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        showRegion(parseInt(tab.dataset.gbUseRegionIndex, 10) || 0);
+      });
+    });
+    if (regionPrev) regionPrev.addEventListener('click', function () { showRegion(activeRegionIndex - 1); });
+    if (regionNext) regionNext.addEventListener('click', function () { showRegion(activeRegionIndex + 1); });
+    if (regionViewport) {
+      regionViewport.addEventListener('scroll', requestRegionUpdate, { passive: true });
+      regionViewport.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          showRegion(activeRegionIndex - 1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          showRegion(activeRegionIndex + 1);
+        }
+      });
+    }
+    window.addEventListener('resize', requestRegionUpdate, { passive: true });
+    updateRegionControls();
+  }
+
   function updateSticky() {
     if (!sticky || !stickyButton || !inlineButtons.length) return;
     var stickyHeight = sticky.getBoundingClientRect().height || 72;

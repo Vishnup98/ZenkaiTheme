@@ -39,6 +39,10 @@
 {%- assign johto_media = johto_media | default: product.media[1] | default: product.featured_media -%}
 {%- assign hoenn_media = hoenn_media | default: product.media[2] | default: product.featured_media -%}
 {%- assign sinnoh_media = sinnoh_media | default: product.media[3] | default: product.featured_media -%}
+{%- assign kanto_gallery_media = product.media[0] | default: kanto_media -%}
+{%- assign johto_gallery_media = product.media[1] | default: johto_media -%}
+{%- assign hoenn_gallery_media = product.media[2] | default: hoenn_media -%}
+{%- assign sinnoh_gallery_media = product.media[3] | default: sinnoh_media -%}
 
 {%- assign journey = template.suffix | remove: 'gympin-use-' -%}
 {%- assign hero_desktop = 'gym-badge-use-01-gorgeous-hero-1200.webp' -%}
@@ -314,6 +318,50 @@
       </div>
     </section>
 
+    <section class="gb-use-regions" aria-labelledby="gb-use-regions-title-{{ section.id }}">
+      <div class="gb-use-shell">
+        <div class="gb-use-heading">
+          <p class="gb-use-eyebrow">The complete pack, up close</p>
+          <h2 id="gb-use-regions-title-{{ section.id }}">Every region. Every badge.</h2>
+          <p>Inspect the exact shapes, colors, and fitted presentation of all four eight-badge sets.</p>
+        </div>
+        <div class="gb-use-regions__carousel" data-gb-use-region-carousel>
+          <div class="gb-use-regions__viewport" data-gb-use-region-viewport role="region" aria-label="Close-up gallery of the four regional badge sets" tabindex="0">
+            <div class="gb-use-regions__track">
+              <article class="gb-use-region" data-gb-use-region-slide>
+                <figure><img src="{{ kanto_gallery_media.preview_image | image_url: width: 1000 }}" srcset="{{ kanto_gallery_media.preview_image | image_url: width: 480 }} 480w, {{ kanto_gallery_media.preview_image | image_url: width: 760 }} 760w, {{ kanto_gallery_media.preview_image | image_url: width: 1100 }} 1100w, {{ kanto_gallery_media.preview_image | image_url: width: 1500 }} 1500w" sizes="(min-width: 990px) 570px, (min-width: 750px) 46vw, 86vw" width="{{ kanto_gallery_media.preview_image.width }}" height="{{ kanto_gallery_media.preview_image.height }}" alt="Eight Kanto badges in their fitted collector box" loading="lazy" decoding="async"></figure>
+                <div><span>01 · Kanto</span><h3>The first eight.</h3><p>Glossy enamel badges presented together in their fitted black insert.</p></div>
+              </article>
+              <article class="gb-use-region" data-gb-use-region-slide>
+                <figure><img src="{{ johto_gallery_media.preview_image | image_url: width: 1000 }}" srcset="{{ johto_gallery_media.preview_image | image_url: width: 480 }} 480w, {{ johto_gallery_media.preview_image | image_url: width: 760 }} 760w, {{ johto_gallery_media.preview_image | image_url: width: 1100 }} 1100w, {{ johto_gallery_media.preview_image | image_url: width: 1500 }} 1500w" sizes="(min-width: 990px) 570px, (min-width: 750px) 46vw, 86vw" width="{{ johto_gallery_media.preview_image.width }}" height="{{ johto_gallery_media.preview_image.height }}" alt="Eight Johto badges in their fitted collector box" loading="lazy" decoding="async"></figure>
+                <div><span>02 · Johto</span><h3>The next eight.</h3><p>Every familiar silhouette, organized in its own regional display box.</p></div>
+              </article>
+              <article class="gb-use-region" data-gb-use-region-slide>
+                <figure><img src="{{ hoenn_gallery_media.preview_image | image_url: width: 1000 }}" srcset="{{ hoenn_gallery_media.preview_image | image_url: width: 480 }} 480w, {{ hoenn_gallery_media.preview_image | image_url: width: 760 }} 760w, {{ hoenn_gallery_media.preview_image | image_url: width: 1100 }} 1100w, {{ hoenn_gallery_media.preview_image | image_url: width: 1500 }} 1500w" sizes="(min-width: 990px) 570px, (min-width: 750px) 46vw, 86vw" width="{{ hoenn_gallery_media.preview_image.width }}" height="{{ hoenn_gallery_media.preview_image.height }}" alt="Eight Hoenn badges in their fitted collector box" loading="lazy" decoding="async"></figure>
+                <div><span>03 · Hoenn</span><h3>Eight more.</h3><p>Saturated color and polished raised edges, close enough to inspect.</p></div>
+              </article>
+              <article class="gb-use-region" data-gb-use-region-slide>
+                <figure><img src="{{ sinnoh_gallery_media.preview_image | image_url: width: 1000 }}" srcset="{{ sinnoh_gallery_media.preview_image | image_url: width: 480 }} 480w, {{ sinnoh_gallery_media.preview_image | image_url: width: 760 }} 760w, {{ sinnoh_gallery_media.preview_image | image_url: width: 1100 }} 1100w, {{ sinnoh_gallery_media.preview_image | image_url: width: 1500 }} 1500w" sizes="(min-width: 990px) 570px, (min-width: 750px) 46vw, 86vw" width="{{ sinnoh_gallery_media.preview_image.width }}" height="{{ sinnoh_gallery_media.preview_image.height }}" alt="Eight Sinnoh badges in their fitted collector box" loading="lazy" decoding="async"></figure>
+                <div><span>04 · Sinnoh</span><h3>The final eight.</h3><p>The fourth fitted box completes the original four-region run.</p></div>
+              </article>
+            </div>
+          </div>
+          <div class="gb-use-regions__controls" aria-label="Choose a regional badge set">
+            <div class="gb-use-regions__tabs">
+              <button type="button" data-gb-use-region-index="0" aria-current="true">Kanto</button>
+              <button type="button" data-gb-use-region-index="1">Johto</button>
+              <button type="button" data-gb-use-region-index="2">Hoenn</button>
+              <button type="button" data-gb-use-region-index="3">Sinnoh</button>
+            </div>
+            <div class="gb-use-regions__arrows">
+              <button type="button" data-gb-use-region-prev aria-label="Show previous regional badge set">←</button>
+              <button type="button" data-gb-use-region-next aria-label="Show next regional badge set">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="gb-use-ownership" aria-labelledby="gb-use-ownership-title-{{ section.id }}">
       <div class="gb-use-shell">
         <div class="gb-use-heading gb-use-heading--wide">
@@ -325,22 +373,6 @@
           <article><span>01</span><h3>{{ point_one_title }}</h3><p>{{ point_one_body }}</p></article>
           <article><span>02</span><h3>{{ point_two_title }}</h3><p>{{ point_two_body }}</p></article>
           <article><span>03</span><h3>{{ point_three_title }}</h3><p>{{ point_three_body }}</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="gb-use-regions" aria-labelledby="gb-use-regions-title-{{ section.id }}">
-      <div class="gb-use-shell">
-        <div class="gb-use-heading gb-use-heading--center">
-          <p class="gb-use-eyebrow">What arrives</p>
-          <h2 id="gb-use-regions-title-{{ section.id }}">Kanto through Sinnoh. All 32.</h2>
-          <p>Eight badges in each fitted box. Four boxes in the Collector Pack.</p>
-        </div>
-        <div class="gb-use-regions__grid">
-          <article class="gb-use-region"><div><img src="{{ kanto_media.preview_image | image_url: width: 760 }}" srcset="{{ kanto_media.preview_image | image_url: width: 360 }} 360w, {{ kanto_media.preview_image | image_url: width: 600 }} 600w, {{ kanto_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ kanto_media.preview_image.width }}" height="{{ kanto_media.preview_image.height }}" alt="Eight Kanto badges in a fitted collector box" loading="lazy" decoding="async"></div><span>01</span><h3>Kanto</h3><p>Eight badges</p></article>
-          <article class="gb-use-region"><div><img src="{{ johto_media.preview_image | image_url: width: 760 }}" srcset="{{ johto_media.preview_image | image_url: width: 360 }} 360w, {{ johto_media.preview_image | image_url: width: 600 }} 600w, {{ johto_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ johto_media.preview_image.width }}" height="{{ johto_media.preview_image.height }}" alt="Eight Johto badges in a fitted collector box" loading="lazy" decoding="async"></div><span>02</span><h3>Johto</h3><p>Eight badges</p></article>
-          <article class="gb-use-region"><div><img src="{{ hoenn_media.preview_image | image_url: width: 760 }}" srcset="{{ hoenn_media.preview_image | image_url: width: 360 }} 360w, {{ hoenn_media.preview_image | image_url: width: 600 }} 600w, {{ hoenn_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ hoenn_media.preview_image.width }}" height="{{ hoenn_media.preview_image.height }}" alt="Eight Hoenn badges in a fitted collector box" loading="lazy" decoding="async"></div><span>03</span><h3>Hoenn</h3><p>Eight badges</p></article>
-          <article class="gb-use-region"><div><img src="{{ sinnoh_media.preview_image | image_url: width: 760 }}" srcset="{{ sinnoh_media.preview_image | image_url: width: 360 }} 360w, {{ sinnoh_media.preview_image | image_url: width: 600 }} 600w, {{ sinnoh_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ sinnoh_media.preview_image.width }}" height="{{ sinnoh_media.preview_image.height }}" alt="Eight Sinnoh badges in a fitted collector box" loading="lazy" decoding="async"></div><span>04</span><h3>Sinnoh</h3><p>Eight badges</p></article>
         </div>
       </div>
     </section>
