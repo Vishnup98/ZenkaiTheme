@@ -105,6 +105,64 @@
           return blockedResourcePattern.test(resourceUrl(value));
         }
 
+        function withoutTikTokPixel(config) {
+          if (!config || !Array.isArray(config.webPixelsConfigList)) return config;
+
+          config.webPixelsConfigList = config.webPixelsConfigList.filter(function(pixel) {
+            return String(pixel && pixel.id) !== '1555169385' &&
+              String(pixel && pixel.apiClientId) !== '4383523';
+          });
+          return config;
+        }
+
+        var wrappedPixelManagers = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
+        function wrapPixelManager(manager) {
+          if (!manager || typeof manager.init !== 'function') return manager;
+          if (wrappedPixelManagers && wrappedPixelManagers.has(manager)) return manager;
+
+          var nativeInit = manager.init;
+          try {
+            manager.init = function(config) {
+              return nativeInit.call(this, withoutTikTokPixel(config));
+            };
+            if (wrappedPixelManagers) wrappedPixelManagers.add(manager);
+          } catch (error) {
+            /* The load-listener hook below retries after Shopify initializes. */
+          }
+          return manager;
+        }
+
+        var pixelManagerValue = window.webPixelsManager;
+        try {
+          Object.defineProperty(window, 'webPixelsManager', {
+            configurable: true,
+            enumerable: true,
+            get: function() { return pixelManagerValue; },
+            set: function(manager) { pixelManagerValue = wrapPixelManager(manager); }
+          });
+        } catch (error) {
+          /* The manager may already exist on cached navigations. */
+          wrapPixelManager(pixelManagerValue);
+        }
+
+        if (window.EventTarget && window.EventTarget.prototype.addEventListener) {
+          var nativeAddEventListener = window.EventTarget.prototype.addEventListener;
+          window.EventTarget.prototype.addEventListener = function(type, listener) {
+            var target = this;
+            var targetSource = target && target.tagName === 'SCRIPT' ? target.src : '';
+            var isPixelManagerLoad = type === 'load' && /\/web-pixels-manager\/wpm\//i.test(targetSource);
+
+            if (isPixelManagerLoad && typeof listener === 'function') {
+              var pixelManagerLoadListener = listener;
+              arguments[1] = function(event) {
+                pixelManagerValue = wrapPixelManager(window.webPixelsManager || pixelManagerValue);
+                return pixelManagerLoadListener.call(this, event);
+              };
+            }
+            return nativeAddEventListener.apply(this, arguments);
+          };
+        }
+
         if (typeof window.fetch === 'function') {
           var nativeFetch = window.fetch;
           window.fetch = function(input) {
@@ -187,24 +245,7 @@
     </script>
   {%- endif -%}
 
-  {%- capture zenkai_content_for_header -%}{{ content_for_header }}{%- endcapture -%}
-  {%- assign zenkai_tiktok_pixel_marker = '{"id":"1555169385"' -%}
-  {%- assign zenkai_pixel_object_boundary = '},{"id":"' -%}
-  {%- if zenkai_gym_badge_use_context and zenkai_content_for_header contains zenkai_tiktok_pixel_marker -%}
-    {%- assign zenkai_tiktok_header_parts = zenkai_content_for_header | split: zenkai_tiktok_pixel_marker -%}
-    {%- assign zenkai_content_before_tiktok = zenkai_tiktok_header_parts | first -%}
-    {%- assign zenkai_content_from_tiktok = zenkai_tiktok_header_parts | last -%}
-    {%- assign zenkai_content_after_tiktok_parts = zenkai_content_from_tiktok | split: zenkai_pixel_object_boundary -%}
-    {%- if zenkai_content_after_tiktok_parts.size > 1 -%}
-      {%- assign zenkai_content_after_tiktok_count = zenkai_content_after_tiktok_parts.size | minus: 1 -%}
-      {%- assign zenkai_content_after_tiktok = zenkai_content_after_tiktok_parts | slice: 1, zenkai_content_after_tiktok_count | join: zenkai_pixel_object_boundary -%}
-      {{- zenkai_content_before_tiktok -}}{"id":"{{- zenkai_content_after_tiktok -}}
-    {%- else -%}
-      {{- zenkai_content_for_header -}}
-    {%- endif -%}
-  {%- else -%}
-    {{- zenkai_content_for_header -}}
-  {%- endif -%}
+  {{ content_for_header }}
 
   <script>
     var theme = {
