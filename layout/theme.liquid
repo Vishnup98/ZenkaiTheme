@@ -251,7 +251,23 @@
     </script>
   {%- endif -%}
 
-  {{ content_for_header }}
+  {%- if zenkai_gym_badge_use_context -%}
+    {%- comment -%}
+      The UpCart embed is emitted by content_for_header. Runtime guards stop
+      its behavior, but the browser preload scanner can still fetch these two
+      assets before that JavaScript runs. Remove the external tags from the
+      rendered header so the paid landing page never requests the bundle or
+      stylesheet in the first place.
+    {%- endcomment -%}
+    {%- capture zenkai_upcart_stylesheet_tag -%}<link id="upcart-stylesheet" rel="preload" href="https://cdn.shopify.com/extensions/01a059f8-dc26-74a1-b47e-791783891a96/upcart-2-407/assets/upcart-stylesheet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">{%- endcapture -%}
+    {%- capture zenkai_upcart_bundle_tag -%}<script defer type="text/javascript" src="https://cdn.shopify.com/extensions/01a059f8-dc26-74a1-b47e-791783891a96/upcart-2-407/assets/upcart-bundle.js"></script>{%- endcapture -%}
+    {{- content_for_header
+      | remove: zenkai_upcart_stylesheet_tag
+      | remove: zenkai_upcart_bundle_tag
+    -}}
+  {%- else -%}
+    {{ content_for_header }}
+  {%- endif -%}
 
   <script>
     var theme = {

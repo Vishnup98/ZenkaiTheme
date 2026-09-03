@@ -46,7 +46,7 @@
 
 .gb-use *, .gb-use *::before, .gb-use *::after { box-sizing: border-box; }
 .gb-use img { display: block; max-width: 100%; }
-.gb-use button, .gb-use input { font: inherit; }
+.gb-use input { font: inherit; }
 .gb-use h1, .gb-use h2, .gb-use h3, .gb-use p, .gb-use figure, .gb-use blockquote { margin: 0; }
 .gb-use h1, .gb-use h2, .gb-use h3 { color: inherit; font-family: inherit; font-weight: 850; letter-spacing: -0.05em; text-transform: none; }
 .gb-use a { color: inherit; text-underline-offset: 0.2em; }
