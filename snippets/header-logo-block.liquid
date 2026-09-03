@@ -58,6 +58,7 @@
     <a
       href="{{ routes.root_url }}"
       itemprop="url"
+      {% if zenkai_is_gym_color_paid %}tabindex="-1" aria-disabled="true"{% endif %}
       class="site-header__logo-link{% if section.settings.logo-inverted %} logo--has-inverted{% endif %}">
       <img
         class="small--hide"
@@ -75,6 +76,7 @@
       <a
         href="{{ routes.root_url }}"
         itemprop="url"
+        {% if zenkai_is_gym_color_paid %}tabindex="-1" aria-disabled="true"{% endif %}
         class="site-header__logo-link logo--inverted">
         <img
           class="small--hide"
@@ -98,7 +100,7 @@
   {% else %}
     <div class="h1 site-header__logo" itemscope itemtype="http://schema.org/Organization">
   {% endif %}
-    <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+    <a href="{{ routes.root_url }}" itemprop="url"{% if zenkai_is_gym_color_paid %} tabindex="-1" aria-disabled="true"{% endif %} class="site-header__logo-link">
       {{ shop.name }}
     </a>
   {% if template == 'index' %}

@@ -354,7 +354,7 @@
           <p>{{ proof_body }}</p>
         </div>
         <div class="gb-use-proof__gallery" role="region" aria-label="Customer photos of delivered badge sets" tabindex="0">
-          <figure class="gb-use-proof__lead"><img src="{{ 'gym-badge-use-proof-open-box-720.webp' | asset_url }}" width="720" height="961" alt="Customer photo of a delivered badge set in its fitted collector box" loading="lazy" decoding="async"><figcaption>Fitted box · actual customer photo</figcaption></figure>
+          <figure class="gb-use-proof__lead"><img src="{{ 'gym-badge-use-proof-open-box-720.webp' | asset_url }}" width="720" height="961" alt="Customer photo of a delivered badge set in its fitted collector box" loading="eager" fetchpriority="low" decoding="async"><figcaption>Fitted box · actual customer photo</figcaption></figure>
           <figure><img src="{{ 'gym-badge-use-proof-sunlight-960.webp' | asset_url }}" width="960" height="767" alt="Customer photo showing enamel badges reflecting natural sunlight" loading="lazy" decoding="async"><figcaption>Natural-light gloss · actual customer photo</figcaption></figure>
           <figure><img src="{{ 'gym-badge-use-proof-framed-480.webp' | asset_url }}" width="480" height="851" alt="Customer-framed display of eight regional badges" loading="lazy" decoding="async"><figcaption>Displayed by a collector · actual customer photo</figcaption></figure>
         </div>
@@ -370,6 +370,10 @@
           <h2 id="gb-use-quality-title-{{ section.id }}">Look past the room scene.</h2>
           <p>These are glossy hard-enamel pins with polished raised edges, saturated color, and a fitted black insert for every badge.</p>
           <ul><li><strong>Glossy hard enamel</strong><span>Smooth color fill that catches real light.</span></li><li><strong>Raised metal borders</strong><span>Clean outlines keep every silhouette distinct.</span></li><li><strong>Four fitted boxes</strong><span>One organized box for each eight-badge region.</span></li></ul>
+          <aside class="gb-use-inline-review" aria-label="Verified buyer review about product quality">
+            <blockquote>“The badges look to be high quality, as does the display box it came in.”</blockquote>
+            <footer>Verified buyer</footer>
+          </aside>
         </div>
       </div>
     </section>
@@ -381,6 +385,10 @@
           <h2 id="gb-use-decision-title-{{ section.id }}">{{ absence_title }}</h2>
           <p>{{ absence_body }}</p>
           <div class="gb-use-decision__chips"><span>32 badges</span><span>4 fitted boxes</span><span>Free U.S. shipping</span></div>
+          <aside class="gb-use-inline-review" aria-label="Verified buyer review about the complete collection">
+            <blockquote>“The box presentation makes these feel like a real collector piece. I bought one region first and came back for the full set.”</blockquote>
+            <footer>Verified buyer</footer>
+          </aside>
         </div>
         <div class="gb-use-offer gb-use-offer--decision" data-gb-use-inline-offer>
           <div class="gb-use-offer__price"><div><span>Complete Collector Pack</span><p>{%- if collector_savings > 0 -%}<s>{{ collector_compare_money }}</s>{%- endif -%}<strong>{{ collector_price_money }}</strong></p></div>{%- if collector_savings > 0 -%}<span class="gb-use-save">Save {{ collector_savings_money }}</span>{%- endif -%}</div>
@@ -397,8 +405,9 @@
         <div class="gb-use-heading gb-use-heading--center"><p class="gb-use-eyebrow">Real reactions after delivery</p><h2 id="gb-use-reviews-title-{{ section.id }}">What collectors noticed first.</h2><p><strong>4.8/5</strong> from 95 reviews · <strong>2,800+</strong> orders shipped</p></div>
         <div class="gb-use-reviews__grid">
           <article><blockquote>“Wauw, they look amazing. It brings great nostalgia. Let’s go to the elite four.”</blockquote><footer>S.P. · Verified buyer</footer></article>
-          <article><blockquote>“The badges look to be high quality, as does the display box it came in.”</blockquote><footer>Verified buyer</footer></article>
+          <article><blockquote>“They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.”</blockquote><footer>Oliver S. · Verified buyer</footer></article>
           <article><blockquote>“Very pretty and nice material too, perfect for gifting.”</blockquote><footer>Verified buyer</footer></article>
+          <article><blockquote>“My son loved it!”</blockquote><footer>Verified buyer</footer></article>
         </div>
       </div>
     </section>
@@ -417,11 +426,17 @@
 
     <section class="gb-use-final" aria-labelledby="gb-use-final-title-{{ section.id }}" data-gb-use-inline-offer>
       <div class="gb-use-shell gb-use-final__inner">
-        <p class="gb-use-eyebrow">Kanto through Sinnoh</p>
-        <h2 id="gb-use-final-title-{{ section.id }}">Bring home all 32.</h2>
-        <p>One complete Collector Pack. Four fitted boxes. Free U.S. shipping.</p>
-        <button class="gb-use-button gb-use-button--final" type="button" data-gb-use-checkout data-placement="final" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ collector_price_money }}{% else %}Collector Pack sold out{% endif %}</span></button>
-        <div class="gb-use-final__trust"><span>4.8/5 from 95 reviews</span><span>2,800+ orders shipped</span><span>Typically arrives in 5–7 business days</span></div>
+        <p class="gb-use-eyebrow">One order · the complete run</p>
+        <h2 id="gb-use-final-title-{{ section.id }}">Finish the original four-region collection.</h2>
+        <p>All 32 badges arrive together in four fitted boxes—ready to display, sort, or rotate.</p>
+        <div class="gb-use-final__offer">
+          <div class="gb-use-offer__price">
+            <div><span>Complete Collector Pack · 32 badges</span><p>{%- if collector_savings > 0 -%}<s>{{ collector_compare_money }}</s>{%- endif -%}<strong>{{ collector_price_money }}</strong></p></div>
+            {%- if collector_savings > 0 -%}<span class="gb-use-save">Save {{ collector_savings_money }}</span>{%- endif -%}
+          </div>
+          <button class="gb-use-button gb-use-button--final" type="button" data-gb-use-checkout data-placement="final" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ collector_price_money }}{% else %}Collector Pack sold out{% endif %}</span></button>
+          <div class="gb-use-final__trust"><span>Free U.S. shipping</span><span>Typically arrives in 5–7 business days</span><span>4.8/5 from 95 reviews</span><span>2,800+ orders shipped</span></div>
+        </div>
       </div>
     </section>
 

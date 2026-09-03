@@ -9,6 +9,7 @@
     {%- if template.suffix contains 'gympin-color'
       or template.suffix contains 'gympin-women'
       or template.suffix contains 'gympin-gift'
+      or template.suffix contains 'gympin-use'
       or template.suffix == 'gympin-completion'
       or template.suffix == 'gympin-collection'
       or template.suffix == 'gympin-og-four' -%}
@@ -155,6 +156,27 @@
 
     .header-wrapper--gym-color-paid .header-layout {
       position: relative;
+      min-height: 50px;
+      gap: 0;
+      padding-block: 3px;
+    }
+
+    .header-wrapper--gym-color-paid .site-header {
+      padding: 0 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: #12352f !important;
+      box-shadow: 0 6px 20px rgba(8, 24, 20, 0.12);
+    }
+
+    .header-wrapper--gym-color-paid .site-header__logo a,
+    .header-wrapper--gym-color-paid .site-header__logo-link,
+    .header-wrapper--gym-color-paid .is-light .site-header__logo .logo--inverted {
+      max-width: 54px !important;
+    }
+
+    .header-wrapper--gym-color-paid .site-header__logo-link {
+      pointer-events: none;
+      cursor: default;
     }
 
     .header-wrapper--gym-color-paid .gb-color-header-shipping {
@@ -191,10 +213,10 @@
       }
 
       .header-wrapper--gym-color-paid .header-layout {
-        min-height: 42px !important;
+        min-height: 40px !important;
         justify-content: space-between !important;
         gap: 0;
-        padding: 1px 6px !important;
+        padding: 0 6px !important;
       }
 
       .header-wrapper--gym-color-paid .header-item--logo {
@@ -212,7 +234,7 @@
       }
 
       .header-wrapper--gym-color-paid .zenkai-mobile-cart {
-        padding: 7px 5px;
+        padding: 5px;
       }
 
       .header-wrapper--gym-color-paid .gb-color-header-shipping {

@@ -1,10 +1,15 @@
 {%- assign zenkai_collectible_focus_context = false -%}
 {%- assign zenkai_gym_badge_paid_context = false -%}
+{%- assign zenkai_gym_badge_use_context = false -%}
 {%- if request.page_type == 'product' -%}
   {%- if product.handle == '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
+    {%- if template.suffix contains 'gympin-use' -%}
+      {%- assign zenkai_gym_badge_use_context = true -%}
+    {%- endif -%}
     {%- if template.suffix contains 'gympin-color'
       or template.suffix == 'gympin-women'
       or template.suffix contains 'gympin-gift'
+      or template.suffix contains 'gympin-use'
       or template.suffix == 'gympin-completion'
       or template.suffix == 'gympin-collection'
       or template.suffix == 'gympin-og-four' -%}
@@ -48,14 +53,16 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-993234852"></script>
 
 
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "rci3r4u57j");
-</script>
+  {%- unless zenkai_gym_badge_use_context -%}
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "rci3r4u57j");
+    </script>
+  {%- endunless -%}
   
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -78,7 +85,126 @@
 
   {% include 'social-meta-tags' %}
 
-  {{ content_for_header }}
+  {%- if zenkai_gym_badge_use_context -%}
+    <script>
+      (function() {
+        'use strict';
+
+        /* These paid landing pages contain their own buy flow and have no size
+           decision. Vendor app embeds are injected after Liquid has rendered,
+           so stop their resources before those embeds can initialize. */
+        var blockedResourcePattern = /(?:server\.smartsize\.io|\/fitting-rooms-[^/]*\/assets\/smartsize|\/upcart-(?:bundle|stylesheet)|\/upcart_[^/]*|clarity\.ms\/|analytics\.tiktok\.com\/)/i;
+
+        function resourceUrl(value) {
+          if (typeof value === 'string') return value;
+          if (value && typeof value.url === 'string') return value.url;
+          return '';
+        }
+
+        function isBlockedResource(value) {
+          return blockedResourcePattern.test(resourceUrl(value));
+        }
+
+        if (typeof window.fetch === 'function') {
+          var nativeFetch = window.fetch;
+          window.fetch = function(input) {
+            if (isBlockedResource(input)) {
+              return new Promise(function() {});
+            }
+            return nativeFetch.apply(this, arguments);
+          };
+        }
+
+        function guardUrlProperty(prototype, property) {
+          if (!prototype) return;
+          var descriptor = Object.getOwnPropertyDescriptor(prototype, property);
+          if (!descriptor || typeof descriptor.set !== 'function' || typeof descriptor.get !== 'function') return;
+
+          try {
+            Object.defineProperty(prototype, property, {
+              configurable: descriptor.configurable,
+              enumerable: descriptor.enumerable,
+              get: descriptor.get,
+              set: function(value) {
+                if (isBlockedResource(value)) {
+                  this.setAttribute('data-zenkai-resource-disabled', '');
+                  return value;
+                }
+                return descriptor.set.call(this, value);
+              }
+            });
+          } catch (error) {
+            /* A browser may expose a non-configurable native descriptor. */
+          }
+        }
+
+        guardUrlProperty(window.HTMLScriptElement && window.HTMLScriptElement.prototype, 'src');
+        guardUrlProperty(window.HTMLLinkElement && window.HTMLLinkElement.prototype, 'href');
+        guardUrlProperty(window.HTMLImageElement && window.HTMLImageElement.prototype, 'src');
+
+        var nativeSetAttribute = window.Element && window.Element.prototype.setAttribute;
+        if (nativeSetAttribute) {
+          window.Element.prototype.setAttribute = function(name, value) {
+            var normalizedName = String(name).toLowerCase();
+            var isResourceAttribute = normalizedName === 'src' || normalizedName === 'href';
+            if (isResourceAttribute && isBlockedResource(value)) {
+              nativeSetAttribute.call(this, 'data-zenkai-resource-disabled', '');
+              return;
+            }
+            return nativeSetAttribute.apply(this, arguments);
+          };
+        }
+
+        function neutralizeResource(node) {
+          if (!node || node.nodeType !== 1) return;
+
+          function neutralize(element) {
+            var value = element.getAttribute('src') || element.getAttribute('href') || '';
+            if (!isBlockedResource(value)) return;
+
+            if (element.tagName === 'SCRIPT') element.type = 'application/json';
+            element.removeAttribute('src');
+            element.removeAttribute('href');
+            element.setAttribute('data-zenkai-resource-disabled', '');
+            if (element.parentNode) element.parentNode.removeChild(element);
+          }
+
+          if (node.matches && node.matches('script[src], link[href], img[src]')) neutralize(node);
+          if (node.querySelectorAll) {
+            node.querySelectorAll('script[src], link[href], img[src]').forEach(neutralize);
+          }
+        }
+
+        neutralizeResource(document.documentElement);
+        if ('MutationObserver' in window) {
+          new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              mutation.addedNodes.forEach(neutralizeResource);
+            });
+          }).observe(document.documentElement, { childList: true, subtree: true });
+        }
+      })();
+    </script>
+  {%- endif -%}
+
+  {%- capture zenkai_content_for_header -%}{{ content_for_header }}{%- endcapture -%}
+  {%- assign zenkai_tiktok_pixel_marker = '{"id":"1555169385"' -%}
+  {%- assign zenkai_pixel_object_boundary = '},{"id":"' -%}
+  {%- if zenkai_gym_badge_use_context and zenkai_content_for_header contains zenkai_tiktok_pixel_marker -%}
+    {%- assign zenkai_tiktok_header_parts = zenkai_content_for_header | split: zenkai_tiktok_pixel_marker -%}
+    {%- assign zenkai_content_before_tiktok = zenkai_tiktok_header_parts | first -%}
+    {%- assign zenkai_content_from_tiktok = zenkai_tiktok_header_parts | last -%}
+    {%- assign zenkai_content_after_tiktok_parts = zenkai_content_from_tiktok | split: zenkai_pixel_object_boundary -%}
+    {%- if zenkai_content_after_tiktok_parts.size > 1 -%}
+      {%- assign zenkai_content_after_tiktok_count = zenkai_content_after_tiktok_parts.size | minus: 1 -%}
+      {%- assign zenkai_content_after_tiktok = zenkai_content_after_tiktok_parts | slice: 1, zenkai_content_after_tiktok_count | join: zenkai_pixel_object_boundary -%}
+      {{- zenkai_content_before_tiktok -}}{"id":"{{- zenkai_content_after_tiktok -}}
+    {%- else -%}
+      {{- zenkai_content_for_header -}}
+    {%- endif -%}
+  {%- else -%}
+    {{- zenkai_content_for_header -}}
+  {%- endif -%}
 
   <script>
     var theme = {
