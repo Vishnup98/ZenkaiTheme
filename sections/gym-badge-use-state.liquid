@@ -1,0 +1,447 @@
+{{ 'gym-badge-use-state.css' | asset_url | stylesheet_tag }}
+
+{%- assign gym_badge_product_handle = '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' -%}
+{%- assign collector_variant = blank -%}
+{%- assign separate_total = 0 -%}
+{%- assign kanto_media = blank -%}
+{%- assign johto_media = blank -%}
+{%- assign hoenn_media = blank -%}
+{%- assign sinnoh_media = blank -%}
+
+{%- for variant in product.variants -%}
+  {%- assign variant_title = variant.title | downcase -%}
+  {%- assign variant_media = variant.featured_media | default: product.media[forloop.index0] | default: product.featured_media -%}
+  {%- assign is_collector_candidate = false -%}
+  {%- if variant_title contains 'collector' or variant_title contains '4 regions' or variant_title contains '4 region' or variant_title contains '4-region' or variant_title contains 'all four' -%}
+    {%- assign is_collector_candidate = true -%}
+    {%- if collector_variant == blank or variant.available -%}
+      {%- assign collector_variant = variant -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- unless is_collector_candidate -%}
+    {%- if variant_title contains 'kanto' -%}
+      {%- assign kanto_media = variant_media -%}
+      {%- assign separate_total = separate_total | plus: variant.price -%}
+    {%- elsif variant_title contains 'johto' -%}
+      {%- assign johto_media = variant_media -%}
+      {%- assign separate_total = separate_total | plus: variant.price -%}
+    {%- elsif variant_title contains 'hoenn' -%}
+      {%- assign hoenn_media = variant_media -%}
+      {%- assign separate_total = separate_total | plus: variant.price -%}
+    {%- elsif variant_title contains 'sinnoh' -%}
+      {%- assign sinnoh_media = variant_media -%}
+      {%- assign separate_total = separate_total | plus: variant.price -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+{%- assign kanto_media = kanto_media | default: product.media[0] | default: product.featured_media -%}
+{%- assign johto_media = johto_media | default: product.media[1] | default: product.featured_media -%}
+{%- assign hoenn_media = hoenn_media | default: product.media[2] | default: product.featured_media -%}
+{%- assign sinnoh_media = sinnoh_media | default: product.media[3] | default: product.featured_media -%}
+
+{%- assign journey = template.suffix | remove: 'gympin-use-' -%}
+{%- assign hero_desktop = 'gym-badge-use-01-gorgeous-hero-1200.webp' -%}
+{%- assign hero_mobile = 'gym-badge-use-01-gorgeous-hero-720.webp' -%}
+{%- assign hero_alt = 'All 32 colorful enamel badges arranged in four regional groups under warm natural light' -%}
+{%- assign hero_title = 'They look even better up close.' -%}
+{%- assign hero_body = 'All 32 badges from Kanto through Sinnoh, finished in glossy hard enamel and organized across four fitted collector boxes.' -%}
+{%- assign ownership_eyebrow = 'Picture them in your space' -%}
+{%- assign ownership_title = 'The kind of collection you keep looking at.' -%}
+{%- assign ownership_body = 'Line up the four boxes, let the light move across the enamel, and decide which badge catches your eye first.' -%}
+{%- assign point_one_title = 'Color that holds your attention' -%}
+{%- assign point_one_body = 'Thirty-two distinct shapes and colors give you something new to notice every time you pass them.' -%}
+{%- assign point_two_title = 'Four boxes that line up cleanly' -%}
+{%- assign point_two_body = 'Keep every set in order or move the boxes until the arrangement feels like yours.' -%}
+{%- assign point_three_title = 'A full display from day one' -%}
+{%- assign point_three_body = 'Open all four boxes and the original four-region run is already complete.' -%}
+{%- assign proof_title = 'The finish holds up close.' -%}
+{%- assign proof_body = 'Customer photos show the enamel gloss, raised metal edges, fitted black inserts, and box presentation after delivery.' -%}
+{%- assign absence_title = 'You already know where you would put them.' -%}
+{%- assign absence_body = 'The only thing missing from that spot is the complete collection itself.' -%}
+{%- assign props_text = 'Decorative surfaces, lighting, and room props shown in the styled image are not included.' -%}
+
+{%- case journey -%}
+  {%- when 'pinboard' -%}
+    {%- assign hero_desktop = 'gym-badge-use-02-pinboard-hero-1200.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-02-pinboard-hero-720.webp' -%}
+    {%- assign hero_alt = 'All 32 enamel badges arranged on a dark pin board beside a gaming monitor' -%}
+    {%- assign hero_title = 'Here is what fills the board.' -%}
+    {%- assign hero_body = 'Thirty-two glossy enamel badges give you enough pieces to build a complete Kanto-through-Sinnoh layout.' -%}
+    {%- assign ownership_eyebrow = 'Make the layout yours' -%}
+    {%- assign ownership_title = 'Start with the region order. Then move everything.' -%}
+    {%- assign ownership_body = 'Give each set a row, mix the colors, pull your favorites forward, and keep adjusting until the board looks right.' -%}
+    {%- assign point_one_title = 'Build four clean rows' -%}
+    {%- assign point_one_body = 'Place all eight badges from each region together so every set reads at a glance.' -%}
+    {%- assign point_two_title = 'Try color instead' -%}
+    {%- assign point_two_body = 'Mix the regions and follow the enamel from cooler tones into the warmer ones.' -%}
+    {%- assign point_three_title = 'Change it whenever you want' -%}
+    {%- assign point_three_body = 'Move one favorite or rebuild the entire board. All 32 are there to work with.' -%}
+    {%- assign proof_title = 'Clear shapes. Glossy color. Defined edges.' -%}
+    {%- assign proof_body = 'Customer close-ups show how the badges look away from the styled board: reflective enamel, raised borders, and distinct silhouettes.' -%}
+    {%- assign absence_title = 'A complete board starts with the complete set.' -%}
+    {%- assign absence_body = 'Bring home all 32 at once and decide the layout after they arrive.' -%}
+    {%- assign props_text = 'Pin board, frame, mounting materials, monitor, and desk props are not included.' -%}
+  {%- when 'backpack' -%}
+    {%- assign hero_desktop = 'gym-badge-use-03-backpack-hero-1440.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-03-backpack-hero-720.webp' -%}
+    {%- assign hero_alt = 'Eight enamel badges pinned to a black backpack beside three filled fitted boxes and one empty fitted box' -%}
+    {%- assign hero_title = 'Start with the eight you would wear first.' -%}
+    {%- assign hero_body = 'The Collector Pack gives you all 32, so your backpack can change while the rest stay sorted in four fitted boxes.' -%}
+    {%- assign ownership_eyebrow = 'Your favorites can change' -%}
+    {%- assign ownership_title = 'Wear a few. Keep the full run.' -%}
+    {%- assign ownership_body = 'Choose today’s lineup, put the rest back in their fitted boxes, and switch them whenever another badge catches your eye.' -%}
+    {%- assign point_one_title = 'Make a daily lineup' -%}
+    {%- assign point_one_body = 'Pick the shapes and colors that work on your bag without trying to fit all 32 at once.' -%}
+    {%- assign point_two_title = 'Keep the rest together' -%}
+    {%- assign point_two_body = 'Every badge has a fitted place while it waits for its turn.' -%}
+    {%- assign point_three_title = 'Change the mix' -%}
+    {%- assign point_three_body = 'Swap one badge or the whole lineup without breaking up the collection.' -%}
+    {%- assign proof_title = 'The shapes stay recognizable.' -%}
+    {%- assign proof_body = 'Customer photos show the enamel color, metal outlines, and scale before you choose your first rotation.' -%}
+    {%- assign absence_title = 'You already picked the first eight.' -%}
+    {%- assign absence_body = 'Get the full 32-piece run and keep every future lineup open.' -%}
+    {%- assign props_text = 'Backpack, clothing, and styling props are not included.' -%}
+  {%- when 'all-32' -%}
+    {%- assign hero_desktop = 'gym-badge-use-04-all-32-hero-1200.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-04-all-32-hero-720.webp' -%}
+    {%- assign hero_alt = 'All 32 badges laid out by region beside four fitted collector boxes on a blue carpet' -%}
+    {%- assign hero_title = 'Yes—eight from each of four regions.' -%}
+    {%- assign hero_body = 'Kanto, Johto, Hoenn, and Sinnoh. Eight badges per region. Thirty-two total. Four fitted collector boxes.' -%}
+    {%- assign ownership_eyebrow = 'The count checks out' -%}
+    {%- assign ownership_title = 'All 32. Nothing left to hunt down.' -%}
+    {%- assign ownership_body = 'Everything arrives organized by region so you can see exactly what belongs in the original four-region run.' -%}
+    {%- assign point_one_title = '8 × 4 = 32' -%}
+    {%- assign point_one_body = 'Eight Kanto, eight Johto, eight Hoenn, and eight Sinnoh badges.' -%}
+    {%- assign point_two_title = 'One fitted box per region' -%}
+    {%- assign point_two_body = 'Four boxes keep the full run separated, visible, and easy to check.' -%}
+    {%- assign point_three_title = 'The whole original run' -%}
+    {%- assign point_three_body = 'Every badge in the Kanto-through-Sinnoh collection is accounted for.' -%}
+    {%- assign proof_title = 'Count every shape before you order.' -%}
+    {%- assign proof_body = 'The full-pack image makes all 32 visible. Customer photos below show the delivered enamel and box presentation up close.' -%}
+    {%- assign absence_title = 'No gaps. No second hunt.' -%}
+    {%- assign absence_body = 'One order completes the original four-region collection.' -%}
+    {%- assign props_text = 'Rug, tissue, and styling props are not included.' -%}
+  {%- when 'frame' -%}
+    {%- assign hero_desktop = 'gym-badge-use-05-frame-hero-1200.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-05-frame-hero-720.webp' -%}
+    {%- assign hero_alt = 'All 32 enamel badges arranged in a black display frame beside a gaming monitor' -%}
+    {%- assign hero_title = 'All 32 arrive ready to arrange.' -%}
+    {%- assign hero_body = 'Four fitted boxes keep the Kanto-through-Sinnoh run organized until you choose the spacing, order, and frame layout.' -%}
+    {%- assign ownership_eyebrow = 'Plan the frame' -%}
+    {%- assign ownership_title = 'Choose the layout before you place the first pin.' -%}
+    {%- assign ownership_body = 'Line up all four regions, build one 32-piece grid, or give every set its own section.' -%}
+    {%- assign point_one_title = 'Map all 32 first' -%}
+    {%- assign point_one_body = 'Lay everything out before mounting so the spacing stays deliberate from edge to edge.' -%}
+    {%- assign point_two_title = 'Keep the region order' -%}
+    {%- assign point_two_body = 'Run Kanto through Sinnoh from left to right or top to bottom.' -%}
+    {%- assign point_three_title = 'Save the fitted boxes' -%}
+    {%- assign point_three_body = 'Return the badges to their own slots whenever you change the display.' -%}
+    {%- assign proof_title = 'Every shape reads clearly.' -%}
+    {%- assign proof_body = 'Raised metal outlines separate the enamel colors while the varied silhouettes keep a 32-piece layout from feeling flat.' -%}
+    {%- assign absence_title = 'Start with every badge on the table.' -%}
+    {%- assign absence_body = 'The complete set lets you plan the full frame before anything is mounted.' -%}
+    {%- assign props_text = 'Frame, backing board, wall hardware, mounting materials, and room props are not included.' -%}
+  {%- when 'pegboard' -%}
+    {%- assign hero_desktop = 'gym-badge-use-06-pegboard-hero-1200.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-06-pegboard-hero-720.webp' -%}
+    {%- assign hero_alt = 'All 32 colorful enamel badges arranged across a black pegboard gaming setup' -%}
+    {%- assign hero_title = 'Clear a spot for all 32.' -%}
+    {%- assign hero_body = 'The complete Kanto-through-Sinnoh run gives your setup one finished focal point: 32 glossy badges in four fitted boxes.' -%}
+    {%- assign ownership_eyebrow = 'Build it into your setup' -%}
+    {%- assign ownership_title = 'Put the collection where you will actually see it.' -%}
+    {%- assign ownership_body = 'Give each region a zone, rotate a few favorites, and return everything to its fitted box when you change the board.' -%}
+    {%- assign point_one_title = 'Give each region a zone' -%}
+    {%- assign point_one_body = 'Keep all eight shapes together so every set reads clearly.' -%}
+    {%- assign point_two_title = 'Make the boxes part of it' -%}
+    {%- assign point_two_body = 'Line the fitted boxes up open, closed, stacked, or side by side.' -%}
+    {%- assign point_three_title = 'Change it without losing order' -%}
+    {%- assign point_three_body = 'Move badges onto the board and return them to their regional slots afterward.' -%}
+    {%- assign proof_title = 'Organized between every change.' -%}
+    {%- assign proof_body = 'Customer photos show the fitted inserts that keep each badge visible and separated when it is not on display.' -%}
+    {%- assign absence_title = 'The spot is already there.' -%}
+    {%- assign absence_body = 'Fill it with the complete original four-region run.' -%}
+    {%- assign props_text = 'Pegboard, hooks, shelves, electronics, and desk props are not included.' -%}
+  {%- when 'denim' -%}
+    {%- assign hero_desktop = 'gym-badge-use-07-denim-hero-1440.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-07-denim-hero-720.webp' -%}
+    {%- assign hero_alt = 'Eight enamel badges pinned to a black denim jacket beside three filled fitted boxes and one empty fitted box' -%}
+    {%- assign hero_title = 'Pick a few. Keep the rest sorted.' -%}
+    {%- assign hero_body = 'Wear the badges you want now while the complete 32-piece run stays organized across four fitted collector boxes.' -%}
+    {%- assign ownership_eyebrow = 'Build a rotation' -%}
+    {%- assign ownership_title = 'Your jacket does not have to wear all 32 at once.' -%}
+    {%- assign ownership_body = 'Choose a tight cluster for denim, a bag, or a lapel, then swap it without losing track of the full set.' -%}
+    {%- assign point_one_title = 'Start with a small cluster' -%}
+    {%- assign point_one_body = 'Pick a few shapes and colors that sit well together instead of crowding the fabric.' -%}
+    {%- assign point_two_title = 'Change the lineup later' -%}
+    {%- assign point_two_body = 'Switch from one group to another whenever you want a different look.' -%}
+    {%- assign point_three_title = 'Put everything back in place' -%}
+    {%- assign point_three_body = 'Four fitted boxes keep all 32 sorted when they are not being worn.' -%}
+    {%- assign proof_title = 'Color that stays clear against fabric.' -%}
+    {%- assign proof_body = 'Glossy enamel and raised outlines give each badge enough definition to stand apart on dark or light material.' -%}
+    {%- assign absence_title = 'You have already chosen the first few.' -%}
+    {%- assign absence_body = 'Keep every future combination within reach with the complete 32-piece run.' -%}
+    {%- assign props_text = 'Jacket, backpack, clothing, and styling props are not included.' -%}
+  {%- when 'shine' -%}
+    {%- assign hero_desktop = 'gym-badge-use-08-shine-hero-1000.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-08-shine-hero-640.webp' -%}
+    {%- assign hero_alt = 'Close view of glossy enamel badges reflecting narrow bands of colored light' -%}
+    {%- assign hero_title = 'Glossy enamel. Raised metal edges.' -%}
+    {%- assign hero_body = 'The full 32-badge run changes as the light moves: bright enamel, reflective borders, and a different silhouette in every slot.' -%}
+    {%- assign ownership_eyebrow = 'The finish is the point' -%}
+    {%- assign ownership_title = 'These reward a closer look.' -%}
+    {%- assign ownership_body = 'Tilt a box toward the window, compare the colors, and watch the polished outlines catch the light around every shape.' -%}
+    {%- assign point_one_title = 'Gloss across all 32' -%}
+    {%- assign point_one_body = 'Every badge adds another enamel color and another reflection.' -%}
+    {%- assign point_two_title = 'Metal that defines the shapes' -%}
+    {%- assign point_two_body = 'Raised borders keep the badges distinct when several sit close together.' -%}
+    {%- assign point_three_title = 'Black fitted inserts' -%}
+    {%- assign point_three_body = 'The dark box interiors give the bright enamel a clean background.' -%}
+    {%- assign proof_title = 'See how the enamel actually reflects.' -%}
+    {%- assign proof_body = 'Customer photos taken in direct light show the delivered gloss, metal borders, and surface detail without hiding them in a distant room scene.' -%}
+    {%- assign absence_title = 'Give the light all 32 to catch.' -%}
+    {%- assign absence_body = 'Bring the complete Kanto-through-Sinnoh run home in four fitted boxes.' -%}
+    {%- assign props_text = 'Reflective surfaces, lighting equipment, and display props are not included.' -%}
+  {%- when 'rearrange' -%}
+    {%- assign hero_desktop = 'gym-badge-use-09-rearrange-hero-1200.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-09-rearrange-hero-720.webp' -%}
+    {%- assign hero_alt = 'All 32 badges arranged by region on a soft desk mat beside a keyboard and handheld console' -%}
+    {%- assign hero_title = 'Sort them by region. Then start over.' -%}
+    {%- assign hero_body = 'All 32 give you enough pieces to arrange by region, color, memory, or whatever makes sense once they are in front of you.' -%}
+    {%- assign ownership_eyebrow = 'Your collection, your order' -%}
+    {%- assign ownership_title = 'The sorting is part of owning it.' -%}
+    {%- assign ownership_body = 'Open all four boxes, move the badges onto the table, and see which arrangement you keep coming back to.' -%}
+    {%- assign point_one_title = 'Start in region order' -%}
+    {%- assign point_one_body = 'Lay out Kanto, Johto, Hoenn, and Sinnoh with all eight badges together.' -%}
+    {%- assign point_two_title = 'Break the order by color' -%}
+    {%- assign point_two_body = 'Mix the regions and follow the enamel from darker tones to brighter ones.' -%}
+    {%- assign point_three_title = 'Build a favorites row' -%}
+    {%- assign point_three_body = 'Pull the badges you remember most to the front without losing the complete run.' -%}
+    {%- assign proof_title = 'Thirty-two distinct pieces.' -%}
+    {%- assign proof_body = 'Customer close-ups show the different silhouettes, enamel colors, and fitted inserts that make the set satisfying to handle and sort.' -%}
+    {%- assign absence_title = 'Decide your first arrangement.' -%}
+    {%- assign absence_body = 'All four boxes arrive together. The order after that is yours.' -%}
+    {%- assign props_text = 'Desk mat, keyboard, console, sorting dishes, and room props are not included.' -%}
+  {%- when 'setup' -%}
+    {%- assign hero_desktop = 'gym-badge-use-10-setup-hero-1200.webp' -%}
+    {%- assign hero_mobile = 'gym-badge-use-10-setup-hero-720.webp' -%}
+    {%- assign hero_alt = 'All 32 enamel badges arranged beside headphones, a handheld console, and a black bag' -%}
+    {%- assign hero_title = 'Put the full run where you will see it.' -%}
+    {%- assign hero_body = 'Thirty-two badges across four fitted boxes give a desk, shelf, or gaming corner one personal detail that is easy to recognize.' -%}
+    {%- assign ownership_eyebrow = 'Make the view feel like yours' -%}
+    {%- assign ownership_title = 'The details are what turn a room into your room.' -%}
+    {%- assign ownership_body = 'Your colors, your games, your collections—the things you choose are what make the setup personal.' -%}
+    {%- assign point_one_title = 'Four distinct regions' -%}
+    {%- assign point_one_body = 'Each set brings its own shapes, colors, and memories to the shelf.' -%}
+    {%- assign point_two_title = 'One complete lineup' -%}
+    {%- assign point_two_body = 'All 32 make a stronger visual statement together than a scattered handful.' -%}
+    {%- assign point_three_title = 'Ready to display from day one' -%}
+    {%- assign point_three_body = 'Four fitted boxes keep the collection clean, visible, and deliberate.' -%}
+    {%- assign proof_title = 'The boxes do more than ship the badges.' -%}
+    {%- assign proof_body = 'Customer photos show how the fitted black inserts separate each badge and turn every regional set into a clean display.' -%}
+    {%- assign absence_title = 'You know the spot.' -%}
+    {%- assign absence_body = 'Put the complete original four-region run there.' -%}
+    {%- assign props_text = 'Headphones, console, bag, electronics, furniture, and room props are not included.' -%}
+{%- endcase -%}
+
+{%- assign collector_compare_price = separate_total -%}
+{%- assign collector_savings = 0 -%}
+{%- assign collector_price_money = blank -%}
+{%- if collector_variant != blank -%}
+  {%- if collector_variant.compare_at_price > collector_variant.price -%}
+    {%- assign collector_compare_price = collector_variant.compare_at_price -%}
+  {%- endif -%}
+  {%- if collector_compare_price > collector_variant.price -%}
+    {%- assign collector_savings = collector_compare_price | minus: collector_variant.price -%}
+  {%- else -%}
+    {%- assign collector_compare_price = collector_variant.price -%}
+  {%- endif -%}
+  {%- assign collector_price_money = collector_variant.price | money -%}
+{%- endif -%}
+{%- assign collector_savings_money = collector_savings | money -%}
+{%- assign collector_compare_money = collector_compare_price | money -%}
+
+{%- if product.handle == gym_badge_product_handle and collector_variant != blank -%}
+  <div
+    class="gb-use gb-use--{{ journey }}"
+    data-gb-use-state
+    data-collector-variant-id="{{ collector_variant.id }}"
+    data-product-id="{{ product.id }}"
+    data-landing-variant="use-{{ journey }}"
+  >
+    <section class="gb-use-hero" aria-labelledby="gb-use-title-{{ section.id }}">
+      <div class="gb-use-shell gb-use-hero__grid">
+        <figure class="gb-use-hero__visual">
+          <picture>
+            <source media="(max-width: 749px)" srcset="{{ hero_mobile | asset_url }}">
+            <img src="{{ hero_desktop | asset_url }}" width="1200" height="800" alt="{{ hero_alt | escape }}" loading="eager" fetchpriority="high" decoding="async">
+          </picture>
+          <figcaption>{{ props_text }}</figcaption>
+        </figure>
+
+        <div class="gb-use-hero__content">
+          <div class="gb-use-trust gb-use-trust--hero" aria-label="Store rating and fulfilled-order count">
+            <span class="gb-use-stars" aria-hidden="true">★★★★★</span>
+            <strong>4.8/5</strong><span>from 95 reviews</span>
+            <i aria-hidden="true"></i>
+            <strong>2,800+</strong><span>orders shipped</span>
+          </div>
+          <p class="gb-use-eyebrow">The complete Collector Pack</p>
+          <h1 id="gb-use-title-{{ section.id }}">{{ hero_title }}</h1>
+          <p class="gb-use-hero__lede">{{ hero_body }}</p>
+
+          <div class="gb-use-offer gb-use-offer--hero" data-gb-use-inline-offer>
+            <div class="gb-use-offer__price">
+              <div><span>Collector Pack · 32 badges</span><p>{%- if collector_savings > 0 -%}<s>{{ collector_compare_money }}</s>{%- endif -%}<strong>{{ collector_price_money }}</strong></p></div>
+              {%- if collector_savings > 0 -%}<span class="gb-use-save">Save {{ collector_savings_money }}</span>{%- endif -%}
+            </div>
+            <button class="gb-use-button" type="button" data-gb-use-checkout data-placement="hero" {% unless collector_variant.available %}disabled{% endunless %}>
+              <span>{% if collector_variant.available %}Get All 32 — {{ collector_price_money }}{% else %}Collector Pack sold out{% endif %}</span>
+            </button>
+            <div class="gb-use-offer__signals"><span>Free U.S. shipping</span><span>Typically arrives in 5–7 business days</span></div>
+            <div class="gb-use-offer__proof"><strong>4.8/5</strong><span>from 95 reviews</span><i></i><strong>2,800+</strong><span>orders shipped</span></div>
+            <p class="gb-use-policy">Damaged, missing, incorrect, or not as described? We’ll make it right. <a href="/pages/policy">Full collector policy</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-facts" aria-label="Collector Pack at a glance">
+      <div class="gb-use-shell gb-use-facts__grid">
+        <article><strong>32</strong><span>glossy hard-enamel badges</span></article>
+        <article><strong>4</strong><span>original regions</span></article>
+        <article><strong>4</strong><span>fitted collector boxes</span></article>
+        {%- if collector_savings > 0 -%}<article><strong>{{ collector_savings_money }}</strong><span>saved on the complete pack</span></article>{%- else -%}<article><strong>1</strong><span>complete Collector Pack</span></article>{%- endif -%}
+      </div>
+    </section>
+
+    <section class="gb-use-ownership" aria-labelledby="gb-use-ownership-title-{{ section.id }}">
+      <div class="gb-use-shell">
+        <div class="gb-use-heading gb-use-heading--wide">
+          <p class="gb-use-eyebrow">{{ ownership_eyebrow }}</p>
+          <h2 id="gb-use-ownership-title-{{ section.id }}">{{ ownership_title }}</h2>
+          <p>{{ ownership_body }}</p>
+        </div>
+        <div class="gb-use-ownership__grid">
+          <article><span>01</span><h3>{{ point_one_title }}</h3><p>{{ point_one_body }}</p></article>
+          <article><span>02</span><h3>{{ point_two_title }}</h3><p>{{ point_two_body }}</p></article>
+          <article><span>03</span><h3>{{ point_three_title }}</h3><p>{{ point_three_body }}</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-regions" aria-labelledby="gb-use-regions-title-{{ section.id }}">
+      <div class="gb-use-shell">
+        <div class="gb-use-heading gb-use-heading--center">
+          <p class="gb-use-eyebrow">What arrives</p>
+          <h2 id="gb-use-regions-title-{{ section.id }}">Kanto through Sinnoh. All 32.</h2>
+          <p>Eight badges in each fitted box. Four boxes in the Collector Pack.</p>
+        </div>
+        <div class="gb-use-regions__grid">
+          <article class="gb-use-region"><div><img src="{{ kanto_media.preview_image | image_url: width: 760 }}" srcset="{{ kanto_media.preview_image | image_url: width: 360 }} 360w, {{ kanto_media.preview_image | image_url: width: 600 }} 600w, {{ kanto_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ kanto_media.preview_image.width }}" height="{{ kanto_media.preview_image.height }}" alt="Eight Kanto badges in a fitted collector box" loading="lazy" decoding="async"></div><span>01</span><h3>Kanto</h3><p>Eight badges</p></article>
+          <article class="gb-use-region"><div><img src="{{ johto_media.preview_image | image_url: width: 760 }}" srcset="{{ johto_media.preview_image | image_url: width: 360 }} 360w, {{ johto_media.preview_image | image_url: width: 600 }} 600w, {{ johto_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ johto_media.preview_image.width }}" height="{{ johto_media.preview_image.height }}" alt="Eight Johto badges in a fitted collector box" loading="lazy" decoding="async"></div><span>02</span><h3>Johto</h3><p>Eight badges</p></article>
+          <article class="gb-use-region"><div><img src="{{ hoenn_media.preview_image | image_url: width: 760 }}" srcset="{{ hoenn_media.preview_image | image_url: width: 360 }} 360w, {{ hoenn_media.preview_image | image_url: width: 600 }} 600w, {{ hoenn_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ hoenn_media.preview_image.width }}" height="{{ hoenn_media.preview_image.height }}" alt="Eight Hoenn badges in a fitted collector box" loading="lazy" decoding="async"></div><span>03</span><h3>Hoenn</h3><p>Eight badges</p></article>
+          <article class="gb-use-region"><div><img src="{{ sinnoh_media.preview_image | image_url: width: 760 }}" srcset="{{ sinnoh_media.preview_image | image_url: width: 360 }} 360w, {{ sinnoh_media.preview_image | image_url: width: 600 }} 600w, {{ sinnoh_media.preview_image | image_url: width: 900 }} 900w" sizes="(min-width: 990px) 270px, (min-width: 600px) 44vw, calc((100vw - 50px) / 2)" width="{{ sinnoh_media.preview_image.width }}" height="{{ sinnoh_media.preview_image.height }}" alt="Eight Sinnoh badges in a fitted collector box" loading="lazy" decoding="async"></div><span>04</span><h3>Sinnoh</h3><p>Eight badges</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-proof" aria-labelledby="gb-use-proof-title-{{ section.id }}">
+      <div class="gb-use-shell">
+        <div class="gb-use-heading">
+          <p class="gb-use-eyebrow">Actual customer photos</p>
+          <h2 id="gb-use-proof-title-{{ section.id }}">{{ proof_title }}</h2>
+          <p>{{ proof_body }}</p>
+        </div>
+        <div class="gb-use-proof__gallery" role="region" aria-label="Customer photos of delivered badge sets" tabindex="0">
+          <figure class="gb-use-proof__lead"><img src="{{ 'gym-badge-use-proof-open-box-720.webp' | asset_url }}" width="720" height="961" alt="Customer photo of a delivered badge set in its fitted collector box" loading="lazy" decoding="async"><figcaption>Fitted box · actual customer photo</figcaption></figure>
+          <figure><img src="{{ 'gym-badge-use-proof-sunlight-960.webp' | asset_url }}" width="960" height="767" alt="Customer photo showing enamel badges reflecting natural sunlight" loading="lazy" decoding="async"><figcaption>Natural-light gloss · actual customer photo</figcaption></figure>
+          <figure><img src="{{ 'gym-badge-use-proof-framed-480.webp' | asset_url }}" width="480" height="851" alt="Customer-framed display of eight regional badges" loading="lazy" decoding="async"><figcaption>Displayed by a collector · actual customer photo</figcaption></figure>
+        </div>
+        <p class="gb-use-proof__note">Styled displays show one way to use the collection. Your order includes all 32 badges and four fitted boxes.</p>
+      </div>
+    </section>
+
+    <section class="gb-use-quality" aria-labelledby="gb-use-quality-title-{{ section.id }}">
+      <div class="gb-use-shell gb-use-quality__grid">
+        <div class="gb-use-quality__media"><img src="{{ 'gym-badge-use-proof-closeup-960.webp' | asset_url }}" width="960" height="465" alt="Close customer photograph of colorful enamel and raised metal badge details" loading="lazy" decoding="async"><span>Actual customer close-up</span></div>
+        <div class="gb-use-quality__copy">
+          <p class="gb-use-eyebrow">The physical details</p>
+          <h2 id="gb-use-quality-title-{{ section.id }}">Look past the room scene.</h2>
+          <p>These are glossy hard-enamel pins with polished raised edges, saturated color, and a fitted black insert for every badge.</p>
+          <ul><li><strong>Glossy hard enamel</strong><span>Smooth color fill that catches real light.</span></li><li><strong>Raised metal borders</strong><span>Clean outlines keep every silhouette distinct.</span></li><li><strong>Four fitted boxes</strong><span>One organized box for each eight-badge region.</span></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-decision" aria-labelledby="gb-use-decision-title-{{ section.id }}">
+      <div class="gb-use-shell gb-use-decision__grid">
+        <div class="gb-use-decision__copy">
+          <p class="gb-use-eyebrow">The complete pack</p>
+          <h2 id="gb-use-decision-title-{{ section.id }}">{{ absence_title }}</h2>
+          <p>{{ absence_body }}</p>
+          <div class="gb-use-decision__chips"><span>32 badges</span><span>4 fitted boxes</span><span>Free U.S. shipping</span></div>
+        </div>
+        <div class="gb-use-offer gb-use-offer--decision" data-gb-use-inline-offer>
+          <div class="gb-use-offer__price"><div><span>Complete Collector Pack</span><p>{%- if collector_savings > 0 -%}<s>{{ collector_compare_money }}</s>{%- endif -%}<strong>{{ collector_price_money }}</strong></p></div>{%- if collector_savings > 0 -%}<span class="gb-use-save">Save {{ collector_savings_money }}</span>{%- endif -%}</div>
+          <button class="gb-use-button" type="button" data-gb-use-checkout data-placement="midpage" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ collector_price_money }}{% else %}Collector Pack sold out{% endif %}</span></button>
+          <div class="gb-use-offer__signals"><span>Free U.S. shipping</span><span>Typically arrives in 5–7 business days</span></div>
+          <div class="gb-use-offer__proof"><strong>4.8/5</strong><span>from 95 reviews</span><i></i><strong>2,800+</strong><span>orders shipped</span></div>
+          <p class="gb-use-policy">Damaged, missing, incorrect, or not as described? We’ll make it right. <a href="/pages/policy">Full collector policy</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-reviews" aria-labelledby="gb-use-reviews-title-{{ section.id }}">
+      <div class="gb-use-shell">
+        <div class="gb-use-heading gb-use-heading--center"><p class="gb-use-eyebrow">Real reactions after delivery</p><h2 id="gb-use-reviews-title-{{ section.id }}">What collectors noticed first.</h2><p><strong>4.8/5</strong> from 95 reviews · <strong>2,800+</strong> orders shipped</p></div>
+        <div class="gb-use-reviews__grid">
+          <article><blockquote>“Wauw, they look amazing. It brings great nostalgia. Let’s go to the elite four.”</blockquote><footer>S.P. · Verified buyer</footer></article>
+          <article><blockquote>“The badges look to be high quality, as does the display box it came in.”</blockquote><footer>Verified buyer</footer></article>
+          <article><blockquote>“Very pretty and nice material too, perfect for gifting.”</blockquote><footer>Verified buyer</footer></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-faq" aria-labelledby="gb-use-faq-title-{{ section.id }}">
+      <div class="gb-use-shell gb-use-faq__grid">
+        <div class="gb-use-heading"><p class="gb-use-eyebrow">Before yours arrives</p><h2 id="gb-use-faq-title-{{ section.id }}">The useful details.</h2><p>Everything needed to order the complete Collector Pack with confidence.</p></div>
+        <div class="gb-use-faq__items">
+          <details><summary>Is this the complete Collector Pack?</summary><p>Yes. It includes 32 badges from the original four-region run: Kanto, Johto, Hoenn, and Sinnoh—eight badges from each region.</p></details>
+          <details><summary>What arrives with my order?</summary><p>You receive 32 glossy hard-enamel badges organized across four fitted collector boxes. Decorative surfaces, frames, boards, bags, clothing, and room props shown in styled images are not included.</p></details>
+          <details><summary>When should it arrive?</summary><p>U.S. orders ship free and typically arrive in 5–7 business days. Tracking is provided when the order ships.</p></details>
+          <details><summary>What if something is wrong with my order?</summary><p>Damaged, missing, incorrect, or not as described? We’ll make it right. <a href="/pages/policy">Read the full collector policy</a>.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="gb-use-final" aria-labelledby="gb-use-final-title-{{ section.id }}" data-gb-use-inline-offer>
+      <div class="gb-use-shell gb-use-final__inner">
+        <p class="gb-use-eyebrow">Kanto through Sinnoh</p>
+        <h2 id="gb-use-final-title-{{ section.id }}">Bring home all 32.</h2>
+        <p>One complete Collector Pack. Four fitted boxes. Free U.S. shipping.</p>
+        <button class="gb-use-button gb-use-button--final" type="button" data-gb-use-checkout data-placement="final" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ collector_price_money }}{% else %}Collector Pack sold out{% endif %}</span></button>
+        <div class="gb-use-final__trust"><span>4.8/5 from 95 reviews</span><span>2,800+ orders shipped</span><span>Typically arrives in 5–7 business days</span></div>
+      </div>
+    </section>
+
+    <div class="gb-use-sticky" data-gb-use-sticky aria-hidden="true">
+      <div><strong>{{ collector_price_money }}</strong><span>32 badges · 4 fitted boxes</span></div>
+      <button type="button" data-gb-use-checkout data-placement="sticky" tabindex="-1" {% unless collector_variant.available %}disabled{% endunless %}>Get All 32</button>
+    </div>
+    <p class="gb-use-status" data-gb-use-status role="status" aria-live="polite" hidden></p>
+
+    <noscript><form class="gb-use-noscript" method="post" action="{{ routes.cart_add_url }}"><input type="hidden" name="id" value="{{ collector_variant.id }}"><input type="hidden" name="quantity" value="1"><button type="submit">Add all 32 — {{ collector_price_money }}</button></form></noscript>
+  </div>
+
+  <script src="{{ 'gym-badge-use-state.js' | asset_url }}" defer="defer"></script>
+{%- else -%}
+  <section class="gb-use-unavailable" aria-labelledby="gb-use-unavailable-title-{{ section.id }}"><h1 id="gb-use-unavailable-title-{{ section.id }}">This experience belongs to the 32-badge Collector Pack.</h1><a href="/products/{{ gym_badge_product_handle }}">View the badge collection</a></section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Badge use-state LP",
+  "settings": []
+}
+{% endschema %}

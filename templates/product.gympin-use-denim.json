@@ -1,0 +1,4 @@
+{
+  "sections": { "main": { "type": "gym-badge-use-state", "settings": {} } },
+  "order": ["main"]
+}
