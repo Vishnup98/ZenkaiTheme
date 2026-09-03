@@ -213,11 +213,12 @@
 .gb-use-inline-review footer { margin-top: 8px; color: var(--gb-use-top-copy); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .gb-use-quality .gb-use-inline-review { border: 1px solid var(--gb-use-dark-line); border-left: 4px solid #176f60; border-radius: 12px; background: rgba(255,255,255,.7); }
 
-.gb-use-reviews { padding: 70px 0 76px; background: #17352f; }
-.gb-use-reviews__grid { display: grid; gap: 11px; margin-top: 32px; }
-.gb-use-reviews article { display: flex; flex-direction: column; min-height: 200px; padding: 22px; border: 1px solid rgba(255,255,255,.14); border-radius: 15px; background: rgba(255,255,255,.07); }
-.gb-use-reviews blockquote { font-size: 18px; font-weight: 650; line-height: 1.5; }
-.gb-use-reviews footer { margin-top: auto; padding-top: 20px; color: var(--gb-use-copy); font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.gb-use-reviews { padding: 58px 0 62px; background: #14322c; }
+.gb-use-reviews .gb-use-heading > p:last-child { margin-top: 12px; font-size: 16px; font-weight: 650; }
+.gb-use-reviews__grid { display: grid; margin-top: 25px; border-top: 1px solid rgba(255,255,255,.18); }
+.gb-use-reviews article { min-width: 0; padding: 22px 3px 21px; border-bottom: 1px solid rgba(255,255,255,.18); background: transparent; }
+.gb-use-reviews blockquote { max-width: 35em; font-size: 17px; font-weight: 650; line-height: 1.45; }
+.gb-use-reviews footer { margin-top: 12px; color: #d2cec5; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 
 .gb-use-faq { padding: 70px 0 76px; color: var(--gb-use-dark); background: var(--gb-use-paper-2); }
 .gb-use-faq .gb-use-eyebrow { color: #176f60; }
@@ -263,6 +264,8 @@
   .gb-use-quality__grid { grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr); gap: clamp(38px, 5vw, 70px); }
   .gb-use-decision__grid { grid-template-columns: minmax(0, 1fr) minmax(370px, 0.78fr); gap: clamp(44px, 7vw, 90px); }
   .gb-use-reviews__grid { grid-template-columns: repeat(2, 1fr); }
+  .gb-use-reviews article:nth-child(odd) { padding-right: 30px; border-right: 1px solid rgba(255,255,255,.18); }
+  .gb-use-reviews article:nth-child(even) { padding-left: 30px; }
   .gb-use-faq__grid { grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr); gap: clamp(44px, 7vw, 90px); }
   .gb-use-sticky { right: 24px; bottom: 24px; left: auto; width: min(540px, calc(100vw - 48px)); border: 1px solid var(--gb-use-line); border-radius: 14px; padding: 11px; }
 }
@@ -305,7 +308,8 @@
   .gb-use-facts article:nth-child(3),
   .gb-use-facts article:nth-child(4) { border-top-color: var(--gb-use-top-line); }
   .gb-use-facts strong { font-size: 19px; }
-  .gb-use-ownership, .gb-use-regions, .gb-use-proof, .gb-use-quality, .gb-use-decision, .gb-use-reviews, .gb-use-faq { padding-top: 48px; padding-bottom: 52px; }
+  .gb-use-ownership, .gb-use-regions, .gb-use-proof, .gb-use-quality, .gb-use-decision, .gb-use-faq { padding-top: 48px; padding-bottom: 52px; }
+  .gb-use-reviews { padding-top: 40px; padding-bottom: 44px; }
   .gb-use-final { padding-top: 54px; padding-bottom: 58px; }
   .gb-use-heading h2, .gb-use-quality__copy h2, .gb-use-decision__copy h2 { font-size: 36px; }
   .gb-use-heading > p:last-child, .gb-use-quality__copy > p:not(.gb-use-eyebrow), .gb-use-decision__copy > p:not(.gb-use-eyebrow) { font-size: 16px; }
@@ -320,9 +324,9 @@
   .gb-use-proof__gallery img, .gb-use-proof__lead img { width: 100%; height: 100%; min-height: 0; object-fit: contain; background: var(--gb-use-surface-2); }
   .gb-use-quality__grid { gap: 24px; }
   .gb-use-offer--decision { padding: 15px; }
-  .gb-use-reviews__grid { gap: 9px; }
-  .gb-use-reviews article { min-height: 0; padding: 18px; }
-  .gb-use-reviews blockquote { font-size: 16px; }
+  .gb-use-reviews__grid { margin-top: 20px; }
+  .gb-use-reviews article { min-height: 0; padding: 19px 2px 18px; }
+  .gb-use-reviews blockquote { font-size: 17px; line-height: 1.42; }
   .gb-use-final h2 { font-size: 44px; }
   .gb-use-final__offer { padding: 20px 0; }
   .gb-use-final__offer .gb-use-offer__price strong { font-size: 28px; }
