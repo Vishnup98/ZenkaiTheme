@@ -38,6 +38,12 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
+	{%- if zenkai_gym_badge_use_context -%}
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://cdn.shopify.com/s/files/ https://cdn.shopify.com/shopifycloud/ https://cdn.shopify.com/storefront/ https://cdn.shopify.com/proxy/ https://cdn.shopify.com/extensions/019ffe88-c6e7-7f5a-9b83-f951b0071c1d/ https://cdn.shopify.com/extensions/01a06693-f162-74d5-9f90-00d2e8adef08/ https://cdn.shopify.com/extensions/01a0674f-e340-7c39-856d-a810d6687196/ https://extensions.shopifycdn.com/ https://connect.facebook.net/ https://www.googletagmanager.com/ https://www.googleadservices.com/ https://googleads.g.doubleclick.net/ https://shop.app/ https://static-tracking.klaviyo.com/ https://static.klaviyo.com/ https://ufe.helixo.co/ https://ecommerce-editor-connector.live.gelato.tech/; style-src 'self' 'unsafe-inline' https://ufe.helixo.co/ https://cdn.shopify.com/extensions/01a06693-f162-74d5-9f90-00d2e8adef08/ https://cdn.shopify.com/extensions/01a0674f-e340-7c39-856d-a810d6687196/;"
+    >
+  {%- endif -%}
 	<!-- Added by APP PLAZA -->
 	{% include 'app-plaza' %}
 	<!-- /Added by APP PLAZA -->
