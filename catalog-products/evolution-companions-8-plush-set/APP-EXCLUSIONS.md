@@ -13,7 +13,7 @@ Implemented 2026-09-04. Applies only to the Evolution Companions product and the
 
 The dedicated layout renders `evolution-campaign-app-exclusions` before Shopify's untouched `content_for_header`. It leaves SmartSize's bootstrap placeholder in place as a non-executable data block and removes UpCart's entry script/stylesheet before initialization. SmartSize's asynchronous callback can still find its placeholder, without loading or executing its main module.
 
-The browser observer matches only the known SmartSize placeholder and Shopify-CDN UpCart bundle/stylesheet paths. It does not overwrite `fetch`, DOM prototypes, event APIs, Shopify payments, or tracking. No global app toggles, shared theme layout, cart template, product data, campaign assets or prices were changed.
+The browser observer matches only the known SmartSize placeholder, Shopify-CDN UpCart bundle/stylesheet paths, and scripts/styles in Candy Rack's Shopify-CDN extension directory. It does not overwrite `fetch`, DOM prototypes, event APIs, Shopify payments, or tracking. No global app toggles, shared theme layout, cart template, product data, campaign assets or prices were changed.
 
 Shopify injects app embeds outside the theme's `content_for_header` markup. Stripping that variable alone would not remove these embeds. See [Shopify app embed configuration](https://shopify.dev/docs/apps/build/online-store/theme-app-extensions/configuration). A non-JavaScript script type is a data block; its `src` is ignored by the browser. See [MDN script types](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type).
 
@@ -53,6 +53,16 @@ Code commit `d88d46a` is served by the live Shopify theme. All six mobile views 
 
 ## Maintenance and rollback
 
+### Direct checkout and Candy Rack follow-up
+
+The main, final and sticky buttons all submit the same native Shopify product form: one full eight-plush set, variant `47968551764073`, with `return_to=/checkout`. No cart drawer or cart-page detour is intended. This preserves existing cart contents, attribution line properties, Shopify's server-side stock/error handling and the no-JavaScript purchase path. Shopify documents the native redirect parameter in its [form reference](https://shopify.dev/docs/api/liquid/tags/form#form-return_to).
+
+The page-scoped snippet now excludes Candy Rack's entry/runtime scripts and styles before initialization, as well as the existing UpCart exclusion. It also sets `CANDYRACK_CAN_ATC` to return false on these six views: Candy Rack's [documented popup veto](https://help.digismoothie.com/en/articles/6460146-candy-rack-public-api-options-for-developers). This is a fallback, not a replacement for the native purchase form, and it is not set on the rest of the store. Native Shop Pay is unchanged. No checkout or post-purchase extensions are disabled store-wide.
+
+The expanded regression checks main, final and sticky button clicks in each of the six mobile views plus All Eight on desktop (21 submissions). Each must generate exactly one native navigation POST with the correct variant, quantity, page attribution and checkout redirect, without Candy Rack starting or displaying a popup. These POSTs receive a test-only HTTP 204 so the test does not mutate a live cart. The original product and cart remain controls; no actual payment is submitted.
+
+Candy Rack's small bootstrap file can still be prefetched (~4KB transferred in staging) but does not initialize; its runtime chunks do not load in these checks. This does not change the previously documented UpCart preload limitation.
+
 This intentionally narrow integration depends on the current vendor entry names and SmartSize's placeholder bootstrap. Re-run the browser checks after app upgrades; it is not a general-purpose script firewall. The observer is identical for customers and testing tools; there is no Lighthouse/user-agent bypass.
 
-To roll back, remove the conditional snippet render from `layout/evolution-campaign.liquid`. The two store-wide embeds retain their existing configuration throughout.
+To roll back all exclusions, remove the conditional snippet render from `layout/evolution-campaign.liquid`. The store-wide embeds retain their existing configuration throughout.

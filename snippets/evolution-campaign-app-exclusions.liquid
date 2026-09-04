@@ -7,14 +7,21 @@
 
        This is an execution exclusion, not a network firewall: the browser's
        preload scanner may still fetch UpCart's static entry bundle. */
-    if (window.zenkaiEvolutionAppExclusions || !window.MutationObserver) return;
+    if (window.zenkaiEvolutionAppExclusions) return;
     window.zenkaiEvolutionAppExclusions = true;
 
-    function isUpcartEntry(value) {
+    /* Candy Rack's documented per-page popup veto is also a fallback if its
+       entry script has already loaded. Native Shopify forms remain enabled.
+       https://help.digismoothie.com/en/articles/6460146 */
+    window.CANDYRACK_CAN_ATC = function () { return false; };
+    if (!window.MutationObserver) return;
+
+    function isExcludedAppAsset(value) {
       try {
         var url = new URL(value, document.baseURI);
         return url.hostname === 'cdn.shopify.com' &&
-          /^\/extensions\/[^/]+\/upcart-[^/]+\/assets\/upcart-(?:bundle\.js|stylesheet\.css)$/.test(url.pathname);
+          (/^\/extensions\/[^/]+\/upcart-[^/]+\/assets\/upcart-(?:bundle\.js|stylesheet\.css)$/.test(url.pathname) ||
+           /^\/extensions\/[^/]+\/candyrack-[^/]+\/assets\/[^/]+\.(?:js|css)$/.test(url.pathname));
       } catch (error) { return false; }
     }
 
@@ -30,7 +37,7 @@
         return;
       }
       if ((element.tagName === 'SCRIPT' || element.tagName === 'LINK') &&
-          isUpcartEntry(element.getAttribute('src') || element.getAttribute('href') || '')) {
+          isExcludedAppAsset(element.getAttribute('src') || element.getAttribute('href') || '')) {
         if (element.tagName === 'SCRIPT') element.type = 'application/json';
         element.removeAttribute('src');
         element.removeAttribute('href');
