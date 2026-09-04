@@ -7,6 +7,8 @@
 {%- assign per_plush = v.price | divided_by: 8.0 -%}
 {%- assign is_gift_journey = false -%}
 {%- if section.settings.journey == 'whole-gift' -%}{%- assign is_gift_journey = true -%}{%- endif -%}
+{%- assign purchase_label = 'Make All 8 Mine' -%}
+{%- if is_gift_journey -%}{%- assign purchase_label = 'Give Them All 8' -%}{%- endif -%}
 <div class="ec-page ec-palette-{{ section.settings.palette }}" data-ec-page data-journey="{{ section.settings.journey }}">
   <section class="ec-hero ec-shell" aria-labelledby="ec-title-{{ section.id }}">
     <figure class="ec-hero-media">
@@ -27,7 +29,7 @@
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="return_to" value="/checkout">
           <input type="hidden" name="properties[_zk_landing_view]" value="evo-{{ section.settings.journey }}">
-          <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}Get the Complete Set <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button>
+          <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button>
           {{ form | payment_button }}
         {%- endform -%}
         <p class="ec-delivery">U.S. delivery: typically 5–7 business days</p>
@@ -92,9 +94,9 @@
     <details><summary>What if something is wrong with my order?</summary><p>If your order is lost in transit, damaged, defective, incorrect or materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full collector policy.</a></p></details>
   </section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><p class="ec-final-price"><strong>{{ v.price | money }}</strong> <span>for all eight</span></p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}Get the Complete Set <span aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="ec-final-proof"><strong>4.8/5</strong> · 95 Shop ratings <span>2,800+ orders shipped</span><small>Across the Zenkai store</small></p><p class="ec-delivery">Typically arrives in 5–7 business days in the U.S.</p><a href="/pages/policy" class="ec-policy-link">Damaged, incorrect or not as described? See our policy.</a></div></div></section>
+  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><p class="ec-final-price"><strong>{{ v.price | money }}</strong> <span>for all eight</span></p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="ec-final-proof"><strong>4.8/5</strong> · 95 Shop ratings <span>2,800+ orders shipped</span><small>Across the Zenkai store</small></p><p class="ec-delivery">Typically arrives in 5–7 business days in the U.S.</p><a href="/pages/policy" class="ec-policy-link">Damaged, incorrect or not as described? See our policy.</a></div></div></section>
 
-  <aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}Get All 8{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged actual product photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged actual plush product photo"></div></dialog>
 </div>
 {% schema %}

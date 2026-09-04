@@ -22,6 +22,7 @@ The best badge-page example was “The details are what turn a room into your ro
 10. Keep the mobile CTA within the tested first viewport where possible, with the existing sticky fallback. Preserve the approved art and strong mint purchase buttons.
 11. Sell the experience, not the construction. No supplier-spec lists such as “soft textile exterior,” “PP cotton filling,” or “embroidered facial details” in the buying journey. Softness can be expressed as picking one up and keeping it close; the photos can show the workmanship. Keep practical dimensions in a compact note and care/safety answers in the FAQ.
 12. Practical reassurance must not replace an emotional story beat. Shelf measurement and delivery planning belong beside the relevant facts, not in the main three ownership points. The gift journey should picture the recipient enjoying the set, not switch to the buyer's own pillow or desk.
+13. Write toward felt ownership: the buyer is arranging their eight, reaching for their favorite, and making the collection part of an ordinary day. Concrete actions should make them want the set; repeating “yours” without a scene does not do the work. Replace tentative closing language such as “can be yours” with a clear next step. Self-collector buttons say “Make All 8 Mine”; the gifting route says “Give Them All 8.” The visible total price, eight-plush quantity, review scope and delivery terms remain unchanged. No claim that an order has already been placed or reserved, and no invented deadline or scarcity.
 
 ## Examples applied
 
