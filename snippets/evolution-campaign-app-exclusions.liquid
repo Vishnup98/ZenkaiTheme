@@ -1,0 +1,57 @@
+<script>
+  (function () {
+    'use strict';
+    /* Shopify injects these app embeds after the layout is rendered. Keep
+       their entry scripts inert on the six dedicated plush landing pages.
+       No native fetch, DOM, event, payment or pixel APIs are overwritten.
+
+       This is an execution exclusion, not a network firewall: the browser's
+       preload scanner may still fetch UpCart's static entry bundle. */
+    if (window.zenkaiEvolutionAppExclusions || !window.MutationObserver) return;
+    window.zenkaiEvolutionAppExclusions = true;
+
+    function isUpcartEntry(value) {
+      try {
+        var url = new URL(value, document.baseURI);
+        return url.hostname === 'cdn.shopify.com' &&
+          /^\/extensions\/[^/]+\/upcart-[^/]+\/assets\/upcart-(?:bundle\.js|stylesheet\.css)$/.test(url.pathname);
+      } catch (error) { return false; }
+    }
+
+    function exclude(element) {
+      if (!element || element.nodeType !== 1) return;
+      if (element.tagName === 'SCRIPT' && element.id === 'smartsizeScript') {
+        /* Retain the vendor's placeholder because its bootstrap callback
+           assigns .src to it. A data-block type prevents JS loading/execution
+           without breaking that callback or the store's native fetch API. */
+        element.type = 'application/json';
+        element.setAttribute('data-ec-disabled-app', 'smartsize');
+        if (element.hasAttribute('src')) element.removeAttribute('src');
+        return;
+      }
+      if ((element.tagName === 'SCRIPT' || element.tagName === 'LINK') &&
+          isUpcartEntry(element.getAttribute('src') || element.getAttribute('href') || '')) {
+        if (element.tagName === 'SCRIPT') element.type = 'application/json';
+        element.removeAttribute('src');
+        element.removeAttribute('href');
+        element.remove();
+      }
+    }
+
+    function scan(node) {
+      if (!node || node.nodeType !== 1) return;
+      exclude(node);
+      node.querySelectorAll('script[src], link[href], script#smartsizeScript').forEach(exclude);
+    }
+
+    new MutationObserver(function (records) {
+      records.forEach(function (record) {
+        if (record.type === 'attributes') exclude(record.target);
+        else record.addedNodes.forEach(scan);
+      });
+    }).observe(document.documentElement, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'href']
+    });
+    scan(document.documentElement);
+  })();
+</script>

@@ -7,6 +7,12 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
     <meta name="description" content="All eight Evolution Companions plushes in one complete collection. Approximately 8 × 7 × 6 inches each. See the complete lineup and actual product photos.">
+    {%- if request.page_type == 'product' and product.handle == 'evolution-companions-complete-8-plush-collector-set' -%}
+      {%- case template.suffix -%}
+        {%- when 'evo-all-eight', 'evo-good-shelf', 'evo-little-faces', 'evo-whole-gift', 'evo-desk-company', 'evo-everything-included' -%}
+          {% render 'evolution-campaign-app-exclusions' %}
+      {%- endcase -%}
+    {%- endif -%}
     {{ content_for_header }}
     {{ 'evolution-campaign.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'evolution-campaign.js' | asset_url }}" defer></script>
