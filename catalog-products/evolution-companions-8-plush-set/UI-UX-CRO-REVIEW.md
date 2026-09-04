@@ -31,7 +31,7 @@ The approved artwork and full-set offer were a strong base, but the first versio
 ## Remaining launch checks
 
 1. Verify a real checkout/payment and consent-aware attribution flow before spending. Seeing Shop Pay render is not proof of a completed payment.
-2. App overhead follow-up: a page-scoped exclusion now prevents UpCart initialization and SmartSize's main module on the six alternate views, removing the ~211KB logo, ~176KB SmartSize module and secondary UpCart assets. The ~150KB UpCart entry file can still be prefetched without executing; full download removal requires an injection-time vendor exclusion. Store-wide settings and native payment/network APIs are unchanged. See [implementation, measured limitations and checks](APP-EXCLUSIONS.md).
+2. App overhead follow-up: a page-scoped exclusion now prevents UpCart initialization and SmartSize's main module on the six alternate views, removing the ~211KB logo, ~176KB SmartSize module and downstream UpCart requests. The ~150KB UpCart entry file and occasionally its ~12KB stylesheet can still be prefetched; full download removal requires an injection-time vendor exclusion. Store-wide settings and native payment/network APIs are unchanged. See [implementation, measured limitations and checks](APP-EXCLUSIONS.md).
 3. Recheck current price, delivery terms, availability and store-wide proof before paid launch. Free shipping and gift wrapping are not asserted.
 4. Treat ad-to-page conversion and contribution margin as experiments. Visual approval does not establish that a $160 set will convert economically.
 

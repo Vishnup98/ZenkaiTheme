@@ -26,10 +26,11 @@ Cold-cache Chromium sessions against the current storefront, with only the propo
 | UpCart entry JavaScript | ~150 KB | ~150 KB, does not initialize |
 | UpCart header logo | ~211 KB | Not requested |
 | SmartSize main JavaScript | ~176 KB | Not requested |
-| UpCart stylesheet, payment icons and cart request | ~22 KB combined | No completed transfers |
+| UpCart stylesheet | ~12 KB | None in staging; occasionally prefetched live |
+| UpCart payment icons and cart request | ~10 KB combined | Not requested |
 | SmartSize version bootstrap request | ~0.76 KB | ~0.76 KB |
 
-This removes approximately 387 KB from the three large assets originally flagged, or roughly 400 KB including UpCart's secondary resources. It does **not** remove the entire original ~536 KB: the HTML preload scanner can download UpCart's static entry bundle before the observer removes it. The tiny SmartSize version request also remains. These figures are encoded network transfers in captured sessions, not a conversion-lift or production LCP claim.
+This removes approximately 387 KB from the three large assets originally flagged, or roughly 400 KB including UpCart's secondary resources. It does **not** remove the entire original ~536 KB: the HTML preload scanner can download UpCart's static entry bundle and stylesheet before the observer removes them. The tiny SmartSize version request also remains. These figures are encoded network transfers in captured sessions, not a conversion-lift or production LCP claim.
 
 Eliminating the remaining static UpCart download reliably needs a vendor-supported template exclusion at injection time. Broad CSP allowlists, changes to native networking APIs, or disabling the app store-wide were deliberately not introduced for this page-scoped request.
 
@@ -45,6 +46,10 @@ Eliminating the remaining static UpCart download reliably needs a vendor-support
 - No real cart mutation, checkout submission or payment was performed. Rendering and correct form wiring are not proof of a completed payment.
 
 Browser evidence: `output/evolution-companions-campaign-2026-09-04/app-exclusions-staged.json` and the corresponding `qa/app-exclusion-staged-*.png` screenshots. Run `node tools/evolution-campaign/app-exclusion-qa.mjs` after deployment for the live equivalent; `--staged` is a browser-only predeployment injection. The script blocks cart-write and checkout requests.
+
+## Published verification
+
+Code commit `d88d46a` is served by the live Shopify theme. All six mobile views and All Eight at desktop retained the correct form and accessible Shop Pay button, with no captured page errors. Each excluded session transferred ~150.8KB of the targeted resources, except one at ~162.4KB where the UpCart stylesheet also prefetched. The baseline was ~560.4KB including secondary requests: a measured reduction of approximately 398–410KB. Neither app initialized on the excluded pages. Evidence: `app-exclusions-live.json` and `qa/app-exclusion-live-*.png` in the same output folder.
 
 ## Maintenance and rollback
 
