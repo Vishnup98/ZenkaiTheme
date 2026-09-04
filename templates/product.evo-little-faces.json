@@ -1,0 +1,34 @@
+{
+  "layout": "evolution-campaign",
+  "sections": {
+    "main": {
+      "type": "evolution-campaign",
+      "settings": {
+        "journey": "little-faces",
+        "asset_id": "03-little-faces",
+        "palette": "cream",
+        "hero_alt": "Please look at their little faces. All eight Evolution Companions plushes in a styled campaign scene.",
+        "hero_title": "Just wait until they’re sitting beside you.",
+        "hero_body": "The little smiles, the brown paws, all eight costumes. Get the whole plush collection for $160.",
+        "story_eyebrow": "It’s the little things",
+        "story_title": "You’ll notice a different favorite every time.",
+        "story_body": "The pink bow catches your eye first. Then it’s the tiny smile under the purple hood. Then the orange ruff. Set them beside you and take your time with all eight.",
+        "size_title": "You’re going to want one within reach.",
+        "size_body": "Pick one up for a closer look at that tiny smile. Then keep it beside you instead of putting it back on the shelf.",
+        "proof_title": "Look at those little paws.",
+        "proof_body": "Zoom in on the tiny faces and fluffy hoods. Then decide which one gets the spot beside your pillow.",
+        "final_title": "The whole little gang can be yours.",
+        "final_body": "All eight separate plush companions, ready for wherever you’ll want them within reach.",
+        "point_1_title": "That little smile",
+        "point_1_body": "Peek under one hood, then another. See which tiny face you keep coming back to.",
+        "point_2_title": "Go on, pick one up",
+        "point_2_body": "Settle a soft little companion beside you. Choosing who stays closest is part of the fun.",
+        "point_3_title": "Keep a favorite within reach",
+        "point_3_body": "One beside your pillow, another by your chair. The whole set doesn’t have to stay in one place."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

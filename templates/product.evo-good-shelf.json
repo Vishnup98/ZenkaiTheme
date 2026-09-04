@@ -1,0 +1,34 @@
+{
+  "layout": "evolution-campaign",
+  "sections": {
+    "main": {
+      "type": "evolution-campaign",
+      "settings": {
+        "journey": "good-shelf",
+        "asset_id": "02-good-shelf",
+        "palette": "oat",
+        "hero_alt": "They’re taking the good shelf. All eight Evolution Companions plushes in a styled campaign scene.",
+        "hero_title": "You already know where they’re going.",
+        "hero_body": "Eight familiar little faces for the shelf you keep looking at. The complete collection is yours for $160.",
+        "story_eyebrow": "That spot is about to be your favorite",
+        "story_title": "Put your favorite in the middle. Make room for the rest.",
+        "story_body": "Try the bright ones together. Move the black-and-yellow one to the end. Stand back, swap two around, and look again. That’s the fun of having the whole set to arrange.",
+        "size_title": "That shelf is going to make you smile.",
+        "size_body": "Walk past, spot a little face, straighten a pair of ears. They’re the kind of collection you’ll keep stopping to look at.",
+        "proof_title": "Worth a closer look, even off the shelf.",
+        "proof_body": "The pink ribbons and purple ears are just the start. Zoom in on the little faces you’ll see every time you walk past.",
+        "final_title": "Give the good shelf to all eight.",
+        "final_body": "One complete set. Your choice of arrangement. A little more of what you love, where you can see it.",
+        "point_1_title": "Give them the good spot",
+        "point_1_body": "Not tucked away behind everything else. Right where you’ll see all eight little faces.",
+        "point_2_title": "Make a few adjustments",
+        "point_2_body": "Swap two around. Put your favorite in the middle. Keep going until the lineup feels right.",
+        "point_3_title": "Easy to change your mind",
+        "point_3_body": "Move your favorite to the desk for a while. The rest of the gang can hold its place."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

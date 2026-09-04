@@ -1,0 +1,34 @@
+{
+  "layout": "evolution-campaign",
+  "sections": {
+    "main": {
+      "type": "evolution-campaign",
+      "settings": {
+        "journey": "whole-gift",
+        "asset_id": "04-whole-gift",
+        "palette": "butter",
+        "hero_alt": "Get them the whole set. All eight Evolution Companions plushes in a styled campaign scene.",
+        "hero_title": "You don’t have to guess their favorite.",
+        "hero_body": "Give them all eight. Eight separate plush companions, one complete collection, $160 for the whole set.",
+        "story_eyebrow": "You know what they’re into",
+        "story_title": "Let them discover you got every one.",
+        "story_body": "They’ll recognize the first face. Then the next. Keep bringing them out until the whole lineup is there. You didn’t have to choose between their favorites.",
+        "size_title": "A gift they’ll keep close.",
+        "size_body": "After the wrapping’s gone, the fun is finding everyone a spot. One beside their pillow, a few on the shelf—little reminders that you knew what they’d love.",
+        "proof_title": "You can probably guess which one they’ll grab first.",
+        "proof_body": "Look at the little faces and picture the one they’ll reach for first. Then imagine telling them the other seven are theirs, too.",
+        "final_title": "Give them every favorite.",
+        "final_body": "The complete eight-plush set for $160. You choose how to wrap it; all eight companions are included.",
+        "point_1_title": "You remembered what they love",
+        "point_1_body": "The little faces they recognize. A whole set that says you were paying attention.",
+        "point_2_title": "A whole collection to unwrap",
+        "point_2_body": "Give them all eight together and let them decide who gets the best spot.",
+        "point_3_title": "Let them show you their favorite",
+        "point_3_body": "You brought every one. Now you get to hear why that particular little face is the one they love most."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

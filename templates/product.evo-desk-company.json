@@ -1,0 +1,34 @@
+{
+  "layout": "evolution-campaign",
+  "sections": {
+    "main": {
+      "type": "evolution-campaign",
+      "settings": {
+        "journey": "desk-company",
+        "asset_id": "05-desk-company",
+        "palette": "lavender",
+        "hero_alt": "My setup needed these. All eight Evolution Companions plushes in a styled campaign scene.",
+        "hero_title": "Put the whole gang where you play.",
+        "hero_body": "Eight plush companions for your setup, shelf or favorite corner. Bring the complete set home for $160.",
+        "story_eyebrow": "A setup that feels like yours",
+        "story_title": "You picked the games. Now pick their spots.",
+        "story_body": "One beside the monitor. A few on the shelf above it. Move them around until the gang feels at home. All eight are yours, so you can keep changing the lineup.",
+        "size_title": "Pick who’s keeping you company tonight.",
+        "size_body": "A favorite beside the screen. The others on the shelf above it. Even before you start a game, the setup feels a little more like you.",
+        "proof_title": "Good company for your next game.",
+        "proof_body": "Zoom in on the tiny smiles and little paws. You’ll be seeing them every time you sit down to play.",
+        "final_title": "Make the setup a little more yours.",
+        "final_body": "Eight familiar companions. One complete collection. You already know who’s sitting closest to the screen.",
+        "point_1_title": "Start with your favorite",
+        "point_1_body": "Give it the spot beside your screen. All eight are included, so you can swap whenever you like.",
+        "point_2_title": "Put the rest where you can see them",
+        "point_2_body": "Line them up above your monitor or spread them around your setup. Your favorite games, with your favorite little faces nearby.",
+        "point_3_title": "Bring one closer",
+        "point_3_body": "Take a favorite off the shelf while you play, then tuck it back into the lineup when you’re done."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

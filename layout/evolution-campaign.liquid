@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#202131">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
+    <meta name="description" content="All eight Evolution Companions plushes in one complete collection. Approximately 8 × 7 × 6 inches each. See the complete lineup and actual product photos.">
+    {{ content_for_header }}
+    {{ 'evolution-campaign.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'evolution-campaign.js' | asset_url }}" defer></script>
+  </head>
+  <body class="ec-body">
+    <a href="#MainContent" class="ec-skip">Skip to the collection</a>
+    <header class="ec-header">
+      <span class="ec-wordmark" aria-label="Zenkai Clothing">ZENKAI</span>
+      <span>THE COMPLETE 8-PLUSH SET</span>
+      <a href="{{ routes.cart_url }}" aria-label="View cart">Bag <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="MainContent">{{ content_for_layout }}</main>
+    <footer class="ec-footer">
+      <strong>ZENKAI</strong>
+      <a href="/pages/policy">Delivery &amp; collector policy</a>
+      <a href="mailto:{{ shop.email }}">Contact us</a>
+      <a href="{{ shop.privacy_policy.url }}">Privacy</a>
+      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small>
+    </footer>
+  </body>
+</html>
