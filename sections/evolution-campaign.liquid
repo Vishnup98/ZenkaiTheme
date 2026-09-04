@@ -5,6 +5,8 @@
 {%- assign hero_large = photo_prefix | append: '-1080.webp' -%}
 {%- assign lineup = 'evo-campaign-customer-01.webp' -%}
 {%- assign per_plush = v.price | divided_by: 8.0 -%}
+{%- assign is_gift_journey = false -%}
+{%- if section.settings.journey == 'whole-gift' -%}{%- assign is_gift_journey = true -%}{%- endif -%}
 <div class="ec-page ec-palette-{{ section.settings.palette }}" data-ec-page data-journey="{{ section.settings.journey }}">
   <section class="ec-hero ec-shell" aria-labelledby="ec-title-{{ section.id }}">
     <figure class="ec-hero-media">
@@ -29,21 +31,24 @@
           {{ form | payment_button }}
         {%- endform -%}
         <p class="ec-delivery">U.S. delivery: typically 5–7 business days</p>
-        <p class="ec-trust"><span><b>4.8/5</b> · 95 Shop ratings</span><span><b>2,800+</b> orders shipped</span><small>Zenkai store-wide ratings and orders</small></p>
+        <p class="ec-trust"><span><span class="ec-rating-star" aria-hidden="true">★</span> <b>4.8/5</b> · 95 Shop ratings</span><span><b>2,800+</b> orders shipped</span><small>Zenkai store-wide ratings and orders</small></p>
+        <p class="ec-offer-policy">Damaged, incorrect, or not as described? <a href="/pages/policy">See our collector policy.</a></p>
       </div>
       <a class="ec-detail-link" href="#ec-size-{{ section.id }}">See the size &amp; actual product photos <span aria-hidden="true">↓</span></a>
     </div>
   </section>
 
   <section class="ec-included ec-shell" aria-labelledby="ec-included-{{ section.id }}">
-    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">Meet your eight</p><h2 id="ec-included-{{ section.id }}">A favorite in every color.</h2><p>Every face in this lineup comes home with you. Eight separate plushes, each in its own costume.</p></div><span class="ec-count-stamp" aria-label="All eight plushes included"><strong>8</strong><span>all yours</span></span></div>
-    <figure class="ec-lineup"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="Customer photo of all eight plush companions lined up together on a sofa"><figcaption>The complete set · customer photo</figcaption></figure>
+    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">{% if is_gift_journey %}Meet their eight{% else %}Meet your eight{% endif %}</p><h2 id="ec-included-{{ section.id }}">A favorite in every color.</h2><p>{% if is_gift_journey %}Every face in this lineup is part of their gift.{% else %}Every face in this lineup comes home with you.{% endif %} Eight separate plushes, each in its own costume.</p></div><span class="ec-count-stamp" aria-label="All eight plushes included"><strong>8</strong><span>{% if is_gift_journey %}all theirs{% else %}all yours{% endif %}</span></span></div>
+    <figure class="ec-lineup"><button type="button" data-ec-zoom="{{ lineup | asset_url }}" aria-label="Enlarge customer photo of the complete eight-plush set"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="Customer photo of all eight plush companions lined up together on a sofa"></button><figcaption>The complete set · customer photo <span>Tap to enlarge</span></figcaption></figure>
   </section>
 
-  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid">
+  {% unless section.settings.journey == 'everything-included' %}
+  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid{% unless is_gift_journey %} ec-story-grid--simple{% endunless %}">
     <div class="ec-story-intro"><p class="ec-eyebrow">{{ section.settings.story_eyebrow }}</p><h2 id="ec-story-{{ section.id }}">{{ section.settings.story_title }}</h2><p>{{ section.settings.story_body }}</p></div>
-    <ol class="ec-points"><li><h3>{{ section.settings.point_1_title }}</h3><p>{{ section.settings.point_1_body }}</p></li><li><h3>{{ section.settings.point_2_title }}</h3><p>{{ section.settings.point_2_body }}</p></li><li><h3>{{ section.settings.point_3_title }}</h3><p>{{ section.settings.point_3_body }}</p></li></ol>
+    {% if is_gift_journey %}<ol class="ec-points"><li><h3>{{ section.settings.point_1_title }}</h3><p>{{ section.settings.point_1_body }}</p></li><li><h3>{{ section.settings.point_2_title }}</h3><p>{{ section.settings.point_2_body }}</p></li><li><h3>{{ section.settings.point_3_title }}</h3><p>{{ section.settings.point_3_body }}</p></li></ol>{% endif %}
   </div></section>
+  {% endunless %}
 
   <section class="ec-size ec-shell" id="ec-size-{{ section.id }}" aria-labelledby="ec-size-title-{{ section.id }}">
     <div class="ec-size-copy"><p class="ec-eyebrow">A little closer</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2><p>{{ section.settings.size_body }}</p>
@@ -57,7 +62,7 @@
 
   <section class="ec-proof ec-shell" aria-labelledby="ec-proof-{{ section.id }}">
     <div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
-    <div class="ec-gallery" aria-label="Actual plush photos; scroll to see more">
+    <div class="ec-gallery" id="ec-gallery-{{ section.id }}" data-ec-gallery role="region" aria-roledescription="carousel" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
         {%- assign proof_asset = 'evo-campaign-customer-0' | append: i | append: '.webp' -%}
         {%- case i -%}
@@ -70,17 +75,16 @@
         <figure><button type="button" data-ec-zoom="{{ proof_asset | asset_url }}" aria-label="Enlarge customer photo: {{ proof_caption | escape }}"><img src="{{ proof_asset | asset_url }}" width="720" height="720" loading="lazy" alt="{{ proof_caption | escape }} plush detail, photographed by a customer"></button><figcaption>Customer photo</figcaption></figure>
       {%- endfor -%}
     </div>
-    <p class="ec-gallery-hint">Scroll for more photos <span aria-hidden="true">→</span></p>
+    <div class="ec-gallery-controls" data-ec-gallery-controls hidden><p class="ec-gallery-hint">Swipe or use the arrows</p><div><button type="button" data-ec-gallery-prev aria-label="Previous customer photo" aria-controls="ec-gallery-{{ section.id }}">←</button><span data-ec-gallery-position aria-live="polite" aria-atomic="true">1 / 5</span><button type="button" data-ec-gallery-next aria-label="Next customer photo" aria-controls="ec-gallery-{{ section.id }}">→</button></div></div>
   </section>
 
   <section class="ec-reviews"><div class="ec-shell">
-    <div class="ec-section-heading"><p class="ec-eyebrow">From customers</p><h2>The kind of cute that turns into “one more.”</h2></div>
+    <div class="ec-section-heading"><p class="ec-eyebrow">Reviews of individual designs</p><h2>The kind of cute that turns into “one more.”</h2><p class="ec-review-source">Reviews of individual designs, shared by our product supplier.</p></div>
     <div class="ec-review-grid"><figure><blockquote>“Super adorable! I got the flareon first and had to grab some more for friends.”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Amazing delivery product excellent condition”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Shipping took longer than anticipated but with the holidays it is not too surprising. For the price and quality, i am okay with the longer wait. Would purchase again.”</blockquote><figcaption>Product customer review</figcaption></figure></div>
-    <p class="ec-review-source">Reviews of individual designs, shared by our product supplier.</p>
     <p class="ec-store-proof"><strong>4.8/5</strong> from 95 Shop ratings <span>·</span> <strong>2,800+</strong> orders shipped <small>Across the Zenkai store</small></p>
   </div></section>
 
-  <section class="ec-faq ec-shell" aria-labelledby="ec-faq-{{ section.id }}"><h2 id="ec-faq-{{ section.id }}">Before you make them yours.</h2>
+  <section class="ec-faq ec-shell" aria-labelledby="ec-faq-{{ section.id }}"><h2 id="ec-faq-{{ section.id }}">{% if is_gift_journey %}Before you give them all eight.{% else %}Before you make them yours.{% endif %}</h2>
     <details><summary>Does the price include all eight?</summary><p>Yes. {{ v.price | money }} buys eight separate plush companions, with one of every design pictured. Each plush comes in its own costume; this is not one plush with spare outfits. Gift wrapping and display props are not included.</p></details>
     <details><summary>How big is each plush?</summary><p>Approximately 8 × 7 × 6 inches each. Costume and ear shapes vary, so allow a little extra room when planning your display.</p></details>
     <details><summary>When should my order arrive?</summary><p>U.S. delivery typically takes 5–7 business days. Tracking is provided after dispatch. This set is direct-shipped and may arrive separately from other products in your order. Transit can take longer around holidays; allow extra time for a fixed gifting date.</p></details>
@@ -88,10 +92,10 @@
     <details><summary>What if something is wrong with my order?</summary><p>If your order is lost in transit, damaged, defective, incorrect or materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full collector policy.</a></p></details>
   </section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">Your complete collection</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><p class="ec-final-price"><strong>{{ v.price | money }}</strong> <span>for all eight</span></p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}Get the Complete Set <span aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="ec-delivery">Typically arrives in 5–7 business days in the U.S.</p><a href="/pages/policy" class="ec-policy-link">Damaged, incorrect or not as described? See our policy.</a></div></div></section>
+  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><p class="ec-final-price"><strong>{{ v.price | money }}</strong> <span>for all eight</span></p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}Get the Complete Set <span aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="ec-final-proof"><strong>4.8/5</strong> · 95 Shop ratings <span>2,800+ orders shipped</span><small>Across the Zenkai store</small></p><p class="ec-delivery">Typically arrives in 5–7 business days in the U.S.</p><a href="/pages/policy" class="ec-policy-link">Damaged, incorrect or not as described? See our policy.</a></div></div></section>
 
   <aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}Get All 8{% else %}Sold out{% endif %}</button></aside>
-  <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged actual product photo"><button type="button" data-ec-close aria-label="Close photo">×</button><img width="960" height="960" alt="Enlarged actual plush product photo"></dialog>
+  <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged actual product photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged actual plush product photo"></div></dialog>
 </div>
 {% schema %}
 {

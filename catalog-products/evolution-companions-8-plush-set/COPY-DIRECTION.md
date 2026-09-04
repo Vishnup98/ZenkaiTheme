@@ -15,7 +15,7 @@ The best badge-page example was “The details are what turn a room into your ro
 3. Sound like a collector, not a campaign brief. No “away from the ad,” “the figure explains the set price,” “supplied customer evidence,” or explanations of the page-building process in sales paragraphs.
 4. Keep useful facts. Eight separate plushes, the $160 total, approximate 8 × 7 × 6-inch size and typical U.S. delivery of 5–7 business days remain easy to find. Factual answers need not be turned into emotional prose.
 5. Let photographs show texture and scale. Customer-photo captions are short and specific. Preserve the actual photographs. Do not label generated campaign artwork as a customer photograph.
-6. Preserve review attribution without making it the headline. The quoted reviews refer to individual designs and were shared by the product supplier. Keep that source note visible beneath the quotes. Store-wide ratings remain labeled as store-wide.
+6. Preserve review attribution without making it a sales paragraph. The quoted reviews refer to individual designs and were shared by the product supplier. Keep the source note immediately above the quotes so their scope is clear before reading. Store-wide ratings remain labeled as store-wide.
 7. Full-set certainty should feel good, not like a warning. Use the eight-color bar and “Every color shown is included.” Swatches are informational, not selection controls. No single-design buying path.
 8. Keep playful details functional: a count stamp, the actual eight colors, readable captions, warm conversational headings. Do not add decoration that conceals the products or large panels that delay checkout.
 9. No false urgency, guilt, invented objections, invented testimonials, gender assumptions, official-license claims or unconfirmed packaging promises.
@@ -48,3 +48,13 @@ The best badge-page example was “The details are what turn a room into your ro
 Journey copy lives in `campaign-2026-09-04.json`; shared customer copy lives in `sections/evolution-campaign.liquid`. The build generates six alternate templates and local review pages. This pass does not alter the original product template, existing ads, live theme, budgets or ad status.
 
 The in-hand photo section now has its own `sizeTitle` and `sizeBody` for each journey. It leads with the next ownership moment, followed by one concise size note. The large measurement/materials block is removed. The six approved ad headlines, artwork, page hero offers, true reviews, delivery estimates and total price are preserved.
+
+## UI/UX and CRO review — 2026-09-04
+
+- Borrow the badge pages' recognizable logo/cart and compact support footer, not their product-specific shipping claims or testimonial labels.
+- Self-collector journeys use one strong story paragraph instead of repeating it in three more points. The offer-led Everything Included control skips that story section. Whole Gift keeps its recipient-focused points and recipient language through the shared sections.
+- Keep all seven individual-photo captions simply “Customer photo.” Accessible image descriptions can remain specific.
+- The real all-eight lineup can be enlarged and zoomed to 2× with native scrolling. The five-photo gallery has arrows, a position counter, and keyboard navigation.
+- Ratings and order counts are readable, labeled as store-wide, and repeated at the final offer. No new reviews, verification badges, or shipping promises are introduced.
+- Sticky purchase UI disappears only when an actionable inline control is fully visible. Empty payment containers and tiny intersections do not count. Mobile visual-viewport zoom/pan is included in the bounds calculation.
+- Independent visual, purchase-flow and copy reviews approve this pass for testing. Conversion lift is not established by a design review or local browser tests. Live Shopify payments and app behavior require separate checks.

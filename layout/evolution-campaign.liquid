@@ -14,17 +14,17 @@
   <body class="ec-body">
     <a href="#MainContent" class="ec-skip">Skip to the collection</a>
     <header class="ec-header">
-      <span class="ec-wordmark" aria-label="Zenkai Clothing">ZENKAI</span>
-      <span>THE COMPLETE 8-PLUSH SET</span>
-      <a href="{{ routes.cart_url }}" aria-label="View cart">Bag <span aria-hidden="true">↗</span></a>
+      <span class="ec-brand"><img src="https://zenkaiclothing.com/cdn/shop/files/zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png?width=120" width="60" height="48" alt="Zenkai Clothing"></span>
+      <span class="ec-header-note">ALL 8 INCLUDED</span>
+      <a class="ec-cart" href="{{ routes.cart_url }}" aria-label="View cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}"><svg aria-hidden="true" focusable="false" viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h4l4 18h15l3-13H8"/><circle cx="13" cy="27" r="1.5"/><circle cx="24" cy="27" r="1.5"/></svg>{% if cart.item_count > 0 %}<span class="ec-cart-count" aria-hidden="true">{{ cart.item_count }}</span>{% endif %}</a>
     </header>
     <main id="MainContent">{{ content_for_layout }}</main>
     <footer class="ec-footer">
-      <strong>ZENKAI</strong>
-      <a href="/pages/policy">Delivery &amp; collector policy</a>
-      <a href="mailto:{{ shop.email }}">Contact us</a>
-      <a href="{{ shop.privacy_policy.url }}">Privacy</a>
-      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small>
+      <div class="ec-footer-inner">
+        <div class="ec-footer-brand"><strong>ZENKAI</strong><span>Questions about your set? We’re here to help.</span></div>
+        <nav class="ec-footer-links" aria-label="Customer support"><a href="/pages/policy">Delivery &amp; returns</a><a href="mailto:{{ shop.email }}">Contact us</a><a href="{{ shop.privacy_policy.url }}">Privacy</a></nav>
+        <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }} <span aria-hidden="true">·</span> Secure checkout with Shopify</small>
+      </div>
     </footer>
   </body>
 </html>
