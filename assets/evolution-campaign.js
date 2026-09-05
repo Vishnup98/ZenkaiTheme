@@ -74,6 +74,12 @@
       var next = controls.querySelector("[data-ec-gallery-next]");
       var position = controls.querySelector("[data-ec-gallery-position]");
       var slides = Array.from(gallery.children);
+      var thumbs = Array.from(root.querySelectorAll('[data-ec-thumb]'));
+      thumbs.forEach(function (thumb, index) {
+        thumb.addEventListener('click', function () {
+          gallery.scrollTo({left: slides[index].offsetLeft - slides[0].offsetLeft, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+        });
+      });
       function updateGallery() {
         var bounds = gallery.getBoundingClientRect();
         var visible = slides
@@ -92,6 +98,7 @@
         next.disabled =
           gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 2;
         if (visible.length) {
+          thumbs.forEach(function (thumb, index) { thumb.setAttribute('aria-pressed', String(index === visible[0])); });
           var start = visible[0] + 1,
             end = visible[visible.length - 1] + 1;
           position.textContent =
