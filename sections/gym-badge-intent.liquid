@@ -1,0 +1,196 @@
+{{ 'gym-badge-use-state.css' | asset_url | stylesheet_tag }}
+{{ 'gym-badge-intent.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign expected_handle = '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
+  assign journey = template.suffix | remove: 'gympin-use-'
+  assign collector_variant = blank
+  assign separate_total = 0
+  assign kanto_media = blank
+  assign johto_media = blank
+  assign hoenn_media = blank
+  assign sinnoh_media = blank
+  for variant in product.variants
+    assign title_lower = variant.title | downcase
+    assign is_full_pack = false
+    if title_lower contains 'collector' or title_lower contains '4 regions' or title_lower contains '4 region' or title_lower contains '4-region' or title_lower contains 'all four'
+      assign is_full_pack = true
+      if collector_variant == blank or variant.available
+        assign collector_variant = variant
+      endif
+    endif
+    unless is_full_pack
+      if title_lower contains 'kanto'
+        assign kanto_media = variant.featured_media | default: product.media[0]
+        assign separate_total = separate_total | plus: variant.price
+      elsif title_lower contains 'johto'
+        assign johto_media = variant.featured_media | default: product.media[1]
+        assign separate_total = separate_total | plus: variant.price
+      elsif title_lower contains 'hoenn'
+        assign hoenn_media = variant.featured_media | default: product.media[2]
+        assign separate_total = separate_total | plus: variant.price
+      elsif title_lower contains 'sinnoh'
+        assign sinnoh_media = variant.featured_media | default: product.media[3]
+        assign separate_total = separate_total | plus: variant.price
+      endif
+    endunless
+  endfor
+  assign savings = separate_total | minus: collector_variant.price
+  assign price = collector_variant.price | money
+  assign hero_asset = 'gym-badge-intent-' | append: journey | append: '-hero.webp'
+  assign hero_title = 'One box is a souvenir. Four is your collection.'
+  assign hero_body = 'The full Kanto-through-Sinnoh run: 32 glossy enamel badges, four fitted boxes, and every regional set together at last.'
+  assign story_eyebrow = 'Your collection, complete'
+  assign story_title = 'Your favorite region is where it starts.'
+  assign story_body = 'Then you notice the next familiar badge. And the next. With all four sets together, you can follow the memories from the first region to the fourth without choosing which chapter to leave behind.'
+  assign point_one_title = 'Start with the one you remember first.'
+  assign point_one_body = 'Open your favorite region and find the eight shapes you still recognize.'
+  assign point_two_title = 'Let the other three complete it.'
+  assign point_two_body = 'Kanto, Johto, Hoenn, Sinnoh. Set them side by side and see the full original four-region run.'
+  assign point_three_title = 'Give the whole collection a place.'
+  assign point_three_body = 'Each set has its own fitted box. Choose the shelf or desk; your collection arrives organized.'
+  assign decision_title = 'Make room for the whole collection.'
+  assign decision_body = 'Choose the full pack once. All four regional sets arrive together, with a fitted place for every badge.'
+  assign final_title = 'Bring home the collection, not just a favorite.'
+  case journey
+    when 'finish-four'
+      assign hero_title = 'The four regions you remember. The full set you can finally own.'
+      assign hero_body = 'Kanto through Sinnoh, together in your hands: all 32 enamel badges in four fitted collector boxes.'
+      assign story_eyebrow = 'You still know these shapes'
+      assign story_title = 'Some collections already feel familiar.'
+      assign story_body = 'You spot a badge and remember a region. Lay the four sets out in order and those little moments sit together, somewhere you can see them every day.'
+      assign point_one_title = 'Find your first region.'
+      assign point_one_body = 'Start with the set that brings it back. Every region includes its own eight enamel badges.'
+      assign point_two_title = 'Follow it through all four.'
+      assign point_two_body = 'Kanto to Johto, Hoenn to Sinnoh. The entire original four-region collection is included.'
+      assign point_three_title = 'Keep those memories in view.'
+      assign point_three_body = 'Open the fitted boxes on your desk or shelf. A familiar collection becomes part of your everyday space.'
+      assign decision_title = 'The full set belongs in the picture.'
+      assign decision_body = 'All 32 recognizable shapes. Four regional boxes. One collection you can finally make yours.'
+      assign final_title = 'You remember the regions. Now own the full run.'
+    when 'boxed-32'
+      assign hero_title = 'All 32. All four boxes. Yours.'
+      assign hero_body = 'Eight badges each from Kanto, Johto, Hoenn, and Sinnoh. The complete four-region pack, organized and ready to open.'
+      assign story_eyebrow = 'Picture opening all four'
+      assign story_title = 'Four boxes open. Every badge accounted for.'
+      assign story_body = 'Set the boxes down, open each lid, and take in the full collection. Thirty-two individual enamel pins, each with a fitted place. No separate regional orders to piece together.'
+      assign point_one_title = 'One order brings all four sets.'
+      assign point_one_body = 'You receive eight badges per region: 32 individual pins in total.'
+      assign point_two_title = 'Every region has its own box.'
+      assign point_two_body = 'Four fitted inserts keep the sets organized, whether you display them together or store them between uses.'
+      assign point_three_title = 'Arrange them your way.'
+      assign point_three_body = 'Line up the open boxes, bring a favorite forward, or wear a pin and return it to its place later.'
+      assign decision_title = 'This is everything in your Collector Pack.'
+      assign decision_body = 'Inspect each region below. The full pack includes all four eight-badge sets and their fitted boxes.'
+      assign final_title = 'One order. All 32. Your collection.'
+  endcase
+-%}
+
+{%- if product.handle == expected_handle and collector_variant != blank -%}
+<div class="gb-use gb-intent gb-intent--{{ journey }}" data-gb-use-state data-collector-variant-id="{{ collector_variant.id }}" data-product-id="{{ product.id }}" data-landing-variant="use-{{ journey }}">
+  <section class="gb-intent-hero" aria-labelledby="gb-intent-title-{{ section.id }}">
+    <div class="gb-use-shell gb-intent-hero__grid">
+      <figure class="gb-intent-hero__visual">
+        <img src="{{ hero_asset | asset_url }}" width="1440" height="1440" alt="The complete 32-badge collection, with four regional sets and their fitted boxes" loading="eager" fetchpriority="high" decoding="async">
+        <figcaption>32 enamel badges + 4 fitted boxes. Styling props not included.</figcaption>
+      </figure>
+      <div class="gb-intent-hero__copy">
+        <p class="gb-use-eyebrow">The original four-region Collector Pack</p>
+        <h1 id="gb-intent-title-{{ section.id }}">{{ hero_title }}</h1>
+        <p class="gb-intent-lede">{{ hero_body }}</p>
+        <div class="gb-intent-offer" data-gb-use-inline-offer>
+          <div class="gb-intent-price"><strong>{{ price }}</strong>{% if savings > 0 %}<s>{{ separate_total | money }}</s><span>Save {{ savings | money }}</span>{% endif %}</div>
+          <p class="gb-intent-includes">32 badges · 4 regional sets · 4 fitted boxes</p>
+          <button class="gb-use-button" type="button" data-gb-use-checkout data-placement="hero" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ price }}{% else %}Collector Pack sold out{% endif %}</span></button>
+          <p class="gb-intent-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p>
+          <div class="gb-intent-trust"><span><b aria-hidden="true">★★★★★</b> <strong>4.8/5</strong> · 95 Shop ratings</span><span><strong>2,800+</strong> store orders and counting</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gb-intent-proof" aria-labelledby="gb-intent-proof-{{ section.id }}">
+    <div class="gb-use-shell">
+      <div class="gb-intent-heading"><p class="gb-use-eyebrow">Actual customer photos</p><h2 id="gb-intent-proof-{{ section.id }}">The gloss is in the enamel.</h2><p>See the finish and fitted presentation in real customer close-ups. These photos show individual regional sets; your full pack includes all four.</p></div>
+      <div class="gb-intent-proof__grid">
+        <figure><img src="{{ 'gym-badge-use-proof-sunlight-960.webp' | asset_url }}" width="960" height="767" alt="Actual customer photo of enamel badges reflecting natural sunlight" loading="lazy" decoding="async"><figcaption>Glossy color in natural light.</figcaption></figure>
+        <figure><img src="{{ 'gym-badge-use-proof-open-box-720.webp' | asset_url }}" width="720" height="961" alt="Actual customer photo of a regional set in its fitted box" loading="lazy" decoding="async"><figcaption>A fitted place for each badge.</figcaption></figure>
+        <figure><img src="{{ 'gym-badge-use-proof-closeup-960.webp' | asset_url }}" width="960" height="465" alt="Actual customer close-up of the enamel fill and metal badge borders" loading="lazy" decoding="async"><figcaption>Metal outlines, up close.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="gb-intent-story" aria-labelledby="gb-intent-story-{{ section.id }}">
+    <div class="gb-use-shell">
+      <div class="gb-intent-heading"><p class="gb-use-eyebrow">{{ story_eyebrow }}</p><h2 id="gb-intent-story-{{ section.id }}">{{ story_title }}</h2><p>{{ story_body }}</p></div>
+      <div class="gb-intent-story__grid">
+        <article><span>01</span><h3>{{ point_one_title }}</h3><p>{{ point_one_body }}</p></article>
+        <article><span>02</span><h3>{{ point_two_title }}</h3><p>{{ point_two_body }}</p></article>
+        <article><span>03</span><h3>{{ point_three_title }}</h3><p>{{ point_three_body }}</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="gb-intent-decision" aria-labelledby="gb-intent-decision-{{ section.id }}">
+    <div class="gb-use-shell">
+      <div class="gb-intent-heading"><p class="gb-use-eyebrow">Your full pack, up close</p><h2 id="gb-intent-decision-{{ section.id }}">{{ decision_title }}</h2><p>{{ decision_body }}</p></div>
+      <div class="gb-intent-decision__grid">
+        <div class="gb-use-regions__carousel" data-gb-use-region-carousel>
+          <div class="gb-use-regions__viewport" data-gb-use-region-viewport role="region" aria-label="Product photographs of all four regional sets" tabindex="0">
+            <div class="gb-use-regions__track">
+              {% assign region_names = 'Kanto,Johto,Hoenn,Sinnoh' | split: ',' %}
+              {% for region_name in region_names %}
+                {% case region_name %}{% when 'Kanto' %}{% assign region_media = kanto_media %}{% when 'Johto' %}{% assign region_media = johto_media %}{% when 'Hoenn' %}{% assign region_media = hoenn_media %}{% when 'Sinnoh' %}{% assign region_media = sinnoh_media %}{% endcase %}
+                <article class="gb-use-region" data-gb-use-region-slide>
+                  <figure>{% if region_media != blank %}<img src="{{ region_media.preview_image | image_url: width: 1000 }}" srcset="{{ region_media.preview_image | image_url: width: 480 }} 480w, {{ region_media.preview_image | image_url: width: 760 }} 760w, {{ region_media.preview_image | image_url: width: 1100 }} 1100w" sizes="(min-width: 990px) 600px, calc(100vw - 36px)" width="{{ region_media.preview_image.width }}" height="{{ region_media.preview_image.height }}" alt="{{ region_name }} regional set with eight badges in its fitted collector box" loading="lazy" decoding="async">{% endif %}</figure>
+                  <div><span>{{ forloop.index | prepend: '0' }} · {{ region_name }}</span><h3>Eight badges. One fitted box.</h3><p>Included in your complete 32-badge Collector Pack.</p></div>
+                </article>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="gb-use-regions__controls">
+            <div class="gb-use-regions__tabs" aria-label="Choose a regional set">{% for region_name in region_names %}<button type="button" data-gb-use-region-index="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">{{ region_name }}</button>{% endfor %}</div>
+            <div class="gb-use-regions__arrows"><button type="button" data-gb-use-region-prev aria-label="Previous regional set">←</button><button type="button" data-gb-use-region-next aria-label="Next regional set">→</button></div>
+          </div>
+        </div>
+        <div class="gb-intent-offer gb-intent-offer--detail" data-gb-use-inline-offer>
+          <p class="gb-use-eyebrow">The complete Collector Pack</p><h3>All four regions. In one order.</h3>
+          <ul class="gb-intent-specs"><li><strong>32 enamel pins</strong><span>Eight each from Kanto, Johto, Hoenn, and Sinnoh.</span></li><li><strong>4 fitted collector boxes</strong><span>One regional set per box. Each badge has its own place.</span></li><li><strong>Glossy enamel + metal borders</strong><span>Distinct shapes and color, ready to display or wear.</span></li></ul>
+          <div class="gb-intent-price"><strong>{{ price }}</strong>{% if savings > 0 %}<s>{{ separate_total | money }}</s><span>Save {{ savings | money }}</span>{% endif %}</div>
+          {% if savings > 0 %}<p class="gb-intent-comparison">{{ separate_total | money }} when the four regional sets are purchased separately.</p>{% endif %}
+          <button class="gb-use-button" type="button" data-gb-use-checkout data-placement="detail" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ price }}{% else %}Collector Pack sold out{% endif %}</span></button>
+          <p class="gb-intent-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p>
+          <div class="gb-intent-trust"><span><b aria-hidden="true">★★★★★</b> <strong>4.8/5</strong> · 95 Shop ratings</span><span><strong>2,800+</strong> store orders and counting</span></div>
+          {% assign payment_form_id = 'gb-intent-payment-' | append: section.id %}
+          {%- form 'product', product, id: payment_form_id, class: 'gb-intent-payment' -%}
+            <input type="hidden" name="id" value="{{ collector_variant.id }}"><input type="hidden" name="quantity" value="1"><input type="hidden" name="properties[_zk_landing_view]" value="gympin-use-{{ journey }}">
+            {% if collector_variant.available %}<p>Or use accelerated checkout</p>{{ form | payment_button }}{% endif %}
+          {%- endform -%}
+          <p class="gb-intent-policy">Damaged, missing, incorrect, or not as described? We’ll make it right. <a href="/pages/policy">Full collector policy</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gb-intent-reviews" aria-labelledby="gb-intent-reviews-{{ section.id }}"><div class="gb-use-shell">
+    <div class="gb-intent-heading"><p class="gb-use-eyebrow">Customer reactions</p><h2 id="gb-intent-reviews-{{ section.id }}">Familiar shapes. Real delight.</h2><p>Store-wide: <strong>4.8/5 from 95 Shop ratings</strong> · <strong>2,800+ orders</strong></p></div>
+    <div class="gb-intent-reviews__grid"><figure><blockquote>“…it brings great nostalgia. Let's go to the elite four.”</blockquote><figcaption>S.P. · Customer review excerpt</figcaption></figure><figure><blockquote>“Very pretty and nice material too, perfect for gifting.”</blockquote><figcaption>Customer review</figcaption></figure></div>
+  </div></section>
+
+  <section class="gb-intent-faq" aria-labelledby="gb-intent-faq-{{ section.id }}"><div class="gb-use-shell gb-intent-faq__grid"><div class="gb-intent-heading"><p class="gb-use-eyebrow">Before you make it yours</p><h2 id="gb-intent-faq-{{ section.id }}">A few useful details.</h2></div><div>
+    <details><summary>Which regions are included?</summary><p>Kanto, Johto, Hoenn, and Sinnoh, with eight badges per region. This is the complete original four-region collection, not every badge from every later region.</p></details>
+    <details><summary>What exactly will I receive?</summary><p>32 individual enamel badge pins, organized across four fitted collector boxes. Any room furniture, boards, frames, plants, or other styling props shown are not included.</p></details>
+    <details><summary>Can I wear the badges?</summary><p>Yes. They are individual lapel pins, so you can wear favorites or keep the full sets in their boxes. Keep small parts and pin points away from young children.</p></details>
+    <details><summary>When will my order arrive?</summary><p>U.S. shipping is free. Orders typically arrive in 5–7 business days, with tracking provided when they ship.</p></details>
+    <details><summary>What if something is wrong with the order?</summary><p>Damaged, missing, incorrect, or not as described? We’ll make it right. See the <a href="/pages/policy">full collector policy</a> for the details.</p></details>
+  </div></div></section>
+
+  <section class="gb-intent-final" aria-labelledby="gb-intent-final-{{ section.id }}" data-gb-use-inline-offer><div class="gb-use-shell"><p class="gb-use-eyebrow">Kanto · Johto · Hoenn · Sinnoh</p><h2 id="gb-intent-final-{{ section.id }}">{{ final_title }}</h2><p>All 32 enamel badges. Four fitted collector boxes. {{ price }} for the full pack.</p><button class="gb-use-button" type="button" data-gb-use-checkout data-placement="final" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ price }}{% else %}Collector Pack sold out{% endif %}</span></button><p class="gb-intent-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p></div></section>
+  <div class="gb-use-sticky" data-gb-use-sticky aria-hidden="true"><div><strong>{{ price }}</strong><span>32 badges · 4 fitted boxes</span></div><button type="button" data-gb-use-checkout data-placement="sticky" tabindex="-1" {% unless collector_variant.available %}disabled{% endunless %}>Get All 32</button></div>
+  <p class="gb-use-status" data-gb-use-status role="status" aria-live="polite" hidden></p>
+  <noscript><form class="gb-use-noscript" method="post" action="{{ routes.cart_add_url }}"><input type="hidden" name="id" value="{{ collector_variant.id }}"><input type="hidden" name="quantity" value="1"><button type="submit">Add all 32 — {{ price }}</button></form></noscript>
+</div>
+<script src="{{ 'gym-badge-use-state.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'gym-badge-intent.js' | asset_url }}" defer="defer"></script>
+{%- else -%}<section class="gb-use-unavailable"><h1>The Collector Pack is unavailable.</h1><a href="/products/{{ expected_handle }}">View the badge collection</a></section>{%- endif -%}
+{% schema %}{"name":"Badge purchase intent","settings":[]}{% endschema %}
