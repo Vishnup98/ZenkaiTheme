@@ -39,10 +39,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #f9d9b8;
+  background: var(--tint);
   border: 1px solid #ddae80;
   border-radius: 50%;
-  color: #483622;
+  color: var(--accent);
   transform: rotate(8deg);
 }
 .ec-count-stamp > strong {
@@ -178,7 +178,7 @@
 }
 .ec-body h1,
 .ec-body h2 {
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
   line-height: 1.06;
   text-wrap: balance;
 }
@@ -450,8 +450,8 @@
   object-fit: contain;
 }
 .ec-story {
-  background: var(--tint);
-  padding: 48px 0;
+  background: transparent;
+  padding: 28px 0;
 }
 .ec-story-grid {
   display: grid;
@@ -555,7 +555,7 @@
 .ec-reviews {
   background: #242535;
   color: #fff;
-  padding: 40px 0;
+  padding: 32px 0;
 }
 .ec-reviews .ec-eyebrow {
   color: #c9bde9;
@@ -905,7 +905,7 @@
     font-size: 16px;
   }
   .ec-story {
-    padding: 30px 0;
+    padding: 22px 0;
   }
   .ec-story-grid {
     grid-template-columns: 1fr;
@@ -946,7 +946,7 @@
     height: 300px;
   }
   .ec-reviews {
-    padding: 28px 0;
+    padding: 24px 0;
   }
   .ec-review-grid {
     grid-template-columns: 1fr;
@@ -1130,7 +1130,21 @@
   display: block;
 }
 .ec-story-grid--simple .ec-story-intro {
-  max-width: 780px;
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 48px;
+  border-left: 3px solid var(--accent);
+  padding-left: 24px;
+}
+.ec-story-grid--simple .ec-story-intro .ec-eyebrow {
+  grid-column: 1 / -1;
+}
+.ec-story-grid--simple .ec-story-intro h2 {
+  margin-bottom: 0;
+}
+.ec-story-grid--simple .ec-story-intro > p:last-child {
+  align-self: center;
 }
 .ec-story-grid--simple .ec-story-intro p {
   max-width: 65ch;
@@ -1138,7 +1152,7 @@
 .ec-featured-review {
   margin: 0 0 24px !important;
   padding: 14px 0 14px 18px;
-  border-left: 3px solid #4f9d8e;
+  border-left: 3px solid var(--accent);
   max-width: 680px;
 }
 .ec-featured-review blockquote {
@@ -1196,7 +1210,19 @@
   margin-top: 12px;
 }
 .ec-review-grid figcaption {
-  font-size: 12px;
+  font-size: 13px;
+}
+.ec-body .ec-reviews h2 {
+  font-size: clamp(28px, 3vw, 36px);
+  max-width: 28ch;
+}
+.ec-reviews .ec-section-heading {
+  margin-bottom: 20px;
+}
+.ec-body .ec-lineup figcaption,
+.ec-body .ec-size-photos figcaption,
+.ec-body .ec-gallery figcaption {
+  font-size: 13px;
 }
 .ec-body .ec-final-proof {
   font-size: 14px;
@@ -1301,6 +1327,13 @@
   }
   .ec-story-grid--simple .ec-story-intro h2 {
     margin-bottom: 12px;
+  }
+  .ec-story-grid--simple .ec-story-intro {
+    display: block;
+    padding-left: 16px;
+  }
+  .ec-reviews .ec-section-heading {
+    margin-bottom: 16px;
   }
 }
 @media (max-width: 360px) {
