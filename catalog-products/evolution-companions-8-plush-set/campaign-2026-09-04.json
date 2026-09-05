@@ -5,139 +5,297 @@
   "variantId": "47968551764073",
   "price": 160,
   "fulfilledCost": 60,
-  "confirmedDimensionsInches": [8, 7, 6],
-  "delivery": "Typically arrives in 5–7 business days in the U.S.",
+  "confirmedDimensionsInches": [
+    8,
+    7,
+    6
+  ],
+  "delivery": "Free U.S. shipping · Typically arrives in 5–7 business days.",
   "factsConfirmedBy": "Merchant in this conversation, 2026-09-04. Dimensions are per plush; no axis order was supplied.",
-  "shippingPrice": "Not asserted. Free U.S. shipping must be confirmed for this offer before adding that claim.",
+  "shippingPrice": "Free U.S. shipping, confirmed by merchant 2026-09-05.",
   "trustScope": "4.8/5 from 95 Shop ratings and 2,800+ orders shipped describe Zenkai store-wide, not this product.",
   "productReviewScope": "Supplier-supplied reviews of individual designs; no names, star ratings or verified-buyer status asserted.",
-  "ratios": [{"key":"1x1","width":1080,"height":1080},{"key":"4x5","width":1080,"height":1350},{"key":"9x16","width":1080,"height":1920}],
+  "ratios": [
+    {
+      "key": "1x1",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "key": "4x5",
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "key": "9x16",
+      "width": 1080,
+      "height": 1920
+    }
+  ],
   "concepts": [
     {
-      "id":"01-all-eight","slug":"all-eight","name":"The complete set","palette":"peach",
-      "adHeadline":"I want all eight.",
-      "primaryText":"Picking a favorite is optional. This set brings them all home. Eight separate plush companions, approximately 8 × 7 × 6 inches each. The complete set is $160.",
-      "linkHeadline":"The complete 8-plush set",
-      "description":"All eight included · $160 total",
-      "hypothesis":"Recognizable faces create desire; immediate full-set certainty converts it without a single-design decision.",
-      "heroTitle":"You don’t have to pick a favorite.",
-      "heroBody":"Your favorite gets the best spot. The other seven come home, too. All eight plushes, $160 for the set.",
-      "storyEyebrow":"No favorite left behind",
-      "storyTitle":"Picking one was never really the plan.",
-      "storyBody":"Line them up in front of you. Pick up your favorite, then the one beside it. You can keep changing your mind—every one of them is yours.",
-      "points":[["Your first favorite","The one you noticed first gets the best spot. The others won’t be far away."],["No one missing","Line them all up and enjoy seeing the whole collection together."],["Arrange them your way","Keep the whole gang together or give each one a spot around your room."]],
-      "sizeTitle":"Which one gets the spot beside you?",
-      "sizeBody":"Put your favorite beside your pillow. Set the others where you’ll see them every day. With all eight at home, you can change your mind tomorrow.",
-      "proofTitle":"Have a closer look at your favorites.",
-      "proofBody":"Take a closer look at the little brown paws, stitched smiles and colorful hoods. Every one is part of your set.",
-      "finalTitle":"Bring your whole set home.",
-      "finalBody":"That one you spotted first? Yours. The other seven, too.",
-      "journey":["Recognize the faces","Want the complete lineup","See exactly what arrives","Check size and real photos","Understand $160 buys eight","Bring the full set home"]
+      "id": "01-all-eight",
+      "slug": "all-eight",
+      "name": "The complete set",
+      "palette": "peach",
+      "adHeadline": "I want all eight.",
+      "primaryText": "Picking a favorite is optional. This set brings them all home. Eight separate plush companions, approximately 8 × 7 × 6 inches each. The complete set is $160.",
+      "linkHeadline": "The complete 8-plush set",
+      "description": "All eight included · $160 total",
+      "hypothesis": "Recognizable faces create desire; immediate full-set certainty converts it without a single-design decision.",
+      "heroTitle": "You don’t have to pick a favorite.",
+      "heroBody": "All eight together, right where you can see them. $160 for your complete plush set.",
+      "storyEyebrow": "No favorite left behind",
+      "storyTitle": "Picking one was never really the plan.",
+      "storyBody": "Set all eight out together. Take a look along the lineup. That’s the collection you came for.",
+      "points": [
+        [
+          "Your first favorite",
+          "The one you noticed first gets the best spot. The others won’t be far away."
+        ],
+        [
+          "No one missing",
+          "Line them all up and enjoy seeing the whole collection together."
+        ],
+        [
+          "Arrange them your way",
+          "Keep the whole gang together or give each one a spot around your room."
+        ]
+      ],
+      "sizeTitle": "See how big they are.",
+      "sizeBody": "Here they are held in a hand, so you can get a feel for their size before they arrive.",
+      "proofTitle": "Have a closer look.",
+      "proofBody": "The little smiles, colorful hoods and brown paws—see the individual plushes in these customer photos.",
+      "finalTitle": "Bring your whole set home.",
+      "finalBody": "Eight plushes. Every design pictured. $160 for the collection.",
+      "journey": [
+        "Recognize the faces",
+        "Want the complete lineup",
+        "See exactly what arrives",
+        "Check size and real photos",
+        "Understand $160 buys eight",
+        "Bring the full set home"
+      ]
     },
     {
-      "id":"02-good-shelf","slug":"good-shelf","name":"The collector shelf","palette":"oat",
-      "adHeadline":"They’re taking the good shelf.",
-      "primaryText":"You already know the spot. All eight plush companions, together on your shelf. Approximately 8 × 7 × 6 inches each. Complete set: $160.",
-      "linkHeadline":"Give all eight a place",
-      "description":"Complete collection · $160",
-      "hypothesis":"A specific place to put the full set makes ownership vivid; dimensions and delivered photos resolve fit and quality doubts.",
-      "heroTitle":"You already know where they’re going.",
-      "heroBody":"Your favorite in the middle. The rest right beside it. All eight plush companions for your shelf, $160 for the set.",
-      "storyEyebrow":"That spot is about to be your favorite",
-      "storyTitle":"Put your favorite in the middle. Make room for the rest.",
-      "storyBody":"Put your favorite in the middle, move two around, then step back for a look. You’ll probably rearrange them again tomorrow. That’s half the fun.",
-      "points":[["Give them the good spot","Not tucked away behind everything else. Right where you’ll see all eight little faces."],["Make a few adjustments","Swap two around. Put your favorite in the middle. Keep going until the lineup feels right."],["Easy to change your mind","Move your favorite to the desk for a while. The rest of the gang can hold its place."]],
-      "sizeTitle":"That shelf is going to make you smile.",
-      "sizeBody":"Walk past, spot a little face, straighten a pair of ears. They’re the kind of collection you’ll keep stopping to look at.",
-      "proofTitle":"Worth a closer look, even off the shelf.",
-      "proofBody":"Get close enough to see the little smiles you’ll be walking past every day.",
-      "finalTitle":"Give the good shelf to all eight.",
-      "finalBody":"You’ve got their spot picked out. Now bring home everyone who belongs there.",
-      "journey":["Picture an existing shelf","Mentally arrange the collection","Confirm every design is included","Measure the space","Inspect delivered texture","Choose the full set"]
+      "id": "02-good-shelf",
+      "slug": "good-shelf",
+      "name": "The collector shelf",
+      "palette": "oat",
+      "adHeadline": "They’re taking the good shelf.",
+      "primaryText": "You already know the spot. All eight plush companions, together on your shelf. Approximately 8 × 7 × 6 inches each. Complete set: $160.",
+      "linkHeadline": "Give all eight a place",
+      "description": "Complete collection · $160",
+      "hypothesis": "A specific place to put the full set makes ownership vivid; dimensions and delivered photos resolve fit and quality doubts.",
+      "heroTitle": "You already know where they’re going.",
+      "heroBody": "All eight faces, together on your shelf. $160 for the complete plush set.",
+      "storyEyebrow": "That spot is about to be your favorite",
+      "storyTitle": "Give them the good shelf.",
+      "storyBody": "Put the whole lineup where you’ll see it when you walk in. Straighten an ear. Step back for another look.",
+      "points": [
+        [
+          "Give them the good spot",
+          "Not tucked away behind everything else. Right where you’ll see all eight little faces."
+        ],
+        [
+          "Make a few adjustments",
+          "Swap two around. Put your favorite in the middle. Keep going until the lineup feels right."
+        ],
+        [
+          "Easy to change your mind",
+          "Move your favorite to the desk for a while. The rest of the gang can hold its place."
+        ]
+      ],
+      "sizeTitle": "A closer look before you make room.",
+      "sizeBody": "See how each plush fits in a hand, then check the space you have in mind.",
+      "proofTitle": "See every detail up close.",
+      "proofBody": "Take a closer look at the faces and hoods in these customer photos.",
+      "finalTitle": "Give the good shelf to all eight.",
+      "finalBody": "The full lineup, together in your space. All eight for $160.",
+      "journey": [
+        "Picture an existing shelf",
+        "Mentally arrange the collection",
+        "Confirm every design is included",
+        "Measure the space",
+        "Inspect delivered texture",
+        "Choose the full set"
+      ]
     },
     {
-      "id":"03-little-faces","slug":"little-faces","name":"Tactile desire","palette":"cream",
-      "adHeadline":"Please look at their little faces.",
-      "primaryText":"The tiny smiles. The little paws. All eight costumes. A complete set of eight plush companions for $160, approximately 8 × 7 × 6 inches each.",
-      "linkHeadline":"Bring the whole gang home",
-      "description":"Eight separate plushes · $160",
-      "hypothesis":"Close-up expressions and tactile detail create immediate product desire; genuine close-ups make that desire credible.",
-      "heroTitle":"Just wait until you’re holding one.",
-      "heroBody":"Those little faces are even more fun within reach. All eight plush companions, $160 for your complete set.",
-      "storyEyebrow":"It’s the little things",
-      "storyTitle":"You’ll notice a different favorite every time.",
-      "storyBody":"Set your favorite beside you. A minute later, you’re reaching for another. With all eight at home, you can keep the whole little gang close.",
-      "points":[["That little smile","Peek under one hood, then another. See which tiny face you keep coming back to."],["Go on, pick one up","Settle a soft little companion beside you. Choosing who stays closest is part of the fun."],["Keep a favorite within reach","One beside your pillow, another by your chair. The whole set doesn’t have to stay in one place."]],
-      "sizeTitle":"You’re not putting this one far away.",
-      "sizeBody":"Take a good look at that tiny smile. This is the one you reach for from the sofa, then carry back to bed with you.",
-      "proofTitle":"Look at those little paws.",
-      "proofBody":"Look closely at the tiny faces and fluffy hoods. These are the details you’ll keep reaching over to touch.",
-      "finalTitle":"Keep every little face.",
-      "finalBody":"No choosing just one. Your favorite gets the spot beside you; the other seven stay close.",
-      "journey":["Notice faces and texture","Imagine holding and keeping them nearby","See all eight clearly","Check honest size","Inspect unretouched product evidence","Buy the complete collection"]
+      "id": "03-little-faces",
+      "slug": "little-faces",
+      "name": "Tactile desire",
+      "palette": "cream",
+      "adHeadline": "Please look at their little faces.",
+      "primaryText": "The tiny smiles. The little paws. All eight costumes. A complete set of eight plush companions for $160, approximately 8 × 7 × 6 inches each.",
+      "linkHeadline": "Bring the whole gang home",
+      "description": "Eight separate plushes · $160",
+      "hypothesis": "Close-up expressions and tactile detail create immediate product desire; genuine close-ups make that desire credible.",
+      "heroTitle": "Just wait until you’re holding one.",
+      "heroBody": "The little smile. The paws under the cape. All eight plush companions for $160.",
+      "storyEyebrow": "It’s the little things",
+      "storyTitle": "Look at that face.",
+      "storyBody": "This is the one that ends up beside you on the sofa. The one you pick up again before putting it back.",
+      "points": [
+        [
+          "That little smile",
+          "Peek under one hood, then another. See which tiny face you keep coming back to."
+        ],
+        [
+          "Go on, pick one up",
+          "Settle a soft little companion beside you. Choosing who stays closest is part of the fun."
+        ],
+        [
+          "Keep a favorite within reach",
+          "One beside your pillow, another by your chair. The whole set doesn’t have to stay in one place."
+        ]
+      ],
+      "sizeTitle": "Here’s one in a hand.",
+      "sizeBody": "See the whole plush, from the tips of its ears to its little paws.",
+      "proofTitle": "Look a little closer.",
+      "proofBody": "Zoom in on the smiles, hoods and paws in these customer photos.",
+      "finalTitle": "Keep the whole little gang.",
+      "finalBody": "Every pictured design is included. All eight for $160.",
+      "journey": [
+        "Notice faces and texture",
+        "Imagine holding and keeping them nearby",
+        "See all eight clearly",
+        "Check honest size",
+        "Inspect unretouched product evidence",
+        "Buy the complete collection"
+      ]
     },
     {
-      "id":"04-whole-gift","slug":"whole-gift","name":"Gift the collection","palette":"butter",
-      "adHeadline":"Get them the whole set.",
-      "primaryText":"For the collector who would want every one. Give all eight plush companions together: $160 for the complete set. U.S. delivery typically takes 5–7 business days.",
-      "linkHeadline":"Their kind of gift. All eight.",
-      "description":"The complete set · $160",
-      "hypothesis":"Buying the whole lineup removes the giver’s fear of choosing the wrong favorite while keeping the recipient’s recognition central.",
-      "heroTitle":"You don’t have to guess their favorite.",
-      "heroBody":"Give them all eight. Eight separate plush companions, one complete collection, $160 for the whole set.",
-      "storyEyebrow":"You know what they’re into",
-      "storyTitle":"Let them discover you got every one.",
-      "storyBody":"They’ll recognize the first face. Then the next. Keep bringing them out until the whole lineup is there. You didn’t have to choose between their favorites.",
-      "points":[["You remembered what they love","The little faces they recognize. A whole set that says you were paying attention."],["A whole collection to unwrap","Give them all eight together and let them decide who gets the best spot."],["Let them show you their favorite","You brought every one. Now you get to hear why that particular little face is the one they love most."]],
-      "sizeTitle":"A gift they’ll keep close.",
-      "sizeBody":"After the wrapping’s gone, the fun is finding everyone a spot. One beside their pillow, a few on the shelf—little reminders that you knew what they’d love.",
-      "proofTitle":"You can probably guess which one they’ll grab first.",
-      "proofBody":"Look at the little faces and picture the one they’ll reach for first. Then imagine telling them the other seven are theirs, too.",
-      "finalTitle":"Give them every favorite.",
-      "finalBody":"They get to keep every favorite. You get to be the person who thought of it.",
-      "journey":["Recognize the recipient’s interest","Remove the wrong-favorite worry","Imagine giving the whole lineup","Check size and delivered photos","Check timing and policy","Buy the complete gift"]
+      "id": "04-whole-gift",
+      "slug": "whole-gift",
+      "name": "Gift the collection",
+      "palette": "butter",
+      "adHeadline": "Get them the whole set.",
+      "primaryText": "For the collector who would want every one. Give all eight plush companions together: $160 for the complete set. U.S. delivery typically takes 5–7 business days.",
+      "linkHeadline": "Their kind of gift. All eight.",
+      "description": "The complete set · $160",
+      "hypothesis": "Buying the whole lineup removes the giver’s fear of choosing the wrong favorite while keeping the recipient’s recognition central.",
+      "heroTitle": "You don’t have to guess their favorite.",
+      "heroBody": "Give them all eight. One of every pictured design, $160 for their complete collection.",
+      "storyEyebrow": "You know what they’re into",
+      "storyTitle": "Let them discover you got every one.",
+      "storyBody": "They recognize the first face. Then they see the rest. You got the whole set.",
+      "points": [
+        [
+          "You remembered what they love",
+          "The little faces they recognize. A whole set that says you were paying attention."
+        ],
+        [
+          "A whole collection to unwrap",
+          "Give them all eight together and let them decide who gets the best spot."
+        ],
+        [
+          "Let them show you their favorite",
+          "You brought every one. Now you get to hear why that particular little face is the one they love most."
+        ]
+      ],
+      "sizeTitle": "A closer look at their gift.",
+      "sizeBody": "These customer photos show the size before you give the set.",
+      "proofTitle": "Here’s who they’re getting.",
+      "proofBody": "Look closely at the individual plushes. Every design in the full lineup comes with their set.",
+      "finalTitle": "Give them all eight.",
+      "finalBody": "One of every pictured design. $160 for the complete set.",
+      "journey": [
+        "Recognize the recipient’s interest",
+        "Remove the wrong-favorite worry",
+        "Imagine giving the whole lineup",
+        "Check size and delivered photos",
+        "Check timing and policy",
+        "Buy the complete gift"
+      ]
     },
     {
-      "id":"05-desk-company","slug":"desk-company","name":"Gaming setup","palette":"lavender",
-      "adHeadline":"My setup needed these.",
-      "primaryText":"Your games. Your desk. The whole little gang beside you. All eight plush companions are included for $160. Approximately 8 × 7 × 6 inches each.",
-      "linkHeadline":"Company for your setup",
-      "description":"All 8 plush companions · $160",
-      "hypothesis":"An authentic gaming setup connects familiar characters with everyday ownership; the full collection remains the offer, not generic room décor.",
-      "heroTitle":"Your setup has company.",
-      "heroBody":"Your favorite beside the screen. The rest above your desk. All eight plush companions, $160 for your complete set.",
-      "storyEyebrow":"A setup that feels like yours",
-      "storyTitle":"You picked the games. Now pick their spots.",
-      "storyBody":"When you sit down to play, they’re right there. One next to the monitor, the others on the shelf above it. Reach over, swap your favorite, start another game.",
-      "points":[["Start with your favorite","Give it the spot beside your screen. All eight are included, so you can swap whenever you like."],["Put the rest where you can see them","Line them up above your monitor or spread them around your setup. Your favorite games, with your favorite little faces nearby."],["Bring one closer","Take a favorite off the shelf while you play, then tuck it back into the lineup when you’re done."]],
-      "sizeTitle":"Keep your favorite within reach.",
-      "sizeBody":"Bring one down from the shelf while you play. Leave it beside your controller when you’re done. It’s part of your setup now.",
-      "proofTitle":"Good company for your next game.",
-      "proofBody":"Zoom in on the tiny smiles and little paws. You’ll be seeing them every time you sit down to play.",
-      "finalTitle":"Your setup’s ready for all eight.",
-      "finalBody":"Settle in for a game with your favorite beside the screen and the rest of your collection right there with you.",
-      "journey":["Recognize a believable gamer space","Imagine the toys in your setup","Confirm the full collection","Check footprint and detail","Resolve delivery and trust","Bring all eight home"]
+      "id": "05-desk-company",
+      "slug": "desk-company",
+      "name": "Gaming setup",
+      "palette": "lavender",
+      "adHeadline": "My setup needed these.",
+      "primaryText": "Your games. Your desk. The whole little gang beside you. All eight plush companions are included for $160. Approximately 8 × 7 × 6 inches each.",
+      "linkHeadline": "Company for your setup",
+      "description": "All 8 plush companions · $160",
+      "hypothesis": "An authentic gaming setup connects familiar characters with everyday ownership; the full collection remains the offer, not generic room décor.",
+      "heroTitle": "Your setup has company.",
+      "heroBody": "A little face beside your screen. The whole collection above your desk. All eight for $160.",
+      "storyEyebrow": "A setup that feels like yours",
+      "storyTitle": "They’re right there when you sit down.",
+      "storyBody": "Controller ready. Favorite game loaded. Your collection where you can see it.",
+      "points": [
+        [
+          "Start with your favorite",
+          "Give it the spot beside your screen. All eight are included, so you can swap whenever you like."
+        ],
+        [
+          "Put the rest where you can see them",
+          "Line them up above your monitor or spread them around your setup. Your favorite games, with your favorite little faces nearby."
+        ],
+        [
+          "Bring one closer",
+          "Take a favorite off the shelf while you play, then tuck it back into the lineup when you’re done."
+        ]
+      ],
+      "sizeTitle": "Check the size for your setup.",
+      "sizeBody": "These in-hand photos show how big each plush is. Pick a spot with room for the ears, too.",
+      "proofTitle": "See your new company up close.",
+      "proofBody": "Customer photos show the faces and colorful hoods from a little closer.",
+      "finalTitle": "Bring all eight to your setup.",
+      "finalBody": "Your whole collection, ready for its place beside your games. $160 for all eight.",
+      "journey": [
+        "Recognize a believable gamer space",
+        "Imagine the toys in your setup",
+        "Confirm the full collection",
+        "Check footprint and detail",
+        "Resolve delivery and trust",
+        "Bring all eight home"
+      ]
     },
     {
-      "id":"06-everything-included","slug":"everything-included","name":"Clear offer control","palette":"sky",
-      "adHeadline":"Yes, you get all eight.",
-      "primaryText":"Eight separate plushes. Every design shown. $160 for the complete set—that’s $20 per plush as part of the set. Approximately 8 × 7 × 6 inches each.",
-      "linkHeadline":"8 plushes. $160 total.",
-      "description":"Every pictured design included",
-      "hypothesis":"A direct count-and-price control measures demand without relying on lifestyle storytelling; total price is never hidden behind a unit price.",
-      "heroTitle":"Every one of these is in your set.",
-      "heroBody":"All eight pictured plushes come home with you. $160 for your complete collection—that’s $20 per plush in the set.",
-      "storyEyebrow":"No guessing what you’re getting",
-      "storyTitle":"All the ones you came here for.",
-      "storyBody":"Look along the lineup and pick your favorites. You don’t have to narrow it down. Every little face you came here for is part of your set.",
-      "points":[["No choosing who stays behind","You can want the whole lineup. Every one of the eight pictured designs comes home with you."],["Find a spot for everyone","Keep them together on your shelf or let a few join you at your desk. They’re all yours to arrange."],["All eight for $160","Bring the whole set home in one order. The fun part is deciding where everyone goes."]],
-      "sizeTitle":"You get to keep every favorite.",
-      "sizeBody":"Your favorite, your second favorite, and the one you just noticed—all eight come with your set.",
-      "proofTitle":"Every one of these comes with the set.",
-      "proofBody":"Spot a favorite in these close-ups? There’s no extra choice to make. That little face is already part of your complete set.",
-      "finalTitle":"Bring your complete collection home.",
-      "finalBody":"Eight separate plushes. Every design shown. Your whole set for $160.",
-      "journey":["Understand the complete offer","See $160 total and honest unit value","Count the real lineup","Check dimensions and quality","Check delivery and policy","Get all eight"]
+      "id": "06-everything-included",
+      "slug": "everything-included",
+      "name": "Clear offer control",
+      "palette": "sky",
+      "adHeadline": "Yes, you get all eight.",
+      "primaryText": "Eight separate plushes. Every design shown. $160 for the complete set—that’s $20 per plush as part of the set. Approximately 8 × 7 × 6 inches each.",
+      "linkHeadline": "8 plushes. $160 total.",
+      "description": "Every pictured design included",
+      "hypothesis": "A direct count-and-price control measures demand without relying on lifestyle storytelling; total price is never hidden behind a unit price.",
+      "heroTitle": "Every one of these is in your set.",
+      "heroBody": "All eight pictured plushes come home with you. $160 for your complete collection—that’s $20 per plush in the set.",
+      "storyEyebrow": "No guessing what you’re getting",
+      "storyTitle": "All the ones you came here for.",
+      "storyBody": "Look along the lineup and pick your favorites. You don’t have to narrow it down. Every little face you came here for is part of your set.",
+      "points": [
+        [
+          "No choosing who stays behind",
+          "You can want the whole lineup. Every one of the eight pictured designs comes home with you."
+        ],
+        [
+          "Find a spot for everyone",
+          "Keep them together on your shelf or let a few join you at your desk. They’re all yours to arrange."
+        ],
+        [
+          "All eight for $160",
+          "Bring the whole set home in one order. The fun part is deciding where everyone goes."
+        ]
+      ],
+      "sizeTitle": "See the size in a hand.",
+      "sizeBody": "These photos show the whole plush. Each of the eight is approximately the size shown below.",
+      "proofTitle": "See the individual plushes.",
+      "proofBody": "Take a closer look at the faces and costumes. One of every design in the full lineup is included.",
+      "finalTitle": "Bring your complete collection home.",
+      "finalBody": "Eight separate plushes. Every design shown. Your whole set for $160.",
+      "journey": [
+        "Understand the complete offer",
+        "See $160 total and honest unit value",
+        "Count the real lineup",
+        "Check dimensions and quality",
+        "Check delivery and policy",
+        "Get all eight"
+      ]
     }
   ]
 }

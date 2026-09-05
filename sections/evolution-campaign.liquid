@@ -19,7 +19,7 @@
       <h1 id="ec-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
       <p class="ec-lede">{{ section.settings.hero_body }}</p>
       <div class="ec-offer" id="ec-offer-{{ section.id }}">
-        <div class="ec-price"><strong>{{ v.price | money }}</strong><span>all 8 plushes<small>{{ per_plush | money }} each as part of the set</small></span></div>
+        <div class="ec-price"><strong>{{ v.price | money }}</strong><span>all 8 plushes<small>{{ per_plush | money_without_trailing_zeros }} per plush in the complete set</small></span></div>
         <div class="ec-palette-bar" role="group" aria-label="All eight costume colors are included; no color selection needed">
           <div class="ec-swatches" aria-hidden="true"><span style="--swatch:#f4a9bb"></span><span style="--swatch:#bfa5e8"></span><span style="--swatch:#b9e6f3"></span><span style="--swatch:#4ba9d7"></span><span style="--swatch:#f3792d"></span><span style="--swatch:#f3d64f"></span><span style="--swatch:#d6bf68"></span><span style="--swatch:#2f3036"></span></div>
           <span>Every color shown is included</span>
@@ -32,7 +32,7 @@
           <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button>
           {{ form | payment_button }}
         {%- endform -%}
-        <p class="ec-delivery">U.S. delivery: typically 5–7 business days</p>
+        <p class="ec-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p>
         <p class="ec-trust"><span><span class="ec-rating-star" aria-hidden="true">★</span> <b>4.8/5</b> · 95 Shop ratings</span><span><b>2,800+</b> orders shipped</span><small>Zenkai store-wide ratings and orders</small></p>
         <p class="ec-offer-policy">Damaged, incorrect, or not as described? <a href="/pages/policy">See our collector policy.</a></p>
       </div>
@@ -46,9 +46,8 @@
   </section>
 
   {% unless section.settings.journey == 'everything-included' %}
-  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid{% unless is_gift_journey %} ec-story-grid--simple{% endunless %}">
+  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid ec-story-grid--simple">
     <div class="ec-story-intro"><p class="ec-eyebrow">{{ section.settings.story_eyebrow }}</p><h2 id="ec-story-{{ section.id }}">{{ section.settings.story_title }}</h2><p>{{ section.settings.story_body }}</p></div>
-    {% if is_gift_journey %}<ol class="ec-points"><li><h3>{{ section.settings.point_1_title }}</h3><p>{{ section.settings.point_1_body }}</p></li><li><h3>{{ section.settings.point_2_title }}</h3><p>{{ section.settings.point_2_body }}</p></li><li><h3>{{ section.settings.point_3_title }}</h3><p>{{ section.settings.point_3_body }}</p></li></ol>{% endif %}
   </div></section>
   {% endunless %}
 
@@ -64,6 +63,7 @@
 
   <section class="ec-proof ec-shell" aria-labelledby="ec-proof-{{ section.id }}">
     <div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
+    <figure class="ec-featured-review"><blockquote>“Super adorable! I got the flareon first and had to grab some more for friends.”</blockquote><figcaption>Customer review of an individual design · shared by our product supplier</figcaption></figure>
     <div class="ec-gallery" id="ec-gallery-{{ section.id }}" data-ec-gallery role="region" aria-roledescription="carousel" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
         {%- assign proof_asset = 'evo-campaign-customer-0' | append: i | append: '.webp' -%}
@@ -81,7 +81,7 @@
   </section>
 
   <section class="ec-reviews"><div class="ec-shell">
-    <div class="ec-section-heading"><p class="ec-eyebrow">Reviews of individual designs</p><h2>The kind of cute that turns into “one more.”</h2><p class="ec-review-source">Reviews of individual designs, shared by our product supplier.</p></div>
+    <div class="ec-section-heading"><p class="ec-eyebrow">Reviews of individual designs</p><h2>What buyers said about the individual plushes.</h2><p class="ec-review-source">Reviews of individual designs, shared by our product supplier.</p></div>
     <div class="ec-review-grid"><figure><blockquote>“Super adorable! I got the flareon first and had to grab some more for friends.”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Amazing delivery product excellent condition”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Shipping took longer than anticipated but with the holidays it is not too surprising. For the price and quality, i am okay with the longer wait. Would purchase again.”</blockquote><figcaption>Product customer review</figcaption></figure></div>
     <p class="ec-store-proof"><strong>4.8/5</strong> from 95 Shop ratings <span>·</span> <strong>2,800+</strong> orders shipped <small>Across the Zenkai store</small></p>
   </div></section>
@@ -89,12 +89,12 @@
   <section class="ec-faq ec-shell" aria-labelledby="ec-faq-{{ section.id }}"><h2 id="ec-faq-{{ section.id }}">{% if is_gift_journey %}Before you give them all eight.{% else %}Before you make them yours.{% endif %}</h2>
     <details><summary>Does the price include all eight?</summary><p>Yes. {{ v.price | money }} buys eight separate plush companions, with one of every design pictured. Each plush comes in its own costume; this is not one plush with spare outfits. Gift wrapping and display props are not included.</p></details>
     <details><summary>How big is each plush?</summary><p>Approximately 8 × 7 × 6 inches each. Costume and ear shapes vary, so allow a little extra room when planning your display.</p></details>
-    <details><summary>When should my order arrive?</summary><p>U.S. delivery typically takes 5–7 business days. Tracking is provided after dispatch. This set is direct-shipped and may arrive separately from other products in your order. Transit can take longer around holidays; allow extra time for a fixed gifting date.</p></details>
+    <details><summary>Is shipping free, and when will it arrive?</summary><p>U.S. shipping is free. Delivery typically takes 5–7 business days. Tracking is provided after dispatch. This set is direct-shipped and may arrive separately from other products in your order. Transit can take longer around holidays; allow extra time for a fixed gifting date.</p></details>
     <details><summary>How do I care for them?</summary><p>Spot clean gently and air dry. Not suitable for children under 3 years old.</p></details>
     <details><summary>What if something is wrong with my order?</summary><p>If your order is lost in transit, damaged, defective, incorrect or materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full collector policy.</a></p></details>
   </section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><p class="ec-final-price"><strong>{{ v.price | money }}</strong> <span>for all eight</span></p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="ec-final-proof"><strong>4.8/5</strong> · 95 Shop ratings <span>2,800+ orders shipped</span><small>Across the Zenkai store</small></p><p class="ec-delivery">Typically arrives in 5–7 business days in the U.S.</p><a href="/pages/policy" class="ec-policy-link">Damaged, incorrect or not as described? See our policy.</a></div></div></section>
+  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><p class="ec-final-price"><strong>{{ v.price | money }}</strong> <span>for all eight</span></p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="ec-final-proof"><strong>4.8/5</strong> · 95 Shop ratings <span>2,800+ orders shipped</span><small>Across the Zenkai store</small></p><p class="ec-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p><a href="/pages/policy" class="ec-policy-link">Damaged, incorrect or not as described? See our policy.</a></div></div></section>
 
   <aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged actual product photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged actual plush product photo"></div></dialog>

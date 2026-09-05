@@ -353,6 +353,7 @@
 }
 .ec-price small {
   display: block;
+  font-size: 13px;
   font-weight: 400;
   margin-top: 4px;
   color: #555561;
@@ -870,7 +871,7 @@
     font-size: 13px;
   }
   .ec-price small {
-    font-size: 11px;
+    font-size: 13px;
   }
   .ec-body .ec-cta {
     font-size: 16px;
@@ -1133,6 +1134,20 @@
 }
 .ec-story-grid--simple .ec-story-intro p {
   max-width: 65ch;
+}
+.ec-featured-review {
+  margin: 0 0 24px !important;
+  padding: 14px 0 14px 18px;
+  border-left: 3px solid #4f9d8e;
+  max-width: 680px;
+}
+.ec-featured-review blockquote {
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.ec-featured-review figcaption {
+  font-size: 13px;
 }
 .ec-gallery-controls {
   display: flex;

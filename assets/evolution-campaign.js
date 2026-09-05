@@ -165,6 +165,8 @@
         form.appendChild(input);
       });
       var submitted = false;
+      var busyButton = null;
+      var originalButtonHTML = null;
       form.addEventListener("submit", function (event) {
         if (root.dataset.preview === "true") {
           event.preventDefault();
@@ -181,11 +183,23 @@
           return;
         }
         submitted = true;
+        busyButton = event.submitter;
+        if (busyButton && busyButton.classList.contains("ec-cta")) {
+          originalButtonHTML = busyButton.innerHTML;
+          busyButton.textContent = "Opening checkout…";
+          busyButton.setAttribute("aria-busy", "true");
+        }
         /* Native Shopify product POST preserves a no-JavaScript purchase path.
            No custom Meta events are fired: the configured pixel owns tracking. */
       });
       window.addEventListener("pageshow", function () {
         submitted = false;
+        if (busyButton && originalButtonHTML !== null) {
+          busyButton.innerHTML = originalButtonHTML;
+          busyButton.removeAttribute("aria-busy");
+        }
+        busyButton = null;
+        originalButtonHTML = null;
       });
     }
     var dialog = root.querySelector("[data-ec-lightbox]");

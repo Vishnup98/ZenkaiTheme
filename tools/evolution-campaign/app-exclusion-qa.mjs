@@ -86,11 +86,14 @@ try {
         const pending = page.waitForResponse(response => response.request().method() === 'POST' && new URL(response.url()).pathname === '/cart/add', { timeout: 10000 });
         await page.locator(selector).click();
         await pending;
+        if (await page.locator(selector).textContent() !== 'Opening checkout…' || await page.locator(selector).getAttribute('aria-busy') !== 'true') failures.push(`${test.slug}/${selector}: checkout feedback missing`);
         const submitted = submissions.at(-1);
         if (!submitted?.navigation || submitted.id !== '47968551764073' || submitted.quantity !== '1' || submitted.returnTo !== '/checkout' || submitted.landing !== `evo-${test.slug}`) failures.push(`${test.slug}/${test.width}/${selector}: native direct-checkout submit failed`);
         if (await page.locator('#candyrack-frame:visible,#candyrack-slider-cart:visible').count()) failures.push(`${test.slug}: Candy Rack popup appeared`);
       }
       if (submissions.length !== 3) failures.push(`${test.slug}/${test.width}: duplicate or missing add-to-cart submission`);
+      await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+      if (await page.locator('.ec-cta[aria-busy]').count() || await page.locator('.ec-cta').allTextContents().then(texts => texts.some(text => text.includes('Opening checkout')))) failures.push(`${test.slug}: checkout feedback not restored on Back`);
     } else if (details.upcart !== 'function' || details.candyVeto) failures.push(`${test.slug}: regular-store app behavior changed`);
     const result = { ...test, status: response.status(), ...details, paymentControls, vendorResources, errors, submissions };
     results.push(result);

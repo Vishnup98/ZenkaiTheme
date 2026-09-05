@@ -1,6 +1,16 @@
 # Evolution Companions: customer-facing copy direction
 
-Updated 2026-09-04 following merchant review. This is an internal working guide, not landing-page copy.
+Updated 2026-09-05 following merchant review. This is an internal working guide, not landing-page copy.
+
+## September 5 implementation
+
+The merchant confirmed free U.S. shipping. Show it with the typical 5–7-business-day delivery estimate beside both offers and in the shipping FAQ.
+
+Use one ownership scene per journey, then move into full-set contents, actual size, product detail and reassurance. Repeated swapping/favorite language has been removed from the subsequent sections. The gift route retains its reveal paragraph and drops the three repeated supporting points. The Everything Included control stays shorter.
+
+The unit-value line reads “$20 per plush in the complete set” at 13px; $160 remains dominant. The strongest genuine individual-design quote also appears near the close-ups with its source intact. The full review collection remains below with a heading accurately describing its mixed feedback.
+
+Native purchase buttons show “Opening checkout…” after submission and restore on browser Back. The form, full-set variant, direct-checkout destination and payment integration remain native.
 
 ## The benchmark from the badge pages
 
