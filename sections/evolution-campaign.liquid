@@ -90,7 +90,7 @@
     <div class="ec-proof-lead">
       <figure class="ec-detail-photo"><img src="{{ 'evo-portrait-detail-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-detail-480.webp' | asset_url }} 480w, {{ 'evo-portrait-detail-1024.webp' | asset_url }} 1024w" sizes="(max-width: 749px) 90vw, 680px" width="1024" height="687" loading="lazy" alt="Close-up of the plush face and embroidered charcoal hood with yellow details"></figure>
       <div class="ec-proof-copy"><div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
-      <figure class="ec-featured-review"><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Customer review excerpt of an individual design · shared by our product supplier</figcaption></figure></div>
+      <figure class="ec-featured-review"><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Customer review excerpt of an individual design</figcaption></figure></div>
     </div>
     <div class="ec-gallery" id="ec-gallery-{{ section.id }}" role="region" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
@@ -105,11 +105,10 @@
         <figure><button type="button" data-ec-zoom="{{ proof_asset | asset_url }}" aria-label="Enlarge customer photo: {{ proof_caption | escape }}"><img src="{{ proof_asset | asset_url }}" width="720" height="720" loading="lazy" alt="{{ proof_caption | escape }} plush detail, photographed by a customer"></button><figcaption>Customer photo</figcaption></figure>
       {%- endfor -%}
     </div>
-    <p class="ec-gallery-hint">Customer photos · Scroll to explore, tap to enlarge</p>
   </section>
 
   <section class="ec-reviews"><div class="ec-shell">
-    <div class="ec-section-heading"><h2>What buyers said about the individual plushes.</h2><p class="ec-review-source">Reviews of individual designs, shared by our product supplier.</p></div>
+    <div class="ec-section-heading"><h2>What buyers said about the individual plushes.</h2><p class="ec-review-source">Reviews of individual designs.</p></div>
     <div class="ec-review-grid"><figure><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Product customer review excerpt</figcaption></figure><figure><blockquote>“Amazing delivery product excellent condition”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Shipping took longer than anticipated but with the holidays it is not too surprising. For the price and quality, i am okay with the longer wait. Would purchase again.”</blockquote><figcaption>Product customer review</figcaption></figure></div>
     <p class="ec-store-proof"><strong>4.8/5</strong> from 95 Shop ratings <span>·</span> <strong>2,800+</strong> orders shipped <small>Across the Zenkai store</small></p>
   </div></section>
