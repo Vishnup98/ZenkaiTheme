@@ -1006,6 +1006,11 @@
     padding-top: 34px;
     padding-bottom: 38px;
   }
+  .ec-body .ec-portraits button {
+    /* Mobile favors the complete product view over the shorter desktop stage.
+       A square canvas shows every portrait from the ear tips to the feet. */
+    aspect-ratio: 1 / 1;
+  }
   .ec-section-heading {
     margin-bottom: 18px;
   }
