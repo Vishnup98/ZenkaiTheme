@@ -77,6 +77,7 @@
       var thumbs = Array.from(root.querySelectorAll('[data-ec-thumb]'));
       thumbs.forEach(function (thumb, index) {
         thumb.addEventListener('click', function () {
+          gallery.dataset.ecPortraitMode = index === 0 ? 'group' : 'individual';
           gallery.scrollTo({left: slides[index].offsetLeft - slides[0].offsetLeft, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
         });
       });
@@ -100,6 +101,7 @@
         next.disabled =
           gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 2;
         if (visible.length) {
+          gallery.dataset.ecPortraitMode = visible[0] === 0 ? 'group' : 'individual';
           thumbs.forEach(function (thumb, index) { thumb.setAttribute('aria-pressed', String(index === visible[0])); });
           var start = visible[0] + 1,
             end = visible[visible.length - 1] + 1;
