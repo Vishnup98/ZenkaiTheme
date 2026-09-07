@@ -818,26 +818,8 @@
 .ec-final h2 {
   margin-bottom: 14px;
 }
-.ec-body .ec-final-price {
-  margin: 20px 0 14px;
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-.ec-final-price strong {
-  font-size: 38px;
-  line-height: 1;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-}
-.ec-final-price span {
-  font-size: 14px;
-}
-.ec-policy-link {
-  display: block;
-  text-align: center;
-  font-size: 12px;
-  margin-top: 10px;
+.ec-final .ec-cta {
+  margin-top: 20px;
 }
 .ec-footer {
   display: flex;
@@ -1162,12 +1144,6 @@
     grid-template-columns: 1fr;
     gap: 23px;
   }
-  .ec-final-price strong {
-    font-size: 34px;
-  }
-  .ec-body .ec-final-price {
-    margin-top: 17px;
-  }
   .ec-final p {
     font-size: 16px;
   }
@@ -1436,20 +1412,6 @@
 .ec-body .ec-gallery figcaption {
   font-size: 13px;
 }
-.ec-body .ec-final-proof {
-  font-size: 14px;
-  text-align: center;
-  margin-top: 14px;
-  line-height: 1.55;
-}
-.ec-final-proof > span {
-  display: inline-block;
-  margin-left: 12px;
-}
-.ec-final-proof > small {
-  display: block;
-  font-size: 12px;
-}
 .ec-footer {
   display: block;
   padding: 22px 24px 110px;
@@ -1570,9 +1532,5 @@
   }
   .ec-gallery-controls > div {
     margin-left: auto;
-  }
-  .ec-final-proof > span {
-    display: block;
-    margin-left: 0;
   }
 }
