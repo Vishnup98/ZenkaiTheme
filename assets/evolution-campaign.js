@@ -94,7 +94,9 @@
           .filter(function (index) {
             return index >= 0;
           });
-        previous.disabled = gallery.scrollLeft <= 2;
+        /* The framed portrait rail has an inset snap point; treat that small
+           leading offset as the start so the previous control stays honest. */
+        previous.disabled = gallery.scrollLeft <= 18;
         next.disabled =
           gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 2;
         if (visible.length) {

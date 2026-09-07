@@ -101,17 +101,21 @@
 .ec-size-photos {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
   align-items: start;
+}
+.ec-size-photos figure {
+  min-width: 0;
 }
 .ec-size-photos button {
   display: block;
   width: 100%;
   padding: 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: 13px;
   overflow: hidden;
   background: #eeebe6;
+  box-shadow: 0 14px 34px #29334414;
 }
 .ec-body .ec-size-photos img {
   width: 100%;
@@ -121,6 +125,7 @@
 }
 .ec-size-photos figcaption {
   font-weight: 700;
+  padding-inline: 3px;
 }
 .ec-size-photos figcaption span {
   display: block;
@@ -429,8 +434,8 @@
   font-weight: 700;
 }
 .ec-included {
-  padding-top: 38px;
-  padding-bottom: 40px;
+  padding-top: 56px;
+  padding-bottom: 64px;
   border-top: 1px solid #2223301f;
 }
 .ec-section-heading {
@@ -441,17 +446,44 @@
   margin-bottom: 12px;
 }
 .ec-portraits {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   position: relative;
+  gap: 0;
+  padding: 14px;
+  background: #ffffffb8;
+  border: 1px solid #22233014;
+  border-radius: 22px;
+  box-shadow: 0 18px 50px #29334412;
+  scrollbar-width: none;
 }
-.ec-body .ec-portraits > figure { flex: 0 0 100%; margin: 0; }
-.ec-body .ec-portraits img { height: auto; aspect-ratio: 1; object-fit: contain; }
-.ec-portrait-thumbs { display: flex; gap: 6px; overflow-x: auto; max-width: 600px; margin: 10px auto 0; padding: 3px; }
-.ec-portrait-thumbs button { flex: 0 0 56px; padding: 2px; background: transparent; border: 2px solid transparent; border-radius: 4px; cursor: pointer; }
-.ec-portrait-thumbs button[aria-pressed="true"] { border-color: #285e55; }
-.ec-portrait-thumbs img { display: block; width: 100%; height: 50px; object-fit: contain; }
-.ec-detail-photo { max-width: 720px; margin: 0 auto 24px; }
+.ec-portraits::-webkit-scrollbar {
+  display: none;
+}
+.ec-body .ec-portraits > figure {
+  flex: 0 0 calc(100% + 24px);
+  margin: 0;
+  padding-right: 24px;
+}
+.ec-body .ec-portraits button {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 2;
+  border-radius: 13px;
+}
+.ec-body .ec-portraits img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.ec-body .ec-portraits figcaption { padding-inline: 4px; }
+.ec-portrait-thumbs { display: grid; grid-template-columns: repeat(9, minmax(56px, 1fr)); gap: 7px; overflow-x: auto; max-width: 900px; margin: 13px auto 0; padding: 4px; }
+.ec-portrait-thumbs button { min-width: 56px; padding: 3px; background: #ffffff8c; border: 2px solid transparent; border-radius: 8px; cursor: pointer; }
+.ec-portrait-thumbs button[aria-pressed="true"] { border-color: var(--accent); background: #fff; box-shadow: 0 5px 15px #22233012; }
+.ec-portrait-thumbs img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 4px; }
+.ec-included .ec-gallery-controls { max-width: 900px; margin: 10px auto 0; }
+.ec-detail-photo { margin: 0; }
 .ec-detail-photo img { display: block; width: 100%; height: auto; }
 .ec-lineup {
   max-width: 1000px;
@@ -463,17 +495,22 @@
   object-fit: contain;
 }
 .ec-story {
-  background: transparent;
-  padding: 28px 0;
+  background: var(--tint);
+  padding: 58px 0;
+  border-block: 1px solid #22233012;
 }
 .ec-story-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: start;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 72px;
+  align-items: center;
 }
 .ec-story-intro h2 {
   margin-bottom: 18px;
+}
+.ec-story-intro {
+  padding-left: 24px;
+  border-left: 4px solid var(--accent);
 }
 .ec-points {
   list-style: none;
@@ -483,12 +520,14 @@
 }
 .ec-points li {
   counter-increment: ec-point;
-  padding: 0 0 18px 40px;
+  padding: 18px 20px 18px 60px;
   position: relative;
+  background: #fff9;
+  border: 1px solid #22233012;
+  border-radius: 12px;
 }
 .ec-points li + li {
-  border-top: 1px solid #22233023;
-  padding-top: 18px;
+  margin-top: 10px;
 }
 .ec-points li:before {
   content: "0" counter(ec-point);
@@ -497,10 +536,11 @@
   color: var(--accent);
   position: absolute;
   left: 0;
-  top: 3px;
+  top: 19px;
+  left: 18px;
 }
 .ec-points li + li:before {
-  top: 21px;
+  top: 19px;
 }
 .ec-points li:last-child {
   padding-bottom: 0;
@@ -513,11 +553,17 @@
 }
 .ec-size {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: minmax(0, 0.8fr) minmax(520px, 1.2fr);
   align-items: center;
-  gap: 50px;
-  padding-top: 44px;
-  padding-bottom: 44px;
+  gap: 58px;
+  margin-top: 56px;
+  margin-bottom: 56px;
+  padding-top: 42px;
+  padding-bottom: 42px;
+  background: linear-gradient(135deg, var(--tint), #ffffffa8);
+  border: 1px solid #22233014;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px #2933440d;
 }
 .ec-size h2 {
   margin-bottom: 14px;
@@ -528,10 +574,57 @@
 .ec-size[id] {
   scroll-margin-top: 76px;
 }
+.ec-size-facts {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+}
+.ec-size-facts li {
+  padding: 11px 10px;
+  background: #fff9;
+  border: 1px solid #22233014;
+  border-radius: 9px;
+}
+.ec-size-facts strong,
+.ec-size-facts span {
+  display: block;
+}
+.ec-size-facts strong {
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.ec-size-facts span {
+  margin-top: 4px;
+  color: #5b5963;
+  font-size: 11px;
+  line-height: 1.25;
+}
 .ec-proof {
-  padding-top: 28px;
-  padding-bottom: 36px;
+  padding-top: 58px;
+  padding-bottom: 58px;
   border-top: 1px solid #2223301f;
+}
+.ec-proof-lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 34px;
+}
+.ec-proof-lead .ec-detail-photo {
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px #29334414;
+}
+.ec-proof-lead .ec-detail-photo img {
+  width: 100%;
+}
+.ec-proof-copy .ec-section-heading {
+  margin-bottom: 24px;
 }
 .ec-gallery {
   display: flex;
@@ -583,8 +676,11 @@
   align-items: start;
 }
 .ec-review-grid figure {
-  border-top: 1px solid #ffffff40;
-  padding: 18px 0 0;
+  min-height: 100%;
+  border: 1px solid #ffffff24;
+  padding: 22px;
+  border-radius: 12px;
+  background: #ffffff08;
 }
 .ec-review-grid blockquote {
   font-weight: 600;
@@ -617,16 +713,20 @@
 .ec-faq {
   padding-top: 44px;
   padding-bottom: 44px;
-  max-width: 940px;
+  max-width: 1000px;
 }
 .ec-faq h2 {
   margin-bottom: 22px;
 }
 .ec-faq details {
-  border-bottom: 1px solid #22233028;
+  margin-top: 8px;
+  border: 1px solid #2223301c;
+  border-radius: 10px;
+  background: #fff8;
+  padding-inline: 18px;
 }
 .ec-faq details:first-of-type {
-  border-top: 1px solid #22233028;
+  border-top: 1px solid #2223301c;
 }
 .ec-faq summary {
   font-size: 17px;
@@ -903,8 +1003,8 @@
     font-size: 12px;
   }
   .ec-included {
-    padding-top: 28px;
-    padding-bottom: 28px;
+    padding-top: 34px;
+    padding-bottom: 38px;
   }
   .ec-section-heading {
     margin-bottom: 18px;
@@ -918,11 +1018,14 @@
     font-size: 16px;
   }
   .ec-story {
-    padding: 22px 0;
+    padding: 38px 0;
   }
   .ec-story-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 28px;
+  }
+  .ec-story-intro {
+    padding-left: 18px;
   }
   .ec-points li {
     padding-bottom: 16px;
@@ -941,13 +1044,30 @@
   }
   .ec-size {
     grid-template-columns: 1fr;
-    gap: 22px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-  .ec-proof {
+    gap: 26px;
+    margin-top: 28px;
+    margin-bottom: 28px;
     padding-top: 26px;
     padding-bottom: 28px;
+    border-radius: 16px;
+  }
+  .ec-size-facts {
+    margin-top: 20px;
+  }
+  .ec-proof {
+    padding-top: 38px;
+    padding-bottom: 38px;
+  }
+  .ec-proof-lead {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .ec-proof-lead .ec-detail-photo {
+    border-radius: 14px;
+  }
+  .ec-proof-copy .ec-section-heading {
+    margin-bottom: 18px;
   }
   .ec-gallery > figure {
     flex-basis: 78%;
@@ -966,7 +1086,7 @@
     gap: 20px;
   }
   .ec-review-grid figure {
-    padding-top: 15px;
+    padding: 18px;
   }
   .ec-review-grid blockquote {
     font-size: 17px;

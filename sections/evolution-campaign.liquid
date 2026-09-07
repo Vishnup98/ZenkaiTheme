@@ -49,7 +49,10 @@
         {% assign full = 'evo-portrait-' | append: name | append: '-1024.webp' %}
         {% assign small = 'evo-portrait-' | append: name | append: '-480.webp' %}
         {% assign portrait_description = portrait_descriptions[forloop.index0] %}
-        <figure><button type="button" data-ec-zoom="{{ full | asset_url }}" aria-label="Enlarge photo of {{ portrait_description }}"><img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(max-width: 749px) 88vw, 540px" width="1024" height="1024" loading="lazy" alt="Full view of {{ portrait_description }}, included in the complete set"></button><figcaption>{% if name == 'group' %}The complete collection · {% endif %}All eight included</figcaption></figure>
+        {% assign portrait_height = 1024 %}
+        {% if name == 'group' %}{% assign portrait_height = 687 %}{% endif %}
+        {% if name == 'espeon' %}{% assign portrait_height = 918 %}{% endif %}
+        <figure class="ec-portrait ec-portrait--{{ name }}"><button type="button" data-ec-zoom="{{ full | asset_url }}" aria-label="Enlarge photo of {{ portrait_description }}"><img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(max-width: 749px) 88vw, 860px" width="1024" height="{{ portrait_height }}" loading="lazy" alt="Full view of {{ portrait_description }}, included in the complete set"></button><figcaption>{% if name == 'group' %}The complete collection · {% endif %}All eight included</figcaption></figure>
       {% endfor %}
     </div>
     <div class="ec-portrait-thumbs" aria-label="Browse collection photos">
@@ -59,14 +62,20 @@
   </section>
 
   {% unless section.settings.journey == 'everything-included' %}
-  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid ec-story-grid--simple">
+  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid">
     <div class="ec-story-intro"><p class="ec-eyebrow">{{ section.settings.story_eyebrow }}</p><h2 id="ec-story-{{ section.id }}">{{ section.settings.story_title }}</h2><p>{{ section.settings.story_body }}</p></div>
+    <ol class="ec-points" aria-label="Three ways to enjoy the complete collection">
+      <li><h3>{{ section.settings.point_1_title }}</h3><p>{{ section.settings.point_1_body }}</p></li>
+      <li><h3>{{ section.settings.point_2_title }}</h3><p>{{ section.settings.point_2_body }}</p></li>
+      <li><h3>{{ section.settings.point_3_title }}</h3><p>{{ section.settings.point_3_body }}</p></li>
+    </ol>
   </div></section>
   {% endunless %}
 
   <section class="ec-size ec-shell" id="ec-size-{{ section.id }}" aria-labelledby="ec-size-title-{{ section.id }}">
     <div class="ec-size-copy"><p class="ec-eyebrow">A little closer</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2><p>{{ section.settings.size_body }}</p>
       <p class="ec-size-note">Approximately 8 × 7 × 6 inches each. Customer photos show them held in a hand for scale.</p>
+      <ul class="ec-size-facts" aria-label="Collection size summary"><li><strong>8</strong><span>separate plushes</span></li><li><strong>8 × 7 × 6 in</strong><span>approximately, each</span></li><li><strong>Full frame</strong><span>shown in a hand</span></li></ul>
     </div>
     <div class="ec-size-photos" aria-label="Customer photos showing the plushes held in a hand">
       <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" aria-label="Enlarge customer photo of the purple plush held in a hand"><img src="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-purple-720.webp' | asset_url }} 720w" sizes="(min-width: 1240px) 260px, (min-width: 900px) 23vw, 45vw" width="720" height="960" loading="lazy" alt="Customer holding the purple gem-costume plush, with the full ears, body and feet visible for scale"></button><figcaption>Customer photo<span>Tap to see the full photo</span></figcaption></figure>
@@ -75,9 +84,11 @@
   </section>
 
   <section class="ec-proof ec-shell" aria-labelledby="ec-proof-{{ section.id }}">
-    <figure class="ec-detail-photo"><img src="{{ 'evo-portrait-detail-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-detail-480.webp' | asset_url }} 480w, {{ 'evo-portrait-detail-1024.webp' | asset_url }} 1024w" sizes="(max-width: 749px) 90vw, 720px" width="1024" height="687" loading="lazy" alt="Close-up of the plush face and embroidered charcoal hood with yellow details"></figure>
-    <div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
-    <figure class="ec-featured-review"><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Customer review excerpt of an individual design · shared by our product supplier</figcaption></figure>
+    <div class="ec-proof-lead">
+      <figure class="ec-detail-photo"><img src="{{ 'evo-portrait-detail-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-detail-480.webp' | asset_url }} 480w, {{ 'evo-portrait-detail-1024.webp' | asset_url }} 1024w" sizes="(max-width: 749px) 90vw, 680px" width="1024" height="687" loading="lazy" alt="Close-up of the plush face and embroidered charcoal hood with yellow details"></figure>
+      <div class="ec-proof-copy"><div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
+      <figure class="ec-featured-review"><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Customer review excerpt of an individual design · shared by our product supplier</figcaption></figure></div>
+    </div>
     <div class="ec-gallery" id="ec-gallery-{{ section.id }}" role="region" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
         {%- assign proof_asset = 'evo-campaign-customer-0' | append: i | append: '.webp' -%}
