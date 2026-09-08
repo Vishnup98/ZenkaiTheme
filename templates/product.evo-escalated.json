@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "escalated",
+        "family": "permission",
+        "concept_id": "PR06",
+        "asset_id": "creative-pr06",
+        "palette": "peach",
+        "purchase_label": "Get all 8",
+        "offer_note": "",
+        "hero_alt": "Eight colorful plushes seated in a red rollercoaster car in a styled amusement-park scene.",
+        "hero_title": "One favorite was never going to be enough.",
+        "hero_body": "Bring home all eight together. Every pictured design is included in your $160 set, with free U.S. shipping.",
+        "story_eyebrow": "Well, this escalated",
+        "story_title": "Make room for the whole gang.",
+        "story_body": "Maybe one caught your eye first. Now picture the whole lineup on your shelf, waiting for you to decide who gets the best spot.",
+        "point_1_title": "Start with the one you love",
+        "point_1_body": "Give your first favorite a spot where you’ll see it every day.",
+        "point_2_title": "Let the others move in",
+        "point_2_body": "All eight pictured plushes come in the set. There’s no second decision about which ones to leave behind.",
+        "point_3_title": "Make a little room for delight",
+        "point_3_body": "Keep the collection together or find a different corner for each one. The arrangement is yours.",
+        "size_title": "A little perspective before they arrive.",
+        "size_body": "See the plushes held in a hand to get a feel for their size and plan where your set will go.",
+        "proof_title": "The plushes behind the big idea.",
+        "proof_body": "Take a closer look at the colorful hoods, stitched faces and little paws in the product photos.",
+        "final_title": "Go on. Bring the whole set home.",
+        "final_body": "All eight pictured plushes, together for $160. Free U.S. shipping."
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "not-on-my-list",
+        "family": "permission",
+        "concept_id": "P07",
+        "asset_id": "creative-p07",
+        "palette": "butter",
+        "purchase_label": "Get all 8",
+        "offer_note": "",
+        "hero_alt": "A hand holds a black wire basket containing eight colorful plushes against a sunny yellow background in a styled scene.",
+        "hero_title": "Not on the list. Very much wanted.",
+        "hero_body": "Make room for all eight. Your complete plush collection is $160, with free U.S. shipping.",
+        "story_eyebrow": "A very good addition",
+        "story_title": "Picture them in your space.",
+        "story_body": "There’s the one you’d put beside your books. The one for your desk. And the rest you’re already making room for. Sometimes you know where something belongs as soon as you see it.",
+        "point_1_title": "Find their first spot",
+        "point_1_body": "Start with a shelf, a desk or a cozy corner you pass every day.",
+        "point_2_title": "Keep every favorite",
+        "point_2_body": "All eight pictured plushes come together. You don’t have to narrow it down.",
+        "point_3_title": "Make the collection yours",
+        "point_3_body": "Keep them in a lineup or spread them around your space. You get to decide what feels right.",
+        "size_title": "Make sure the spot fits.",
+        "size_body": "Take a look at the in-hand photos for a real sense of scale before you order.",
+        "proof_title": "Here’s what’s coming home.",
+        "proof_body": "Explore each of the eight plushes in the product photos and see the designs included in your set.",
+        "final_title": "One more thing for the list.",
+        "final_body": "All eight plushes. One complete set. $160, with free U.S. shipping."
+      }
+    }
+  },
+  "order": ["main"]
+}

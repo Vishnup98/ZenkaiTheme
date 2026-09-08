@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "to-me",
+        "family": "gift",
+        "concept_id": "P06",
+        "asset_id": "creative-p06",
+        "palette": "butter",
+        "purchase_label": "Get all 8",
+        "offer_note": "",
+        "hero_alt": "To: me. From: me. All eight plushes on a table beside a handwritten self-gift note in a styled scene.",
+        "hero_title": "You don’t need an occasion.",
+        "hero_body": "Something you picked because you love it. All eight plush companions, together for $160, with free U.S. shipping.",
+        "story_eyebrow": "Picked out by you",
+        "story_title": "The gift you don’t have to hint about.",
+        "story_body": "No wish list to send. No waiting for someone to guess. Just the whole collection you wanted, ready for a spot in your everyday life.",
+        "point_1_title": "No occasion required",
+        "point_1_body": "A birthday is one reason. Simply wanting them is another.",
+        "point_2_title": "Exactly your kind of gift",
+        "point_2_body": "You already know which little faces caught your eye. All eight are included, so there is no need to narrow it down.",
+        "point_3_title": "Find their everyday spot",
+        "point_3_body": "Picture the collection on your shelf or beside your desk. Keep them together or arrange them your way.",
+        "size_title": "Picture one in your hand.",
+        "size_body": "See the individual plushes held in a hand to get a feel for their size before deciding where your set will go.",
+        "proof_title": "Get to know your whole set.",
+        "proof_body": "A closer look at the colorful hoods, little faces and brown paws. Your collection includes one of each of the eight pictured plush designs.",
+        "final_title": "From you. For you. All eight.",
+        "final_body": "Your complete eight-plush set is $160, with free U.S. shipping. No special occasion needed."
+      }
+    }
+  },
+  "order": ["main"]
+}

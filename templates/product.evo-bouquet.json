@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "bouquet",
+        "family": "gift",
+        "concept_id": "P04",
+        "asset_id": "creative-p04",
+        "palette": "peach",
+        "purchase_label": "Get all 8",
+        "offer_note": "Includes eight plushes. Styled arrangement shown; paper wrap and display props are not included.",
+        "hero_alt": "My kind of bouquet. All eight plushes in a styled paper arrangement. Paper wrap and display props are not included.",
+        "hero_title": "Flowers are nice. These are more you.",
+        "hero_body": "A complete collection for someone with very particular taste in cute. All eight plushes for $160, with free U.S. shipping.",
+        "story_eyebrow": "A little more personal",
+        "story_title": "Give something that feels personal.",
+        "story_body": "You know the person who would make room for every one. Maybe that person is you. Start with all eight plushes, then make the moment your own.",
+        "point_1_title": "For someone you know",
+        "point_1_body": "A whole collection for the person whose favorite gifts are a little less ordinary.",
+        "point_2_title": "Or a gift to yourself",
+        "point_2_body": "No recipient to choose and no occasion required. You can keep every one.",
+        "point_3_title": "Eight plushes, your presentation",
+        "point_3_body": "Your set includes all eight separate plushes. Paper wrap and display props are not included; arrange or wrap them however you like.",
+        "size_title": "A closer look before you give.",
+        "size_body": "These in-hand photos show the scale of individual plushes, so you can picture the gift beyond the styled arrangement.",
+        "proof_title": "See the plushes themselves.",
+        "proof_body": "Look at the colorful hoods, little faces and brown paws in these individual product photos. The set contains one of each of the eight pictured designs.",
+        "final_title": "For them. Or very much for you.",
+        "final_body": "All eight plushes, together for $160 with free U.S. shipping. Paper wrap and display props are not included."
+      }
+    }
+  },
+  "order": ["main"]
+}

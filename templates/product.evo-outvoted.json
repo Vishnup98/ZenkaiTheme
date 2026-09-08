@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "outvoted",
+        "family": "permission",
+        "concept_id": "PX01",
+        "asset_id": "creative-px01",
+        "palette": "lavender",
+        "purchase_label": "Get all 8",
+        "offer_note": "",
+        "hero_alt": "Eight plushes gathered around a miniature wooden meeting table in a styled boardroom scene.",
+        "hero_title": "The decision was unanimous.",
+        "hero_body": "A whole collection of very persuasive little faces. All eight plushes are yours for $160, with free U.S. shipping.",
+        "story_eyebrow": "The motion has passed",
+        "story_title": "Now to decide where they’re going.",
+        "story_body": "The shelf is a strong candidate. Your desk has made a convincing case. With all eight coming home, there’s room for more than one good idea.",
+        "point_1_title": "All eight, in agreement",
+        "point_1_body": "Every pictured design is included. No shortlist required.",
+        "point_2_title": "A spot for your favorite",
+        "point_2_body": "Keep one close by or give the whole collection a place together.",
+        "point_3_title": "Final say belongs to you",
+        "point_3_body": "Arrange them however you like. This is the part that doesn’t need a committee.",
+        "size_title": "Before you allocate shelf space.",
+        "size_body": "See the plushes held in a hand for a practical sense of their size.",
+        "proof_title": "Meet the whole committee.",
+        "proof_body": "See each plush up close in the product photos, with all eight designs shown individually.",
+        "final_title": "Motion to bring them home?",
+        "final_body": "The complete eight-plush collection is $160, with free U.S. shipping."
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "distracted",
+        "family": "permission",
+        "concept_id": "PR05",
+        "asset_id": "creative-pr05",
+        "palette": "butter",
+        "purchase_label": "Get all 8",
+        "offer_note": "",
+        "hero_alt": "Eight colorful plushes arranged on a retro pinball playfield with metal rails and red flippers in a styled scene.",
+        "hero_title": "A very good interruption.",
+        "hero_body": "Eight colorful companions for a spot you’ll see every day. The complete set is $160, with free U.S. shipping.",
+        "story_eyebrow": "Your shelf has other plans",
+        "story_title": "Put the good distraction somewhere you’ll see it.",
+        "story_body": "That shelf beside your desk. The corner by your books. Suddenly, you can picture exactly where all eight are going.",
+        "point_1_title": "A colorful change of scene",
+        "point_1_body": "Give a familiar spot a whole new lineup of little faces.",
+        "point_2_title": "Every favorite is included",
+        "point_2_body": "The set comes with all eight pictured plushes, so your collection starts complete.",
+        "point_3_title": "Rearrange whenever you feel like it",
+        "point_3_body": "Line them up, make little groups or let one keep your desk company. There’s no one right way to display them.",
+        "size_title": "See how they’ll fit in your space.",
+        "size_body": "The in-hand photos give you a real point of reference before you choose their new home.",
+        "proof_title": "Worth a closer look.",
+        "proof_body": "Explore the individual plushes, from the colorful hoods to the stitched faces and little paws.",
+        "final_title": "Your shelf has room for a good distraction.",
+        "final_body": "Get the complete eight-plush set for $160, with free U.S. shipping."
+      }
+    }
+  },
+  "order": ["main"]
+}

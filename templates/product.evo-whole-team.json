@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "whole-team",
+        "family": "collection",
+        "concept_id": "PX03",
+        "asset_id": "creative-px03",
+        "palette": "navy",
+        "hero_alt": "Eight hooded plushes arranged in two rows on a chessboard opposite wooden chess pieces, in a styled scene.",
+        "hero_title": "A team you won’t want to split up.",
+        "hero_body": "One of every pictured design. Bring home all eight together for $160, with free U.S. shipping.",
+        "offer_note": "",
+        "purchase_label": "Get all 8",
+        "story_eyebrow": "Your whole team, together",
+        "story_title": "Every spot in the lineup is filled.",
+        "story_body": "Eight different hoods. Eight little faces. One collection that looks right together. Take a look along the lineup—every pictured plush design is included.",
+        "size_title": "Picture the team in your space.",
+        "size_body": "See the actual plushes held in a hand before choosing their spots. These close-up photos give you a real reference for their size.",
+        "proof_title": "Get to know your lineup.",
+        "proof_body": "Look closer at the stitched faces, colorful hoods and little paws. These are the individual plushes that make up your eight-piece collection.",
+        "final_title": "Your next move: the whole set.",
+        "final_body": "All eight plushes, together for $160. Free U.S. shipping is included.",
+        "point_1_title": "The full lineup",
+        "point_1_body": "One plush in each of the eight pictured designs. Every spot in your collection is accounted for.",
+        "point_2_title": "A place for everyone",
+        "point_2_body": "Make a row on your shelf, a group on your desk or a little corner that’s entirely theirs.",
+        "point_3_title": "Change the formation",
+        "point_3_body": "Each plush is separate, so you can arrange the whole team however you like."
+      }
+    }
+  },
+  "order": ["main"]
+}

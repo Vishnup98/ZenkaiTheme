@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "all-mine",
+        "family": "collection",
+        "concept_id": "P01",
+        "asset_id": "creative-p01",
+        "palette": "butter",
+        "hero_alt": "An adult in a charcoal T-shirt holding an armful of eight colorful hooded plushes, in a styled scene.",
+        "hero_title": "Yes, they can all be yours.",
+        "hero_body": "One complete collection. Eight separate plushes. $160, with free U.S. shipping.",
+        "offer_note": "",
+        "purchase_label": "Get all 8",
+        "story_eyebrow": "Eight plushes. All yours.",
+        "story_title": "A closer look at your future armful.",
+        "story_body": "You don’t have to know which one is your favorite yet. Bring home one of every pictured design, then find a place for the whole collection.",
+        "size_title": "See the actual plushes in hand.",
+        "size_body": "Take a look at these in-hand photos for a real sense of size. Picture your first favorite on your desk and the rest close by.",
+        "proof_title": "The details you’ll get to know.",
+        "proof_body": "The little smiles, colorful hoods and brown paws: see each plush up close before the complete set becomes yours.",
+        "final_title": "Keep every one.",
+        "final_body": "Your complete collection includes all eight plushes for $160, with free U.S. shipping.",
+        "point_1_title": "All eight included",
+        "point_1_body": "You get eight separate plushes—one of every pictured design—in one complete set.",
+        "point_2_title": "Your everyday favorites",
+        "point_2_body": "Put them where you’ll see them: on a shelf, beside your pillow or keeping your desk company.",
+        "point_3_title": "Keep changing your mind",
+        "point_3_body": "Give a different one the best spot tomorrow. When the whole set is yours, there’s no wrong favorite."
+      }
+    }
+  },
+  "order": ["main"]
+}

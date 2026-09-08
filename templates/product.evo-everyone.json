@@ -1,0 +1,36 @@
+{
+  "layout": "evolution-creative",
+  "sections": {
+    "main": {
+      "type": "evolution-creative",
+      "settings": {
+        "journey": "everyone",
+        "family": "collection",
+        "concept_id": "PR02",
+        "asset_id": "creative-pr02",
+        "palette": "lavender",
+        "hero_alt": "Eight colorful hooded plushes together in a red wagon in front of a claw machine, in a styled arcade scene.",
+        "hero_title": "Nobody gets left behind.",
+        "hero_body": "No picking one and wishing you’d chosen another. All eight pictured plushes are included for $160, with free U.S. shipping.",
+        "offer_note": "",
+        "purchase_label": "Get all 8",
+        "story_eyebrow": "The complete collection",
+        "story_title": "Meet every one you’re taking home.",
+        "story_body": "The one that caught your eye. The one you noticed next. And the six you weren’t about to leave behind. Your set includes one plush in each of the eight pictured designs.",
+        "size_title": "A real look at their size.",
+        "size_body": "These in-hand photos show the actual plushes, so you can picture how they’ll fit on your shelf or beside you.",
+        "proof_title": "Every little face, up close.",
+        "proof_body": "Take a closer look at the colorful hoods, stitched smiles and little brown paws. Every pictured plush design is part of your set.",
+        "final_title": "All eight are coming home.",
+        "final_body": "One complete set. No choosing favorites. $160 for all eight plushes, with free U.S. shipping.",
+        "point_1_title": "One of every design",
+        "point_1_body": "Your collection includes eight separate plushes, with every pictured hood design represented.",
+        "point_2_title": "Nothing to choose between",
+        "point_2_body": "There’s no single-design selection to make. The whole group comes together in one set.",
+        "point_3_title": "Find their spots",
+        "point_3_body": "Line them up together or spread them around your space. Picking a favorite is optional."
+      }
+    }
+  },
+  "order": ["main"]
+}

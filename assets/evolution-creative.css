@@ -1,0 +1,23 @@
+/* Isolated creative-test styling; the incumbent keeps its original layout. */
+.ec-creative .ec-hero-media { position:relative; }
+.ec-creative .ec-scene-label { margin:10px 4px 0; font-size:12px; line-height:1.5; color:#514d56; }
+.ec-creative .ec-offer-note { padding:12px 14px; border:1px solid #c7b7a4; background:#fff9ee; color:#3b3029; font-size:14px; line-height:1.55; margin:16px 0; }
+.ec-creative .ec-hero-copy h1 { text-wrap:balance; }
+.ec-creative .ec-lede { max-width:35em; }
+.ec-creative .ec-story { border-block:1px solid rgba(35,32,46,.12); }
+.ec-family-permission .ec-story { background:#fff0b8; }
+.ec-family-permission .ec-points { counter-reset:ec-point; }
+.ec-family-permission .ec-points li { border-left:3px solid #c47729; padding-left:18px; }
+.ec-family-gift .ec-story { background:#f7e0d6; }
+.ec-family-gift .ec-story-intro h2 { font-family:Georgia,serif; font-weight:500; letter-spacing:-.035em; }
+.ec-family-gift .ec-story-grid { gap:48px; }
+.ec-palette-navy .ec-hero { background:#e8edf2; }
+.ec-palette-navy .ec-hero-copy h1 { color:#122633; }
+.ec-creative .ec-reviews { margin-top:0; }
+@media(max-width:749px) {
+ .ec-creative .ec-hero { padding-top:16px; }
+ .ec-creative .ec-hero-media { max-width:520px; margin-inline:auto; }
+ .ec-creative .ec-hero-copy { padding-top:18px; }
+ .ec-creative .ec-story-grid { gap:22px; }
+ .ec-creative .ec-scene-label { margin-top:6px; }
+}
