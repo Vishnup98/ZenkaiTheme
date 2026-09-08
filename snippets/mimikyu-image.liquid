@@ -1,0 +1,9 @@
+{%- assign image_loading = loading | default: 'lazy' -%}
+{%- assign image_sizes = sizes | default: '(min-width: 900px) 50vw, 100vw' -%}
+{%- if photo != blank -%}
+  <img src="{{ photo | image_url: width: 1440 }}" srcset="{{ photo | image_url: width: 480 }} 480w, {{ photo | image_url: width: 960 }} 960w, {{ photo | image_url: width: 1440 }} 1440w" sizes="{{ image_sizes }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ alt | escape }}" loading="{{ image_loading }}" {% if image_loading == 'eager' %}fetchpriority="high"{% endif %}>
+{%- elsif fallback != blank -%}
+  {%- assign small_asset = fallback | append: '-480.webp' -%}
+  {%- assign large_asset = fallback | append: '-960.webp' -%}
+  <img src="{{ large_asset | asset_url }}" srcset="{{ small_asset | asset_url }} 480w, {{ large_asset | asset_url }} 960w" sizes="{{ image_sizes }}" width="960" height="960" alt="{{ alt | escape }}" loading="{{ image_loading }}" {% if image_loading == 'eager' %}fetchpriority="high"{% endif %}>
+{%- endif -%}

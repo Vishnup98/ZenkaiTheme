@@ -1,0 +1,52 @@
+{
+  "layout": "mimikyu-collection",
+  "sections": {
+    "main": {
+      "type": "mimikyu-collection",
+      "settings": {
+        "hero_title": "You’ll want every little impostor.",
+        "purchase_ready": false,
+        "show_placeholders": false,
+        "shipping_heading": "Tracked delivery",
+        "shipping_summary": "Rates at checkout"
+      },
+      "blocks": {
+        "photo_1": {
+          "type": "customer_photo",
+          "settings": {}
+        },
+        "photo_2": {
+          "type": "customer_photo",
+          "settings": {}
+        },
+        "photo_3": {
+          "type": "customer_photo",
+          "settings": {}
+        },
+        "review_1": {
+          "type": "testimonial",
+          "settings": {}
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {}
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
