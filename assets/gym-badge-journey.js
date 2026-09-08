@@ -120,7 +120,7 @@
     }
   }
 
-  function setBusy(isBusy) {
+  function setBusy(isBusy, activeButton) {
     buttons.forEach(function (button) {
       if (!button.dataset.gbUseOriginalMarkup) {
         button.dataset.gbUseOriginalMarkup = button.innerHTML;
@@ -130,7 +130,7 @@
       button.disabled = isBusy || button.dataset.gbUseOriginalDisabled === 'true';
       button.classList.toggle('is-busy', isBusy);
       button.setAttribute('aria-busy', isBusy ? 'true' : 'false');
-      if (isBusy) button.textContent = 'Opening secure checkout…';
+      if (isBusy && button === activeButton) button.textContent = 'Opening secure checkout…';
       else button.innerHTML = button.dataset.gbUseOriginalMarkup;
     });
   }
@@ -214,8 +214,10 @@
     }
 
     checkoutInFlight = true;
-    setBusy(true);
-    setStatus('Opening secure checkout…', 'info');
+    setBusy(true, button);
+    // The clicked CTA supplies progress feedback. Reserve the floating status
+    // message for actionable errors instead of duplicating the busy label.
+    setStatus('', 'info');
     pushEvent('gym_badge_use_state_checkout_start', { cta_placement: placement });
 
     var attributionNeedsRetry = false;
