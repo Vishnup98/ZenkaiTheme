@@ -1,19 +1,19 @@
 {%- assign v = product.selected_or_first_available_variant -%}
 {%- assign form_id = 'MimikyuCollectionForm-' | append: section.id -%}
 {%- assign ready = false -%}
-{%- if product.handle == 'mimikyu-evolution-complete-9-plush-collector-set' and section.settings.purchase_ready and v.available and v.price > 0 -%}{%- assign ready = true -%}{%- endif -%}
+{%- if product.id == 9438355751017 and section.settings.purchase_ready and v.available and v.price > 0 -%}{%- assign ready = true -%}{%- endif -%}
 {%- assign show_placeholders = section.settings.show_placeholders -%}
 {%- if request.design_mode -%}{%- assign show_placeholders = true -%}{%- endif -%}
 {%- assign per_plush = v.price | divided_by: 9.0 -%}
 <div class="ec-page ec-palette-cream mc-page" data-ec-page data-journey="mimikyu-collection">
   <section class="ec-hero ec-shell" aria-labelledby="mc-title-{{ section.id }}">
     <figure class="ec-hero-media">
-      {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Mimikyu-style evolution plush collection', loading: 'eager' %}
+      {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
     </figure>
     <div class="ec-hero-copy">
       <p class="ec-eyebrow">Little Impostors · complete collection</p>
       <h1 id="mc-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
-      <p class="ec-lede">Nine familiar faces. One mischievous little twist. Bring home the whole Mimikyu-style evolution collection, with every design included.</p>
+      <p class="ec-lede">Nine colorful faces. One mischievous little twist. Bring home the whole Little Impostors collection, with every design included.</p>
       <div class="ec-offer">
         <div class="ec-price"><strong>{% if v.price > 0 %}{{ v.price | money }}{% else %}Coming soon{% endif %}</strong><span><small>Complete 9-plush set</small>{% if v.price > 0 %}9 plushes <i aria-hidden="true">·</i> {{ per_plush | money }} each{% else %}One of every pictured design{% endif %}</span></div>
         <div class="ec-palette-bar"><div class="ec-swatches" aria-hidden="true"><span style="--swatch:#cca26d"></span><span style="--swatch:#8ed4db"></span><span style="--swatch:#efd344"></span><span style="--swatch:#ed8c3e"></span><span style="--swatch:#bba2d7"></span><span style="--swatch:#35373c"></span><span style="--swatch:#e6e6ba"></span><span style="--swatch:#91d2e7"></span><span style="--swatch:#eda6c7"></span></div><span>All nine designs included</span></div>
@@ -32,9 +32,9 @@
   </section>
 
   <section class="ec-included ec-shell" aria-labelledby="mc-included-{{ section.id }}">
-    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">Meet your nine</p><h2 id="mc-included-{{ section.id }}">Every disguise. All yours.</h2><p>Eevee and all eight evolutions, each with a scribbled little face and its own unmistakable colors. You get one of every plush shown.</p></div><span class="ec-count-stamp"><strong>9</strong><span>all yours</span></span></div>
+    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">Meet your nine</p><h2 id="mc-included-{{ section.id }}">Every disguise. All yours.</h2><p>Nine colorful designs, each with a scribbled little face and its own unmistakable details. You get one of every plush shown.</p></div><span class="ec-count-stamp"><strong>9</strong><span>all yours</span></span></div>
     {%- assign names = 'collection,eevee,vaporeon,jolteon,flareon,espeon,umbreon,leafeon,glaceon,sylveon' | split: ',' -%}
-    {%- assign labels = 'The complete nine-plush collection|Eevee — the warm tan one|Vaporeon — the aqua one|Jolteon — the bright yellow one|Flareon — the orange one|Espeon — the lavender one|Umbreon — the charcoal one|Leafeon — the pale leaf-eared one|Glaceon — the icy blue one|Sylveon — the pink ribbon one' | split: '|' -%}
+    {%- assign labels = 'The complete nine-plush collection|Warm tan|Aqua|Bright yellow|Orange|Lavender|Charcoal|Leaf-eared cream|Icy blue|Pink ribbon' | split: '|' -%}
     <div class="ec-gallery ec-portraits" id="mc-portraits-{{ section.id }}" data-ec-gallery data-ec-portrait-mode="group" role="region" aria-roledescription="carousel" aria-label="All nine included designs" tabindex="0">
       {% for name in names %}
         {% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
@@ -54,17 +54,17 @@
 
   <section class="ec-story"><div class="ec-shell mc-story-grid">
     <div><p class="ec-eyebrow">Make room for a little mischief</p><h2>Your shelf has a new little gang.</h2><p>Line up the whole collection. Put your first favorite in the middle. Come back tomorrow and give someone else the best spot.</p><ol class="ec-points"><li><h3>Every favorite, together</h3><p>No choosing a color or leaving one behind. The full nine-piece lineup comes as one set.</p></li><li><h3>Small faces. Lots of character.</h3><p>Those wobbly smiles, pink cheeks and familiar ears make each one a little different.</p></li><li><h3>A gift with nobody missing</h3><p>Give a collector the entire gang—or keep the nine for yourself.</p></li></ol></div>
-    {% if section.settings.shelf_image != blank %}<figure>{% render 'mimikyu-image', photo: section.settings.shelf_image, alt: 'All nine plushes arranged on a collector shelf in a styled scene' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder"><span>03</span><strong>Shelf image</strong><p>mimikyu-shelf.png</p></div>{% endif %}
+    {% if section.settings.shelf_image != blank %}<figure>{% render 'mimikyu-image', photo: section.settings.shelf_image, alt: 'All nine plushes arranged on a collector shelf in a styled scene' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder"><span>03</span><strong>Shelf image</strong><p>little-impostors-shelf.png</p></div>{% endif %}
   </div></section>
 
   <section class="ec-size ec-shell"><div class="ec-size-copy"><p class="ec-eyebrow">A little closer</p><h2>Little enough to keep close.</h2><p>A colorful companion for your desk, reading corner or collection shelf. Each design has its own ear shape and loose, stitched silhouette.</p><p class="ec-size-note">Listed by the supplier as approximately 8 inches (20 cm). Exact dimensions vary by design.</p><ul class="ec-size-facts"><li><strong>9</strong><span>separate plushes</span></li><li><strong>~8 in</strong><span>supplier-listed size</span></li><li><strong>Every design</strong><span>included together</span></li></ul></div>
     <div class="ec-size-photos">
       {% assign handhelds = 'handheld_espeon,handheld_sylveon' | split: ',' %}{% for name in handhelds %}{% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
-      {% if photo != blank %}<figure>{% render 'mimikyu-image', photo: photo, alt: 'A Mimikyu-style plush held in a hand in a styled product image', sizes: '(min-width: 900px) 25vw, 45vw' %}<figcaption>Styled product image</figcaption></figure>{% elsif show_placeholders %}<div class="mc-image-placeholder mc-image-placeholder--portrait"><strong>In-hand image</strong><p>mimikyu-{{ name | replace: '_', '-' }}.png</p></div>{% endif %}{% endfor %}
+      {% if photo != blank %}<figure>{% render 'mimikyu-image', photo: photo, alt: 'A Little Impostors plush held in a hand', sizes: '(min-width: 900px) 25vw, 45vw' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder mc-image-placeholder--portrait"><strong>In-hand image</strong><p>Reserved for your manually supplied photo</p></div>{% endif %}{% endfor %}
     </div>
   </section>
 
-  {% if section.settings.detail_image != blank or show_placeholders %}<section class="ec-proof ec-shell"><div class="ec-proof-lead"><figure class="ec-detail-photo">{% if section.settings.detail_image != blank %}{% render 'mimikyu-image', photo: section.settings.detail_image, alt: 'Close-up of the charcoal plush with its scribbled eyes, stitched zigzag mouth and yellow details' %}{% else %}<div class="mc-image-placeholder"><strong>Face and stitching detail</strong><p>mimikyu-detail.png</p></div>{% endif %}</figure><div class="ec-proof-copy"><p class="ec-eyebrow">The tiny details</p><h2>That wonderfully wonky little face.</h2><p>The scribbled eyes. The zigzag smile. The pink cheeks. Take a closer look at the little details that give the collection its character.</p></div></div></section>{% endif %}
+  {% if section.settings.detail_image != blank or show_placeholders %}<section class="ec-proof ec-shell"><div class="ec-proof-lead"><figure class="ec-detail-photo">{% if section.settings.detail_image != blank %}{% render 'mimikyu-image', photo: section.settings.detail_image, alt: 'Close-up of the charcoal plush with its scribbled eyes, stitched zigzag mouth and yellow details' %}{% else %}<div class="mc-image-placeholder"><strong>Face and stitching detail</strong><p>little-impostors-detail.png</p></div>{% endif %}</figure><div class="ec-proof-copy"><p class="ec-eyebrow">The tiny details</p><h2>That wonderfully wonky little face.</h2><p>The scribbled eyes. The zigzag smile. The pink cheeks. Take a closer look at the little details that give the collection its character.</p></div></div></section>{% endif %}
 
   {%- assign customer_photos = section.blocks | where: 'type', 'customer_photo' -%}
   {%- assign testimonials = section.blocks | where: 'type', 'testimonial' -%}
@@ -78,21 +78,21 @@
   </div></div></section>{% endif %}
 
   <section class="ec-faq ec-shell" aria-labelledby="mc-faq-{{ section.id }}"><h2 id="mc-faq-{{ section.id }}">Before you make them yours.</h2>
-    <details><summary>Does this include all nine plushes?</summary><p>Yes. This is one complete set of nine separate plushes: Eevee, Vaporeon, Jolteon, Flareon, Espeon, Umbreon, Leafeon, Glaceon and Sylveon in the Mimikyu-style designs pictured. Display props and gift wrapping are not included.</p></details>
+    <details><summary>Does this include all nine plushes?</summary><p>Yes. This is one complete set of nine separate plushes: warm tan, aqua, bright yellow, orange, lavender, charcoal, leaf-eared cream, icy blue and pink ribbon. You receive one of every pictured design. Display props and gift wrapping are not included.</p></details>
     <details><summary>Can I choose individual colors?</summary><p>This offer is for the full collection. One of every pictured design is included, so there is no color selection to make.</p></details>
-    <details><summary>How big are they?</summary><p>The supplier lists these as approximately 8 inches (20 cm). Dimensions and ear shapes vary by design. The original Evolution Companions eight-piece set is a different product.</p></details>
+    <details><summary>How big are they?</summary><p>The supplier lists these as approximately 8 inches (20 cm). Dimensions and ear shapes vary by design.</p></details>
     <details><summary>When will my set arrive?</summary><p>{{ section.settings.delivery_text | escape }}</p></details>
     <details><summary>How should I care for them?</summary><p>Gently spot clean and allow to air dry. Keep away from heat and open flames. Follow any care instructions supplied with the product.</p></details>
     <details><summary>What if something is wrong with my order?</summary><p>Contact us with your order number and any relevant photos. <a href="/pages/policy">Read the store’s delivery and returns policy.</a></p></details>
   </section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><figure>{% render 'mimikyu-image', photo: section.settings.collection_image, fallback: 'mimikyu-source-lineup', alt: 'All nine Mimikyu-style plush designs included in the complete set' %}</figure><div><p class="ec-eyebrow">Your complete collection</p><h2>Bring all nine home.</h2><p>Every disguise. Every color. One whole little gang to call yours.</p>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id, show_price: true %}<p class="ec-offer-policy">9 separate plushes · One of every design</p></div></div></section>
+  <section class="ec-final"><div class="ec-shell ec-final-grid"><figure>{% render 'mimikyu-image', photo: section.settings.collection_image, fallback: 'mimikyu-source-lineup', alt: 'All nine Little Impostors plush designs included in the complete set' %}</figure><div><p class="ec-eyebrow">Your complete collection</p><h2>Bring all nine home.</h2><p>Every disguise. Every color. One whole little gang to call yours.</p>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id, show_price: true %}<p class="ec-offer-policy">9 separate plushes · One of every design</p></div></div></section>
   {% if ready %}<aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete collection" hidden><div><strong>{{ v.price | money }}</strong><small>all 9 plushes</small></div>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id %}</aside>{% endif %}
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged product photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0"><img width="960" height="960" alt="Enlarged collection photo"></div></dialog>
 </div>
 {% schema %}
 {
-  "name": "Mimikyu nine-plush set",
+  "name": "Little Impostors set",
   "settings": [
     {"type":"text","id":"hero_title","label":"Headline","default":"You’ll want every little impostor."},
     {"type":"checkbox","id":"purchase_ready","label":"Enable purchase buttons","default":false,"info":"Enable after price, fulfillment and delivery are confirmed."},
@@ -101,19 +101,20 @@
     {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Rates at checkout"},
     {"type":"textarea","id":"delivery_text","label":"Delivery details","default":"Shipping options and charges are shown at checkout. Tracking is provided after dispatch. This collection is direct-shipped and may arrive separately from other items in your order. Allow extra time if you are buying for a specific date."},
     {"type":"header","content":"Generated product imagery"},
-    {"type":"image_picker","id":"hero_image","label":"Hero — mimikyu-hero.png"},
-    {"type":"image_picker","id":"collection_image","label":"Collection — mimikyu-collection.png"},
-    {"type":"image_picker","id":"shelf_image","label":"Shelf — mimikyu-shelf.png"},
-    {"type":"image_picker","id":"eevee_image","label":"Eevee portrait"},
-    {"type":"image_picker","id":"vaporeon_image","label":"Vaporeon portrait"},
-    {"type":"image_picker","id":"jolteon_image","label":"Jolteon portrait"},
-    {"type":"image_picker","id":"flareon_image","label":"Flareon portrait"},
-    {"type":"image_picker","id":"espeon_image","label":"Espeon portrait"},
-    {"type":"image_picker","id":"umbreon_image","label":"Umbreon portrait"},
-    {"type":"image_picker","id":"leafeon_image","label":"Leafeon portrait"},
-    {"type":"image_picker","id":"glaceon_image","label":"Glaceon portrait"},
-    {"type":"image_picker","id":"sylveon_image","label":"Sylveon portrait"},
+    {"type":"image_picker","id":"hero_image","label":"Hero — little-impostors-hero.png"},
+    {"type":"image_picker","id":"collection_image","label":"Collection — little-impostors-collection.png"},
+    {"type":"image_picker","id":"shelf_image","label":"Shelf — little-impostors-shelf.png"},
+    {"type":"image_picker","id":"eevee_image","label":"Warm tan portrait"},
+    {"type":"image_picker","id":"vaporeon_image","label":"Aqua portrait"},
+    {"type":"image_picker","id":"jolteon_image","label":"Bright yellow portrait"},
+    {"type":"image_picker","id":"flareon_image","label":"Orange portrait"},
+    {"type":"image_picker","id":"espeon_image","label":"Lavender portrait"},
+    {"type":"image_picker","id":"umbreon_image","label":"Charcoal portrait"},
+    {"type":"image_picker","id":"leafeon_image","label":"Leaf-eared cream portrait"},
+    {"type":"image_picker","id":"glaceon_image","label":"Icy blue portrait"},
+    {"type":"image_picker","id":"sylveon_image","label":"Pink ribbon portrait"},
     {"type":"image_picker","id":"detail_image","label":"Face and stitching detail"},
+    {"type":"header","content":"Manually supplied in-hand photos"},
     {"type":"image_picker","id":"handheld_espeon_image","label":"Lavender in-hand image"},
     {"type":"image_picker","id":"handheld_sylveon_image","label":"Pink ribbon in-hand image"}
   ],
@@ -121,6 +122,6 @@
     {"type":"customer_photo","name":"Customer photo","limit":6,"settings":[{"type":"image_picker","id":"image","label":"Real customer photo"},{"type":"text","id":"caption","label":"Caption and image description"}]},
     {"type":"testimonial","name":"Customer testimonial","limit":6,"settings":[{"type":"textarea","id":"quote","label":"Exact customer quote"},{"type":"text","id":"attribution","label":"Customer attribution"}]}
   ],
-  "presets": [{"name":"Mimikyu nine-plush set"}]
+  "presets": [{"name":"Little Impostors set"}]
 }
 {% endschema %}
