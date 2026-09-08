@@ -4,7 +4,8 @@
     "main": {
       "type": "mimikyu-collection",
       "settings": {
-        "hero_title": "You’ll want every little impostor.",
+        "hero_title": "Little faces.",
+        "hero_title_accent": "Big mischief.",
         "purchase_ready": true,
         "show_placeholders": false,
         "shipping_heading": "Free U.S. shipping",

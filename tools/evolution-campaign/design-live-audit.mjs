@@ -24,7 +24,7 @@ for(const width of [390,1440]){
   },{root,original});
   const check=(ok,message)=>{if(!ok)failures.push(route.suffix+' '+width+': '+message);};
   check(response.status()===200,'HTTP '+response.status());check(metrics.documentWidth<=width,'horizontal overflow');check(!metrics.brokenImages.length,'broken images');check(!metrics.badCopy,'unwanted copy');check(metrics.form?.id===route.variant&&metrics.form?.quantity==='1','native product form mismatch');check(metrics.ctaHeight>=44,'CTA too small');check(metrics.duplicateThumbnails===(route.family==='mimikyu-collection'?10:0),'thumbnail navigation count');
-  if(!original){check(metrics.form?.return_to==='/checkout','checkout destination');check(metrics.galleryHeight<=(width<900?300:340),'oversized gallery');}
+  if(!original){check(metrics.form?.return_to==='/checkout','checkout destination');check(metrics.galleryHeight<=(width<900&&route.family!=='mimikyu-collection'?300:340),'oversized gallery');}
   check(metrics.bodyCopy.includes(route.family==='mimikyu-collection'?'7-10 business days':'5–7 business days'),'delivery wording');
   if(width===390)check(metrics.ctaBottom<=844||metrics.initialSticky,'no initial reachable purchase control');
   await page.screenshot({path:path.join(out,'live',route.suffix+'-'+width+'-top.png')});

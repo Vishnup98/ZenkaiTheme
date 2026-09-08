@@ -28,6 +28,7 @@
         return (
           !button.disabled &&
           !button.closest("[hidden]") &&
+          !button.closest("[data-ec-sticky]") &&
           style.visibility !== "hidden" &&
           style.display !== "none" &&
           rect.height >= 40 &&
@@ -232,7 +233,10 @@
       }
       if (controls) controls.hidden = false;
       if (typeof ResizeObserver === "function") {
-        galleryResize = new ResizeObserver(requestGalleryUpdate);
+        galleryResize = new ResizeObserver(function () {
+          activeThumb = -1;
+          requestGalleryUpdate();
+        });
         galleryResize.observe(gallery);
         slides.forEach(function (slide) { galleryResize.observe(slide); });
       }
@@ -339,7 +343,7 @@
           photo.width = button.querySelector("img").getAttribute("width");
           photo.height = button.querySelector("img").getAttribute("height");
           dialog.showModal();
-          requestStickyUpdate();
+          updateSticky();
         });
       });
       dialog

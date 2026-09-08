@@ -11,6 +11,7 @@ const engine=new Liquid({root:path.join(root,'snippets'),extname:'.liquid',stric
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 engine.registerFilter('placeholder_svg_tag',()=>'<svg></svg>');
 engine.registerFilter('asset_url',file=>'/assets/'+file);
+engine.registerFilter('preload_tag',url=>'<link rel="preload" href="'+escape(url)+'" as="font" type="font/woff2" crossorigin="anonymous">');
 engine.registerFilter('stylesheet_tag',url=>'<link rel="stylesheet" href="'+escape(url)+'">');
 engine.registerFilter('money',value=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(value)/100));
 engine.registerFilter('money_without_trailing_zeros',value=>'$'+Number(value)/100);

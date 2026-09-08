@@ -9,18 +9,18 @@
   <section class="ec-hero ec-shell" aria-labelledby="mc-title-{{ section.id }}">
     <figure class="ec-hero-media">
       {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
+      <span class="mc-set-stamp" aria-hidden="true"><strong>9</strong><span>little impostors.<br>one happy shelf.</span></span>
     </figure>
     <div class="ec-hero-copy">
+      <p class="ec-eyebrow mc-product-kicker">Little Impostors <span>9-plush collector set</span></p>
+      <h1 id="mc-title-{{ section.id }}">{{ section.settings.hero_title | escape }}<span class="mc-title-accent">{{ section.settings.hero_title_accent | escape }}<svg viewBox="0 0 340 18" fill="none" aria-hidden="true" focusable="false"><path d="M3 9C64 1 102 16 163 8S264 3 337 9" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></span></h1>
+      <p class="ec-lede">Nine soft little troublemakers. One of every design. All yours.</p>
       <div class="mc-hero-trust" role="group" aria-label="Zenkai store-wide ratings and orders">
         <div class="mc-hero-rating"><span class="mc-hero-stars" role="img" aria-label="Rated 4.8 out of 5">★★★★★</span><span><strong>4.8/5</strong><small>95 Shop ratings</small></span></div>
         <div class="mc-hero-orders"><strong>2,900+</strong><small>Zenkai orders shipped<br>and counting</small></div>
       </div>
-      <p class="ec-eyebrow">Little Impostors · complete collection</p>
-      <h1 id="mc-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
-      <p class="ec-lede">Nine colorful faces with a mischievous little twist. One of every design, all in your set.</p>
       <div class="ec-offer">
         <div class="ec-price"><strong>{% if v.price > 0 %}{{ v.price | money }}{% else %}Coming soon{% endif %}</strong><span><small>Complete 9-plush set</small>{% if v.price > 0 %}9 plushes <i aria-hidden="true">·</i> {{ per_plush | money }} each{% else %}One of every pictured design{% endif %}</span></div>
-        <div class="ec-palette-bar"><div class="ec-swatches" aria-hidden="true"><span style="--swatch:#cca26d"></span><span style="--swatch:#8ed4db"></span><span style="--swatch:#efd344"></span><span style="--swatch:#ed8c3e"></span><span style="--swatch:#bba2d7"></span><span style="--swatch:#35373c"></span><span style="--swatch:#e6e6ba"></span><span style="--swatch:#91d2e7"></span><span style="--swatch:#eda6c7"></span></div><span>All nine designs included</span></div>
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -30,13 +30,12 @@
           <p class="ec-shipping"><strong>{{ section.settings.shipping_heading }}</strong><span>{{ section.settings.shipping_summary }}</span></p>
           {% if ready %}{{ form | payment_button }}{% endif %}
         {%- endform -%}
-        <p class="ec-offer-policy"><span>Secure checkout with Shopify</span><a href="/pages/policy">Delivery &amp; returns</a></p>
       </div>
     </div>
   </section>
 
   <section class="ec-included ec-shell" aria-labelledby="mc-included-{{ section.id }}">
-    <div class="ec-included-heading"><div class="ec-section-heading"><h2 id="mc-included-{{ section.id }}">Meet your nine.</h2><p>Nine separate plushes. Every little disguise included.</p></div></div>
+    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">The whole little gang</p><h2 id="mc-included-{{ section.id }}">Meet your nine<span class="mc-dot">.</span></h2></div><p class="mc-gallery-intro">Every one included.<br> Picking a favorite is optional.</p></div>
     {%- assign names = 'collection,eevee,vaporeon,jolteon,flareon,espeon,umbreon,leafeon,glaceon,sylveon' | split: ',' -%}
     {%- assign labels = 'The complete nine-plush collection|Warm tan|Aqua|Bright yellow|Orange|Lavender|Charcoal|Leaf-eared cream|Icy blue|Pink ribbon' | split: '|' -%}
     <div class="ec-collection-media"><div class="ec-gallery-stage">
@@ -45,7 +44,7 @@
         {% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
         {% assign fallback = 'mimikyu-source-' | append: name %}{% if forloop.first %}{% assign fallback = 'mimikyu-source-lineup' %}{% endif %}
         {% assign full_asset = fallback | append: '-960.webp' %}{% assign zoom_url = full_asset | asset_url %}{% if photo != blank %}{% assign zoom_url = photo | image_url: width: 1800 %}{% endif %}
-        <figure class="ec-portrait"><button type="button" data-ec-zoom="{{ zoom_url }}" aria-label="Enlarge {{ labels[forloop.index0] | escape }}">{% render 'mimikyu-image', photo: photo, fallback: fallback, alt: labels[forloop.index0], sizes: '(max-width: 749px) 88vw, 860px' %}</button></figure>
+        <figure class="ec-portrait"><button type="button" data-ec-zoom="{{ zoom_url }}" aria-label="Enlarge {{ labels[forloop.index0] | escape }}">{% render 'mimikyu-image', photo: photo, fallback: fallback, alt: labels[forloop.index0], sizes: '(min-width: 1100px) 380px, (min-width: 680px) 46vw, 84vw' %}</button></figure>
       {% endfor %}
     </div>
     <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous collection photo">←</button><span data-ec-gallery-position aria-live="polite">1 of 10</span><button type="button" data-ec-gallery-next aria-label="Next collection photo">→</button></div></div>
@@ -62,15 +61,16 @@
   </section>
 
   <section class="ec-story"><div class="ec-shell mc-story-grid">
-    <div><p class="ec-eyebrow">Make room for a little mischief</p><h2>Your shelf has a new little gang.</h2><p>Line up the whole collection. Put your first favorite in the middle. Come back tomorrow and give someone else the best spot.</p></div>
+    <div><p class="ec-eyebrow">Your shelf, but cuter</p><h2>Small gang.<br>Big personality.</h2><p>Claim a shelf. Brighten your desk. Let the whole gang make itself at home.</p><span class="mc-story-note"><svg viewBox="0 0 72 44" fill="none" aria-hidden="true" focusable="false"><path d="M5 8c10 28 32 29 55 10M47 14l16 1-5 15" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Good luck choosing a favorite.</span></div>
     {% if section.settings.shelf_image != blank %}<figure>{% render 'mimikyu-image', photo: section.settings.shelf_image, alt: 'All nine plushes arranged on a collector shelf in a styled scene' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder"><span>03</span><strong>Shelf image</strong><p>little-impostors-shelf.png</p></div>{% endif %}
   </div></section>
 
+  <div class="mc-details-grid ec-shell">
   {%- assign has_in_hand_photos = false -%}
   {%- if section.settings.handheld_espeon_image != blank or section.settings.handheld_sylveon_image != blank -%}{%- assign has_in_hand_photos = true -%}{%- endif -%}
   {%- assign has_size_media = has_in_hand_photos -%}
   {%- if section.settings.size_image != blank -%}{%- assign has_size_media = true -%}{%- endif -%}
-  <section class="ec-size ec-shell{% unless has_size_media or show_placeholders %} mc-size-text-only{% endunless %}"><div class="ec-size-copy"><p class="ec-eyebrow">A little closer</p><h2>Little enough to keep close.</h2><p>Keep a favorite beside your monitor, on the nightstand, or within reach of your reading spot.</p><p class="ec-dimensions"><strong>About 8 inches tall</strong><span>Approximately 20 cm</span></p></div>
+  <section class="ec-size{% unless has_size_media or show_placeholders %} mc-size-text-only{% endunless %}"><div class="ec-size-copy"><p class="ec-eyebrow">Made for your little corners</p><h2>Little enough<br>to keep close.</h2><p>A desk buddy. A nightstand regular. A little company for your reading spot.</p><p class="ec-dimensions"><strong>About 8 inches tall</strong><span>Approximately 20 cm</span></p></div>
     {% if section.settings.size_image != blank %}<figure class="mc-size-guide">{% render 'mimikyu-image', photo: section.settings.size_image, alt: 'Little Impostors plush with a height guide showing 8 inches', sizes: '(min-width: 900px) 55vw, 92vw' %}</figure>
     {% elsif has_in_hand_photos or show_placeholders %}<div class="ec-size-photos">
       {% assign handhelds = 'handheld_espeon,handheld_sylveon' | split: ',' %}{% for name in handhelds %}{% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
@@ -78,29 +78,32 @@
     </div>{% endif %}
   </section>
 
-  {% if section.settings.detail_image != blank or show_placeholders %}<section class="ec-proof ec-shell"><div class="ec-proof-lead"><figure class="ec-detail-photo">{% if section.settings.detail_image != blank %}{% render 'mimikyu-image', photo: section.settings.detail_image, alt: 'Close-up of the charcoal plush with its scribbled eyes, stitched zigzag mouth and yellow details' %}{% else %}<div class="mc-image-placeholder"><strong>Face and stitching detail</strong><p>little-impostors-detail.png</p></div>{% endif %}</figure><div class="ec-proof-copy"><p class="ec-eyebrow">The tiny details</p><h2>That wonderfully wonky little face.</h2><p>The scribbled eyes. The zigzag smile. The pink cheeks. Take a closer look at the little details that give the collection its character.</p></div></div></section>{% endif %}
+  {% if section.settings.detail_image != blank or show_placeholders %}<section class="ec-proof"><div class="ec-proof-lead"><figure class="ec-detail-photo">{% if section.settings.detail_image != blank %}{% render 'mimikyu-image', photo: section.settings.detail_image, alt: 'Close-up of the charcoal plush with its scribbled eyes, stitched zigzag mouth and yellow details' %}{% else %}<div class="mc-image-placeholder"><strong>Face and stitching detail</strong><p>little-impostors-detail.png</p></div>{% endif %}</figure><div class="ec-proof-copy"><p class="ec-eyebrow">Suspiciously adorable</p><h2>That face.<br>That little face.</h2><p>Scribbled eyes. A wonky smile. Pink cheeks. A whole lot of charm in the tiniest details.</p><span class="mc-face-doodle" aria-hidden="true"><svg viewBox="0 0 76 30" fill="none" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div></section>{% endif %}
+  </div>
 
   {%- assign customer_photos = section.blocks | where: 'type', 'customer_photo' -%}
   {%- assign testimonials = section.blocks | where: 'type', 'testimonial' -%}
   {%- assign has_photos = false -%}{%- for block in customer_photos -%}{%- if block.settings.image != blank -%}{%- assign has_photos = true -%}{%- endif -%}{%- endfor -%}
-  {% if has_photos or show_placeholders %}<section class="ec-shell mc-customer-section"><div class="ec-section-heading"><p class="ec-eyebrow">At home with collectors</p><h2>Your collection, in real life.</h2></div><div class="mc-customer-grid ec-gallery" data-ec-gallery role="region" aria-label="Customer photos" tabindex="0">
+  <div class="mc-community">
+  {% if has_photos or show_placeholders %}<section class="ec-shell mc-customer-section"><div class="ec-section-heading"><p class="ec-eyebrow">At home with collectors</p><h2>Caught being cute.</h2><p>Real photos. Very real attachment.</p></div><div class="mc-customer-grid ec-gallery" data-ec-gallery role="region" aria-label="Customer photos" tabindex="0">
     {% for block in customer_photos %}{% if block.settings.image != blank %}<figure {{ block.shopify_attributes }}><button type="button" data-ec-zoom="{{ block.settings.image | image_url: width: 1800 }}" aria-label="Enlarge {{ block.settings.caption | escape }}">{% render 'mimikyu-image', photo: block.settings.image, alt: block.settings.caption, sizes: '(min-width: 900px) 240px, 65vw' %}</button></figure>{% elsif show_placeholders %}<div class="mc-image-placeholder" {{ block.shopify_attributes }}><strong>Customer photo {{ forloop.index }}</strong><p>Reserved for your real photo</p></div>{% endif %}{% endfor %}
   </div></section>{% endif %}
   {%- assign has_reviews = false -%}{%- for block in testimonials -%}{%- if block.settings.quote != blank -%}{%- assign has_reviews = true -%}{%- endif -%}{%- endfor -%}
-  {% if has_reviews or show_placeholders %}<section class="ec-reviews"><div class="ec-shell"><div class="ec-section-heading"><h2>From fellow collectors.</h2></div><div class="ec-review-grid">
+  {% if has_reviews or show_placeholders %}<section class="ec-reviews" aria-label="From fellow collectors"><div class="ec-shell"><div class="ec-review-grid">
     {% for block in testimonials %}{% if block.settings.quote != blank %}<figure {{ block.shopify_attributes }}><blockquote>{{ block.settings.quote | escape }}</blockquote>{% if block.settings.attribution != blank %}<figcaption>{{ block.settings.attribution | escape }}</figcaption>{% endif %}</figure>{% elsif show_placeholders %}<figure class="mc-review-placeholder" {{ block.shopify_attributes }}><p>Testimonial {{ forloop.index }}</p><figcaption>Reserved for a real customer quote</figcaption></figure>{% endif %}{% endfor %}
   </div></div></section>{% endif %}
 
-  <section class="ec-faq ec-shell" aria-labelledby="mc-faq-{{ section.id }}"><h2 id="mc-faq-{{ section.id }}">Before you make them yours.</h2>
+  </div>
+  <section class="ec-faq ec-shell" aria-labelledby="mc-faq-{{ section.id }}"><div class="mc-faq-heading"><p class="ec-eyebrow">Curious little questions</p><h2 id="mc-faq-{{ section.id }}">A few<br> little details.</h2></div><div class="mc-faq-list">
     <details><summary>Does this include all nine plushes?</summary><p>Yes. You receive nine separate plushes, one of every pictured design. Display props and gift wrapping are not included.</p></details>
     <details><summary>Can I choose individual colors?</summary><p>This offer is for the full collection. One of every pictured design is included, so there is no color selection to make.</p></details>
     <details><summary>How big are they?</summary><p>Approximately 8 inches (20 cm) tall.</p></details>
     <details><summary>When will my set arrive?</summary><p>{{ section.settings.delivery_text | escape }}</p></details>
     <details><summary>How should I care for them?</summary><p>Gently spot clean and allow to air dry. Keep away from heat and open flames. Follow any care instructions supplied with the product.</p></details>
     <details><summary>What if something is wrong with my order?</summary><p>Contact us with your order number and any relevant photos. <a href="/pages/policy">Read the store’s delivery and returns policy.</a></p></details>
-  </section>
+  </div></section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><figure>{% render 'mimikyu-image', photo: section.settings.collection_image, fallback: 'mimikyu-source-lineup', alt: 'All nine Little Impostors plush designs included in the complete set' %}</figure><div><p class="ec-eyebrow">Your complete collection</p><h2>Bring all nine home.</h2><p>Every disguise. Every color. One whole little gang to call yours.</p>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id, show_price: true %}<p class="ec-offer-policy">9 separate plushes · One of every design</p></div></div></section>
+  <section class="ec-final ec-shell"><div class="ec-final-grid"><figure>{% render 'mimikyu-image', photo: section.settings.collection_image, fallback: 'mimikyu-source-lineup', alt: 'All nine Little Impostors plush designs included in the complete set' %}</figure><div><p class="ec-eyebrow">Nine little reasons to smile</p><h2>Your shelf<br>called dibs.</h2><p>Every color. Every little disguise.<br>The whole gang is coming home with you.</p>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id, show_price: true %}<p class="mc-final-delivery">{{ section.settings.shipping_heading }} · {{ section.settings.shipping_summary }}</p></div></div></section>
   {% if ready %}<aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete collection" hidden><div><strong>{{ v.price | money }}</strong><small>all 9 plushes</small></div>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id %}</aside>{% endif %}
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged product photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0"><img width="960" height="960" alt="Enlarged collection photo"></div></dialog>
 </div>
@@ -108,7 +111,8 @@
 {
   "name": "Little Impostors set",
   "settings": [
-    {"type":"text","id":"hero_title","label":"Headline","default":"You’ll want every little impostor."},
+    {"type":"text","id":"hero_title","label":"Headline","default":"Little faces."},
+    {"type":"text","id":"hero_title_accent","label":"Headline accent","default":"Big mischief."},
     {"type":"checkbox","id":"purchase_ready","label":"Enable purchase buttons","default":false,"info":"Enable after price, fulfillment and delivery are confirmed."},
     {"type":"checkbox","id":"show_placeholders","label":"Show unfilled image and review slots","default":false,"info":"Empty slots always appear in the theme editor. Keep off on the public page."},
     {"type":"text","id":"shipping_heading","label":"Shipping heading","default":"Free U.S. shipping"},
