@@ -70,7 +70,7 @@
   {%- assign testimonials = section.blocks | where: 'type', 'testimonial' -%}
   {%- assign has_photos = false -%}{%- for block in customer_photos -%}{%- if block.settings.image != blank -%}{%- assign has_photos = true -%}{%- endif -%}{%- endfor -%}
   {% if has_photos or show_placeholders %}<section class="ec-shell mc-customer-section"><div class="ec-section-heading"><p class="ec-eyebrow">At home with collectors</p><h2>Your collection, in real life.</h2></div><div class="mc-customer-grid">
-    {% for block in customer_photos %}{% if block.settings.image != blank %}<figure {{ block.shopify_attributes }}>{% render 'mimikyu-image', photo: block.settings.image, alt: block.settings.caption %}{% if block.settings.caption != blank %}<figcaption>{{ block.settings.caption | escape }}</figcaption>{% endif %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder" {{ block.shopify_attributes }}><strong>Customer photo {{ forloop.index }}</strong><p>Reserved for your real photo</p></div>{% endif %}{% endfor %}
+    {% for block in customer_photos %}{% if block.settings.image != blank %}<figure {{ block.shopify_attributes }}>{% render 'mimikyu-image', photo: block.settings.image, alt: block.settings.caption %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder" {{ block.shopify_attributes }}><strong>Customer photo {{ forloop.index }}</strong><p>Reserved for your real photo</p></div>{% endif %}{% endfor %}
   </div></section>{% endif %}
   {%- assign has_reviews = false -%}{%- for block in testimonials -%}{%- if block.settings.quote != blank -%}{%- assign has_reviews = true -%}{%- endif -%}{%- endfor -%}
   {% if has_reviews or show_placeholders %}<section class="ec-reviews"><div class="ec-shell"><div class="ec-section-heading"><h2>From fellow collectors.</h2></div><div class="ec-review-grid">
@@ -119,7 +119,7 @@
     {"type":"image_picker","id":"handheld_sylveon_image","label":"Pink ribbon in-hand image"}
   ],
   "blocks": [
-    {"type":"customer_photo","name":"Customer photo","limit":6,"settings":[{"type":"image_picker","id":"image","label":"Real customer photo"},{"type":"text","id":"caption","label":"Caption and image description"}]},
+    {"type":"customer_photo","name":"Customer photo","limit":6,"settings":[{"type":"image_picker","id":"image","label":"Real customer photo"},{"type":"text","id":"caption","label":"Image description (alt text)"}]},
     {"type":"testimonial","name":"Customer testimonial","limit":6,"settings":[{"type":"textarea","id":"quote","label":"Exact customer quote"},{"type":"text","id":"attribution","label":"Customer attribution"}]}
   ],
   "presets": [{"name":"Little Impostors set"}]
