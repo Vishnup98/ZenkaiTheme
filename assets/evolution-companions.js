@@ -39,8 +39,11 @@
       photoButtons.forEach(function (button) {
         button.addEventListener('click', function () {
           photoOpener = button;
+          var sourcePhoto = button.querySelector('img');
+          enlargedImage.width = sourcePhoto.naturalWidth || Number(sourcePhoto.getAttribute('width')) || 1200;
+          enlargedImage.height = sourcePhoto.naturalHeight || Number(sourcePhoto.getAttribute('height')) || 1200;
           enlargedImage.src = button.dataset.evoPlushZoom;
-          enlargedImage.alt = button.querySelector('img').alt;
+          enlargedImage.alt = sourcePhoto.alt;
           previousBodyOverflow = document.body.style.overflow;
           document.body.style.overflow = 'hidden';
           photoDialog.showModal();
@@ -61,6 +64,7 @@
     }
     if (photoRail) {
       photoRail.addEventListener('keydown', function (event) {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
         if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
         event.preventDefault();
         var focusedIndex = photoButtons.indexOf(document.activeElement);
