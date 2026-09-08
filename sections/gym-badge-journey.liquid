@@ -37,14 +37,19 @@
       <div class="gbj-shell gbj-hero__grid">
         <figure class="gbj-hero__media">
           <img src="{{ hero_large | asset_url }}" srcset="{{ hero_small | asset_url }} 720w, {{ hero_large | asset_url }} 1200w" sizes="(min-width: 990px) 56vw, 100vw" width="{{ s.hero_width }}" height="{{ s.hero_height }}" alt="{{ s.hero_alt | escape }}" loading="eager" fetchpriority="high" decoding="async">
-          <figcaption>{{ s.disclaimer | escape }}</figcaption>
         </figure>
         <div class="gbj-hero__copy">
+          <div class="gbj-hero-proof" aria-label="Zenkai store-wide: 4.8 out of 5 from 95 Shop ratings and over 2,800 orders shipped">
+            <div class="gbj-hero-proof__row">
+              <p class="gbj-hero-proof__rating"><span class="gbj-hero-proof__score"><span class="gbj-hero-proof__stars" aria-hidden="true">★★★★★</span><strong>4.8/5</strong></span><span class="gbj-hero-proof__label">95 Shop ratings</span></p>
+              <p class="gbj-hero-proof__orders"><strong>2,800+</strong><span class="gbj-hero-proof__label">orders shipped</span></p>
+            </div>
+            <small>Zenkai store-wide</small>
+          </div>
           <p class="gbj-eyebrow">{{ s.hero_eyebrow | escape }}</p>
           <h1 id="gbj-title-{{ section.id }}">{{ s.hero_title | escape }}</h1>
           <p class="gbj-lede">{{ s.hero_body | escape }}</p>
           {{ offer | replace: 'data-placement="offer"', 'data-placement="hero"' }}
-          <p class="gbj-store-proof"><span aria-hidden="true">★★★★★</span> <strong>4.8/5</strong> from 95 Shop ratings <small>Zenkai store-wide · 2,800+ orders shipped</small></p>
         </div>
       </div>
     </section>
