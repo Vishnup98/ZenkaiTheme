@@ -21,6 +21,7 @@
 {%- assign savings = current_variant.compare_at_price | minus: current_variant.price -%}
 
 {{ 'evolution-companions.css' | asset_url | stylesheet_tag }}
+{{ 'evolution-purchase-details.css' | asset_url | stylesheet_tag }}
 
 <div
   id="ProductSection-{{ product.id }}"
@@ -133,9 +134,9 @@
           </button>
           <div class="hide" aria-hidden="true" data-variant-json>{{ product.variants | json }}</div>
         {%- endform -%}
+        {% render 'evolution-purchase-proof' %}
 
         <p class="evo-plush-shipping-note"><strong>Free U.S. shipping</strong><span>Arrives in 5–7 business days</span></p>
-        <p class="evo-plush-policy"><a href="/pages/policy">Delivery &amp; returns</a></p>
       </div>
     </section>
   </div>

@@ -37,11 +37,11 @@
           <input type="hidden" name="properties[_zk_page_family]" value="{{ creative_family }}">
           <input type="hidden" name="properties[_zk_page_version]" value="matched-v1">
           <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button>
+          {% render 'evolution-purchase-proof' %}
           <p class="ec-shipping"><strong>Free U.S. shipping</strong><span>Typically 5–7 business days</span></p>
           {% if section.settings.offer_note != blank %}<p class="ec-offer-note">{{ section.settings.offer_note }}</p>{% endif %}
           {{ form | payment_button }}
         {%- endform -%}
-        <p class="ec-offer-policy"><span>Secure checkout with Shopify</span><a href="/pages/policy">Delivery &amp; returns</a></p>
       </div>
     </div>
   </section>
@@ -65,6 +65,12 @@
       {% endfor %}
     </div>
     <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous collection photo">←</button><span data-ec-gallery-position aria-live="polite" aria-atomic="true">1 of 9</span><button type="button" data-ec-gallery-next aria-label="Next collection photo">→</button></div></div>
+    </div>
+    <div class="ec-portrait-thumbs" role="group" aria-label="Collection photo thumbnails">
+      {% for name in portrait_names %}
+        {% assign thumbnail = 'evo-portrait-' | append: name | append: '-120.webp' %}
+        <button type="button" data-ec-thumb aria-controls="ec-portraits-{{ section.id }}" aria-label="Show {{ portrait_descriptions[forloop.index0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><img src="{{ thumbnail | asset_url }}" width="120" height="120" loading="lazy" alt=""></button>
+      {% endfor %}
     </div>
     </div>
   </section>
@@ -114,7 +120,7 @@
     <details><summary>What if something is wrong with my order?</summary><p>If your order is lost in transit, damaged, defective, incorrect or materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full collector policy.</a></p></details>
   </section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button><p class="ec-final-delivery">Free U.S. shipping · typically 5–7 business days</p></div></div></section>
+  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button>{% render 'evolution-purchase-proof' %}<p class="ec-final-delivery">Free U.S. shipping · typically 5–7 business days</p></div></div></section>
 
   <aside class="ec-sticky" data-ec-sticky hidden aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged plush collection photo"></div></dialog>
