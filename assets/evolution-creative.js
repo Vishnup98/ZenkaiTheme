@@ -281,7 +281,13 @@
         var zoomed = dialog.classList.toggle("is-zoomed");
         zoomToggle.setAttribute("aria-pressed", String(zoomed));
         zoomToggle.textContent = zoomed ? "Fit photo" : "Zoom in";
-        if (!zoomed) photoViewport.scrollTo(0, 0);
+        if (zoomed) {
+          photoViewport.scrollTo({
+            left: Math.max(0, (photoViewport.scrollWidth - photoViewport.clientWidth) / 2),
+            top: Math.max(0, (photoViewport.scrollHeight - photoViewport.clientHeight) / 2),
+            behavior: "auto",
+          });
+        } else photoViewport.scrollTo(0, 0);
       });
       root.querySelectorAll("[data-ec-zoom]").forEach(function (button) {
         button.addEventListener("click", function () {
