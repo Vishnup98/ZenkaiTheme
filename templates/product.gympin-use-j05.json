@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "assortmentdesire",
+        "hero_eyebrow": "The complete collection",
+        "hero_title": "You can have the whole lot.",
+        "hero_body": "Every badge in the spread is included. All 32 enamel pins, with four display boxes to keep the regional sets together.",
+        "hero_alt": "All 32 enamel badges arranged in four regional groups on dark fabric in a silver serving tray, with its cover lifted",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included. Serving tray and styling props are not included.",
+        "module_order": "story,regions,quality,proof,reviews",
+        "story_eyebrow": "You don’t have to narrow it down",
+        "story_title": "There’s something very good about seeing them all together.",
+        "story_body": "Lay out the entire collection and look from one region to the next. The colors, shapes and little metal details give you plenty to come back to, even after that first look.",
+        "point_one_title": "The whole assortment",
+        "point_one_body": "Every one of the 32 badge designs shown comes in your pack.",
+        "point_two_title": "Four regional sets",
+        "point_two_body": "Eight pins each from Kanto, Johto, Hoenn and Sinnoh.",
+        "point_three_title": "The boxes are included",
+        "point_three_body": "Four display boxes come with the badges. The serving tray does not.",
+        "proof_title": "The details are worth a second look.",
+        "proof_body": "Customer photos show the enamel, metal edges and the actual regional box presentation.",
+        "decision_title": "This is what arrives with your collection.",
+        "decision_body": "All 32 individual enamel pins, organized in four display boxes. Every regional set in the gallery comes with your order.",
+        "final_title": "Go on. Have all 32.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

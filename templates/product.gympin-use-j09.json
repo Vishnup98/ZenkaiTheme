@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "gift",
+        "hero_eyebrow": "For someone who’ll recognize them",
+        "hero_title": "You know who this is for.",
+        "hero_body": "Give them the complete collection: all 32 enamel badges from Kanto through Sinnoh, in four display boxes they can open and look through.",
+        "hero_alt": "Over-the-shoulder view of a recipient holding an open Kanto badge box, with the Johto, Hoenn and Sinnoh boxes on a nearby table",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included. This is a styled opening scene; furniture is not included.",
+        "module_order": "story,proof,regions,quality,reviews",
+        "story_eyebrow": "Picture them lifting the lid",
+        "story_title": "A gift they can spend some time with.",
+        "story_body": "There are four boxes to open and 32 familiar little designs to look through. You’re giving them a complete collection they can display together or take individual pins from to wear.",
+        "point_one_title": "All four regions",
+        "point_one_body": "Kanto, Johto, Hoenn and Sinnoh are included in the gift.",
+        "point_two_title": "Four display boxes",
+        "point_two_body": "Each regional set arrives together in its own box.",
+        "point_three_title": "Know the delivery window",
+        "point_three_body": "U.S. shipping is free. Typical arrival is 5–7 business days.",
+        "proof_title": "See the presentation before you give it.",
+        "proof_body": "Customer photos show the regional boxes open, with the individual enamel badges inside.",
+        "decision_title": "Their whole collection comes in one pack.",
+        "decision_body": "The order includes all 32 enamel pins and all four display boxes. Gift wrap and furniture are not included.",
+        "final_title": "Give them all 32.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

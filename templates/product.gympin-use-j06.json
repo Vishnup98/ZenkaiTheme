@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "inspection",
+        "hero_eyebrow": "32 enamel badges, down to the details",
+        "hero_title": "They’re worth a closer look.",
+        "hero_body": "Glossy color. Fine metal outlines. All 32 familiar designs, with four display boxes included in your complete pack.",
+        "hero_alt": "Enlarged close-up of a glossy blue teardrop pin and pink-heart pin on cream fabric, showing their fine metal edges",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included. Detail images are enlarged views, not life-size product measurements.",
+        "module_order": "quality,proof,regions,story,reviews",
+        "story_eyebrow": "A collection you can inspect",
+        "story_title": "Turn one in the light.",
+        "story_body": "Look along the outline, then across the enamel color. These are small objects with a lot to notice. The complete set gives you 32 different designs to take in, one region at a time.",
+        "point_one_title": "Enamel color",
+        "point_one_body": "Close photography lets you see the smooth, glossy fill.",
+        "point_two_title": "Metal outlines",
+        "point_two_body": "The borders trace each badge’s distinct shape and details.",
+        "point_three_title": "A complete set",
+        "point_three_body": "All 32 pins and four regional display boxes are included.",
+        "proof_title": "Here’s the finish in customer photos.",
+        "proof_body": "Look through real close-ups of the badge sets in natural light and in their boxes.",
+        "decision_title": "The close-ups are part of a much bigger collection.",
+        "decision_body": "You receive eight badges each from Kanto, Johto, Hoenn and Sinnoh—not just the designs featured in the detail shots.",
+        "final_title": "Get a closer look at your own set.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

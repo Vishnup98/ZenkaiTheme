@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "recognition",
+        "hero_eyebrow": "The complete physical set",
+        "hero_title": "Recognize them? You get all 32.",
+        "hero_body": "Kanto, Johto, Hoenn and Sinnoh, as individual enamel pins. The complete pack comes with all four regional display boxes.",
+        "hero_alt": "All 32 enamel badges on dark fabric in four regional groups, with a finger pointing to a three-drop badge inside a mint outline",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included.",
+        "module_order": "regions,quality,story,proof,reviews",
+        "story_eyebrow": "The shapes come back pretty quickly",
+        "story_title": "You’ll probably recognize more than you expect.",
+        "story_body": "Look through each regional set and see what comes back to you. Then notice the enamel color and metal details you can only really inspect when a badge is an object in front of you.",
+        "point_one_title": "Kanto through Sinnoh",
+        "point_one_body": "Every eight-badge set from these four regions is included.",
+        "point_two_title": "Real pins to keep",
+        "point_two_body": "Individual enamel badges you can display or wear.",
+        "point_three_title": "The whole pack",
+        "point_three_body": "32 badge designs and four display boxes in one order.",
+        "proof_title": "See the badges as actual pins.",
+        "proof_body": "Customer close-ups show the enamel, metal borders and how each regional set is presented in its box.",
+        "decision_title": "Look through every included region.",
+        "decision_body": "This is a complete Kanto-through-Sinnoh pack. All four eight-badge sets shown in the gallery come with your order.",
+        "final_title": "Own the complete set you recognize.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

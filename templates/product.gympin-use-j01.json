@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "inspection",
+        "hero_eyebrow": "The complete 32-badge pack",
+        "hero_title": "Okay, now look at the whole set.",
+        "hero_body": "Those eight are just the beginning. You get all 32 enamel badges from Kanto through Sinnoh, with four display boxes included.",
+        "hero_alt": "Close view of all eight Kanto enamel badges in two ordered rows on dark woven fabric",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "Close-up of the eight Kanto badges. Your pack includes all 32 pins and four display boxes.",
+        "module_order": "quality,regions,story,proof,reviews",
+        "story_eyebrow": "Take your time with these",
+        "story_title": "There’s a lot to look at in four little boxes.",
+        "story_body": "Open each region and look through the shapes you remember. Then take a pin out and turn it in the light. The enamel color and fine metal outlines are part of what makes the collection so good to have in front of you.",
+        "point_one_title": "Every included design",
+        "point_one_body": "Inspect all eight badges from each of the four regions below.",
+        "point_two_title": "Details you can see",
+        "point_two_body": "Close-up photos show the enamel fill and metal borders.",
+        "point_three_title": "The boxes come too",
+        "point_three_body": "Four window-lid boxes keep each regional set together.",
+        "proof_title": "Take a closer look at the finish.",
+        "proof_body": "See the enamel, metal edges and box presentation in customer photos of the regional sets.",
+        "decision_title": "All four regions are in your pack.",
+        "decision_body": "The close-ups show individual regional sets. Your order includes all four: 32 pins and four display boxes.",
+        "final_title": "Get the whole set in front of you.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

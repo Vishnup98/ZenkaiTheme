@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "contents",
+        "hero_eyebrow": "The price is for the complete pack",
+        "hero_title": "Yes. You get all 32.",
+        "hero_body": "Eight badges each from Kanto, Johto, Hoenn and Sinnoh. Every design shown, plus four display boxes. U.S. shipping is free.",
+        "hero_alt": "All 32 enamel badges on pale stone in four horizontal rows, one complete region per row from Kanto through Sinnoh",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "Every badge shown is included, along with four display boxes. Stone surface is a styling prop.",
+        "module_order": "regions,story,quality,proof,reviews",
+        "story_eyebrow": "Nothing to piece together",
+        "story_title": "Four complete regional sets in one order.",
+        "story_body": "There’s no need to order a second box to finish the picture. The Collector Pack contains the entire Kanto-through-Sinnoh collection, with eight individual pins in each region’s display box.",
+        "point_one_title": "32 individual pins",
+        "point_one_body": "All eight designs from each of the four regions.",
+        "point_two_title": "Four display boxes",
+        "point_two_body": "Your full pack includes one box for every regional set.",
+        "point_three_title": "Free U.S. shipping",
+        "point_three_body": "Typically arrives in 5–7 business days.",
+        "proof_title": "See what you’re getting up close.",
+        "proof_body": "These customer photos show the enamel badges and their regional display boxes after delivery.",
+        "decision_title": "Check every region before you order.",
+        "decision_body": "The gallery shows all four included eight-badge sets. Whichever image you’re viewing, the button buys the complete 32-badge pack.",
+        "final_title": "All 32. All four boxes. Yours.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

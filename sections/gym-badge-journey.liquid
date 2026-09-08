@@ -1,0 +1,184 @@
+{{ 'gym-badge-journey.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign expected_handle = '8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
+  assign collector_variant = blank
+  assign s = section.settings
+  assign journey_id = template.suffix | remove: 'gympin-use-'
+  assign hero_prefix = 'gym-badge-journey-' | append: journey_id | append: '-hero-'
+  assign hero_small = hero_prefix | append: '720.webp'
+  assign hero_large = hero_prefix | append: '1200.webp'
+  assign module_order = s.module_order | split: ','
+  assign region_names = 'Kanto,Johto,Hoenn,Sinnoh' | split: ','
+  for variant in product.variants
+    if variant.id == 43233528479849
+      assign collector_variant = variant
+    endif
+  endfor
+  assign price = collector_variant.price | money
+  assign compare_price = collector_variant.compare_at_price
+-%}
+
+{%- if product.handle == expected_handle and collector_variant != blank -%}
+  {%- capture offer -%}
+    <div class="gbj-offer" data-gb-use-inline-offer>
+      <p class="gbj-offer__name">Complete Collector Pack · 32 badges + 4 boxes</p>
+      <p class="gbj-offer__price"><strong>{{ price }}</strong>{% if compare_price > collector_variant.price %}<s>{{ compare_price | money }}</s>{% endif %}</p>
+      <button class="gbj-button" type="button" data-gb-use-checkout data-placement="offer" {% unless collector_variant.available %}disabled{% endunless %}>
+        <span>{% if collector_variant.available %}Get all 32{% else %}Collector Pack sold out{% endif %}</span><span aria-hidden="true">{% if collector_variant.available %}→{% endif %}</span>
+      </button>
+      <ul class="gbj-delivery" aria-label="Shipping and delivery"><li>Free U.S. shipping</li><li>Typically arrives in 5–7 business days</li></ul>
+      <p class="gbj-policy">Something wrong with your order? <a href="/pages/policy">We’ll make it right.</a></p>
+    </div>
+  {%- endcapture -%}
+
+  <div class="gbj gbj--{{ s.journey | escape }} gbj--{{ journey_id }}" data-gb-use-state data-collector-variant-id="{{ collector_variant.id }}" data-product-id="{{ product.id }}" data-landing-variant="use-{{ journey_id }}">
+    <section class="gbj-hero" aria-labelledby="gbj-title-{{ section.id }}">
+      <div class="gbj-shell gbj-hero__grid">
+        <figure class="gbj-hero__media">
+          <img src="{{ hero_large | asset_url }}" srcset="{{ hero_small | asset_url }} 720w, {{ hero_large | asset_url }} 1200w" sizes="(min-width: 990px) 56vw, 100vw" width="{{ s.hero_width }}" height="{{ s.hero_height }}" alt="{{ s.hero_alt | escape }}" loading="eager" fetchpriority="high" decoding="async">
+          <figcaption>{{ s.disclaimer | escape }}</figcaption>
+        </figure>
+        <div class="gbj-hero__copy">
+          <p class="gbj-eyebrow">{{ s.hero_eyebrow | escape }}</p>
+          <h1 id="gbj-title-{{ section.id }}">{{ s.hero_title | escape }}</h1>
+          <p class="gbj-lede">{{ s.hero_body | escape }}</p>
+          {{ offer | replace: 'data-placement="offer"', 'data-placement="hero"' }}
+          <p class="gbj-store-proof"><span aria-hidden="true">★★★★★</span> <strong>4.8/5</strong> from 95 Shop ratings <small>Zenkai store-wide · 2,800+ orders shipped</small></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="gbj-facts" aria-label="Everything in the Collector Pack"><div class="gbj-shell"><span><strong>32</strong> enamel pins</span><span><strong>4</strong> regions</span><span><strong>4</strong> display boxes</span></div></div>
+
+    {%- for module_name in module_order -%}
+      {%- assign module_name = module_name | strip -%}
+      {%- case module_name -%}
+        {%- when 'regions' -%}
+          <section class="gbj-section gbj-regions" aria-labelledby="gbj-regions-{{ section.id }}">
+            <div class="gbj-shell">
+              <div class="gbj-heading"><p class="gbj-eyebrow">All four are included</p><h2 id="gbj-regions-{{ section.id }}">Your collection, box by box.</h2><p>Eight from Kanto. Eight from Johto. Eight from Hoenn. Eight from Sinnoh. Take a closer look at every set.</p></div>
+              <div class="gbj-regions__carousel" data-gb-use-region-carousel>
+                <div class="gbj-regions__viewport" data-gb-use-region-viewport role="region" aria-label="Product photos: all four included regional sets" tabindex="0">
+                  <div class="gbj-regions__track">
+                    {%- for region in region_names -%}
+                      {%- liquid
+                        assign region_index = forloop.index0
+                        assign region_lower = region | downcase
+                        assign region_media = product.media[region_index]
+                        for regional_variant in product.variants
+                          assign regional_title = regional_variant.title | downcase
+                          if regional_title contains region_lower and regional_variant.id != collector_variant.id
+                            assign region_media = regional_variant.featured_media | default: region_media
+                            break
+                          endif
+                        endfor
+                        assign region_image = region_media.preview_image
+                      -%}
+                      <article class="gbj-region" data-gb-use-region-slide>
+                        <figure>{% if region_image != blank %}<img src="{{ region_image | image_url: width: 900 }}" srcset="{{ region_image | image_url: width: 480 }} 480w, {{ region_image | image_url: width: 760 }} 760w, {{ region_image | image_url: width: 1100 }} 1100w" sizes="(min-width: 990px) 550px, 86vw" width="{{ region_image.width }}" height="{{ region_image.height }}" alt="Product photo of the eight included {{ region }} enamel badges in their display box" loading="lazy" decoding="async">{% endif %}</figure>
+                        <div class="gbj-region__caption"><h3><span>0{{ forloop.index }}</span> {{ region }}</h3><p>8 badges · Display box included</p></div>
+                      </article>
+                    {%- endfor -%}
+                  </div>
+                </div>
+                <div class="gbj-regions__controls">
+                  <div class="gbj-regions__tabs" aria-label="Choose a photo to inspect">{%- for region in region_names -%}<button type="button" data-gb-use-region-index="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">{{ region }}</button>{%- endfor -%}</div>
+                  <div class="gbj-regions__arrows"><button type="button" data-gb-use-region-prev aria-label="Previous region">←</button><button type="button" data-gb-use-region-next aria-label="Next region">→</button></div>
+                </div>
+                <p class="gbj-note">All four boxes are included in your Collector Pack.</p>
+              </div>
+            </div>
+          </section>
+        {%- when 'story' -%}
+          <section class="gbj-section gbj-story" aria-labelledby="gbj-story-{{ section.id }}">
+            <div class="gbj-shell">
+              <div class="gbj-heading"><p class="gbj-eyebrow">{{ s.story_eyebrow | escape }}</p><h2 id="gbj-story-{{ section.id }}">{{ s.story_title | escape }}</h2><p>{{ s.story_body | escape }}</p></div>
+              <div class="gbj-story__points">
+                <article><span aria-hidden="true">01</span><h3>{{ s.point_one_title | escape }}</h3><p>{{ s.point_one_body | escape }}</p></article>
+                <article><span aria-hidden="true">02</span><h3>{{ s.point_two_title | escape }}</h3><p>{{ s.point_two_body | escape }}</p></article>
+                <article><span aria-hidden="true">03</span><h3>{{ s.point_three_title | escape }}</h3><p>{{ s.point_three_body | escape }}</p></article>
+              </div>
+            </div>
+          </section>
+        {%- when 'quality' -%}
+          <section class="gbj-section gbj-quality" aria-labelledby="gbj-quality-{{ section.id }}">
+            <div class="gbj-shell gbj-quality__grid">
+              <figure><img src="{{ 'gym-badge-use-proof-closeup-960.webp' | asset_url }}" width="960" height="465" alt="Actual customer close-up showing the enamel colors and metal edges of the delivered badges" loading="lazy" decoding="async"><figcaption>Actual customer close-up</figcaption></figure>
+              <div class="gbj-heading"><p class="gbj-eyebrow">A closer look</p><h2 id="gbj-quality-{{ section.id }}">Little pieces. Plenty to look at.</h2><p>The shine across the enamel. The metal around each shape. The colors against the black foam. Here they are in a customer’s own photo.</p><blockquote class="gbj-quote"><p>“The badges look to be high quality as does the display box it came in, will definitely have a very happy brother once he gets them.”</p><footer>Customer review of the badges</footer></blockquote></div>
+            </div>
+          </section>
+        {%- when 'proof' -%}
+          <section class="gbj-section gbj-proof" aria-labelledby="gbj-proof-{{ section.id }}">
+            <div class="gbj-shell"><div class="gbj-heading"><p class="gbj-eyebrow">Actual customer photos</p><h2 id="gbj-proof-{{ section.id }}">{{ s.proof_title | escape }}</h2><p>{{ s.proof_body | escape }}</p></div>
+              <div class="gbj-proof__gallery" role="region" aria-label="Customer photos of the delivered badges" tabindex="0">
+                <figure><img src="{{ 'gym-badge-use-proof-open-box-720.webp' | asset_url }}" width="720" height="961" alt="Actual customer photo of eight enamel badges in the included window-lid box" loading="lazy" decoding="async"><figcaption>The box, opened at home.</figcaption></figure>
+                <figure><img src="{{ 'gym-badge-use-proof-sunlight-960.webp' | asset_url }}" width="960" height="767" alt="Actual customer photo of badge enamel catching natural sunlight" loading="lazy" decoding="async"><figcaption>The enamel in natural light.</figcaption></figure>
+                <figure><img src="{{ 'gym-badge-use-proof-framed-480.webp' | asset_url }}" width="480" height="851" alt="Actual customer photo of a regional badge set arranged in a personal frame" loading="lazy" decoding="async"><figcaption>One collector’s display. Frame not included.</figcaption></figure>
+              </div>
+              <p class="gbj-note">Your order includes all 32 badges and four display boxes. Customer photos may show one regional set or personal display accessories.</p>
+              {% if s.journey == 'gift' %}<blockquote class="gbj-quote"><p>“They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.”</p><footer>Oliver S. · Customer review of a badge set</footer></blockquote>{% endif %}
+            </div>
+          </section>
+        {%- when 'reviews' -%}
+          <section class="gbj-section gbj-reviews" aria-labelledby="gbj-reviews-{{ section.id }}"><div class="gbj-shell">
+            <div class="gbj-heading"><p class="gbj-eyebrow">After the boxes arrived</p><h2 id="gbj-reviews-{{ section.id }}">From other collectors.</h2><p>Customer reviews of the badges.</p></div>
+            <div class="gbj-reviews__grid"><blockquote><p>“…it brings great nostalgia. Let's go to the elite four.”</p><footer>S.P. · Customer review excerpt</footer></blockquote><blockquote><p>“They arrived very quickly. I liked them a lot; they were a gift for my nephew who was very happy. I recommend them.”</p><footer>Oliver S. · Customer review</footer></blockquote></div>
+            <p class="gbj-store-proof"><span aria-hidden="true">★★★★★</span> <strong>4.8/5</strong> from 95 Shop ratings <small>Zenkai store-wide · 2,800+ orders shipped</small></p>
+          </div></section>
+      {%- endcase -%}
+      {%- if forloop.index == 2 -%}
+        <section class="gbj-section gbj-decision" aria-labelledby="gbj-decision-{{ section.id }}"><div class="gbj-shell gbj-decision__grid"><div class="gbj-heading"><p class="gbj-eyebrow">The complete Collector Pack</p><h2 id="gbj-decision-{{ section.id }}">{{ s.decision_title | escape }}</h2><p>{{ s.decision_body | escape }}</p></div>{{ offer | replace: 'data-placement="offer"', 'data-placement="midpage"' }}</div></section>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <section class="gbj-section gbj-faq" aria-labelledby="gbj-faq-{{ section.id }}"><div class="gbj-shell gbj-faq__grid"><div class="gbj-heading"><p class="gbj-eyebrow">Before you order</p><h2 id="gbj-faq-{{ section.id }}">A few useful answers.</h2></div><div class="gbj-faq__items">
+      <details><summary>Does this include all four regions?</summary><p>Yes. One Collector Pack includes all 32 enamel badges: eight each from Kanto, Johto, Hoenn and Sinnoh, with four display boxes. You do not need to choose a region.</p></details>
+      <details><summary>What comes in the package?</summary><p>The 32 enamel pins and four window-lid display boxes with black foam inserts. Trays, frames, clothing, furniture and other styling props are not included.</p></details>
+      <details><summary>How much is shipping, and when will it arrive?</summary><p>U.S. shipping is free. Orders typically arrive in 5–7 business days. You’ll receive tracking when your order ships.</p></details>
+      <details><summary>What if something is wrong with my order?</summary><p>If your order is damaged, missing, incorrect or not as described, contact us so we can help. <a href="/pages/policy">Read the full collector policy.</a></p></details>
+    </div></div></section>
+
+    <section class="gbj-section gbj-final" aria-labelledby="gbj-final-{{ section.id }}"><div class="gbj-shell gbj-final__grid"><div class="gbj-heading"><p class="gbj-eyebrow">All 32. All four boxes.</p><h2 id="gbj-final-{{ section.id }}">{{ s.final_title | escape }}</h2><p>{{ s.final_body | escape }}</p></div>{{ offer | replace: 'data-placement="offer"', 'data-placement="final"' }}</div></section>
+
+    <div class="gbj-sticky" data-gb-use-sticky aria-hidden="true"><div><strong>{{ price }}</strong><span>All 32 · Four boxes</span></div><button class="gbj-button" type="button" data-gb-use-checkout data-placement="sticky" tabindex="-1" {% unless collector_variant.available %}disabled{% endunless %}>{% if collector_variant.available %}Get all 32{% else %}Sold out{% endif %}</button></div>
+    <p class="gbj-status" data-gb-use-status role="status" aria-live="polite" hidden></p>
+    <noscript><form class="gbj-noscript" action="{{ routes.cart_add_url }}" method="post"><input type="hidden" name="id" value="{{ collector_variant.id }}"><input type="hidden" name="quantity" value="1"><input type="hidden" name="return_to" value="/checkout"><button class="gbj-button" type="submit" {% unless collector_variant.available %}disabled{% endunless %}>Get all 32 — {{ price }}</button></form></noscript>
+  </div>
+  <script src="{{ 'gym-badge-journey.js' | asset_url }}" defer="defer"></script>
+{%- else -%}
+  <section class="gbj gbj-unavailable"><div class="gbj-shell"><h1>This page is for the complete 32-badge Collector Pack.</h1><p>The pack is unavailable here right now. Please <a href="/products/{{ expected_handle }}">view the badge collection</a>.</p></div></section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Badge matched journey",
+  "settings": [
+    {"type":"text","id":"journey","label":"Journey family"},
+    {"type":"text","id":"hero_eyebrow","label":"Hero eyebrow"},
+    {"type":"text","id":"hero_title","label":"Hero title"},
+    {"type":"textarea","id":"hero_body","label":"Hero body"},
+    {"type":"textarea","id":"hero_alt","label":"Hero image description"},
+    {"type":"number","id":"hero_width","label":"Hero source width","default":1200},
+    {"type":"number","id":"hero_height","label":"Hero source height","default":1200},
+    {"type":"text","id":"disclaimer","label":"Styled image caption"},
+    {"type":"text","id":"module_order","label":"Module order"},
+    {"type":"text","id":"story_eyebrow","label":"Story eyebrow"},
+    {"type":"text","id":"story_title","label":"Story title"},
+    {"type":"textarea","id":"story_body","label":"Story body"},
+    {"type":"text","id":"point_one_title","label":"First point title"},
+    {"type":"textarea","id":"point_one_body","label":"First point body"},
+    {"type":"text","id":"point_two_title","label":"Second point title"},
+    {"type":"textarea","id":"point_two_body","label":"Second point body"},
+    {"type":"text","id":"point_three_title","label":"Third point title"},
+    {"type":"textarea","id":"point_three_body","label":"Third point body"},
+    {"type":"text","id":"proof_title","label":"Customer photo title"},
+    {"type":"textarea","id":"proof_body","label":"Customer photo body"},
+    {"type":"text","id":"decision_title","label":"Midpage title"},
+    {"type":"textarea","id":"decision_body","label":"Midpage body"},
+    {"type":"text","id":"final_title","label":"Final title"},
+    {"type":"textarea","id":"final_body","label":"Final body"}
+  ],
+  "presets": [{"name":"Badge matched journey"}]
+}
+{% endschema %}

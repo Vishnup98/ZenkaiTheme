@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "denim",
+        "hero_eyebrow": "All 32 pins. Plenty of ways to wear them.",
+        "hero_title": "Those would look good on your jacket.",
+        "hero_body": "Put a few on the denim you already love. Your complete pack includes all 32 enamel badges and four display boxes for the rest of the collection.",
+        "hero_alt": "A hand holding a blue teardrop enamel pin beside pink-heart and red-flame pins on a denim jacket",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included. Jacket, clothing and bags are not included.",
+        "module_order": "story,quality,regions,proof,reviews",
+        "story_eyebrow": "Wear a few. Keep the whole set.",
+        "story_title": "The boxes don’t have to stay closed.",
+        "story_body": "These are individual pins, so the collection can come out with you. Wear a few together on your jacket or bag, then put them back with their region when you’re done.",
+        "point_one_title": "Real, individual pins",
+        "point_one_body": "Take badges out of the boxes to wear on suitable fabric.",
+        "point_two_title": "All 32 are included",
+        "point_two_body": "You’re ordering the full collection, not just the pins on the jacket.",
+        "point_three_title": "Keep the rest together",
+        "point_three_body": "Four included display boxes hold the regional sets.",
+        "proof_title": "Look closely before you pin them on.",
+        "proof_body": "Customer close-ups show the enamel finish, metal outlines and individual badge shapes.",
+        "decision_title": "Your jacket gets a few. You get all 32.",
+        "decision_body": "The pack includes the complete four-region collection and four display boxes. Clothing and bags are not included.",
+        "final_title": "Get the set. Wear it your way.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

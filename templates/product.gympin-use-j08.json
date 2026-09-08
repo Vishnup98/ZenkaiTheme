@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "contents",
+        "hero_eyebrow": "32 out of 32, included",
+        "hero_title": "Open the boxes. They’re all there.",
+        "hero_body": "The full collection is already together: eight enamel badges from each of four regions, with every display box included.",
+        "hero_alt": "All 32 regional enamel badges laid out as a numbered physical inventory, with display boxes at the edges",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included. Numbered paper is a styling prop.",
+        "module_order": "regions,story,proof,quality,reviews",
+        "story_eyebrow": "For the first proper look",
+        "story_title": "You’ll want to lay every one out.",
+        "story_body": "Start with Kanto’s eight and keep going through Johto, Hoenn and Sinnoh. The whole set is there to look through. Once you’ve seen them all, each region has a box to go back into.",
+        "point_one_title": "Every design is accounted for",
+        "point_one_body": "The pack includes one of each of the 32 badge designs.",
+        "point_two_title": "Easy to look through",
+        "point_two_body": "Four complete eight-badge sets, organized by region.",
+        "point_three_title": "A box for each set",
+        "point_three_body": "All four regional display boxes come with your order.",
+        "proof_title": "A closer look at the actual sets.",
+        "proof_body": "Customer photos show individual regional sets, from the enamel finish to their display-box presentation.",
+        "decision_title": "Here’s the full list, region by region.",
+        "decision_body": "All four sets in this gallery are included in the same Collector Pack. There’s no extra region to add.",
+        "final_title": "Make room for all 32.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

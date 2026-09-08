@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "gym-badge-journey",
+      "settings": {
+        "journey": "selfgift",
+        "hero_eyebrow": "A little something for your collection",
+        "hero_title": "This one’s for you.",
+        "hero_body": "Go ahead and get the whole set. All 32 enamel badges arrive together in four display boxes, ready for you to open.",
+        "hero_alt": "Four open regional badge boxes on cobalt-blue tissue paper, with a hand lifting a window lid",
+        "hero_width": 1200,
+        "hero_height": 800,
+        "disclaimer": "32 enamel pins and four display boxes included. Tissue paper and styling props are not included.",
+        "module_order": "story,regions,proof,quality,reviews",
+        "story_eyebrow": "When your package arrives",
+        "story_title": "You’ll want to open all four.",
+        "story_body": "Set the boxes down and lift the lids. Kanto first, then Johto, Hoenn and Sinnoh. Each box has eight individual enamel pins to look through before you decide how you want to display them.",
+        "point_one_title": "Your whole collection",
+        "point_one_body": "All four regional sets come in the same complete pack.",
+        "point_two_title": "Ready to open",
+        "point_two_body": "Each region has its own window-lid display box.",
+        "point_three_title": "Delivery, sorted",
+        "point_three_body": "Free U.S. shipping. Typical arrival is 5–7 business days.",
+        "proof_title": "Here’s what the boxes look like up close.",
+        "proof_body": "Customer photos show the badge finish and the presentation of individual regional sets.",
+        "decision_title": "One order brings you all 32.",
+        "decision_body": "Eight badges from each region, with all four display boxes included. The wrapping in the styled image isn’t part of the pack.",
+        "final_title": "Make the complete set yours.",
+        "final_body": "All 32 enamel badges and four display boxes. Free U.S. shipping; typically arrives in 5–7 business days."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
