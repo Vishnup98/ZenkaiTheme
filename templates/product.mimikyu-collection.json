@@ -4,7 +4,7 @@
     "main": {
       "type": "mimikyu-collection",
       "settings": {
-        "hero_title": "You\u2019ll want every little impostor.",
+        "hero_title": "You’ll want every little impostor.",
         "purchase_ready": true,
         "show_placeholders": false,
         "shipping_heading": "Free U.S. shipping",
@@ -20,14 +20,15 @@
         "jolteon_image": "shopify://shop_images/little-impostors-bright-yellow-ab4c7773cb57.webp",
         "collection_image": "shopify://shop_images/little-impostors-collection-f1653763a478.webp",
         "hero_image": "shopify://shop_images/little-impostors-hero-3cf2b7bbb5b9.webp",
-        "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp"
+        "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp",
+        "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp"
       },
       "blocks": {
         "photo_1": {
           "type": "customer_photo",
           "settings": {
             "image": "shopify://shop_images/little-impostors-customer-bright-yellow-5cde5af88b9a.webp",
-            "caption": "Bright yellow plush in a customer\u2019s home"
+            "caption": "Bright yellow plush in a customer’s home"
           }
         },
         "photo_2": {
@@ -59,7 +60,7 @@
         "review_3": {
           "type": "testimonial",
           "settings": {
-            "quote": "I absolutely love love love her! \u2026 Should have bought more haha"
+            "quote": "I absolutely love love love her! … Should have bought more haha"
           }
         },
         "photo_4": {
@@ -73,7 +74,7 @@
           "type": "customer_photo",
           "settings": {
             "image": "shopify://shop_images/little-impostors-customer-pink-ribbon-6a3e5df40fbb.webp",
-            "caption": "Pink ribbon plush on a collector\u2019s display"
+            "caption": "Pink ribbon plush on a collector’s display"
           }
         }
       },
