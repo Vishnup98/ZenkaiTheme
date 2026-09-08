@@ -28,7 +28,7 @@
 /* Store-wide proof is deliberately part of the offer, not small-print reassurance. */
 .ec-personality .evo-purchase-proof--hero{display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:22px;margin:23px 0 20px;font-family:'Companion Sans',Arial,sans-serif;color:var(--ink)}
 .evo-proof-rating{display:grid;grid-template-columns:max-content max-content;align-items:baseline;gap:3px 7px}
-.evo-proof-stars{grid-column:1/-1;width:max-content;line-height:1;letter-spacing:.09em;font-size:1.125rem;background:linear-gradient(to right,#ac771b 96%,#d3cdc4 96%);color:transparent;background-clip:text;-webkit-background-clip:text}
+.evo-proof-stars{grid-column:1/-1;width:max-content;line-height:1;letter-spacing:.09em;font-size:1.75rem;background:linear-gradient(to right,#ac771b 96%,#d3cdc4 96%);color:transparent;background-clip:text;-webkit-background-clip:text}
 .evo-proof-rating>strong,.evo-proof-orders>strong{font-family:'Companion Sans',Arial,sans-serif;font-size:1.5rem;font-weight:800;line-height:1.15;letter-spacing:-.04em}
 .evo-proof-rating>span:last-child,.evo-proof-orders>span{font-size:.875rem;line-height:1.35;color:var(--muted)}
 .evo-proof-orders{display:flex;flex-direction:column;justify-content:center;gap:3px;padding-left:22px;border-left:1px solid var(--rule)}
@@ -102,7 +102,7 @@
  .evo-proof-orders{padding-left:14px}
  .evo-proof-rating>strong{font-size:1.375rem}
  .evo-proof-orders>strong{font-size:1.5rem}
- .evo-proof-stars{font-size:1rem}
+ .evo-proof-stars{font-size:1.5rem}
  .ec-personality .ec-offer{padding-top:16px}
  .ec-personality .ec-price>strong{font-size:2.5rem}
  .ec-personality .ec-price>span{font-size:.9375rem}
@@ -139,6 +139,8 @@
 @media(max-width:359px){
  .ec-personality .ec-header-note{gap:7px;font-size:.6875rem}
  .evo-proof-rating{grid-template-columns:1fr;gap:3px}
+ .evo-proof-stars{font-size:1.375rem}
+ .ec-personality .evo-purchase-proof--hero{margin-block:8px}
  .evo-proof-orders{min-width:0;max-width:50%}
  .evo-proof-rating>span:last-child,.evo-proof-orders>span{font-size:.8125rem}
  .evo-proof-orders{padding-left:10px}

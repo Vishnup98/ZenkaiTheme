@@ -70,6 +70,8 @@ test('collector styling stays restrained and preserves the mint purchase action'
   assert(!css.includes('rotate('),'keep photo frames level');
   assert(css.includes('.ec-title-accent{display:block;color:inherit}'),'headline breaks should not add decorative underlines');
   assert(css.includes('background:#82d7c7'),'preserve the mint main CTA');
+  assert(/\.evo-proof-stars\{[^}]*font-size:1\.75rem/.test(css),'keep the desktop rating stars prominent');
+  assert(css.includes('.evo-proof-stars{font-size:1.5rem}'),'keep the mobile rating stars prominent');
   assert(css.includes('flex-wrap:nowrap'),'hero trust figures must not stack into two large rows');
   for(const family of ['evolution-creative','evolution-campaign']){
     const layout=fs.readFileSync(path.join(root,'layout',family+'.liquid'),'utf8');
