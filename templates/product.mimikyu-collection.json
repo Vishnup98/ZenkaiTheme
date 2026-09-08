@@ -5,7 +5,7 @@
       "type": "mimikyu-collection",
       "settings": {
         "hero_title": "You’ll want every little impostor.",
-        "purchase_ready": false,
+        "purchase_ready": true,
         "show_placeholders": false,
         "shipping_heading": "Tracked delivery",
         "shipping_summary": "Rates at checkout"
