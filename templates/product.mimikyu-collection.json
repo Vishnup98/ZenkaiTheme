@@ -21,7 +21,8 @@
         "collection_image": "shopify://shop_images/little-impostors-collection-f1653763a478.webp",
         "hero_image": "shopify://shop_images/little-impostors-hero-3cf2b7bbb5b9.webp",
         "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp",
-        "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp"
+        "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp",
+        "flareon_image": "shopify://shop_images/little-impostors-orange-996e6917e5d3.webp"
       },
       "blocks": {
         "photo_1": {
