@@ -34,6 +34,10 @@ for(const file of files){
     assert(html.includes('name="return_to" value="/checkout"'));
     assert(html.includes('name="id" value="47968551764073"'));
     assert(html.includes('Buy with Shop'));
+    if(main.type==='evolution-creative'){
+      assert(html.includes('>From customers</p>'));
+      assert(!html.includes('From buyers of the individual designs'));
+    }
     assert(html.indexOf('evo-purchase-proof--hero')<html.indexOf('data-ec-main-cta'),'store proof must be prominent before the main offer');
     assert(html.includes('★★★★★'));
     assert(html.includes('class="ec-title-accent"'));
