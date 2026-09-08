@@ -40,7 +40,7 @@
         {% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
         {% assign fallback = 'mimikyu-source-' | append: name %}{% if forloop.first %}{% assign fallback = 'mimikyu-source-lineup' %}{% endif %}
         {% assign full_asset = fallback | append: '-960.webp' %}{% assign zoom_url = full_asset | asset_url %}{% if photo != blank %}{% assign zoom_url = photo | image_url: width: 1800 %}{% endif %}
-        <figure class="ec-portrait"><button type="button" data-ec-zoom="{{ zoom_url }}" aria-label="Enlarge {{ labels[forloop.index0] | escape }}">{% render 'mimikyu-image', photo: photo, fallback: fallback, alt: labels[forloop.index0], sizes: '(max-width: 749px) 88vw, 860px' %}</button><figcaption>{{ labels[forloop.index0] }}</figcaption></figure>
+        <figure class="ec-portrait"><button type="button" data-ec-zoom="{{ zoom_url }}" aria-label="Enlarge {{ labels[forloop.index0] | escape }}">{% render 'mimikyu-image', photo: photo, fallback: fallback, alt: labels[forloop.index0], sizes: '(max-width: 749px) 88vw, 860px' %}</button></figure>
       {% endfor %}
     </div>
     <div class="ec-portrait-thumbs" aria-label="Choose a collection photo">
@@ -97,9 +97,9 @@
     {"type":"text","id":"hero_title","label":"Headline","default":"You’ll want every little impostor."},
     {"type":"checkbox","id":"purchase_ready","label":"Enable purchase buttons","default":false,"info":"Enable after price, fulfillment and delivery are confirmed."},
     {"type":"checkbox","id":"show_placeholders","label":"Show unfilled image and review slots","default":false,"info":"Empty slots always appear in the theme editor. Keep off on the public page."},
-    {"type":"text","id":"shipping_heading","label":"Shipping heading","default":"Tracked delivery"},
-    {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Rates at checkout"},
-    {"type":"textarea","id":"delivery_text","label":"Delivery details","default":"Shipping options and charges are shown at checkout. Tracking is provided after dispatch. This collection is direct-shipped and may arrive separately from other items in your order. Allow extra time if you are buying for a specific date."},
+    {"type":"text","id":"shipping_heading","label":"Shipping heading","default":"Free U.S. shipping"},
+    {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Arrives in 7-10 business days"},
+    {"type":"textarea","id":"delivery_text","label":"Delivery details","default":"Arrives in 7-10 business days. U.S. shipping is free for this set. This collection may arrive separately from other items in your order."},
     {"type":"header","content":"Generated product imagery"},
     {"type":"image_picker","id":"hero_image","label":"Hero — little-impostors-hero.png"},
     {"type":"image_picker","id":"collection_image","label":"Collection — little-impostors-collection.png"},
