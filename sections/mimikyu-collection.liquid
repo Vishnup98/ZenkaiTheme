@@ -8,7 +8,11 @@
 <div class="ec-page ec-palette-cream mc-page" data-ec-page data-journey="mimikyu-collection">
   <section class="ec-hero ec-shell" aria-labelledby="mc-title-{{ section.id }}">
     <figure class="ec-hero-media">
-      {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
+      {%- assign hero_zoom_url = 'mimikyu-source-lineup-960.webp' | asset_url -%}
+      {%- if section.settings.hero_image != blank -%}{%- assign hero_zoom_url = section.settings.hero_image | image_url: width: 1800 -%}{%- endif -%}
+      <button class="mc-hero-zoom" type="button" data-ec-zoom="{{ hero_zoom_url }}" aria-label="Enlarge the complete nine-plush collection">
+        {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
+      </button>
       <span class="mc-set-stamp" aria-hidden="true"><strong>9</strong><span>little impostors.<br>one happy shelf.</span></span>
     </figure>
     <div class="ec-hero-copy">
@@ -35,7 +39,7 @@
   </section>
 
   <section class="ec-included ec-shell" aria-labelledby="mc-included-{{ section.id }}">
-    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">The whole little gang</p><h2 id="mc-included-{{ section.id }}">Meet your nine<span class="mc-dot">.</span></h2></div><p class="mc-gallery-intro">Every one included.<br> Picking a favorite is optional.</p></div>
+    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">The whole little gang</p><h2 id="mc-included-{{ section.id }}">Meet your nine<span class="mc-dot">.</span></h2></div><p class="mc-gallery-intro">Every one included.</p></div>
     {%- assign names = 'collection,eevee,vaporeon,jolteon,flareon,espeon,umbreon,leafeon,glaceon,sylveon' | split: ',' -%}
     {%- assign labels = 'The complete nine-plush collection|Warm tan|Aqua|Bright yellow|Orange|Lavender|Charcoal|Leaf-eared cream|Icy blue|Pink ribbon' | split: '|' -%}
     <div class="ec-collection-media"><div class="ec-gallery-stage">
