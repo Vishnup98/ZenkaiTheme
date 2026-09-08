@@ -1,5 +1,7 @@
 # Evolution Companions: customer-facing copy direction
 
+Current direction: see [the September 8 design review](DESIGN-REVIEW-2026-09-08.md). It supersedes the older gallery, copy-provenance and section-length guidance below. Customer copy speaks directly from Zenkai, omits upstream sourcing and character names, and keeps review scope accurate without making provenance a sales paragraph.
+
 Updated 2026-09-05 following merchant review. This is an internal working guide, not landing-page copy.
 
 ## September 5 implementation
