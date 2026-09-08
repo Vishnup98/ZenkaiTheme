@@ -26,7 +26,6 @@
   <section class="ec-hero ec-shell" aria-labelledby="ec-title-{{ section.id }}">
     <figure class="ec-hero-media">
       <img src="{{ hero_large | asset_url }}" srcset="{{ hero_small | asset_url }} 640w, {{ hero_large | asset_url }} 1080w" sizes="(min-width: 900px) 52vw, 100vw" width="1080" height="1080" alt="{{ section.settings.hero_alt | escape }}" loading="eager" fetchpriority="high">
-      <figcaption class="ec-scene-label">Styled campaign scene · explore the product details below</figcaption>
     </figure>
     <div class="ec-hero-copy">
       <p class="ec-eyebrow">Evolution Companions · complete collection</p>
@@ -86,8 +85,8 @@
 
   <section class="ec-size ec-shell" id="ec-size-{{ section.id }}" aria-labelledby="ec-size-title-{{ section.id }}">
     <div class="ec-size-copy"><p class="ec-eyebrow">A little closer</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2><p>{{ section.settings.size_body }}</p>
-      <p class="ec-size-note">Approximately 8 × 7 × 6 inches each. Customer photos show them held in a hand for scale.</p>
-      <ul class="ec-size-facts" aria-label="Collection size summary"><li><strong>8</strong><span>separate plushes</span></li><li><strong>8 × 7 × 6 in</strong><span>approximately, each</span></li><li><strong>Full frame</strong><span>shown in a hand</span></li></ul>
+      <p class="ec-size-note">Approximately 8 × 7 × 6 inches each.</p>
+      <ul class="ec-size-facts" aria-label="Collection size summary"><li><strong>8</strong><span>separate plushes</span></li><li><strong>8 × 7 × 6 in</strong><span>approximately, each</span></li></ul>
     </div>
     <div class="ec-size-photos" aria-label="Customer photos showing the plushes held in a hand">
       <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" aria-label="Enlarge customer photo of the purple plush held in a hand"><img src="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-purple-720.webp' | asset_url }} 720w" sizes="(min-width: 1240px) 260px, (min-width: 900px) 23vw, 45vw" width="720" height="960" loading="lazy" alt="Customer holding the purple gem-costume plush, with the full ears, body and feet visible for scale"></button></figure>
@@ -133,7 +132,7 @@
   <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button><div class="ec-reassurance" aria-label="Shipping and store-wide customer reassurance"><span><b><span aria-hidden="true">✓</span> Free U.S. shipping</b><small>Typically 5–7 business days</small></span><span><b>Complete collection</b><small>All eight separate plushes</small></span><span><b>Secure checkout</b><small>Powered by Shopify</small></span></div><p class="ec-offer-policy">Order issue? <a href="/pages/policy">You’re covered. View policy</a></p></div></div></section>
 
   <aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
-  <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged plush collection photo"></div></dialog>
+  <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged plush collection photo"></div></dialog>
 </div>
 {% schema %}
 {

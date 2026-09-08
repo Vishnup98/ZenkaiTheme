@@ -1,6 +1,6 @@
 /* Isolated creative-test styling; the incumbent keeps its original layout. */
 .ec-creative .ec-hero-media { position:relative; }
-.ec-creative .ec-scene-label { margin:10px 4px 0; font-size:12px; line-height:1.5; color:#514d56; }
+.ec-creative .ec-size-facts { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .ec-creative .ec-offer-note { padding:12px 14px; border:1px solid #c7b7a4; background:#fff9ee; color:#3b3029; font-size:14px; line-height:1.55; margin:16px 0; }
 .ec-creative .ec-hero-copy h1 { text-wrap:balance; }
 .ec-creative .ec-lede { max-width:35em; }
@@ -19,5 +19,4 @@
  .ec-creative .ec-hero-media { max-width:520px; margin-inline:auto; }
  .ec-creative .ec-hero-copy { padding-top:18px; }
  .ec-creative .ec-story-grid { gap:22px; }
- .ec-creative .ec-scene-label { margin-top:6px; }
 }
