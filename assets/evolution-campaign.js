@@ -83,6 +83,7 @@
       var selectedThumb = null;
       var activeThumb = -1;
       var selectingThumb = false;
+      var selectionCorrections = 0;
       var gallerySettleTimer;
       if (!slides.length) return;
 
@@ -98,6 +99,7 @@
         if (thumbs.length) {
           selectedThumb = index;
           selectingThumb = true;
+          selectionCorrections = 0;
           updateGallery();
           scheduleGallerySettle();
         }
@@ -155,8 +157,19 @@
       }
       function settleGallery() {
         window.clearTimeout(gallerySettleTimer);
+        if (selectedThumb !== null && selectionCorrections < 2 &&
+          Math.abs(gallery.scrollLeft - slideOffset(selectedThumb)) > 3) {
+          // A keyboard or thumbnail choice can interrupt native wheel momentum.
+          // Honor that choice once the previous scroll has finished.
+          selectingThumb = true;
+          selectionCorrections += 1;
+          gallery.scrollTo({ left: slideOffset(selectedThumb), behavior: "auto" });
+          scheduleGallerySettle();
+          requestGalleryUpdate();
+          return;
+        }
         selectingThumb = false;
-        // The final two desktop photos share a scroll limit. Keep the exact
+        // The final desktop photos share a scroll limit. Keep the exact
         // thumbnail the shopper selected while its photo remains visible.
         if (selectedThumb !== null && Math.abs(gallery.scrollLeft - slideOffset(selectedThumb)) > 3) {
           selectedThumb = null;
@@ -170,6 +183,7 @@
       function releaseThumbSelection() {
         selectedThumb = null;
         selectingThumb = false;
+        selectionCorrections = 0;
         window.clearTimeout(gallerySettleTimer);
       }
       function onGalleryScroll() {
