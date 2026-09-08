@@ -52,10 +52,20 @@
 .ec-personality .ec-included .ec-section-heading>p{color:var(--ink);font-size:1rem}
 .ec-personality .ec-portraits{gap:12px;background:transparent;border-radius:12px}
 .ec-personality .ec-portraits>figure{flex:0 0 300px;max-width:none}
-.ec-personality .ec-portraits button{height:300px;background:#fffaf7;border-radius:12px}
+/* Photo-matched mats carry through to the thumbnail, without cropping the full plush. */
+.ec-personality .ec-portrait--group{--portrait-mat:#ddd8d0}
+.ec-personality .ec-portrait--espeon{--portrait-mat:#b9a8d0}
+.ec-personality .ec-portrait--jolteon{--portrait-mat:#b58838}
+.ec-personality .ec-portrait--flareon{--portrait-mat:#be5d25}
+.ec-personality .ec-portrait--glaceon{--portrait-mat:#a8bce3}
+.ec-personality .ec-portrait--sylveon{--portrait-mat:#d9a5c8}
+.ec-personality .ec-portrait--vaporeon{--portrait-mat:#82a5df}
+.ec-personality .ec-portrait--leafeon{--portrait-mat:#9fb9aa}
+.ec-personality .ec-portrait--umbreon{--portrait-mat:#bfc2be}
+.ec-personality .ec-portraits button{height:300px;background:var(--portrait-mat,var(--tint));border:1px solid color-mix(in srgb,var(--portrait-mat,var(--tint)) 84%,var(--ink));border-radius:12px}
 .ec-personality .ec-portrait-thumbs{margin-top:12px;padding:4px 3px 6px;scrollbar-width:none}
-.ec-personality .ec-portrait-thumbs button{border-radius:9px;background:#ffffff70}
-.ec-personality .ec-portrait-thumbs button[aria-pressed='true']{background:#fff;box-shadow:0 2px 0 var(--accent)}
+.ec-personality .ec-portrait-thumbs button{border-radius:9px;background:var(--portrait-mat,var(--tint));border-color:color-mix(in srgb,var(--portrait-mat,var(--tint)) 84%,var(--ink))}
+.ec-personality .ec-portrait-thumbs button[aria-pressed='true']{background:var(--portrait-mat,var(--tint));border-color:var(--accent);box-shadow:0 2px 0 var(--accent)}
 .ec-personality .ec-gallery-controls button{border:1px solid var(--rule);background:#fffaf6f5;box-shadow:none}
 .ec-personality .ec-story{padding-block:48px;background:transparent}
 .ec-personality .ec-story-intro h2{max-width:22ch}

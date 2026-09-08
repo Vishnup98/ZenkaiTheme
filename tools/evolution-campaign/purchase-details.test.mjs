@@ -44,7 +44,11 @@ for(const file of files){
     assert(main.settings.hero_title.endsWith(main.settings.hero_title_accent));
     const heading=html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
     assert.equal(heading,main.settings.hero_title,'accent styling must preserve the full headline');
-    for(const name of ['group','espeon','jolteon','flareon','glaceon','sylveon','vaporeon','leafeon','umbreon'])assert(fs.existsSync(path.join(root,'assets',`evo-portrait-${name}-120.webp`)));
+    for(const name of ['group','espeon','jolteon','flareon','glaceon','sylveon','vaporeon','leafeon','umbreon']){
+      assert(fs.existsSync(path.join(root,'assets',`evo-portrait-${name}-120.webp`)));
+      assert(html.includes(`class="ec-portrait ec-portrait--${name}"`),'each collection slide needs its photo palette');
+      assert(html.includes(`class="ec-portrait--${name}" data-ec-thumb`),'thumbnails must share the photo palette');
+    }
   });
 }
 test('all fifteen variations and shared styles remain wired',()=>{
@@ -87,5 +91,16 @@ test('both carousel families preserve deliberate thumbnail selections at shared 
     assert(source.includes('selectionCorrections < 2'),family+' must bound interrupted-scroll corrections');
     assert(source.includes('strip.scrollLeft +='),family+' must keep the selected thumbnail in view');
     for(const event of ['pointerdown','wheel'])assert(source.includes('gallery.addEventListener("'+event+'", releaseThumbSelection'),family+' must release selection for direct scrolling');
+  }
+});
+
+test('collection framing uses photo-matched color instead of white mats',()=>{
+  const css=fs.readFileSync(path.join(root,'assets/evolution-personality.css'),'utf8');
+  for(const name of ['group','espeon','jolteon','flareon','glaceon','sylveon','vaporeon','leafeon','umbreon']){
+    assert(css.includes(`.ec-portrait--${name}{--portrait-mat:#`),'every photo needs an explicit matching color');
+  }
+  for(const selector of ['.ec-portraits button','.ec-portrait-thumbs button',".ec-portrait-thumbs button[aria-pressed='true']"]){
+    const rule=css.split(selector+'{')[1].split('}')[0];
+    assert(rule.includes('background:var(--portrait-mat,var(--tint))'),selector+' must not reintroduce white framing');
   }
 });

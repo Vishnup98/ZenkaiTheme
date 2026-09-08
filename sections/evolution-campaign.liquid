@@ -59,7 +59,7 @@
     <div class="ec-portrait-thumbs" role="group" aria-label="Collection photo thumbnails">
       {% for name in portrait_names %}
         {% assign thumbnail = 'evo-portrait-' | append: name | append: '-120.webp' %}
-        <button type="button" data-ec-thumb aria-controls="ec-portraits-{{ section.id }}" aria-label="Show {{ portrait_descriptions[forloop.index0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><img src="{{ thumbnail | asset_url }}" width="120" height="120" loading="lazy" alt=""></button>
+        <button type="button" class="ec-portrait--{{ name }}" data-ec-thumb aria-controls="ec-portraits-{{ section.id }}" aria-label="Show {{ portrait_descriptions[forloop.index0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><img src="{{ thumbnail | asset_url }}" width="120" height="120" loading="lazy" alt=""></button>
       {% endfor %}
     </div></div>
   </section>
