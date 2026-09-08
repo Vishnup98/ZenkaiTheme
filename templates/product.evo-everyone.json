@@ -11,26 +11,25 @@
         "palette": "lavender",
         "hero_alt": "Eight colorful hooded plushes together in a red wagon in front of a claw machine, in a styled arcade scene.",
         "hero_title": "Nobody gets left behind.",
-        "hero_body": "No picking one and wishing you’d chosen another. All eight pictured plushes are included for $160, with free U.S. shipping.",
+        "hero_body": "The one you noticed first. The one you almost chose instead. With all eight in the set, nobody has to stay behind.",
         "offer_note": "",
         "purchase_label": "Get all 8",
-        "story_eyebrow": "The complete collection",
-        "story_title": "Meet every one you’re taking home.",
-        "story_body": "The one that caught your eye. The one you noticed next. And the six you weren’t about to leave behind. Your set includes one plush in each of the eight pictured designs.",
-        "size_title": "A real look at their size.",
-        "size_body": "These in-hand photos show the actual plushes, so you can picture how they’ll fit on your shelf or beside you.",
-        "proof_title": "Every little face, up close.",
-        "proof_body": "Take a closer look at the colorful hoods, stitched smiles and little brown paws. Every pictured plush design is part of your set.",
+        "story_eyebrow": "Everyone’s coming",
+        "story_title": "No second thoughts about the one you left.",
+        "story_body": "There’s a particular kind of satisfaction in seeing them all together. Every color. Every little face. Your collection starts complete.",
+        "size_title": "A home for every little face.",
+        "size_body": "Small enough for their own corner. Much too cute to leave there unnoticed.",
+        "proof_title": "The details you fell for.",
+        "proof_body": "Tall ears, tiny smiles, soft-looking hoods. Get to know the individual plushes in these customer photos.",
         "final_title": "All eight are coming home.",
-        "final_body": "One complete set. No choosing favorites. $160 for all eight plushes, with free U.S. shipping.",
-        "point_1_title": "One of every design",
-        "point_1_body": "Your collection includes eight separate plushes, with every pictured hood design represented.",
-        "point_2_title": "Nothing to choose between",
-        "point_2_body": "There’s no single-design selection to make. The whole group comes together in one set.",
-        "point_3_title": "Find their spots",
-        "point_3_body": "Line them up together or spread them around your space. Picking a favorite is optional."
+        "final_body": "The complete eight-plush set is $160. No favorites left behind.",
+        "collection_title": "Meet everyone you’re taking home.",
+        "collection_body": "Eight separate plushes, each in its own colorful costume. The whole lineup is included.",
+        "reviews_title": "One favorite becomes a collection."
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

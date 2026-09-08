@@ -22,6 +22,8 @@
       var inline = root.querySelectorAll(
         "[data-ec-main-cta], [data-ec-inline-cta], .shopify-payment-button shopify-accelerated-checkout, .shopify-payment-button button, .shopify-payment-button iframe",
       );
+      var mainButton = root.querySelector("[data-ec-main-cta]");
+      var mainPassed = mainButton && mainButton.getBoundingClientRect().bottom <= top;
       var usable = Array.from(inline).some(function (button) {
         var rect = button.getBoundingClientRect(),
           style = window.getComputedStyle(button);
@@ -39,7 +41,7 @@
         );
       });
       sticky.hidden =
-        usable || !!(root.querySelector("[data-ec-lightbox]") || {}).open;
+        !mainPassed || usable || !!(root.querySelector("[data-ec-lightbox]") || {}).open;
     }
     function requestStickyUpdate() {
       if (stickyFrame) return;
@@ -166,7 +168,6 @@
         "placement",
         "site_source_name",
         "experiment",
-        "page_version",
       ];
       var params = new URLSearchParams(window.location.search);
       allowed.forEach(function (key) {
@@ -222,11 +223,18 @@
       var photoViewport = dialog.querySelector(".ec-lightbox-viewport");
       function resetZoom() {
         dialog.classList.remove("is-zoomed");
+        dialog.style.removeProperty("--ec-zoom-width");
         zoomToggle.setAttribute("aria-pressed", "false");
         zoomToggle.textContent = "Zoom in";
         photoViewport.scrollTo(0, 0);
       }
       zoomToggle.addEventListener("click", function () {
+        var image = dialog.querySelector("img");
+        if (!dialog.classList.contains("is-zoomed")) {
+          var fittedWidth = image.getBoundingClientRect().width;
+          var zoomWidth = Math.min(fittedWidth * 2, Math.max(image.naturalWidth, fittedWidth * 1.25));
+          dialog.style.setProperty("--ec-zoom-width", zoomWidth + "px");
+        }
         var zoomed = dialog.classList.toggle("is-zoomed");
         zoomToggle.setAttribute("aria-pressed", String(zoomed));
         zoomToggle.textContent = zoomed ? "Fit photo" : "Zoom in";

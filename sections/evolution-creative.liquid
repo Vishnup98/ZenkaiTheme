@@ -12,32 +12,24 @@
 {%- if is_gift_journey -%}{%- assign purchase_label = 'Give Them All 8' -%}{%- endif -%}
 {% capture creative_story %}
 
-  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid">
+  <section class="ec-story" aria-labelledby="ec-story-{{ section.id }}"><div class="ec-shell ec-story-grid ec-story-grid--simple">
     <div class="ec-story-intro"><p class="ec-eyebrow">{{ section.settings.story_eyebrow }}</p><h2 id="ec-story-{{ section.id }}">{{ section.settings.story_title }}</h2><p>{{ section.settings.story_body }}</p></div>
-    <ol class="ec-points" aria-label="Three ways to enjoy the complete collection">
-      <li><h3>{{ section.settings.point_1_title }}</h3><p>{{ section.settings.point_1_body }}</p></li>
-      <li><h3>{{ section.settings.point_2_title }}</h3><p>{{ section.settings.point_2_body }}</p></li>
-      <li><h3>{{ section.settings.point_3_title }}</h3><p>{{ section.settings.point_3_body }}</p></li>
-    </ol>
   </div></section>
 
 {% endcapture %}
 <div class="ec-page ec-creative ec-palette-{{ section.settings.palette }} ec-family-{{ creative_family }}" data-ec-page data-creative-view="{{ template.suffix }}" data-concept="{{ section.settings.concept_id }}" data-journey="{{ section.settings.journey }}">
   <section class="ec-hero ec-shell" aria-labelledby="ec-title-{{ section.id }}">
     <figure class="ec-hero-media">
-      <img src="{{ hero_large | asset_url }}" srcset="{{ hero_small | asset_url }} 640w, {{ hero_large | asset_url }} 1080w" sizes="(min-width: 900px) 52vw, 100vw" width="1080" height="1080" alt="{{ section.settings.hero_alt | escape }}" loading="eager" fetchpriority="high">
+      <img src="{{ hero_large | asset_url }}" srcset="{{ hero_small | asset_url }} 640w, {{ hero_large | asset_url }} 1080w" sizes="(min-width: 1200px) 560px, (min-width: 900px) 48vw, (min-width: 620px) 560px, calc(100vw - 40px)" width="1080" height="1080" alt="{{ section.settings.hero_alt | escape }}" loading="eager" fetchpriority="high">
     </figure>
     <div class="ec-hero-copy">
-      <p class="ec-eyebrow">Evolution Companions · complete collection</p>
+      <p class="ec-eyebrow">Evolution Companions</p>
       <h1 id="ec-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
       <p class="ec-lede">{{ section.settings.hero_body }}</p>
-      {% if section.settings.offer_note != blank %}<p class="ec-offer-note">{{ section.settings.offer_note }}</p>{% endif %}
       <div class="ec-offer" id="ec-offer-{{ section.id }}">
-        <div class="ec-price"><strong>{{ v.price | money }}</strong><span><small>Complete 8-plush set</small>8 plushes <i aria-hidden="true">·</i> {{ per_plush | money_without_trailing_zeros }} each</span></div>
-        <div class="ec-palette-bar" role="group" aria-label="All eight costume colors are included; no color selection needed">
-          <div class="ec-swatches" aria-hidden="true"><span style="--swatch:#f4a9bb"></span><span style="--swatch:#bfa5e8"></span><span style="--swatch:#b9e6f3"></span><span style="--swatch:#4ba9d7"></span><span style="--swatch:#f3792d"></span><span style="--swatch:#f3d64f"></span><span style="--swatch:#d6bf68"></span><span style="--swatch:#2f3036"></span></div>
-          <span>Every color included</span>
-        </div>
+        <div class="ec-price"><strong>{{ v.price | money_without_trailing_zeros }}</strong><span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} per plush · one of every design</small></span></div>
+        <p class="ec-shipping"><strong>Free U.S. shipping</strong><span>Typically 5–7 business days</span></p>
+        {% if section.settings.offer_note != blank %}<p class="ec-offer-note">{{ section.settings.offer_note }}</p>{% endif %}
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -46,22 +38,18 @@
           <input type="hidden" name="properties[_zk_creative_id]" value="{{ section.settings.concept_id }}">
           <input type="hidden" name="properties[_zk_page_family]" value="{{ creative_family }}">
           <input type="hidden" name="properties[_zk_page_version]" value="matched-v1">
-          <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button>
+          <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button>
           {{ form | payment_button }}
         {%- endform -%}
-        <div class="ec-reassurance" aria-label="Shipping and store-wide customer reassurance">
-          <span><b><span aria-hidden="true">✓</span> Free U.S. shipping</b><small>Typically 5–7 business days</small></span>
-          <span><b>Complete collection</b><small>All eight separate plushes</small></span>
-          <span><b>Secure checkout</b><small>Powered by Shopify</small></span>
-        </div>
-        <p class="ec-offer-policy">Order issue? <a href="/pages/policy">You’re covered. View policy</a></p>
+        <p class="ec-offer-policy"><span>Secure checkout with Shopify</span><a href="/pages/policy">Delivery &amp; returns</a></p>
       </div>
     </div>
   </section>
 
   {% unless creative_family == 'collection' %}{{ creative_story }}{% endunless %}
   <section class="ec-included ec-shell" aria-labelledby="ec-included-{{ section.id }}">
-    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">{% if is_gift_journey %}Meet their eight{% else %}Meet your eight{% endif %}</p><h2 id="ec-included-{{ section.id }}">A favorite in every color.</h2><p>{% if is_gift_journey %}Every face in this lineup is part of their gift.{% else %}Every face in this lineup comes home with you.{% endif %} Eight separate plushes, each in its own costume.</p></div><span class="ec-count-stamp" aria-label="All eight plushes included"><strong>8</strong><span>{% if is_gift_journey %}all theirs{% else %}all yours{% endif %}</span></span></div>
+    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">The complete collection</p><h2 id="ec-included-{{ section.id }}">{{ section.settings.collection_title | default: 'A favorite in every color.' }}</h2><p>{{ section.settings.collection_body | default: 'Eight separate plushes, each in its own colorful costume. One of every pictured design is included.' }}</p></div></div>
+    <div class="ec-collection-media">
     {%- assign portrait_names = 'group,espeon,jolteon,flareon,glaceon,sylveon,vaporeon,leafeon,umbreon' | split: ',' -%}
     {%- assign portrait_descriptions = 'all eight plush companions together|plush with a lavender hood and tall ears|plush with a yellow hood and white collar|plush with an orange hood and fluffy yellow collar|plush with a pale blue hood and long side flaps|plush with a pink and white hood and ribbons|plush with a bright blue hood and fin-shaped ears|plush with a pale yellow hood and green leaf details|plush with a charcoal hood and yellow ear bands' | split: '|' -%}
     <div class="ec-gallery ec-portraits" id="ec-portraits-{{ section.id }}" data-ec-gallery data-ec-portrait-mode="group" role="region" aria-roledescription="carousel" aria-label="The complete collection and each included plush" tabindex="0">
@@ -72,21 +60,21 @@
         {% assign portrait_height = 1024 %}
         {% if name == 'group' %}{% assign portrait_height = 687 %}{% endif %}
         {% if name == 'espeon' %}{% assign portrait_height = 918 %}{% endif %}
-        <figure class="ec-portrait ec-portrait--{{ name }}"><button type="button" data-ec-zoom="{{ full | asset_url }}" aria-label="Enlarge photo of {{ portrait_description }}"><img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(max-width: 749px) 88vw, 860px" width="1024" height="{{ portrait_height }}" loading="lazy" alt="Full view of {{ portrait_description }}, included in the complete set"></button>{% if name == 'group' %}<figcaption>The complete collection</figcaption>{% endif %}</figure>
+        <figure class="ec-portrait ec-portrait--{{ name }}"><button type="button" data-ec-zoom="{{ full | asset_url }}" aria-label="Enlarge photo of {{ portrait_description }}"><img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(min-width: 1200px) 680px, (min-width: 900px) 58vw, (min-width: 720px) 680px, calc(100vw - 40px)" width="1024" height="{{ portrait_height }}" loading="lazy" alt="Full view of {{ portrait_description }}, included in the complete set"></button></figure>
       {% endfor %}
     </div>
     <div class="ec-portrait-thumbs" aria-label="Browse collection photos">
       {% for name in portrait_names %}{% assign thumb = 'evo-portrait-' | append: name | append: '-120.webp' %}<button type="button" data-ec-thumb="{{ forloop.index0 }}" aria-label="Show photo of {{ portrait_descriptions[forloop.index0] }}" aria-controls="ec-portraits-{{ section.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><img src="{{ thumb | asset_url }}" width="60" height="60" loading="lazy" alt=""></button>{% endfor %}
     </div>
     <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous collection photo">←</button><span data-ec-gallery-position aria-live="polite" aria-atomic="true">1 of 9</span><button type="button" data-ec-gallery-next aria-label="Next collection photo">→</button></div></div>
+    </div>
   </section>
 
   {% if creative_family == 'collection' %}{{ creative_story }}{% endif %}
 
   <section class="ec-size ec-shell" id="ec-size-{{ section.id }}" aria-labelledby="ec-size-title-{{ section.id }}">
-    <div class="ec-size-copy"><p class="ec-eyebrow">A little closer</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2><p>{{ section.settings.size_body }}</p>
-      <p class="ec-size-note">Approximately 8 × 7 × 6 inches each.</p>
-      <ul class="ec-size-facts" aria-label="Collection size summary"><li><strong>8</strong><span>separate plushes</span></li><li><strong>8 × 7 × 6 in</strong><span>approximately, each</span></li></ul>
+    <div class="ec-size-copy"><p class="ec-eyebrow">Little companions. Real-life size.</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2>{% if section.settings.size_body != blank %}<p>{{ section.settings.size_body }}</p>{% endif %}
+      <p class="ec-dimensions"><strong>8 × 7 × 6 in</strong><span>Approximately, per plush</span></p>
     </div>
     <div class="ec-size-photos" aria-label="Customer photos showing the plushes held in a hand">
       <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" aria-label="Enlarge customer photo of the purple plush held in a hand"><img src="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-purple-720.webp' | asset_url }} 720w" sizes="(min-width: 1240px) 260px, (min-width: 900px) 23vw, 45vw" width="720" height="960" loading="lazy" alt="Customer holding the purple gem-costume plush, with the full ears, body and feet visible for scale"></button></figure>
@@ -95,30 +83,25 @@
   </section>
 
   <section class="ec-proof ec-shell" aria-labelledby="ec-proof-{{ section.id }}">
-    <div class="ec-proof-lead">
-      <figure class="ec-detail-photo"><img src="{{ 'evo-campaign-customer-06.webp' | asset_url }}" width="720" height="720" loading="lazy" alt="Customer photo showing the charcoal hood and yellow details of one included plush"></figure>
-      <div class="ec-proof-copy"><div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
-      <figure class="ec-featured-review"><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Customer review excerpt of an individual design</figcaption></figure></div>
-    </div>
+    <div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
     <div class="ec-gallery" id="ec-gallery-{{ section.id }}" role="region" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
         {%- assign proof_asset = 'evo-campaign-customer-0' | append: i | append: '.webp' -%}
         {%- case i -%}
-          {%- when 2 -%}{%- assign proof_caption = 'Pink, purple & orange' -%}
-          {%- when 3 -%}{%- assign proof_caption = 'Purple gem' -%}
-          {%- when 4 -%}{%- assign proof_caption = 'Pink ribbons' -%}
-          {%- when 5 -%}{%- assign proof_caption = 'Blue companions' -%}
-          {%- when 6 -%}{%- assign proof_caption = 'Moon black' -%}
+          {%- when 2 -%}{%- assign proof_caption = 'Pink, purple & orange' -%}{%- assign proof_width = 720 -%}{%- assign proof_height = 540 -%}
+          {%- when 3 -%}{%- assign proof_caption = 'Purple gem' -%}{%- assign proof_width = 720 -%}{%- assign proof_height = 960 -%}
+          {%- when 4 -%}{%- assign proof_caption = 'Pink ribbons' -%}{%- assign proof_width = 720 -%}{%- assign proof_height = 960 -%}
+          {%- when 5 -%}{%- assign proof_caption = 'Blue companions' -%}{%- assign proof_width = 360 -%}{%- assign proof_height = 780 -%}
+          {%- when 6 -%}{%- assign proof_caption = 'Charcoal hood & yellow details' -%}{%- assign proof_width = 412 -%}{%- assign proof_height = 960 -%}
         {%- endcase -%}
-        <figure><button type="button" data-ec-zoom="{{ proof_asset | asset_url }}" aria-label="Enlarge customer photo: {{ proof_caption | escape }}"><img src="{{ proof_asset | asset_url }}" width="720" height="720" loading="lazy" alt="{{ proof_caption | escape }} plush detail, photographed by a customer"></button></figure>
+        <figure><button type="button" data-ec-zoom="{{ proof_asset | asset_url }}" aria-label="Enlarge customer photo: {{ proof_caption | escape }}"><img src="{{ proof_asset | asset_url }}" width="{{ proof_width }}" height="{{ proof_height }}" loading="lazy" alt="{{ proof_caption | escape }} plush detail, photographed by a customer"></button></figure>
       {%- endfor -%}
     </div>
   </section>
 
   <section class="ec-reviews"><div class="ec-shell">
-    <div class="ec-section-heading"><h2>What buyers said about the individual plushes.</h2></div>
-    <div class="ec-review-grid" role="region" aria-label="Customer reviews" tabindex="0"><figure><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote><figcaption>Product customer review excerpt</figcaption></figure><figure><blockquote>“Amazing delivery product excellent condition”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Shipping took longer than anticipated but with the holidays it is not too surprising. For the price and quality, i am okay with the longer wait. Would purchase again.”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Wife loved them 💪🏾 Kids love them soft, perfect for gifts, couldn’t ask for better 👍”</blockquote><figcaption>Product customer review</figcaption></figure><figure><blockquote>“Awesome quality! i now have collected all 8 from this seller! fast shipping and highly recommend buyer here!”</blockquote><figcaption>Product customer review</figcaption></figure></div>
-    <p class="ec-review-source">Feedback from buyers of the individual designs.</p>
+    <div class="ec-section-heading"><p class="ec-eyebrow">From buyers of the individual designs</p><h2>{{ section.settings.reviews_title | default: 'A little collection. A lot of love.' }}</h2></div>
+    <div class="ec-review-grid" role="region" aria-label="Customer reviews"><figure><blockquote>{% if creative_family == 'gift' %}“Wife loved them 💪🏾 Kids love them soft, perfect for gifts, couldn’t ask for better 👍”{% else %}“Super adorable! … had to grab some more for friends.”{% endif %}</blockquote><figcaption>{% if creative_family == 'gift' %}Customer review{% else %}Customer review excerpt{% endif %}</figcaption></figure><figure><blockquote>“Awesome quality! i now have collected all 8 from this seller! fast shipping and highly recommend buyer here!”</blockquote><figcaption>Customer review</figcaption></figure><figure><blockquote>“Shipping took longer than anticipated but with the holidays it is not too surprising. For the price and quality, i am okay with the longer wait. Would purchase again.”</blockquote><figcaption>Customer review</figcaption></figure></div>
   </div></section>
 
   <section class="ec-faq ec-shell" aria-labelledby="ec-faq-{{ section.id }}"><h2 id="ec-faq-{{ section.id }}">{% if is_gift_journey %}Before you give them all eight.{% else %}Before you make them yours.{% endif %}</h2>
@@ -129,9 +112,9 @@
     <details><summary>What if something is wrong with my order?</summary><p>If your order is lost in transit, damaged, defective, incorrect or materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full collector policy.</a></p></details>
   </section>
 
-  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button><div class="ec-reassurance" aria-label="Shipping and store-wide customer reassurance"><span><b><span aria-hidden="true">✓</span> Free U.S. shipping</b><small>Typically 5–7 business days</small></span><span><b>Complete collection</b><small>All eight separate plushes</small></span><span><b>Secure checkout</b><small>Powered by Shopify</small></span></div><p class="ec-offer-policy">Order issue? <a href="/pages/policy">You’re covered. View policy</a></p></div></div></section>
+  <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button><p class="ec-final-delivery">Free U.S. shipping · typically 5–7 business days</p></div></div></section>
 
-  <aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky" data-ec-sticky hidden aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged plush collection photo"></div></dialog>
 </div>
 {% schema %}
@@ -148,6 +131,9 @@
     {"type":"text","id":"hero_alt","label":"Hero image description","default":"All eight Evolution Companions plushes"},
     {"type":"text","id":"hero_title","label":"Headline","default":"You don’t have to pick a favorite."},
     {"type":"textarea","id":"hero_body","label":"Introduction","default":"Bring home all eight plush companions together."},
+    {"type":"text","id":"collection_title","label":"Collection headline","default":"A favorite in every color."},
+    {"type":"textarea","id":"collection_body","label":"Collection introduction","default":"Eight separate plushes, each in its own colorful costume. One of every pictured design is included."},
+    {"type":"text","id":"reviews_title","label":"Customer reviews headline","default":"A little collection. A lot of love."},
     {"type":"text","id":"story_eyebrow","label":"Story eyebrow","default":"Picture them at home"},
     {"type":"text","id":"story_title","label":"Story headline","default":"Make room for the whole set."},
     {"type":"textarea","id":"story_body","label":"Story body","default":"Keep every favorite together."},

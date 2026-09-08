@@ -11,26 +11,25 @@
         "palette": "butter",
         "hero_alt": "An adult in a charcoal T-shirt holding an armful of eight colorful hooded plushes, in a styled scene.",
         "hero_title": "Yes, they can all be yours.",
-        "hero_body": "One complete collection. Eight separate plushes. $160, with free U.S. shipping.",
+        "hero_body": "You could give a few away. You could also keep every single one. Your next armful comes as a complete eight-plush set.",
         "offer_note": "",
         "purchase_label": "Get all 8",
-        "story_eyebrow": "Eight plushes. All yours.",
-        "story_title": "A closer look at your future armful.",
-        "story_body": "You don’t have to know which one is your favorite yet. Bring home one of every pictured design, then find a place for the whole collection.",
-        "size_title": "See the actual plushes in hand.",
-        "size_body": "Take a look at these in-hand photos for a real sense of size. Picture your first favorite on your desk and the rest close by.",
+        "story_eyebrow": "All yours",
+        "story_title": "Keeping one was never the plan.",
+        "story_body": "Get to know every little face. Give your first favorite the best spot. Change your mind tomorrow.",
+        "size_title": "Your next armful of favorites.",
+        "size_body": "For the shelf, the bedside, or right here with you.",
         "proof_title": "The details you’ll get to know.",
-        "proof_body": "The little smiles, colorful hoods and brown paws: see each plush up close before the complete set becomes yours.",
+        "proof_body": "Stitched smiles, colorful hoods and brown paws. Little things that make each one a favorite.",
         "final_title": "Keep every one.",
-        "final_body": "Your complete collection includes all eight plushes for $160, with free U.S. shipping.",
-        "point_1_title": "All eight included",
-        "point_1_body": "You get eight separate plushes—one of every pictured design—in one complete set.",
-        "point_2_title": "Your everyday favorites",
-        "point_2_body": "Put them where you’ll see them: on a shelf, beside your pillow or keeping your desk company.",
-        "point_3_title": "Keep changing your mind",
-        "point_3_body": "Give a different one the best spot tomorrow. When the whole set is yours, there’s no wrong favorite."
+        "final_body": "One complete collection. Eight plushes. All yours for $160.",
+        "collection_title": "You don’t have to share.",
+        "collection_body": "Eight separate plushes, one in every pictured costume. Every little face in this lineup is yours to keep.",
+        "reviews_title": "Good luck choosing just one."
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

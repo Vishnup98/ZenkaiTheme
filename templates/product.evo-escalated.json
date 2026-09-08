@@ -13,24 +13,23 @@
         "offer_note": "",
         "hero_alt": "Eight colorful plushes seated in a red rollercoaster car in a styled amusement-park scene.",
         "hero_title": "One favorite was never going to be enough.",
-        "hero_body": "Bring home all eight together. Every pictured design is included in your $160 set, with free U.S. shipping.",
+        "hero_body": "Eight little faces. One extremely good reason to make some room. Bring home the complete collection.",
         "story_eyebrow": "Well, this escalated",
-        "story_title": "Make room for the whole gang.",
-        "story_body": "Maybe one caught your eye first. Now picture the whole lineup on your shelf, waiting for you to decide who gets the best spot.",
-        "point_1_title": "Start with the one you love",
-        "point_1_body": "Give your first favorite a spot where you’ll see it every day.",
-        "point_2_title": "Let the others move in",
-        "point_2_body": "All eight pictured plushes come in the set. There’s no second decision about which ones to leave behind.",
-        "point_3_title": "Make a little room for delight",
-        "point_3_body": "Keep the collection together or find a different corner for each one. The arrangement is yours.",
-        "size_title": "A little perspective before they arrive.",
-        "size_body": "See the plushes held in a hand to get a feel for their size and plan where your set will go.",
+        "story_title": "And then there were eight.",
+        "story_body": "First, one caught your eye. Then another. Now the only decision left is who gets the best spot.",
+        "size_title": "Make room for the whole gang.",
+        "size_body": "A little company for the everyday places you love.",
         "proof_title": "Every little face, up close.",
-        "proof_body": "Take a closer look at the colorful hoods, stitched faces and little paws in the product photos.",
+        "proof_body": "Stitched smiles, colorful hoods and little brown paws. The details that make you look twice.",
         "final_title": "Go on. Bring the whole set home.",
-        "final_body": "All eight pictured plushes, together for $160. Free U.S. shipping."
+        "final_body": "The complete eight-plush collection, all yours for $160.",
+        "collection_title": "Go on. Pick a favorite.",
+        "collection_body": "Then change your mind. Your set includes eight separate plushes, one in every pictured costume.",
+        "reviews_title": "A little collection. A lot to love."
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
