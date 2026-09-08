@@ -14,7 +14,9 @@
         "vaporeon_image": "shopify://shop_images/little-impostors-aqua-0be6c8aa34b9.webp",
         "glaceon_image": "shopify://shop_images/little-impostors-icy-blue-8c8e1dfd269c.webp",
         "sylveon_image": "shopify://shop_images/little-impostors-pink-ribbon-cf2ce7aa38dd.webp",
-        "detail_image": "shopify://shop_images/little-impostors-detail-6e35f1ade5a6.webp"
+        "detail_image": "shopify://shop_images/little-impostors-detail-6e35f1ade5a6.webp",
+        "leafeon_image": "shopify://shop_images/little-impostors-leaf-eared-cream-c126c620e8c0.webp",
+        "shelf_image": "shopify://shop_images/little-impostors-shelf-a99ef76d1e77.webp"
       },
       "blocks": {
         "photo_1": {
