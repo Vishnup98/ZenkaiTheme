@@ -66,92 +66,134 @@
     paymentObserver.observe(root, { childList: true, subtree: true });
     updateSticky();
 
-    var gallery = root.querySelector("[data-ec-gallery]");
-    var controls = root.querySelector("[data-ec-gallery-controls]");
-    var galleryResize;
-    if (gallery && controls) {
-      var previous = controls.querySelector("[data-ec-gallery-prev]");
-      var next = controls.querySelector("[data-ec-gallery-next]");
-      var position = controls.querySelector("[data-ec-gallery-position]");
+    var galleryCleanups = [];
+    root.querySelectorAll("[data-ec-gallery]").forEach(function (gallery) {
+      var stage = gallery.closest(".ec-gallery-stage") || gallery.closest(".ec-included");
+      var controls = stage && stage.querySelector("[data-ec-gallery-controls]");
+      var previous = controls && controls.querySelector("[data-ec-gallery-prev]");
+      var next = controls && controls.querySelector("[data-ec-gallery-next]");
+      var position = controls && controls.querySelector("[data-ec-gallery-position]");
       var slides = Array.from(gallery.children);
-      var thumbs = Array.from(root.querySelectorAll('[data-ec-thumb]'));
-      thumbs.forEach(function (thumb, index) {
-        thumb.addEventListener('click', function () {
-          gallery.dataset.ecPortraitMode = index === 0 ? 'group' : 'individual';
-          gallery.scrollTo({left: slides[index].offsetLeft - slides[0].offsetLeft, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
-        });
+      var thumbs = Array.from(root.querySelectorAll("[data-ec-thumb]")).filter(function (thumb) {
+        return thumb.getAttribute("aria-controls") === gallery.id;
       });
+      var galleryFrame;
+      var galleryResize;
+      if (!slides.length) return;
+
+      function maximumScroll() {
+        return Math.max(0, gallery.scrollWidth - gallery.clientWidth);
+      }
+      function slideOffset(index) {
+        return Math.max(0, Math.min(maximumScroll(),
+          slides[index].getBoundingClientRect().left -
+          slides[0].getBoundingClientRect().left));
+      }
+      function scrollToSlide(index) {
+        gallery.scrollTo({
+          left: slideOffset(index),
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto" : "smooth",
+        });
+      }
       function updateGallery() {
         var bounds = gallery.getBoundingClientRect();
-        var visible = slides
-          .map(function (slide, index) {
-            var rect = slide.getBoundingClientRect();
-            return Math.min(rect.right, bounds.right) -
-              Math.max(rect.left, bounds.left) >
-              rect.width / 2
-              ? index
-              : -1;
-          })
-          .filter(function (index) {
-            return index >= 0;
-          });
-        /* The framed portrait rail has an inset snap point; treat that small
-           leading offset as the start so the previous control stays honest. */
-        previous.disabled = gallery.scrollLeft <= 18;
-        next.disabled =
-          gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth - 2;
+        var visible = slides.map(function (slide, index) {
+          var rect = slide.getBoundingClientRect();
+          var overlap = Math.max(0, Math.min(rect.right, bounds.right) -
+            Math.max(rect.left, bounds.left));
+          return overlap >= Math.min(rect.width, gallery.clientWidth) / 2 && overlap > 0
+            ? index : -1;
+        }).filter(function (index) { return index >= 0; });
+        if (previous) previous.disabled = gallery.scrollLeft <= 2;
+        if (next) next.disabled = gallery.scrollLeft >= maximumScroll() - 2;
         if (visible.length) {
-          gallery.dataset.ecPortraitMode = visible[0] === 0 ? 'group' : 'individual';
-          thumbs.forEach(function (thumb, index) { thumb.setAttribute('aria-pressed', String(index === visible[0])); });
-          var start = visible[0] + 1,
-            end = visible[visible.length - 1] + 1;
-          position.textContent =
-            (start === end ? start : start + "–" + end) +
-            " of " +
-            slides.length;
+          gallery.dataset.ecPortraitMode = visible[0] === 0 ? "group" : "individual";
+          thumbs.forEach(function (thumb, index) {
+            thumb.setAttribute("aria-pressed", String(index === visible[0]));
+          });
+          if (position) {
+            var start = visible[0] + 1;
+            var end = visible[visible.length - 1] + 1;
+            var label = (start === end ? start : start + "–" + end) + " of " + slides.length;
+            if (position.textContent !== label) position.textContent = label;
+          }
         }
       }
-      function moveGallery(direction) {
-        var step =
-          slides.length > 1
-            ? slides[1].offsetLeft - slides[0].offsetLeft
-            : gallery.clientWidth;
-        gallery.scrollBy({
-          left: direction * step,
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? "auto"
-            : "smooth",
+      function requestGalleryUpdate() {
+        if (galleryFrame) return;
+        galleryFrame = window.requestAnimationFrame(function () {
+          galleryFrame = null;
+          updateGallery();
         });
       }
-      previous.addEventListener("click", function () {
-        moveGallery(-1);
-      });
-      next.addEventListener("click", function () {
-        moveGallery(1);
-      });
-      gallery.addEventListener("scroll", updateGallery, { passive: true });
-      gallery.addEventListener("keydown", function (event) {
-        if (event.target !== gallery) return;
-        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-          event.preventDefault();
-          moveGallery(event.key === "ArrowRight" ? 1 : -1);
-        }
+      function moveGallery(direction) {
+        var current = gallery.scrollLeft;
+        var targets = slides.map(function (_, index) { return slideOffset(index); });
+        var target = direction > 0
+          ? targets.find(function (left) { return left > current + 2; })
+          : targets.reverse().find(function (left) { return left < current - 2; });
+        gallery.scrollTo({
+          left: target === undefined ? (direction > 0 ? maximumScroll() : 0) : target,
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto" : "smooth",
+        });
+      }
+      function goPrevious() { moveGallery(-1); }
+      function goNext() { moveGallery(1); }
+      function onGalleryKeydown(event) {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+        if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+        var photoButton = event.target.closest("[data-ec-zoom]");
+        if (event.target !== gallery && (!photoButton || !gallery.contains(photoButton))) return;
+        event.preventDefault();
+        var focusedIndex = photoButton ? slides.findIndex(function (slide) {
+          return slide.contains(photoButton);
+        }) : -1;
+        var destination;
         if (event.key === "Home" || event.key === "End") {
-          event.preventDefault();
-          gallery.scrollTo({
-            left: event.key === "Home" ? 0 : gallery.scrollWidth,
-            behavior: "auto",
-          });
+          destination = event.key === "Home" ? 0 : slides.length - 1;
+        } else if (focusedIndex >= 0) {
+          destination = Math.max(0, Math.min(slides.length - 1,
+            focusedIndex + (event.key === "ArrowRight" ? 1 : -1)));
+        } else {
+          moveGallery(event.key === "ArrowRight" ? 1 : -1);
+          return;
         }
+        if (photoButton) {
+          var destinationButton = slides[destination].querySelector("[data-ec-zoom]");
+          if (destinationButton) destinationButton.focus({ preventScroll: true });
+        }
+        scrollToSlide(destination);
+      }
+      var thumbHandlers = thumbs.map(function (thumb, index) {
+        var handler = function () { if (slides[index]) scrollToSlide(index); };
+        thumb.addEventListener("click", handler);
+        return handler;
       });
-      controls.hidden = false;
+      if (previous) previous.addEventListener("click", goPrevious);
+      if (next) next.addEventListener("click", goNext);
+      gallery.addEventListener("scroll", requestGalleryUpdate, { passive: true });
+      gallery.addEventListener("keydown", onGalleryKeydown);
+      if (controls) controls.hidden = false;
       if (typeof ResizeObserver === "function") {
-        galleryResize = new ResizeObserver(updateGallery);
+        galleryResize = new ResizeObserver(requestGalleryUpdate);
         galleryResize.observe(gallery);
+        slides.forEach(function (slide) { galleryResize.observe(slide); });
       }
       updateGallery();
-    }
+      galleryCleanups.push(function () {
+        if (galleryFrame) window.cancelAnimationFrame(galleryFrame);
+        if (galleryResize) galleryResize.disconnect();
+        if (previous) previous.removeEventListener("click", goPrevious);
+        if (next) next.removeEventListener("click", goNext);
+        gallery.removeEventListener("scroll", requestGalleryUpdate);
+        gallery.removeEventListener("keydown", onGalleryKeydown);
+        thumbs.forEach(function (thumb, index) {
+          thumb.removeEventListener("click", thumbHandlers[index]);
+        });
+      });
+    });
     var form = root.querySelector(".ec-product-form");
     if (form) {
       var allowed = [
@@ -266,7 +308,7 @@
       }
       if (stickyFrame) window.cancelAnimationFrame(stickyFrame);
       if (sizeObserver) sizeObserver.disconnect();
-      if (galleryResize) galleryResize.disconnect();
+      galleryCleanups.forEach(function (cleanup) { cleanup(); });
       paymentObserver.disconnect();
     };
   }
