@@ -16,7 +16,9 @@
         "sylveon_image": "shopify://shop_images/little-impostors-pink-ribbon-cf2ce7aa38dd.webp",
         "detail_image": "shopify://shop_images/little-impostors-detail-6e35f1ade5a6.webp",
         "leafeon_image": "shopify://shop_images/little-impostors-leaf-eared-cream-c126c620e8c0.webp",
-        "shelf_image": "shopify://shop_images/little-impostors-shelf-a99ef76d1e77.webp"
+        "shelf_image": "shopify://shop_images/little-impostors-shelf-a99ef76d1e77.webp",
+        "jolteon_image": "shopify://shop_images/little-impostors-bright-yellow-ab4c7773cb57.webp",
+        "collection_image": "shopify://shop_images/little-impostors-collection-f1653763a478.webp"
       },
       "blocks": {
         "photo_1": {
