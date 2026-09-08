@@ -72,8 +72,8 @@
 .ec-collection-media { min-width:0; width:100%; max-width:680px; margin-inline:auto; }
 .ec-gallery { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; }
 .ec-gallery figure { min-width:0; scroll-snap-align:start; }
-.ec-gallery button { display:grid; place-items:center; width:100%; padding:0; border:0; border-radius:6px; background:#f0edeb; overflow:hidden; cursor:zoom-in; }
-.ec-gallery img { width:100%; height:100%; object-fit:contain; }
+.ec-gallery button { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr); place-items:center; width:100%; padding:0; border:0; border-radius:6px; background:#f0edeb; overflow:hidden; cursor:zoom-in; }
+.ec-gallery img { width:100%; height:100%; min-width:0; min-height:0; object-fit:contain; }
 .ec-gallery button:focus-visible { outline-offset:-4px; }
 .ec-portraits { gap:0; scrollbar-width:none; border-radius:8px; background:#f0edeb; }
 .ec-portraits::-webkit-scrollbar { display:none; }
