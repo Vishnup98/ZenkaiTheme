@@ -79,6 +79,10 @@
       });
       var galleryFrame;
       var galleryResize;
+      var selectedThumb = null;
+      var activeThumb = -1;
+      var selectingThumb = false;
+      var gallerySettleTimer;
       if (!slides.length) return;
 
       function maximumScroll() {
@@ -90,6 +94,12 @@
           slides[0].getBoundingClientRect().left));
       }
       function scrollToSlide(index) {
+        if (thumbs.length) {
+          selectedThumb = index;
+          selectingThumb = true;
+          updateGallery();
+          scheduleGallerySettle();
+        }
         gallery.scrollTo({
           left: slideOffset(index),
           behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -109,9 +119,24 @@
         if (next) next.disabled = gallery.scrollLeft >= maximumScroll() - 2;
         if (visible.length) {
           gallery.dataset.ecPortraitMode = visible[0] === 0 ? "group" : "individual";
+          var currentThumb = selectedThumb !== null &&
+            (selectingThumb || visible.includes(selectedThumb)) ? selectedThumb : visible[0];
           thumbs.forEach(function (thumb, index) {
-            thumb.setAttribute("aria-pressed", String(index === visible[0]));
+            thumb.setAttribute("aria-pressed", String(index === currentThumb));
           });
+          if (thumbs[currentThumb] && currentThumb !== activeThumb) {
+            activeThumb = currentThumb;
+            var thumb = thumbs[currentThumb];
+            var strip = thumb.parentElement;
+            var thumbBounds = thumb.getBoundingClientRect();
+            var stripBounds = strip.getBoundingClientRect();
+            // Move only the thumbnail strip; never scroll the page vertically.
+            if (thumbBounds.left < stripBounds.left + 3) {
+              strip.scrollLeft += thumbBounds.left - stripBounds.left - 3;
+            } else if (thumbBounds.right > stripBounds.right - 3) {
+              strip.scrollLeft += thumbBounds.right - stripBounds.right + 3;
+            }
+          }
           if (position) {
             var start = visible[0] + 1;
             var end = visible[visible.length - 1] + 1;
@@ -127,7 +152,31 @@
           updateGallery();
         });
       }
+      function settleGallery() {
+        window.clearTimeout(gallerySettleTimer);
+        selectingThumb = false;
+        // The final two desktop photos share a scroll limit. Keep the exact
+        // thumbnail the shopper selected while its photo remains visible.
+        if (selectedThumb !== null && Math.abs(gallery.scrollLeft - slideOffset(selectedThumb)) > 3) {
+          selectedThumb = null;
+        }
+        requestGalleryUpdate();
+      }
+      function scheduleGallerySettle() {
+        window.clearTimeout(gallerySettleTimer);
+        gallerySettleTimer = window.setTimeout(settleGallery, 180);
+      }
+      function releaseThumbSelection() {
+        selectedThumb = null;
+        selectingThumb = false;
+        window.clearTimeout(gallerySettleTimer);
+      }
+      function onGalleryScroll() {
+        requestGalleryUpdate();
+        if (thumbs.length) scheduleGallerySettle();
+      }
       function moveGallery(direction) {
+        releaseThumbSelection();
         var current = gallery.scrollLeft;
         var targets = slides.map(function (_, index) { return slideOffset(index); });
         var target = direction > 0
@@ -173,8 +222,14 @@
       });
       if (previous) previous.addEventListener("click", goPrevious);
       if (next) next.addEventListener("click", goNext);
-      gallery.addEventListener("scroll", requestGalleryUpdate, { passive: true });
+      gallery.addEventListener("scroll", onGalleryScroll, { passive: true });
       gallery.addEventListener("keydown", onGalleryKeydown);
+      if (thumbs.length) {
+        thumbs[0].parentElement.hidden = false;
+        gallery.addEventListener("pointerdown", releaseThumbSelection, { passive: true });
+        gallery.addEventListener("wheel", releaseThumbSelection, { passive: true });
+        gallery.addEventListener("scrollend", settleGallery);
+      }
       if (controls) controls.hidden = false;
       if (typeof ResizeObserver === "function") {
         galleryResize = new ResizeObserver(requestGalleryUpdate);
@@ -184,11 +239,15 @@
       updateGallery();
       galleryCleanups.push(function () {
         if (galleryFrame) window.cancelAnimationFrame(galleryFrame);
+        window.clearTimeout(gallerySettleTimer);
         if (galleryResize) galleryResize.disconnect();
         if (previous) previous.removeEventListener("click", goPrevious);
         if (next) next.removeEventListener("click", goNext);
-        gallery.removeEventListener("scroll", requestGalleryUpdate);
+        gallery.removeEventListener("scroll", onGalleryScroll);
         gallery.removeEventListener("keydown", onGalleryKeydown);
+        gallery.removeEventListener("pointerdown", releaseThumbSelection);
+        gallery.removeEventListener("wheel", releaseThumbSelection);
+        gallery.removeEventListener("scrollend", settleGallery);
         thumbs.forEach(function (thumb, index) {
           thumb.removeEventListener("click", thumbHandlers[index]);
         });

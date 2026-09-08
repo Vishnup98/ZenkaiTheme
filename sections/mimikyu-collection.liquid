@@ -11,6 +11,10 @@
       {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
     </figure>
     <div class="ec-hero-copy">
+      <div class="mc-hero-trust" role="group" aria-label="Zenkai store-wide ratings and orders">
+        <div class="mc-hero-rating"><span class="mc-hero-stars" role="img" aria-label="Rated 4.8 out of 5">★★★★★</span><span><strong>4.8/5</strong><small>95 Shop ratings</small></span></div>
+        <div class="mc-hero-orders"><strong>2,900+</strong><small>Zenkai orders shipped<br>and counting</small></div>
+      </div>
       <p class="ec-eyebrow">Little Impostors · complete collection</p>
       <h1 id="mc-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
       <p class="ec-lede">Nine colorful faces with a mischievous little twist. One of every design, all in your set.</p>
@@ -45,6 +49,15 @@
       {% endfor %}
     </div>
     <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous collection photo">←</button><span data-ec-gallery-position aria-live="polite">1 of 10</span><button type="button" data-ec-gallery-next aria-label="Next collection photo">→</button></div></div>
+    </div>
+    <div class="ec-portrait-thumbs" role="group" aria-label="Choose a collection photo" hidden>
+      {% for name in names %}
+        {% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
+        {% assign fallback = 'mimikyu-source-' | append: name %}{% if forloop.first %}{% assign fallback = 'mimikyu-source-lineup' %}{% endif %}
+        <button type="button" data-ec-thumb="{{ forloop.index0 }}" aria-controls="mc-portraits-{{ section.id }}" aria-label="Show {{ labels[forloop.index0] | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+          {% if photo != blank %}<img src="{{ photo | image_url: width: 160 }}" width="80" height="80" alt="" loading="lazy">{% else %}{% assign thumb_asset = fallback | append: '-120.webp' %}<img src="{{ thumb_asset | asset_url }}" width="80" height="80" alt="" loading="lazy">{% endif %}
+        </button>
+      {% endfor %}
     </div></div>
   </section>
 
