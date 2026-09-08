@@ -72,7 +72,7 @@
   {% if creative_family == 'collection' %}{{ creative_story }}{% endif %}
 
   <section class="ec-size ec-shell" id="ec-size-{{ section.id }}" aria-labelledby="ec-size-title-{{ section.id }}">
-    <div class="ec-size-copy"><p class="ec-eyebrow">Little companions. Real-life size.</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2>{% if section.settings.size_body != blank %}<p>{{ section.settings.size_body }}</p>{% endif %}
+    <div class="ec-size-copy"><p class="ec-eyebrow">A closer look from our customers</p><h2 id="ec-size-title-{{ section.id }}">{{ section.settings.size_title }}</h2>{% if section.settings.size_body != blank %}<p>{{ section.settings.size_body }}</p>{% endif %}
       <p class="ec-dimensions"><strong>8 × 7 × 6 in</strong><span>Approximately, per plush</span></p>
     </div>
     <div class="ec-size-photos" aria-label="Customer photos showing the plushes held in a hand">
@@ -82,7 +82,7 @@
   </section>
 
   <section class="ec-proof ec-shell" aria-labelledby="ec-proof-{{ section.id }}">
-    <div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
+    <div class="ec-section-heading"><p class="ec-eyebrow">Customer photos, up close</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
     <div class="ec-gallery-stage ec-proof-stage">
     <div class="ec-gallery" data-ec-gallery id="ec-gallery-{{ section.id }}" role="region" aria-roledescription="carousel" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
