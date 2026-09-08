@@ -7,8 +7,9 @@
         "hero_title": "You’ll want every little impostor.",
         "purchase_ready": true,
         "show_placeholders": false,
-        "shipping_heading": "Tracked delivery",
-        "shipping_summary": "Rates at checkout"
+        "shipping_heading": "Free U.S. shipping",
+        "shipping_summary": "Tracking after dispatch",
+        "delivery_text": "U.S. shipping is free for this set. Tracking is provided after dispatch. This collection is direct-shipped and may arrive separately from other items in your order. Allow extra time if you are buying for a specific date."
       },
       "blocks": {
         "photo_1": {
