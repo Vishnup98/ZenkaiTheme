@@ -78,8 +78,13 @@
 .ec-body .ec-review-grid figure { padding:18px 0 0; border:0; border-top:1px solid #ffffff40; border-radius:0; background:transparent; }
 .ec-body .ec-review-grid blockquote { font-size:1rem; font-weight:400; line-height:1.6; }
 .ec-body .ec-review-grid figcaption { font-size:.75rem; margin-top:10px; }
-.ec-body .ec-review-rail { display:flex; gap:24px; overflow-x:auto; padding-bottom:12px; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; scrollbar-width:thin; scrollbar-color:#a49bab transparent; }
-.ec-body .ec-review-rail > figure { flex:0 0 calc((100% - 48px) / 3); min-width:0; scroll-snap-align:start; }
+.ec-body .ec-more-reviews { margin-top:18px; }
+.ec-body .ec-more-reviews > summary { display:flex; align-items:center; min-height:44px; cursor:pointer; font-size:.875rem; font-weight:600; text-decoration:underline; text-underline-offset:4px; }
+.ec-body .ec-more-reviews[open] > summary { margin-bottom:16px; }
+.ec-body .ec-review-more { margin-top:4px; }
+.ec-body .ec-review-more summary { display:flex; align-items:center; min-height:44px; cursor:pointer; font-size:.8125rem; font-weight:600; text-decoration:underline; text-underline-offset:3px; }
+.ec-body .ec-review-more[open] { padding-bottom:8px; }
+.ec-body .ec-review-more[open] summary { margin-bottom:4px; }
 .ec-body .ec-reviews .ec-review-source { color:#ded6e4; font-size:.8125rem; line-height:1.5; margin-top:8px; }
 .ec-body .ec-faq { padding-block:36px; max-width:900px; }
 .ec-body .ec-faq h2 { margin-bottom:20px; }
@@ -130,8 +135,6 @@
   .ec-body .ec-reviews { padding-block:28px; }
   .ec-body .ec-review-grid { gap:18px; }
   .ec-body .ec-review-grid figure { padding-top:16px; }
-  .ec-body .ec-review-rail { gap:20px; margin-right:-20px; padding-right:20px; }
-  .ec-body .ec-review-rail > figure { flex-basis:82%; max-width:320px; }
   .ec-body .ec-faq { padding-block:28px; }
   .ec-body .ec-final { padding-block:28px; }
   .ec-body .ec-final-grid { gap:22px; }
