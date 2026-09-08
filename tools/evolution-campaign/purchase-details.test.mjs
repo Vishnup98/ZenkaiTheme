@@ -34,15 +34,52 @@ for(const file of files){
     assert(html.includes('name="return_to" value="/checkout"'));
     assert(html.includes('name="id" value="47968551764073"'));
     assert(html.includes('Buy with Shop'));
-    assert(html.indexOf('data-ec-main-cta')<html.indexOf('class="evo-purchase-proof"'));
+    assert(html.indexOf('evo-purchase-proof--hero')<html.indexOf('data-ec-main-cta'),'store proof must be prominent before the main offer');
+    assert(html.includes('★★★★★'));
+    assert(html.includes('class="ec-title-accent"'));
+    assert(main.settings.hero_title.endsWith(main.settings.hero_title_accent));
+    const heading=html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1].replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim();
+    assert.equal(heading,main.settings.hero_title,'accent styling must preserve the full headline');
     for(const name of ['group','espeon','jolteon','flareon','glaceon','sylveon','vaporeon','leafeon','umbreon'])assert(fs.existsSync(path.join(root,'assets',`evo-portrait-${name}-120.webp`)));
   });
 }
 test('all fifteen variations and shared styles remain wired',()=>{
   assert.equal(files.length,15);
   for(const name of ['evolution-creative','evolution-campaign'])assert(fs.readFileSync(path.join(root,'layout',name+'.liquid'),'utf8').includes('evolution-purchase-details.css'));
+  for(const name of ['evolution-creative','evolution-campaign']){
+    const layout=fs.readFileSync(path.join(root,'layout',name+'.liquid'),'utf8');
+    assert(layout.includes('ec-personality'));
+    assert(layout.includes('evolution-personality.css'));
+    assert(layout.includes("render 'evolution-personality-fonts'"));
+  }
   const base=fs.readFileSync(path.join(root,'sections/evolution-companions.liquid'),'utf8');
   assert(base.includes("render 'evolution-purchase-proof'"));
   assert(base.includes('evo-plush-gallery__thumbs'));
   assert(!base.includes('class="evo-plush-policy"'));
+});
+
+test('collector styling stays restrained and preserves the mint purchase action',()=>{
+  const css=fs.readFileSync(path.join(root,'assets/evolution-personality.css'),'utf8');
+  const fonts=fs.readFileSync(path.join(root,'snippets/evolution-personality-fonts.liquid'),'utf8');
+  assert(!css.includes('Companion Display'),'do not restore the rounded display font');
+  assert(!fonts.includes('little-impostors-display-latin.woff2'),'only preload the font this design uses');
+  assert(!css.includes('rotate('),'keep photo frames level');
+  assert(css.includes('.ec-title-accent{display:block;color:inherit}'),'headline breaks should not add decorative underlines');
+  assert(css.includes('background:#82d7c7'),'preserve the mint main CTA');
+  assert(css.includes('flex-wrap:nowrap'),'hero trust figures must not stack into two large rows');
+  for(const family of ['evolution-creative','evolution-campaign']){
+    const layout=fs.readFileSync(path.join(root,'layout',family+'.liquid'),'utf8');
+    assert(!layout.includes('✦'),'keep the header understated; stars belong to the rating');
+  }
+});
+
+test('both carousel families preserve deliberate thumbnail selections at shared scroll limits',()=>{
+  for(const family of ['evolution-creative','evolution-campaign']){
+    const source=fs.readFileSync(path.join(root,'assets',family+'.js'),'utf8');
+    assert(source.includes('visible.includes(selectedThumb)'),family+' must retain a selected photo that remains visible');
+    assert(source.includes('String(index === currentThumb)'),family+' must highlight the chosen thumbnail');
+    assert(source.includes('selectionCorrections < 2'),family+' must bound interrupted-scroll corrections');
+    assert(source.includes('strip.scrollLeft +='),family+' must keep the selected thumbnail in view');
+    for(const event of ['pointerdown','wheel'])assert(source.includes('gallery.addEventListener("'+event+'", releaseThumbSelection'),family+' must release selection for direct scrolling');
+  }
 });

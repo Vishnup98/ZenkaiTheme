@@ -1,0 +1,148 @@
+/* Evolution Companions: bold collector-store type, clear proof, restrained color.
+   Scoped to these landing layouts; Little Impostors and the main theme are independent. */
+.ec-personality{font-family:'Companion Sans',Arial,sans-serif;background:#faf9f6}
+.ec-personality .ec-page{--headline:'Companion Sans',Arial,sans-serif;--accent:#3b6158;--ink:#202b28;--muted:#58605c;--tint:#e9eee8;--rule:#202b2826;--wash:#faf9f6}
+.ec-personality .ec-palette-butter{--accent:#755c2c;--ink:#2d2c25;--muted:#626055;--tint:#f0e7ca;--wash:#fcfaf4}
+.ec-personality .ec-palette-peach{--accent:#795643;--ink:#332b27;--muted:#685d57;--tint:#efdfd3;--wash:#fcf8f3}
+.ec-personality .ec-palette-navy{--accent:#3d6370;--ink:#22333a;--muted:#58676b;--tint:#dee8e8;--wash:#f8faf9}
+.ec-personality [data-concept='P01']{--accent:#3b6158;--ink:#202b28;--tint:#e4ebe5;--wash:#faf9f6}
+.ec-personality [data-concept='PR06']{--accent:#81513b;--ink:#322a25;--tint:#f0e0c6;--wash:#fcf9f3}
+.ec-personality [data-concept='PR05']{--accent:#576043;--ink:#292e24;--tint:#e8e6ce;--wash:#fbfaf4}
+.ec-personality [data-concept='PR02']{--accent:#4a5b63;--ink:#293138;--tint:#e2e7e9;--wash:#f9faf9}
+.ec-personality [data-concept='P06']{--accent:#715840;--ink:#302b26;--tint:#eae0d0;--wash:#fbf9f4}
+.ec-personality h1,.ec-personality h2,.ec-personality .ec-included h2,.ec-personality .ec-reviews h2{font-family:'Companion Sans',Arial,sans-serif;font-weight:800;letter-spacing:-.045em;line-height:1.06}
+.ec-personality h1{font-size:clamp(2.75rem,4.8vw,4.125rem);font-variation-settings:'opsz' 64;text-wrap:balance}
+.ec-personality h2,.ec-personality .ec-included h2,.ec-personality .ec-reviews h2{font-size:clamp(2rem,3.2vw,2.75rem);font-variation-settings:'opsz' 44}
+.ec-personality p{font-family:'Companion Sans',Arial,sans-serif;font-size:1rem;line-height:1.6}
+.ec-personality .ec-eyebrow{font-family:'Companion Sans',Arial,sans-serif;font-size:.8125rem;font-weight:800;letter-spacing:.1em;line-height:1.4}
+.ec-personality .ec-title-accent{display:block;color:inherit}
+.ec-personality .ec-header{background:#20332d;min-height:60px}
+.ec-personality .ec-header-note{display:flex;align-items:center;justify-content:center;gap:12px;text-transform:uppercase;font-size:.75rem;font-weight:800;letter-spacing:.08em}
+.ec-personality .ec-header-note>span{color:#8ddac8;font-size:1rem}
+.ec-personality .ec-hero{gap:58px;padding-block:40px 56px;align-items:center}
+.ec-personality .ec-hero-media{position:relative;align-self:center;padding:0;border:1px solid var(--rule);border-radius:12px;background:#fff;box-shadow:none;transform:none;overflow:hidden}
+.ec-personality .ec-hero-media img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:11px}
+.ec-personality .ec-hero-copy h1{margin-bottom:18px}
+.ec-personality .ec-hero-copy>.ec-eyebrow{margin-bottom:14px}
+.ec-personality .ec-lede{font-size:1.0625rem;line-height:1.55;color:var(--muted);max-width:43ch}
+/* Store-wide proof is deliberately part of the offer, not small-print reassurance. */
+.ec-personality .evo-purchase-proof--hero{display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:22px;margin:23px 0 20px;font-family:'Companion Sans',Arial,sans-serif;color:var(--ink)}
+.evo-proof-rating{display:grid;grid-template-columns:max-content max-content;align-items:baseline;gap:3px 7px}
+.evo-proof-stars{grid-column:1/-1;width:max-content;line-height:1;letter-spacing:.09em;font-size:1.125rem;background:linear-gradient(to right,#ac771b 96%,#d3cdc4 96%);color:transparent;background-clip:text;-webkit-background-clip:text}
+.evo-proof-rating>strong,.evo-proof-orders>strong{font-family:'Companion Sans',Arial,sans-serif;font-size:1.5rem;font-weight:800;line-height:1.15;letter-spacing:-.04em}
+.evo-proof-rating>span:last-child,.evo-proof-orders>span{font-size:.875rem;line-height:1.35;color:var(--muted)}
+.evo-proof-orders{display:flex;flex-direction:column;justify-content:center;gap:3px;padding-left:22px;border-left:1px solid var(--rule)}
+.evo-proof-orders>strong{font-size:1.75rem}
+.ec-personality .ec-offer{border-top:1px solid var(--rule);margin-top:0;padding-top:18px}
+.ec-personality .ec-price{gap:10px 16px;margin-bottom:0}
+.ec-personality .ec-price>strong{font-family:'Companion Sans',Arial,sans-serif;font-size:2.875rem;font-weight:800;letter-spacing:-.05em;line-height:1}
+.ec-personality .ec-price>span{font-size:1rem;font-weight:700;line-height:1.4}
+.ec-personality .ec-price small{font-size:.875rem;font-weight:500;color:var(--muted);letter-spacing:0;text-transform:none;margin:2px 0 0}
+.ec-personality .ec-product-form{margin-top:17px}
+.ec-personality .ec-cta{min-height:58px;border:1px solid transparent;border-radius:9px;box-shadow:none;background:#82d7c7;color:#102d29;font-family:'Companion Sans',Arial,sans-serif;font-size:1.0625rem;font-weight:800;letter-spacing:-.015em}
+.ec-personality .ec-cta:hover:not(:disabled){background:#6acbb9;box-shadow:none;transform:none}
+.ec-personality .ec-cta:active:not(:disabled){background:#57c1ac;box-shadow:none;transform:none}
+.ec-personality .ec-shipping{justify-content:center;margin-block:16px 12px;font-size:.875rem}
+.ec-personality .ec-offer-note{font-size:.875rem;text-align:center;margin-inline:auto}
+.ec-personality .ec-palette-bar{margin-top:13px}
+/* The complete set gets its own display tray. */
+.ec-personality .ec-included{display:block;width:calc(100% - 48px);max-width:1200px;margin:0 auto 32px;padding:32px;border:1px solid var(--rule);border-radius:14px;background:var(--tint)}
+.ec-personality .ec-included-heading,.ec-personality .ec-included .ec-section-heading{margin:0 0 24px}
+.ec-personality .ec-included h2{margin-bottom:9px}
+.ec-personality .ec-included .ec-section-heading>p{color:var(--ink);font-size:1rem}
+.ec-personality .ec-portraits{gap:12px;background:transparent;border-radius:12px}
+.ec-personality .ec-portraits>figure{flex:0 0 300px;max-width:none}
+.ec-personality .ec-portraits button{height:300px;background:#fffaf7;border-radius:12px}
+.ec-personality .ec-portrait-thumbs{margin-top:12px;padding:4px 3px 6px;scrollbar-width:none}
+.ec-personality .ec-portrait-thumbs button{border-radius:9px;background:#ffffff70}
+.ec-personality .ec-portrait-thumbs button[aria-pressed='true']{background:#fff;box-shadow:0 2px 0 var(--accent)}
+.ec-personality .ec-gallery-controls button{border:1px solid var(--rule);background:#fffaf6f5;box-shadow:none}
+.ec-personality .ec-story{padding-block:48px;background:transparent}
+.ec-personality .ec-story-intro h2{max-width:22ch}
+.ec-personality .ec-story-intro>p:last-child{font-size:1.0625rem;line-height:1.6;max-width:43ch}
+.ec-personality .ec-size{padding-block:48px 56px;border-top:1px solid var(--rule);gap:54px}
+.ec-personality .ec-size-copy h2{max-width:20ch;margin-bottom:16px}
+.ec-personality .ec-size-photos{gap:18px;padding:6px;max-width:520px}
+.ec-personality .ec-size-photos figure{padding:0;background:#fff;border:1px solid var(--rule);border-radius:10px;transform:none;overflow:hidden}
+.ec-personality .ec-size-photos button{border-radius:9px}
+.ec-personality .ec-dimensions{margin-top:20px;padding-top:16px}
+.ec-personality .ec-dimensions strong{font-family:'Companion Sans',Arial,sans-serif;font-weight:800;font-size:1.625rem}
+.ec-personality .ec-proof{padding-block:0 56px}
+.ec-personality .ec-proof .ec-gallery{gap:14px;padding:6px 2px 12px}
+.ec-personality .ec-proof .ec-gallery>figure{padding:5px;border:1px solid var(--rule);border-radius:13px;background:#fff}
+.ec-personality .ec-proof .ec-gallery button{border-radius:8px}
+.ec-personality .ec-reviews{background:var(--ink);padding-block:48px;color:#fffaf7}
+.ec-personality .ec-reviews h2{color:#fffaf7}
+.ec-personality .ec-review-grid{gap:20px}
+.ec-personality .ec-review-grid figure{padding:24px;border:1px solid #ffffff35;border-radius:16px;background:#ffffff0b}
+.ec-personality .ec-review-grid blockquote{font-size:1rem;font-weight:500;line-height:1.65}
+.ec-personality .ec-faq{padding-block:56px}
+.ec-personality .ec-faq summary{font-size:1rem;font-weight:700;min-height:64px}
+.ec-personality .ec-faq details[open]{background:var(--tint);border-radius:10px;padding-inline:16px}
+.ec-personality .ec-final{width:calc(100% - 48px);max-width:1200px;margin:0 auto 40px;padding:36px;border-radius:14px;background:var(--tint)}
+.ec-personality .ec-final-grid{padding:0;gap:48px}
+.ec-personality .ec-final h2{font-size:clamp(2.25rem,3.6vw,3.25rem);margin-bottom:16px}
+.ec-personality .ec-final-grid>img{padding:7px;border:1px solid var(--rule);border-radius:16px;background:#fff;max-height:300px;object-fit:contain}
+.ec-personality .ec-final .ec-cta{margin-top:24px}
+.ec-personality .evo-purchase-proof:not(.evo-purchase-proof--hero) p{font-family:'Companion Sans',Arial,sans-serif;font-size:.875rem;line-height:1.5}
+.ec-personality .ec-final .ec-final-delivery{font-size:.875rem;line-height:1.5;margin-top:16px;text-align:center}
+.ec-personality .ec-sticky .ec-cta{min-height:48px;box-shadow:none}
+.ec-personality .ec-sticky strong{font-family:'Companion Sans',Arial,sans-serif;font-weight:800}
+.ec-personality .ec-footer{background:#20332d}
+@media(max-width:899px){
+ .ec-personality .ec-header{min-height:56px}
+ .ec-personality .ec-hero{display:block;padding:14px 20px 36px}
+ .ec-personality .ec-hero .ec-hero-media{width:100%;max-width:min(40svh,350px,100%);margin:0 auto!important;padding:0;border-radius:10px}
+ .ec-personality .ec-hero-media img{border-radius:9px}
+ .ec-personality .ec-hero-copy{margin:16px auto 0;max-width:600px}
+ .ec-personality h1{font-size:clamp(2rem,9.75vw,2.75rem);line-height:1.04;letter-spacing:-.045em;text-wrap:initial}
+ .ec-personality .ec-hero-copy h1{margin-bottom:13px}
+ .ec-personality .ec-lede{font-size:1rem;line-height:1.5}
+ .ec-personality .evo-purchase-proof--hero{justify-content:space-between;gap:12px;margin:14px 0}
+ .evo-proof-orders{padding-left:14px}
+ .evo-proof-rating>strong{font-size:1.375rem}
+ .evo-proof-orders>strong{font-size:1.5rem}
+ .evo-proof-stars{font-size:1rem}
+ .ec-personality .ec-offer{padding-top:16px}
+ .ec-personality .ec-price>strong{font-size:2.5rem}
+ .ec-personality .ec-price>span{font-size:.9375rem}
+ .ec-personality .ec-product-form{margin-top:14px}
+ .ec-personality .ec-cta{min-height:56px}
+ .ec-personality h2,.ec-personality .ec-included h2,.ec-personality .ec-reviews h2{font-size:2rem;line-height:1.08}
+ .ec-personality .ec-included{width:calc(100% - 24px);padding:24px 16px 20px;margin-bottom:10px;border-radius:12px}
+ .ec-personality .ec-included-heading,.ec-personality .ec-included .ec-section-heading{margin-bottom:18px}
+ .ec-personality .ec-portraits>figure{flex-basis:82%;max-width:300px}
+ .ec-personality .ec-portraits button{height:clamp(220px,68vw,280px)}
+ .ec-personality .ec-story{padding-block:32px 38px}
+ .ec-personality .ec-story-intro>p:last-child{font-size:1rem}
+ .ec-personality .ec-size{padding-block:38px 44px;gap:24px}
+ .ec-personality .ec-size-photos{gap:12px}
+ .ec-personality .ec-proof{padding-bottom:40px}
+ .ec-personality .ec-reviews{padding-block:36px}
+ .ec-personality .ec-review-grid{gap:16px}
+ .ec-personality .ec-review-grid figure{padding:22px}
+ .ec-personality .ec-faq{padding-block:40px}
+ .ec-personality .ec-final{width:calc(100% - 24px);padding:26px 18px;margin-bottom:24px;border-radius:12px}
+ .ec-personality .ec-final-grid{gap:24px}
+ .ec-personality .ec-final h2{font-size:2.25rem}
+ .ec-personality .ec-final-grid>img{max-height:230px}
+}
+@media(max-width:899px) and (max-height:700px){
+ .ec-personality .ec-hero .ec-hero-media{max-width:min(29svh,210px)}
+ .ec-personality .ec-hero-copy{display:flex;flex-direction:column;margin-top:12px}
+ .ec-personality .ec-hero-copy h1{font-size:clamp(1.875rem,8.8vw,2.125rem);margin-bottom:0}
+ .ec-personality .evo-purchase-proof--hero{order:1;margin-block:10px}
+ .ec-personality .ec-offer{order:2;padding-top:12px}
+ .ec-personality .ec-palette-bar{display:none}
+ .ec-personality .ec-lede{order:3;margin-top:16px}
+}
+@media(max-width:359px){
+ .ec-personality .ec-header-note{gap:7px;font-size:.6875rem}
+ .evo-proof-rating{grid-template-columns:1fr;gap:3px}
+ .evo-proof-orders{min-width:0;max-width:50%}
+ .evo-proof-rating>span:last-child,.evo-proof-orders>span{font-size:.8125rem}
+ .evo-proof-orders{padding-left:10px}
+ .ec-personality .ec-price{gap:10px}
+ .ec-personality .ec-price>span{max-width:175px}
+}
+@media(prefers-reduced-motion:reduce){.ec-personality .ec-cta{transition:none;transform:none!important}}

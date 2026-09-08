@@ -81,6 +81,11 @@
       });
       var galleryFrame;
       var galleryResize;
+      var selectedThumb = null;
+      var activeThumb = -1;
+      var selectingThumb = false;
+      var selectionCorrections = 0;
+      var gallerySettleTimer;
       if (!slides.length) return;
 
       function maximumScroll() {
@@ -92,6 +97,13 @@
           slides[0].getBoundingClientRect().left));
       }
       function scrollToSlide(index) {
+        if (thumbs.length) {
+          selectedThumb = index;
+          selectingThumb = true;
+          selectionCorrections = 0;
+          updateGallery();
+          scheduleGallerySettle();
+        }
         gallery.scrollTo({
           left: slideOffset(index),
           behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -112,9 +124,24 @@
         if (next) next.disabled = gallery.scrollLeft >= maximumScroll() - 2;
         if (visible.length) {
           gallery.dataset.ecPortraitMode = visible[0] === 0 ? "group" : "individual";
+          var currentThumb = selectedThumb !== null &&
+            (selectingThumb || visible.includes(selectedThumb)) ? selectedThumb : visible[0];
           thumbs.forEach(function (thumb, index) {
-            thumb.setAttribute("aria-pressed", String(index === visible[0]));
+            thumb.setAttribute("aria-pressed", String(index === currentThumb));
           });
+          if (thumbs[currentThumb] && currentThumb !== activeThumb) {
+            activeThumb = currentThumb;
+            var thumb = thumbs[currentThumb];
+            var strip = thumb.parentElement;
+            var thumbBounds = thumb.getBoundingClientRect();
+            var stripBounds = strip.getBoundingClientRect();
+            // Move only the thumbnail strip; never scroll the page vertically.
+            if (thumbBounds.left < stripBounds.left + 3) {
+              strip.scrollLeft += thumbBounds.left - stripBounds.left - 3;
+            } else if (thumbBounds.right > stripBounds.right - 3) {
+              strip.scrollLeft += thumbBounds.right - stripBounds.right + 3;
+            }
+          }
           if (position) {
             var start = visible[0] + 1;
             var end = visible[visible.length - 1] + 1;
@@ -131,6 +158,7 @@
         });
       }
       function moveGallery(direction) {
+        releaseThumbSelection();
         var current = gallery.scrollLeft;
         var targets = slides.map(function (_, index) { return slideOffset(index); });
         var target = direction > 0
@@ -144,6 +172,39 @@
       }
       function goPrevious() { moveGallery(-1); }
       function goNext() { moveGallery(1); }
+      function settleGallery() {
+        window.clearTimeout(gallerySettleTimer);
+        if (selectedThumb !== null && selectionCorrections < 2 &&
+          Math.abs(gallery.scrollLeft - slideOffset(selectedThumb)) > 3) {
+          // Honor a deliberate selection after interrupted wheel momentum settles.
+          selectingThumb = true;
+          selectionCorrections += 1;
+          gallery.scrollTo({ left: slideOffset(selectedThumb), behavior: "auto" });
+          scheduleGallerySettle();
+          requestGalleryUpdate();
+          return;
+        }
+        selectingThumb = false;
+        // The final desktop photos share a scroll limit; keep the chosen one active.
+        if (selectedThumb !== null && Math.abs(gallery.scrollLeft - slideOffset(selectedThumb)) > 3) {
+          selectedThumb = null;
+        }
+        requestGalleryUpdate();
+      }
+      function scheduleGallerySettle() {
+        window.clearTimeout(gallerySettleTimer);
+        gallerySettleTimer = window.setTimeout(settleGallery, 180);
+      }
+      function releaseThumbSelection() {
+        selectedThumb = null;
+        selectingThumb = false;
+        selectionCorrections = 0;
+        window.clearTimeout(gallerySettleTimer);
+      }
+      function onGalleryScroll() {
+        requestGalleryUpdate();
+        if (thumbs.length) scheduleGallerySettle();
+      }
       function onGalleryKeydown(event) {
         if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
         if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
@@ -176,22 +237,34 @@
       });
       if (previous) previous.addEventListener("click", goPrevious);
       if (next) next.addEventListener("click", goNext);
-      gallery.addEventListener("scroll", requestGalleryUpdate, { passive: true });
+      gallery.addEventListener("scroll", onGalleryScroll, { passive: true });
       gallery.addEventListener("keydown", onGalleryKeydown);
+      if (thumbs.length) {
+        gallery.addEventListener("pointerdown", releaseThumbSelection, { passive: true });
+        gallery.addEventListener("wheel", releaseThumbSelection, { passive: true });
+        gallery.addEventListener("scrollend", settleGallery);
+      }
       if (controls) controls.hidden = false;
       if (typeof ResizeObserver === "function") {
-        galleryResize = new ResizeObserver(requestGalleryUpdate);
+        galleryResize = new ResizeObserver(function () {
+          activeThumb = -1;
+          requestGalleryUpdate();
+        });
         galleryResize.observe(gallery);
         slides.forEach(function (slide) { galleryResize.observe(slide); });
       }
       updateGallery();
       galleryCleanups.push(function () {
         if (galleryFrame) window.cancelAnimationFrame(galleryFrame);
+        window.clearTimeout(gallerySettleTimer);
         if (galleryResize) galleryResize.disconnect();
         if (previous) previous.removeEventListener("click", goPrevious);
         if (next) next.removeEventListener("click", goNext);
-        gallery.removeEventListener("scroll", requestGalleryUpdate);
+        gallery.removeEventListener("scroll", onGalleryScroll);
         gallery.removeEventListener("keydown", onGalleryKeydown);
+        gallery.removeEventListener("pointerdown", releaseThumbSelection);
+        gallery.removeEventListener("wheel", releaseThumbSelection);
+        gallery.removeEventListener("scrollend", settleGallery);
         thumbs.forEach(function (thumb, index) {
           thumb.removeEventListener("click", thumbHandlers[index]);
         });

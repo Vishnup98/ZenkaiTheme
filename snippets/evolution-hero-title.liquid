@@ -1,0 +1,6 @@
+{%- assign accent = section.settings.hero_title_accent -%}
+{%- if accent != blank and section.settings.hero_title contains accent -%}
+  {{- section.settings.hero_title | remove: accent | escape -}} <span class="ec-title-accent">{{ accent | escape }}</span>
+{%- else -%}
+  {{- section.settings.hero_title | escape -}}
+{%- endif -%}

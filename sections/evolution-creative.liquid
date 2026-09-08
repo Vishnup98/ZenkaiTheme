@@ -24,8 +24,9 @@
     </figure>
     <div class="ec-hero-copy">
       <p class="ec-eyebrow">Evolution Companions</p>
-      <h1 id="ec-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
+      <h1 id="ec-title-{{ section.id }}">{% render 'evolution-hero-title', section: section %}</h1>
       <p class="ec-lede">{{ section.settings.hero_body }}</p>
+      {% render 'evolution-purchase-proof', placement: 'hero' %}
       <div class="ec-offer" id="ec-offer-{{ section.id }}">
         <div class="ec-price"><strong>{{ v.price | money_without_trailing_zeros }}</strong><span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} per plush · one of every design</small></span></div>
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
@@ -37,7 +38,6 @@
           <input type="hidden" name="properties[_zk_page_family]" value="{{ creative_family }}">
           <input type="hidden" name="properties[_zk_page_version]" value="matched-v1">
           <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button>
-          {% render 'evolution-purchase-proof' %}
           <p class="ec-shipping"><strong>Free U.S. shipping</strong><span>Typically 5–7 business days</span></p>
           {% if section.settings.offer_note != blank %}<p class="ec-offer-note">{{ section.settings.offer_note }}</p>{% endif %}
           {{ form | payment_button }}
@@ -138,6 +138,7 @@
     {"type":"text","id":"palette","label":"Palette","default":"peach"},
     {"type":"text","id":"hero_alt","label":"Hero image description","default":"All eight Evolution Companions plushes"},
     {"type":"text","id":"hero_title","label":"Headline","default":"You don’t have to pick a favorite."},
+    {"type":"text","id":"hero_title_accent","label":"Highlighted phrase in headline"},
     {"type":"textarea","id":"hero_body","label":"Introduction","default":"Bring home all eight plush companions together."},
     {"type":"text","id":"collection_title","label":"Collection headline","default":"A favorite in every color."},
     {"type":"textarea","id":"collection_body","label":"Collection introduction","default":"Eight separate plushes, each in its own colorful costume. One of every pictured design is included."},

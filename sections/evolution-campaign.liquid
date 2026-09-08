@@ -16,10 +16,11 @@
     </figure>
     <div class="ec-hero-copy">
       <p class="ec-eyebrow">Evolution Companions · complete collection</p>
-      <h1 id="ec-title-{{ section.id }}">{{ section.settings.hero_title }}</h1>
+      <h1 id="ec-title-{{ section.id }}">{% render 'evolution-hero-title', section: section %}</h1>
       <p class="ec-lede">{{ section.settings.hero_body }}</p>
+      {% render 'evolution-purchase-proof', placement: 'hero' %}
       <div class="ec-offer" id="ec-offer-{{ section.id }}">
-        <div class="ec-price"><strong>{{ v.price | money }}</strong><span><small>Complete 8-plush set</small>8 plushes <i aria-hidden="true">·</i> {{ per_plush | money_without_trailing_zeros }} each</span></div>
+        <div class="ec-price"><strong>{{ v.price | money_without_trailing_zeros }}</strong><span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} per plush · one of every design</small></span></div>
         <div class="ec-palette-bar" role="group" aria-label="All eight costume colors are included; no color selection needed">
           <div class="ec-swatches" aria-hidden="true"><span style="--swatch:#f4a9bb"></span><span style="--swatch:#bfa5e8"></span><span style="--swatch:#b9e6f3"></span><span style="--swatch:#4ba9d7"></span><span style="--swatch:#f3792d"></span><span style="--swatch:#f3d64f"></span><span style="--swatch:#d6bf68"></span><span style="--swatch:#2f3036"></span></div>
           <span>Every color included</span>
@@ -30,7 +31,6 @@
           <input type="hidden" name="return_to" value="/checkout">
           <input type="hidden" name="properties[_zk_landing_view]" value="evo-{{ section.settings.journey }}">
           <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money }}{% else %}Sold out{% endif %}</button>
-          {% render 'evolution-purchase-proof' %}
           <p class="ec-shipping"><strong>Free U.S. shipping</strong><span>Arrives in 5–7 business days</span></p>
           {{ form | payment_button }}
         {%- endform -%}
@@ -130,6 +130,7 @@
     {"type":"text","id":"palette","label":"Palette","default":"peach"},
     {"type":"text","id":"hero_alt","label":"Hero image description","default":"All eight Evolution Companions plushes"},
     {"type":"text","id":"hero_title","label":"Headline","default":"You don’t have to pick a favorite."},
+    {"type":"text","id":"hero_title_accent","label":"Highlighted phrase in headline"},
     {"type":"textarea","id":"hero_body","label":"Introduction","default":"Bring home all eight plush companions together."},
     {"type":"text","id":"story_eyebrow","label":"Story eyebrow","default":"Picture them at home"},
     {"type":"text","id":"story_title","label":"Story headline","default":"Make room for the whole set."},
