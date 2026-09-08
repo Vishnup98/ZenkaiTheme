@@ -28,8 +28,6 @@
       <p class="ec-lede">{{ section.settings.hero_body }}</p>
       <div class="ec-offer" id="ec-offer-{{ section.id }}">
         <div class="ec-price"><strong>{{ v.price | money_without_trailing_zeros }}</strong><span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} per plush · one of every design</small></span></div>
-        <p class="ec-shipping"><strong>Free U.S. shipping</strong><span>Typically 5–7 business days</span></p>
-        {% if section.settings.offer_note != blank %}<p class="ec-offer-note">{{ section.settings.offer_note }}</p>{% endif %}
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -39,6 +37,8 @@
           <input type="hidden" name="properties[_zk_page_family]" value="{{ creative_family }}">
           <input type="hidden" name="properties[_zk_page_version]" value="matched-v1">
           <button class="ec-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button>
+          <p class="ec-shipping"><strong>Free U.S. shipping</strong><span>Typically 5–7 business days</span></p>
+          {% if section.settings.offer_note != blank %}<p class="ec-offer-note">{{ section.settings.offer_note }}</p>{% endif %}
           {{ form | payment_button }}
         {%- endform -%}
         <p class="ec-offer-policy"><span>Secure checkout with Shopify</span><a href="/pages/policy">Delivery &amp; returns</a></p>
@@ -48,10 +48,11 @@
 
   {% unless creative_family == 'collection' %}{{ creative_story }}{% endunless %}
   <section class="ec-included ec-shell" aria-labelledby="ec-included-{{ section.id }}">
-    <div class="ec-included-heading"><div class="ec-section-heading"><p class="ec-eyebrow">The complete collection</p><h2 id="ec-included-{{ section.id }}">{{ section.settings.collection_title | default: 'A favorite in every color.' }}</h2><p>{{ section.settings.collection_body | default: 'Eight separate plushes, each in its own colorful costume. One of every pictured design is included.' }}</p></div></div>
+    <div class="ec-included-heading"><div class="ec-section-heading"><h2 id="ec-included-{{ section.id }}">{{ section.settings.collection_title | default: 'Meet your eight.' }}</h2><p>Eight separate plushes. One of every design.</p></div></div>
     <div class="ec-collection-media">
     {%- assign portrait_names = 'group,espeon,jolteon,flareon,glaceon,sylveon,vaporeon,leafeon,umbreon' | split: ',' -%}
     {%- assign portrait_descriptions = 'all eight plush companions together|plush with a lavender hood and tall ears|plush with a yellow hood and white collar|plush with an orange hood and fluffy yellow collar|plush with a pale blue hood and long side flaps|plush with a pink and white hood and ribbons|plush with a bright blue hood and fin-shaped ears|plush with a pale yellow hood and green leaf details|plush with a charcoal hood and yellow ear bands' | split: '|' -%}
+    <div class="ec-gallery-stage">
     <div class="ec-gallery ec-portraits" id="ec-portraits-{{ section.id }}" data-ec-gallery data-ec-portrait-mode="group" role="region" aria-roledescription="carousel" aria-label="The complete collection and each included plush" tabindex="0">
       {% for name in portrait_names %}
         {% assign full = 'evo-portrait-' | append: name | append: '-1024.webp' %}
@@ -60,13 +61,11 @@
         {% assign portrait_height = 1024 %}
         {% if name == 'group' %}{% assign portrait_height = 687 %}{% endif %}
         {% if name == 'espeon' %}{% assign portrait_height = 918 %}{% endif %}
-        <figure class="ec-portrait ec-portrait--{{ name }}"><button type="button" data-ec-zoom="{{ full | asset_url }}" aria-label="Enlarge photo of {{ portrait_description }}"><img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(min-width: 1200px) 680px, (min-width: 900px) 58vw, (min-width: 720px) 680px, calc(100vw - 40px)" width="1024" height="{{ portrait_height }}" loading="lazy" alt="Full view of {{ portrait_description }}, included in the complete set"></button></figure>
+        <figure class="ec-portrait ec-portrait--{{ name }}"><button type="button" data-ec-zoom="{{ full | asset_url }}" aria-label="Enlarge photo of {{ portrait_description }}"><img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(min-width: 900px) 320px, 78vw" width="1024" height="{{ portrait_height }}" loading="lazy" alt="Full view of {{ portrait_description }}, included in the complete set"></button></figure>
       {% endfor %}
     </div>
-    <div class="ec-portrait-thumbs" aria-label="Browse collection photos">
-      {% for name in portrait_names %}{% assign thumb = 'evo-portrait-' | append: name | append: '-120.webp' %}<button type="button" data-ec-thumb="{{ forloop.index0 }}" aria-label="Show photo of {{ portrait_descriptions[forloop.index0] }}" aria-controls="ec-portraits-{{ section.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><img src="{{ thumb | asset_url }}" width="60" height="60" loading="lazy" alt=""></button>{% endfor %}
-    </div>
     <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous collection photo">←</button><span data-ec-gallery-position aria-live="polite" aria-atomic="true">1 of 9</span><button type="button" data-ec-gallery-next aria-label="Next collection photo">→</button></div></div>
+    </div>
     </div>
   </section>
 
@@ -84,7 +83,8 @@
 
   <section class="ec-proof ec-shell" aria-labelledby="ec-proof-{{ section.id }}">
     <div class="ec-section-heading"><p class="ec-eyebrow">Customer close-ups</p><h2 id="ec-proof-{{ section.id }}">{{ section.settings.proof_title }}</h2><p>{{ section.settings.proof_body }}</p></div>
-    <div class="ec-gallery" id="ec-gallery-{{ section.id }}" role="region" aria-label="Customer product photos" tabindex="0">
+    <div class="ec-gallery-stage ec-proof-stage">
+    <div class="ec-gallery" data-ec-gallery id="ec-gallery-{{ section.id }}" role="region" aria-roledescription="carousel" aria-label="Customer product photos" tabindex="0">
       {%- for i in (2..6) -%}
         {%- assign proof_asset = 'evo-campaign-customer-0' | append: i | append: '.webp' -%}
         {%- case i -%}
@@ -97,6 +97,8 @@
         <figure><button type="button" data-ec-zoom="{{ proof_asset | asset_url }}" aria-label="Enlarge customer photo: {{ proof_caption | escape }}"><img src="{{ proof_asset | asset_url }}" width="{{ proof_width }}" height="{{ proof_height }}" loading="lazy" alt="{{ proof_caption | escape }} plush detail, photographed by a customer"></button></figure>
       {%- endfor -%}
     </div>
+    <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous customer photo">←</button><span data-ec-gallery-position aria-live="polite" aria-atomic="true">1 of 5</span><button type="button" data-ec-gallery-next aria-label="Next customer photo">→</button></div></div>
+    </div>
   </section>
 
   <section class="ec-reviews"><div class="ec-shell">
@@ -107,7 +109,7 @@
   <section class="ec-faq ec-shell" aria-labelledby="ec-faq-{{ section.id }}"><h2 id="ec-faq-{{ section.id }}">{% if is_gift_journey %}Before you give them all eight.{% else %}Before you make them yours.{% endif %}</h2>
     <details><summary>Does the price include all eight?</summary><p>Yes. {{ v.price | money }} buys eight separate plush companions, with one of every design pictured. Each plush comes in its own costume; this is not one plush with spare outfits. Gift wrapping and display props are not included.</p></details>
     <details><summary>How big is each plush?</summary><p>Approximately 8 × 7 × 6 inches each. Costume and ear shapes vary, so allow a little extra room when planning your display.</p></details>
-    <details><summary>Is shipping free, and when will it arrive?</summary><p>U.S. shipping is free. Delivery typically takes 5–7 business days. Tracking is provided after dispatch. This set is direct-shipped and may arrive separately from other products in your order. Transit can take longer around holidays; allow extra time for a fixed gifting date.</p></details>
+    <details><summary>Is shipping free, and when will it arrive?</summary><p>U.S. shipping is free. Delivery typically takes 5–7 business days. Tracking is provided after dispatch. Your set may arrive separately from other products in your order. Transit can take longer around holidays; allow extra time for a fixed gifting date.</p></details>
     <details><summary>How do I care for them?</summary><p>Spot clean gently and air dry. Not suitable for children under 3 years old.</p></details>
     <details><summary>What if something is wrong with my order?</summary><p>If your order is lost in transit, damaged, defective, incorrect or materially different from its description, contact us with your order number and available photos. <a href="/pages/policy">Read the full collector policy.</a></p></details>
   </section>
