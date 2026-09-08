@@ -163,7 +163,7 @@ html:has(.ec-lightbox[open]) { overflow:hidden; }
   .ec-body h1 { font-size:clamp(2rem,5vw,2.625rem); }
   .ec-body h2 { font-size:clamp(1.875rem,5vw,2.5rem); }
   .ec-hero { display:block; padding-block:12px 32px; }
-  .ec-hero-media { max-width:min(100%,36svh,350px); margin-inline:auto; }
+  .ec-hero .ec-hero-media { max-width:min(100%,36svh,350px); margin-inline:auto; }
   .ec-hero-copy { max-width:560px; margin:18px auto 0; }
   .ec-hero-copy > .ec-eyebrow { display:none; }
   .ec-hero-copy h1 { margin-bottom:12px; }
@@ -178,6 +178,7 @@ html:has(.ec-lightbox[open]) { overflow:hidden; }
   .ec-story-intro > p:last-child { font-size:1rem; }
   .ec-included { display:block; padding-block:32px; }
   .ec-included-heading { margin:0 0 18px; }
+  .ec-body .ec-included h2 { font-size:1.5rem; }
   .ec-portraits > figure { flex-basis:78%; max-width:300px; }
   .ec-portraits button { height:clamp(220px,70vw,280px); }
   .ec-size { grid-template-columns:minmax(0,1fr); gap:28px; padding-block:44px; }
