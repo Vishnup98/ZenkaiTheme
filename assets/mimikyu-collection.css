@@ -70,16 +70,27 @@
 .mc-body .ec-portraits{margin:0;padding:0 0 8px;gap:14px;background:none;max-width:none;scrollbar-width:none;scroll-padding:0;border:0;box-shadow:none;border-radius:0}
 .mc-body .ec-portraits::-webkit-scrollbar{display:none}
 .mc-body .ec-portraits>figure{flex:0 0 calc((100% - 28px)/3);padding:0;max-width:none;scroll-snap-align:start}
-.mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button{height:330px;aspect-ratio:auto;border:0;border-radius:18px;background:#fffaf6;padding:0;overflow:hidden}
+/* Image-matched mats keep the complete plush visible without cream letterboxing. */
+.mc-body .ec-portraits>figure:nth-child(1),.mc-body .ec-portrait-thumbs button:nth-child(1){--mc-photo-mat:#e3dcd4}
+.mc-body .ec-portraits>figure:nth-child(2),.mc-body .ec-portrait-thumbs button:nth-child(2){--mc-photo-mat:#9bb5ad}
+.mc-body .ec-portraits>figure:nth-child(3),.mc-body .ec-portrait-thumbs button:nth-child(3){--mc-photo-mat:#7c9bea}
+.mc-body .ec-portraits>figure:nth-child(4),.mc-body .ec-portrait-thumbs button:nth-child(4){--mc-photo-mat:#d9b85b}
+.mc-body .ec-portraits>figure:nth-child(5),.mc-body .ec-portrait-thumbs button:nth-child(5){--mc-photo-mat:#c97050}
+.mc-body .ec-portraits>figure:nth-child(6),.mc-body .ec-portrait-thumbs button:nth-child(6){--mc-photo-mat:#b8a1db}
+.mc-body .ec-portraits>figure:nth-child(7),.mc-body .ec-portrait-thumbs button:nth-child(7){--mc-photo-mat:#b8bbb5}
+.mc-body .ec-portraits>figure:nth-child(8),.mc-body .ec-portrait-thumbs button:nth-child(8){--mc-photo-mat:#a1bfb1}
+.mc-body .ec-portraits>figure:nth-child(9),.mc-body .ec-portrait-thumbs button:nth-child(9){--mc-photo-mat:#a1b4df}
+.mc-body .ec-portraits>figure:nth-child(10),.mc-body .ec-portrait-thumbs button:nth-child(10){--mc-photo-mat:#e4a4c4}
+.mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button{height:330px;aspect-ratio:auto;border:0;border-radius:18px;background:var(--mc-photo-mat,var(--mc-lilac));padding:0;overflow:hidden}
 .mc-body .ec-portraits img{width:100%;height:100%;object-fit:contain;transition:transform .25s ease}
 @media(hover:hover){.mc-body .ec-portraits button:hover{box-shadow:inset 0 0 0 2px #6c479550}}
 .mc-body .ec-gallery-controls{inset:0 0 8px;max-width:none;margin:0}
 .mc-body .ec-gallery-controls button{width:44px;height:44px;border:1px solid var(--mc-ink);background:#fffaf3;box-shadow:0 2px 0 var(--mc-ink);color:var(--mc-ink)}
 .mc-body .ec-portrait-thumbs{display:grid;grid-template-columns:repeat(10,minmax(44px,1fr));gap:7px;width:100%;max-width:652px;margin:12px auto 0;padding:4px 4px 7px;overscroll-behavior-x:contain;scrollbar-width:none}
 .mc-body .ec-portrait-thumbs::-webkit-scrollbar{display:none}
-.mc-body .ec-portrait-thumbs button{aspect-ratio:1;min-width:44px;min-height:44px;background:#fff8;border:2px solid transparent;padding:3px;border-radius:11px;box-shadow:none;transition:background .18s,border-color .18s,transform .18s}
-.mc-body .ec-portrait-thumbs button[aria-pressed='true']{border-color:var(--mc-purple);background:#fff;box-shadow:0 2px 0 var(--mc-purple)}
-.mc-body .ec-portrait-thumbs button:hover{background:#fff;transform:translateY(-2px)}
+.mc-body .ec-portrait-thumbs button{aspect-ratio:1;min-width:44px;min-height:44px;background:var(--mc-photo-mat,var(--mc-lilac));border:2px solid transparent;padding:3px;border-radius:11px;box-shadow:none;transition:border-color .18s,transform .18s,box-shadow .18s}
+.mc-body .ec-portrait-thumbs button[aria-pressed='true']{border-color:var(--mc-purple);box-shadow:0 2px 0 var(--mc-purple)}
+.mc-body .ec-portrait-thumbs button:hover{border-color:#6c479580;transform:translateY(-2px)}
 .mc-body .ec-portrait-thumbs img{width:100%;height:100%;object-fit:contain;border-radius:6px}
 /* A change of pace: a shelf scene, then two little close-ups. */
 .mc-body .ec-story{background:none;border:0;padding:76px 0 64px}
