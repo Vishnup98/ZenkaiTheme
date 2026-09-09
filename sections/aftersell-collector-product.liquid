@@ -1,0 +1,92 @@
+{%- assign offer_variant = product.selected_or_first_available_variant -%}
+{%- assign offer_image = offer_variant.featured_image | default: product.featured_image -%}
+<section id="CollectorProduct-{{ section.id }}" class="collector-product">
+  <div class="collector-product__media">
+    {%- if offer_image -%}
+      <img class="collector-product__hero" data-collector-image src="{{ offer_image | image_url: width: 1200 }}" alt="{{ offer_image.alt | default: product.title | escape }}" width="{{ offer_image.width }}" height="{{ offer_image.height }}" loading="eager">
+    {%- endif -%}
+    {%- if product.images.size > 1 -%}
+      <div class="collector-product__thumbnails" aria-label="Product photos">
+        {%- for photo in product.images -%}
+          <button type="button" data-collector-photo="{{ photo | image_url: width: 1200 }}" data-photo-alt="{{ photo.alt | default: product.title | escape }}" aria-label="View photo {{ forloop.index }}: {{ photo.alt | default: product.title | escape }}">
+            <img src="{{ photo | image_url: width: 180 }}" alt="" width="90" height="90" loading="lazy">
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="collector-product__details">
+    <p class="collector-product__brand">{{ shop.name | escape }}</p>
+    <h1>{{ product.title | escape }}</h1>
+    <p class="collector-product__price" data-collector-price>{{ offer_variant.price | money }}</p>
+    <div class="rte collector-product__description">{{ product.description }}</div>
+    {%- assign collector_form_id = 'CollectorForm-' | append: section.id -%}
+    {%- form 'product', product, id: collector_form_id -%}
+      {%- if product.variants.size > 1 -%}
+        <label for="CollectorVariant-{{ section.id }}">{{ product.options | join: ' / ' | escape }}</label>
+        <select id="CollectorVariant-{{ section.id }}" name="id" data-collector-variant>
+          {%- for variant in product.variants -%}
+            <option value="{{ variant.id }}"{% if variant.id == offer_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title | escape }}{% unless variant.available %} — Sold out{% endunless %}</option>
+          {%- endfor -%}
+        </select>
+      {%- else -%}
+        <input type="hidden" name="id" value="{{ offer_variant.id }}">
+      {%- endif -%}
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" name="add" class="collector-product__add" data-collector-add{% unless offer_variant.available %} disabled{% endunless %}>{% if offer_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
+    {%- endform -%}
+    <p class="collector-product__shipping">Shipping and any applicable taxes are calculated at checkout.</p>
+  </div>
+  <script type="application/json" data-collector-variants>
+    [
+      {%- for variant in product.variants -%}
+        {%- assign variant_photo = variant.featured_image | default: product.featured_image -%}
+        {"id":{{ variant.id | json }},"available":{{ variant.available | json }},"price":{{ variant.price | money | json }},"image":{% if variant_photo %}{{ variant_photo | image_url: width: 1200 | json }}{% else %}null{% endif %},"alt":{{ variant_photo.alt | default: product.title | json }}}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  </script>
+</section>
+<style>
+  #CollectorProduct-{{ section.id }}{max-width:1160px;margin:0 auto;padding:48px 24px 64px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:start}
+  #CollectorProduct-{{ section.id }} .collector-product__hero{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#faf8f3;border-radius:12px}
+  #CollectorProduct-{{ section.id }} .collector-product__thumbnails{display:flex;gap:10px;margin-top:12px;overflow:auto}
+  #CollectorProduct-{{ section.id }} .collector-product__thumbnails button{border:1px solid #ddd;border-radius:6px;background:#fff;padding:3px;flex:0 0 80px}
+  #CollectorProduct-{{ section.id }} .collector-product__thumbnails img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain}
+  #CollectorProduct-{{ section.id }} .collector-product__brand{font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px;color:#555}
+  #CollectorProduct-{{ section.id }} h1{font-size:clamp(28px,3vw,40px);line-height:1.15;margin:0 0 18px}
+  #CollectorProduct-{{ section.id }} .collector-product__price{font-size:25px;font-weight:700;margin:0 0 22px}
+  #CollectorProduct-{{ section.id }} .collector-product__description{font-size:16px;line-height:1.65;margin-bottom:28px}
+  #CollectorProduct-{{ section.id }} label{display:block;margin:0 0 8px;font-weight:600}
+  #CollectorProduct-{{ section.id }} select{display:block;width:100%;min-height:48px;margin:0 0 14px;background:#fff;color:#17231f;border:1px solid #bbb;border-radius:6px}
+  #CollectorProduct-{{ section.id }} .collector-product__add{display:block;width:100%;min-height:52px;border:0;border-radius:6px;padding:14px 20px;background:#63d6bf;color:#102522;font-size:17px;font-weight:700;cursor:pointer}
+  #CollectorProduct-{{ section.id }} .collector-product__add:disabled{background:#ddd;color:#666;cursor:not-allowed}
+  #CollectorProduct-{{ section.id }} .collector-product__shipping{font-size:13px;color:#666;margin:12px 0 0}
+  #CollectorProduct-{{ section.id }} button:focus-visible,#CollectorProduct-{{ section.id }} select:focus-visible{outline:3px solid #177762;outline-offset:3px}
+  @media(max-width:749px){#CollectorProduct-{{ section.id }}{grid-template-columns:1fr;gap:24px;padding:20px 18px 40px}#CollectorProduct-{{ section.id }} h1{font-size:28px}}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('CollectorProduct-{{ section.id }}');
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = 'true';
+    const variants = JSON.parse(root.querySelector('[data-collector-variants]').textContent);
+    const image = root.querySelector('[data-collector-image]');
+    const showImage = (src, alt) => { if (image && src) { image.src = src; image.alt = alt || ''; } };
+    root.querySelector('[data-collector-variant]')?.addEventListener('change', event => {
+      const variant = variants.find(item => String(item.id) === event.target.value);
+      if (!variant) return;
+      root.querySelector('[data-collector-price]').textContent = variant.price;
+      const button = root.querySelector('[data-collector-add]');
+      button.disabled = !variant.available;
+      button.textContent = variant.available ? 'Add to cart' : 'Sold out';
+      showImage(variant.image, variant.alt);
+      const url = new URL(window.location.href);
+      url.searchParams.set('variant', String(variant.id));
+      window.history.replaceState({}, '', url);
+    });
+    root.querySelectorAll('[data-collector-photo]').forEach(button => button.addEventListener('click', () => showImage(button.dataset.collectorPhoto, button.dataset.photoAlt)));
+  })();
+</script>
+{% schema %}
+{"name":"Collector offer product","settings":[]}
+{% endschema %}
