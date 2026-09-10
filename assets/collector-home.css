@@ -60,7 +60,7 @@
 .zch-rating-stars--footer { display: inline-block; width: 75px; height: 15px; margin: 0 7px 0 0; vertical-align: -2px; }
 .zch .zch-shipping-note { margin-top: 16px; color: var(--zch-forest); font-size: 14px; font-weight: 600; }
 @media (max-width: 749px) {
-  .zch .zch-trust__inner { width: calc(100% - 24px); grid-template-columns: .75fr 1.25fr 1.25fr; align-items: stretch; gap: 0; padding-block: 20px; }
+  .zch .zch-trust__inner { width: calc(100% - 24px); grid-template-columns: .75fr 1.25fr 1.25fr; align-items: stretch; gap: 0; padding-block: 12px; }
   .zch-trust__rating { grid-column: auto; grid-row: auto; gap: 5px 6px; }
   .zch-trust__shipping { justify-content: center; }
   .zch-trust__shipping > svg { display: none; }
