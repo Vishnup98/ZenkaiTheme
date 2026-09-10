@@ -43,7 +43,7 @@
 .zch-button:hover { background: #8be2cf; border-color: #8be2cf; }
 .zch-text-link { display: inline-flex; min-height: 48px; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; text-decoration: underline !important; text-underline-offset: 5px; }
 .zch-hero { display: grid; grid-template-columns: 44% 56%; max-width: 1400px; margin-inline: auto; background: #eaf7f3; }
-.zch-hero-band { background: linear-gradient(to right, #eaf7f3 50%, #d5eeed 50%); }
+.zch-hero-band { background: linear-gradient(to right, #eaf7f3 50%, #f6f0e9 50%); }
 .zch-trust { background: #16312d; color: #fff; }
 .zch-trust__inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding-block: 18px; text-align: center; }
 .zch-trust p { display: flex; flex-direction: column; justify-content: center; padding-inline: 12px; }
@@ -68,7 +68,7 @@
 .zch-hero__lede { margin-top: 18px !important; max-width: 340px; font-size: 16px; line-height: 1.55; color: var(--zch-muted); }
 .zch-hero .zch-actions { margin-top: 24px; }
 .zch-hero .zch-button { gap: 28px; }
-.zch-hero__visual { display: grid; align-items: center; min-width: 0; background: #d5eeed; }
+.zch-hero__visual { display: grid; align-items: center; min-width: 0; background: #f6f0e9; }
 .zch-hero__visual > img { height: auto; object-fit: contain; }
 .zch-category-bar { display: grid; grid-template-columns: repeat(3, 1fr); width: min(1280px, calc(100% - 80px)); margin-inline: auto; border-bottom: 1px solid var(--zch-line); }
 .zch-category-bar a { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 64px; font-size: 15px; font-weight: 600; }
