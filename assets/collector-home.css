@@ -43,6 +43,7 @@
 .zch-button:hover { background: #8be2cf; border-color: #8be2cf; }
 .zch-text-link { display: inline-flex; min-height: 48px; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; text-decoration: underline !important; text-underline-offset: 5px; }
 .zch-hero { display: grid; grid-template-columns: 44% 56%; max-width: 1400px; margin-inline: auto; background: #eaf7f3; }
+.zch-hero-band { background: linear-gradient(to right, #eaf7f3 50%, #f6f0e9 50%); }
 .zch-hero__copy { align-self: center; padding: 44px clamp(28px, 4vw, 64px); }
 .zch-hero .zch-eyebrow { font-size: 12px; letter-spacing: .1em; }
 .zch-hero h1 { margin-top: 16px; max-width: 480px; font-family: 'Zenkai Mischief', 'DM Sans', sans-serif; font-size: clamp(36px, 4.4vw, 60px); font-weight: 800; font-variation-settings: 'opsz' 72; letter-spacing: -.035em; line-height: 1.06; color: var(--zch-forest); }
@@ -87,8 +88,16 @@
 .zch .zch-card__title--impostors { font-family: 'Zenkai Mischief', 'DM Sans', sans-serif; font-variation-settings: 'opsz' 72; color: #6c4795; }
 .zch .zch-card__title--companions { color: var(--zch-forest); letter-spacing: -.04em; }
 .zch-card__title-line { display: block; }
-.zch-card__initial--water { color: #247b9e; }
-.zch-card__initial--fire { color: #b64b20; }
+.zch-evolution-word { white-space: nowrap; }
+.zch-evolution-word > span:nth-child(1) { color: #a83e68; }
+.zch-evolution-word > span:nth-child(2) { color: #7750a4; }
+.zch-evolution-word > span:nth-child(3) { color: #257c88; }
+.zch-evolution-word > span:nth-child(4) { color: #247b9e; }
+.zch-evolution-word > span:nth-child(5) { color: #b64b20; }
+.zch-evolution-word > span:nth-child(6) { color: #8c6b00; }
+.zch-evolution-word > span:nth-child(7) { color: #587530; }
+.zch-evolution-word > span:nth-child(8) { color: #303039; }
+.zch-evolution-word > span:nth-child(9) { color: #89603d; }
 .zch-card__signature { display: flex; align-items: center; height: 22px; margin-top: 8px; gap: 5px; }
 .zch-card__signature svg { width: 52px; height: 22px; }
 .zch-card__signature--companions span { width: 13px; height: 13px; border: 2px solid #fff; border-radius: 50%; background: var(--companion-color); box-shadow: 0 0 0 1px #b8b8b8; }
@@ -163,4 +172,24 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .zch *, .zch *::before, .zch *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+/* Native horizontal browsing; normal vertical wheel scrolling remains untouched. */
+.zch .zch-products--apparel { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: #86b2a3 #e0ede7; padding: 6px 6px 20px; margin: -6px; }
+.zch .zch-products--apparel .zch-card { display: block; flex: 0 0 calc((100% - 84px) / 4.25); margin-top: 0; }
+.zch-products--apparel .zch-card__link { display: block; scroll-snap-align: start; }
+.zch-products--apparel .zch-card__body { display: block; }
+.zch-products--apparel .zch-card h3 { padding-top: 0; }
+.zch .zch-products--apparel .zch-card__category { margin-top: 4px; }
+.zch-products--apparel .zch-card__bottom { margin-top: 6px; }
+.zch-rail-controls { display: flex; gap: 8px; flex-shrink: 0; }
+.zch-rail-controls[hidden] { display: none; }
+.zch-rail-controls button { width: 44px; height: 44px; border: 1px solid #8ca99d; border-radius: 50%; background: transparent; color: var(--zch-forest); font: 28px/1 sans-serif; cursor: pointer; }
+.zch-rail-controls button:hover:not(:disabled) { background: #dceee5; }
+.zch-rail-controls button:disabled { opacity: .35; cursor: default; }
+.zch-rail-controls button:focus-visible, .zch-products--apparel:focus-visible { outline: 3px solid #177461; outline-offset: 3px; }
+@media (max-width: 1100px) { .zch .zch-products--apparel .zch-card { flex-basis: calc((100% - 48px) / 2.4); } }
+@media (max-width: 749px) {
+  .zch .zch-products--apparel { gap: 16px; }
+  .zch .zch-products--apparel .zch-card { flex-basis: 78%; }
+  .zch-apparel .zch-section-heading { align-items: center; }
 }

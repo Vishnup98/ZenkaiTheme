@@ -15,7 +15,7 @@
 {{ 'collector-home.css' | asset_url | stylesheet_tag }}
 
 <div class="zch" data-collector-home>
-  <section class="zch-hero" aria-labelledby="zch-title-{{ section.id }}">
+  <div class="zch-hero-band"><section class="zch-hero" aria-labelledby="zch-title-{{ section.id }}">
     <div class="zch-hero__copy">
       <div class="zch-hero__intro">
         <p class="zch-eyebrow">THE PLUSH COLLECTIONS</p>
@@ -32,11 +32,11 @@
         <div class="zch-image-fallback">Explore plush collections</div>
       {%- endif -%}
     </a>
-  </section>
+  </section></div>
   <nav class="zch-category-bar" aria-label="Shop by category">
-    <a class="js-no-transition" href="#collector-plush">Plush sets <span aria-hidden="true">↗</span></a>
-    <a class="js-no-transition" href="#collector-pins">Pins & badges <span aria-hidden="true">↗</span></a>
-    <a class="js-no-transition" href="#zenkai-apparel">Apparel <span aria-hidden="true">↗</span></a>
+    <a class="js-no-transition" href="#collector-plush">Plush sets</a>
+    <a class="js-no-transition" href="#collector-pins">Pins & badges</a>
+    <a class="js-no-transition" href="#zenkai-apparel">Apparel</a>
   </nav>
 
   <div id="collector-sets" class="zch-shop zch-shell">
@@ -57,7 +57,7 @@
         endif
       -%}
     <section id="{{ group_id }}" class="zch-merch-group" aria-labelledby="{{ group_id }}-title-{{ section.id }}">
-      <div class="zch-section-heading"><h2 id="{{ group_id }}-title-{{ section.id }}">{{ group_title }}</h2><span class="zch-section-note">Explore the collections</span></div>
+      <div class="zch-section-heading"><h2 id="{{ group_id }}-title-{{ section.id }}">{{ group_title }}</h2></div>
     <div class="zch-products zch-products--collectibles">
       {%- for index in (group_start..group_end) -%}
         {%- liquid
@@ -103,7 +103,7 @@
               {%- if index == 1 -%}
                 <h3 class="zch-card__title--impostors">Little <span class="zch-card__title-line">Impostors</span><span class="zch-card__signature" aria-hidden="true"><svg viewBox="0 0 76 30" fill="none" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></h3>
               {%- elsif index == 2 -%}
-                <h3 class="zch-card__title--companions" aria-label="Evolution Companions"><span aria-hidden="true"><span class="zch-card__initial--water">E</span>volution <span class="zch-card__title-line"><span class="zch-card__initial--fire">C</span>ompanions</span></span><span class="zch-card__signature zch-card__signature--companions" aria-hidden="true"><span style="--companion-color: #f5a7be"></span><span style="--companion-color: #bea0e7"></span><span style="--companion-color: #b0e5ef"></span><span style="--companion-color: #48a7d3"></span><span style="--companion-color: #fa742d"></span><span style="--companion-color: #f2d449"></span><span style="--companion-color: #d5b969"></span><span style="--companion-color: #303039"></span></span></h3>
+                <h3 class="zch-card__title--companions" aria-label="Evolution Companions"><span aria-hidden="true"><span class="zch-evolution-word"><span>E</span><span>v</span><span>o</span><span>l</span><span>u</span><span>t</span><span>i</span><span>o</span><span>n</span></span> <span class="zch-card__title-line">Companions</span></span><span class="zch-card__signature zch-card__signature--companions" aria-hidden="true"><span style="--companion-color: #f5a7be"></span><span style="--companion-color: #bea0e7"></span><span style="--companion-color: #b0e5ef"></span><span style="--companion-color: #48a7d3"></span><span style="--companion-color: #fa742d"></span><span style="--companion-color: #f2d449"></span><span style="--companion-color: #d5b969"></span><span style="--companion-color: #303039"></span></span></h3>
               {%- else -%}
                 <h3>{{ card_name }}</h3>
               {%- endif -%}
@@ -121,14 +121,15 @@
 
   <section id="zenkai-apparel" class="zch-apparel" aria-labelledby="zch-apparel-title-{{ section.id }}">
     <div class="zch-shell">
-      <div class="zch-section-heading"><div><h2 id="zch-apparel-title-{{ section.id }}">In your rotation</h2><p>Graphic tees and comfortable layers, with a story to tell.</p></div></div>
-      <div class="zch-products zch-products--apparel">
-        {%- assign apparel_handles = 'road-to-indigo|champions-00251|road-to-indigo-sweatshirt|144-146-legends-begin-here-hoodie' | split: '|' -%}
+      <div class="zch-section-heading"><div><h2 id="zch-apparel-title-{{ section.id }}">In your rotation</h2><p>Graphic tees and comfortable layers, with a story to tell.</p></div><div class="zch-rail-controls" data-zch-rail-controls hidden><button type="button" data-zch-rail-step="-1" aria-label="Previous apparel" aria-controls="zch-apparel-rail-{{ section.id }}">‹</button><button type="button" data-zch-rail-step="1" aria-label="Next apparel" aria-controls="zch-apparel-rail-{{ section.id }}">›</button></div></div>
+      <div class="zch-products zch-products--apparel" id="zch-apparel-rail-{{ section.id }}" data-zch-rail tabindex="0" role="region" aria-label="Browse apparel">
+        {%- assign product_image_sizes = '(min-width: 1360px) 285px, (min-width: 1101px) 22vw, (min-width: 750px) 40vw, 78vw' -%}
+        {%- assign apparel_handles = 'road-to-indigo|champions-00251|road-to-indigo-sweatshirt|144-146-legends-begin-here-hoodie|058-059-the-royal-family-tee|054-sad-duck-tee' | split: '|' -%}
         {%- for apparel_handle in apparel_handles -%}
           {%- liquid
             assign apparel_product = all_products[apparel_handle]
             assign apparel_image = apparel_product.featured_image
-            if forloop.index < 4
+            if forloop.index != 4
               assign apparel_image = apparel_product.images[1] | default: apparel_product.featured_image
             endif
             case forloop.index
@@ -140,6 +141,10 @@
                 assign apparel_name = 'Road to Indigo Sweatshirt'
               when 4
                 assign apparel_name = 'Legends Begin Here Hoodie'
+              when 5
+                assign apparel_name = 'The Royal Family Tee'
+              when 6
+                assign apparel_name = 'Sad Duck Tee'
             endcase
             assign apparel_category = 'Graphic tee'
             if forloop.index == 3
