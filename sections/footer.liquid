@@ -66,7 +66,9 @@
   <div class="page-width site-footer__inner">
 
     <div class="site-footer__brand">
-      {% if zenkai_gym_badge_paid_context %}<span class="site-footer__wordmark">{{ shop.name }}</span>{% else %}<a href="{{ routes.root_url }}" class="site-footer__wordmark">{{ shop.name }}</a>{% endif %}
+      {% if request.page_type == 'index' %}
+        <a href="{{ routes.root_url }}" class="site-footer__brandmark" aria-label="{{ shop.name | escape }} home"><img src="{{ 'zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png' | file_img_url: '224x' }}" alt="{{ shop.name | escape }}" width="112" height="88" loading="lazy"></a>
+      {% elsif zenkai_gym_badge_paid_context %}<span class="site-footer__wordmark">{{ shop.name }}</span>{% else %}<a href="{{ routes.root_url }}" class="site-footer__wordmark">{{ shop.name }}</a>{% endif %}
       <p class="site-footer__tagline">{% if request.page_type == 'index' %}Apparel to live in. Collectibles to make your space yours.{% else %}Original reimaginings of the favorites you grew up with.{% endif %}</p>
       <div class="site-footer__signals" aria-label="Store promises">
         {% if request.page_type == 'index' %}
@@ -82,6 +84,16 @@
     </div>
 
     <div class="site-footer__utility">
+    {% if request.page_type == 'index' %}
+      <nav class="site-footer__shop-nav" aria-label="Shop categories">
+        <h2 class="site-footer__heading">Explore</h2>
+        <ul class="no-bullets site-footer__shop-links">
+          <li><a href="/#collector-plush">Plush sets</a></li>
+          <li><a href="/#collector-pins">Pins &amp; badges</a></li>
+          <li><a href="/collections/tees">Apparel</a></li>
+        </ul>
+      </nav>
+    {% endif %}
 
     {%- if show_selectors -%}
       {%- form 'localization', class: 'multi-selectors site-footer__section' -%}
@@ -155,6 +167,7 @@
 
     {% if linklists[section.settings.menu].links.size > 0 and zenkai_gym_badge_paid_context == false %}
       <nav class="site-footer__section site-footer__nav" aria-label="Footer">
+        {% if request.page_type == 'index' %}<h2 class="site-footer__heading">Customer care</h2>{% endif %}
         <ul class="no-bullets inline-list site-footer__linklist">
           {% for link in linklists[section.settings.menu].links %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>

@@ -44,13 +44,24 @@ body.template-index { background: #fff; color: #102522; font-family: 'DM Sans', 
 .template-index .site-footer { padding-block: 48px calc(32px + env(safe-area-inset-bottom, 0px)); }
 .template-index .site-footer__inner { max-width: 1280px; padding-inline: 40px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; gap: 32px; }
 .template-index .site-footer__wordmark { font-size: 18px; line-height: 1.4; letter-spacing: .025em; }
-.template-index .site-footer__tagline { font-size: 16px; line-height: 1.6; margin-top: 12px; }
-.template-index .site-footer__signals { gap: 8px; margin-top: 20px; }
+.template-index .site-footer__brandmark { display: inline-flex; width: 112px; }
+.template-index .site-footer__brandmark img { display: block; width: 112px; height: 88px; object-fit: contain; }
+.template-index .site-footer__tagline { max-width: 310px; font-size: 15px; line-height: 1.65; margin: 16px 0 0; }
+.template-index .site-footer__signals { display: grid; justify-items: start; gap: 10px; margin-top: 24px; padding-top: 22px; border-top: 1px solid #38564f; max-width: 350px; }
 .template-index .site-footer__signals span,
-.template-index .site-footer__signals a { font-size: 14px; line-height: 1.4; padding: 8px 12px; }
-.template-index .site-footer__linklist { gap: 4px 16px; }
+.template-index .site-footer__signals a { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 13px; font-weight: 400; line-height: 1.5; letter-spacing: 0; padding: 0; border: 0; border-radius: 0; background: none; }
+.template-index .site-footer__signals .zch-rating-stars--footer { width: 65px; height: 13px; margin: 0 4px 0 0; }
+.template-index .site-footer__utility { display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px 24px; align-items: start; text-align: left; padding-top: 12px; }
+.template-index .site-footer__heading { margin: 0 0 12px; font-family: inherit; font-size: 12px; font-weight: 600; line-height: 1.5; letter-spacing: .12em; text-transform: uppercase; color: #8be2cf; }
+.template-index .site-footer__shop-nav { grid-column: 1; grid-row: 1; }
+.template-index .site-footer__nav { grid-column: 2; grid-row: 1; }
+.template-index .site-footer__shop-links { margin: 0; }
+.template-index .site-footer__shop-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.5; }
+.template-index .site-footer__linklist { display: grid; gap: 0; justify-content: start; margin: 0; }
 .template-index .site-footer__linklist a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; font-size: 15px; line-height: 1.5; }
-.template-index .site-footer__copyright { font-size: 14px; line-height: 1.6; }
+.template-index .site-footer__social { grid-column: 1 / -1; }
+.template-index .site-footer__social .footer__social { justify-content: flex-start; }
+.template-index .site-footer__copyright { grid-column: 1 / -1; border-top: 1px solid #38564f; padding-top: 20px; font-size: 12px; line-height: 1.6; }
 .template-index .site-footer__social a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
 .template-index .zenkai-header-menu__text { font-size: 14px; letter-spacing: .025em; }
 .template-index .zenkai-menu__link,
@@ -91,6 +102,6 @@ body.template-index { background: #fff; color: #102522; font-family: 'DM Sans', 
   .template-index .site-header__logo img { max-height: 36px; width: auto; margin-inline: auto; }
   .template-index .site-footer { padding-top: 36px; }
   .template-index .site-footer__inner { grid-template-columns: 1fr; padding-inline: 20px; gap: 28px; }
-  .template-index .site-footer__utility { align-items: flex-start; text-align: left; gap: 20px; }
+  .template-index .site-footer__utility { align-items: start; text-align: left; gap: 24px 16px; padding-top: 24px; border-top: 1px solid #38564f; }
   .template-index .site-footer__linklist { justify-content: flex-start; }
 }

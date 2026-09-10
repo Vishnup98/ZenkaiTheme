@@ -136,9 +136,6 @@
           {%- liquid
             assign apparel_product = all_products[apparel_handle]
             assign apparel_image = apparel_product.featured_image
-            if forloop.index != 4
-              assign apparel_image = apparel_product.images[1] | default: apparel_product.featured_image
-            endif
             case forloop.index
               when 1
                 assign apparel_name = 'Road to Indigo Tee'
@@ -181,7 +178,7 @@
       <details><summary>Are the plush collections complete sets?<span aria-hidden="true">+</span></summary><div><p>Yes. Little Impostors includes all nine plush companions, and Evolution Companions includes all eight costume plushies. Each product page shows the complete lineup and product details.</p></div></details>
       <details><summary>What’s included with the pins and badges?<span aria-hidden="true">+</span></summary><div><p>The Evolution Pin Set includes eight pins. Gym Badge boxes each include eight badges, with individual box options and a complete collection option on the product page. Check your selected option before adding it to your cart.</p></div></details>
       <details><summary>How do I choose my apparel size?<span aria-hidden="true">+</span></summary><div><p>Open the product page to see its available sizes and sizing information. Check the measurements for the specific tee, sweatshirt, or hoodie you choose, as fit can vary between styles.</p></div></details>
-      <details><summary>Where can I check shipping and returns?<span aria-hidden="true">+</span></summary><div><p>See the product page for collection-specific delivery information. Shipping options and any charges are shown at checkout. You can also read our <a class="js-no-transition" href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">shipping policy</a> and <a class="js-no-transition" href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">return policy</a> before ordering.</p></div></details>
+      <details><summary>Where can I check shipping and returns?<span aria-hidden="true">+</span></summary><div><p>Shipping is free on US orders. For international orders, available shipping options and rates are shown at checkout. Check the product page for delivery information specific to your item, or read our <a class="js-no-transition" href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">shipping policy</a> and <a class="js-no-transition" href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">return policy</a> for more details.</p></div></details>
     </div>
   </section>
 

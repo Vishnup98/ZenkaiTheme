@@ -176,7 +176,7 @@
   .zch-products { gap: 28px 16px; }
   .zch-card__body { padding-top: 10px; }
   .zch-faq { grid-template-columns: 1fr; gap: 24px; padding-block: 40px; }
-  .zch-apparel-categories { gap: 10px; }
+  .zch-apparel-categories { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .zch-apparel-categories a { padding-inline: 16px; }
   .zch-anchor, .zch-card, .zch-apparel, .zch-shop, .zch-merch-group { scroll-margin-top: 96px; }
 }

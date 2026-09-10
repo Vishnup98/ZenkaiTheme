@@ -276,7 +276,7 @@
     {%- endunless -%}
 
     {% comment %} Paid Gym Badge views carry shipping in the logo row. {% endcomment %}
-    {% if section.settings.show_announcement %}
+    {% if section.settings.show_announcement and request.page_type != 'index' %}
       {%- unless zenkai_is_gym_color_paid -%}
         {% include 'announcement-bar' %}
       {%- endunless -%}
