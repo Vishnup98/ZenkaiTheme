@@ -9,16 +9,6 @@
 </style>
 <ul class="site-nav site-navigation small--hide collector-navigation" aria-label="Shop collections">
   <li class="site-nav__item site-nav__expanded-item site-nav--has-dropdown" aria-haspopup="true">
-    <a href="{{ routes.collections_url }}/tees" class="site-nav__link site-nav__link--has-dropdown">Apparel</a>
-    <ul class="site-nav__dropdown text-left">
-      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/tees">T-shirts</a></li>
-      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/all-hoodies">Hoodies</a></li>
-      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/sweatshirts">Sweatshirts</a></li>
-      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/all-hats">Hats</a></li>
-      <li><a class="site-nav__dropdown-link" href="{{ routes.all_products_collection_url }}">Browse everything</a></li>
-    </ul>
-  </li>
-  <li class="site-nav__item site-nav__expanded-item site-nav--has-dropdown" aria-haspopup="true">
     <a href="{{ routes.root_url }}#collector-plush" class="site-nav__link site-nav__link--has-dropdown js-no-transition">Plush sets</a>
     <ul class="site-nav__dropdown text-left">
       {% render 'collector-nav-links', collector_nav_group: 'plush', collector_nav_link_class: 'site-nav__dropdown-link site-nav__dropdown-link--second-level' %}
@@ -28,6 +18,16 @@
     <a href="{{ routes.root_url }}#collector-pins" class="site-nav__link site-nav__link--has-dropdown js-no-transition">Pins &amp; badges</a>
     <ul class="site-nav__dropdown text-left">
       {% render 'collector-nav-links', collector_nav_group: 'pins', collector_nav_link_class: 'site-nav__dropdown-link site-nav__dropdown-link--second-level' %}
+    </ul>
+  </li>
+  <li class="site-nav__item site-nav__expanded-item site-nav--has-dropdown" aria-haspopup="true">
+    <a href="{{ routes.root_url }}#zenkai-apparel" class="site-nav__link site-nav__link--has-dropdown js-no-transition">Apparel</a>
+    <ul class="site-nav__dropdown text-left">
+      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/tees">Tees</a></li>
+      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/all-hoodies">Hoodies</a></li>
+      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/sweatshirts">Sweatshirts</a></li>
+      <li><a class="site-nav__dropdown-link" href="{{ routes.collections_url }}/all-hats">Hats</a></li>
+      <li><a class="site-nav__dropdown-link" href="{{ routes.all_products_collection_url }}">Browse everything</a></li>
     </ul>
   </li>
 </ul>

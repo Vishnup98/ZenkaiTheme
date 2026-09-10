@@ -1,12 +1,13 @@
-<div id="SearchModal" class="modal modal--solid">
+<div id="SearchModal" class="modal modal--solid" role="dialog" aria-modal="true" aria-labelledby="SearchModalTitle">
   <div class="modal__inner">
     <div class="modal__centered page-width text-center">
       <div class="modal__centered-content">
+        <h2 id="SearchModalTitle" class="search-modal__title">Find your next favorite</h2>
         <form action="{{ routes.search_url }}" method="get" class="search-modal__wrapper" role="search">
           <input type="hidden" name="type" value="{{ settings.search_type }}">
           <input type="search" name="q"
             value="{{ search.terms | escape }}"
-            placeholder="{% if request.page_type == 'index' %}Search apparel, plushes, pins &amp; more{% else %}Search plushes, pins, badges &amp; more{% endif %}"
+            placeholder="Search Zenkai"
             id="SearchModalInput"
             class="search-modal__input"
             aria-label="Search products">
@@ -24,3 +25,21 @@
     <span class="icon__fallback-text">{{ 'general.accessibility.close_modal' | t }}</span>
   </button>
 </div>
+
+<style>
+  #SearchModal { color: #102522; }
+  #SearchModal .modal__inner { width: 100%; }
+  #SearchModal .modal__centered { width: 100%; max-width: 680px; padding: 24px; }
+  #SearchModal .modal__centered-content { width: 100%; padding: 0; }
+  #SearchModal .search-modal__title { margin: 0 0 24px; font-size: clamp(24px, 4vw, 32px); line-height: 1.25; letter-spacing: -.02em; text-transform: none; }
+  #SearchModal .search-modal__wrapper { display: flex; align-items: center; gap: 8px; width: 100%; border: 1px solid #a7c4b9; border-radius: 8px; background: #fff; padding: 6px; }
+  #SearchModal .search-modal__wrapper:focus-within { outline: 2px solid #16312d; outline-offset: 3px; }
+  #SearchModal .search-modal__input { flex: 1 1 auto; width: 0; min-width: 0; height: 48px; margin: 0; padding: 10px 12px; font: inherit; font-size: 18px; line-height: 1.5; color: #102522; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+  #SearchModal .search-modal__input:focus { outline: none; }
+  #SearchModal .search-modal__input::placeholder { color: #526960; opacity: 1; }
+  #SearchModal .search-modal__submit { position: static; flex: 0 0 48px; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin: 0; padding: 0; border-radius: 5px; color: #102522; background: #63d6bf; }
+  #SearchModal .search-modal__submit:hover { background: #9be7d7; }
+  #SearchModal .search-modal__submit .icon { width: 26px; height: 26px; }
+  #SearchModal .modal__close { min-width: 44px; min-height: 44px; color: #102522; }
+  #SearchModal button:focus-visible { outline: 2px solid #16312d; outline-offset: 3px; }
+</style>

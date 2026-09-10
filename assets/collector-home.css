@@ -132,23 +132,15 @@
 .zch-card__price small { display: inline; font-size: 14px; font-weight: 400; }
 .zch-card__stock { display: block; margin-top: 4px; font-size: 14px; color: var(--zch-muted); }
 .zch-card__link:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
-.zch .zch-card__title--impostors, .zch .zch-card__title--companions { font-size: clamp(19px, 2.1vw, 25px); line-height: 1.08; letter-spacing: -.025em; font-weight: 800; }
-.zch .zch-card__title--impostors { font-family: 'Zenkai Mischief', 'DM Sans', sans-serif; font-variation-settings: 'opsz' 72; color: #6c4795; }
-.zch .zch-card__title--companions { color: var(--zch-forest); letter-spacing: -.04em; }
-.zch-card__title-line { display: block; }
-.zch-evolution-word { white-space: nowrap; }
-.zch-evolution-word > span:nth-child(1) { color: #a83e68; }
-.zch-evolution-word > span:nth-child(2) { color: #7750a4; }
-.zch-evolution-word > span:nth-child(3) { color: #257c88; }
-.zch-evolution-word > span:nth-child(4) { color: #247b9e; }
-.zch-evolution-word > span:nth-child(5) { color: #b64b20; }
-.zch-evolution-word > span:nth-child(6) { color: #8c6b00; }
-.zch-evolution-word > span:nth-child(7) { color: #587530; }
-.zch-evolution-word > span:nth-child(8) { color: #303039; }
-.zch-evolution-word > span:nth-child(9) { color: #89603d; }
-.zch-card__signature { display: flex; align-items: center; height: 22px; margin-top: 8px; gap: 5px; }
-.zch-card__signature svg { width: 52px; height: 22px; }
-.zch-card__signature--companions span { width: 13px; height: 13px; border: 2px solid #fff; border-radius: 50%; background: var(--companion-color); box-shadow: 0 0 0 1px #b8b8b8; }
+.zch-products--collectibles h3 { min-height: 1.35em; font-size: 18px; line-height: 1.35; font-weight: 600; letter-spacing: -.02em; }
+.zch .zch-card__title--impostors { color: #6c4795; }
+.zch .zch-card__title--companions { color: var(--zch-forest); }
+.zch-card__details { display: flex; flex-direction: column; justify-content: flex-end; gap: 7px; min-height: 42px; padding-bottom: 2px; }
+.zch-card__set-note { color: var(--zch-forest); font-size: 13px; font-weight: 500; line-height: 1.4; }
+.zch-card__signature { display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+.zch-card__signature--companions span { flex: 0 0 12px; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; background: var(--companion-color); box-shadow: 0 0 0 1px #b8b8b8; }
+/* The original square studio photo keeps its full set; beige fills the landscape surround. */
+.zch-products--collectibles .zch-card--3 .zch-card__media { background: linear-gradient(90deg, #f6eee3, #efe7dc); border-color: #f0e8dd; }
 .zch-apparel { padding-block: 40px; background: #f3f9f6; }
 .zch-apparel-categories { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--zch-line); }
 .zch-apparel-categories a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 20px; border: 1px solid #a4bdb1; border-radius: 4px; font-size: 16px; font-weight: 600; }
@@ -169,10 +161,12 @@
   .zch-merch-groups { grid-template-columns: 1fr; gap: 28px; }
   .zch-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
 }
-@media (max-width: 1000px) {
-  .zch-hero { grid-template-columns: 1fr; }
-  .zch-hero__visual { grid-row: 1; }
-  .zch-hero__copy { padding-block: 28px; }
+@media (min-width: 750px) and (max-width: 1000px) {
+  .zch-hero__copy { padding: 32px 24px; }
+  .zch-hero h1 { font-size: clamp(36px, 4.4vw, 44px); }
+  .zch-hero__intro { gap: 12px; }
+  .zch-hero__face { width: 44px; }
+  .zch-hero__visual { align-self: stretch; background: #eaf7f3; }
 }
 @media (max-width: 749px) {
   .zch-shell { width: calc(100% - 40px); }
@@ -203,8 +197,8 @@
 /* Shared tracks align a pair's labels without reserving empty title lines. */
 @supports (grid-template-rows: subgrid) {
   .zch .zch-products { row-gap: 4px; }
-  .zch-card { display: grid; grid-row: span 4; grid-template-rows: subgrid; }
-  .zch-card__link { display: grid; grid-row: span 4; grid-template-rows: subgrid; height: auto; }
+  .zch-card { display: grid; grid-row: span 5; grid-template-rows: subgrid; }
+  .zch-card__link { display: grid; grid-row: span 5; grid-template-rows: subgrid; height: auto; }
   .zch-card__body { display: contents; }
   .zch-card h3 { padding-top: 6px; }
   .zch .zch-card__category, .zch-card__bottom { margin-top: 0; }
@@ -241,3 +235,30 @@
   .zch .zch-products--apparel .zch-card { flex-basis: 78%; }
   .zch-apparel .zch-section-heading { align-items: center; }
 }
+
+/* One heading row for the action controls, with supporting copy across the full width. */
+.zch-apparel-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 16px; }
+.zch-apparel-heading > p { grid-column: 1 / -1; margin-top: 0; }
+.zch-products--apparel h3 { min-height: 1.4em; }
+@media (max-width: 749px) {
+  .zch-products--collectibles h3 { font-size: 16px; min-height: 2.7em; }
+  .zch-card__set-note { font-size: 12px; }
+}
+
+/* Genuine customer photographs keep their full portrait composition. */
+.zch-customer { padding-block: 48px; border-bottom: 1px solid var(--zch-line); }
+.zch-customer__photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; max-width: 960px; margin-inline: auto; }
+.zch-customer__card { min-width: 0; display: block; }
+.zch-customer__card img { aspect-ratio: 3 / 4; height: auto; width: 100%; object-fit: cover; background: #f3f6f4; }
+.zch-customer__name { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 16px; font-weight: 600; line-height: 1.4; }
+.zch-customer__caption { display: block; margin-top: 4px; color: var(--zch-muted); font-size: 13px; line-height: 1.5; }
+.zch-customer__card:hover .zch-customer__name { text-decoration: underline; text-underline-offset: 4px; }
+.zch-customer__photos:focus-visible { outline: 3px solid #177461; outline-offset: 5px; }
+@media (max-width: 749px) {
+  .zch-customer { padding-block: 32px; }
+  .zch-customer__photos { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity; padding: 5px 5px 16px; margin: -5px; }
+  .zch-customer__card { flex: 0 0 76%; scroll-snap-align: start; }
+}
+
+.zch-customer > .zch-section-heading { max-width: 960px; margin-inline: auto; }
+@media (max-width: 749px) { .zch-products--apparel h3 { min-height: 2.8em; } }

@@ -326,6 +326,7 @@
   {%- if request.page_type == 'index' -%}
     {{ 'collector-shell.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'collector-discovery.js' | asset_url }}" defer></script>
+    <script src="{{ 'collector-cart-accessibility.js' | asset_url }}" defer></script>
     <style>
       body.template-index .splash-screen { display: none !important; }
       body.template-index .page-container { display: block !important; visibility: visible !important; }

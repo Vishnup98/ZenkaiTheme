@@ -18,7 +18,7 @@
 {%- if template.name == 'product' and template.suffix != blank -%}
   {%- assign collector_regular_navigation = false -%}
 {%- endif -%}
-<div id="zenkai-mobile-overlay" class="zenkai-overlay" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+<div id="zenkai-mobile-overlay" class="zenkai-overlay" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true" inert>
   <header class="zenkai-overlay__bar">
     <a href="{{ routes.root_url }}" class="zenkai-overlay__brand" aria-label="{{ shop.name | escape }}">
       {%- if section.settings.logo -%}
@@ -47,12 +47,6 @@
         <li class="zenkai-menu__item zenkai-menu__item--cta">
           <a href="{{ routes.all_products_collection_url }}" class="zenkai-menu__cta js-no-transition">Explore the store</a>
         </li>
-        <li class="zenkai-menu__item">
-          <button type="button" class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open" data-panel="collector-apparel" aria-haspopup="true" aria-expanded="false">
-            <span>Apparel</span>
-            <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-          </button>
-        </li>
         {%- assign collector_menu_groups = 'plush|pins' | split: '|' -%}
         {%- for collector_menu_group in collector_menu_groups -%}
           <li class="zenkai-menu__item">
@@ -62,6 +56,12 @@
             </button>
           </li>
         {%- endfor -%}
+        <li class="zenkai-menu__item">
+          <button type="button" class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open" data-panel="collector-apparel" aria-haspopup="true" aria-expanded="false">
+            <span>Apparel</span>
+            <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </button>
+        </li>
         <li class="zenkai-menu__item"><a href="{{ routes.root_url }}" class="zenkai-menu__link">Home</a></li>
         {%- else -%}
         <li class="zenkai-menu__item zenkai-menu__item--cta">
@@ -155,16 +155,16 @@
 
     {%- comment -%} Submenu panels, hoisted out of <li>. One per dropdown. {%- endcomment -%}
     {%- if collector_regular_navigation -%}
-      <section class="zenkai-panel" data-panel-id="collector-apparel" aria-hidden="true" aria-label="Apparel">
+      <section class="zenkai-panel" data-panel-id="collector-apparel" aria-hidden="true" inert aria-label="Apparel">
         <div class="zenkai-panel__header">
           <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back to main menu">
             <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
             <span>Back</span>
           </button>
-          <a href="{{ routes.collections_url }}/tees" class="zenkai-panel__title">Apparel</a>
+          <a href="{{ routes.root_url }}#zenkai-apparel" class="zenkai-panel__title js-no-transition">Apparel</a>
         </div>
         <ul class="zenkai-panel__list">
-          <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/tees" class="zenkai-panel__link">T-shirts</a></li>
+          <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/tees" class="zenkai-panel__link">Tees</a></li>
           <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/all-hoodies" class="zenkai-panel__link">Hoodies</a></li>
           <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/sweatshirts" class="zenkai-panel__link">Sweatshirts</a></li>
           <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/all-hats" class="zenkai-panel__link">Hats</a></li>
@@ -172,7 +172,7 @@
         </ul>
       </section>
       {%- for collector_menu_group in collector_menu_groups -%}
-        <section class="zenkai-panel" data-panel-id="collector-{{ collector_menu_group }}" aria-hidden="true" aria-label="{% if collector_menu_group == 'plush' %}Plush sets{% else %}Pins and badges{% endif %}">
+        <section class="zenkai-panel" data-panel-id="collector-{{ collector_menu_group }}" aria-hidden="true" inert aria-label="{% if collector_menu_group == 'plush' %}Plush sets{% else %}Pins and badges{% endif %}">
           <div class="zenkai-panel__header">
             <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back to main menu">
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
@@ -189,7 +189,7 @@
     {% for link in main_menu.links %}
       {% if link.links != blank %}
         {%- assign panel_id = link.title | handleize | append: '-' | append: forloop.index -%}
-        <section class="zenkai-panel" data-panel-id="{{ panel_id }}" aria-hidden="true" aria-label="{{ link.title | escape }}">
+        <section class="zenkai-panel" data-panel-id="{{ panel_id }}" aria-hidden="true" inert aria-label="{{ link.title | escape }}">
           <div class="zenkai-panel__header">
             <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back">
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
@@ -255,6 +255,7 @@
   function openMenu(evt) {
     if (evt && evt.preventDefault) evt.preventDefault();
     if (evt && evt.currentTarget) lastOpener = evt.currentTarget;
+    overlay.inert = false;
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     html.classList.add(DRAWER_CLASS);
@@ -272,6 +273,7 @@
   function closeMenu() {
     closeActivePanel(true);
     overlay.classList.remove('is-open');
+    overlay.inert = true;
     overlay.setAttribute('aria-hidden', 'true');
     html.classList.remove(DRAWER_CLASS);
     body.classList.remove(DRAWER_CLASS);
@@ -284,9 +286,10 @@
     var panel = overlay.querySelector('.zenkai-panel[data-panel-id="' + id + '"]');
     if (!panel) return;
     closeActivePanel(false);
+    panel.inert = false;
     panel.setAttribute('aria-hidden', 'false');
     panel.classList.add('is-open');
-    if (menuList) menuList.classList.add('is-pushed');
+    if (menuList) { menuList.classList.add('is-pushed'); menuList.inert = true; }
     if (triggerBtn) {
       triggerBtn.setAttribute('aria-expanded', 'true');
       panel.dataset.zenkaiReturn = triggerBtn.getAttribute('data-panel');
@@ -301,11 +304,12 @@
 
   function closeActivePanel(skipFocusRestore) {
     if (!activePanel) return;
+    activePanel.inert = true;
     activePanel.setAttribute('aria-hidden', 'true');
     activePanel.classList.remove('is-open');
     var returnId = activePanel.dataset.zenkaiReturn;
     activePanel = null;
-    if (menuList) menuList.classList.remove('is-pushed');
+    if (menuList) { menuList.classList.remove('is-pushed'); menuList.inert = false; }
     if (returnId) {
       var trigger = overlay.querySelector('.js-zenkai-panel-open[data-panel="' + returnId + '"]');
       if (trigger) {
@@ -321,18 +325,40 @@
     btn.addEventListener('click', function() { openPanel(btn.getAttribute('data-panel'), btn); });
   });
   backButtons.forEach(function(btn) { btn.addEventListener('click', function() { closeActivePanel(false); }); });
-  searchHandoff.forEach(function(link) { link.addEventListener('click', function() { closeMenu(); }); });
+  searchHandoff.forEach(function(link) {
+    link.addEventListener('click', function() {
+      var returnTarget = lastOpener;
+      // Search closes after its original source has become part of an inert menu.
+      // Arm restoration only for the search modal actually opened by this link.
+      if (window.jQuery) {
+        var $body = window.jQuery(body);
+        $body.off('.zenkaiSearchHandoff');
+        $body.one('modalOpen.SearchModal.zenkaiSearchHandoff', function() {
+          if (link.getAttribute('aria-expanded') !== 'true') return;
+          $body.one('modalClose.SearchModal.zenkaiSearchHandoff', function() {
+            // The legacy close event runs after the modal releases its focus trap.
+            if (returnTarget && returnTarget.isConnected &&
+                !returnTarget.closest('[inert], [aria-hidden="true"]') &&
+                returnTarget.getClientRects().length) {
+              returnTarget.focus({ preventScroll: true });
+            }
+          });
+        });
+      }
+      closeMenu();
+    }, true);
+  });
   // A homepage collection anchor may stay on this document; release the menu
   // and scroll lock before the browser scrolls to the selected collection.
-  overlay.querySelectorAll('a[href*="#collector-"]').forEach(function(link) {
+  overlay.querySelectorAll('a[href*="#collector-"], a[href*="#zenkai-apparel"]').forEach(function(link) {
     link.addEventListener('click', function() { closeMenu(); });
   });
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Tab' && overlay.classList.contains('is-open')) {
-      var focusScope = activePanel || overlay;
+      var focusScope = overlay;
       var focusable = Array.prototype.filter.call(focusScope.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]'), function(el) {
-        return !el.closest('[aria-hidden="true"]') && el.getClientRects().length > 0;
+        return !el.closest('[aria-hidden="true"], [inert]') && el.getClientRects().length > 0;
       });
       if (focusable.length) {
         var first = focusable[0], last = focusable[focusable.length - 1];

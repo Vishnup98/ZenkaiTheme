@@ -88,9 +88,9 @@
       <nav class="site-footer__shop-nav" aria-label="Shop categories">
         <h2 class="site-footer__heading">Explore</h2>
         <ul class="no-bullets site-footer__shop-links">
-          <li><a href="/#collector-plush">Plush sets</a></li>
-          <li><a href="/#collector-pins">Pins &amp; badges</a></li>
-          <li><a href="/collections/tees">Apparel</a></li>
+          <li><a href="{{ routes.root_url }}#collector-plush">Plush sets</a></li>
+          <li><a href="{{ routes.root_url }}#collector-pins">Pins &amp; badges</a></li>
+          <li><a href="{{ routes.root_url }}#zenkai-apparel">Apparel</a></li>
         </ul>
       </nav>
     {% endif %}
@@ -169,8 +169,13 @@
       <nav class="site-footer__section site-footer__nav" aria-label="Footer">
         {% if request.page_type == 'index' %}<h2 class="site-footer__heading">Customer care</h2>{% endif %}
         <ul class="no-bullets inline-list site-footer__linklist">
+          <li><a href="mailto:{{ shop.email }}">Contact us</a></li>
+          <li><a href="{{ routes.root_url }}policies/shipping-policy">Shipping</a></li>
+          <li><a href="{{ routes.root_url }}policies/refund-policy">Order care &amp; returns</a></li>
           {% for link in linklists[section.settings.menu].links %}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% unless link.url contains '/pages/policy' or link.url contains '/policies/refund-policy' or link.url contains '/policies/shipping-policy' or link.url contains '/pages/contact' %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endunless %}
           {% endfor %}
         </ul>
       </nav>

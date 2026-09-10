@@ -8,9 +8,9 @@
   assign pins_url = section.settings.pins_url | default: pins.url | default: '/products/evolution-pin-set'
   assign badges_url = section.settings.badges_url | default: badges.url | default: '/products/8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
   assign hero_image = section.settings.hero_image
-  assign apparel_url = section.settings.apparel_url | default: '/collections/tees'
+  assign apparel_url = section.settings.apparel_url | default: '#zenkai-apparel'
   assign product_image_sizes = '(min-width: 1360px) 302px, (min-width: 1101px) calc((100vw - 152px) / 4), (min-width: 750px) calc((100vw - 104px) / 2), calc((100vw - 56px) / 2)'
-  assign hero_image_sizes = '(min-width: 1400px) 784px, (min-width: 1001px) 56vw, 100vw'
+  assign hero_image_sizes = '(min-width: 1400px) 784px, (min-width: 750px) 56vw, 100vw'
 -%}
 {{ 'collector-home.css' | asset_url | stylesheet_tag }}
 
@@ -43,7 +43,7 @@
   <nav class="zch-category-bar" aria-label="Shop by category">
     <a class="js-no-transition" href="#collector-plush">Plush sets</a>
     <a class="js-no-transition" href="#collector-pins">Pins & badges</a>
-    <a class="js-no-transition" href="#zenkai-apparel">Apparel</a>
+    <a class="js-no-transition" href="{{ apparel_url }}">Apparel</a>
   </nav>
 
   <div id="collector-sets" class="zch-shop zch-shell">
@@ -107,14 +107,14 @@
               {%- else -%}<div class="zch-image-fallback">{{ card_name }}</div>{%- endif -%}
             </div>
             <div class="zch-card__body">
-              {%- if index == 1 -%}
-                <h3 class="zch-card__title--impostors">Little <span class="zch-card__title-line">Impostors</span><span class="zch-card__signature" aria-hidden="true"><svg viewBox="0 0 76 30" fill="none" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></h3>
-              {%- elsif index == 2 -%}
-                <h3 class="zch-card__title--companions" aria-label="Evolution Companions"><span aria-hidden="true"><span class="zch-evolution-word"><span>E</span><span>v</span><span>o</span><span>l</span><span>u</span><span>t</span><span>i</span><span>o</span><span>n</span></span> <span class="zch-card__title-line">Companions</span></span><span class="zch-card__signature zch-card__signature--companions" aria-hidden="true"><span style="--companion-color: #f5a7be"></span><span style="--companion-color: #bea0e7"></span><span style="--companion-color: #b0e5ef"></span><span style="--companion-color: #48a7d3"></span><span style="--companion-color: #fa742d"></span><span style="--companion-color: #f2d449"></span><span style="--companion-color: #d5b969"></span><span style="--companion-color: #303039"></span></span></h3>
-              {%- else -%}
-                <h3>{{ card_name }}</h3>
-              {%- endif -%}
+              <h3{% if index == 1 %} class="zch-card__title--impostors"{% elsif index == 2 %} class="zch-card__title--companions"{% endif %}>{{ card_name }}</h3>
               <p class="zch-card__category">{{ card_category }}</p>
+              <div class="zch-card__details">
+                {%- if index == 2 -%}
+                  <span class="zch-card__signature zch-card__signature--companions" aria-hidden="true"><span style="--companion-color: #f5a7be"></span><span style="--companion-color: #bea0e7"></span><span style="--companion-color: #b0e5ef"></span><span style="--companion-color: #48a7d3"></span><span style="--companion-color: #fa742d"></span><span style="--companion-color: #f2d449"></span><span style="--companion-color: #d5b969"></span><span style="--companion-color: #303039"></span></span>
+                {%- endif -%}
+                <span class="zch-card__set-note">{% if index == 1 %}All 9 included{% elsif index == 2 or index == 3 %}All 8 included{% else %}Choose your region{% endif %}</span>
+              </div>
               <div class="zch-card__bottom"><span class="zch-card__price">{%- if card_product != blank -%}{% if card_product.price_varies %}<small>From </small>{% endif %}{{ card_product.price | money }}{%- else -%}Explore the set{%- endif -%}</span>{%- if card_product != blank and card_product.available == false -%}<span class="zch-card__stock">Currently sold out</span>{%- endif -%}</div>
             </div>
           </a>
@@ -128,10 +128,10 @@
 
   <section id="zenkai-apparel" class="zch-apparel" aria-labelledby="zch-apparel-title-{{ section.id }}">
     <div class="zch-shell">
-      <div class="zch-section-heading"><div><h2 id="zch-apparel-title-{{ section.id }}">In your rotation</h2><p>Graphic tees and comfortable layers, with a story to tell.</p></div><div class="zch-rail-controls" data-zch-rail-controls hidden><button type="button" data-zch-rail-step="-1" aria-label="Previous apparel" aria-controls="zch-apparel-rail-{{ section.id }}">‹</button><button type="button" data-zch-rail-step="1" aria-label="Next apparel" aria-controls="zch-apparel-rail-{{ section.id }}">›</button></div></div>
+      <div class="zch-section-heading zch-apparel-heading"><h2 id="zch-apparel-title-{{ section.id }}">In your rotation</h2><div class="zch-rail-controls" data-zch-rail-controls hidden><button type="button" data-zch-rail-step="-1" aria-label="Previous apparel" aria-controls="zch-apparel-rail-{{ section.id }}">‹</button><button type="button" data-zch-rail-step="1" aria-label="Next apparel" aria-controls="zch-apparel-rail-{{ section.id }}">›</button></div><p>Graphic tees and comfortable layers, with a story to tell.</p></div>
       <div class="zch-products zch-products--apparel" id="zch-apparel-rail-{{ section.id }}" data-zch-rail tabindex="0" role="region" aria-label="Browse apparel">
         {%- assign product_image_sizes = '(min-width: 1360px) 285px, (min-width: 1101px) 22vw, (min-width: 750px) 40vw, 78vw' -%}
-        {%- assign apparel_handles = 'road-to-indigo|champions-00251|road-to-indigo-sweatshirt|144-146-legends-begin-here-hoodie|058-059-the-royal-family-tee|054-sad-duck-tee' | split: '|' -%}
+        {%- assign apparel_handles = 'road-to-indigo|champions-00251|road-to-indigo-sweatshirt|058-059-the-royal-family-tee|054-sad-duck-tee' | split: '|' -%}
         {%- for apparel_handle in apparel_handles -%}
           {%- liquid
             assign apparel_product = all_products[apparel_handle]
@@ -144,17 +144,14 @@
               when 3
                 assign apparel_name = 'Road to Indigo Sweatshirt'
               when 4
-                assign apparel_name = 'Legends Begin Here Hoodie'
-              when 5
                 assign apparel_name = 'The Royal Family Tee'
-              when 6
+              when 5
                 assign apparel_name = 'Sad Duck Tee'
             endcase
             assign apparel_category = 'Graphic tee'
             if forloop.index == 3
               assign apparel_category = 'Sweatshirt'
-            elsif forloop.index == 4
-              assign apparel_category = 'Hoodie'
+
             endif
           -%}
           {%- if apparel_product != blank -%}
@@ -168,16 +165,34 @@
         {%- endfor -%}
       </div>
       <p class="zch-shipping-note">Your next rotation ships free in the US.</p>
-      <nav class="zch-apparel-categories" aria-label="Explore apparel categories"><a class="js-no-transition" href="/collections/tees">All tees</a><a class="js-no-transition" href="/collections/all-hoodies">Hoodies</a><a class="js-no-transition" href="/collections/sweatshirts">Sweatshirts</a><a class="js-no-transition" href="/collections/all-hats">Hats</a></nav>
+      <nav class="zch-apparel-categories" aria-label="Explore apparel categories"><a class="js-no-transition" href="/collections/tees">Tees</a><a class="js-no-transition" href="/collections/all-hoodies">Hoodies</a><a class="js-no-transition" href="/collections/sweatshirts">Sweatshirts</a><a class="js-no-transition" href="/collections/all-hats">Hats</a></nav>
+    </div>
+  </section>
+
+  <section class="zch-customer zch-shell" aria-labelledby="zch-customer-title-{{ section.id }}">
+    <div class="zch-section-heading"><div><h2 id="zch-customer-title-{{ section.id }}">At home with you.</h2><p>A closer look at a few favorites, photographed by customers.</p></div></div>
+    <div class="zch-customer__photos" role="region" aria-label="Customer photos" tabindex="0">
+      <a class="zch-customer__card js-no-transition" href="{{ impostors_url }}">
+        <img src="{{ 'little-impostors-customer-leaf-eared-cream-732757905b60.webp' | file_url }}?width=480" srcset="{{ 'little-impostors-customer-leaf-eared-cream-732757905b60.webp' | file_url }}?width=360 360w, {{ 'little-impostors-customer-leaf-eared-cream-732757905b60.webp' | file_url }}?width=720 720w" sizes="(min-width: 750px) 300px, 72vw" width="720" height="960" alt="Customer holding a cream Little Impostors plush with leaf-shaped ears" loading="lazy" decoding="async">
+        <span class="zch-customer__name">Little Impostors <span aria-hidden="true">↗</span></span><span class="zch-customer__caption">One of nine plush designs</span>
+      </a>
+      <a class="zch-customer__card js-no-transition" href="{{ companions_url }}">
+        <img src="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-purple-720.webp' | asset_url }} 720w" sizes="(min-width: 750px) 300px, 72vw" width="720" height="960" alt="Customer holding a purple costume plush from Evolution Companions" loading="lazy" decoding="async">
+        <span class="zch-customer__name">Evolution Companions <span aria-hidden="true">↗</span></span><span class="zch-customer__caption">One of eight costume plushes</span>
+      </a>
+      <a class="zch-customer__card js-no-transition" href="{{ badges_url }}">
+        <img src="{{ 'gym-badge-collector-open-box.jpg' | file_url }}?width=480" srcset="{{ 'gym-badge-collector-open-box.jpg' | file_url }}?width=360 360w, {{ 'gym-badge-collector-open-box.jpg' | file_url }}?width=720 720w" sizes="(min-width: 750px) 300px, 72vw" width="1124" height="1500" alt="Customer photo of an open regional box containing eight enamel gym badges" loading="lazy" decoding="async">
+        <span class="zch-customer__name">Gym Badge Collection <span aria-hidden="true">↗</span></span><span class="zch-customer__caption">Eight badges in a regional box</span>
+      </a>
     </div>
   </section>
 
   <section class="zch-faq zch-shell" aria-labelledby="zch-faq-title-{{ section.id }}">
-    <div><h2 id="zch-faq-title-{{ section.id }}">A little help</h2><p>Questions about your order?<br><a class="js-no-transition" href="mailto:{{ shop.email | escape }}">Get in touch</a></p></div>
+    <div><h2 id="zch-faq-title-{{ section.id }}">A little help</h2><p>Questions before you choose?<br><a class="js-no-transition" href="mailto:{{ shop.email | escape }}">Get in touch</a></p></div>
     <div class="zch-faq__items">
       <details><summary>Are the plush collections complete sets?<span aria-hidden="true">+</span></summary><div><p>Yes. Little Impostors includes all nine plush companions, and Evolution Companions includes all eight costume plushies. Each product page shows the complete lineup and product details.</p></div></details>
-      <details><summary>What’s included with the pins and badges?<span aria-hidden="true">+</span></summary><div><p>The Evolution Pin Set includes eight pins. Gym Badge boxes each include eight badges, with individual box options and a complete collection option on the product page. Check your selected option before adding it to your cart.</p></div></details>
-      <details><summary>How do I choose my apparel size?<span aria-hidden="true">+</span></summary><div><p>Open the product page to see its available sizes and sizing information. Check the measurements for the specific tee, sweatshirt, or hoodie you choose, as fit can vary between styles.</p></div></details>
+      <details><summary>What’s included with the pins and badges?<span aria-hidden="true">+</span></summary><div><p>The Evolution Pin Set includes all eight pins. Gym Badge boxes include eight badges each; choose an individual regional box or the complete collection on the product page.</p></div></details>
+      <details><summary>How do I choose my apparel size?<span aria-hidden="true">+</span></summary><div><p>Fit varies by style. On each product page, compare the size-chart measurements with a tee, sweatshirt, or hoodie you already like.</p></div></details>
       <details><summary>Where can I check shipping and returns?<span aria-hidden="true">+</span></summary><div><p>Shipping is free on US orders. For international orders, available shipping options and rates are shown at checkout. Check the product page for delivery information specific to your item, or read our <a class="js-no-transition" href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">shipping policy</a> and <a class="js-no-transition" href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">return policy</a> for more details.</p></div></details>
     </div>
   </section>
