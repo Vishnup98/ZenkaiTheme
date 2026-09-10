@@ -107,7 +107,7 @@
               {%- else -%}<div class="zch-image-fallback">{{ card_name }}</div>{%- endif -%}
             </div>
             <div class="zch-card__body">
-              <h3{% if index == 1 %} class="zch-card__title--impostors"{% elsif index == 2 %} class="zch-card__title--companions"{% endif %}>{{ card_name }}</h3>
+              <h3{% if index == 1 %} class="zch-card__title--impostors"{% elsif index == 2 %} class="zch-card__title--companions"{% endif %}>{% if index == 2 %}<span class="zch-evolution-colors">Evolution Companions</span>{% else %}{{ card_name }}{% endif %}</h3>
               <p class="zch-card__category">{{ card_category }}</p>
               <div class="zch-card__details">
                 {%- if index == 2 -%}

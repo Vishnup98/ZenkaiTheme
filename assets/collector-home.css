@@ -315,3 +315,26 @@
   .zch-products--collectibles h3 { font-size: 17px; }
   .zch-category-bar a { font-size: 14px; }
 }
+
+/* Let the actual title determine height; keep each product's details together. */
+.zch .zch-products--collectibles h3,
+.zch .zch-products--apparel h3 { min-height: 0; }
+.zch-card__details { min-height: 0; gap: 6px; padding-block: 4px 0; }
+.zch .zch-card__category { line-height: 1.4; }
+.zch .zch-products--apparel .zch-card__category { margin-top: 6px; }
+.zch-products--apparel .zch-card__bottom { margin-top: 6px; }
+.zch-apparel-categories { margin-top: 20px; padding-top: 20px; }
+.zch .zch-shipping-note { margin-top: 12px; }
+.zch-evolution-colors {
+  color: #247769;
+  background: linear-gradient(90deg, #b34175 0%, #8154b2 15%, #367f9c 29%, #2474a5 43%, #c05220 57%, #947519 71%, #876a34 85%, #303039 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (forced-colors: active) {
+  .zch-evolution-colors { background: none; -webkit-text-fill-color: currentColor; }
+}
+@media (min-width: 1101px) {
+  .zch-card__details { min-height: 42px; }
+}
