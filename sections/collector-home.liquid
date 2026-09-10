@@ -36,7 +36,7 @@
   <section class="zch-trust" aria-label="Shipping and customer trust">
     <div class="zch-trust__inner zch-shell">
       <p><strong>Free US shipping</strong></p>
-      <p><strong>4.8/5</strong><span>From 98 Shop reviews</span></p>
+      <p><svg class="zch-rating-stars" viewBox="0 0 100 20" width="90" height="18" aria-hidden="true" focusable="false"><defs><linearGradient id="zch-stars-{{ section.id }}" x1="0" x2="100" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop offset="96%" stop-color="#8be2cf"/><stop offset="96%" stop-color="#527369"/></linearGradient><clipPath id="zch-stars-clip-{{ section.id }}">{% for star in (0..4) %}<path d="m10 0 3 6.5 7 1-5 5 1.2 7.5L10 16.5 3.8 20 5 12.5 0 7.5l7-1Z" transform="translate({{ star | times: 20 }} 0)"/>{% endfor %}</clipPath></defs><rect width="100" height="20" fill="url(#zch-stars-{{ section.id }})" clip-path="url(#zch-stars-clip-{{ section.id }})"/></svg><strong>4.8/5</strong><span>From 98 Shop reviews</span></p>
       <p><strong>2,900+</strong><span>Orders shipped and counting</span></p>
     </div>
   </section>
