@@ -351,10 +351,9 @@
 /* Keep the full collection name and use a readable ears-only silhouette. */
 .zch-companions-name { line-height: 1.22; }
 .zch-companions-word { color: #247769; white-space: nowrap; }
-.zch-title-mark--eevee { flex-basis: 26px; width: 26px; height: 26px; }
-@media (max-width: 749px) {
-  .zch-title-mark--eevee { flex-basis: 22px; width: 22px; height: 24px; }
-}
 
-.zch-evolution-row { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
 .zch-companions-name { display: block; }
+
+/* Extend outer category colors to the page edges, keeping labels on the content grid. */
+.zch-category-band { background: linear-gradient(90deg, #f5eef9 0 50%, #faf2e5 50% 100%); border-bottom: 1px solid #d6dcd1; }
+.zch-category-band .zch-category-bar { border-bottom: 0; }
