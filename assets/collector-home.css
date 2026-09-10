@@ -325,16 +325,25 @@
 .zch-products--apparel .zch-card__bottom { margin-top: 6px; }
 .zch-apparel-categories { margin-top: 20px; padding-top: 20px; }
 .zch .zch-shipping-note { margin-top: 12px; }
-.zch-evolution-colors {
-  color: #247769;
-  background: linear-gradient(90deg, #b34175 0%, #8154b2 15%, #367f9c 29%, #2474a5 43%, #c05220 57%, #947519 71%, #876a34 85%, #303039 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-@media (forced-colors: active) {
-  .zch-evolution-colors { background: none; -webkit-text-fill-color: currentColor; }
-}
 @media (min-width: 1101px) {
   .zch-card__details { min-height: 42px; }
+}
+
+/* Nine letters: Eevee, Vaporeon, Jolteon, Flareon, Espeon, Umbreon, Leafeon, Glaceon, Sylveon. */
+.zch .zch-card__title--marked { display: flex; align-items: center; gap: 8px; }
+.zch-card__title--marked > span { min-width: 0; }
+.zch-evolution-letters { font-weight: 800; letter-spacing: -.025em; white-space: nowrap; }
+.zch-evolution-letters > span > span { color: var(--evolution-letter); }
+.zch-title-mark { display: block; flex: 0 0 30px; width: 30px; height: 28px; overflow: visible; }
+.zch-title-mark--smile { color: #6c4795; }
+@media (max-width: 749px) {
+  .zch .zch-card__title--marked { gap: 5px; }
+  .zch-title-mark { flex-basis: 23px; width: 23px; height: 25px; }
+}
+@media (forced-colors: active) {
+  .zch-evolution-letters > span > span { color: CanvasText; }
+}
+@media (max-width: 374px) {
+  .zch .zch-card__title--impostors { font-size: 16px; gap: 4px; }
+  .zch-title-mark--smile { flex-basis: 16px; width: 16px; }
 }
