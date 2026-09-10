@@ -7,7 +7,7 @@
   assign companions_url = section.settings.companions_url | default: '/products/evolution-companions-complete-8-plush-collector-set?view=evo-all-eight'
   assign pins_url = section.settings.pins_url | default: pins.url | default: '/products/evolution-pin-set'
   assign badges_url = section.settings.badges_url | default: badges.url | default: '/products/8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
-  assign hero_image = section.settings.hero_image | default: impostors.images[1] | default: impostors.featured_image
+  assign hero_image = section.settings.hero_image
   assign apparel_url = section.settings.apparel_url | default: '/collections/tees'
   assign product_image_sizes = '(min-width: 1360px) 302px, (min-width: 1101px) calc((100vw - 152px) / 4), (min-width: 750px) calc((100vw - 104px) / 2), calc((100vw - 56px) / 2)'
   assign hero_image_sizes = '(min-width: 1400px) 784px, (min-width: 1001px) 56vw, 100vw'
@@ -25,11 +25,11 @@
       <p class="zch-hero__lede">Two complete collections. Plenty of personality.</p>
       <div class="zch-actions"><a class="js-no-transition zch-button" href="#collector-plush">Shop plush sets <span aria-hidden="true">→</span></a></div>
     </div>
-    <a class="js-no-transition zch-hero__visual" href="{{ impostors_url }}" data-zch-product="{{ impostors.handle }}" data-zch-placement="hero-image" aria-label="Explore Little Impostors, the complete nine-plush set">
+    <a class="js-no-transition zch-hero__visual" href="#collector-plush" aria-label="Explore both plush collections">
       {%- if hero_image != blank -%}
-        <img src="{{ hero_image | image_url: width: 1200 }}" srcset="{{ hero_image | image_url: width: 550 }} 550w, {{ hero_image | image_url: width: 900 }} 900w, {{ hero_image | image_url: width: 1200 }} 1200w, {{ hero_image | image_url: width: 1600 }} 1600w" sizes="{{ hero_image_sizes }}" width="{{ hero_image.width }}" height="{{ hero_image.height }}" alt="The nine colorful Little Impostors plush companions" loading="eager" fetchpriority="high">
+        <img src="{{ hero_image | image_url: width: 1200 }}" srcset="{{ hero_image | image_url: width: 550 }} 550w, {{ hero_image | image_url: width: 900 }} 900w, {{ hero_image | image_url: width: 1200 }} 1200w, {{ hero_image | image_url: width: 1600 }} 1600w" sizes="{{ hero_image_sizes }}" width="{{ hero_image.width }}" height="{{ hero_image.height }}" alt="{{ hero_image.alt | default: 'Explore our plush collections' | escape }}" loading="eager" fetchpriority="high">
       {%- else -%}
-        <div class="zch-image-fallback">Explore plush collections</div>
+        <img src="{{ 'collector-home-sky-v1-1536.webp' | asset_url }}" srcset="{{ 'collector-home-sky-v1-640.webp' | asset_url }} 640w, {{ 'collector-home-sky-v1-960.webp' | asset_url }} 960w, {{ 'collector-home-sky-v1-1536.webp' | asset_url }} 1536w" sizes="{{ hero_image_sizes }}" width="1536" height="1024" alt="Little Impostors and Evolution Companions plushies tumbling through an aqua sky with small enamel badge accents" loading="eager" fetchpriority="high">
       {%- endif -%}
     </a>
   </section></div>
@@ -192,7 +192,7 @@
   "name": "Zenkai homepage",
   "settings": [
     {"type": "paragraph", "content": "Apparel and collectibles, together. Images, prices, and availability come from live products. Optional destination links can point to a specific landing-page view."},
-    {"type": "image_picker", "id": "hero_image", "label": "Campaign image", "info": "Use a landscape campaign photograph. Defaults to the Little Impostors collection photograph."},
+    {"type": "image_picker", "id": "hero_image", "label": "Campaign image", "info": "Use a landscape campaign photograph. Defaults to the falling-plushies sky campaign."},
     {"type": "url", "id": "impostors_url", "label": "Little Impostors destination"},
     {"type": "url", "id": "companions_url", "label": "Evolution Companions destination"},
     {"type": "url", "id": "pins_url", "label": "Evolution Pin Set destination"},
