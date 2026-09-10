@@ -3,6 +3,9 @@
   {%- assign zenkai_is_product_page = true -%}
 {% endif %}
 
+{%- if request.page_type == 'index' -%}
+<div class="announcement"><div class="announcement__wrapper"><div class="announcement__text">Little things. A lot of personality.</div></div></div>
+{%- else -%}
 <div class="announcement">
   <div class="announcement__wrapper">
     {% if section.settings.announcement_link != blank %}
@@ -47,6 +50,7 @@
   setInterval(rotateMessage, 4000);
 })();
 </script>
+{%- endif -%}
 
 <style>
 .announcement__text--rotating {

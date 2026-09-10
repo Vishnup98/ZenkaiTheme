@@ -83,6 +83,10 @@
   {%- endif -%}
 
   {% include 'seo-title' %}
+  {%- if request.page_type == 'index' -%}
+    {%- assign seo_title = 'Zenkai Clothing | Plush Collector Sets & Enamel Pins' -%}
+    {%- assign page_description = 'Find your next little obsession. Shop Little Impostors, Evolution Companions, enamel pin sets and collectible gym badges at Zenkai Clothing.' -%}
+  {%- endif -%}
   <title>{{ seo_title }}</title>
 
   {%- if page_description -%}
@@ -319,6 +323,15 @@
 
   {% include 'critical-css' %}
   {% include 'load-css' %}
+  {%- if request.page_type == 'index' -%}
+    {{ 'collector-shell.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'collector-discovery.js' | asset_url }}" defer></script>
+    <style>
+      body.template-index .splash-screen { display: none !important; }
+      body.template-index .page-container { display: block !important; visibility: visible !important; }
+      body.template-index .transition-body { opacity: 1 !important; visibility: visible !important; }
+    </style>
+  {%- endif -%}
 
   {%- if zenkai_summoning_glow_landing_context -%}
     <script>
@@ -471,7 +484,7 @@
           {{ content_for_layout }}
         </main>
 
-        {%- unless zenkai_gym_badge_paid_context -%}
+        {%- unless zenkai_gym_badge_paid_context or request.page_type == 'index' -%}
           {% section 'social' %}
         {%- endunless -%}
         {% section 'footer' %}

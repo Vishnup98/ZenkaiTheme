@@ -1,0 +1,19 @@
+{%- comment -%}Collector destinations shared by regular storefront menus.{%- endcomment -%}
+{%- assign collector_nav_handles = 'little-impostors-complete-9-plush-collector-set|evolution-companions-complete-8-plush-collector-set|evolution-pin-set|8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack' | split: '|' -%}
+{%- assign collector_nav_labels = 'Little Impostors · 9 plush|Evolution Companions · 8 plush|Evolution Pin Set|Gym Badge Sets' | split: '|' -%}
+{%- for collector_nav_handle in collector_nav_handles -%}
+  {%- assign collector_nav_index = forloop.index0 -%}
+  {%- assign collector_nav_show = false -%}
+  {%- if collector_nav_group == 'all' -%}
+    {%- assign collector_nav_show = true -%}
+  {%- elsif collector_nav_group == 'plush' and collector_nav_index < 2 -%}
+    {%- assign collector_nav_show = true -%}
+  {%- elsif collector_nav_group == 'pins' and collector_nav_index > 1 -%}
+    {%- assign collector_nav_show = true -%}
+  {%- endif -%}
+  {%- if collector_nav_show -%}
+    <li class="{{ collector_nav_item_class }}">
+      <a class="{{ collector_nav_link_class }} js-no-transition" href="{{ routes.root_url }}{% unless routes.root_url == '/' %}/{% endunless %}products/{{ collector_nav_handle }}{% if collector_nav_index == 1 %}?view=evo-all-eight{% endif %}"{% if product.handle == collector_nav_handle %} aria-current="page"{% endif %}>{{ collector_nav_labels[collector_nav_index] }}</a>
+    </li>
+  {%- endif -%}
+{%- endfor -%}

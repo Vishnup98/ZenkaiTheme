@@ -67,10 +67,15 @@
 
     <div class="site-footer__brand">
       {% if zenkai_gym_badge_paid_context %}<span class="site-footer__wordmark">{{ shop.name }}</span>{% else %}<a href="{{ routes.root_url }}" class="site-footer__wordmark">{{ shop.name }}</a>{% endif %}
-      <p class="site-footer__tagline">Original reimaginings of the favorites you grew up with.</p>
+      <p class="site-footer__tagline">{% if request.page_type == 'index' %}A little more personality for your shelf, desk and everyday.{% else %}Original reimaginings of the favorites you grew up with.{% endif %}</p>
       <div class="site-footer__signals" aria-label="Store promises">
-        <span>Free U.S. shipping</span>
-        <span>{% if zenkai_gym_badge_paid_context %}Typically arrives in 5–7 business days{% else %}Ships in 1-2 days{% endif %}</span>
+        {% if request.page_type == 'index' %}
+          <span>Plush collector sets</span>
+          <span>Enamel pins &amp; badges</span>
+        {% else %}
+          <span>Free U.S. shipping</span>
+          <span>{% if zenkai_gym_badge_paid_context %}Typically arrives in 5–7 business days{% else %}Ships in 1-2 days{% endif %}</span>
+        {% endif %}
         <span>Secure checkout</span>
       </div>
     </div>

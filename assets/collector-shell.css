@@ -1,0 +1,40 @@
+/* The collector homepage shares the working store navigation and cart. */
+body.template-index { background: #faf8f2; color: #25222d; }
+.template-index .collector-wordmark { display: block; color: #30263c !important; font: 800 27px/1 Arial, sans-serif; letter-spacing: -.055em; text-decoration: none; padding-block: 14px; white-space: nowrap; }
+.template-index .collector-wordmark span { display: block; margin-top: 7px; font: 400 9px/1.2 Arial, sans-serif; letter-spacing: .015em; }
+.template-index .header-item--logo { flex: 0 0 190px; }
+.template-index .header-wrapper,
+.template-index .site-header { background: #faf8f2; color: #25222d; }
+.template-index .announcement { background: #30263c !important; }
+.template-index .announcement__wrapper { min-height: 30px; }
+.template-index .announcement__text { padding: 7px 12px; font-size: 11px; letter-spacing: .06em; }
+.template-index .site-header { border-bottom: 1px solid rgba(48,38,60,.12); box-shadow: none; }
+.template-index .site-header > .page-width { max-width: 1440px; }
+.template-index .site-nav__link { color: #30263c; font-size: 13px; letter-spacing: 0; }
+.template-index .site-header .zenkai-header-menu,
+.template-index .site-header .zenkai-mobile-cart,
+.template-index .site-header .zenkai-header-menu__text,
+.template-index .site-header .site-nav__link { color: #30263c !important; }
+.template-index .site-header .zenkai-header-menu { border-color: #b9acbf !important; }
+.template-index .site-nav__dropdown { background: #faf8f2; border: 1px solid #e0dbe5; }
+.template-index .site-nav__dropdown-link { color: #30263c; }
+.template-index .site-footer { margin-top: 0; background: #30263c; color: #fffaf3; }
+.template-index .site-footer__tagline,
+.template-index .site-footer__signals,
+.template-index .site-footer__copyright { color: #e4dce9; }
+.template-index .site-footer a { color: inherit; }
+.template-index .site-footer__wordmark { color: #fffaf3; }
+.template-index .site-footer__nav a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.template-index .site-footer__inner { max-width: 1360px; }
+.template-index a:focus-visible,
+.template-index button:focus-visible,
+.template-index summary:focus-visible { outline: 3px solid #8e65bd; outline-offset: 4px; }
+@media (max-width: 768px) {
+  .template-index .collector-wordmark { font-size: 23px; padding-block: 9px; }
+  .template-index .collector-wordmark span { display: none; }
+  .template-index .header-item--logo { flex: 0 0 104px; }
+  .template-index .announcement__wrapper { min-height: 26px; }
+  .template-index .announcement__text { padding: 5px 12px; font-size: 10px; }
+  .template-index .site-header { padding-top: 4px; padding-bottom: 4px; }
+  .template-index .site-header__logo img { max-height: 40px; width: auto; }
+}

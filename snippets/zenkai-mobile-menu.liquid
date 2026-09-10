@@ -14,6 +14,10 @@
   - Focus trap uses theme.a11y.trapFocus / removeTrapFocus from theme.js.liquid.
 {% endcomment %}
 
+{%- assign collector_regular_navigation = true -%}
+{%- if template.name == 'product' and template.suffix != blank -%}
+  {%- assign collector_regular_navigation = false -%}
+{%- endif -%}
 <div id="zenkai-mobile-overlay" class="zenkai-overlay" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
   <header class="zenkai-overlay__bar">
     <a href="{{ routes.root_url }}" class="zenkai-overlay__brand" aria-label="{{ shop.name | escape }}">
@@ -39,6 +43,19 @@
   <div class="zenkai-overlay__stage">
     <nav class="zenkai-menu" aria-label="Primary">
       <ul class="zenkai-menu__list">
+        {%- if collector_regular_navigation -%}
+        <li class="zenkai-menu__item zenkai-menu__item--cta">
+          <a href="{{ routes.root_url }}#collector-sets" class="zenkai-menu__cta js-no-transition">Shop collector sets</a>
+        </li>
+        {% render 'collector-nav-links', collector_nav_group: 'all', collector_nav_item_class: 'zenkai-menu__item', collector_nav_link_class: 'zenkai-menu__link' %}
+        <li class="zenkai-menu__item">
+          <button type="button" class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open" data-panel="collector-apparel" aria-haspopup="true" aria-expanded="false">
+            <span>Apparel &amp; more</span>
+            <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </button>
+        </li>
+        <li class="zenkai-menu__item"><a href="{{ routes.root_url }}" class="zenkai-menu__link">Home</a></li>
+        {%- else -%}
         <li class="zenkai-menu__item zenkai-menu__item--cta">
           <a href="/collections/best-selling" class="zenkai-menu__cta">Shop best sellers</a>
         </li>
@@ -72,6 +89,7 @@
             {% endif %}
           </li>
         {% endfor %}
+        {%- endif -%}
       </ul>
 
       {% comment %} Utility footer — respects settings.social_enable and announcement. {% endcomment %}
@@ -119,13 +137,33 @@
           {%- endif -%}
         {%- endif -%}
 
-        {% if section.settings.show_announcement and section.settings.announcement_text != blank %}
+        {% if collector_regular_navigation %}
+          <p class="zenkai-menu__shipping">Explore the collection. Find your next favorite.</p>
+        {% elsif section.settings.show_announcement and section.settings.announcement_text != blank %}
           <p class="zenkai-menu__shipping">{{ section.settings.announcement_text | strip_html }}</p>
         {% endif %}
       </div>
     </nav>
 
     {%- comment -%} Submenu panels, hoisted out of <li>. One per dropdown. {%- endcomment -%}
+    {%- if collector_regular_navigation -%}
+      <section class="zenkai-panel" data-panel-id="collector-apparel" aria-hidden="true" aria-label="Apparel and more">
+        <div class="zenkai-panel__header">
+          <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back to main menu">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            <span>BACK</span>
+          </button>
+          <a href="{{ routes.collections_url }}/tees" class="zenkai-panel__title">Apparel &amp; more</a>
+        </div>
+        <ul class="zenkai-panel__list">
+          <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/tees" class="zenkai-panel__link">T-shirts</a></li>
+          <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/all-hoodies" class="zenkai-panel__link">Hoodies</a></li>
+          <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/sweatshirts" class="zenkai-panel__link">Sweatshirts</a></li>
+          <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/all-hats" class="zenkai-panel__link">Hats</a></li>
+          <li class="zenkai-panel__item"><a href="{{ routes.all_products_collection_url }}" class="zenkai-panel__link">Browse everything</a></li>
+        </ul>
+      </section>
+    {%- else -%}
     {% for link in main_menu.links %}
       {% if link.links != blank %}
         {%- assign panel_id = link.title | handleize | append: '-' | append: forloop.index -%}
@@ -151,6 +189,7 @@
         </section>
       {% endif %}
     {% endfor %}
+    {%- endif -%}
   </div>
 </div>
 
@@ -200,6 +239,12 @@
     body.classList.add(DRAWER_CLASS);
     openers.forEach(function(btn) { btn.setAttribute('aria-expanded', 'true'); });
     useTrapFocus(overlay);
+    // The menu must work before the deferred legacy theme helpers finish loading.
+    window.requestAnimationFrame(function() {
+      window.requestAnimationFrame(function() {
+        if (overlay.classList.contains('is-open') && closers[0]) closers[0].focus();
+      });
+    });
   }
 
   function closeMenu() {
@@ -252,8 +297,26 @@
   });
   backButtons.forEach(function(btn) { btn.addEventListener('click', function() { closeActivePanel(false); }); });
   searchHandoff.forEach(function(link) { link.addEventListener('click', function() { closeMenu(); }); });
+  // A homepage collection anchor may stay on this document; release the menu
+  // and scroll lock before the browser scrolls to the selected collection.
+  overlay.querySelectorAll('a[href*="#collector-"]').forEach(function(link) {
+    link.addEventListener('click', function() { closeMenu(); });
+  });
 
   document.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab' && overlay.classList.contains('is-open')) {
+      var focusScope = activePanel || overlay;
+      var focusable = Array.prototype.filter.call(focusScope.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex="0"]'), function(el) {
+        return !el.closest('[aria-hidden="true"]') && el.getClientRects().length > 0;
+      });
+      if (focusable.length) {
+        var first = focusable[0], last = focusable[focusable.length - 1];
+        if (!focusScope.contains(document.activeElement) || (e.shiftKey && document.activeElement === first) || (!e.shiftKey && document.activeElement === last)) {
+          e.preventDefault();
+          (e.shiftKey ? last : first).focus();
+        }
+      }
+    }
     if (e.key !== 'Escape' || !overlay.classList.contains('is-open')) return;
     if (activePanel) closeActivePanel(false); else closeMenu();
   });

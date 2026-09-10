@@ -254,7 +254,12 @@
        same positioning context as the announcement bar (guaranteed visible on mobile).
        The collectible offer pages have their own focused purchase journey. {% endcomment %}
     {%- assign zenkai_hide_bundle_promo = false -%}
-    {%- if request.page_type == 'product' -%}
+    {%- if request.page_type == 'index' -%}
+      {%- assign zenkai_hide_bundle_promo = true -%}
+    {%- elsif request.page_type == 'product' -%}
+      {%- if product.handle == 'little-impostors-complete-9-plush-collector-set' or product.handle == 'evolution-companions-complete-8-plush-collector-set' or product.handle == 'evolution-pin-set' -%}
+        {%- assign zenkai_hide_bundle_promo = true -%}
+      {%- endif -%}
       {%- if zenkai_is_gym_color_paid or product.handle == 'summoning-glow-16cm-led-dragon-display' or product.handle == 'summoning-glow-essential-rgb-dragon-display' or product.handle == 'eternal-wish-23cm-coiled-dragon-rider-display' -%}
         {%- assign zenkai_hide_bundle_promo = true -%}
       {%- endif -%}

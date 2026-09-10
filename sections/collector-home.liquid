@@ -1,0 +1,142 @@
+{%- liquid
+  assign impostors = all_products['little-impostors-complete-9-plush-collector-set']
+  assign companions = all_products['evolution-companions-complete-8-plush-collector-set']
+  assign pins = all_products['evolution-pin-set']
+  assign badges = all_products['8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack']
+  assign impostors_url = section.settings.impostors_url | default: impostors.url | default: '/products/little-impostors-complete-9-plush-collector-set'
+  assign companions_url = section.settings.companions_url | default: '/products/evolution-companions-complete-8-plush-collector-set?view=evo-all-eight'
+  assign pins_url = section.settings.pins_url | default: pins.url | default: '/products/evolution-pin-set'
+  assign badges_url = section.settings.badges_url | default: badges.url | default: '/products/8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
+  assign hero_image = section.settings.hero_image | default: impostors.featured_image
+  assign pin_story_image = pins.images[1] | default: pins.featured_image
+-%}
+{{ 'collector-home.css' | asset_url | stylesheet_tag }}
+
+<div class="zch" data-collector-home>
+  <section class="zch-hero zch-shell" aria-labelledby="zch-title-{{ section.id }}">
+    <div class="zch-hero__copy">
+      <p class="zch-eyebrow"><span class="zch-spark" aria-hidden="true">✳</span> Little things. Big attachment.</p>
+      <h1 id="zch-title-{{ section.id }}">Make room for<br>your <em>next favorites.</em></h1>
+      <p class="zch-hero__lede">Plush companions, colorful pins, and collector badges. The little things that make your space feel a little more like you.</p>
+      <a class="js-no-transition zch-button" href="#collector-favorites">Find your favorites <span aria-hidden="true">↗</span></a>
+      <a class="js-no-transition zch-hero__shortcut" href="{{ impostors_url }}" data-zch-product="{{ impostors.handle }}" data-zch-placement="hero">Meet the Little Impostors <span aria-hidden="true">→</span></a>
+    </div>
+    <a class="js-no-transition zch-hero__visual" href="{{ impostors_url }}" data-zch-product="{{ impostors.handle }}" data-zch-placement="hero-image" aria-label="Explore Little Impostors, the complete nine-plush set">
+      <div class="zch-hero__stamp" aria-hidden="true">Small joys.<br><strong>Whole collection.</strong></div>
+      {%- if hero_image != blank -%}
+        <img src="{{ hero_image | image_url: width: 1000 }}" srcset="{{ hero_image | image_url: width: 480 }} 480w, {{ hero_image | image_url: width: 750 }} 750w, {{ hero_image | image_url: width: 1000 }} 1000w, {{ hero_image | image_url: width: 1400 }} 1400w" sizes="(min-width: 1200px) 650px, (min-width: 750px) 52vw, calc(100vw - 32px)" width="{{ hero_image.width }}" height="{{ hero_image.height }}" alt="The colorful Little Impostors plush collection, together as a complete set" loading="eager" fetchpriority="high">
+      {%- else -%}
+        <div class="zch-image-fallback">Meet your new shelf companions <span aria-hidden="true">✳</span></div>
+      {%- endif -%}
+      <span class="zch-hero__caption"><span>Little Impostors <small>All 9 together</small></span><span class="zch-circle-arrow" aria-hidden="true">↗</span></span>
+    </a>
+  </section>
+
+  <nav class="zch-discover" aria-label="Find the collection you saw">
+    <div class="zch-shell zch-discover__inner"><span>Spotted us in your feed?</span><a class="js-no-transition" href="{{ impostors_url }}" data-zch-product="{{ impostors.handle }}" data-zch-placement="recognition">9 plush companions <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="{{ companions_url }}" data-zch-product="{{ companions.handle }}" data-zch-placement="recognition">8 costume plushies <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="{{ pins_url }}" data-zch-product="{{ pins.handle }}" data-zch-placement="recognition">8 colorful pins <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="{{ badges_url }}" data-zch-product="{{ badges.handle }}" data-zch-placement="recognition">Boxed badge sets <span aria-hidden="true">↗</span></a></div>
+  </nav>
+
+  <section id="collector-sets" class="zch-shop zch-shell" aria-labelledby="zch-shop-title-{{ section.id }}">
+    <span id="collector-favorites" class="zch-anchor" aria-hidden="true"></span>
+    <div class="zch-section-heading"><div><p class="zch-eyebrow">The collector edit</p><h2 id="zch-shop-title-{{ section.id }}">Four ways to find your happy.</h2></div><p>For your shelf. Your everyday bag.<br>Or someone who gets it.</p></div>
+    <div class="zch-products">
+      {%- for index in (1..4) -%}
+        {%- liquid
+          case index
+            when 1
+              assign card_product = impostors
+              assign card_url = impostors_url
+              assign card_name = 'Little Impostors'
+              assign card_category = '9-piece plush collection'
+              assign card_description = 'A whole crew of little mischief-makers. All nine, together.'
+              assign card_count = 'All 9 included'
+              assign card_id = impostors.handle
+            when 2
+              assign card_product = companions
+              assign card_url = companions_url
+              assign card_name = 'Evolution Companions'
+              assign card_category = '8-piece plush collection'
+              assign card_description = 'Eight colorful costumes. Eight new reasons to smile at your shelf.'
+              assign card_count = 'All 8 included'
+              assign card_id = companions.handle
+            when 3
+              assign card_product = pins
+              assign card_url = pins_url
+              assign card_name = 'Evolution Pin Set'
+              assign card_category = '8-piece enamel pin collection'
+              assign card_description = 'A little color for your bag, jacket, or favorite display board.'
+              assign card_count = 'All 8 included'
+              assign card_id = pins.handle
+            when 4
+              assign card_product = badges
+              assign card_url = badges_url
+              assign card_name = 'Gym Badge Collection'
+              assign card_category = 'Boxed enamel badge sets'
+              assign card_description = 'Choose an eight-badge box, or bring the whole collection home.'
+              assign card_count = '8 per box'
+              assign card_id = badges.handle
+          endcase
+          assign card_image = card_product.featured_image
+        -%}
+        <article class="zch-card zch-card--{{ index }}"{% if index == 1 %} id="collector-plush"{% elsif index == 3 %} id="collector-pins"{% endif %}>
+          <a class="zch-card__link js-no-transition" href="{{ card_url }}" data-zch-product="{{ card_id }}" data-zch-placement="card">
+            <div class="zch-card__media">
+              <span class="zch-card__tag">{{ card_count }}</span>
+              {%- if card_image != blank -%}
+                <img src="{{ card_image | image_url: width: 650 }}" srcset="{{ card_image | image_url: width: 280 }} 280w, {{ card_image | image_url: width: 420 }} 420w, {{ card_image | image_url: width: 650 }} 650w, {{ card_image | image_url: width: 900 }} 900w" sizes="(min-width: 1280px) 292px, (min-width: 990px) 23vw, calc((100vw - 44px) / 2)" width="{{ card_image.width }}" height="{{ card_image.height }}" alt="{{ card_name | escape }} — {{ card_category | escape }}" loading="lazy" decoding="async">
+              {%- else -%}<div class="zch-image-fallback">{{ card_name }}</div>{%- endif -%}
+            </div>
+            <div class="zch-card__body"><p class="zch-card__category">{{ card_category }}</p><h3>{{ card_name }}</h3><p class="zch-card__description">{{ card_description }}</p>
+              <div class="zch-card__bottom"><span class="zch-card__price">{%- if card_product != blank -%}{% if card_product.price_varies %}<small>From </small>{% endif %}{{ card_product.price | money }}{%- else -%}Explore the set{%- endif -%}</span><span class="zch-circle-arrow" aria-hidden="true">↗</span></div>
+              <span class="zch-card__cta">{%- if card_product != blank and card_product.available == false -%}Currently sold out · View collection{%- else -%}Shop the collection{%- endif -%}</span>
+            </div>
+          </a>
+        </article>
+      {%- endfor -%}
+    </div>
+  </section>
+
+  <section class="zch-story" aria-labelledby="zch-story-title-{{ section.id }}">
+    <div class="zch-shell zch-story__grid">
+      <div class="zch-story__visual">
+        <img src="{{ 'collector-home-shelf-v1.webp' | asset_url }}" srcset="{{ 'collector-home-shelf-v1-640.webp' | asset_url }} 640w, {{ 'collector-home-shelf-v1.webp' | asset_url }} 1200w" sizes="(min-width: 1200px) 570px, (min-width: 750px) 48vw, calc(100vw - 48px)" width="1200" height="1200" alt="Nine colorful Little Impostors plush arranged on three pale wood display shelves" loading="lazy" decoding="async">
+        <span class="zch-story__note">Your shelf called.<br>It wants company.</span>
+      </div>
+      <div class="zch-story__copy"><p class="zch-eyebrow">A space that feels like you</p><h2 id="zch-story-title-{{ section.id }}">Some things just<br>make you <em>happy.</em></h2><p>The lineup you keep rearranging. The tiny face next to your monitor. That one pin you move from bag to bag.</p><p>Start with the collection that makes you smile. Make a little room. Let the favorites settle in.</p><a class="js-no-transition zch-button" href="{{ impostors_url }}" data-zch-product="{{ impostors.handle }}" data-zch-placement="story">Meet the Little Impostors <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="zch-details zch-shell" aria-labelledby="zch-details-title-{{ section.id }}">
+    <div class="zch-details__copy"><p class="zch-eyebrow">Small details, everywhere</p><h2 id="zch-details-title-{{ section.id }}">Take a little joy<br>with you.</h2><p>A pin on your everyday tote. A badge box on your desk. Tiny additions that feel entirely yours.</p><div class="zch-details__links"><a class="js-no-transition" href="{{ pins_url }}" data-zch-product="{{ pins.handle }}" data-zch-placement="details">Explore all 8 pins <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="{{ badges_url }}" data-zch-product="{{ badges.handle }}" data-zch-placement="details">Find your badge set <span aria-hidden="true">↗</span></a></div></div>
+    <div class="zch-details__visual">{%- if pin_story_image != blank -%}<img src="{{ pin_story_image | image_url: width: 900 }}" srcset="{{ pin_story_image | image_url: width: 480 }} 480w, {{ pin_story_image | image_url: width: 750 }} 750w, {{ pin_story_image | image_url: width: 1100 }} 1100w" sizes="(min-width: 1200px) 610px, (min-width: 750px) 50vw, calc(100vw - 32px)" width="{{ pin_story_image.width }}" height="{{ pin_story_image.height }}" alt="Colorful enamel pins styled for everyday enjoyment" loading="lazy" decoding="async">{%- endif -%}</div>
+  </section>
+
+  <section class="zch-faq zch-shell" aria-labelledby="zch-faq-title-{{ section.id }}">
+    <div><p class="zch-eyebrow">Good to know</p><h2 id="zch-faq-title-{{ section.id }}">A few little<br>questions.</h2><p>Need a hand choosing?<br><a class="js-no-transition" href="mailto:{{ shop.email | escape }}">Get in touch <span aria-hidden="true">↗</span></a></p></div>
+    <div class="zch-faq__items">
+      <details><summary>Are the plush collections complete sets?<span aria-hidden="true">+</span></summary><div><p>Yes. Little Impostors includes all nine plush companions, and Evolution Companions includes all eight costume plushies. Each product page shows the complete lineup and product details.</p></div></details>
+      <details><summary>What’s included with the pins and badges?<span aria-hidden="true">+</span></summary><div><p>The Evolution Pin Set includes eight pins. Gym Badge boxes each include eight badges, with individual box options and a complete collection option on the product page. Check your selected option before adding it to your cart.</p></div></details>
+      <details><summary>I saw an ad. Where can I find that collection?<span aria-hidden="true">+</span></summary><div><p>The four collections above are the easiest place to start: <a class="js-no-transition" href="{{ impostors_url }}">Little Impostors</a>, <a class="js-no-transition" href="{{ companions_url }}">Evolution Companions</a>, <a class="js-no-transition" href="{{ pins_url }}">Evolution Pin Set</a>, and <a class="js-no-transition" href="{{ badges_url }}">Gym Badge Collection</a>. Each opens the collection’s dedicated product page.</p></div></details>
+      <details><summary>Where can I check shipping and returns?<span aria-hidden="true">+</span></summary><div><p>See the product page for collection-specific delivery information. Shipping options and any charges are shown at checkout. You can also read our <a class="js-no-transition" href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">shipping policy</a> and <a class="js-no-transition" href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">return policy</a> before ordering.</p></div></details>
+      <details><summary>Do you still have apparel?<span aria-hidden="true">+</span></summary><div><p>We do. You can explore our <a class="js-no-transition" href="{{ section.settings.apparel_url | default: '/collections/all' }}">apparel and more</a> alongside the collector favorites.</p></div></details>
+    </div>
+  </section>
+
+  <section class="zch-finale" aria-labelledby="zch-finale-title-{{ section.id }}"><span class="zch-finale__spark" aria-hidden="true">✳</span><p class="zch-eyebrow">Your next little obsession</p><h2 id="zch-finale-title-{{ section.id }}">A little collection.<br>A lot of personality.</h2><a class="js-no-transition zch-button" href="#collector-favorites">Find your favorites <span aria-hidden="true">↗</span></a><p class="zch-finale__apparel"><a class="js-no-transition" href="{{ section.settings.apparel_url | default: '/collections/all' }}">Looking for apparel? Explore more from Zenkai <span aria-hidden="true">→</span></a></p></section>
+</div>
+
+{% schema %}
+{
+  "name": "Collector homepage",
+  "settings": [
+    {"type": "paragraph", "content": "A collector-first homepage. Product images, prices, and availability come from the four live products. Optional destination links can point to a specific landing-page view."},
+    {"type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Defaults to the Little Impostors product image."},
+    {"type": "url", "id": "impostors_url", "label": "Little Impostors destination"},
+    {"type": "url", "id": "companions_url", "label": "Evolution Companions destination"},
+    {"type": "url", "id": "pins_url", "label": "Evolution Pin Set destination"},
+    {"type": "url", "id": "badges_url", "label": "Gym Badge Collection destination"},
+    {"type": "url", "id": "apparel_url", "label": "Apparel destination"}
+  ],
+  "presets": [{"name": "Collector homepage", "category": "Zenkai"}]
+}
+{% endschema %}
