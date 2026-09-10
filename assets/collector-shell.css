@@ -1,15 +1,26 @@
-/* Homepage shell: configured logo, inherited Inter typography and mint palette. */
-body.template-index { background: #fff; color: #102522; }
+/* Homepage shell: configured logo, locally hosted DM Sans and mint palette. */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url('collector-home-dm-sans-latin-v1.woff2') format('woff2');
+}
+body.template-index { background: #fff; color: #102522; font-family: 'DM Sans', Inter, sans-serif; font-optical-sizing: auto; }
 .template-index .header-wrapper,
 .template-index .site-header { background: #16312d; color: #fff; }
 .template-index .announcement { background: #16312d !important; }
-.template-index .announcement__wrapper { min-height: 30px; }
-.template-index .announcement__text { padding: 7px 12px; font-size: 11px; letter-spacing: .035em; }
-.template-index .site-header { border-bottom: 1px solid rgba(99,214,191,.25); box-shadow: none; }
-.template-index .site-header > .page-width { max-width: 1440px; }
-.template-index .site-header__logo { margin-block: 5px; }
-.template-index .site-header__logo img { max-height: 66px; width: auto; object-fit: contain; }
-.template-index .site-nav__link { font-size: 13px; letter-spacing: 0; }
+.template-index .announcement__wrapper { display: flex; align-items: center; justify-content: center; min-height: 24px; }
+.template-index .announcement__text { margin: 0; padding: 4px 16px; font-size: 12px; line-height: 16px; letter-spacing: 0; text-transform: none; white-space: nowrap; }
+.template-index .site-header { padding: 0 !important; border-bottom: 1px solid rgba(99,214,191,.25); box-shadow: none; }
+.template-index .site-header > .page-width { max-width: 1280px; padding-inline: 40px; }
+.template-index .site-header .header-layout { align-items: center; min-height: 63px; padding-block: 0; }
+.template-index .site-header .header-item--logo { flex: 0 0 64px; min-width: 64px; }
+.template-index .site-header .site-header__logo { margin-block: 0; line-height: 1; }
+.template-index .site-header .site-header__logo a { max-width: 64px; }
+.template-index .site-header__logo img { height: auto; max-height: 44px; width: auto; object-fit: contain; }
+.template-index .site-nav__link { font-size: 15px; line-height: 1.5; letter-spacing: 0; }
+.template-index .collector-navigation > .site-nav__item > .site-nav__link { padding: 10px 16px; min-height: 44px; }
 .template-index .site-header .zenkai-header-menu,
 .template-index .site-header .zenkai-mobile-cart,
 .template-index .site-header .zenkai-header-menu__text,
@@ -20,7 +31,7 @@ body.template-index { background: #fff; color: #102522; }
 .template-index .site-header .zenkai-header-menu { border-color: #63d6bf !important; min-height: 44px; }
 .template-index .site-header .zenkai-mobile-cart { min-height: 44px; min-width: 44px; }
 .template-index .site-nav__dropdown { background: #fff; border: 1px solid #c9e3da; }
-.template-index .site-nav__dropdown-link { color: #102522; }
+.template-index .site-nav__dropdown-link { color: #102522; font-size: 15px; line-height: 1.5; min-height: 44px; padding: 11px 18px; }
 .template-index .site-nav__dropdown-link:hover,
 .template-index .site-nav__dropdown-link:focus-visible { background: #eaf8f3; }
 .template-index .site-footer { margin-top: 0; background: #16312d; color: #fff; }
@@ -30,7 +41,26 @@ body.template-index { background: #fff; color: #102522; }
 .template-index .site-footer a { color: inherit; }
 .template-index .site-footer__wordmark { color: #fff; }
 .template-index .site-footer__nav a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.template-index .site-footer__inner { max-width: 1360px; }
+.template-index .site-footer { padding-block: 48px calc(32px + env(safe-area-inset-bottom, 0px)); }
+.template-index .site-footer__inner { max-width: 1280px; padding-inline: 40px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; gap: 32px; }
+.template-index .site-footer__wordmark { font-size: 18px; line-height: 1.4; letter-spacing: .025em; }
+.template-index .site-footer__tagline { font-size: 16px; line-height: 1.6; margin-top: 12px; }
+.template-index .site-footer__signals { gap: 8px; margin-top: 20px; }
+.template-index .site-footer__signals span,
+.template-index .site-footer__signals a { font-size: 14px; line-height: 1.4; padding: 8px 12px; }
+.template-index .site-footer__linklist { gap: 4px 16px; }
+.template-index .site-footer__linklist a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; font-size: 15px; line-height: 1.5; }
+.template-index .site-footer__copyright { font-size: 14px; line-height: 1.6; }
+.template-index .site-footer__social a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+.template-index .zenkai-header-menu__text { font-size: 14px; letter-spacing: .025em; }
+.template-index .zenkai-menu__link,
+.template-index .zenkai-panel__link { font-family: inherit; font-size: 20px; line-height: 1.45; min-height: 52px; text-transform: none; letter-spacing: 0; }
+.template-index .zenkai-panel__title { font-family: inherit; font-size: 18px; line-height: 1.45; text-transform: none; letter-spacing: 0; }
+.template-index .zenkai-menu__utility-link,
+.template-index .zenkai-menu__shipping,
+.template-index .zenkai-panel__back,
+.template-index .zenkai-overlay__close { font-family: inherit; font-size: 14px; line-height: 1.5; text-transform: none; letter-spacing: 0; }
+.template-index .zenkai-menu__cta { font-family: inherit; font-size: 16px; line-height: 1.5; min-height: 48px; text-transform: none; letter-spacing: 0; }
 .template-index .zenkai-overlay,
 .template-index .zenkai-panel { background: #16312d; }
 .template-index .zenkai-menu__cta { background: #63d6bf; color: #102522; }
@@ -47,8 +77,20 @@ body.template-index { background: #fff; color: #102522; }
 .template-index .zenkai-overlay button:focus-visible { outline-color: #63d6bf; }
 .template-index .site-nav__dropdown a:focus-visible { outline-color: #16312d; }
 @media (max-width: 768px) {
-  .template-index .announcement__wrapper { min-height: 26px; }
-  .template-index .announcement__text { padding: 5px 12px; font-size: 10px; }
-  .template-index .site-header { padding-top: 4px; padding-bottom: 4px; }
-  .template-index .site-header__logo img { max-height: 46px; width: auto; }
+  .template-index .announcement__text { padding-inline: 12px; font-size: 11px; }
+  .template-index .site-header > .page-width { padding-inline: 12px !important; }
+  .template-index .site-header .header-layout { display: grid !important; grid-template-columns: 1fr 56px 1fr; align-items: center; gap: 8px; min-height: 55px !important; padding: 0 !important; }
+  .template-index .site-header .header-item--logo { grid-column: 2; grid-row: 1; justify-self: center; justify-content: center; width: 56px; min-width: 0; max-width: none; }
+  .template-index .header-item--icons,
+  .template-index .site-nav--icons,
+  .template-index .site-nav__icons { display: contents !important; }
+  .template-index .site-header .zenkai-header-menu { grid-column: 1; grid-row: 1; justify-self: start; justify-content: center; width: 44px; height: 44px; padding: 0; gap: 0; }
+  .template-index .site-header .zenkai-header-menu__icon { width: 22px; height: 22px; }
+  .template-index .site-header .zenkai-header-menu__text { display: none; }
+  .template-index .site-header .zenkai-mobile-cart { grid-column: 3; grid-row: 1; justify-self: end; }
+  .template-index .site-header__logo img { max-height: 36px; width: auto; margin-inline: auto; }
+  .template-index .site-footer { padding-top: 36px; }
+  .template-index .site-footer__inner { grid-template-columns: 1fr; padding-inline: 20px; gap: 28px; }
+  .template-index .site-footer__utility { align-items: flex-start; text-align: left; gap: 20px; }
+  .template-index .site-footer__linklist { justify-content: flex-start; }
 }

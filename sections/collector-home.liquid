@@ -7,152 +7,155 @@
   assign companions_url = section.settings.companions_url | default: '/products/evolution-companions-complete-8-plush-collector-set?view=evo-all-eight'
   assign pins_url = section.settings.pins_url | default: pins.url | default: '/products/evolution-pin-set'
   assign badges_url = section.settings.badges_url | default: badges.url | default: '/products/8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
-  assign hero_image = section.settings.hero_image | default: impostors.featured_image
-  assign apparel_hero_product = all_products['road-to-indigo']
-  assign apparel_hero_image = section.settings.apparel_hero_image | default: apparel_hero_product.featured_image
+  assign hero_image = section.settings.hero_image | default: impostors.images[1] | default: impostors.featured_image
   assign apparel_url = section.settings.apparel_url | default: '/collections/tees'
+  assign product_image_sizes = '(min-width: 1360px) 302px, (min-width: 1101px) calc((100vw - 152px) / 4), (min-width: 750px) calc((100vw - 104px) / 2), calc((100vw - 56px) / 2)'
+  assign hero_image_sizes = '(min-width: 1400px) 784px, (min-width: 750px) 56vw, 100vw'
 -%}
 {{ 'collector-home.css' | asset_url | stylesheet_tag }}
 
 <div class="zch" data-collector-home>
-  <section class="zch-hero zch-shell" aria-labelledby="zch-title-{{ section.id }}">
+  <section class="zch-hero" aria-labelledby="zch-title-{{ section.id }}">
     <div class="zch-hero__copy">
-      <p class="zch-eyebrow">Everyday wear. Personal collections.</p>
-      <h1 id="zch-title-{{ section.id }}">For what you wear.<br>And what you love.</h1>
-      <p class="zch-hero__lede">Playful apparel, plush companions, and collectible details. Nostalgia and self-expression, made part of your everyday.</p>
-      <div class="zch-actions"><a class="js-no-transition zch-button" href="#collector-favorites">Explore collectibles <span aria-hidden="true">↗</span></a><a class="js-no-transition zch-button zch-button--outline" href="#zenkai-apparel">Shop apparel <span aria-hidden="true">↗</span></a></div>
+      <div class="zch-hero__intro">
+        <p class="zch-eyebrow">THE PLUSH COLLECTIONS</p>
+        <span class="zch-hero__face" aria-hidden="true"><svg viewBox="0 0 76 30" fill="none" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <h1 id="zch-title-{{ section.id }}">Make room <br>for <span class="zch-hero__accent">mischief.<svg aria-hidden="true" focusable="false" viewBox="0 0 300 16" preserveAspectRatio="none"><path d="M5 10 C60 1 87 17 145 9 S232 5 295 10" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
+      <p class="zch-hero__lede">Two complete collections. Plenty of personality.</p>
+      <div class="zch-actions"><a class="js-no-transition zch-button" href="#collector-plush">Shop plush sets <span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="zch-hero__panels">
-    <a class="js-no-transition zch-hero__visual zch-hero__visual--apparel" href="{{ apparel_url }}" aria-label="Explore graphic tees">
-      {%- if apparel_hero_image != blank -%}<img src="{{ apparel_hero_image | image_url: width: 750 }}" srcset="{{ apparel_hero_image | image_url: width: 360 }} 360w, {{ apparel_hero_image | image_url: width: 550 }} 550w, {{ apparel_hero_image | image_url: width: 750 }} 750w" sizes="(min-width: 1200px) 320px, (min-width: 750px) 27vw, calc((100vw - 44px) / 2)" width="{{ apparel_hero_image.width }}" height="{{ apparel_hero_image.height }}" alt="Graphic tee from the Zenkai apparel collection" loading="eager" fetchpriority="high">{%- endif -%}
-      <span class="zch-hero__caption"><span>Wear it your way <small>Graphic apparel</small></span><span aria-hidden="true">↗</span></span>
-    </a>
     <a class="js-no-transition zch-hero__visual" href="{{ impostors_url }}" data-zch-product="{{ impostors.handle }}" data-zch-placement="hero-image" aria-label="Explore Little Impostors, the complete nine-plush set">
       {%- if hero_image != blank -%}
-        <img src="{{ hero_image | image_url: width: 750 }}" srcset="{{ hero_image | image_url: width: 360 }} 360w, {{ hero_image | image_url: width: 550 }} 550w, {{ hero_image | image_url: width: 750 }} 750w" sizes="(min-width: 1200px) 320px, (min-width: 750px) 27vw, calc((100vw - 44px) / 2)" width="{{ hero_image.width }}" height="{{ hero_image.height }}" alt="The colorful Little Impostors plush collection, together as a complete set" loading="eager">
+        <img src="{{ hero_image | image_url: width: 1200 }}" srcset="{{ hero_image | image_url: width: 550 }} 550w, {{ hero_image | image_url: width: 900 }} 900w, {{ hero_image | image_url: width: 1200 }} 1200w, {{ hero_image | image_url: width: 1600 }} 1600w" sizes="{{ hero_image_sizes }}" width="{{ hero_image.width }}" height="{{ hero_image.height }}" alt="The nine colorful Little Impostors plush companions" loading="eager" fetchpriority="high">
       {%- else -%}
         <div class="zch-image-fallback">Explore plush collections</div>
       {%- endif -%}
-      <span class="zch-hero__caption"><span>Keep your favorites close <small>Plush & collectibles</small></span><span aria-hidden="true">↗</span></span>
     </a>
-    </div>
   </section>
-
-  <nav class="zch-discover" aria-label="Shop by category">
-    <div class="zch-shell zch-discover__inner"><span>Find your next favorite</span><a class="js-no-transition" href="#collector-plush">Plush <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="#collector-pins">Pins & badges <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/tees">Tees <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/all-hoodies">Hoodies <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/sweatshirts">Sweatshirts <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/all-hats">Hats <span aria-hidden="true">↗</span></a></div>
+  <nav class="zch-category-bar" aria-label="Shop by category">
+    <a class="js-no-transition" href="#collector-plush">Plush sets <span aria-hidden="true">↗</span></a>
+    <a class="js-no-transition" href="#collector-pins">Pins & badges <span aria-hidden="true">↗</span></a>
+    <a class="js-no-transition" href="#zenkai-apparel">Apparel <span aria-hidden="true">↗</span></a>
   </nav>
 
-  <section id="collector-sets" class="zch-shop zch-shell" aria-labelledby="zch-shop-title-{{ section.id }}">
+  <div id="collector-sets" class="zch-shop zch-shell">
     <span id="collector-favorites" class="zch-anchor" aria-hidden="true"></span>
-    <div class="zch-section-heading"><div><p class="zch-eyebrow">Discover the collections</p><h2 id="zch-shop-title-{{ section.id }}">Meet your collector favorites.</h2></div><p>Complete plush lineups, colorful pins, <br>and boxed badge sets.</p></div>
-    <div class="zch-products">
-      {%- for index in (1..4) -%}
+    <div class="zch-merch-groups">
+    {%- for group in (1..2) -%}
+      {%- liquid
+        if group == 1
+          assign group_id = 'collector-plush'
+          assign group_title = 'Plush sets'
+          assign group_start = 1
+          assign group_end = 2
+        else
+          assign group_id = 'collector-pins'
+          assign group_title = 'Pins & badges'
+          assign group_start = 3
+          assign group_end = 4
+        endif
+      -%}
+    <section id="{{ group_id }}" class="zch-merch-group" aria-labelledby="{{ group_id }}-title-{{ section.id }}">
+      <div class="zch-section-heading"><h2 id="{{ group_id }}-title-{{ section.id }}">{{ group_title }}</h2><span class="zch-section-note">Explore the collections</span></div>
+    <div class="zch-products zch-products--collectibles">
+      {%- for index in (group_start..group_end) -%}
         {%- liquid
           case index
             when 1
               assign card_product = impostors
               assign card_url = impostors_url
               assign card_name = 'Little Impostors'
-              assign card_category = '9-piece plush collection'
-              assign card_description = 'Nine distinct plush companions, together in one complete collection.'
-              assign card_count = 'All 9 included'
+              assign card_category = '9-piece plush set'
               assign card_id = impostors.handle
             when 2
               assign card_product = companions
               assign card_url = companions_url
               assign card_name = 'Evolution Companions'
-              assign card_category = '8-piece plush collection'
-              assign card_description = 'Eight colorful costume plushies. The full lineup for your shelf or desk.'
-              assign card_count = 'All 8 included'
+              assign card_category = '8-piece plush set'
               assign card_id = companions.handle
             when 3
               assign card_product = pins
               assign card_url = pins_url
               assign card_name = 'Evolution Pin Set'
-              assign card_category = '8-piece enamel pin collection'
-              assign card_description = 'A little color for your bag, jacket, or favorite display board.'
-              assign card_count = 'All 8 included'
+              assign card_category = '8 enamel pins'
               assign card_id = pins.handle
             when 4
               assign card_product = badges
               assign card_url = badges_url
               assign card_name = 'Gym Badge Collection'
-              assign card_category = 'Boxed enamel badge sets'
-              assign card_description = 'Choose an eight-badge box, or bring the whole collection home.'
-              assign card_count = '8 per box'
+              assign card_category = '8 badges per box'
               assign card_id = badges.handle
           endcase
           assign card_image = card_product.featured_image
+          if index == 1
+            assign card_image = impostors.images[1] | default: impostors.featured_image
+          endif
         -%}
-        <article class="zch-card zch-card--{{ index }}"{% if index == 1 %} id="collector-plush"{% elsif index == 3 %} id="collector-pins"{% endif %}>
+        <article class="zch-card zch-card--{{ index }}">
           <a class="zch-card__link js-no-transition" href="{{ card_url }}" data-zch-product="{{ card_id }}" data-zch-placement="card">
             <div class="zch-card__media">
-              <span class="zch-card__tag">{{ card_count }}</span>
               {%- if card_image != blank -%}
-                <img src="{{ card_image | image_url: width: 650 }}" srcset="{{ card_image | image_url: width: 280 }} 280w, {{ card_image | image_url: width: 420 }} 420w, {{ card_image | image_url: width: 650 }} 650w, {{ card_image | image_url: width: 900 }} 900w" sizes="(min-width: 1280px) 292px, (min-width: 990px) 23vw, calc((100vw - 44px) / 2)" width="{{ card_image.width }}" height="{{ card_image.height }}" alt="{{ card_name | escape }} — {{ card_category | escape }}" loading="lazy" decoding="async">
+                <img src="{{ card_image | image_url: width: 650 }}" srcset="{{ card_image | image_url: width: 280 }} 280w, {{ card_image | image_url: width: 420 }} 420w, {{ card_image | image_url: width: 650 }} 650w, {{ card_image | image_url: width: 900 }} 900w" sizes="{{ product_image_sizes }}" width="{{ card_image.width }}" height="{{ card_image.height }}" alt="{{ card_name | escape }} — {{ card_category | escape }}" loading="lazy" decoding="async">
               {%- else -%}<div class="zch-image-fallback">{{ card_name }}</div>{%- endif -%}
             </div>
-            <div class="zch-card__body"><p class="zch-card__category">{{ card_category }}</p><h3>{{ card_name }}</h3><p class="zch-card__description">{{ card_description }}</p>
-              <div class="zch-card__bottom"><span class="zch-card__price">{%- if card_product != blank -%}{% if card_product.price_varies %}<small>From </small>{% endif %}{{ card_product.price | money }}{%- else -%}Explore the set{%- endif -%}</span><span class="zch-circle-arrow" aria-hidden="true">↗</span></div>
-              <span class="zch-card__cta">{%- if card_product != blank and card_product.available == false -%}Currently sold out · View collection{%- else -%}Shop the collection{%- endif -%}</span>
+            <div class="zch-card__body"><h3>{{ card_name }}</h3><p class="zch-card__category">{{ card_category }}</p>
+              <div class="zch-card__bottom"><span class="zch-card__price">{%- if card_product != blank -%}{% if card_product.price_varies %}<small>From </small>{% endif %}{{ card_product.price | money }}{%- else -%}Explore the set{%- endif -%}</span>{%- if card_product != blank and card_product.available == false -%}<span class="zch-card__stock">Currently sold out</span>{%- endif -%}</div>
             </div>
           </a>
         </article>
       {%- endfor -%}
     </div>
-  </section>
+    </section>
+    {%- endfor -%}
+    </div>
+  </div>
 
   <section id="zenkai-apparel" class="zch-apparel" aria-labelledby="zch-apparel-title-{{ section.id }}">
     <div class="zch-shell">
-      <div class="zch-section-heading"><div><p class="zch-eyebrow">Wear your favorites</p><h2 id="zch-apparel-title-{{ section.id }}">Made for your everyday rotation.</h2></div><a class="js-no-transition zch-text-link" href="{{ apparel_url }}">Explore apparel <span aria-hidden="true">↗</span></a></div>
+      <div class="zch-section-heading"><div><h2 id="zch-apparel-title-{{ section.id }}">In your rotation</h2><p>Graphic tees and comfortable layers, with a story to tell.</p></div></div>
       <div class="zch-products zch-products--apparel">
-        {%- assign apparel_handles = 'road-to-indigo|champions-00251|058-059-the-royal-family-tee|054-sad-duck-tee|road-to-indigo-sweatshirt|144-146-legends-begin-here-hoodie' | split: '|' -%}
+        {%- assign apparel_handles = 'road-to-indigo|champions-00251|road-to-indigo-sweatshirt|144-146-legends-begin-here-hoodie' | split: '|' -%}
         {%- for apparel_handle in apparel_handles -%}
           {%- liquid
             assign apparel_product = all_products[apparel_handle]
             assign apparel_image = apparel_product.featured_image
+            if forloop.index < 4
+              assign apparel_image = apparel_product.images[1] | default: apparel_product.featured_image
+            endif
             case forloop.index
               when 1
                 assign apparel_name = 'Road to Indigo Tee'
               when 2
                 assign apparel_name = 'Champions Tee'
               when 3
-                assign apparel_name = 'The Royal Family Tee'
-              when 4
-                assign apparel_name = 'Sad Duck Tee'
-              when 5
                 assign apparel_name = 'Road to Indigo Sweatshirt'
-              when 6
+              when 4
                 assign apparel_name = 'Legends Begin Here Hoodie'
             endcase
             assign apparel_category = 'Graphic tee'
-            if forloop.index == 5
+            if forloop.index == 3
               assign apparel_category = 'Sweatshirt'
-            elsif forloop.index == 6
+            elsif forloop.index == 4
               assign apparel_category = 'Hoodie'
             endif
           -%}
           {%- if apparel_product != blank -%}
             <article class="zch-card zch-apparel-card">
               <a class="js-no-transition zch-card__link" href="{{ apparel_product.url }}" data-zch-product="{{ apparel_product.handle }}" data-zch-placement="apparel-card">
-                <div class="zch-card__media">{%- if apparel_image != blank -%}<img src="{{ apparel_image | image_url: width: 650 }}" srcset="{{ apparel_image | image_url: width: 280 }} 280w, {{ apparel_image | image_url: width: 420 }} 420w, {{ apparel_image | image_url: width: 650 }} 650w" sizes="(min-width: 1280px) 196px, (min-width: 990px) 15vw, (min-width: 750px) 30vw, calc((100vw - 44px) / 2)" width="{{ apparel_image.width }}" height="{{ apparel_image.height }}" alt="{{ apparel_name | escape }} from the Zenkai apparel collection" loading="lazy" decoding="async">{%- endif -%}</div>
-                <div class="zch-card__body"><p class="zch-card__category">{{ apparel_category }}</p><h3>{{ apparel_name }}</h3><div class="zch-card__bottom"><span class="zch-card__price">{% if apparel_product.price_varies %}<small>From </small>{% endif %}{{ apparel_product.price | money }}</span><span class="zch-circle-arrow" aria-hidden="true">↗</span></div><span class="zch-card__cta">{% if apparel_product.available %}Choose your size{% else %}Currently sold out{% endif %}</span></div>
+                <div class="zch-card__media">{%- if apparel_image != blank -%}<img src="{{ apparel_image | image_url: width: 650 }}" srcset="{{ apparel_image | image_url: width: 280 }} 280w, {{ apparel_image | image_url: width: 420 }} 420w, {{ apparel_image | image_url: width: 650 }} 650w, {{ apparel_image | image_url: width: 900 }} 900w" sizes="{{ product_image_sizes }}" width="{{ apparel_image.width }}" height="{{ apparel_image.height }}" alt="{{ apparel_name | escape }} from the Zenkai apparel collection" loading="lazy" decoding="async">{%- endif -%}</div>
+                <div class="zch-card__body"><h3>{{ apparel_name }}</h3><p class="zch-card__category">{{ apparel_category }}</p><div class="zch-card__bottom"><span class="zch-card__price">{% if apparel_product.price_varies %}<small>From </small>{% endif %}{{ apparel_product.price | money }}</span>{% unless apparel_product.available %}<span class="zch-card__stock">Currently sold out</span>{% endunless %}</div></div>
               </a>
             </article>
           {%- endif -%}
         {%- endfor -%}
       </div>
-      <nav class="zch-apparel-categories" aria-label="Explore apparel categories"><a class="js-no-transition" href="/collections/tees">Graphic tees <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/all-hoodies">Hoodies <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/sweatshirts">Sweatshirts <span aria-hidden="true">↗</span></a><a class="js-no-transition" href="/collections/all-hats">Hats <span aria-hidden="true">↗</span></a></nav>
+      <nav class="zch-apparel-categories" aria-label="Explore apparel categories"><a class="js-no-transition" href="/collections/tees">All tees</a><a class="js-no-transition" href="/collections/all-hoodies">Hoodies</a><a class="js-no-transition" href="/collections/sweatshirts">Sweatshirts</a><a class="js-no-transition" href="/collections/all-hats">Hats</a></nav>
     </div>
   </section>
 
-  <section class="zch-story zch-shell" aria-labelledby="zch-story-title-{{ section.id }}">
-    <div class="zch-story__copy"><p class="zch-eyebrow">The things you connect with</p><h2 id="zch-story-title-{{ section.id }}">A little nostalgia.<br>A lot of you.</h2><p>The graphic you keep in rotation. The pin on your everyday bag. The collection that gets a permanent spot on your desk.</p><p>Zenkai brings those favorites into your everyday, from what you wear to the space you make your own.</p><div class="zch-actions"><a class="js-no-transition zch-text-link" href="{{ apparel_url }}">Find your next graphic <span aria-hidden="true">↗</span></a><a class="js-no-transition zch-text-link" href="#collector-sets">Explore the collections <span aria-hidden="true">↗</span></a></div></div>
-    <div class="zch-story__visual"><img src="{{ 'collector-home-shelf-v1.webp' | asset_url }}" srcset="{{ 'collector-home-shelf-v1-640.webp' | asset_url }} 640w, {{ 'collector-home-shelf-v1.webp' | asset_url }} 1200w" sizes="(min-width: 1200px) 410px, (min-width: 750px) 38vw, calc(100vw - 32px)" width="1200" height="1200" alt="Nine colorful plush companions arranged on pale wood display shelves" loading="lazy" decoding="async"></div>
-  </section>
-
   <section class="zch-faq zch-shell" aria-labelledby="zch-faq-title-{{ section.id }}">
-    <div><p class="zch-eyebrow">Good to know</p><h2 id="zch-faq-title-{{ section.id }}">Before you choose.</h2><p>Need a hand?<br><a class="js-no-transition" href="mailto:{{ shop.email | escape }}">Get in touch <span aria-hidden="true">↗</span></a></p></div>
+    <div><h2 id="zch-faq-title-{{ section.id }}">A little help</h2><p>Questions about your order?<br><a class="js-no-transition" href="mailto:{{ shop.email | escape }}">Get in touch</a></p></div>
     <div class="zch-faq__items">
       <details><summary>Are the plush collections complete sets?<span aria-hidden="true">+</span></summary><div><p>Yes. Little Impostors includes all nine plush companions, and Evolution Companions includes all eight costume plushies. Each product page shows the complete lineup and product details.</p></div></details>
       <details><summary>What’s included with the pins and badges?<span aria-hidden="true">+</span></summary><div><p>The Evolution Pin Set includes eight pins. Gym Badge boxes each include eight badges, with individual box options and a complete collection option on the product page. Check your selected option before adding it to your cart.</p></div></details>
@@ -161,7 +164,6 @@
     </div>
   </section>
 
-  <section class="zch-finale" aria-labelledby="zch-finale-title-{{ section.id }}"><p class="zch-eyebrow">Make it part of your everyday</p><h2 id="zch-finale-title-{{ section.id }}">Find what feels like you.</h2><div class="zch-actions"><a class="js-no-transition zch-button" href="#collector-favorites">Explore collectibles <span aria-hidden="true">↗</span></a><a class="js-no-transition zch-button zch-button--outline" href="{{ apparel_url }}">Shop apparel <span aria-hidden="true">↗</span></a></div></section>
 </div>
 
 {% schema %}
@@ -169,8 +171,7 @@
   "name": "Zenkai homepage",
   "settings": [
     {"type": "paragraph", "content": "Apparel and collectibles, together. Images, prices, and availability come from live products. Optional destination links can point to a specific landing-page view."},
-    {"type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Defaults to the Little Impostors product image."},
-    {"type": "image_picker", "id": "apparel_hero_image", "label": "Apparel hero image", "info": "Defaults to the Road to Indigo tee product image."},
+    {"type": "image_picker", "id": "hero_image", "label": "Campaign image", "info": "Use a landscape campaign photograph. Defaults to the Little Impostors collection photograph."},
     {"type": "url", "id": "impostors_url", "label": "Little Impostors destination"},
     {"type": "url", "id": "companions_url", "label": "Evolution Companions destination"},
     {"type": "url", "id": "pins_url", "label": "Evolution Pin Set destination"},

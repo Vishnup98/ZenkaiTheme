@@ -49,11 +49,19 @@
         </li>
         <li class="zenkai-menu__item">
           <button type="button" class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open" data-panel="collector-apparel" aria-haspopup="true" aria-expanded="false">
-            <span>Shop apparel</span>
+            <span>Apparel</span>
             <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
           </button>
         </li>
-        {% render 'collector-nav-links', collector_nav_group: 'all', collector_nav_item_class: 'zenkai-menu__item', collector_nav_link_class: 'zenkai-menu__link' %}
+        {%- assign collector_menu_groups = 'plush|pins' | split: '|' -%}
+        {%- for collector_menu_group in collector_menu_groups -%}
+          <li class="zenkai-menu__item">
+            <button type="button" class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open" data-panel="collector-{{ collector_menu_group }}" aria-haspopup="true" aria-expanded="false">
+              <span>{% if collector_menu_group == 'plush' %}Plush sets{% else %}Pins &amp; badges{% endif %}</span>
+              <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            </button>
+          </li>
+        {%- endfor -%}
         <li class="zenkai-menu__item"><a href="{{ routes.root_url }}" class="zenkai-menu__link">Home</a></li>
         {%- else -%}
         <li class="zenkai-menu__item zenkai-menu__item--cta">
@@ -147,13 +155,13 @@
 
     {%- comment -%} Submenu panels, hoisted out of <li>. One per dropdown. {%- endcomment -%}
     {%- if collector_regular_navigation -%}
-      <section class="zenkai-panel" data-panel-id="collector-apparel" aria-hidden="true" aria-label="Apparel and more">
+      <section class="zenkai-panel" data-panel-id="collector-apparel" aria-hidden="true" aria-label="Apparel">
         <div class="zenkai-panel__header">
           <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back to main menu">
             <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-            <span>BACK</span>
+            <span>Back</span>
           </button>
-          <a href="{{ routes.collections_url }}/tees" class="zenkai-panel__title">Apparel &amp; more</a>
+          <a href="{{ routes.collections_url }}/tees" class="zenkai-panel__title">Apparel</a>
         </div>
         <ul class="zenkai-panel__list">
           <li class="zenkai-panel__item"><a href="{{ routes.collections_url }}/tees" class="zenkai-panel__link">T-shirts</a></li>
@@ -163,6 +171,20 @@
           <li class="zenkai-panel__item"><a href="{{ routes.all_products_collection_url }}" class="zenkai-panel__link">Browse everything</a></li>
         </ul>
       </section>
+      {%- for collector_menu_group in collector_menu_groups -%}
+        <section class="zenkai-panel" data-panel-id="collector-{{ collector_menu_group }}" aria-hidden="true" aria-label="{% if collector_menu_group == 'plush' %}Plush sets{% else %}Pins and badges{% endif %}">
+          <div class="zenkai-panel__header">
+            <button type="button" class="zenkai-panel__back js-zenkai-panel-back" aria-label="Back to main menu">
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+              <span>Back</span>
+            </button>
+            <a href="{{ routes.root_url }}#collector-{{ collector_menu_group }}" class="zenkai-panel__title js-no-transition">{% if collector_menu_group == 'plush' %}Plush sets{% else %}Pins &amp; badges{% endif %}</a>
+          </div>
+          <ul class="zenkai-panel__list">
+            {% render 'collector-nav-links', collector_nav_group: collector_menu_group, collector_nav_item_class: 'zenkai-panel__item', collector_nav_link_class: 'zenkai-panel__link' %}
+          </ul>
+        </section>
+      {%- endfor -%}
     {%- else -%}
     {% for link in main_menu.links %}
       {% if link.links != blank %}
@@ -271,7 +293,10 @@
     }
     activePanel = panel;
     var back = panel.querySelector('.js-zenkai-panel-back');
-    if (back && typeof back.focus === 'function') back.focus();
+    // Focus the incoming panel without scrolling its clipped slide-in stage.
+    // Focusing while it is still translated off-screen otherwise offsets every panel.
+    if (back && typeof back.focus === 'function') back.focus({ preventScroll: true });
+    if (stage) stage.scrollLeft = 0;
   }
 
   function closeActivePanel(skipFocusRestore) {
