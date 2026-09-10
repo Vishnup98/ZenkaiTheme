@@ -105,3 +105,23 @@ body.template-index { background: #fff; color: #102522; font-family: 'DM Sans', 
   .template-index .site-footer__utility { align-items: start; text-align: left; gap: 24px 16px; padding-top: 24px; border-top: 1px solid #38564f; }
   .template-index .site-footer__linklist { justify-content: flex-start; }
 }
+
+/* The same soft, expressive family used by the companion collections. */
+@font-face {
+  font-family: 'Zenkai Companion';
+  src: url('little-impostors-body-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+body.template-index { font-family: 'Zenkai Companion', 'DM Sans', sans-serif; }
+.template-index .collector-navigation > .site-nav__item > .site-nav__link {
+  font-family: 'Zenkai Companion', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -.025em;
+}
+.template-index .collector-navigation > .site-nav__item:nth-child(1) > a { color: #e4c9fa !important; }
+.template-index .collector-navigation > .site-nav__item:nth-child(2) > a { color: #a5e7d5 !important; }
+.template-index .collector-navigation > .site-nav__item:nth-child(3) > a { color: #f2d6a8 !important; }
+.template-index .zenkai-menu__link, .template-index .zenkai-panel__link { font-weight: 800; letter-spacing: -.025em; }
+.template-index .announcement__text { font-weight: 600; }
+.template-index .site-footer__heading { font-family: 'Zenkai Mischief', sans-serif; font-size: 21px; font-weight: 700; text-transform: none; letter-spacing: -.025em; }
+.template-index .site-footer__tagline { font-weight: 500; }
