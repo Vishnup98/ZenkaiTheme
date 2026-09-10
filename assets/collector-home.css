@@ -54,8 +54,8 @@
 .zch-hero__lede { margin-top: 18px !important; max-width: 340px; font-size: 16px; line-height: 1.55; color: var(--zch-muted); }
 .zch-hero .zch-actions { margin-top: 24px; }
 .zch-hero .zch-button { gap: 28px; }
-.zch-hero__visual { display: block; min-width: 0; height: 480px; overflow: hidden; }
-.zch-hero__visual > img { object-fit: cover; object-position: center; }
+.zch-hero__visual { display: grid; align-items: center; min-width: 0; background: #f6f0e9; }
+.zch-hero__visual > img { height: auto; object-fit: contain; }
 .zch-category-bar { display: grid; grid-template-columns: repeat(3, 1fr); width: min(1280px, calc(100% - 80px)); margin-inline: auto; border-bottom: 1px solid var(--zch-line); }
 .zch-category-bar a { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 64px; font-size: 15px; font-weight: 600; }
 .zch-category-bar a:hover { background: #f3f9f6; }
@@ -83,6 +83,15 @@
 .zch-card__price small { display: inline; font-size: 14px; font-weight: 400; }
 .zch-card__stock { display: block; margin-top: 4px; font-size: 14px; color: var(--zch-muted); }
 .zch-card__link:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.zch .zch-card__title--impostors, .zch .zch-card__title--companions { font-size: clamp(19px, 2.1vw, 25px); line-height: 1.08; letter-spacing: -.025em; font-weight: 800; }
+.zch .zch-card__title--impostors { font-family: 'Zenkai Mischief', 'DM Sans', sans-serif; font-variation-settings: 'opsz' 72; color: #6c4795; }
+.zch .zch-card__title--companions { color: var(--zch-forest); letter-spacing: -.04em; }
+.zch-card__title-line { display: block; }
+.zch-card__initial--water { color: #247b9e; }
+.zch-card__initial--fire { color: #b64b20; }
+.zch-card__signature { display: flex; align-items: center; height: 22px; margin-top: 8px; gap: 5px; }
+.zch-card__signature svg { width: 52px; height: 22px; }
+.zch-card__signature--companions span { width: 13px; height: 13px; border: 2px solid #fff; border-radius: 50%; background: var(--companion-color); box-shadow: 0 0 0 1px #b8b8b8; }
 .zch-apparel { padding-block: 40px; background: #f3f9f6; }
 .zch-apparel-categories { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--zch-line); }
 .zch-apparel-categories a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 20px; border: 1px solid #a4bdb1; border-radius: 4px; font-size: 16px; font-weight: 600; }
@@ -102,12 +111,16 @@
 @media (max-width: 1100px) {
   .zch-merch-groups { grid-template-columns: 1fr; gap: 28px; }
   .zch-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
-  .zch-hero__visual { height: 420px; }
+}
+@media (max-width: 1000px) {
+  .zch-hero { grid-template-columns: 1fr; }
+  .zch-hero__visual { grid-row: 1; }
+  .zch-hero__copy { padding-block: 28px; }
 }
 @media (max-width: 749px) {
   .zch-shell { width: calc(100% - 40px); }
   .zch-hero { grid-template-columns: 1fr; }
-  .zch-hero__visual { grid-row: 1; height: auto; aspect-ratio: 1.5; }
+  .zch-hero__visual { grid-row: 1; }
   .zch-hero__copy { padding: 24px 20px; }
   .zch-hero h1 { font-size: clamp(38px, 9vw, 48px); margin-top: 10px; }
   .zch-hero__face { width: 48px; }

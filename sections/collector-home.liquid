@@ -10,7 +10,7 @@
   assign hero_image = section.settings.hero_image | default: impostors.images[1] | default: impostors.featured_image
   assign apparel_url = section.settings.apparel_url | default: '/collections/tees'
   assign product_image_sizes = '(min-width: 1360px) 302px, (min-width: 1101px) calc((100vw - 152px) / 4), (min-width: 750px) calc((100vw - 104px) / 2), calc((100vw - 56px) / 2)'
-  assign hero_image_sizes = '(min-width: 1400px) 784px, (min-width: 750px) 56vw, 100vw'
+  assign hero_image_sizes = '(min-width: 1400px) 784px, (min-width: 1001px) 56vw, 100vw'
 -%}
 {{ 'collector-home.css' | asset_url | stylesheet_tag }}
 
@@ -99,7 +99,15 @@
                 <img src="{{ card_image | image_url: width: 650 }}" srcset="{{ card_image | image_url: width: 280 }} 280w, {{ card_image | image_url: width: 420 }} 420w, {{ card_image | image_url: width: 650 }} 650w, {{ card_image | image_url: width: 900 }} 900w" sizes="{{ product_image_sizes }}" width="{{ card_image.width }}" height="{{ card_image.height }}" alt="{{ card_name | escape }} — {{ card_category | escape }}" loading="lazy" decoding="async">
               {%- else -%}<div class="zch-image-fallback">{{ card_name }}</div>{%- endif -%}
             </div>
-            <div class="zch-card__body"><h3>{{ card_name }}</h3><p class="zch-card__category">{{ card_category }}</p>
+            <div class="zch-card__body">
+              {%- if index == 1 -%}
+                <h3 class="zch-card__title--impostors">Little <span class="zch-card__title-line">Impostors</span><span class="zch-card__signature" aria-hidden="true"><svg viewBox="0 0 76 30" fill="none" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></h3>
+              {%- elsif index == 2 -%}
+                <h3 class="zch-card__title--companions" aria-label="Evolution Companions"><span aria-hidden="true"><span class="zch-card__initial--water">E</span>volution <span class="zch-card__title-line"><span class="zch-card__initial--fire">C</span>ompanions</span></span><span class="zch-card__signature zch-card__signature--companions" aria-hidden="true"><span style="--companion-color: #f5a7be"></span><span style="--companion-color: #bea0e7"></span><span style="--companion-color: #b0e5ef"></span><span style="--companion-color: #48a7d3"></span><span style="--companion-color: #fa742d"></span><span style="--companion-color: #f2d449"></span><span style="--companion-color: #d5b969"></span><span style="--companion-color: #303039"></span></span></h3>
+              {%- else -%}
+                <h3>{{ card_name }}</h3>
+              {%- endif -%}
+              <p class="zch-card__category">{{ card_category }}</p>
               <div class="zch-card__bottom"><span class="zch-card__price">{%- if card_product != blank -%}{% if card_product.price_varies %}<small>From </small>{% endif %}{{ card_product.price | money }}{%- else -%}Explore the set{%- endif -%}</span>{%- if card_product != blank and card_product.available == false -%}<span class="zch-card__stock">Currently sold out</span>{%- endif -%}</div>
             </div>
           </a>
