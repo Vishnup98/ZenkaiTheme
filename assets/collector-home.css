@@ -347,3 +347,14 @@
   .zch .zch-card__title--impostors { font-size: 16px; gap: 4px; }
   .zch-title-mark--smile { flex-basis: 16px; width: 16px; }
 }
+
+/* Keep the full collection name and use a readable ears-only silhouette. */
+.zch-companions-name { line-height: 1.22; }
+.zch-companions-word { color: #247769; white-space: nowrap; }
+.zch-title-mark--eevee { flex-basis: 26px; width: 26px; height: 26px; }
+@media (max-width: 749px) {
+  .zch-title-mark--eevee { flex-basis: 22px; width: 22px; height: 24px; }
+}
+
+.zch-evolution-row { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
+.zch-companions-name { display: block; }
