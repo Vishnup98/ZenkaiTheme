@@ -60,14 +60,15 @@
 .zch-rating-stars--footer { display: inline-block; width: 75px; height: 15px; margin: 0 7px 0 0; vertical-align: -2px; }
 .zch .zch-shipping-note { margin-top: 16px; color: var(--zch-forest); font-size: 14px; font-weight: 600; }
 @media (max-width: 749px) {
-  .zch .zch-trust__inner { width: calc(100% - 40px); grid-template-columns: 1fr 1fr; gap: 20px 24px; padding-block: 24px; }
-  .zch-trust__rating { grid-column: 1 / -1; grid-row: 1; }
-  .zch-trust__shipping { gap: 9px; }
-  .zch-trust__shipping > svg { width: 23px; height: 23px; }
+  .zch .zch-trust__inner { width: calc(100% - 24px); grid-template-columns: .8fr 1.2fr 1fr; gap: 8px; padding-block: 20px; }
+  .zch-trust__rating { grid-column: auto; grid-row: auto; gap: 5px 6px; }
+  .zch-trust__shipping { justify-content: center; }
+  .zch-trust__shipping > svg { display: none; }
   .zch-trust__orders { justify-self: stretch; }
-  .zch-trust strong { font-size: 18px; }
-  .zch-trust__rating strong { font-size: 24px; }
-  .zch-trust p { font-size: 12px; letter-spacing: 0; }
+  .zch-trust strong { font-size: clamp(14px, 3.8vw, 17px); white-space: nowrap; }
+  .zch-trust__rating strong { font-size: clamp(16px, 4vw, 18px); }
+  .zch-trust .zch-rating-stars { width: 52px; height: 11px; }
+  .zch-trust p { min-width: 0; font-size: 11px; letter-spacing: 0; text-align: center; }
 }
 .zch-hero__copy { align-self: center; padding: 44px clamp(28px, 4vw, 64px); }
 .zch-hero .zch-eyebrow { font-size: 12px; letter-spacing: .1em; }
