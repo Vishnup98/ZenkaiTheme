@@ -1,9 +1,11 @@
+{%- assign evolution_polish = false -%}
+{%- if template.suffix == 'evo-all-eight' -%}{%- assign evolution_polish = true -%}{%- endif -%}
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#202131">
+    <meta name="theme-color" content="{% if evolution_polish %}#16312d{% else %}#202131{% endif %}">
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
     <meta name="description" content="All eight Evolution Companions plushes in one complete collection. Approximately 8 × 7 × 6 inches each. See the complete lineup and actual product photos.">
@@ -19,12 +21,13 @@
     {{ 'plush-refinements.css' | asset_url | stylesheet_tag }}
     {{ 'evolution-purchase-details.css' | asset_url | stylesheet_tag }}
     {{ 'evolution-personality.css' | asset_url | stylesheet_tag }}
+    {% if evolution_polish %}{{ 'evolution-all-eight-polish.css' | asset_url | stylesheet_tag }}{% endif %}
     <script src="{{ 'evolution-campaign.js' | asset_url }}" defer></script>
   </head>
-  <body class="ec-body ec-personality">
+  <body class="ec-body ec-personality{% if evolution_polish %} ec-polished{% endif %}">
     <a href="#MainContent" class="ec-skip">Skip to the collection</a>
     <header class="ec-header">
-      <span class="ec-brand"><img src="https://zenkaiclothing.com/cdn/shop/files/zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png?width=120" width="60" height="48" alt="Zenkai Clothing"></span>
+      {% if evolution_polish %}<a class="ec-brand" href="{{ routes.root_url }}" aria-label="Zenkai Clothing home">{% else %}<span class="ec-brand">{% endif %}<img src="https://zenkaiclothing.com/cdn/shop/files/zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png?width=120" width="60" height="48" alt="Zenkai Clothing">{% if evolution_polish %}</a>{% else %}</span>{% endif %}
       <span class="ec-header-note">Free U.S. shipping</span>
       <a class="ec-cart" href="{{ routes.cart_url }}" aria-label="View cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}"><svg aria-hidden="true" focusable="false" viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h4l4 18h15l3-13H8"/><circle cx="13" cy="27" r="1.5"/><circle cx="24" cy="27" r="1.5"/></svg>{% if cart.item_count > 0 %}<span class="ec-cart-count" aria-hidden="true">{{ cart.item_count }}</span>{% endif %}</a>
     </header>
@@ -32,7 +35,7 @@
     <footer class="ec-footer">
       <div class="ec-footer-inner">
         <div class="ec-footer-brand"><strong>ZENKAI</strong><span>Questions about your set? We’re here to help.</span></div>
-        <nav class="ec-footer-links" aria-label="Customer support"><a href="/pages/policy">Delivery &amp; returns</a><a href="mailto:{{ shop.email }}">Contact us</a><a href="{{ shop.privacy_policy.url }}">Privacy</a></nav>
+        <nav class="ec-footer-links" aria-label="Customer support">{% if evolution_polish %}<a href="/policies/shipping-policy">Shipping</a><a href="/policies/refund-policy">Refunds &amp; order care</a>{% else %}<a href="/pages/policy">Delivery &amp; returns</a>{% endif %}<a href="mailto:{{ shop.email }}">Contact us</a><a href="{{ shop.privacy_policy.url }}">Privacy</a></nav>
         <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }} <span aria-hidden="true">·</span> Secure checkout with Shopify</small>
       </div>
     </footer>
