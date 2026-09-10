@@ -7,7 +7,10 @@
   font-display: swap;
 }
 .zch {
-  --zch-ink: #202225;
+  --zch-ink: #20352f;
+  --zch-paper: #fffdf9;
+  --zch-soft: #eef5ee;
+  --zch-purple: #6c4795;
   --zch-forest: #16312d;
   --zch-mint: #63d6bf;
   --zch-muted: #4e5d57;
@@ -44,12 +47,12 @@
 .zch-text-link { display: inline-flex; min-height: 48px; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; text-decoration: underline !important; text-underline-offset: 5px; }
 .zch-hero { display: grid; grid-template-columns: 44% 56%; max-width: 1400px; margin-inline: auto; background: #eaf7f3; }
 .zch-hero-band { background: linear-gradient(to right, #eaf7f3 50%, #d5eeed 50%); }
-.zch-trust { background: #16312d; color: #d1e0d9; }
+.zch-trust { background: #e8f2ec; color: var(--zch-muted); border-bottom: 1px solid var(--zch-line); }
 .zch .zch-trust__inner { width: min(1040px, calc(100% - 80px)); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 40px; padding-block: 28px; }
 .zch-trust p { font-size: 13px; line-height: 1.5; letter-spacing: .01em; }
 .zch-trust strong { color: #f5f8f3; font-size: 20px; font-weight: 500; letter-spacing: -.025em; line-height: 1.2; }
 .zch-trust__shipping { display: flex; gap: 14px; align-items: center; }
-.zch-trust__shipping > svg { width: 28px; height: 28px; color: #8be2cf; flex-shrink: 0; }
+.zch-trust__shipping > svg { width: 28px; height: 28px; color: #247769; flex-shrink: 0; }
 .zch-trust__shipping > span, .zch-trust__orders { display: flex; flex-direction: column; gap: 4px; }
 .zch-trust__orders { justify-self: end; }
 .zch-trust__rating { display: grid; grid-template-columns: auto auto; align-items: center; justify-content: center; gap: 5px 12px; }
@@ -62,7 +65,7 @@
 @media (min-width: 750px) {
   .zch .zch-trust__inner { padding-block: 16px; gap: 0; grid-template-columns: 1fr 1.2fr 1.2fr; }
   .zch-trust p { justify-self: stretch; justify-content: center; position: relative; }
-  .zch-trust p + p::before { content: ''; position: absolute; left: 0; top: 50%; width: 1px; height: 24px; background: #49645b; transform: translateY(-50%); }
+  .zch-trust p + p::before { content: ''; position: absolute; left: 0; top: 50%; width: 1px; height: 24px; background: #cbdcd2; transform: translateY(-50%); }
   .zch-trust strong, .zch-trust__rating strong { font-size: 17px; letter-spacing: -.015em; }
   .zch-trust__shipping > svg { width: 22px; height: 22px; }
   .zch-trust .zch-rating-stars { width: 70px; height: 14px; }
@@ -86,7 +89,7 @@
   .zch-trust__shipping > svg { display: none; }
   .zch-trust__orders { justify-self: stretch; justify-content: center; }
   .zch-trust__rating { align-content: center; }
-  .zch-trust p + p { border-left: 1px solid #49645b; padding-inline: 8px; }
+  .zch-trust p + p { border-left: 1px solid #cbdcd2; padding-inline: 8px; }
   .zch-trust strong { font-size: clamp(14px, 3.8vw, 17px); white-space: nowrap; }
   .zch-trust__rating strong { font-size: clamp(16px, 4vw, 18px); }
   .zch-trust .zch-rating-stars { width: 52px; height: 11px; }
@@ -109,7 +112,7 @@
 .zch-category-bar a { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 64px; font-size: 15px; font-weight: 600; }
 .zch-category-bar a:hover { background: #f3f9f6; }
 .zch-category-bar a + a { border-left: 1px solid var(--zch-line); }
-.zch-shop { padding-block: 32px 40px; }
+.zch-shop { padding-block: 44px 56px; }
 .zch-anchor, .zch-card, .zch-apparel, .zch-shop, .zch-merch-group { scroll-margin-top: 104px; }
 .zch-merch-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .zch-merch-group { min-width: 0; }
@@ -141,7 +144,7 @@
 .zch-card__signature--companions span { flex: 0 0 12px; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; background: var(--companion-color); box-shadow: 0 0 0 1px #b8b8b8; }
 /* The original square studio photo keeps its full set; beige fills the landscape surround. */
 .zch-products--collectibles .zch-card--3 .zch-card__media { background: linear-gradient(90deg, #f6eee3, #efe7dc); border-color: #f0e8dd; }
-.zch-apparel { padding-block: 40px; background: #f3f9f6; }
+.zch-apparel { padding-block: 56px; background: #f3f9f6; }
 .zch-apparel-categories { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--zch-line); }
 .zch-apparel-categories a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 10px 20px; border: 1px solid #a4bdb1; border-radius: 4px; font-size: 16px; font-weight: 600; }
 .zch-apparel-categories a:hover { background: #e0f2e9; }
@@ -184,7 +187,7 @@
   .zch-category-bar { width: 100%; }
   .zch-category-bar a { min-height: 56px; gap: 8px; font-size: 14px; }
   .zch-category-bar a span { display: none; }
-  .zch-shop, .zch-apparel { padding-block: 24px; }
+  .zch-shop, .zch-apparel { padding-block: 32px; }
   .zch-section-heading { margin-bottom: 16px; }
   .zch-section-note { display: none; }
   .zch-products { gap: 28px 16px; }
@@ -194,7 +197,8 @@
   .zch-apparel-categories a { padding-inline: 16px; }
   .zch-anchor, .zch-card, .zch-apparel, .zch-shop, .zch-merch-group { scroll-margin-top: 96px; }
 }
-/* Shared tracks align a pair's labels without reserving empty title lines. */
+/* Shared tracks align the four-card desktop row. Smaller cards keep their own natural rhythm. */
+@media (min-width: 1101px) {
 @supports (grid-template-rows: subgrid) {
   .zch .zch-products { row-gap: 4px; }
   .zch-card { display: grid; grid-row: span 5; grid-template-rows: subgrid; }
@@ -205,6 +209,7 @@
   @media (max-width: 1100px) {
     .zch-products--apparel .zch-card:nth-child(n+3) { margin-top: 20px; }
   }
+}
 }
 @media (max-width: 374px) {
   .zch-shell { width: calc(100% - 32px); }
@@ -246,7 +251,7 @@
 }
 
 /* Genuine customer photographs keep their full portrait composition. */
-.zch-customer { padding-block: 48px; border-bottom: 1px solid var(--zch-line); }
+.zch-customer { padding-block: 56px; border-bottom: 1px solid var(--zch-line); }
 .zch-customer__photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; max-width: 960px; margin-inline: auto; }
 .zch-customer__card { min-width: 0; display: block; }
 .zch-customer__card img { aspect-ratio: 3 / 4; height: auto; width: 100%; object-fit: cover; background: #f3f6f4; }
@@ -269,39 +274,39 @@
 .zch-merch-group h2 { font-size: clamp(28px, 2.4vw, 32px); }
 .zch-section-heading h2::after { content: ''; display: block; width: 42px; height: 4px; margin-top: 10px; border-radius: 50% 40%; background: #c5a4d9; }
 .zch-merch-group:nth-child(2) h2::after { background: #79c8b4; }
-.zch-hero__lede { font-family: 'Zenkai Companion', sans-serif; font-size: 18px; font-weight: 600; line-height: 1.5; color: #36554b; }
-.zch-button { font-family: 'Zenkai Companion', sans-serif; font-weight: 800; border-radius: 10px; border-color: #247b69; box-shadow: 0 3px 0 #247b69; }
+.zch-hero__lede { font-family: inherit; font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--zch-muted); }
+.zch-button { font-family: 'Zenkai Companion', sans-serif; font-weight: 700; border-radius: 10px; border-color: #247b69; box-shadow: 0 2px 0 #247b69; }
 .zch-button:hover { box-shadow: 0 2px 0 #247b69; }
-.zch-trust strong, .zch-trust__rating strong { font-family: 'Zenkai Companion', sans-serif; font-weight: 800; color: #fff3d8; letter-spacing: -.025em; }
+.zch-trust strong, .zch-trust__rating strong { font-family: inherit; font-weight: 650; color: var(--zch-forest); letter-spacing: -.015em; }
 .zch-trust p { font-weight: 500; }
 .zch-category-bar { border-bottom-color: #d6dcd1; }
-.zch-category-bar a { font-family: 'Zenkai Companion', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: -.025em; }
-.zch-category-bar a:nth-child(1) { color: #6c4795; background: #f5eef9; }
-.zch-category-bar a:nth-child(2) { color: #24685b; background: #edf7f1; }
-.zch-category-bar a:nth-child(3) { color: #80592f; background: #faf2e5; }
-.zch-category-bar a:hover { box-shadow: inset 0 -3px currentColor; }
+.zch-category-bar a { font-family: inherit; font-size: 15px; font-weight: 600; letter-spacing: 0; }
+.zch-category-bar a:nth-child(1) { color: #6c4795; background: var(--zch-paper); }
+.zch-category-bar a:nth-child(2) { color: var(--zch-forest); background: var(--zch-paper); }
+.zch-category-bar a:nth-child(3) { color: var(--zch-forest); background: var(--zch-paper); }
+.zch-category-bar a:hover { background: #eef5ee; box-shadow: inset 0 -2px currentColor; }
 .zch-card__media { border-radius: 12px; }
-.zch-products--collectibles h3 { font-family: 'Zenkai Companion', sans-serif; font-weight: 800; font-size: 21px; letter-spacing: -.035em; line-height: 1.22; }
+.zch-products--collectibles h3 { font-family: 'Zenkai Companion', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -.035em; line-height: 1.22; }
 .zch .zch-card__title--impostors { font-family: 'Zenkai Mischief', sans-serif; font-weight: 750; color: #6c4795; }
 .zch .zch-card__title--companions { color: #247769; }
-.zch-card--3 h3 { color: #80592f; }
-.zch-card--4 h3 { color: #365875; }
-.zch-card__set-note { font-weight: 700; }
-.zch-card__price { font-weight: 800; }
+.zch-card--3 h3 { color: var(--zch-forest); }
+.zch-card--4 h3 { color: var(--zch-forest); }
+.zch-card__set-note { font-weight: 500; }
+.zch-card__price { font-weight: 700; font-variant-numeric: tabular-nums; }
 .zch-apparel { background: #eef5ee; }
-.zch-products--apparel h3 { font-family: 'Zenkai Companion', sans-serif; font-weight: 800; font-size: 18px; line-height: 1.3; letter-spacing: -.025em; color: #294f43; }
-.zch-apparel-categories a { border-radius: 999px; font-weight: 800; background: #fffdf9; }
+.zch-products--apparel h3 { font-family: 'Zenkai Companion', sans-serif; font-weight: 700; font-size: 18px; line-height: 1.3; letter-spacing: -.025em; color: #294f43; }
+.zch-apparel-categories a { border-radius: 10px; font-weight: 600; background: #fffdf9; }
 .zch-rail-controls button { background: #fffdf9; border-color: #76998b; }
 .zch-customer__card img { border-radius: 12px; }
-.zch-customer__name { font-weight: 800; color: #36554b; }
-.zch-faq summary { font-weight: 700; }
+.zch-customer__name { font-weight: 650; color: #36554b; }
+.zch-faq summary { font-weight: 600; }
 .zch-faq summary > span { color: #6c4795; }
 @media (min-width: 750px) {
   .zch-trust strong, .zch-trust__rating strong { font-size: 19px; }
 }
 @media (min-width: 1100px) {
   .zch-trust strong, .zch-trust__rating strong { font-size: 18px; }
-  .zch-trust__shipping > span > span { font-size: 16px; font-weight: 700; color: #fff3d8; }
+  .zch-trust__shipping > span > span { font-size: 16px; font-weight: 600; color: var(--zch-forest); }
 }
 @media (max-width: 749px) {
   .zch h2, .zch-merch-group h2 { font-size: 28px; }
@@ -326,7 +331,7 @@
 .zch-apparel-categories { margin-top: 20px; padding-top: 20px; }
 .zch .zch-shipping-note { margin-top: 12px; }
 @media (min-width: 1101px) {
-  .zch-card__details { min-height: 42px; }
+  .zch-card__details { min-height: 44px; }
 }
 
 /* Nine letters: Eevee, Vaporeon, Jolteon, Flareon, Espeon, Umbreon, Leafeon, Glaceon, Sylveon. */
@@ -334,7 +339,7 @@
 .zch-card__title--marked > span { min-width: 0; }
 .zch-evolution-letters { font-weight: 800; letter-spacing: -.025em; white-space: nowrap; }
 .zch-evolution-letters > span > span { color: var(--evolution-letter); }
-.zch-title-mark { display: block; flex: 0 0 30px; width: 30px; height: 28px; overflow: visible; }
+.zch-title-mark { display: block; flex: 0 0 30px; width: 30px; height: 24px; overflow: visible; }
 .zch-title-mark--smile { color: #6c4795; }
 @media (max-width: 749px) {
   .zch .zch-card__title--marked { gap: 5px; }
@@ -354,6 +359,20 @@
 
 .zch-companions-name { display: block; }
 
-/* Extend outer category colors to the page edges, keeping labels on the content grid. */
-.zch-category-band { background: linear-gradient(90deg, #f5eef9 0 50%, #faf2e5 50% 100%); border-bottom: 1px solid #d6dcd1; }
+/* One continuous canvas keeps category navigation connected to the merchandise. */
+.zch-category-band { background: var(--zch-paper); border-bottom: 1px solid #d6dcd1; }
 .zch-category-band .zch-category-bar { border-bottom: 0; }
+
+/* A consistent pause between the image, identity, and buying details. */
+@media (max-width: 1100px) {
+  .zch-card__body { padding-top: 12px; }
+  .zch-card__details { padding-top: 8px; }
+  .zch-card__bottom { margin-top: 8px; }
+}
+@media (hover: hover) {
+  .zch-card__media { transition: border-color .18s ease; }
+  .zch-card__link:hover .zch-card__media { border-color: #76998b; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zch-card__media { transition: none; }
+}
