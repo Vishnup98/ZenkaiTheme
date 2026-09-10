@@ -6,7 +6,7 @@
           <input type="hidden" name="type" value="{{ settings.search_type }}">
           <input type="search" name="q"
             value="{{ search.terms | escape }}"
-            placeholder="Search plushes, pins, badges &amp; more"
+            placeholder="{% if request.page_type == 'index' %}Search apparel, plushes, pins &amp; more{% else %}Search plushes, pins, badges &amp; more{% endif %}"
             id="SearchModalInput"
             class="search-modal__input"
             aria-label="Search products">

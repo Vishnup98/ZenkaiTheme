@@ -45,15 +45,15 @@
       <ul class="zenkai-menu__list">
         {%- if collector_regular_navigation -%}
         <li class="zenkai-menu__item zenkai-menu__item--cta">
-          <a href="{{ routes.root_url }}#collector-sets" class="zenkai-menu__cta js-no-transition">Shop collector sets</a>
+          <a href="{{ routes.all_products_collection_url }}" class="zenkai-menu__cta js-no-transition">Explore the store</a>
         </li>
-        {% render 'collector-nav-links', collector_nav_group: 'all', collector_nav_item_class: 'zenkai-menu__item', collector_nav_link_class: 'zenkai-menu__link' %}
         <li class="zenkai-menu__item">
           <button type="button" class="zenkai-menu__link zenkai-menu__toggle js-zenkai-panel-open" data-panel="collector-apparel" aria-haspopup="true" aria-expanded="false">
-            <span>Apparel &amp; more</span>
+            <span>Shop apparel</span>
             <svg class="zenkai-menu__chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
           </button>
         </li>
+        {% render 'collector-nav-links', collector_nav_group: 'all', collector_nav_item_class: 'zenkai-menu__item', collector_nav_link_class: 'zenkai-menu__link' %}
         <li class="zenkai-menu__item"><a href="{{ routes.root_url }}" class="zenkai-menu__link">Home</a></li>
         {%- else -%}
         <li class="zenkai-menu__item zenkai-menu__item--cta">

@@ -6,13 +6,7 @@
   {%- assign og_title = seo_title -%}
 {%- endif -%}
 
-{%- if request.page_type == 'index' -%}
-  {%- assign collector_social_image = all_products['little-impostors-complete-9-plush-collector-set'].featured_image -%}
-  {%- if collector_social_image != blank -%}
-    {%- capture og_image_tags -%}<meta property="og:image" content="https:{{ collector_social_image | img_url: '1200x1200' }}">{%- endcapture -%}
-    {%- capture og_image_secure_url_tags -%}<meta property="og:image:secure_url" content="https:{{ collector_social_image | img_url: '1200x1200' }}">{%- endcapture -%}
-  {%- endif -%}
-{%- elsif settings.homepage_social_image != blank -%}
+{%- if settings.homepage_social_image != blank -%}
   {%- capture og_image_tags -%}
     <meta property="og:image" content="http:{{ settings.homepage_social_image | img_url: '1200x630' }}">
   {%- endcapture -%}
