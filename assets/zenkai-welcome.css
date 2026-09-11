@@ -1,3 +1,4 @@
+/* Mobile corner release: 2026-09-12. */
 @font-face{font-family:'Zenkai Mischief';src:url('little-impostors-display-latin.woff2') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
 @font-face{font-family:'Zenkai Welcome Sans';src:url('collector-home-dm-sans-latin-v1.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
 .zenkai-welcome{--zw-forest:#16312d;--zw-mint:#63d6bf;--zw-paper:#f5faf7;color:var(--zw-forest);background:#fff;padding:64px 32px;font-family:'Zenkai Welcome Sans',Arial,sans-serif;letter-spacing:0;line-height:1.6}

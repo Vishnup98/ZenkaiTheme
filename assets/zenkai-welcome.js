@@ -1,3 +1,4 @@
+// Mobile corner release: 2026-09-12.
 (() => {
   const storageKey = 'zenkai-welcome-subscribed-v1';
   function init(root) {
