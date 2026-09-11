@@ -55,7 +55,7 @@ html:has(.zenkai-welcome__dialog[open]){overflow:hidden}
 
 /* Mobile offer: a quiet folded corner with a generous square touch target. */
 @media(max-width:649px){
-  .zenkai-welcome__tab{top:auto;right:0;bottom:var(--zw-bottom-clearance,0px);width:78px;height:78px;min-width:78px;min-height:78px;padding:0;border:0;border-radius:0;writing-mode:horizontal-tb;background:transparent;box-shadow:none;font-size:0;isolation:isolate;-webkit-tap-highlight-color:transparent}
+  .zenkai-welcome__tab{top:auto;right:0;bottom:var(--zw-bottom-clearance,0px);width:78px;height:78px;min-width:78px;min-height:78px;padding:0;border:0;border-radius:0;writing-mode:horizontal-tb;background:transparent;box-shadow:none;font-size:0!important;isolation:isolate;-webkit-tap-highlight-color:transparent}
   .zenkai-welcome__tab::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,#bcecdf 0%,#63d6bf 75%);clip-path:polygon(100% 0,100% 100%,0 100%)}
   .zenkai-welcome__tab::after{content:'$5';position:absolute;right:10px;bottom:max(11px,env(safe-area-inset-bottom,0px));font:700 20px/1 'Zenkai Welcome Sans',Arial,sans-serif;letter-spacing:-.03em;color:#16312d}
   .zenkai-welcome__tab:hover{background:transparent}
