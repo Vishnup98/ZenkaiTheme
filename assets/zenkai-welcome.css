@@ -52,3 +52,13 @@
 .zenkai-welcome__close:hover{background:#e1f2e9}
 html:has(.zenkai-welcome__dialog[open]){overflow:hidden}
 @media(max-width:649px){.zenkai-welcome{padding:0}.zenkai-welcome__tab{min-width:34px;min-height:88px;font-size:12px;padding:13px 7px;top:44%}.zenkai-welcome__dialog{width:calc(100% - 24px);max-height:calc(100dvh - 32px);border-radius:12px}.zenkai-welcome__dialog .zenkai-welcome__art{height:130px}.zenkai-welcome__dialog .zenkai-welcome__content{padding:26px 24px 18px}.zenkai-welcome__dialog .zw-form-heading{font-size:32px!important}}
+
+/* Mobile offer: a quiet folded corner with a generous square touch target. */
+@media(max-width:649px){
+  .zenkai-welcome__tab{top:auto;right:0;bottom:var(--zw-bottom-clearance,0px);width:78px;height:78px;min-width:78px;min-height:78px;padding:0;border:0;border-radius:0;writing-mode:horizontal-tb;background:transparent;box-shadow:none;font-size:0;isolation:isolate;-webkit-tap-highlight-color:transparent}
+  .zenkai-welcome__tab::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,#bcecdf 0%,#63d6bf 75%);clip-path:polygon(100% 0,100% 100%,0 100%)}
+  .zenkai-welcome__tab::after{content:'$5';position:absolute;right:10px;bottom:max(11px,env(safe-area-inset-bottom,0px));font:700 20px/1 'Zenkai Welcome Sans',Arial,sans-serif;letter-spacing:-.03em;color:#16312d}
+  .zenkai-welcome__tab:hover{background:transparent}
+  .zenkai-welcome__tab:hover::before{background:#8be2cf}
+  .zenkai-welcome__tab:focus-visible{outline:3px solid #177461;outline-offset:-3px}
+}
