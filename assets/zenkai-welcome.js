@@ -15,32 +15,6 @@
     const opener = root.querySelector('[data-welcome-open]');
     if (!dialog || !opener || typeof dialog.showModal !== 'function') return;
     opener.hidden = false;
-    // Keep the mobile corner above visible purchase bars, without covering their CTA.
-    const mobile = window.matchMedia('(max-width:649px)');
-    const purchaseBars = [...document.querySelectorAll('.ec-sticky,.evo-pin-sticky,.gbj-sticky,.gb-use-sticky,.gb-c2-sticky,.gb-color-sticky,.gb-paid-landing__sticky,button.ec-cta,button[name=add]')];
-    let cornerFrame = 0;
-    function placeCorner() {
-      cornerFrame = 0;
-      let clearance = 0;
-      if (mobile.matches) purchaseBars.forEach(bar => {
-        const rect = bar.getBoundingClientRect();
-        const style = getComputedStyle(bar);
-        if ((style.position === 'fixed' || (bar.tagName === 'BUTTON' && rect.top > innerHeight - 160)) && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.height > 0 && rect.top < innerHeight && rect.bottom > innerHeight - 160 && rect.right > innerWidth - 78) clearance = Math.max(clearance, innerHeight - rect.top + 8);
-      });
-      const value = Math.ceil(clearance) + 'px';
-      if (opener.style.getPropertyValue('--zw-bottom-clearance') !== value) opener.style.setProperty('--zw-bottom-clearance', value);
-    }
-    function queueCorner() { if (!cornerFrame) cornerFrame = requestAnimationFrame(placeCorner); }
-    if (purchaseBars.length) {
-      const observer = new MutationObserver(queueCorner);
-      const sizeObserver = new ResizeObserver(queueCorner);
-      purchaseBars.forEach(bar => { observer.observe(bar, {attributes:true,attributeFilter:['class','style','hidden']}); sizeObserver.observe(bar); bar.addEventListener('transitionend',queueCorner); });
-      window.addEventListener('scroll',queueCorner,{passive:true});
-      window.addEventListener('resize',queueCorner,{passive:true});
-      mobile.addEventListener('change',queueCorner);
-      queueCorner();
-    }
-
     opener.addEventListener('click', () => {
       dialog.showModal();
       opener.setAttribute('aria-expanded', 'true');
