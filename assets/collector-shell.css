@@ -100,9 +100,18 @@ body.template-index { background: #fff; color: #102522; font-family: 'DM Sans', 
   .template-index .site-header .zenkai-header-menu__text { display: none; }
   .template-index .site-header .zenkai-mobile-cart { grid-column: 3; grid-row: 1; justify-self: end; }
   .template-index .site-header__logo img { max-height: 44px; width: auto; margin-inline: auto; }
-  .template-index .site-footer { padding-top: 36px; }
-  .template-index .site-footer__inner { grid-template-columns: 1fr; padding-inline: 20px; gap: 28px; }
-  .template-index .site-footer__utility { align-items: start; text-align: left; gap: 24px 16px; padding-top: 24px; border-top: 1px solid #38564f; }
+  /* Keep the home footer compact without compromising its mobile tap targets. */
+  .template-index .site-footer { padding-block: 28px calc(24px + env(safe-area-inset-bottom, 0px)); }
+  .template-index .site-footer__inner { grid-template-columns: 1fr; padding-inline: 20px; gap: 20px; }
+  .template-index .site-footer__tagline { margin-top: 12px; }
+  .template-index .site-footer__signals { gap: 7px; margin-top: 18px; padding-top: 16px; }
+  .template-index .site-footer__utility { align-items: start; text-align: left; gap: 18px 16px; padding-top: 18px; border-top: 1px solid #38564f; }
+  .template-index .site-footer__heading { margin-bottom: 6px; }
+  .template-index .site-footer__shop-links a,
+  .template-index .site-footer__linklist a { min-height: 40px; }
+  .template-index .site-footer__linklist a { padding-block: 4px; }
+  .template-index .site-footer__social a { min-width: 42px; min-height: 42px; }
+  .template-index .site-footer__copyright { padding-top: 16px; }
   .template-index .site-footer__linklist { justify-content: flex-start; }
 }
 
