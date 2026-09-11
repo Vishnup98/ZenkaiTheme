@@ -16,7 +16,7 @@
     opener.hidden = false;
     // Keep the mobile corner above visible purchase bars, without covering their CTA.
     const mobile = window.matchMedia('(max-width:649px)');
-    const purchaseBars = [...document.querySelectorAll('.ec-sticky,.evo-pin-sticky,.gbj-sticky,.gb-use-sticky,.gb-c2-sticky,.gb-color-sticky,.gb-paid-landing__sticky')];
+    const purchaseBars = [...document.querySelectorAll('.ec-sticky,.evo-pin-sticky,.gbj-sticky,.gb-use-sticky,.gb-c2-sticky,.gb-color-sticky,.gb-paid-landing__sticky,button.ec-cta,button[name=add]')];
     let cornerFrame = 0;
     function placeCorner() {
       cornerFrame = 0;
@@ -24,7 +24,7 @@
       if (mobile.matches) purchaseBars.forEach(bar => {
         const rect = bar.getBoundingClientRect();
         const style = getComputedStyle(bar);
-        if (style.position === 'fixed' && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.height > 0 && rect.top < innerHeight && rect.bottom > innerHeight - 160 && rect.right > innerWidth - 78) clearance = Math.max(clearance, innerHeight - rect.top + 8);
+        if ((style.position === 'fixed' || (bar.tagName === 'BUTTON' && rect.top > innerHeight - 160)) && style.visibility !== 'hidden' && Number(style.opacity) > 0 && rect.height > 0 && rect.top < innerHeight && rect.bottom > innerHeight - 160 && rect.right > innerWidth - 78) clearance = Math.max(clearance, innerHeight - rect.top + 8);
       });
       const value = Math.ceil(clearance) + 'px';
       if (opener.style.getPropertyValue('--zw-bottom-clearance') !== value) opener.style.setProperty('--zw-bottom-clearance', value);
