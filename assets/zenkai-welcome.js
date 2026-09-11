@@ -31,7 +31,7 @@
     });
     let busy = false;
     function showSuccess(focus) {
-      opener.textContent = 'Your $5 code';
+      opener.textContent = 'Get $5 Off';
       signup.hidden = true;
       success.hidden = false;
       if (focus) success.focus({preventScroll:true});
