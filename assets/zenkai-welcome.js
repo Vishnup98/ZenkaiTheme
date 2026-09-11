@@ -10,8 +10,28 @@
     const error = root.querySelector('[data-welcome-error]');
     const emailInput = form.elements.email;
     const submit = form.querySelector('[type="submit"]');
+    const dialog = root.querySelector('dialog');
+    const opener = root.querySelector('[data-welcome-open]');
+    if (!dialog || !opener || typeof dialog.showModal !== 'function') return;
+    opener.hidden = false;
+    opener.addEventListener('click', () => {
+      dialog.showModal();
+      opener.setAttribute('aria-expanded', 'true');
+      if (signup.hidden) success.focus({preventScroll:true});
+    });
+    root.querySelector('[data-welcome-close]').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => {
+      if (event.target !== dialog) return;
+      const box = dialog.getBoundingClientRect();
+      if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      opener.setAttribute('aria-expanded', 'false');
+      opener.focus({preventScroll:true});
+    });
     let busy = false;
     function showSuccess(focus) {
+      opener.textContent = 'Your $5 code';
       signup.hidden = true;
       success.hidden = false;
       if (focus) success.focus({preventScroll:true});
@@ -34,7 +54,7 @@
           method: 'POST',
           headers: {'Content-Type':'application/vnd.api+json', 'revision':'2026-07-15'},
           signal: controller.signal,
-          body: JSON.stringify({data:{type:'subscription',attributes:{custom_source:'Zenkai branded footer welcome',profile:{data:{type:'profile',attributes:{email,properties:{zenkai_signup_source:'inline_welcome'},subscriptions:{email:{marketing:{consent:'SUBSCRIBED'}}}}}}},relationships:{list:{data:{type:'list',id:'V6PYfE'}}}}})
+          body: JSON.stringify({data:{type:'subscription',attributes:{custom_source:'Zenkai side-tab welcome',profile:{data:{type:'profile',attributes:{email,properties:{zenkai_signup_source:'side_tab_welcome'},subscriptions:{email:{marketing:{consent:'SUBSCRIBED'}}}}}}},relationships:{list:{data:{type:'list',id:'V6PYfE'}}}}})
         });
         if (!response.ok) throw new Error(response.status === 429 ? 'rate_limit' : 'signup_failed');
         // Identify this consenting subscriber for subsequent onsite recovery events.

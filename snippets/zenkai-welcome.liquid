@@ -1,6 +1,9 @@
   {%- unless request.page_type == 'cart' or request.page_type contains 'customers' or customer.accepts_marketing -%}
     {{ 'zenkai-welcome.css' | asset_url | stylesheet_tag }}
     <section class="zenkai-welcome" aria-label="Join the Zenkai email list" data-zenkai-welcome>
+      <button class="zenkai-welcome__tab" type="button" data-welcome-open aria-haspopup="dialog" aria-controls="zenkai-welcome-dialog" aria-expanded="false" hidden>Get $5</button>
+      <dialog id="zenkai-welcome-dialog" class="zenkai-welcome__dialog" aria-label="Your Zenkai welcome offer">
+      <button class="zenkai-welcome__close" type="button" data-welcome-close aria-label="Close welcome offer">×</button>
       <div class="zenkai-welcome__card">
         <div class="zenkai-welcome__art" aria-hidden="true">
           <img src="{{ 'collector-home-sky-v2-640.webp' | asset_url }}" width="640" height="427" loading="lazy" alt="">
@@ -34,6 +37,7 @@
           </details>
         </div>
       </div>
+      </dialog>
     </section>
     <script src="{{ 'zenkai-welcome.js' | asset_url }}" defer></script>
   {%- endunless -%}
