@@ -1,55 +1,65 @@
 (() => {
+  const storageKey = 'zenkai-welcome-subscribed-v1';
   function init(root) {
     if (root.dataset.ready) return;
-    const embed = root.querySelector('[data-zenkai-welcome-embed]');
-    const loading = root.querySelector('.zenkai-welcome__loading');
-    const fallback = root.querySelector('.zenkai-welcome__fallback');
-    if (!embed || !loading || !fallback) return;
+    const form = root.querySelector('[data-welcome-form]');
+    if (!form) return;
     root.dataset.ready = 'true';
-    let timer;
-    let started = false;
-    let viewportObserver;
-    function rendered() {
-      if (!embed.querySelector('input[type="email"], form, [role="form"]')) return false;
-      loading.hidden = true;
-      fallback.hidden = true;
-      clearTimeout(timer);
-      root.dataset.formLoaded = 'true';
-      return true;
+    const signup = root.querySelector('[data-welcome-signup]');
+    const success = root.querySelector('[data-welcome-success]');
+    const error = root.querySelector('[data-welcome-error]');
+    const emailInput = form.elements.email;
+    const submit = form.querySelector('[type="submit"]');
+    let busy = false;
+    function showSuccess(focus) {
+      signup.hidden = true;
+      success.hidden = false;
+      if (focus) success.focus({preventScroll:true});
     }
-    // Judge a lazy-loaded form only once the footer approaches the viewport.
-    function start() {
-      if (started) return;
-      started = true;
-      if (rendered()) return;
-      loading.hidden = false;
-      timer = setTimeout(() => {
-        if (!rendered()) { loading.hidden = true; fallback.hidden = false; }
-      }, 15000);
-    }
-    const observer = new MutationObserver(rendered);
-    observer.observe(embed, {childList: true, subtree: true});
-    if ('IntersectionObserver' in window) {
-      viewportObserver = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          start();
-          viewportObserver.disconnect();
-        }
-      }, {rootMargin: '200px'});
-      viewportObserver.observe(root);
-    } else start();
-    rendered();
-    const cleanup = (event) => {
-      if (!event.target.contains(root)) return;
-      observer.disconnect();
-      if (viewportObserver) viewportObserver.disconnect();
-      clearTimeout(timer);
-      document.removeEventListener('shopify:section:unload', cleanup);
-    };
-    document.addEventListener('shopify:section:unload', cleanup);
+    emailInput.disabled = false;
+    submit.disabled = false;
+    try { if (localStorage.getItem(storageKey)) showSuccess(false); } catch (_) {}
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (busy || !form.reportValidity()) return;
+      busy = true;
+      submit.disabled = true;
+      submit.textContent = 'Joining…';
+      error.hidden = true;
+      const email = emailInput.value.trim();
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 15000);
+      try {
+        const response = await fetch('https://a.klaviyo.com/client/subscriptions?company_id=TZMEdC', {
+          method: 'POST',
+          headers: {'Content-Type':'application/vnd.api+json', 'revision':'2026-07-15'},
+          signal: controller.signal,
+          body: JSON.stringify({data:{type:'subscription',attributes:{custom_source:'Zenkai branded footer welcome',profile:{data:{type:'profile',attributes:{email,properties:{zenkai_signup_source:'inline_welcome'},subscriptions:{email:{marketing:{consent:'SUBSCRIBED'}}}}}}},relationships:{list:{data:{type:'list',id:'V6PYfE'}}}}})
+        });
+        if (!response.ok) throw new Error(response.status === 429 ? 'rate_limit' : 'signup_failed');
+        // Identify this consenting subscriber for subsequent onsite recovery events.
+        window._learnq = window._learnq || [];
+        window._learnq.push(['identify', {'$email':email}]);
+        try { localStorage.setItem(storageKey, String(Date.now())); } catch (_) {}
+        showSuccess(true);
+      } catch (reason) {
+        error.textContent = reason.message === 'rate_limit'
+          ? 'Please wait a moment, then try again.'
+          : 'We couldn’t confirm your signup. Please try again. If you already received the welcome email, you’re all set.';
+        error.hidden = false;
+      } finally {
+        clearTimeout(timer);
+        busy = false;
+        submit.disabled = false;
+        submit.textContent = 'Get my $5 →';
+      }
+    });
+    root.querySelector('[data-welcome-copy]').addEventListener('click', async () => {
+      const status = root.querySelector('[data-welcome-copy-status]');
+      try { await navigator.clipboard.writeText('WELCOME5'); status.textContent = 'Code copied.'; }
+      catch (_) { status.textContent = 'Select WELCOME5 above to copy it.'; }
+    });
   }
   document.querySelectorAll('[data-zenkai-welcome]').forEach(init);
-  document.addEventListener('shopify:section:load', (event) => {
-    event.target.querySelectorAll('[data-zenkai-welcome]').forEach(init);
-  });
+  document.addEventListener('shopify:section:load', event => event.target.querySelectorAll('[data-zenkai-welcome]').forEach(init));
 })();
