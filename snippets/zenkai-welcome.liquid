@@ -1,0 +1,29 @@
+{%- comment -%}
+  Set this ID only after the matching form-v2-request.json has been published
+  and its consent, list destination, and success step have been verified.
+{%- endcomment -%}
+{%- assign zenkai_welcome_form_id = 'XcWSYS' -%}
+{%- if zenkai_welcome_form_id != blank -%}
+  {%- unless request.page_type == 'cart' or request.page_type contains 'customers' or customer.accepts_marketing -%}
+    {{ 'zenkai-welcome.css' | asset_url | stylesheet_tag }}
+    <section class="zenkai-welcome" aria-label="Join the Zenkai email list" data-zenkai-welcome>
+      <div class="zenkai-welcome__card">
+        <div class="zenkai-welcome__art" aria-hidden="true">
+          <img src="{{ 'collector-home-sky-v2-640.webp' | asset_url }}" width="640" height="427" loading="lazy" alt="">
+          <span class="zenkai-welcome__art-label">Small finds. Big personality.</span>
+        </div>
+        <div class="zenkai-welcome__content">
+          <div class="zenkai-welcome__embed klaviyo-form-{{ zenkai_welcome_form_id }}" data-zenkai-welcome-embed></div>
+          <p class="zenkai-welcome__loading" role="status" hidden>Loading your signup form…</p>
+          <p class="zenkai-welcome__fallback" role="status" hidden>The signup form couldn’t load. Please refresh and try again, or <a href="mailto:admin@zenkaiclothing.com">contact us</a> for help.</p>
+          <noscript><p class="zenkai-welcome__fallback">Please enable JavaScript to sign up for Zenkai emails.</p></noscript>
+          <details class="zenkai-welcome__terms">
+            <summary>Offer details</summary>
+            <p>$5 USD off your first order with $40 USD or more in merchandise, before shipping and taxes. One use per customer. Cannot combine with other product or order discounts. Eligible shipping offers still apply.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+    <script src="{{ 'zenkai-welcome.js' | asset_url }}" defer></script>
+  {%- endunless -%}
+{%- endif -%}

@@ -1,0 +1,29 @@
+@font-face{font-family:'Zenkai Mischief';src:url('little-impostors-display-latin.woff2') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
+@font-face{font-family:'Zenkai Welcome Sans';src:url('collector-home-dm-sans-latin-v1.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
+.zenkai-welcome{--zw-forest:#16312d;--zw-mint:#63d6bf;--zw-paper:#f5faf7;color:var(--zw-forest);background:#fff;padding:64px 32px;font-family:'Zenkai Welcome Sans',Arial,sans-serif;letter-spacing:0;line-height:1.6}
+.zenkai-welcome *,.zenkai-welcome *::before,.zenkai-welcome *::after{box-sizing:border-box}
+.zenkai-welcome__card{max-width:1120px;margin-inline:auto;display:grid;grid-template-columns:42% 58%;overflow:hidden;border:1px solid #d6e3dc;border-radius:16px;background:var(--zw-paper)}
+.zenkai-welcome__art{position:relative;min-height:480px;overflow:hidden;background:#d5eeed}
+.zenkai-welcome__art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:47% 50%;display:block}
+.zenkai-welcome__art-label{position:absolute;bottom:22px;left:22px;right:22px;padding:10px 16px;width:fit-content;max-width:calc(100% - 44px);border:1px solid rgba(22,49,45,.14);border-radius:40px;background:#f5faf7;color:var(--zw-forest);font-size:12px;line-height:1.5;font-weight:600}
+.zenkai-welcome__content{min-width:0;padding:42px 44px 28px;align-self:center}
+.zenkai-welcome__embed{min-height:348px}
+.zenkai-welcome .zw-form-eyebrow{font-family:'Zenkai Welcome Sans',Arial,sans-serif!important;font-size:11px!important;line-height:1.5!important;font-weight:700!important;letter-spacing:.14em!important;text-transform:uppercase!important;margin:0 0 15px!important;color:#426158!important}
+.zenkai-welcome .zw-form-heading{font-family:'Zenkai Mischief','Zenkai Welcome Sans',Arial,sans-serif!important;font-size:clamp(32px,3.3vw,44px)!important;line-height:1.1!important;letter-spacing:-.025em!important;font-weight:600!important;text-transform:none!important;margin:0!important;color:var(--zw-forest)!important}
+.zenkai-welcome .zw-form-description{font-family:'Zenkai Welcome Sans',Arial,sans-serif!important;font-size:15px!important;line-height:1.65!important;margin:0!important;color:#4e5d57!important}
+.zenkai-welcome .zw-form-description strong{color:var(--zw-forest);font-weight:600}
+.zenkai-welcome .zw-form-consent{font-family:'Zenkai Welcome Sans',Arial,sans-serif!important;font-size:11px!important;line-height:1.6!important;margin:0!important;color:#586960!important}
+.zenkai-welcome .zw-form-consent a{color:inherit!important;text-decoration:underline!important;text-underline-offset:2px}
+.zenkai-welcome__terms{border-top:1px solid #d6e3dc;margin-top:18px;padding-top:12px;color:#586960;font-size:11px;line-height:1.6}
+.zenkai-welcome__terms summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:36px;cursor:pointer;list-style:none;color:var(--zw-forest);font-size:12px;font-weight:500}
+.zenkai-welcome__terms summary::-webkit-details-marker{display:none}
+.zenkai-welcome__terms summary::after{content:'+';font-size:20px;font-weight:400;line-height:1}
+.zenkai-welcome__terms[open] summary::after{content:'−'}
+.zenkai-welcome__terms p{font-size:inherit;line-height:inherit;margin:4px 0 8px;color:inherit}
+.zenkai-welcome__loading,.zenkai-welcome__fallback{font-size:14px;line-height:1.6;margin:12px 0;color:var(--zw-forest)}
+.zenkai-welcome__fallback a{color:inherit;text-decoration:underline}
+.zenkai-welcome [hidden]{display:none!important}
+.zenkai-welcome a:focus-visible,.zenkai-welcome summary:focus-visible{outline:3px solid #177461;outline-offset:4px}
+@media(max-width:949px){.zenkai-welcome{padding:48px 24px}.zenkai-welcome__card{grid-template-columns:38% 62%}.zenkai-welcome__content{padding:32px 28px 22px}}
+@media(max-width:649px){.zenkai-welcome{padding:36px 16px}.zenkai-welcome__card{grid-template-columns:1fr;border-radius:12px}.zenkai-welcome__art{min-height:0;height:170px}.zenkai-welcome__art img{object-position:50% 45%}.zenkai-welcome__art-label{bottom:14px;left:16px;right:auto;font-size:10px;padding:6px 12px}.zenkai-welcome__content{padding:28px 24px 18px}.zenkai-welcome .zw-form-heading{font-size:36px!important}.zenkai-welcome .zw-form-description{font-size:14px!important}.zenkai-welcome__embed{min-height:360px}}
+@media(max-width:359px){.zenkai-welcome__content{padding-inline:18px}.zenkai-welcome .zw-form-heading{font-size:32px!important}}
