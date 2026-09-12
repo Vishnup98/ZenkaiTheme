@@ -106,22 +106,23 @@
 .fg-rainbow-word::after { content: ""; position: absolute; left: -1%; right: -3%; bottom: -.07em; height: .13em; border-radius: 999px; background: linear-gradient(90deg, var(--fg-pink) 0 15%, var(--fg-orange) 15% 29%, var(--fg-yellow) 29% 43%, var(--fg-leaf) 43% 57%, var(--fg-sky) 57% 71%, var(--fg-blue) 71% 85%, var(--fg-lilac) 85%); transform: rotate(-1.5deg); }
 .fg-lede { max-width: 42ch; margin-top: 22px !important; font-size: 17px; line-height: 1.6; }
 
-.evo-purchase-proof--hero { display: flex; align-items: center; gap: 24px; margin: 22px 0 19px; color: var(--fg-ink); }
+.evo-purchase-proof--hero { display: flex; align-items: center; gap: 24px; margin: 22px 0 22px; padding: 12px 15px; border: 1.5px solid var(--fg-ink); border-radius: 18px 18px 8px 18px; background: #fffdf9; color: var(--fg-ink); box-shadow: 3px 3px 0 #ddd1f1; }
 .evo-proof-rating { display: flex; align-items: center; gap: 10px; }
 .evo-proof-stars { color: #9b731c; font-size: 20px; letter-spacing: .03em; line-height: 1; }
 .evo-proof-rating > span:last-child, .evo-proof-orders { display: flex; flex-direction: column; gap: 1px; }
-.evo-proof-rating strong, .evo-proof-orders strong { font-size: 19px; line-height: 1.1; }
+.evo-proof-rating strong, .evo-proof-orders strong { font-family: "Rainbow Display", sans-serif; font-size: 20px; font-weight: 760; letter-spacing: -.025em; line-height: 1.1; }
 .evo-proof-rating small, .evo-proof-orders small { color: var(--fg-muted); font-size: 11px; line-height: 1.3; }
 .evo-proof-orders { padding-left: 24px; border-left: 1px solid var(--fg-rule); }
-.evo-proof-orders strong { font-size: 23px; }
+.evo-proof-orders strong { font-size: 24px; }
 
-.fg-offer { padding-top: 18px; border-top: 1px solid var(--fg-rule); }
+.fg-offer { padding-top: 0; border-top: 0; }
 .fg-price { display: flex; align-items: center; gap: 17px; }
 .fg-price > strong { font-family: "Rainbow Display", sans-serif; font-size: 46px; letter-spacing: -.04em; line-height: 1; }
-.fg-price > span { display: flex; flex-direction: column; color: var(--fg-ink); font-size: 15px; font-weight: 800; }
-.fg-price small { margin-top: 2px; color: var(--fg-muted); font-size: 12px; font-weight: 500; }
+.fg-price > span { display: flex; flex-direction: column; color: var(--fg-ink); font-family: "Rainbow Display", sans-serif; font-size: 18px; font-weight: 740; letter-spacing: -.018em; }
+.fg-price small { margin-top: 2px; color: var(--fg-muted); font-family: "Rainbow Sans", Arial, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0; }
 .fg-product-form { margin-top: 17px; }
-.fg-cta { width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 17px 14px 22px; border: 2px solid var(--fg-ink); border-radius: 999px; background: var(--fg-mint); color: var(--fg-ink); box-shadow: 0 5px 0 var(--fg-mint-deep); font-size: 17px; font-weight: 800; letter-spacing: -.01em; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.fg-cta { width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 17px 14px 22px; border: 2px solid var(--fg-ink); border-radius: 999px; background: var(--fg-mint); color: var(--fg-ink); box-shadow: 0 5px 0 var(--fg-mint-deep); font-family: "Rainbow Display", "Rainbow Sans", sans-serif; font-size: 19px; font-weight: 730; letter-spacing: -.02em; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.fg-cta-price { font-family: "Rainbow Sans", Arial, sans-serif; font-size: 14px; font-weight: 800; letter-spacing: 0; }
 .fg-cta-arrow { display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border-radius: 50%; background: var(--fg-ink); color: #fffaf2; font-size: 18px; font-weight: 500; transition: transform .15s ease; }
 .fg-cta:hover:not(:disabled) { background: var(--fg-mint-bright); transform: translateY(-1px); box-shadow: 0 6px 0 var(--fg-mint-deep); }
 .fg-cta:hover:not(:disabled) .fg-cta-arrow { transform: translateX(2px); }
@@ -135,7 +136,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .shopify-payment-button__more-options { margin-top: 8px !important; color: var(--fg-muted) !important; font-size: 12px !important; }
 
 .fg-paw-promise { border-block: 1px solid var(--fg-rule); background: #fffdf9; }
-.fg-paw-promise .fg-shell { display: grid; grid-template-columns: repeat(3, 1fr); padding-block: 17px; }
+.fg-paw-promise .fg-shell { display: grid; grid-template-columns: repeat(4, 1fr); padding-block: 17px; }
 .fg-paw-promise .fg-shell > div { display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 0; padding-inline: 20px; }
 .fg-paw-promise .fg-shell > div + div { border-left: 1px solid var(--fg-rule); }
 .fg-paw-promise p { display: flex; flex-direction: column; line-height: 1.25; }
@@ -144,6 +145,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-mini-paw, .fg-review-paw { width: 38px; height: 38px; display: grid; flex: 0 0 38px; place-items: center; border: 1.5px solid var(--fg-ink); border-radius: 50%; color: var(--fg-ink); }
 .fg-paw-icon { width: 20px; height: 19px; }
 .fg-paw--pink { background: var(--fg-pink); }
+.fg-paw--mint { background: var(--fg-mint); }
 .fg-paw--yellow { background: var(--fg-yellow); }
 .fg-paw--blue { background: var(--fg-sky); }
 
@@ -211,11 +213,8 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-closeup figure button, .fg-closeup figure img { border-radius: 10px 38px 10px 38px; }
 .fg-closeup h2 { max-width: 12ch; }
 .fg-closeup-grid > div > p:not(.fg-eyebrow) { max-width: 39ch; margin-top: 22px; font-size: 17px; line-height: 1.65; }
-.fg-face-doodle { position: relative; width: 114px; height: 55px; margin-top: 22px; color: #765abc; }
-.fg-face-doodle span { position: absolute; top: 3px; width: 8px; height: 13px; border-radius: 50%; background: currentColor; }
-.fg-face-doodle span:first-child { left: 24px; transform: rotate(-9deg); }
-.fg-face-doodle span:nth-child(2) { right: 24px; transform: rotate(9deg); }
-.fg-face-doodle svg { position: absolute; width: 90px; left: 12px; bottom: 0; }
+.fg-face-doodle { width: 140px; height: 72px; margin-top: 22px; color: #765abc; }
+.fg-face-doodle svg { display: block; width: 100%; height: 100%; }
 
 .fg-scale { display: grid; grid-template-columns: .86fr 1.14fr; gap: 56px; align-items: center; padding-block: 80px; }
 .fg-scale-copy > p:not(.fg-eyebrow) { max-width: 43ch; margin-top: 22px; font-size: 17px; line-height: 1.65; }
@@ -333,6 +332,8 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-all-eight-stamp span { font-size: 9px; }
   .fg-stamp-paw { display: none; }
   .fg-hero-paw-trail { left: 26px; bottom: -34px; }
+  .fg-paw-promise .fg-shell > div { padding-inline: 12px; }
+  .fg-paw-promise strong { font-size: 13px; }
   .fg-mood-card button { height: 215px; }
   .fg-mood-grid { gap: 14px; }
   .fg-mood-card footer strong { font-size: 18px; }
@@ -349,8 +350,9 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-hero-copy { width: min(100%, 620px); margin-inline: auto; }
   .fg-identity { font-size: 22px; }
   .fg-lede { margin-top: 17px !important; }
-  .fg-paw-promise .fg-shell { padding-inline: 0; }
-  .fg-paw-promise .fg-shell > div { padding-inline: 14px; }
+  .fg-paw-promise .fg-shell { display: flex; overflow-x: auto; justify-content: flex-start; padding: 12px 15px; scrollbar-width: none; scroll-snap-type: x proximity; }
+  .fg-paw-promise .fg-shell > div { min-width: 210px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
+  .fg-paw-promise .fg-shell > div + div { border-left: 0; }
   .fg-section-heading, .fg-section-heading--community { display: block; }
   .fg-section-heading > p:last-child { margin-top: 16px; padding: 0; }
   .fg-moods { padding-bottom: 50px; }
@@ -401,19 +403,18 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-trail-paw--three { width: 14px; height: 13px; }
   .fg-identity-paw { width: .76em; height: .7em; }
   .fg-lede { font-size: 16px; line-height: 1.55; }
-  .evo-purchase-proof--hero { gap: 15px; margin-block: 18px 17px; }
-  .evo-proof-stars { font-size: 17px; }
+  .evo-purchase-proof--hero { gap: 12px; margin-block: 18px 20px; padding: 10px; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
+  .evo-proof-rating { gap: 7px; }
+  .evo-proof-stars { font-size: 16px; }
   .evo-proof-rating strong { font-size: 17px; }
-  .evo-proof-orders { padding-left: 15px; }
+  .evo-proof-orders { padding-left: 12px; }
   .evo-proof-orders strong { font-size: 20px; }
   .fg-price > strong { font-size: 39px; }
   .fg-price > span { font-size: 14px; }
   .fg-price small { font-size: 11px; }
-  .fg-cta { min-height: 56px; padding-inline: 17px; font-size: 15px; }
+  .fg-cta { min-height: 56px; padding-inline: 17px; font-size: 17px; }
   .fg-cta-price { display: none; }
-  .fg-paw-promise .fg-shell { display: flex; overflow-x: auto; justify-content: flex-start; padding: 12px 15px; scrollbar-width: none; scroll-snap-type: x proximity; }
   .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
-  .fg-paw-promise .fg-shell > div + div { border-left: 0; }
   .fg-mini-paw { width: 34px; height: 34px; flex-basis: 34px; }
   .fg-rainbow-rule { height: 8px; }
   .fg-bg-paw--moods { top: 24px; right: -49px; width: 142px; height: 130px; }
@@ -431,6 +432,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-personality { padding-block: 52px; }
   .fg-hand-note { display: block; font-size: 16px; }
   .fg-hand-note svg { display: block; margin-bottom: -5px; }
+  .fg-face-doodle { width: 132px; height: 68px; }
   .fg-lineup-photo { padding: 10px; border-radius: 36% 36% 14px 14px / 24% 24% 14px 14px; box-shadow: 6px 6px 0 var(--fg-yellow); }
   .fg-lineup-photo button { border-radius: 36% 36% 7px 7px / 23% 23% 7px 7px; }
   .fg-closeup-grid > div > p:not(.fg-eyebrow), .fg-scale-copy > p:not(.fg-eyebrow), .fg-personality-copy > p:not(.fg-eyebrow) { font-size: 16px; }
