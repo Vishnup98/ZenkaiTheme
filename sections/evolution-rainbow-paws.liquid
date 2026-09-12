@@ -14,10 +14,11 @@
         <img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(min-width: 900px) 52vw, 100vw" width="1024" height="687" alt="All eight colorful Evolution Companions plushes together" loading="eager" fetchpriority="high">
       </button>
       <span class="fg-all-eight-stamp"><strong>8</strong><span>little paws,<br>one happy set.</span>{% render 'evolution-paw-mark', class: 'fg-stamp-paw' %}</span>
+      <span class="fg-hero-paw-trail" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-trail-paw fg-trail-paw--one' %}{% render 'evolution-paw-mark', class: 'fg-trail-paw fg-trail-paw--two' %}{% render 'evolution-paw-mark', class: 'fg-trail-paw fg-trail-paw--three' %}</span>
     </figure>
 
     <div class="fg-hero-copy">
-      <p class="fg-identity"><span aria-label="Evolution" class="fg-rainbow-letters"><i>E</i><i>V</i><i>O</i><i>L</i><i>U</i><i>T</i><i>I</i><i>O</i><i>N</i></span> <span>Companions</span></p>
+      <p class="fg-identity"><span aria-label="Evolution" class="fg-rainbow-letters"><i>E</i><i>V</i><i>O</i><i>L</i><i>U</i><i>T</i><i>I</i><i>O</i><i>N</i></span> <span>Companions</span>{% render 'evolution-paw-mark', class: 'fg-identity-paw' %}</p>
       <h1 id="fg-title-{{ section.id }}">{{ section.settings.hero_prefix | escape }} <span class="fg-rainbow-word">{{ section.settings.hero_accent | escape }}</span><br>{{ section.settings.hero_suffix | escape }}</h1>
       <p class="fg-lede">{{ section.settings.hero_body | escape }}</p>
 
@@ -33,7 +34,7 @@
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="return_to" value="/checkout">
           <input type="hidden" name="properties[_zk_landing_view]" value="evo-rainbow-paws">
-          <button class="ec-cta fg-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Make all 8 mine</span><span>{{ v.price | money }}</span>{% else %}Sold out{% endif %}</button>
+          <button class="ec-cta fg-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span>{{ v.price | money }}</span>{% else %}Sold out{% endif %}</button>
           <p class="fg-shipping"><strong>Free U.S. shipping</strong><span>{{ section.settings.shipping_summary | escape }}</span></p>
           {{ form | payment_button }}
         {%- endform -%}
@@ -43,19 +44,20 @@
 
   <section class="fg-paw-promise" aria-label="Complete set highlights">
     <div class="fg-shell">
-      <div><span class="fg-mini-paw fg-paw--pink">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>All 8 included</strong><small>One of every design</small></p></div>
-      <div><span class="fg-mini-paw fg-paw--yellow">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>{{ per_plush | money_without_trailing_zeros }} each</strong><small>Inside the complete set</small></p></div>
-      <div><span class="fg-mini-paw fg-paw--blue">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>About 8 inches</strong><small>Each little companion</small></p></div>
+      <div><span class="fg-mini-paw fg-paw--pink">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>All 8 included</strong><small>One of every color</small></p></div>
+      <div><span class="fg-mini-paw fg-paw--yellow">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>{{ per_plush | money_without_trailing_zeros }} per plush</strong><small>Only in the complete set</small></p></div>
+      <div><span class="fg-mini-paw fg-paw--blue">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>About 8 inches</strong><small>Made to stay close</small></p></div>
     </div>
   </section>
 
   <section class="fg-moods" aria-labelledby="fg-moods-title-{{ section.id }}">
+    {% render 'evolution-paw-mark', class: 'fg-bg-paw fg-bg-paw--moods' %}
     <div class="fg-rainbow-rule" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="fg-shell">
       <header class="fg-section-heading">
         <p class="fg-eyebrow">The whole colorful crew {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p>
         <h2 id="fg-moods-title-{{ section.id }}">Which one are<br><span>you today?</span></h2>
-        <p>Meet all eight moods. Good thing your set comes with every single one.</p>
+        <p>Bright, cozy, sleepy, dramatic—meet all eight moods. Your set comes with every single one.</p>
       </header>
       <div class="fg-mood-grid" role="list" aria-label="The eight included plush companions">
         {% for name in portrait_names %}
@@ -72,7 +74,7 @@
           </article>
         {% endfor %}
       </div>
-      <p class="fg-moods-note">Eight separate plushes. No color picker. No favorite left behind.</p>
+      <p class="fg-moods-note"><span>8 separate plushes</span><i aria-hidden="true"></i><span>1 complete rainbow</span><i aria-hidden="true"></i><span>No choosing required</span></p>
     </div>
   </section>
 
@@ -80,8 +82,8 @@
     <div class="fg-personality-copy">
       <p class="fg-eyebrow">Different day. Different favorite.</p>
       <h2 id="fg-personality-title-{{ section.id }}">A whole rainbow<br>of little personalities.</h2>
-      <p>Feeling bright? Cozy? A tiny bit dramatic? There’s a companion for that. Keep the whole crew together, or let them wander off to their favorite corners.</p>
-      <span class="fg-hand-note"><svg viewBox="0 0 88 48" fill="none" aria-hidden="true"><path d="M5 9c18 30 44 31 70 9M61 13l16 3-6 15" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>They’re very good at making themselves at home.</span>
+      <p>Bright, cozy, dramatic, sleepy—there’s a mood in the crew for all of it. Keep all eight together, or let each one claim a favorite corner.</p>
+      <span class="fg-hand-note"><svg viewBox="0 0 88 48" fill="none" aria-hidden="true"><path d="M5 9c18 30 44 31 70 9M61 13l16 3-6 15" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Fair warning: they settle in fast.</span>
     </div>
     <figure class="fg-lineup-photo"><button type="button" data-ec-zoom="{{ 'evo-campaign-customer-01.webp' | asset_url }}" aria-label="Enlarge the complete companion lineup"><img src="{{ 'evo-campaign-customer-01.webp' | asset_url }}" width="960" height="285" loading="lazy" alt="All eight plush companions lined up together"></button></figure>
   </section>
@@ -94,16 +96,16 @@
   </section>
 
   <section class="fg-scale fg-shell" aria-labelledby="fg-scale-title-{{ section.id }}">
-    <div class="fg-scale-copy"><p class="fg-eyebrow">Little enough to keep close</p><h2 id="fg-scale-title-{{ section.id }}">Made for desks, shelves<br>and side-of-the-bed duty.</h2><p>Here they are held in one hand, so you can get a real feel for their size before the whole crew arrives.</p><dl><div><dt>Height</dt><dd>about 8 in</dd></div><div><dt>Each plush</dt><dd>approx. 8 × 7 × 6 in</dd></div></dl></div>
+    <div class="fg-scale-copy"><p class="fg-eyebrow">Small crew. Big presence.</p><h2 id="fg-scale-title-{{ section.id }}">Made for desks, shelves<br>and bedside duty.</h2><p>At about eight inches each, they’re easy to keep close—and colorful enough to make the whole shelf feel happier.</p><dl><div><dt>Height</dt><dd>about 8 in</dd></div><div><dt>Each plush</dt><dd>approx. 8 × 7 × 6 in</dd></div></dl></div>
     <div class="fg-scale-photos" aria-label="Customer photos showing two plushes held in a hand">
-      <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" aria-label="Enlarge the lavender plush held in one hand"><img src="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-purple-720.webp' | asset_url }} 720w" sizes="(min-width: 900px) 250px, 47vw" width="720" height="960" loading="lazy" alt="Customer holding the lavender hood plush for scale"></button><figcaption>Pocket-sized daydream</figcaption></figure>
-      <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-pink-720.webp' | asset_url }}" aria-label="Enlarge the pink ribbon plush held in one hand"><img src="{{ 'evo-campaign-handheld-pink-360.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-pink-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-pink-720.webp' | asset_url }} 720w" sizes="(min-width: 900px) 250px, 47vw" width="720" height="960" loading="lazy" alt="Customer holding the pink ribbon plush for scale"></button><figcaption>One very sweet handful</figcaption></figure>
+      <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-purple-720.webp' | asset_url }}" aria-label="Enlarge the lavender plush held in one hand"><img src="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-purple-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-purple-720.webp' | asset_url }} 720w" sizes="(min-width: 900px) 250px, 47vw" width="720" height="960" loading="lazy" alt="Customer holding the lavender hood plush for scale"></button><figcaption>One-hand daydream</figcaption></figure>
+      <figure><button type="button" data-ec-zoom="{{ 'evo-campaign-handheld-pink-720.webp' | asset_url }}" aria-label="Enlarge the pink ribbon plush held in one hand"><img src="{{ 'evo-campaign-handheld-pink-360.webp' | asset_url }}" srcset="{{ 'evo-campaign-handheld-pink-360.webp' | asset_url }} 360w, {{ 'evo-campaign-handheld-pink-720.webp' | asset_url }} 720w" sizes="(min-width: 900px) 250px, 47vw" width="720" height="960" loading="lazy" alt="Customer holding the pink ribbon plush for scale"></button><figcaption>Sweetness to go</figcaption></figure>
     </div>
   </section>
 
   <section class="fg-community" aria-labelledby="fg-community-title-{{ section.id }}">
     <div class="fg-shell">
-      <header class="fg-section-heading fg-section-heading--community"><p class="fg-eyebrow">Spotted with their humans</p><h2 id="fg-community-title-{{ section.id }}">Cute in the wild.</h2><p>Real customer photos. Very real attachment.</p></header>
+      <header class="fg-section-heading fg-section-heading--community"><p class="fg-eyebrow">The rainbow, out in the world</p><h2 id="fg-community-title-{{ section.id }}">Already making<br>themselves at home.</h2><p>Real customer photos. Real little shelf-stealers.</p></header>
       <div class="fg-customer-grid" aria-label="Customer product photos">
         {%- for i in (2..6) -%}
           {%- assign customer_asset = 'evo-campaign-customer-0' | append: i | append: '.webp' -%}
@@ -121,8 +123,9 @@
   </section>
 
   <section class="fg-reviews" aria-labelledby="fg-reviews-title-{{ section.id }}">
+    {% render 'evolution-paw-mark', class: 'fg-bg-paw fg-bg-paw--reviews' %}
     <div class="fg-shell">
-      <div class="fg-review-heading"><p class="fg-eyebrow">Happy little homes</p><h2 id="fg-reviews-title-{{ section.id }}">The paw-sitive reviews are in.</h2></div>
+      <div class="fg-review-heading"><div><p class="fg-eyebrow">Loved from ear to paw</p><h2 id="fg-reviews-title-{{ section.id }}">The paw-sitive reviews are in.</h2></div><p class="fg-review-score" aria-label="Rated 4.8 out of 5 from 98 Shop reviews"><span aria-hidden="true">★★★★★</span><strong>4.8/5</strong><small>98 Shop reviews</small></p></div>
       <div class="fg-review-grid">
         <figure><span class="fg-review-paw fg-paw--pink">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><blockquote>“Super adorable! … had to grab some more for friends.”</blockquote></figure>
         <figure><span class="fg-review-paw fg-paw--yellow">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><blockquote>“Wife loved them 💪🏾 Kids love them soft, perfect for gifts, couldn’t ask for better 👍”</blockquote></figure>
@@ -133,7 +136,7 @@
   </section>
 
   <section class="fg-faq fg-shell" aria-labelledby="fg-faq-title-{{ section.id }}">
-    <header><p class="fg-eyebrow">Little questions, answered.</p><h2 id="fg-faq-title-{{ section.id }}">Before the paws<br>hit your doorstep.</h2>{% render 'evolution-paw-mark', class: 'fg-faq-paw' %}</header>
+    <header><p class="fg-eyebrow">Good to know before they arrive</p><h2 id="fg-faq-title-{{ section.id }}">Before the paws<br>hit your doorstep.</h2>{% render 'evolution-paw-mark', class: 'fg-faq-paw' %}</header>
     <div>
       <details><summary>Does the price include all eight?<span aria-hidden="true">+</span></summary><p>Yes. {{ v.price | money }} buys eight separate plush companions, with one of every design pictured. Each plush comes in its own costume; this is not one plush with spare outfits. Display props and gift wrapping are not included.</p></details>
       <details><summary>Can I choose just one color?<span aria-hidden="true">+</span></summary><p>This page is for the complete collection, so all eight pictured colors are included and there is no color selection to make.</p></details>
@@ -145,13 +148,14 @@
   </section>
 
   <section class="fg-final">
+    <span class="fg-final-paw-cloud" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--one' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--two' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--three' %}</span>
     <div class="fg-shell fg-final-grid">
       <figure><img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(min-width: 900px) 50vw, 100vw" width="1024" height="687" loading="lazy" alt="The complete eight-plush Evolution Companions set"></figure>
-      <div><p class="fg-eyebrow">Every color is invited {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span>{{ v.price | money }}</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free U.S. shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
+      <div><p class="fg-eyebrow">All eight. All yours. {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span>{{ v.price | money }}</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free U.S. shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
     </div>
   </section>
 
-  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 plushes</small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}Make all 8 mine{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 · free U.S. shipping</small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}Bring all 8 home{% else %}Sold out{% endif %}</button></aside>
 
   <dialog class="ec-lightbox fg-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="1024" height="1024" alt="Enlarged companion plush photo"></div></dialog>
 </div>
@@ -163,12 +167,12 @@
     {"type":"text","id":"hero_prefix","label":"Hero headline opening","default":"Every"},
     {"type":"text","id":"hero_accent","label":"Rainbow headline word","default":"color"},
     {"type":"text","id":"hero_suffix","label":"Hero headline ending","default":"comes home."},
-    {"type":"textarea","id":"hero_body","label":"Hero introduction","default":"Eight tiny personalities. Eight ridiculously cute little costumes. One complete set—because picking a favorite was never really the point."},
-    {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Typically 5–7 business days"},
+    {"type":"textarea","id":"hero_body","label":"Hero introduction","default":"Eight colors. Eight moods. Eight ridiculously cute little companions. The whole rainbow, together in one complete set."},
+    {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Usually arrives in 5–7 business days"},
     {"type":"text","id":"detail_title","label":"Detail headline","default":"Tiny hood. Tiny paws. Huge personality."},
-    {"type":"textarea","id":"detail_body","label":"Detail body","default":"Soft little ears, embroidered faces, colorful capes and the sweetest brown paws. The closer you look, the cuter the whole gang gets."},
-    {"type":"text","id":"final_title","label":"Final headline","default":"Leave no little paw behind."},
-    {"type":"textarea","id":"final_body","label":"Final body","default":"Every color. Every mood. All eight companions, ready to make themselves at home."}
+    {"type":"textarea","id":"detail_body","label":"Detail body","default":"Soft ears, embroidered faces, colorful hoods and those unmistakable little brown paws. Every design has its own silhouette, but the whole crew feels like family."},
+    {"type":"text","id":"final_title","label":"Final headline","default":"Bring the whole rainbow home."},
+    {"type":"textarea","id":"final_body","label":"Final body","default":"Every color. Every mood. Eight little companions ready to make your favorite corner theirs."}
   ],
   "presets": [{"name":"Evolution rainbow paws"}]
 }
