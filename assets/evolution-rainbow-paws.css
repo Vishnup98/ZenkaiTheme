@@ -269,6 +269,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-lightbox { width: min(94vw, 1040px); height: auto; max-height: 92vh; padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
 .fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="687"]) { height: min(92vh, calc(63vw + 94px)); }
 .fg-lightbox:has(.ec-lightbox-viewport img[width="720"][height="540"]) { height: min(92vh, calc(71vw + 94px)); }
+.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="918"]) { height: min(92vh, calc(75vw + 94px)); }
 .fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="1024"]) { height: min(92vh, calc(94vw + 94px)); }
 .fg-lightbox:has(.ec-lightbox-viewport img[width="720"][height="960"]) { height: min(92vh, calc(125vw + 94px)); }
 .fg-lightbox::backdrop { background: #211a2edc; }
