@@ -266,14 +266,14 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-sticky .fg-cta { width: 62%; min-height: 48px; padding: 9px 14px; border-color: #fff5; background: var(--fg-pink); color: var(--fg-ink); box-shadow: none; font-size: 14px; }
 .fg-sticky .fg-cta::after { width: 25px; height: 25px; flex-basis: 25px; font-size: 15px; }
 
-.fg-lightbox { width: min(94vw, 1040px); height: min(92vh, 900px); padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
+.fg-lightbox { width: min(94vw, 1040px); height: auto; max-height: 92vh; padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
 .fg-lightbox::backdrop { background: #211a2edc; }
 .ec-lightbox-toolbar { min-height: 58px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 7px 11px 7px 17px; border-bottom: 1px solid var(--fg-rule); }
 .ec-lightbox-toolbar button { min-height: 42px; padding: 7px 11px; border: 1px solid var(--fg-rule); border-radius: 999px; background: #fff; color: var(--fg-ink); font-weight: 700; }
 .ec-lightbox-toolbar > span { color: var(--fg-muted); font-size: 12px; text-align: center; }
 .ec-lightbox-toolbar [data-ec-close] { width: 42px; padding: 0; font-size: 27px; line-height: 1; }
-.ec-lightbox-viewport { height: calc(100% - 58px); overflow: auto; overscroll-behavior: contain; display: grid; place-items: center; padding: 18px; }
-.ec-lightbox-viewport img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.ec-lightbox-viewport { height: auto; max-height: calc(92vh - 58px); overflow: auto; overscroll-behavior: contain; display: grid; place-items: center; padding: 18px; }
+.ec-lightbox-viewport img { width: auto; max-width: 100%; max-height: calc(92vh - 104px); object-fit: contain; }
 .fg-lightbox.is-zoomed .ec-lightbox-viewport { display: block; }
 .fg-lightbox.is-zoomed .ec-lightbox-viewport img { width: max(135%, 1200px); max-width: none; max-height: none; }
 
