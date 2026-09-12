@@ -127,7 +127,7 @@
     margin-bottom: 6px !important;
   }
 
-  [id^='alia-root-'] #alia-czw9wp0i6u4pgwdw > p {
+  [id^='alia-root-'] #alia-czw9wp0i6u4pgwdw p {
     font-size: clamp(38px, 11.3vw, 44px) !important;
     line-height: 0.98 !important;
     letter-spacing: -0.025em !important;
@@ -202,7 +202,7 @@
     margin-bottom: 2px !important;
   }
 
-  [id^='alia-root-'] #alia-czw9wp0i6u4pgwdw > p {
+  [id^='alia-root-'] #alia-czw9wp0i6u4pgwdw p {
     font-size: clamp(34px, 10.8vw, 40px) !important;
   }
 
