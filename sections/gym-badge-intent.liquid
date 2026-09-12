@@ -103,7 +103,7 @@
           <p class="gb-intent-includes">32 badges · 4 regional sets · 4 fitted boxes</p>
           <button class="gb-use-button" type="button" data-gb-use-checkout data-placement="hero" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ price }}{% else %}Collector Pack sold out{% endif %}</span></button>
           <p class="gb-intent-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p>
-          <div class="gb-intent-trust"><span><b aria-hidden="true">★★★★★</b> <strong>4.8/5</strong> · 98 Shop ratings</span><span><strong>2,900+</strong> store orders and counting</span></div>
+          <div class="gb-intent-trust"><span><b aria-hidden="true">★★★★★</b> <strong>4.8/5</strong> · 98 Shop ratings</span><span><strong>3,000+</strong> orders and counting</span></div>
         </div>
       </div>
     </div>
@@ -160,7 +160,7 @@
           {% if savings > 0 %}<p class="gb-intent-comparison">{{ separate_total | money }} when the four regional sets are purchased separately.</p>{% endif %}
           <button class="gb-use-button" type="button" data-gb-use-checkout data-placement="detail" {% unless collector_variant.available %}disabled{% endunless %}><span>{% if collector_variant.available %}Get All 32 — {{ price }}{% else %}Collector Pack sold out{% endif %}</span></button>
           <p class="gb-intent-delivery">Free U.S. shipping · Typically arrives in 5–7 business days</p>
-          <div class="gb-intent-trust"><span><b aria-hidden="true">★★★★★</b> <strong>4.8/5</strong> · 98 Shop ratings</span><span><strong>2,900+</strong> store orders and counting</span></div>
+          <div class="gb-intent-trust"><span><b aria-hidden="true">★★★★★</b> <strong>4.8/5</strong> · 98 Shop ratings</span><span><strong>3,000+</strong> orders and counting</span></div>
           {% assign payment_form_id = 'gb-intent-payment-' | append: section.id %}
           {%- form 'product', product, id: payment_form_id, class: 'gb-intent-payment' -%}
             <input type="hidden" name="id" value="{{ collector_variant.id }}"><input type="hidden" name="quantity" value="1"><input type="hidden" name="properties[_zk_landing_view]" value="gympin-use-{{ journey }}">
@@ -173,7 +173,7 @@
   </section>
 
   <section class="gb-intent-reviews" aria-labelledby="gb-intent-reviews-{{ section.id }}"><div class="gb-use-shell">
-    <div class="gb-intent-heading"><p class="gb-use-eyebrow">Customer reactions</p><h2 id="gb-intent-reviews-{{ section.id }}">Familiar shapes. Real delight.</h2><p>Store-wide: <strong>4.8/5 from 98 Shop ratings</strong> · <strong>2,900+ orders</strong></p></div>
+    <div class="gb-intent-heading"><p class="gb-use-eyebrow">Customer reactions</p><h2 id="gb-intent-reviews-{{ section.id }}">Familiar shapes. Real delight.</h2><p>Store-wide: <strong>4.8/5 from 98 Shop ratings</strong> · <strong>3,000+ orders and counting</strong></p></div>
     <div class="gb-intent-reviews__grid"><figure><blockquote>“…it brings great nostalgia. Let's go to the elite four.”</blockquote><figcaption>S.P. · Customer review excerpt</figcaption></figure><figure><blockquote>“Very pretty and nice material too, perfect for gifting.”</blockquote><figcaption>Customer review</figcaption></figure></div>
   </div></section>
 
