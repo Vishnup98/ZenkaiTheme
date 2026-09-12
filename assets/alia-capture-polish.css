@@ -71,6 +71,27 @@
   color: rgba(245, 250, 247, 0.7) !important;
 }
 
+/* Keep the email step compact and turn Alia's heavy marker bar into a quiet accent. */
+[id^='alia-root-'] #alia-hz6b46a11fzjr0t3 {
+  gap: 4px !important;
+}
+
+[id^='alia-root-'] #alia-t3fzi03i4pos3811 {
+  background: none !important;
+}
+
+[id^='alia-root-'] #alia-t3fzi03i4pos3811 > p {
+  display: inline;
+  padding-inline: 0.04em;
+  background: linear-gradient(
+    to top,
+    rgba(99, 214, 191, 0.4) 0 17%,
+    transparent 17% 100%
+  );
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 @media (max-width: 767px) {
   [id^='alia-root-'] #alia-7t0dcmgqa07ktbh1 {
     justify-content: center !important;
@@ -111,6 +132,18 @@
     line-height: 0.98 !important;
     letter-spacing: -0.025em !important;
   }
+
+  [id^='alia-root-'] #alia-84vyfktlp76g1ye2 > p {
+    font-size: clamp(36px, 10.2vw, 40px) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  [id^='alia-root-'] #alia-t3fzi03i4pos3811 > p {
+    font-size: clamp(45px, 12.8vw, 50px) !important;
+    line-height: 0.96 !important;
+    letter-spacing: -0.03em !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -142,6 +175,43 @@
   [id^='alia-root-'] #alia-ln3cyllpvun8z71p {
     width: 178px !important;
     margin-bottom: 2px !important;
+  }
+
+  [id^='alia-root-'] #alia-84vyfktlp76g1ye2 > p {
+    font-size: 46px !important;
+    line-height: 1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  [id^='alia-root-'] #alia-t3fzi03i4pos3811 > p {
+    font-size: 60px !important;
+    line-height: 0.96 !important;
+    letter-spacing: -0.035em !important;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 700px) {
+  [id^='alia-root-'] #alia-k4ulq9l2mj22myor {
+    gap: 10px !important;
+    padding: 24px 22px 20px !important;
+    border-radius: 26px !important;
+  }
+
+  [id^='alia-root-'] #alia-tr5yhnjxin96pajb {
+    width: 88px !important;
+    margin-bottom: 2px !important;
+  }
+
+  [id^='alia-root-'] #alia-czw9wp0i6u4pgwdw > p {
+    font-size: clamp(34px, 10.8vw, 40px) !important;
+  }
+
+  [id^='alia-root-'] #alia-84vyfktlp76g1ye2 > p {
+    font-size: 34px !important;
+  }
+
+  [id^='alia-root-'] #alia-t3fzi03i4pos3811 > p {
+    font-size: 42px !important;
   }
 }
 
