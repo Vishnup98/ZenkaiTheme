@@ -4,7 +4,7 @@
   assign pins = all_products['evolution-pin-set']
   assign badges = all_products['8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack']
   assign impostors_url = section.settings.impostors_url | default: impostors.url | default: '/products/little-impostors-complete-9-plush-collector-set'
-  assign companions_url = section.settings.companions_url | default: '/products/evolution-companions-complete-8-plush-collector-set?view=evo-all-eight'
+  assign companions_url = section.settings.companions_url | default: '/products/evolution-companions-complete-8-plush-collector-set?view=evo-rainbow-paws'
   assign pins_url = section.settings.pins_url | default: pins.url | default: '/products/evolution-pin-set'
   assign badges_url = section.settings.badges_url | default: badges.url | default: '/products/8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
   assign hero_image = section.settings.hero_image
@@ -107,12 +107,18 @@
               {%- else -%}<div class="zch-image-fallback">{{ card_name }}</div>{%- endif -%}
             </div>
             <div class="zch-card__body">
-              <h3{% if index == 1 %} class="zch-card__title--impostors zch-card__title--marked"{% elsif index == 2 %} class="zch-card__title--companions zch-card__title--marked"{% endif %}>{% if index == 1 %}<span>{{ card_name }}</span><svg class="zch-title-mark zch-title-mark--smile" viewBox="0 0 76 30" fill="none" aria-hidden="true" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>{% elsif index == 2 %}<span class="zch-companions-name"><span class="zch-evolution-letters" aria-label="EVOLUTION"><span aria-hidden="true"><span style="--evolution-letter: #986838">E</span><span style="--evolution-letter: #2582b6">V</span><span style="--evolution-letter: #a78216">O</span><span style="--evolution-letter: #c65b29">L</span><span style="--evolution-letter: #8860aa">U</span><span style="--evolution-letter: #34343d">T</span><span style="--evolution-letter: #558440">I</span><span style="--evolution-letter: #398d9e">O</span><span style="--evolution-letter: #bf5286">N</span></span></span> <span class="zch-companions-word">Companions</span></span>{% else %}{{ card_name }}{% endif %}</h3>
+              <h3{% if index == 1 %} class="zch-card__title--impostors zch-card__title--marked"{% elsif index == 2 %} class="zch-card__title--companions"{% endif %}>
+                {%- if index == 1 -%}
+                  <span>{{ card_name }}</span><svg class="zch-title-mark zch-title-mark--smile" viewBox="0 0 76 30" fill="none" aria-hidden="true" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {%- elsif index == 2 -%}
+                  <span class="zch-companion-paw-trail" aria-hidden="true">{% render 'evolution-paw-mark', class: 'zch-companion-paw zch-companion-paw--one' %}{% render 'evolution-paw-mark', class: 'zch-companion-paw zch-companion-paw--two' %}{% render 'evolution-paw-mark', class: 'zch-companion-paw zch-companion-paw--three' %}</span>
+                  <span class="zch-companions-name"><span class="zch-evolution-letters" aria-label="EVOLUTION"><span aria-hidden="true"><span style="--evolution-letter: #8a66b7">E</span><span style="--evolution-letter: #ce5f42">V</span><span style="--evolution-letter: #d5a72c">O</span><span style="--evolution-letter: #809557">L</span><span style="--evolution-letter: #3f99a5">U</span><span style="--evolution-letter: #568cc7">T</span><span style="--evolution-letter: #7067b3">I</span><span style="--evolution-letter: #b466a1">O</span><span style="--evolution-letter: #df718a">N</span></span></span> <span class="zch-companions-word">Companions</span>{% render 'evolution-paw-mark', class: 'zch-companions-paw' %}</span>
+                {%- else -%}
+                  {{ card_name }}
+                {%- endif -%}
+              </h3>
               <p class="zch-card__category">{{ card_category }}</p>
               <div class="zch-card__details">
-                {%- if index == 2 -%}
-                  <span class="zch-card__signature zch-card__signature--companions" aria-hidden="true"><span style="--companion-color: #f5a7be"></span><span style="--companion-color: #bea0e7"></span><span style="--companion-color: #b0e5ef"></span><span style="--companion-color: #48a7d3"></span><span style="--companion-color: #fa742d"></span><span style="--companion-color: #f2d449"></span><span style="--companion-color: #d5b969"></span><span style="--companion-color: #303039"></span></span>
-                {%- endif -%}
                 <span class="zch-card__set-note">{% if index == 1 %}All 9 included{% elsif index == 2 or index == 3 %}All 8 included{% else %}Choose your region{% endif %}</span>
               </div>
               <div class="zch-card__bottom"><span class="zch-card__price">{%- if card_product != blank -%}{% if card_product.price_varies %}<small>From </small>{% endif %}{{ card_product.price | money }}{%- else -%}Explore the set{%- endif -%}</span>{%- if card_product != blank and card_product.available == false -%}<span class="zch-card__stock">Currently sold out</span>{%- endif -%}</div>

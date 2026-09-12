@@ -329,7 +329,7 @@
   .zch-card__details { min-height: 42px; }
 }
 
-/* Nine letters: Eevee, Vaporeon, Jolteon, Flareon, Espeon, Umbreon, Leafeon, Glaceon, Sylveon. */
+/* Collection signatures: one mischievous smile, one little rainbow paw trail. */
 .zch .zch-card__title--marked { display: flex; align-items: center; gap: 8px; }
 .zch-card__title--marked > span { min-width: 0; }
 .zch-evolution-letters { font-weight: 800; letter-spacing: -.025em; white-space: nowrap; }
@@ -348,11 +348,26 @@
   .zch-title-mark--smile { flex-basis: 16px; width: 16px; }
 }
 
-/* Keep the full collection name and use a readable ears-only silhouette. */
-.zch-companions-name { line-height: 1.22; }
-.zch-companions-word { color: #247769; white-space: nowrap; }
-
-.zch-companions-name { display: block; }
+/* Match the Rainbow Paws product-page lockup at the smaller card scale. */
+.zch .zch-card__title--companions {
+  color: #30263b;
+  font-family: 'Zenkai Mischief', 'Zenkai Companion', sans-serif;
+  font-weight: 760;
+}
+.zch-companions-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .28em; line-height: 1.16; }
+.zch-companions-word { color: #30263b; white-space: nowrap; }
+.zch-companions-paw { width: .82em; height: .76em; flex: 0 0 .82em; color: #ed91ae; transform: translateY(.08em) rotate(12deg); }
+.zch-companion-paw-trail { display: flex; align-items: center; gap: 8px; width: max-content; height: 26px; margin: -1px 0 4px 22px; transform: rotate(-7deg); }
+.zch-companion-paw { display: block; flex: 0 0 auto; }
+.zch-companion-paw--one { width: 16px; height: 15px; color: #ad91dc; transform: rotate(-18deg); }
+.zch-companion-paw--two { width: 21px; height: 19px; color: #ed91ae; transform: translateY(4px) rotate(7deg); }
+.zch-companion-paw--three { width: 15px; height: 14px; color: #5e9fda; transform: translateY(-3px) rotate(19deg); }
+@media (max-width: 749px) {
+  .zch-companion-paw-trail { gap: 6px; height: 22px; margin-left: 12px; margin-bottom: 3px; }
+  .zch-companion-paw--one { width: 13px; height: 12px; }
+  .zch-companion-paw--two { width: 17px; height: 16px; }
+  .zch-companion-paw--three { width: 12px; height: 11px; }
+}
 
 /* Extend outer category colors to the page edges, keeping labels on the content grid. */
 .zch-category-band { background: linear-gradient(90deg, #f5eef9 0 50%, #faf2e5 50% 100%); border-bottom: 1px solid #d6dcd1; }
