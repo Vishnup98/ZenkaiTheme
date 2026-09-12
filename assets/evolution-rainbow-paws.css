@@ -267,11 +267,11 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-sticky .fg-cta::after { width: 25px; height: 25px; flex-basis: 25px; font-size: 15px; }
 
 .fg-lightbox { width: min(94vw, 1040px); height: auto; max-height: 92vh; padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
-.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="687"]) { height: min(92vh, calc(63vw + 94px)); }
-.fg-lightbox:has(.ec-lightbox-viewport img[width="720"][height="540"]) { height: min(92vh, calc(71vw + 94px)); }
-.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="918"]) { height: min(92vh, calc(75vw + 94px)); }
-.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="1024"]) { height: min(92vh, calc(94vw + 94px)); }
-.fg-lightbox:has(.ec-lightbox-viewport img[width="720"][height="960"]) { height: min(92vh, calc(125vw + 94px)); }
+.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="687"]) { height: min(92vh, calc(63vw + 94px)); max-height: min(92vh, calc(63vw + 94px)); }
+.fg-lightbox:has(.ec-lightbox-viewport img[width="720"][height="540"]) { height: min(92vh, calc(71vw + 94px)); max-height: min(92vh, calc(71vw + 94px)); }
+.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="918"]) { height: min(92vh, calc(75vw + 94px)); max-height: min(92vh, calc(75vw + 94px)); }
+.fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="1024"]) { height: min(92vh, calc(94vw + 94px)); max-height: min(92vh, calc(94vw + 94px)); }
+.fg-lightbox:has(.ec-lightbox-viewport img[width="720"][height="960"]) { height: min(92vh, calc(125vw + 94px)); max-height: min(92vh, calc(125vw + 94px)); }
 .fg-lightbox::backdrop { background: #211a2edc; }
 .ec-lightbox-toolbar { min-height: 58px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 7px 11px 7px 17px; border-bottom: 1px solid var(--fg-rule); }
 .ec-lightbox-toolbar button { min-height: 42px; padding: 7px 11px; border: 1px solid var(--fg-rule); border-radius: 999px; background: #fff; color: var(--fg-ink); font-weight: 700; }
