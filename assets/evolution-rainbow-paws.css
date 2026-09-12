@@ -60,7 +60,7 @@
 }
 .fg-brand { display: flex; align-items: center; min-height: 56px; }
 .fg-brand img { width: 72px; height: 54px; object-fit: contain; }
-.fg-header-note { display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.fg-header-note { display: flex; justify-content: center; align-items: center; gap: 22px; font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .fg-header-note i { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-yellow); box-shadow: 11px 0 0 var(--fg-pink), -11px 0 0 var(--fg-blue); }
 .fg-cart { position: relative; display: grid; width: 44px; height: 44px; place-items: center; text-decoration: none; }
 .fg-cart-count { position: absolute; top: 0; right: 0; min-width: 18px; height: 18px; padding-inline: 4px; border-radius: 50%; background: var(--fg-pink); color: var(--fg-ink); font-size: 10px; font-weight: 800; line-height: 18px; text-align: center; }
@@ -342,7 +342,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 
 @media (max-width: 599px) {
   .fg-header { padding-inline: 15px; }
-  .fg-header-note { font-size: 9px; letter-spacing: .07em; gap: 8px; }
+  .fg-header-note { font-size: 9px; letter-spacing: .07em; gap: 17px; }
   .fg-header-note i { width: 5px; height: 5px; box-shadow: 8px 0 0 var(--fg-pink), -8px 0 0 var(--fg-blue); }
   .fg-hero { padding-inline: 17px; padding-top: 20px; }
   .fg-hero-media { padding: 8px; border-radius: 25px 25px 25px 8px; box-shadow: 7px 7px 0 #dacff2; }
