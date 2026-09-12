@@ -358,11 +358,11 @@
 
   {%- if zenkai_collectible_focus_context -%}
     <style>
-      body.zenkai-collectible-focus .klaviyo-form:not(.zenkai-welcome *),
-      body.zenkai-collectible-focus [class*="klaviyo-form"]:not(.zenkai-welcome *),
-      body.zenkai-collectible-focus [class*="kl-private-reset-css"]:not(.zenkai-welcome *),
-      body.zenkai-collectible-focus [data-testid*="klaviyo" i]:not(.zenkai-welcome *),
-      body.zenkai-collectible-focus iframe[title*="klaviyo" i]:not(.zenkai-welcome *),
+      body.zenkai-collectible-focus .klaviyo-form,
+      body.zenkai-collectible-focus [class*="klaviyo-form"],
+      body.zenkai-collectible-focus [class*="kl-private-reset-css"],
+      body.zenkai-collectible-focus [data-testid*="klaviyo" i],
+      body.zenkai-collectible-focus iframe[title*="klaviyo" i],
       body.zenkai-collectible-focus [id*="smartsize" i],
       body.zenkai-collectible-focus [class*="smartsize" i],
       body.zenkai-collectible-focus [data-smartsize],
@@ -531,12 +531,11 @@
             }
 
             selectors.forEach(function(selector) {
-              if (scope.matches && scope.matches(selector) && !scope.closest('.zenkai-welcome')) {
+              if (scope.matches && scope.matches(selector)) {
                 scope.hidden = true;
                 scope.setAttribute('aria-hidden', 'true');
               }
               scope.querySelectorAll(selector).forEach(function(node) {
-                if (node.closest('.zenkai-welcome')) return;
                 node.hidden = true;
                 node.setAttribute('aria-hidden', 'true');
               });
@@ -961,6 +960,5 @@
 
   {{ 'pinch-zoom-fix.js' | asset_url | script_tag }}
 
-{% render 'zenkai-welcome' %}
 </body>
 </html>
