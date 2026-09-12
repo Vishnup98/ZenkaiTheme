@@ -38,6 +38,7 @@
 .fg-body button:disabled { cursor: not-allowed; opacity: .55; }
 .fg-body a { color: inherit; text-underline-offset: 4px; }
 .fg-body :is(a, button, summary, [tabindex]):focus-visible { outline: 3px solid #6554d8; outline-offset: 4px; }
+.fg-hero-media button:focus-visible, .fg-lineup-photo button:focus-visible, .fg-closeup figure button:focus-visible, .fg-scale-photos button:focus-visible, .fg-customer-grid button:focus-visible, .fg-mood-card button:focus-visible { outline-offset: -5px; }
 .fg-body h1, .fg-body h2 { font-family: "Rainbow Display", "Rainbow Sans", sans-serif; font-weight: 760; letter-spacing: -.042em; line-height: 1.02; text-wrap: balance; }
 .fg-body h1 { font-size: clamp(48px, 5.1vw, 76px); }
 .fg-body h2 { font-size: clamp(38px, 4vw, 58px); }
@@ -262,7 +263,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-review-grid blockquote { color: #fffaf2; font-size: 16px; line-height: 1.65; }
 .fg-review-source { margin-top: 18px !important; color: #d7cedf !important; font-size: 11px; }
 
-.fg-faq { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; padding-block: 80px; }
+.fg-faq { display: grid; grid-template-columns: .85fr 1.15fr; gap: 60px; padding-block: 80px; }
 .fg-faq header { position: relative; align-self: start; }
 .fg-faq-paw { width: 76px; height: 70px; margin-top: 24px; color: var(--fg-pink); transform: rotate(-12deg); }
 .fg-faq details { border-top: 1px solid var(--fg-rule); }
@@ -295,7 +296,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-sticky { position: fixed; z-index: 28; right: 22px; bottom: 18px; width: min(430px, calc(100vw - 44px)); display: flex; align-items: center; gap: 13px; padding: 10px 11px 10px 17px; border: 1px solid #fff4; border-radius: 999px; background: var(--fg-ink); color: #fffaf2; box-shadow: 0 14px 40px #30263b40; }
 .fg-sticky > div { display: flex; flex: 1 0 auto; flex-direction: column; }
 .fg-sticky strong { font-family: "Rainbow Display", sans-serif; font-size: 23px; line-height: 1; }
-.fg-sticky small { margin-top: 1px; color: #d7cedf; font-size: 10px; }
+.fg-sticky small { margin-top: 1px; color: #d7cedf; font-size: 10px; white-space: nowrap; }
 .fg-sticky .fg-cta { width: 62%; min-height: 48px; padding: 9px 10px 9px 16px; border-color: var(--fg-ink); background: var(--fg-mint); color: var(--fg-ink); box-shadow: 0 3px 0 var(--fg-mint-deep); font-size: 14px; }
 .fg-sticky .fg-cta::after { width: 25px; height: 25px; flex-basis: 25px; font-size: 15px; }
 
@@ -443,7 +444,8 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-customer-grid figure:nth-child(n) { grid-column: span 1; grid-row: span 1; border-radius: 14px; }
   .fg-customer-grid figure:first-child { grid-row: span 2; }
   .fg-customer-grid figure:last-child { grid-column: span 2; }
-  .fg-faq h2 { max-width: 10ch; }
+  .fg-bg-paw--reviews { top: 38px; right: -58px; width: 180px; height: 164px; }
+  .fg-faq h2 { max-width: 14ch; }
   .fg-faq-paw { right: 0; bottom: 10px; }
   .fg-faq details[open] { margin-inline: -10px; padding-inline: 10px; }
   .fg-faq summary { min-height: 62px; font-size: 14px; }
@@ -455,7 +457,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-final-paw--three { width: 16px; height: 15px; }
   .fg-sticky { right: 0; bottom: 0; width: 100%; max-width: none; padding: 9px 12px max(9px, env(safe-area-inset-bottom)); border-width: 1px 0 0; border-radius: 0; }
   .fg-sticky .fg-cta { width: 64%; min-height: 48px; font-size: 13px; }
-  .fg-sticky small { max-width: 15ch; font-size: 9px; line-height: 1.15; }
+  .fg-sticky small { font-size: 9px; line-height: 1.15; }
   .fg-footer { padding: 27px 20px 108px; }
   .fg-footer-inner { grid-template-columns: 1fr; padding: 0; }
   .fg-footer nav { gap: 0 17px; }
@@ -481,5 +483,6 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 @media (forced-colors: active) {
   .fg-rainbow-letters i, .fg-rainbow-word, .fg-eyebrow { color: CanvasText !important; }
   .fg-rainbow-word::after, .fg-rainbow-rule, .fg-header-note i { display: none; }
+  .fg-bg-paw, .fg-hero-paw-trail, .fg-final-paw-cloud { display: none; }
   .fg-mood-card, .fg-hero-media, .fg-closeup figure, .fg-final figure { box-shadow: none; }
 }
