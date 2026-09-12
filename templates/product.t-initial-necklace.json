@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "initial-necklace-product",
+      "settings": {}
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "Complete the look",
+        "per_row": "small"
+      }
+    }
+  },
+  "order": ["main", "recommendations"]
+}

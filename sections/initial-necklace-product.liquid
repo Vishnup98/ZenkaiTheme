@@ -1,0 +1,132 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<section id="InitialNecklace-{{ section.id }}" class="initial-necklace">
+  <div class="initial-necklace__shell">
+    <div class="initial-necklace__gallery" data-gallery>
+      <div class="initial-necklace__stage">
+        {%- if product.featured_image -%}
+          <img data-main-image src="{{ product.featured_image | image_url: width: 1600 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" loading="eager">
+        {%- endif -%}
+        <span class="initial-necklace__counter" data-counter>1 / {{ product.images.size }}</span>
+      </div>
+      <div class="initial-necklace__thumbs" aria-label="Product photos">
+        {%- for image in product.images -%}
+          <button type="button" class="initial-necklace__thumb{% if forloop.first %} is-active{% endif %}" data-image="{{ image | image_url: width: 1600 }}" data-alt="{{ image.alt | default: product.title | escape }}" data-index="{{ forloop.index }}" aria-label="View product photo {{ forloop.index }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+            <img src="{{ image | image_url: width: 180 }}" alt="" width="90" height="90" loading="lazy">
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="initial-necklace__buybox">
+      <p class="initial-necklace__eyebrow">Zenkai Jewelry</p>
+      <h1>{{ product.title | escape }}</h1>
+      <div class="initial-necklace__release"><small>NEW RELEASE</small></div>
+      <p class="initial-necklace__price">{{ current_variant.price | money }}</p>
+      <p class="initial-necklace__tax">Taxes calculated at checkout.</p>
+
+      {%- assign initial_necklace_form_id = 'InitialNecklaceForm-' | append: section.id -%}
+      {%- form 'product', product, id: initial_necklace_form_id, class: 'initial-necklace__form' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" name="add" class="initial-necklace__cta"{% unless current_variant.available %} disabled{% endunless %}>
+          {% if current_variant.available %}ADD TO CART <span>• {{ current_variant.price | money }}</span>{% else %}SOLD OUT{% endif %}
+        </button>
+      {%- endform -%}
+
+      <div class="initial-necklace__signals">
+        <p><span class="initial-necklace__pulse" aria-hidden="true"></span><strong>Available now</strong></p>
+        <p><strong>Free U.S. shipping</strong> · Easy 30-day returns</p>
+      </div>
+
+      <aside class="initial-necklace__offer">
+        <p class="initial-necklace__offer-kicker">THE FINISHING DETAIL</p>
+        <h2>One initial. Instant signature.</h2>
+        <p>A clean, polished letter pendant that adds a personal focal point without overworking the look.</p>
+      </aside>
+
+      <div class="initial-necklace__accordions">
+        <details open><summary>Description <span>+</span></summary><div class="rte">{{ product.description }}</div></details>
+        <details><summary>Product details <span>+</span></summary><div><ul><li>Polished silver-tone T pendant</li><li>Oval-link chain included</li><li>Single ready-to-wear necklace</li></ul></div></details>
+        <details><summary>Care instructions <span>+</span></summary><div><p>Keep dry when possible. Remove before swimming, showering, or applying fragrance. Wipe gently with a soft cloth and store separately.</p></div></details>
+        <details><summary>Shipping & returns <span>+</span></summary><div><p>Free U.S. shipping. If the item arrives damaged, incorrect, or materially different from its description, contact us with your order number and photos. <a href="/pages/policy">View our full policy.</a></p></div></details>
+      </div>
+    </div>
+  </div>
+
+  <div class="initial-necklace__story">
+    <p class="initial-necklace__eyebrow">A QUIET STATEMENT</p>
+    <h2>Designed to be the detail people remember.</h2>
+    <p>The mirror-finish letter catches light with every move, while the pared-back chain keeps the silhouette easy to wear on its own or layered.</p>
+    {%- if product.images[3] -%}<img src="{{ product.images[3] | image_url: width: 1800 }}" alt="{{ product.images[3].alt | escape }}" width="{{ product.images[3].width }}" height="{{ product.images[3].height }}" loading="lazy">{%- endif -%}
+  </div>
+
+  <div class="initial-necklace__proof">
+    <p class="initial-necklace__eyebrow">WHY IT WORKS</p>
+    <div><article><strong>01</strong><h3>Personal by design</h3><p>A bold initial makes the look unmistakably yours.</p></article><article><strong>02</strong><h3>Easy to style</h3><p>Clean silver tone pairs naturally with tees, knits, and layered chains.</p></article><article><strong>03</strong><h3>Gift-ready energy</h3><p>A simple, meaningful pick for anyone whose name—or story—starts with T.</p></article></div>
+  </div>
+</section>
+
+<style>
+  #InitialNecklace-{{ section.id }}{--ink:#0e0e0e;--paper:#f7f7f5;--line:#d9d9d4;color:var(--ink);background:#fff;font-family:Arial,Helvetica,sans-serif}
+  #InitialNecklace-{{ section.id }} *{box-sizing:border-box}
+  #InitialNecklace-{{ section.id }} .initial-necklace__shell{max-width:1440px;margin:auto;padding:34px 28px 80px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(380px,.85fr);gap:54px;align-items:start}
+  #InitialNecklace-{{ section.id }} .initial-necklace__gallery{min-width:0}
+  #InitialNecklace-{{ section.id }} .initial-necklace__stage{position:relative;background:var(--paper);overflow:hidden}
+  #InitialNecklace-{{ section.id }} .initial-necklace__stage img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+  #InitialNecklace-{{ section.id }} .initial-necklace__counter{position:absolute;right:14px;bottom:14px;background:rgba(255,255,255,.9);padding:7px 10px;font-size:11px;letter-spacing:.12em}
+  #InitialNecklace-{{ section.id }} .initial-necklace__thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__thumb{border:1px solid transparent;background:none;padding:0;cursor:pointer;opacity:.68}
+  #InitialNecklace-{{ section.id }} .initial-necklace__thumb.is-active{border-color:var(--ink);opacity:1}
+  #InitialNecklace-{{ section.id }} .initial-necklace__thumb img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+  #InitialNecklace-{{ section.id }} .initial-necklace__buybox{position:sticky;top:24px;padding-top:10px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;margin:0 0 12px}
+  #InitialNecklace-{{ section.id }} h1{font-size:clamp(31px,3.1vw,52px);line-height:.98;letter-spacing:-.035em;text-transform:uppercase;margin:0 0 16px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__release{font-size:12px;letter-spacing:.13em;margin-bottom:18px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__price{font-size:25px;font-weight:700;margin:0 0 4px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__tax{font-size:12px;color:#686868;margin:0 0 22px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__cta{width:100%;min-height:58px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-weight:800;letter-spacing:.08em;cursor:pointer;transition:.2s}
+  #InitialNecklace-{{ section.id }} .initial-necklace__cta:hover{background:#2d2d2d}
+  #InitialNecklace-{{ section.id }} .initial-necklace__cta:disabled{background:#aaa;border-color:#aaa;cursor:not-allowed}
+  #InitialNecklace-{{ section.id }} .initial-necklace__signals{display:flex;justify-content:space-between;gap:14px;padding:14px 0 20px;font-size:12px;border-bottom:1px solid var(--line)}
+  #InitialNecklace-{{ section.id }} .initial-necklace__signals p{margin:0}
+  #InitialNecklace-{{ section.id }} .initial-necklace__pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2a9d62;margin-right:7px;box-shadow:0 0 0 4px rgba(42,157,98,.12)}
+  #InitialNecklace-{{ section.id }} .initial-necklace__offer{background:var(--paper);padding:24px;margin:22px 0}
+  #InitialNecklace-{{ section.id }} .initial-necklace__offer-kicker{font-size:10px;letter-spacing:.18em;font-weight:700;margin:0 0 8px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__offer h2{font-size:24px;line-height:1.1;margin:0 0 8px;text-transform:uppercase}
+  #InitialNecklace-{{ section.id }} .initial-necklace__offer p:last-child{font-size:14px;line-height:1.55;margin:0}
+  #InitialNecklace-{{ section.id }} .initial-necklace__accordions details{border-top:1px solid var(--line)}
+  #InitialNecklace-{{ section.id }} .initial-necklace__accordions details:last-child{border-bottom:1px solid var(--line)}
+  #InitialNecklace-{{ section.id }} summary{display:flex;justify-content:space-between;padding:17px 0;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;list-style:none}
+  #InitialNecklace-{{ section.id }} summary::-webkit-details-marker{display:none}
+  #InitialNecklace-{{ section.id }} details[open] summary span{transform:rotate(45deg)}
+  #InitialNecklace-{{ section.id }} details>div{padding:0 0 18px;font-size:14px;line-height:1.65;color:#404040}
+  #InitialNecklace-{{ section.id }} details>div p,#InitialNecklace-{{ section.id }} details>div ul{margin:0}
+  #InitialNecklace-{{ section.id }} .initial-necklace__story{background:var(--ink);color:#fff;text-align:center;padding:86px 24px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__story h2{font-size:clamp(32px,5vw,68px);line-height:.98;letter-spacing:-.035em;text-transform:uppercase;max-width:900px;margin:0 auto 18px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__story>p:not(.initial-necklace__eyebrow){max-width:690px;margin:0 auto 42px;line-height:1.65;color:#c9c9c9}
+  #InitialNecklace-{{ section.id }} .initial-necklace__story img{display:block;width:min(100%,900px);height:auto;aspect-ratio:1;object-fit:cover;margin:auto}
+  #InitialNecklace-{{ section.id }} .initial-necklace__proof{max-width:1180px;margin:auto;padding:88px 24px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__proof>div{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__proof article{border-top:2px solid var(--ink);padding-top:18px}
+  #InitialNecklace-{{ section.id }} .initial-necklace__proof article strong{font-size:12px}.initial-necklace__proof h3{font-size:22px;text-transform:uppercase;margin:24px 0 8px}.initial-necklace__proof article p{line-height:1.55;color:#555;margin:0}
+  @media(max-width:749px){#InitialNecklace-{{ section.id }} .initial-necklace__shell{display:block;padding:0 0 48px}#InitialNecklace-{{ section.id }} .initial-necklace__thumbs{display:flex;overflow:auto;padding:0 14px;scroll-snap-type:x mandatory}#InitialNecklace-{{ section.id }} .initial-necklace__thumb{flex:0 0 70px;scroll-snap-align:start}#InitialNecklace-{{ section.id }} .initial-necklace__buybox{position:static;padding:26px 18px 0}#InitialNecklace-{{ section.id }} .initial-necklace__signals{display:block}#InitialNecklace-{{ section.id }} .initial-necklace__signals p+ p{margin-top:8px}#InitialNecklace-{{ section.id }} .initial-necklace__story{padding:58px 18px}#InitialNecklace-{{ section.id }} .initial-necklace__proof{padding:58px 18px}#InitialNecklace-{{ section.id }} .initial-necklace__proof>div{grid-template-columns:1fr;gap:36px}}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('InitialNecklace-{{ section.id }}');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = 'true';
+    const main = root.querySelector('[data-main-image]');
+    const counter = root.querySelector('[data-counter]');
+    root.querySelectorAll('[data-image]').forEach(button => button.addEventListener('click', () => {
+      main.src = button.dataset.image;
+      main.alt = button.dataset.alt || '';
+      root.querySelectorAll('[data-image]').forEach(item => { item.classList.remove('is-active'); item.setAttribute('aria-pressed','false'); });
+      button.classList.add('is-active'); button.setAttribute('aria-pressed','true');
+      counter.textContent = `${button.dataset.index} / {{ product.images.size }}`;
+    }));
+  })();
+</script>
+{% schema %}
+{"name":"Initial necklace product","settings":[]}
+{% endschema %}
