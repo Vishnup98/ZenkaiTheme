@@ -122,12 +122,13 @@
 .fg-price small { margin-top: 2px; color: var(--fg-muted); font-size: 12px; font-weight: 500; }
 .fg-product-form { margin-top: 17px; }
 .fg-cta { width: 100%; min-height: 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 17px 14px 22px; border: 2px solid var(--fg-ink); border-radius: 999px; background: var(--fg-mint); color: var(--fg-ink); box-shadow: 0 5px 0 var(--fg-mint-deep); font-size: 17px; font-weight: 800; letter-spacing: -.01em; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
-.fg-cta::after { content: "→"; display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border-radius: 50%; background: var(--fg-ink); color: #fffaf2; font-size: 18px; transition: transform .15s ease; }
+.fg-cta-arrow { display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border-radius: 50%; background: var(--fg-ink); color: #fffaf2; font-size: 18px; font-weight: 500; transition: transform .15s ease; }
 .fg-cta:hover:not(:disabled) { background: var(--fg-mint-bright); transform: translateY(-1px); box-shadow: 0 6px 0 var(--fg-mint-deep); }
-.fg-cta:hover:not(:disabled)::after { transform: translateX(2px); }
+.fg-cta:hover:not(:disabled) .fg-cta-arrow { transform: translateX(2px); }
 .fg-cta:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 var(--fg-mint-deep); }
 .fg-shipping { display: flex; justify-content: center; flex-wrap: wrap; gap: 3px 10px; margin: 15px 0 11px !important; font-size: 12px; }
-.fg-shipping::before { content: "✓"; display: grid; width: 17px; height: 17px; margin-right: -3px; place-items: center; border: 1px solid var(--fg-ink); border-radius: 50%; background: var(--fg-mint); color: var(--fg-ink); font-size: 10px; font-weight: 900; line-height: 1; }
+.fg-shipping-check { display: grid; width: 18px; height: 18px; margin-right: -3px; place-items: center; border: 1px solid var(--fg-ink); border-radius: 50%; background: var(--fg-mint); color: var(--fg-ink); }
+.fg-shipping-paw { width: 10px; height: 9px; }
 .fg-shipping strong { color: var(--fg-ink); }
 .shopify-payment-button { margin-top: 15px; }
 shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size: 50px; --shopify-accelerated-checkout-button-border-radius: 999px; --shopify-accelerated-checkout-button-box-shadow: none; }
@@ -298,7 +299,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-sticky strong { font-family: "Rainbow Display", sans-serif; font-size: 23px; line-height: 1; }
 .fg-sticky small { margin-top: 1px; color: #d7cedf; font-size: 10px; white-space: nowrap; }
 .fg-sticky .fg-cta { width: 62%; min-height: 48px; padding: 9px 10px 9px 16px; border-color: var(--fg-ink); background: var(--fg-mint); color: var(--fg-ink); box-shadow: 0 3px 0 var(--fg-mint-deep); font-size: 14px; }
-.fg-sticky .fg-cta::after { width: 25px; height: 25px; flex-basis: 25px; font-size: 15px; }
+.fg-sticky .fg-cta-arrow { width: 25px; height: 25px; flex-basis: 25px; font-size: 15px; }
 
 .fg-lightbox { width: min(94vw, 1040px); height: auto; max-height: 92vh; padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
 .fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="687"]) { height: min(92vh, calc(63vw + 94px)); max-height: min(92vh, calc(63vw + 94px)); }
@@ -409,7 +410,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price > span { font-size: 14px; }
   .fg-price small { font-size: 11px; }
   .fg-cta { min-height: 56px; padding-inline: 17px; font-size: 15px; }
-  .fg-cta > span:nth-child(2) { display: none; }
+  .fg-cta-price { display: none; }
   .fg-paw-promise .fg-shell { display: flex; overflow-x: auto; justify-content: flex-start; padding: 12px 15px; scrollbar-width: none; scroll-snap-type: x proximity; }
   .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
   .fg-paw-promise .fg-shell > div + div { border-left: 0; }

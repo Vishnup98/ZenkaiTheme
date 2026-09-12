@@ -34,8 +34,8 @@
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="return_to" value="/checkout">
           <input type="hidden" name="properties[_zk_landing_view]" value="evo-rainbow-paws">
-          <button class="ec-cta fg-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span>{{ v.price | money_without_trailing_zeros }}</span>{% else %}Sold out{% endif %}</button>
-          <p class="fg-shipping"><strong>Free U.S. shipping</strong><span>{{ section.settings.shipping_summary | escape }}</span></p>
+          <button class="ec-cta fg-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span class="fg-cta-price">{{ v.price | money_without_trailing_zeros }}</span><span class="fg-cta-arrow" aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button>
+          <p class="fg-shipping"><span class="fg-shipping-check" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-shipping-paw' %}</span><strong>Free U.S. shipping</strong><span>{{ section.settings.shipping_summary | escape }}</span></p>
           {{ form | payment_button }}
         {%- endform -%}
       </div>
@@ -151,11 +151,11 @@
     <span class="fg-final-paw-cloud" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--one' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--two' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--three' %}</span>
     <div class="fg-shell fg-final-grid">
       <figure><img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(min-width: 900px) 50vw, 100vw" width="1024" height="687" loading="lazy" alt="The complete eight-plush Evolution Companions set"></figure>
-      <div><p class="fg-eyebrow">All eight. All yours. {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span>{{ v.price | money_without_trailing_zeros }}</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free U.S. shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
+      <div><p class="fg-eyebrow">All eight. All yours. {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span class="fg-cta-price">{{ v.price | money_without_trailing_zeros }}</span><span class="fg-cta-arrow" aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free U.S. shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
     </div>
   </section>
 
-  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 · free ship</small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}Bring all 8 home{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 · free ship</small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span class="fg-cta-arrow" aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button></aside>
 
   <dialog class="ec-lightbox fg-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="1024" height="1024" alt="Enlarged companion plush photo"></div></dialog>
 </div>
