@@ -4,7 +4,10 @@
   assign pins = all_products['evolution-pin-set']
   assign badges = all_products['8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack']
   assign impostors_url = section.settings.impostors_url | default: impostors.url | default: '/products/little-impostors-complete-9-plush-collector-set'
-  assign companions_url = section.settings.companions_url | default: '/products/evolution-companions-complete-8-plush-collector-set?view=evo-rainbow-paws'
+  assign companions_url = section.settings.companions_url
+  if companions_url == blank or companions_url contains 'view=evo-all-eight'
+    assign companions_url = '/products/evolution-companions-complete-8-plush-collector-set?view=evo-rainbow-paws'
+  endif
   assign pins_url = section.settings.pins_url | default: pins.url | default: '/products/evolution-pin-set'
   assign badges_url = section.settings.badges_url | default: badges.url | default: '/products/8pcs-anime-gym-badge-enamel-pins-set-colorful-hard-enamel-lapel-brooches-trainer-badges-collectible-gift-box-for-backpack'
   assign hero_image = section.settings.hero_image
