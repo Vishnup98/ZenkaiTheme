@@ -1,0 +1,122 @@
+/* Zenkai presentation layer for Alia's full-screen capture experience. */
+[id^='alia-root-'] #alia-7t0dcmgqa07ktbh1,
+[id^='alia-root-'] #alia-27jsz7u0wh9do02a {
+  isolation: isolate;
+  overflow-y: auto !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+[id^='alia-root-'] #alia-7t0dcmgqa07ktbh1::before,
+[id^='alia-root-'] #alia-27jsz7u0wh9do02a::before {
+  content: '';
+  position: absolute;
+  inset: -32px;
+  z-index: -2;
+  pointer-events: none;
+  background-image: url('https://zenkaiclothing.com/cdn/shop/t/19/assets/collector-home-sky-v2-1536.webp?v=12936927235750376031789053026');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(17px) saturate(0.92);
+  transform: scale(1.08);
+}
+
+[id^='alia-root-'] #alia-7t0dcmgqa07ktbh1::after,
+[id^='alia-root-'] #alia-27jsz7u0wh9do02a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(99, 214, 191, 0.2), transparent 38%),
+    radial-gradient(circle at 12% 88%, rgba(108, 71, 149, 0.18), transparent 38%),
+    linear-gradient(135deg, rgba(10, 32, 28, 0.91), rgba(22, 49, 45, 0.78));
+}
+
+/* The photograph becomes atmosphere instead of a separate block below the form. */
+[id^='alia-root-'] #alia-gene0rraa3plmf2v,
+[id^='alia-root-'] #alia-sdemp3v4s4rwijrz {
+  display: none !important;
+}
+
+[id^='alia-root-'] #alia-k4ulq9l2mj22myor,
+[id^='alia-root-'] #alia-0g1s4vcizslktrpa {
+  position: relative !important;
+  z-index: 1 !important;
+  flex: 0 1 auto !important;
+  box-sizing: border-box !important;
+  height: auto !important;
+  max-height: calc(100dvh - 40px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(245, 250, 247, 0.18) !important;
+  background: rgba(16, 43, 38, 0.9) !important;
+  box-shadow:
+    0 28px 80px rgba(2, 16, 13, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+  backdrop-filter: blur(18px) saturate(1.08);
+  scrollbar-width: none;
+}
+
+[id^='alia-root-'] #alia-k4ulq9l2mj22myor::-webkit-scrollbar,
+[id^='alia-root-'] #alia-0g1s4vcizslktrpa::-webkit-scrollbar {
+  display: none;
+}
+
+[id^='alia-root-'] #alia-in2fiqil11p0j2ir,
+[id^='alia-root-'] #alia-bz5hl3stjw0jigfq {
+  color: rgba(245, 250, 247, 0.7) !important;
+}
+
+@media (max-width: 767px) {
+  [id^='alia-root-'] #alia-7t0dcmgqa07ktbh1 {
+    justify-content: center !important;
+    padding:
+      max(20px, env(safe-area-inset-top))
+      16px
+      max(20px, env(safe-area-inset-bottom)) !important;
+    box-sizing: border-box !important;
+  }
+
+  [id^='alia-root-'] #alia-k4ulq9l2mj22myor {
+    width: min(100%, 420px) !important;
+    margin: auto !important;
+    padding: clamp(28px, 5.5vh, 46px) 24px 30px !important;
+    border-radius: 30px !important;
+  }
+
+  [id^='alia-root-'] #alia-tr5yhnjxin96pajb {
+    width: 108px !important;
+    margin-bottom: 8px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  [id^='alia-root-'] #alia-27jsz7u0wh9do02a {
+    justify-content: flex-start !important;
+    padding: clamp(32px, 5vw, 72px) !important;
+    box-sizing: border-box !important;
+  }
+
+  [id^='alia-root-'] #alia-0g1s4vcizslktrpa {
+    width: min(480px, calc(100vw - 64px)) !important;
+    margin-left: clamp(0px, 5vw, 96px) !important;
+    padding: clamp(40px, 5vh, 58px) clamp(36px, 4vw, 54px) !important;
+    border-radius: 34px !important;
+  }
+
+  [id^='alia-root-'] #alia-ln3cyllpvun8z71p {
+    width: 178px !important;
+    margin-bottom: 2px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [id^='alia-root-'] #alia-7t0dcmgqa07ktbh1::before,
+  [id^='alia-root-'] #alia-27jsz7u0wh9do02a::before {
+    filter: blur(13px) saturate(0.92);
+  }
+}

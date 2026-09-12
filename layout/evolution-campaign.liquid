@@ -23,6 +23,7 @@
     {{ 'evolution-personality.css' | asset_url | stylesheet_tag }}
     {% if evolution_polish %}{{ 'evolution-all-eight-polish.css' | asset_url | stylesheet_tag }}{% endif %}
     <script src="{{ 'evolution-campaign.js' | asset_url }}" defer></script>
+    {{ 'alia-capture-polish.css' | asset_url | stylesheet_tag }}
   </head>
   <body class="ec-body ec-personality{% if evolution_polish %} ec-polished{% endif %}">
     <a href="#MainContent" class="ec-skip">Skip to the collection</a>
