@@ -648,35 +648,21 @@
           "smartsize_conversion_label_IN": "INCHES"
         }
       },
-      "7924418359578431505": {
-        "type": "shopify://apps/seoant-ai-seo/blocks/seoant-core/8e57283b-dcb0-4f7b-a947-fb5c57a0d59d",
-        "disabled": false,
-        "settings": {}
-      },
       "5709234270812905210": {
         "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
         "disabled": false,
         "settings": {}
       },
-      "4571859552318407796": {
-        "type": "shopify://apps/glo-color-swatch-variant-image/blocks/app-embed-block/4394f710-096c-4021-bbde-8ebb26057c11",
-        "disabled": true,
-        "settings": {
-          "customCssGCW": ""
-        }
-      },
       "15683396631634586217": {
         "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
         "disabled": true,
         "settings": {
+          "greeting_message": "👋 Hi, message us with any questions. We're happy to help! We'll typically be with you within a few hours!",
           "button_color": "#000000",
-          "secondary_color": "#ffffff",
-          "ternary_color": "#6a6a6a",
           "button_icon": "chat_bubble",
           "button_text": "chat_with_us",
           "button_horizontal_position": "bottom_right",
-          "button_vertical_position": "lowest",
-          "greeting_message": "👋 Hi, message us with any questions. We're happy to help! We'll typically be with you within a few hours!"
+          "button_vertical_position": "lowest"
         }
       },
       "14952540001915115444": {
@@ -695,6 +681,11 @@
         "settings": {
           "script_load_mode": "async"
         }
+      },
+      "10840395464443086010": {
+        "type": "shopify://apps/alia/blocks/customer-app-frame/51f1d398-3e41-44da-b81e-defd5804b292",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
