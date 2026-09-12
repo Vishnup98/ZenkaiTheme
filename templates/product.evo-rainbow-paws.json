@@ -1,0 +1,20 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-rainbow-paws",
+      "settings": {
+        "hero_prefix": "Every",
+        "hero_accent": "color",
+        "hero_suffix": "comes home.",
+        "hero_body": "Eight tiny personalities. Eight ridiculously cute little costumes. One complete set—because picking a favorite was never really the point.",
+        "shipping_summary": "Typically 5–7 business days",
+        "detail_title": "Tiny hood. Tiny paws. Huge personality.",
+        "detail_body": "Soft little ears, embroidered faces, colorful capes and the sweetest brown paws. The closer you look, the cuter the whole gang gets.",
+        "final_title": "Leave no little paw behind.",
+        "final_body": "Every color. Every mood. All eight companions, ready to make themselves at home."
+      }
+    }
+  },
+  "order": ["main"]
+}
