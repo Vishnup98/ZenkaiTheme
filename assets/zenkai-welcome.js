@@ -14,8 +14,19 @@
     const dialog = root.querySelector('dialog');
     const opener = root.querySelector('[data-welcome-open]');
     if (!dialog || !opener || typeof dialog.showModal !== 'function') return;
+    // Analytics queue: measures interest in the offer without blocking the form.
+    function track(name, properties) {
+      try {
+        window._learnq = window._learnq || [];
+        window._learnq.push(['track', name, properties || {}]);
+      } catch (_) {}
+    }
+    function placement() {
+      return window.matchMedia('(max-width:649px)').matches ? 'mobile' : 'desktop';
+    }
     opener.hidden = false;
     opener.addEventListener('click', () => {
+      track('Zenkai $5 Tab Opened', {placement: placement(), page: window.location.pathname});
       dialog.showModal();
       opener.setAttribute('aria-expanded', 'true');
       if (signup.hidden) success.focus({preventScroll:true});
@@ -62,6 +73,7 @@
         window._learnq = window._learnq || [];
         window._learnq.push(['identify', {'$email':email}]);
         try { localStorage.setItem(storageKey, String(Date.now())); } catch (_) {}
+        track('Zenkai $5 Signup Completed', {placement: placement(), page: window.location.pathname});
         showSuccess(true);
       } catch (reason) {
         error.textContent = reason.message === 'rate_limit'
@@ -75,7 +87,8 @@
         submit.textContent = 'Get my $5 →';
       }
     });
-    root.querySelector('[data-welcome-copy]').addEventListener('click', async () => {
+    const copyButton = root.querySelector('[data-welcome-copy]');
+    if (copyButton) copyButton.addEventListener('click', async () => {
       const status = root.querySelector('[data-welcome-copy-status]');
       try { await navigator.clipboard.writeText('WELCOME5'); status.textContent = 'Code copied.'; }
       catch (_) { status.textContent = 'Select WELCOME5 above to copy it.'; }
