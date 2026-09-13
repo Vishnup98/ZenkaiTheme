@@ -28,8 +28,8 @@
 .mc-page-face--eevee{--mc-face-color:#E0A06E;--mc-face-tilt:-9deg}.mc-page-face--vaporeon{--mc-face-color:#95D1DC;--mc-face-tilt:6deg}.mc-page-face--jolteon{--mc-face-color:#F7DC72;--mc-face-tilt:-5deg}.mc-page-face--flareon{--mc-face-color:#DF5E2E;--mc-face-tilt:8deg}.mc-page-face--espeon{--mc-face-color:#D4B5EC;--mc-face-tilt:-7deg}.mc-page-face--umbreon{--mc-face-color:#4E3F32;--mc-face-ink:#fffaf3;--mc-face-tilt:7deg}.mc-page-face--leafeon{--mc-face-color:#81D0D1;--mc-face-tilt:-6deg}.mc-page-face--glaceon{--mc-face-color:#76BCE3;--mc-face-tilt:5deg}.mc-page-face--sylveon{--mc-face-color:#DB717E;--mc-face-tilt:-8deg}
 .mc-page-face--hero{left:8%;top:-15px}.mc-page-face--included{right:7%;top:-16px}.mc-page-face--story{left:calc(50% - 19px);top:34px}.mc-page-face--size{right:28px;top:-14px}.mc-page-face--proof{right:-13px;top:38%}.mc-page-face--customer{right:7%;top:-15px}.mc-page-face--reviews{left:3%;bottom:-16px}.mc-page-face--faq{left:36%;top:48%}.mc-page-face--final{right:8%;top:-16px}
 .mc-hero-scribbles{position:absolute;z-index:3;inset:0;pointer-events:none}
-.mc-hero-scribble{position:absolute;display:block;width:34px;height:auto;overflow:visible;opacity:.72;filter:drop-shadow(0 1px 0 #fffaf3)}
-.mc-hero-scribble--1{left:37%;top:-15px;color:#3f718d;transform:rotate(5deg)}.mc-hero-scribble--2{left:-18px;top:34%;color:#8e5f1f;transform:rotate(-7deg)}.mc-hero-scribble--3{right:-19px;top:51%;color:#875d94;transform:rotate(6deg)}.mc-hero-scribble--4{left:-16px;bottom:16%;color:#5f70a8;transform:rotate(8deg)}.mc-hero-scribble--5{right:18%;bottom:-14px;color:#96516f;transform:rotate(-6deg)}
+.mc-hero-scribble{position:absolute;display:block;width:62px;height:auto;overflow:visible;opacity:.76;filter:drop-shadow(0 2px 0 #fffaf3)}
+.mc-hero-scribble--1{left:36%;top:-25px;color:#3f718d;transform:rotate(14deg)}.mc-hero-scribble--2{left:-34px;top:33%;color:#8e5f1f;transform:rotate(-18deg)}.mc-hero-scribble--3{right:-35px;top:50%;color:#875d94;transform:rotate(16deg)}.mc-hero-scribble--4{left:-31px;bottom:15%;color:#5f70a8;transform:rotate(20deg)}.mc-hero-scribble--5{right:17%;bottom:-25px;color:#96516f;transform:rotate(-14deg)}
 .mc-set-stamp{position:absolute;right:-18px;top:-20px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:106px;height:106px;gap:4px;border-radius:50%;border:1.5px solid var(--mc-ink);background:#f7e89c;transform:rotate(11deg);box-shadow:3px 3px 0 var(--mc-ink);text-align:center}
 .mc-set-stamp strong{font-family:'Little Display',Arial,sans-serif;font-size:42px;font-weight:800;line-height:.9;letter-spacing:-.06em}
 .mc-set-stamp>span{font-size:10px;font-weight:700;line-height:1.2}
@@ -264,8 +264,8 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-cart{width:40px;height:40px;border:0}
  .mc-body .ec-shell{padding-inline:22px}
  .mc-body .ec-hero{display:block;padding:24px 22px 30px}
- .mc-body .ec-hero-media{width:calc(100% - 20px);max-width:340px;margin:0 auto 27px!important;transform:rotate(-1.3deg);box-shadow:0 0 0 6px #fff,0 0 0 7px #30263b12}
- .mc-hero-scribble{width:26px;opacity:.74}.mc-hero-scribble--1{left:36%;top:-11px}.mc-hero-scribble--2{left:-13px;top:33%}.mc-hero-scribble--3{right:-14px;top:52%}.mc-hero-scribble--4{left:-11px;bottom:15%}.mc-hero-scribble--5{right:18%;bottom:-11px}
+ .mc-body .ec-hero-media{width:calc(100% - 20px);max-width:340px;margin:0 auto 38px!important;transform:rotate(-1.3deg);box-shadow:0 0 0 6px #fff,0 0 0 7px #30263b12}
+ .mc-hero-scribble{width:50px;opacity:.78}.mc-hero-scribble--1{left:35%;top:-22px}.mc-hero-scribble--2{left:-25px;top:32%}.mc-hero-scribble--3{right:-24px;top:51%}.mc-hero-scribble--4{left:-24px;bottom:14%}.mc-hero-scribble--5{right:16%;bottom:-21px}
  .mc-page-face{width:27px;height:21px;border-width:1px;box-shadow:1.5px 1.5px 0 #fffaf3}.mc-page-face svg{width:19px}
  .mc-page-face--hero{left:7%;top:-9px}.mc-page-face--included{right:20px;top:-10px}.mc-page-face--story{left:auto;right:25px;top:26px}.mc-page-face--size{right:18px;top:-9px}.mc-page-face--proof{right:-8px;top:39%}.mc-page-face--customer{right:21px;top:-9px}.mc-page-face--reviews{left:18px;bottom:-10px}.mc-page-face--faq{left:auto;right:24px;top:-9px}.mc-page-face--final{right:22px;top:-10px}
  .mc-set-stamp{width:72px;height:72px;top:-22px;right:-10px}
