@@ -70,7 +70,6 @@
           {% if name == 'espeon' %}{% assign portrait_height = 918 %}{% endif %}
           <article class="fg-mood-card fg-mood-card--{{ name }}" role="listitem">
             <div class="fg-mood-card-image">
-              <span class="fg-card-number">0{{ forloop.index }}</span>
               <img src="{{ small | asset_url }}" srcset="{{ small | asset_url }} 480w, {{ full | asset_url }} 1024w" sizes="(min-width: 1100px) 260px, (min-width: 680px) 44vw, 46vw" width="1024" height="{{ portrait_height }}" loading="lazy" alt="Full view of {{ portrait_descriptions[forloop.index0] }}">
             </div>
             <footer><span>Today’s mood</span><strong>{{ portrait_moods[forloop.index0] }}</strong>{% render 'evolution-paw-mark', class: 'fg-card-paw' %}</footer>
@@ -158,7 +157,7 @@
     </div>
   </section>
 
-  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 · free ship</small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span class="fg-cta-label">Bring all 8 home</span>{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small><span>Complete Collection</span><span>Ships free</span></small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span class="fg-cta-label">Bring all 8 home</span>{% else %}Sold out{% endif %}</button></aside>
 
   <dialog class="ec-lightbox fg-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="1024" height="1024" alt="Enlarged companion plush photo"></div></dialog>
 </div>

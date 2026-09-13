@@ -186,7 +186,6 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-mood-card { --card-wash: #e3d8f3; --card-accent: var(--fg-lilac); min-width: 0; overflow: hidden; border: 2px solid var(--fg-ink); border-radius: 26px 26px 12px 12px; background: #fffaf1; box-shadow: 5px 5px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
 .fg-mood-card-image { position: relative; height: 245px; overflow: hidden; background: var(--card-wash); }
 .fg-mood-card img { width: 100%; height: 100%; object-fit: contain; }
-.fg-card-number { position: absolute; z-index: 1; top: 12px; left: 12px; display: grid; min-width: 34px; height: 27px; padding-inline: 8px; place-items: center; border: 1.5px solid var(--fg-ink); border-radius: 999px; background: #fffaf1e6; color: var(--fg-ink); font-size: 11px; font-weight: 800; }
 .fg-mood-card footer { position: relative; min-height: 73px; padding: 14px 52px 13px 16px; border-top: 2px solid var(--fg-ink); }
 .fg-mood-card footer span { display: block; color: var(--fg-muted); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .fg-mood-card footer strong { display: block; margin-top: 1px; font-family: "Rainbow Display", sans-serif; font-size: 21px; line-height: 1.1; }
@@ -305,7 +304,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-sticky { position: fixed; z-index: 28; right: 22px; bottom: 18px; width: min(430px, calc(100vw - 44px)); display: flex; align-items: center; gap: 13px; padding: 10px 11px 10px 17px; border: 1px solid #fff4; border-radius: 999px; background: var(--fg-ink); color: #fffaf2; box-shadow: 0 14px 40px #30263b40; }
 .fg-sticky > div { display: flex; flex: 1 0 auto; flex-direction: column; }
 .fg-sticky strong { font-family: "Rainbow Display", sans-serif; font-size: 23px; line-height: 1; }
-.fg-sticky small { margin-top: 1px; color: var(--fg-muted-dark); font-size: 10px; font-weight: 560; white-space: nowrap; }
+.fg-sticky small { display: flex; flex-direction: column; gap: 1px; margin-top: 2px; color: #fffaf2; font-size: 10px; font-weight: 720; line-height: 1.05; letter-spacing: .005em; white-space: nowrap; }
 .fg-sticky .fg-cta { width: 62%; min-height: 48px; padding: 9px 12px; border-color: var(--fg-ink); border-radius: 16px 16px 6px 16px; background: var(--fg-mint-action); color: var(--fg-ink); box-shadow: 0 0 0 2px #78bfa43d, inset 0 1px 0 #ffffff70; font-size: 15px; }
 
 .fg-lightbox { width: min(94vw, 1040px); height: auto; max-height: 92vh; padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
@@ -435,14 +434,14 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-rainbow-rule { height: 8px; }
   .fg-moods .fg-shell { padding-top: 20px; }
   .fg-moods .fg-eyebrow { margin-bottom: 6px !important; }
+  .fg-moods .fg-section-heading { margin-bottom: 20px; }
   .fg-bg-paw--moods { top: 24px; right: -49px; width: 142px; height: 130px; }
   .fg-mood-grid { gap: 10px; }
   .fg-mood-card { border-radius: 18px 18px 9px 9px; box-shadow: 3px 4px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
   .fg-mood-card-image { height: clamp(170px, 52vw, 245px); }
-  .fg-card-number { top: 8px; left: 8px; min-width: 30px; height: 23px; padding-inline: 6px; font-size: 9px; }
-  .fg-mood-card footer { min-height: 65px; padding: 11px 38px 10px 11px; }
-  .fg-mood-card footer span { font-size: 7px; }
-  .fg-mood-card footer strong { font-size: clamp(15px, 4.7vw, 19px); }
+  .fg-mood-card footer { min-height: 0; padding: 9px 38px 7px 11px; }
+  .fg-mood-card footer span { color: var(--fg-copy); font-size: 8.5px; font-weight: 850; line-height: 1; letter-spacing: .055em; }
+  .fg-mood-card footer strong { margin-top: 1px; font-size: clamp(15px, 4.7vw, 19px); }
   .fg-card-paw { right: 9px; width: 23px; height: 21px; }
   .fg-moods-note { width: 100%; gap: 6px; padding: 10px 12px; border-radius: 16px; font-size: 10px; line-height: 1.35; }
   .fg-moods-note i { width: 5px; height: 5px; }
@@ -477,7 +476,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-final-paw--three { width: 16px; height: 15px; }
   .fg-sticky { right: 0; bottom: 0; width: 100%; max-width: none; padding: 9px 12px max(9px, env(safe-area-inset-bottom)); border-width: 1px 0 0; border-radius: 0; }
   .fg-sticky .fg-cta { width: 64%; min-height: 48px; border-radius: 15px 15px 6px 15px; font-size: 15px; }
-  .fg-sticky small { font-size: 9px; line-height: 1.15; }
+  .fg-sticky small { font-size: 10px; font-weight: 720; line-height: 1.05; }
   .fg-footer { padding: 27px 20px 108px; }
   .fg-footer-inner { grid-template-columns: 1fr; padding: 0; }
   .fg-footer nav { gap: 0 17px; }
