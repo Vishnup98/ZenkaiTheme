@@ -22,8 +22,6 @@
 .mc-body .ec-hero{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:62px;padding-block:46px 62px;align-items:center}
 .mc-body .ec-hero-media{position:relative;align-self:center;isolation:isolate;min-width:0;background:#f4decf;border-radius:26px;box-shadow:0 0 0 8px #fff,0 0 0 9px #30263b12;transform:rotate(-1.4deg)}
 .mc-body .ec-hero-media img{border-radius:26px;width:100%;aspect-ratio:1;object-fit:contain}
-.mc-body .mc-hero-zoom{display:block;width:100%;padding:0;border:0;border-radius:inherit;background:none;cursor:zoom-in}
-.mc-body .mc-hero-zoom:focus-visible{outline-offset:-4px}
 .mc-set-stamp{position:absolute;right:-18px;top:-20px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:106px;height:106px;gap:4px;border-radius:50%;border:1.5px solid var(--mc-ink);background:#f7e89c;transform:rotate(11deg);box-shadow:3px 3px 0 var(--mc-ink);text-align:center}
 .mc-set-stamp strong{font-family:'Little Display',Arial,sans-serif;font-size:42px;font-weight:800;line-height:.9;letter-spacing:-.06em}
 .mc-set-stamp>span{font-size:10px;font-weight:700;line-height:1.2}
@@ -44,9 +42,6 @@
 .mc-body .ec-hero-copy h1{isolation:isolate}
 .mc-body .ec-lede{font-size:18px;font-weight:560;line-height:1.52;letter-spacing:-.009em;max-width:35ch;color:var(--mc-copy);text-wrap:pretty}
 .mc-body .ec-lede strong{color:var(--mc-ink);font-weight:720}
-.mc-body .mc-hero-desire{display:flex;align-items:flex-start;gap:8px;max-width:39ch;margin:9px 0 0;color:var(--mc-copy);font-size:14px;font-weight:560;line-height:1.48;letter-spacing:-.004em;text-wrap:pretty}
-.mc-body .mc-hero-desire>span:first-child{display:grid;width:18px;height:18px;flex:0 0 18px;place-items:center;margin-top:1px;color:var(--mc-purple);font-size:14px;line-height:1;transform:rotate(8deg)}
-.mc-body .mc-hero-desire strong{font-weight:760}
 .mc-hero-trust{--mc-trust-rule:#30263b3d;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;gap:0;overflow:hidden;margin:23px 0;border:1.5px solid var(--mc-ink);border-radius:18px 18px 8px 18px;background:#fff;color:var(--mc-ink);box-shadow:3px 3px 0 #d8c8e6}
 .mc-hero-rating,.mc-hero-orders{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:10px 16px}
 .mc-hero-rating-line{display:flex;align-items:center;gap:7px;white-space:nowrap}
@@ -95,7 +90,7 @@
 .mc-body .ec-portraits>figure:nth-child(8),.mc-body .ec-portrait-thumbs button:nth-child(8){--mc-photo-mat:#a1bfb1}
 .mc-body .ec-portraits>figure:nth-child(9),.mc-body .ec-portrait-thumbs button:nth-child(9){--mc-photo-mat:#a1b4df}
 .mc-body .ec-portraits>figure:nth-child(10),.mc-body .ec-portrait-thumbs button:nth-child(10){--mc-photo-mat:#e4a4c4}
-.mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button{height:330px;aspect-ratio:auto;border:0;border-radius:18px;background:var(--mc-photo-mat,var(--mc-lilac));padding:0;overflow:hidden}
+.mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button,.mc-body .ec-portraits .mc-carousel-image{display:grid;place-items:center;height:330px;aspect-ratio:auto;border:0;border-radius:18px;background:var(--mc-photo-mat,var(--mc-lilac));padding:0;overflow:hidden}
 .mc-body .ec-portraits img{width:100%;height:100%;object-fit:contain;transition:transform .25s ease}
 @media(hover:hover){.mc-body .ec-portraits button:hover{box-shadow:inset 0 0 0 2px #6c479550}}
 .mc-body .ec-gallery-controls{inset:0 0 8px;max-width:none;margin:0}
@@ -192,7 +187,7 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-hero{gap:40px}
  .mc-body h1{font-size:52px}
  .mc-hero-rating,.mc-hero-orders{padding-inline:13px}
- .mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button{height:280px}
+ .mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button,.mc-body .ec-portraits .mc-carousel-image{height:280px}
  .mc-body .ec-size-copy h2,.mc-body .ec-proof-copy h2{font-size:34px}
 }
 @media(max-width:899px){
@@ -222,7 +217,7 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .mc-gallery-intro{font-size:13px}
  .mc-body .ec-portraits{margin:0;padding:0 0 7px;scroll-padding:0;gap:12px}
  .mc-body .ec-portraits>figure{flex-basis:calc((100% - 12px)/2);max-width:none}
- .mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button{height:300px;border-radius:15px}
+ .mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button,.mc-body .ec-portraits .mc-carousel-image{height:300px;border-radius:15px}
  .mc-body .ec-portrait-thumbs{grid-template-columns:repeat(10,minmax(44px,1fr));gap:6px;max-width:100%;margin-top:9px;padding:4px 3px 6px}
  .mc-body .ec-story{padding-block:54px}
  .mc-body .mc-story-grid{gap:34px}
@@ -271,7 +266,6 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-hero-copy h1{margin-bottom:14px}
  .mc-title-accent svg{bottom:-10px;height:12px}
  .mc-body .ec-lede{font-size:15px;line-height:1.45;max-width:35ch}
- .mc-body .mc-hero-desire{gap:7px;margin-top:8px;font-size:13.5px;line-height:1.43}.mc-body .mc-hero-desire>span:first-child{width:17px;height:17px;flex-basis:17px;font-size:13px}
  .mc-hero-trust{margin:12px 0 14px}
  .mc-hero-rating,.mc-hero-orders{gap:3px;padding:7px 12px}
  .mc-hero-rating-line{gap:5px}
@@ -294,7 +288,7 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .mc-gallery-intro{font-size:14px;text-align:left;margin-top:13px;max-width:29ch}
  .mc-body .ec-portraits{margin-right:-20px;padding-right:20px;scroll-padding-right:20px}
  .mc-body .ec-portraits>figure{flex-basis:88%;max-width:320px}
- .mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button{height:clamp(240px,76vw,300px)}
+ .mc-body .ec-portraits button,.mc-body .ec-portraits[data-ec-portrait-mode='individual'] button,.mc-body .ec-portraits .mc-carousel-image{height:clamp(240px,76vw,300px)}
  .mc-body .ec-portrait-thumbs{grid-template-columns:repeat(10,46px);justify-content:start;gap:6px;margin-top:7px}
  .mc-body .ec-portrait-thumbs button{min-height:46px;border-radius:10px;padding:2px}
  .mc-body .ec-story{padding-block:45px 42px}

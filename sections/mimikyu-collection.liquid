@@ -8,11 +8,7 @@
 <div class="ec-page ec-palette-cream mc-page" data-ec-page data-journey="mimikyu-collection">
   <section class="ec-hero ec-shell" aria-labelledby="mc-title-{{ section.id }}">
     <figure class="ec-hero-media">
-      {%- assign hero_zoom_url = 'mimikyu-source-lineup-960.webp' | asset_url -%}
-      {%- if section.settings.hero_image != blank -%}{%- assign hero_zoom_url = section.settings.hero_image | image_url: width: 1800 -%}{%- endif -%}
-      <button class="mc-hero-zoom" type="button" data-ec-zoom="{{ hero_zoom_url }}" aria-label="Enlarge the complete nine-plush collection">
-        {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
-      </button>
+      {% render 'mimikyu-image', photo: section.settings.hero_image, fallback: 'mimikyu-source-lineup', alt: 'The complete nine-piece Little Impostors plush collection', loading: 'eager' %}
       <span class="mc-set-stamp" aria-hidden="true"><strong>9</strong><span>little impostors.<br>one happy shelf.</span></span>
     </figure>
     <div class="ec-hero-copy">
@@ -20,8 +16,7 @@
         <span class="mc-kicker-name" aria-hidden="true"><span class="mc-kicker-little">Little</span> <span class="mc-kicker-impostors"><i>I</i><i>m</i><i>p</i><i>o</i><i>s</i><i>t</i><i>o</i><i>r</i><i>s</i><span class="mc-kicker-swarm"><svg viewBox="0 0 164 48" fill="none" focusable="false"><defs><g id="mc-mini-impostor"><ellipse cx="4.5" cy="3.5" rx="1.4" ry="2.4" fill="currentColor" transform="rotate(-8 4.5 3.5)"/><ellipse cx="13.5" cy="3.5" rx="1.4" ry="2.4" fill="currentColor" transform="rotate(8 13.5 3.5)"/><path d="m1.5 9 3 1.7 3-3 3 3 3-3 3 1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g></defs><g class="mc-mini-face mc-mini-face--1" transform="translate(0 0) rotate(-9 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--2" transform="translate(34 1) rotate(6 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--3" transform="translate(68 0) rotate(-4 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--4" transform="translate(104 1) rotate(8 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--5" transform="translate(146 0) rotate(-7 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--6" transform="translate(17 36) rotate(8 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--7" transform="translate(52 35) rotate(-6 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--8" transform="translate(87 36) rotate(5 9 6)"><use href="#mc-mini-impostor"/></g><g class="mc-mini-face mc-mini-face--9" transform="translate(123 35) rotate(-8 9 6)"><use href="#mc-mini-impostor"/></g></svg></span></span></span>
       </p>
       <h1 id="mc-title-{{ section.id }}">{{ section.settings.hero_title | escape }}<span class="mc-title-accent">{{ section.settings.hero_title_accent | escape }}<svg viewBox="0 0 340 18" fill="none" aria-hidden="true" focusable="false"><path d="M3 9C64 1 102 16 163 8S264 3 337 9" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></span></h1>
-      <p class="ec-lede"><strong>Nine soft little troublemakers.</strong> One of every design. All yours.</p>
-      <p class="mc-hero-desire"><span aria-hidden="true">✦</span><span><strong>Your shelf has been warned.</strong> Once one moves in, the whole little gang moves in.</span></p>
+      <p class="ec-lede"><strong>Nine soft little troublemakers.</strong> One of every design. All yours. <strong>Once one moves in, the whole little gang belongs there.</strong></p>
       <div class="mc-hero-trust" role="group" aria-label="Rated 4.8 out of 5 from 98 Zenkai Shop reviews, more than 3,000 shop orders, and ships free">
         <div class="mc-hero-rating"><span class="mc-hero-rating-line"><span class="mc-hero-stars" aria-hidden="true">★</span><strong>4.8/5</strong></span><small>98 Zenkai shop reviews</small></div>
         <div class="mc-hero-orders"><strong>3,000+</strong><small>Shop orders</small></div>
@@ -51,8 +46,7 @@
       {% for name in names %}
         {% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
         {% assign fallback = 'mimikyu-source-' | append: name %}{% if forloop.first %}{% assign fallback = 'mimikyu-source-lineup' %}{% endif %}
-        {% assign full_asset = fallback | append: '-960.webp' %}{% assign zoom_url = full_asset | asset_url %}{% if photo != blank %}{% assign zoom_url = photo | image_url: width: 1800 %}{% endif %}
-        <figure class="ec-portrait"><button type="button" data-ec-zoom="{{ zoom_url }}" aria-label="Enlarge {{ labels[forloop.index0] | escape }}">{% render 'mimikyu-image', photo: photo, fallback: fallback, alt: labels[forloop.index0], sizes: '(min-width: 1100px) 380px, (min-width: 680px) 46vw, 84vw' %}</button></figure>
+        <figure class="ec-portrait"><div class="mc-carousel-image">{% render 'mimikyu-image', photo: photo, fallback: fallback, alt: labels[forloop.index0], sizes: '(min-width: 1100px) 380px, (min-width: 680px) 46vw, 84vw' %}</div></figure>
       {% endfor %}
     </div>
     <div class="ec-gallery-controls" data-ec-gallery-controls hidden><div><button type="button" data-ec-gallery-prev aria-label="Previous collection photo">←</button><span data-ec-gallery-position aria-live="polite">1 of 10</span><button type="button" data-ec-gallery-next aria-label="Next collection photo">→</button></div></div>
