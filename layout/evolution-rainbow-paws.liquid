@@ -22,7 +22,7 @@
     <a href="#MainContent" class="fg-skip">Skip to the collection</a>
     <header class="ec-header fg-header">
       <a class="fg-brand" href="{{ routes.root_url }}" aria-label="Zenkai Clothing home"><img src="{{ 'zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png' | file_url }}?width=144" width="72" height="54" alt="Zenkai Clothing"></a>
-      <span class="fg-header-note"><i aria-hidden="true"></i> Free U.S. shipping <i aria-hidden="true"></i></span>
+      <span class="fg-header-note"><i aria-hidden="true"></i> Free shipping <i aria-hidden="true"></i></span>
       <a class="fg-cart" href="{{ routes.cart_url }}" aria-label="View cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}"><svg aria-hidden="true" focusable="false" viewBox="0 0 32 32" width="27" height="27" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h4l4 18h15l3-13H8"/><circle cx="13" cy="27" r="1.5"/><circle cx="24" cy="27" r="1.5"/></svg>{% if cart.item_count > 0 %}<span class="fg-cart-count" aria-hidden="true">{{ cart.item_count }}</span>{% endif %}</a>
     </header>
     <main id="MainContent">{{ content_for_layout }}</main>

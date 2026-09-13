@@ -23,10 +23,10 @@
       <h1 id="fg-title-{{ section.id }}">{{ section.settings.hero_prefix | escape }} <span class="fg-rainbow-word">{{ section.settings.hero_accent | escape }}</span><br>{{ section.settings.hero_suffix | escape }}</h1>
       <p class="fg-lede">{% if section.settings.hero_body contains hero_lede_lead %}<strong>{{ hero_lede_lead }}</strong>{{ section.settings.hero_body | remove_first: hero_lede_lead | escape }}{% else %}{{ section.settings.hero_body | escape }}{% endif %}</p>
 
-      <div class="evo-purchase-proof evo-purchase-proof--hero" role="group" aria-label="Rated 4.8 out of 5 from 98 Shop reviews, more than 3,000 orders, and free U.S. shipping">
+      <div class="evo-purchase-proof evo-purchase-proof--hero" role="group" aria-label="Rated 4.8 out of 5 from 98 Shop reviews, more than 3,000 orders, and free shipping">
         <div class="evo-proof-rating"><span class="evo-proof-rating-line"><span class="evo-proof-stars" aria-hidden="true">★★★★★</span><strong>4.8/5</strong></span><small>98 Shop reviews</small></div>
         <div class="evo-proof-orders"><strong>3,000+</strong><small>orders and counting</small></div>
-        <div class="evo-proof-shipping"><strong>Free U.S.</strong><small>shipping included</small></div>
+        <div class="evo-proof-shipping"><strong>Free</strong><small>shipping</small></div>
       </div>
 
       <div class="fg-offer">
@@ -37,7 +37,7 @@
           <input type="hidden" name="return_to" value="/checkout">
           <input type="hidden" name="properties[_zk_landing_view]" value="evo-rainbow-paws">
           <button class="ec-cta fg-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span class="fg-cta-price">{{ v.price | money_without_trailing_zeros }}</span><span class="fg-cta-arrow" aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button>
-          <p class="fg-shipping"><span class="fg-shipping-check" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-shipping-paw' %}</span><strong>Free U.S. shipping</strong><span>{{ section.settings.shipping_summary | escape }}</span></p>
+          <p class="fg-shipping"><span class="fg-shipping-check" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-shipping-paw' %}</span><strong>Free shipping</strong><span>{{ section.settings.shipping_summary | escape }}</span></p>
           {{ form | payment_button }}
         {%- endform -%}
       </div>
@@ -47,7 +47,7 @@
   <section class="fg-paw-promise" aria-label="Complete set highlights">
     <div class="fg-shell">
       <div><span class="fg-mini-paw fg-paw--pink">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>All 8 included</strong><small>One of every color</small></p></div>
-      <div><span class="fg-mini-paw fg-paw--mint">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>Free U.S. shipping</strong><small>On this complete set</small></p></div>
+      <div><span class="fg-mini-paw fg-paw--mint">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>Free shipping</strong><small>On this complete set</small></p></div>
       <div><span class="fg-mini-paw fg-paw--yellow">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>{{ per_plush | money_without_trailing_zeros }} per plush</strong><small>Only in the complete set</small></p></div>
       <div><span class="fg-mini-paw fg-paw--blue">{% render 'evolution-paw-mark', class: 'fg-paw-icon' %}</span><p><strong>About 8 inches</strong><small>Made to stay close</small></p></div>
     </div>
@@ -144,7 +144,7 @@
       <details><summary>Does the price include all eight?<span aria-hidden="true">+</span></summary><p>Yes. {{ v.price | money_without_trailing_zeros }} buys eight separate plush companions, with one of every design pictured. Each plush comes in its own costume; this is not one plush with spare outfits. Display props and gift wrapping are not included.</p></details>
       <details><summary>Can I choose just one color?<span aria-hidden="true">+</span></summary><p>This page is for the complete collection, so all eight pictured colors are included and there is no color selection to make.</p></details>
       <details><summary>How big is each plush?<span aria-hidden="true">+</span></summary><p>Each is approximately 8 × 7 × 6 inches. Hood and ear shapes vary, so allow a little extra room when planning your display.</p></details>
-      <details><summary>Is shipping free, and when will they arrive?<span aria-hidden="true">+</span></summary><p>U.S. shipping is free. Delivery typically takes 5–7 business days, with tracking provided after dispatch. The set may arrive separately from other products in your order.</p></details>
+      <details><summary>Is shipping free, and when will they arrive?<span aria-hidden="true">+</span></summary><p>Shipping is free. Delivery typically takes 5–7 business days, with tracking provided after dispatch. The set may arrive separately from other products in your order.</p></details>
       <details><summary>How should I care for them?<span aria-hidden="true">+</span></summary><p>Spot clean gently and air dry. Keep away from heat and open flames. Not suitable for children under 3 years old.</p></details>
       <details><summary>What if something is wrong with my order?<span aria-hidden="true">+</span></summary><p>If an item is lost in transit, damaged, defective, incorrect, or materially different from its description, contact us with your order number and available photos. <a href="/policies/refund-policy">Read our refund and order-care policy.</a></p></details>
     </div>
@@ -154,7 +154,7 @@
     <span class="fg-final-paw-cloud" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--one' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--two' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--three' %}</span>
     <div class="fg-shell fg-final-grid">
       <figure><img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(min-width: 900px) 50vw, 100vw" width="1024" height="687" loading="lazy" alt="The complete eight-plush Evolution Companions set"></figure>
-      <div><p class="fg-eyebrow">All eight. All yours. {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span class="fg-cta-price">{{ v.price | money_without_trailing_zeros }}</span><span class="fg-cta-arrow" aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free U.S. shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
+      <div><p class="fg-eyebrow">All eight. All yours. {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span>Bring all 8 home</span><span class="fg-cta-price">{{ v.price | money_without_trailing_zeros }}</span><span class="fg-cta-arrow" aria-hidden="true">→</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
     </div>
   </section>
 
