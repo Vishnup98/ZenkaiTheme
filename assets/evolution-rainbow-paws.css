@@ -459,7 +459,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-scale dl > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--fg-rule); }
   .fg-scale-photos { gap: 10px; }
   .fg-scale-photos figure { padding: 5px 5px 10px; border-radius: 18px 18px 8px 8px; box-shadow: 4px 4px 0 var(--fg-lilac); }
-  .fg-scale-photos figure:last-child { margin-top: 22px; box-shadow: 4px 4px 0 var(--fg-pink); }
+  .fg-scale-photos figure:last-child { margin-top: 0; box-shadow: 4px 4px 0 var(--fg-pink); }
   .fg-scale-photos button { border-radius: 12px 12px 4px 4px; }
   .fg-scale-photos figcaption { padding-top: 8px; font-size: 12px; }
   .fg-customer-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; gap: 9px; }
