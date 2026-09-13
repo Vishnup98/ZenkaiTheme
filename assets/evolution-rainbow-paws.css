@@ -433,6 +433,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
   .fg-mini-paw { width: 34px; height: 34px; flex-basis: 34px; }
   .fg-rainbow-rule { height: 8px; }
+  .fg-moods .fg-shell { padding-top: 28px; }
   .fg-bg-paw--moods { top: 24px; right: -49px; width: 142px; height: 130px; }
   .fg-mood-grid { gap: 10px; }
   .fg-mood-card { border-radius: 18px 18px 9px 9px; box-shadow: 3px 4px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
