@@ -56,7 +56,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  min-height: 64px;
+  min-height: 68px;
   padding-inline: max(24px, calc((100vw - 1176px) / 2));
   display: grid;
   grid-template-columns: 78px 1fr 44px;
@@ -68,8 +68,8 @@
 }
 .fg-brand { display: flex; align-items: center; min-height: 56px; }
 .fg-brand img { width: 72px; height: 54px; object-fit: contain; }
-.fg-header-note { display: flex; justify-content: center; align-items: center; gap: 22px; font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
-.fg-header-note i { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-yellow); box-shadow: 11px 0 0 var(--fg-pink), -11px 0 0 var(--fg-blue); }
+.fg-header-note { display: flex; width: max-content; min-height: 40px; justify-self: center; justify-content: center; align-items: center; gap: 18px; padding: 7px 20px; border: 1px solid #fff5; border-radius: 999px; background: linear-gradient(180deg, #fff2, #fff1); color: #fff; box-shadow: inset 0 1px 0 #fff3, 0 3px 12px #150e1f2e; font-size: 13px; font-weight: 850; letter-spacing: .075em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.fg-header-note i { width: 9px; height: 9px; flex: 0 0 9px; border-radius: 50%; background: var(--fg-yellow); box-shadow: 14px 0 0 var(--fg-pink), -14px 0 0 var(--fg-blue); }
 .fg-cart { position: relative; display: grid; width: 44px; height: 44px; place-items: center; text-decoration: none; }
 .fg-cart-count { position: absolute; top: 0; right: 0; min-width: 18px; height: 18px; padding-inline: 4px; border-radius: 50%; background: var(--fg-pink); color: var(--fg-ink); font-size: 10px; font-weight: 800; line-height: 18px; text-align: center; }
 
@@ -349,7 +349,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 
 @media (max-width: 899px) {
   .fg-shell { padding-inline: 20px; }
-  .fg-header { min-height: 60px; padding-inline: 20px; grid-template-columns: 72px 1fr 44px; }
+  .fg-header { min-height: 64px; padding-inline: 20px; grid-template-columns: 72px 1fr 44px; }
   .fg-brand img { width: 66px; height: 50px; }
   .fg-body h1 { font-size: clamp(40px, 11vw, 56px); }
   .fg-body h2 { font-size: clamp(34px, 9vw, 46px); }
@@ -395,8 +395,8 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 
 @media (max-width: 599px) {
   .fg-header { padding-inline: 15px; }
-  .fg-header-note { font-size: 9px; letter-spacing: .07em; gap: 17px; }
-  .fg-header-note i { width: 5px; height: 5px; box-shadow: 8px 0 0 var(--fg-pink), -8px 0 0 var(--fg-blue); }
+  .fg-header-note { min-height: 36px; padding: 6px 14px; gap: 14px; font-size: 11.5px; font-weight: 850; letter-spacing: .06em; }
+  .fg-header-note i { width: 7px; height: 7px; flex-basis: 7px; box-shadow: 11px 0 0 var(--fg-pink), -11px 0 0 var(--fg-blue); }
   .fg-hero { padding-inline: 17px; padding-top: 20px; }
   .fg-hero-media { padding: 8px; border-radius: 25px 25px 25px 8px; box-shadow: 7px 7px 0 #dacff2; }
   .fg-hero-media button { border-radius: 17px 17px 17px 4px; }
@@ -484,7 +484,11 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 }
 
 @media (max-width: 359px) {
-  .fg-header-note { font-size: 8px; }
+  .fg-header { padding-inline: 10px; grid-template-columns: 58px 1fr 40px; gap: 8px; }
+  .fg-brand img { width: 54px; height: 44px; }
+  .fg-cart { width: 40px; height: 40px; }
+  .fg-header-note { min-height: 32px; padding: 5px 10px; gap: 11px; font-size: 10.5px; letter-spacing: .045em; }
+  .fg-header-note i { width: 6px; height: 6px; flex-basis: 6px; box-shadow: 9px 0 0 var(--fg-pink), -9px 0 0 var(--fg-blue); }
   .fg-body h1 { font-size: 38px; }
   .fg-price { gap: 11px; }
   .fg-price > strong { font-size: 36px; }
