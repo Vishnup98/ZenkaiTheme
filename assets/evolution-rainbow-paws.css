@@ -401,9 +401,11 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-trail-paw--one { width: 15px; height: 14px; }
   .fg-trail-paw--two { width: 19px; height: 18px; }
   .fg-trail-paw--three { width: 14px; height: 13px; }
+  .fg-identity { margin-bottom: 9px !important; line-height: 1.12; }
   .fg-identity-paw { width: .76em; height: .7em; }
-  .fg-lede { font-size: 16px; line-height: 1.55; }
-  .evo-purchase-proof--hero { gap: 12px; margin-block: 18px 20px; padding: 10px; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
+  .fg-hero h1 { line-height: .94; }
+  .fg-lede { margin-top: 12px !important; font-size: 16px; line-height: 1.45; }
+  .evo-purchase-proof--hero { gap: 12px; margin-block: 13px 14px; padding: 10px; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
   .evo-proof-rating { gap: 7px; }
   .evo-proof-stars { font-size: 16px; }
   .evo-proof-rating strong { font-size: 17px; }
