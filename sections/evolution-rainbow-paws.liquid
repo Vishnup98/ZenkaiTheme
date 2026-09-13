@@ -24,9 +24,9 @@
       <p class="fg-lede">{% if section.settings.hero_body contains hero_lede_lead %}<strong>{{ hero_lede_lead }}</strong>{{ section.settings.hero_body | remove_first: hero_lede_lead | escape }}{% else %}{{ section.settings.hero_body | escape }}{% endif %}</p>
 
       <div class="evo-purchase-proof evo-purchase-proof--hero" role="group" aria-label="Rated 4.8 out of 5 from 98 Zenkai Shop reviews, more than 3,000 shop orders, and ships free">
-        <div class="evo-proof-rating"><span class="evo-proof-rating-line"><span class="evo-proof-stars" aria-hidden="true">★</span><strong>4.8/5</strong></span><small>Zenkai shop rating · 98 reviews</small></div>
-        <div class="evo-proof-orders"><strong>3,000+</strong><small>shop orders</small></div>
-        <div class="evo-proof-shipping">{% render 'evolution-paw-mark', class: 'evo-proof-shipping-paw' %}<strong>Ships Free</strong></div>
+        <div class="evo-proof-rating"><span class="evo-proof-rating-line"><span class="evo-proof-stars" aria-hidden="true">★</span><strong>4.8/5</strong></span><small>98 Zenkai shop reviews</small></div>
+        <div class="evo-proof-orders"><strong>3,000+</strong><small>Shop orders</small></div>
+        <div class="evo-proof-shipping"><span class="evo-proof-paw-badge" aria-hidden="true">{% render 'evolution-paw-mark', class: 'evo-proof-shipping-paw' %}</span><strong>Ships Free</strong></div>
       </div>
 
       <div class="fg-offer">

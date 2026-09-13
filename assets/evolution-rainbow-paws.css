@@ -111,17 +111,17 @@
 .fg-lede { max-width: 42ch; margin-top: 22px !important; color: var(--fg-copy) !important; font-size: 17px; font-weight: 560; line-height: 1.6; letter-spacing: -.008em; text-wrap: pretty; }
 .fg-lede strong { color: var(--fg-ink); font-weight: 740; }
 
-.evo-purchase-proof--hero { --evo-proof-accent: #755bc2; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; overflow: hidden; margin: 22px 0; padding: 0; border: 1.5px solid var(--fg-ink); border-radius: 18px 18px 8px 18px; background: #fff; color: var(--fg-ink); box-shadow: 3px 3px 0 #ddd1f1; }
-.evo-proof-rating, .evo-proof-orders { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 12px 17px; }
+.evo-purchase-proof--hero { --evo-proof-accent: #755bc2; --evo-proof-rule: #30263b3d; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; overflow: hidden; margin: 22px 0; padding: 0; border: 1.5px solid var(--fg-ink); border-radius: 18px 18px 8px 18px; background: #fff; color: var(--fg-ink); box-shadow: 3px 3px 0 #ddd1f1; }
+.evo-proof-rating, .evo-proof-orders { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 10px 16px; }
 .evo-proof-rating-line { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
-.evo-proof-stars { color: var(--evo-proof-accent); font-size: 16px; line-height: 1; }
-.evo-proof-rating strong, .evo-proof-orders strong, .evo-proof-shipping strong { font-family: "Rainbow Display", sans-serif; font-size: 20px; font-weight: 760; letter-spacing: -.025em; line-height: 1.1; }
-.evo-proof-rating small, .evo-proof-orders small { color: var(--fg-muted); font-family: "Rainbow Sans", Arial, sans-serif; font-size: 11px; font-weight: 600; line-height: 1.35; }
-.evo-proof-orders { border-left: 1px solid var(--fg-rule); }
-.evo-proof-orders strong { font-size: 24px; }
-.evo-proof-shipping { grid-column: 1 / -1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 7px 16px; border-top: 1px solid var(--fg-rule); background: #fff; color: var(--fg-copy); }
-.evo-proof-shipping strong { font-size: 14px; font-weight: 650; letter-spacing: -.01em; }
-.evo-proof-shipping-paw { width: 12px; height: 11px; color: var(--evo-proof-accent); transform: rotate(-8deg); }
+.evo-proof-stars { display: grid; width: 24px; height: 24px; flex: 0 0 24px; place-items: center; border-radius: 50%; background: #eee7fb; color: var(--evo-proof-accent); font-size: 14px; line-height: 1; }
+.evo-proof-rating strong, .evo-proof-orders strong { font-family: "Rainbow Display", sans-serif; font-size: 22px; font-weight: 780; letter-spacing: -.03em; line-height: 1; }
+.evo-proof-rating small, .evo-proof-orders small { color: #4f4458; font-family: "Rainbow Sans", Arial, sans-serif; font-size: 10px; font-weight: 720; line-height: 1.2; letter-spacing: .055em; text-transform: uppercase; }
+.evo-proof-orders { border-left: 1px solid var(--evo-proof-rule); }
+.evo-proof-shipping { grid-column: 1 / -1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 4px 16px; border-top: 1px solid var(--evo-proof-rule); background: #fff; color: var(--fg-ink); }
+.evo-proof-shipping strong { font-family: "Rainbow Display", sans-serif; font-size: 12.5px; font-weight: 720; line-height: 1; letter-spacing: .055em; text-transform: uppercase; }
+.evo-proof-paw-badge { display: grid; width: 18px; height: 18px; flex: 0 0 18px; place-items: center; border-radius: 50%; background: #eee7fb; color: var(--evo-proof-accent); }
+.evo-proof-shipping-paw { width: 10px; height: 9px; color: inherit; transform: rotate(-8deg); }
 
 .fg-offer { padding-top: 0; border-top: 0; }
 .fg-price { display: flex; align-items: center; gap: 17px; }
@@ -414,15 +414,15 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-hero h1 { line-height: .94; }
   .fg-lede { margin-top: 12px !important; font-size: 16px; line-height: 1.45; }
   .evo-purchase-proof--hero { grid-template-columns: 1fr 1fr; margin-block: 13px 14px; padding: 0; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
-  .evo-proof-rating, .evo-proof-orders { gap: 2px; padding: 9px 13px; }
+  .evo-proof-rating, .evo-proof-orders { gap: 3px; padding: 7px 12px; }
   .evo-proof-rating-line { gap: 5px; }
-  .evo-proof-stars { font-size: 13px; }
-  .evo-proof-rating strong { font-size: 17px; }
-  .evo-proof-orders strong { font-size: 20px; }
-  .evo-proof-rating small, .evo-proof-orders small { font-size: 10px; line-height: 1.25; }
-  .evo-proof-shipping { gap: 6px; padding: 6px 14px; }
-  .evo-proof-shipping strong { font-size: 13px; }
-  .evo-proof-shipping-paw { width: 11px; height: 10px; }
+  .evo-proof-stars { width: 21px; height: 21px; flex-basis: 21px; font-size: 12px; }
+  .evo-proof-rating strong, .evo-proof-orders strong { font-size: 19px; }
+  .evo-proof-rating small, .evo-proof-orders small { font-size: 9.5px; line-height: 1.15; letter-spacing: .04em; }
+  .evo-proof-shipping { gap: 6px; padding: 4px 14px; }
+  .evo-proof-shipping strong { font-size: 12px; }
+  .evo-proof-paw-badge { width: 17px; height: 17px; flex-basis: 17px; }
+  .evo-proof-shipping-paw { width: 9px; height: 8px; }
   .fg-price > strong { font-size: 39px; }
   .fg-price > span { font-size: 14px; }
   .fg-price small { font-size: 11px; }
