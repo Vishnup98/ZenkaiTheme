@@ -263,7 +263,6 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-review-grid figure:nth-child(3) { transform: rotate(-.5deg); }
 .fg-review-paw { margin-bottom: 19px; }
 .fg-review-grid blockquote { color: #fffaf2; font-size: 16px; font-weight: 540; line-height: 1.58; letter-spacing: -.006em; }
-.fg-review-source { margin-top: 18px !important; color: var(--fg-muted-dark) !important; font-size: 11px; font-weight: 540; }
 
 .fg-faq { display: grid; grid-template-columns: .85fr 1.15fr; gap: 60px; padding-block: 80px; }
 .fg-faq header { position: relative; align-self: start; }
@@ -379,7 +378,6 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-review-score { width: max-content; margin-top: 14px !important; }
   .fg-review-grid { grid-template-columns: 1fr; }
   .fg-review-grid figure { min-height: 0; }
-  .fg-review-source { margin-top: 14px !important; }
   .fg-reviews { padding-block: 30px; }
   .fg-faq { gap: 30px; padding-block: 58px; }
   .fg-faq-paw { position: absolute; width: 55px; height: 50px; right: 10px; bottom: 0; }
@@ -470,12 +468,25 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-customer-grid figure:nth-child(n) { grid-column: span 1; grid-row: span 1; border-radius: 14px; }
   .fg-customer-grid figure:first-child { grid-row: span 2; }
   .fg-bg-paw--reviews { top: 38px; right: -58px; width: 180px; height: 164px; }
+  .fg-review-grid { gap: 12px; }
+  .fg-review-grid figure { padding: 26px 20px 20px; }
+  .fg-review-paw { margin-bottom: 13px; }
+  .fg-faq { gap: 18px; padding-block: 30px; }
+  .fg-faq .fg-eyebrow { margin-bottom: 7px !important; }
+  .fg-faq header { padding-bottom: 0; }
   .fg-faq h2 { max-width: 14ch; }
   .fg-faq-paw { right: 0; bottom: 10px; }
   .fg-faq details[open] { margin-inline: -10px; padding-inline: 10px; }
-  .fg-faq summary { min-height: 62px; font-size: 14px; }
+  .fg-faq summary { min-height: 56px; font-size: 14px; }
   .fg-faq details p { padding-right: 18px; }
+  .fg-final { padding-block: 30px; }
+  .fg-final-grid { gap: 22px; }
   .fg-final figure { padding: 7px; box-shadow: 5px 5px 0 var(--fg-pink); }
+  .fg-final .fg-eyebrow { margin-bottom: 7px !important; }
+  .fg-final h2::after { margin-top: 10px; }
+  .fg-final-grid > div > p:not(.fg-eyebrow, .fg-final-delivery) { margin-top: 14px; }
+  .fg-final .fg-cta { margin-top: 16px; }
+  .fg-final-delivery { margin: 10px 0 0 4px !important; }
   .fg-final-paw-cloud { top: 14px; right: 14px; gap: 7px; opacity: .35; }
   .fg-final-paw--one { width: 18px; height: 17px; }
   .fg-final-paw--two { width: 24px; height: 22px; }
@@ -483,7 +494,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-sticky { right: 0; bottom: 0; width: 100%; max-width: none; gap: 10px; padding: 9px 12px max(9px, env(safe-area-inset-bottom)); border-width: 1px 0 0; border-radius: 0; }
   .fg-sticky .fg-cta { width: 60%; min-height: 48px; border-radius: 15px 15px 6px 15px; font-size: 15px; }
   .fg-sticky small { font-size: 11px; font-weight: 720; line-height: 1; }
-  .fg-footer { padding: 27px 20px 108px; }
+  .fg-footer { padding: 24px 20px 84px; }
   .fg-footer-inner { grid-template-columns: 1fr; padding: 0; }
   .fg-footer nav { gap: 0 17px; }
   .fg-footer small { grid-column: auto; }
