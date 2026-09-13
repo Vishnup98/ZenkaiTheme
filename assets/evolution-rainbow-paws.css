@@ -451,7 +451,11 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-closeup .fg-eyebrow { margin-bottom: 5px !important; }
   .fg-face-doodle { width: 96px; height: 49px; margin: 10px 16px -5px auto; transform: rotate(-3deg); }
   .fg-closeup-grid > div > p:not(.fg-eyebrow), .fg-scale-copy > p:not(.fg-eyebrow), .fg-personality-copy > p:not(.fg-eyebrow) { font-size: 16px; }
-  .fg-scale dl { grid-template-columns: 1fr; }
+  .fg-scale { gap: 18px; padding-block: 24px 22px; }
+  .fg-scale .fg-eyebrow { margin-bottom: 5px !important; }
+  .fg-scale-copy > p:not(.fg-eyebrow) { margin-top: 12px; }
+  .fg-scale dl { grid-template-columns: 1fr; margin-top: 16px; }
+  .fg-scale dl > div { padding-block: 10px; }
   .fg-scale dl > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--fg-rule); }
   .fg-scale-photos { gap: 10px; }
   .fg-scale-photos figure { padding: 5px 5px 10px; border-radius: 18px 18px 8px 8px; box-shadow: 4px 4px 0 var(--fg-lilac); }
