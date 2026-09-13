@@ -104,7 +104,8 @@
 .fg-rainbow-letters i:nth-child(9) { color: #df718a; }
 .fg-rainbow-word { position: relative; display: inline-block; color: #755bc2; }
 .fg-rainbow-word::after { content: ""; position: absolute; left: -1%; right: -3%; bottom: -.07em; height: .13em; border-radius: 999px; background: linear-gradient(90deg, var(--fg-pink) 0 15%, var(--fg-orange) 15% 29%, var(--fg-yellow) 29% 43%, var(--fg-leaf) 43% 57%, var(--fg-sky) 57% 71%, var(--fg-blue) 71% 85%, var(--fg-lilac) 85%); transform: rotate(-1.5deg); }
-.fg-lede { max-width: 42ch; margin-top: 22px !important; font-size: 17px; line-height: 1.6; }
+.fg-lede { max-width: 42ch; margin-top: 22px !important; color: #514758 !important; font-size: 17px; font-weight: 560; line-height: 1.6; letter-spacing: -.008em; text-wrap: pretty; }
+.fg-lede strong { color: var(--fg-ink); font-weight: 740; }
 
 .evo-purchase-proof--hero { display: flex; align-items: center; gap: 24px; margin: 22px 0 22px; padding: 12px 15px; border: 1.5px solid var(--fg-ink); border-radius: 18px 18px 8px 18px; background: #fffdf9; color: var(--fg-ink); box-shadow: 3px 3px 0 #ddd1f1; }
 .evo-proof-rating { display: flex; align-items: center; gap: 10px; }

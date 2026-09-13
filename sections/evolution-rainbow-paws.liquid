@@ -4,6 +4,7 @@
 {%- assign portrait_names = 'espeon,jolteon,flareon,glaceon,sylveon,vaporeon,leafeon,umbreon' | split: ',' -%}
 {%- assign portrait_moods = 'Daydream,Electric,Toasty,Snow day,Sweetheart,Splashy,Fresh air,Midnight' | split: ',' -%}
 {%- assign portrait_descriptions = 'plush with a lavender hood and tall ears|plush with a yellow hood and white collar|plush with an orange hood and fluffy yellow collar|plush with a pale blue hood and long side flaps|plush with a pink and white hood and ribbons|plush with a bright blue hood and fin-shaped ears|plush with a pale yellow hood and green leaf details|plush with a charcoal hood and yellow ear bands' | split: '|' -%}
+{%- assign hero_lede_lead = 'Eight colors. Eight moods.' -%}
 
 <div class="fg-page" data-ec-page data-journey="rainbow-paws">
   <section class="fg-hero fg-shell" aria-labelledby="fg-title-{{ section.id }}">
@@ -20,7 +21,7 @@
     <div class="fg-hero-copy">
       <p class="fg-identity"><span aria-label="Evolution" class="fg-rainbow-letters"><i>E</i><i>V</i><i>O</i><i>L</i><i>U</i><i>T</i><i>I</i><i>O</i><i>N</i></span> <span>Companions</span>{% render 'evolution-paw-mark', class: 'fg-identity-paw' %}</p>
       <h1 id="fg-title-{{ section.id }}">{{ section.settings.hero_prefix | escape }} <span class="fg-rainbow-word">{{ section.settings.hero_accent | escape }}</span><br>{{ section.settings.hero_suffix | escape }}</h1>
-      <p class="fg-lede">{{ section.settings.hero_body | escape }}</p>
+      <p class="fg-lede">{% if section.settings.hero_body contains hero_lede_lead %}<strong>{{ hero_lede_lead }}</strong>{{ section.settings.hero_body | remove_first: hero_lede_lead | escape }}{% else %}{{ section.settings.hero_body | escape }}{% endif %}</p>
 
       <div class="evo-purchase-proof evo-purchase-proof--hero" role="group" aria-label="Zenkai store ratings and order count">
         <div class="evo-proof-rating"><span class="evo-proof-stars" aria-hidden="true">★★★★★</span><span><strong>4.8/5</strong><small>98 Shop reviews</small></span></div>
