@@ -12,7 +12,7 @@
       <span class="fg-hero-splash fg-hero-splash--one" aria-hidden="true"></span>
       <span class="fg-hero-splash fg-hero-splash--two" aria-hidden="true"></span>
       <div class="fg-hero-image">
-        <img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-720.webp' | asset_url }} 720w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(max-width: 599px) calc(100vw - 54px), (max-width: 899px) min(592px, calc(100vw - 68px)), (max-width: 1239px) 46vw, 566px" width="1024" height="687" alt="All eight colorful Evolution Companions plushes together" loading="eager" fetchpriority="high">
+        <img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(max-width: 599px) calc(100vw - 54px), (max-width: 899px) min(592px, calc(100vw - 68px)), (max-width: 1239px) 46vw, 566px" width="1024" height="687" alt="All eight colorful Evolution Companions plushes together" loading="eager" fetchpriority="high">
       </div>
       <span class="fg-all-eight-stamp"><strong>8</strong><span>companions,<br>one happy set.</span>{% render 'evolution-paw-mark', class: 'fg-stamp-paw' %}</span>
       <span class="fg-hero-paw-trail" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-trail-paw fg-trail-paw--one' %}{% render 'evolution-paw-mark', class: 'fg-trail-paw fg-trail-paw--two' %}{% render 'evolution-paw-mark', class: 'fg-trail-paw fg-trail-paw--three' %}</span>
@@ -148,7 +148,7 @@
   <section class="fg-final">
     <span class="fg-final-paw-cloud" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--one' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--two' %}{% render 'evolution-paw-mark', class: 'fg-final-paw fg-final-paw--three' %}</span>
     <div class="fg-shell fg-final-grid">
-      <figure><img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-720.webp' | asset_url }} 720w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(min-width: 900px) 50vw, 100vw" width="1024" height="687" loading="lazy" alt="The complete eight-plush Evolution Companions set"></figure>
+      <figure><img src="{{ 'evo-portrait-group-480.webp' | asset_url }}" srcset="{{ 'evo-portrait-group-480.webp' | asset_url }} 480w, {{ 'evo-portrait-group-1024.webp' | asset_url }} 1024w" sizes="(min-width: 900px) 50vw, 100vw" width="1024" height="687" loading="lazy" alt="The complete eight-plush Evolution Companions set"></figure>
       <div><p class="fg-eyebrow">All eight. All yours. {% render 'evolution-paw-mark', class: 'fg-eyebrow-paw' %}</p><h2>{{ section.settings.final_title | escape }}</h2><p>{{ section.settings.final_body | escape }}</p><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span class="fg-cta-label">Bring all 8 home</span>{% else %}Sold out{% endif %}</button><p class="fg-final-delivery"><strong>Free shipping</strong> · {{ section.settings.shipping_summary | escape }}</p></div>
     </div>
   </section>
