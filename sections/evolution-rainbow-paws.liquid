@@ -23,9 +23,10 @@
       <h1 id="fg-title-{{ section.id }}">{{ section.settings.hero_prefix | escape }} <span class="fg-rainbow-word">{{ section.settings.hero_accent | escape }}</span><br>{{ section.settings.hero_suffix | escape }}</h1>
       <p class="fg-lede">{% if section.settings.hero_body contains hero_lede_lead %}<strong>{{ hero_lede_lead }}</strong>{{ section.settings.hero_body | remove_first: hero_lede_lead | escape }}{% else %}{{ section.settings.hero_body | escape }}{% endif %}</p>
 
-      <div class="evo-purchase-proof evo-purchase-proof--hero" role="group" aria-label="Zenkai store ratings and order count">
-        <div class="evo-proof-rating"><span class="evo-proof-stars" aria-hidden="true">★★★★★</span><span><strong>4.8/5</strong><small>98 Shop reviews</small></span></div>
+      <div class="evo-purchase-proof evo-purchase-proof--hero" role="group" aria-label="Rated 4.8 out of 5 from 98 Shop reviews, more than 3,000 orders, and free U.S. shipping">
+        <div class="evo-proof-rating"><span class="evo-proof-rating-line"><span class="evo-proof-stars" aria-hidden="true">★★★★★</span><strong>4.8/5</strong></span><small>98 Shop reviews</small></div>
         <div class="evo-proof-orders"><strong>3,000+</strong><small>orders and counting</small></div>
+        <div class="evo-proof-shipping"><strong>Free U.S.</strong><small>shipping included</small></div>
       </div>
 
       <div class="fg-offer">
