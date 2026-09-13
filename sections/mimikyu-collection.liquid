@@ -24,7 +24,7 @@
         <div class="mc-hero-shipping"><span class="mc-hero-shipping-badge" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none" focusable="false"><circle cx="6" cy="5" r="1.6" fill="currentColor"/><circle cx="18" cy="5" r="1.6" fill="currentColor"/><path d="m3 11 4 2.5 5-4 5 4 4-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><strong>Ships Free</strong></div>
       </div>
       <div class="ec-offer">
-        <div class="ec-price"><strong>{% if v.price > 0 %}{{ v.price | money }}{% else %}Coming soon{% endif %}</strong><span><small>Complete 9-plush set</small>{% if v.price > 0 %}9 plushes <i aria-hidden="true">·</i> {{ per_plush | money }} each{% else %}One of every pictured design{% endif %}</span></div>
+        <div class="ec-price"><strong>{% if v.price > 0 %}{{ v.price | money }}{% else %}Coming soon{% endif %}</strong><span><small>Complete collection</small><b>{% if v.price > 0 %}9 plushes <i aria-hidden="true">·</i> {{ per_plush | money_without_trailing_zeros }} each{% else %}One of every pictured design{% endif %}</b></span></div>
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
