@@ -43,7 +43,7 @@
 .fg-body button:disabled { cursor: not-allowed; opacity: .55; }
 .fg-body a { color: inherit; text-underline-offset: 4px; }
 .fg-body :is(a, button, summary, [tabindex]):focus-visible { outline: 3px solid #6554d8; outline-offset: 4px; }
-.fg-hero-media button:focus-visible, .fg-lineup-photo button:focus-visible, .fg-closeup figure button:focus-visible, .fg-scale-photos button:focus-visible, .fg-customer-grid button:focus-visible, .fg-mood-card button:focus-visible { outline-offset: -5px; }
+.fg-lineup-photo button:focus-visible, .fg-closeup figure button:focus-visible, .fg-scale-photos button:focus-visible, .fg-customer-grid button:focus-visible { outline-offset: -5px; }
 .fg-body h1, .fg-body h2 { font-family: "Rainbow Display", "Rainbow Sans", sans-serif; font-weight: 760; letter-spacing: -.042em; line-height: 1.02; text-wrap: balance; }
 .fg-body h1 { font-size: clamp(48px, 5.1vw, 76px); }
 .fg-body h2 { font-size: clamp(38px, 4vw, 58px); }
@@ -81,8 +81,8 @@
 .fg-page { overflow: clip; background: var(--fg-paper); }
 .fg-hero { display: grid; grid-template-columns: 1.06fr .94fr; gap: 54px; align-items: center; padding-block: 42px 58px; }
 .fg-hero-media { position: relative; min-width: 0; padding: 12px; border: 2px solid var(--fg-ink); border-radius: 38px 38px 38px 12px; background: #fff; box-shadow: 10px 10px 0 #dacff2; transform: rotate(-.35deg); }
-.fg-hero-media button, .fg-lineup-photo button, .fg-closeup figure button, .fg-scale-photos button, .fg-customer-grid button, .fg-mood-card button { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
-.fg-hero-media button { position: relative; z-index: 1; overflow: hidden; border-radius: 27px 27px 27px 7px; }
+.fg-lineup-photo button, .fg-closeup figure button, .fg-scale-photos button, .fg-customer-grid button { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.fg-hero-image { position: relative; z-index: 1; overflow: hidden; border-radius: 27px 27px 27px 7px; }
 .fg-hero-media img { width: 100%; aspect-ratio: 1.49 / 1; object-fit: cover; }
 .fg-hero-splash { position: absolute; z-index: 0; border: 2px solid var(--fg-ink); }
 .fg-hero-splash--one { width: 92px; height: 92px; top: -23px; left: -24px; border-radius: 55% 45% 62% 38%; background: var(--fg-yellow); transform: rotate(-17deg); }
@@ -183,11 +183,9 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-eyebrow-paw { width: 20px; height: 18px; color: var(--fg-pink); transform: rotate(12deg); }
 
 .fg-mood-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.fg-mood-card { --card-wash: #e3d8f3; --card-accent: var(--fg-lilac); min-width: 0; overflow: hidden; border: 2px solid var(--fg-ink); border-radius: 26px 26px 12px 12px; background: #fffaf1; box-shadow: 5px 5px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); transition: transform .16s ease, box-shadow .16s ease; }
-.fg-mood-card:hover { transform: translateY(-3px) rotate(-.3deg); box-shadow: 7px 8px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
-.fg-mood-card button { position: relative; height: 245px; overflow: hidden; background: var(--card-wash); }
-.fg-mood-card img { width: 100%; height: 100%; object-fit: contain; transition: transform .22s ease; }
-.fg-mood-card:hover img { transform: scale(1.025); }
+.fg-mood-card { --card-wash: #e3d8f3; --card-accent: var(--fg-lilac); min-width: 0; overflow: hidden; border: 2px solid var(--fg-ink); border-radius: 26px 26px 12px 12px; background: #fffaf1; box-shadow: 5px 5px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
+.fg-mood-card-image { position: relative; height: 245px; overflow: hidden; background: var(--card-wash); }
+.fg-mood-card img { width: 100%; height: 100%; object-fit: contain; }
 .fg-card-number { position: absolute; z-index: 1; top: 12px; left: 12px; display: grid; min-width: 34px; height: 27px; padding-inline: 8px; place-items: center; border: 1.5px solid var(--fg-ink); border-radius: 999px; background: #fffaf1e6; color: var(--fg-ink); font-size: 11px; font-weight: 800; }
 .fg-mood-card footer { position: relative; min-height: 73px; padding: 14px 52px 13px 16px; border-top: 2px solid var(--fg-ink); }
 .fg-mood-card footer span { display: block; color: var(--fg-muted); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
@@ -344,7 +342,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-hero-paw-trail { left: 26px; bottom: -34px; }
   .fg-paw-promise .fg-shell > div { padding-inline: 12px; }
   .fg-paw-promise strong { font-size: 13px; }
-  .fg-mood-card button { height: 215px; }
+  .fg-mood-card-image { height: 215px; }
   .fg-mood-grid { gap: 14px; }
   .fg-mood-card footer strong { font-size: 18px; }
 }
@@ -368,7 +366,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-moods { padding-bottom: 50px; }
   .fg-moods .fg-shell { padding-top: 48px; }
   .fg-mood-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .fg-mood-card button { height: clamp(220px, 55vw, 310px); }
+  .fg-mood-card-image { height: clamp(220px, 55vw, 310px); }
   .fg-personality, .fg-closeup-grid, .fg-scale, .fg-faq, .fg-final-grid { grid-template-columns: 1fr; }
   .fg-personality { gap: 38px; padding-block: 58px; }
   .fg-personality-copy { max-width: 620px; }
@@ -403,7 +401,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-header-note i::after { right: -12px; width: 7px; height: 7px; }
   .fg-hero { padding-inline: 17px; padding-top: 20px; }
   .fg-hero-media { padding: 8px; border-radius: 25px 25px 25px 8px; box-shadow: 7px 7px 0 #dacff2; }
-  .fg-hero-media button { border-radius: 17px 17px 17px 4px; }
+  .fg-hero-image { border-radius: 17px 17px 17px 4px; }
   .fg-hero-splash--one { width: 55px; height: 55px; left: -13px; top: -13px; }
   .fg-hero-splash--two { width: 48px; height: 48px; right: -11px; bottom: -12px; }
   .fg-all-eight-stamp { width: 82px; height: 82px; top: -13px; right: -10px; box-shadow: 3px 3px 0 var(--fg-ink); }
@@ -438,8 +436,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-bg-paw--moods { top: 24px; right: -49px; width: 142px; height: 130px; }
   .fg-mood-grid { gap: 10px; }
   .fg-mood-card { border-radius: 18px 18px 9px 9px; box-shadow: 3px 4px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
-  .fg-mood-card:hover { transform: none; box-shadow: 3px 4px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
-  .fg-mood-card button { height: clamp(170px, 52vw, 245px); }
+  .fg-mood-card-image { height: clamp(170px, 52vw, 245px); }
   .fg-card-number { top: 8px; left: 8px; min-width: 30px; height: 23px; padding-inline: 6px; font-size: 9px; }
   .fg-mood-card footer { min-height: 65px; padding: 11px 38px 10px 11px; }
   .fg-mood-card footer span { font-size: 7px; }
@@ -502,7 +499,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-shipping { gap: 5px; font-size: 10.5px; }
   .fg-body .fg-cta { font-size: 20px; }
   .fg-sticky .fg-cta { font-size: 14px; letter-spacing: .015em; }
-  .fg-mood-card button { height: 164px; }
+  .fg-mood-card-image { height: 164px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
