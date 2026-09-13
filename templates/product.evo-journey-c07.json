@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "The best part?",
+        "hero_accent": "Arranging",
+        "hero_suffix": "them.",
+        "hero_body": "First the full lineup. Then the little decisions: warm beside cool, tallest ears at the back, your favorite closest to you. All eight are included, so the arrangement is yours to play with.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Start with eight. Make it yours.",
+        "final_body": "Bring the collection home and enjoy deciding where every companion belongs.",
+        "moods_title": "Pick the first spot for each one.",
+        "moods_body": "You get all eight, with plenty of color combinations to try.",
+        "personality_title": "A small ritual you can revisit.",
+        "personality_body": "Line them up today. Swap the pairs tomorrow. Changing the arrangement is a simple way to enjoy the whole set again without adding another piece.",
+        "cta_label": "Start arranging my crew",
+        "journey_id": "evo-journey-c07",
+        "section_order": "personality,moods,scale,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A small ritual you can revisit."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

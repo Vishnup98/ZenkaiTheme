@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "More than",
+        "hero_accent": "a text.",
+        "hero_suffix": "Something to keep close.",
+        "hero_body": "When someone comes to mind, a thoughtful little collection can carry the message further. Eight soft companions give your thinking-of-you gesture a place in their everyday life.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Turn the thought into a gesture.",
+        "final_body": "Choose the complete crew for someone you would like to make smile.",
+        "moods_title": "A whole crew to send their way.",
+        "moods_body": "All eight pictured companions are included.",
+        "personality_title": "A reminder they can put on the shelf.",
+        "personality_body": "Choose the set because it feels like them, then add your own words with a card. Cards and gift wrapping are not included with the plush collection.",
+        "cta_label": "Send a little company",
+        "journey_id": "evo-journey-g06",
+        "section_order": "personality,moods,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A reminder they can put on the shelf."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

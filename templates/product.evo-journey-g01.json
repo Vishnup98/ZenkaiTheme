@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "The birthday",
+        "hero_accent": "crew",
+        "hero_suffix": "is ready.",
+        "hero_body": "For the person whose face lights up at these familiar little companions: a complete eight-plush surprise they can keep enjoying long after the birthday is over.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Plan their full-crew surprise.",
+        "final_body": "Choose all eight and allow the stated delivery window when planning the birthday.",
+        "moods_title": "Their favorite gets company.",
+        "moods_body": "Every pictured design is included, so the birthday surprise is the whole crew.",
+        "personality_title": "A birthday moment that stays around.",
+        "personality_body": "Picture their first look, then the shelf or bedside spot the collection will claim. Add your own card and wrapping; celebration props are not part of the set.",
+        "cta_label": "Choose the birthday crew",
+        "journey_id": "evo-journey-g01",
+        "section_order": "moods,personality,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A birthday moment that stays around."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "All",
+        "hero_accent": "eight.",
+        "hero_suffix": "One complete set.",
+        "hero_body": "The full colorful lineup, ready for the shelf you have in mind. Eight separate companions. Every pictured design included. One easy way to bring the collection home.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Your complete collection starts here.",
+        "final_body": "Eight companions, every color pictured, ready for their place in your home.",
+        "moods_title": "The lineup you came for.",
+        "moods_body": "No missing colors. No picking a single favorite.",
+        "personality_title": "They look even better together.",
+        "personality_body": "Line them up, pair contrasting colors or give each one a corner. You get the whole crew to work with.",
+        "cta_label": "Bring all eight home",
+        "journey_id": "evo-journey-t02",
+        "section_order": "moods,personality,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "They look even better together."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

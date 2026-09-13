@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Current read.",
+        "hero_accent": "New",
+        "hero_suffix": "reading buddy.",
+        "hero_body": "A good book, a comfortable corner and a little colorful company. Choose a companion for today's chapter and keep the full eight-piece crew waiting on the bookshelf.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Soft company, down to the paws.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Each companion has its own silhouette, ready for a place beside your current read.",
+        "final_title": "Make room beside the next book.",
+        "final_body": "Bring all eight into your favorite reading corner.",
+        "moods_title": "Choose a buddy for this chapter.",
+        "moods_body": "Every pictured design is included, so tomorrow can have a different favorite.",
+        "personality_title": "A small addition to your reading ritual.",
+        "personality_body": "Give one a place beside the book stack and keep the others nearby. The collection belongs wherever you like to slow down and turn a few pages.",
+        "cta_label": "Choose my reading crew",
+        "journey_id": "evo-journey-l05",
+        "section_order": "personality,closeup,scale,moods",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A small addition to your reading ritual."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

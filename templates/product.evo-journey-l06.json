@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Every quest",
+        "hero_accent": "needs",
+        "hero_suffix": "a party.",
+        "hero_body": "Your setup already tells a story. Give it a full eight-companion party, ready to keep you company from the first loading screen to the last side quest.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Assemble your full party.",
+        "final_body": "Eight companions. Your space. Plenty of adventures ahead.",
+        "moods_title": "No party member left behind.",
+        "moods_body": "All eight pictured companions join the set.",
+        "personality_title": "Build a party around your setup.",
+        "personality_body": "Keep the lineup on a shelf or place favorites beside the screen, with controls and vents clear. The plushes add character while the setup stays yours.",
+        "cta_label": "Assemble my party",
+        "journey_id": "evo-journey-l06",
+        "section_order": "personality,moods,scale,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Build a party around your setup."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

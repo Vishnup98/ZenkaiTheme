@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Yes,",
+        "hero_accent": "all eight.",
+        "hero_suffix": "Every one is included.",
+        "hero_body": "The set you stopped to count is the set you receive: eight separate plush companions, one of every pictured design. No choosing a color and hoping the rest come with it.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "A clear yes to the whole crew.",
+        "final_body": "Choose the complete set and leave nobody behind.",
+        "moods_title": "Meet every member of your set.",
+        "moods_body": "Count the colors. They all come home together.",
+        "personality_title": "Eight companions, one decision.",
+        "personality_body": "Each has its own costume and personality. This is eight plushes, not one plush with interchangeable outfits.",
+        "cta_label": "Get the complete set",
+        "journey_id": "evo-journey-st15",
+        "section_order": "moods,scale,closeup,personality",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Eight companions, one decision."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

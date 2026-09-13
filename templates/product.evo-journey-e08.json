@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Color,",
+        "hero_accent": "kept",
+        "hero_suffix": "together.",
+        "hero_body": "Eight companions against a world of color. Follow the shapes, notice the little expressions, and picture the complete collection as one bright accent in your own space.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Bring the color into your space.",
+        "final_body": "Choose the complete set and give the whole crew a place together.",
+        "moods_title": "Eight colors with their own character.",
+        "moods_body": "Every pictured plush comes in the complete collection.",
+        "personality_title": "Let the collection set the tone.",
+        "personality_body": "Keep the crew together against a simple background or mix it into a favorite shelf. The colorful scene in the ad is styling inspiration; you receive the eight plush companions.",
+        "cta_label": "Bring the colors home",
+        "journey_id": "evo-journey-e08",
+        "section_order": "moods,closeup,personality,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Let the collection set the tone."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

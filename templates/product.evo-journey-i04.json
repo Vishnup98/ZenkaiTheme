@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "You spotted",
+        "hero_accent": "the",
+        "hero_suffix": "little details.",
+        "hero_body": "The hood shapes, the bright markings, the tiny brown paws. If the close-up made you look twice, here is your chance to inspect all eight companions before choosing the set.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "From the hood to the tiny paws.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Compare the markings and ear shapes against the full lineup below.",
+        "final_title": "Keep the details you noticed.",
+        "final_body": "Choose all eight after taking a closer look at the collection.",
+        "moods_title": "Now see the whole character.",
+        "moods_body": "Every detail belongs to one of the eight pictured companions in your set.",
+        "personality_title": "A collection worth looking at twice.",
+        "personality_body": "Each silhouette has something different to notice. Look from the ear shapes to the face details, then see how the shared paws tie the crew together.",
+        "cta_label": "Explore the complete set",
+        "journey_id": "evo-journey-i04",
+        "section_order": "closeup,moods,scale,personality",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A collection worth looking at twice."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

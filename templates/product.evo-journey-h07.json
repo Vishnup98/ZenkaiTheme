@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Social plans:",
+        "hero_accent": "the crew",
+        "hero_suffix": "and me.",
+        "hero_body": "Some evenings call for familiar faces and no conversation required. Eight colorful companions make a playful addition to the corner where you like to do your own thing.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Keep the evening on your terms.",
+        "final_body": "Bring all eight into your favorite place to spend a quiet night.",
+        "moods_title": "Eight excellent quiet-night guests.",
+        "moods_body": "Every pictured companion is included, with no favorite to leave out.",
+        "personality_title": "Good company for your own kind of evening.",
+        "personality_body": "A book, a game or simply time at home: put the crew where you like to settle in. All eight can stay together while you enjoy an evening at your own pace.",
+        "cta_label": "Choose my stay-in crew",
+        "journey_id": "evo-journey-h07",
+        "section_order": "personality,closeup,moods,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Good company for your own kind of evening."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

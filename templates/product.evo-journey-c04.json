@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Make room",
+        "hero_accent": "for the",
+        "hero_suffix": "main display.",
+        "hero_body": "Some collections deserve the spot you see first. Eight colorful companions bring contrasting shapes and familiar faces to the shelf you want to make your own.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Give them the main spot.",
+        "final_body": "The complete set is ready for the display you have been imagining.",
+        "moods_title": "A full cast for the spotlight.",
+        "moods_body": "Every pictured companion is included in the set.",
+        "personality_title": "Give your favorite shelf a focal point.",
+        "personality_body": "Arrange the warm colors beside the cool ones, then let the charcoal hood anchor the lineup. You supply the shelf; the full eight-plush cast comes together.",
+        "cta_label": "Bring home the display crew",
+        "journey_id": "evo-journey-c04",
+        "section_order": "personality,scale,moods,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Give your favorite shelf a focal point."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

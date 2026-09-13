@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "The group chat",
+        "hero_accent": "has",
+        "hero_suffix": "a full crew.",
+        "hero_body": "Eight personalities, one very photogenic collection. Bring the backseat-group-chat joke home with every pictured companion, ready for a shelf, a room or your next safely parked photo moment.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Make the full crew yours.",
+        "final_body": "Eight separate companions for the little scenes and everyday spaces you enjoy.",
+        "moods_title": "Every character in the chat.",
+        "moods_body": "All eight pictured companions come together in the set.",
+        "personality_title": "The joke travels. The crew stays together.",
+        "personality_body": "Arrange them for a photo while parked, then stow them securely before driving. At home, the whole collection makes just as much of a statement on a shelf.",
+        "cta_label": "Get the whole crew",
+        "journey_id": "evo-journey-l08",
+        "section_order": "personality,moods,scale,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "The joke travels. The crew stays together."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

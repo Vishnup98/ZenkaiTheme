@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "You remembered",
+        "hero_accent": "their",
+        "hero_suffix": "favorite.",
+        "hero_body": "A good gift says you were paying attention. Their favorite is here, with seven colorful companions that make the gesture feel like a whole collection chosen for them.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "The details they will recognize.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. From the pink ribbons to the charcoal hood, every design gives them something familiar to spot.",
+        "final_title": "Give them the feeling of being remembered.",
+        "final_body": "Eight companions, including the favorite that made you think of them.",
+        "moods_title": "Find the one they always point out.",
+        "moods_body": "It comes with every other pictured companion in the complete set.",
+        "personality_title": "A little detail that says you know them.",
+        "personality_body": "Maybe it is the charcoal hood or the pink ribbons. Recognizing that favorite turns a collection into a personal gesture, without needing to choose just one.",
+        "cta_label": "Choose their complete crew",
+        "journey_id": "evo-journey-g02",
+        "section_order": "personality,moods,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A little detail that says you know them."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

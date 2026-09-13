@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "A little",
+        "hero_accent": "perspective.",
+        "hero_suffix": "A whole lot of cute.",
+        "hero_body": "You saw the crew held together. Now take a closer look at what arrives: eight separate plushes, each approximately 8 × 7 × 6 inches, with its own colorful character.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "See what the close-ups show.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. The hand-held photos below give you another view of the size.",
+        "final_title": "Make the picture real.",
+        "final_body": "Bring the full crew home after seeing their size, details and complete lineup.",
+        "moods_title": "Eight personalities, up close.",
+        "moods_body": "See each design individually before choosing the complete set.",
+        "personality_title": "Picture them in your own space.",
+        "personality_body": "Small enough for a desk or bedside spot, with ears and hoods that give each one a different silhouette. Leave a little extra room for those details.",
+        "cta_label": "Bring the crew home",
+        "journey_id": "evo-journey-st12",
+        "section_order": "scale,closeup,moods,personality",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Picture them in your own space."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

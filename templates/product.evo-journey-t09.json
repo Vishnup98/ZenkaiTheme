@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Eight plushes.",
+        "hero_accent": "One set.",
+        "hero_suffix": "That is the offer.",
+        "hero_body": "All eight designs pictured are included. Check the real product photos, dimensions and shipping details below, then decide whether this is your kind of collection.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Like the set? Make it yours.",
+        "final_body": "The complete eight-plush collection, with free shipping and the details laid out clearly.",
+        "moods_title": "Exactly what is included.",
+        "moods_body": "Eight individual plush companions, each in its own design.",
+        "personality_title": "A simple collection to enjoy.",
+        "personality_body": "Keep the eight together or place them around your room. Display furniture and props are not included.",
+        "cta_label": "Shop the complete set",
+        "journey_id": "evo-journey-t09",
+        "section_order": "scale,closeup,moods,personality",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A simple collection to enjoy."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

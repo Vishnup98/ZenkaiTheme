@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "The welcome",
+        "hero_accent": "committee",
+        "hero_suffix": "has eight members.",
+        "hero_body": "There is something nice about coming back to a space that feels like you. Eight colorful companions can be a familiar little sight waiting in your favorite corner.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Give your home a little welcome crew.",
+        "final_body": "Bring all eight into the space you return to every day.",
+        "moods_title": "Eight faces to come home to.",
+        "moods_body": "The whole pictured crew is included in one set.",
+        "personality_title": "Make the everyday arrival a little sweeter.",
+        "personality_body": "Choose a spot you pass when you come in: a bookshelf, a desk or your bedside. The collection is a small way to make a room feel more personal.",
+        "cta_label": "Bring the welcome crew home",
+        "journey_id": "evo-journey-l09",
+        "section_order": "personality,moods,scale,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Make the everyday arrival a little sweeter."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

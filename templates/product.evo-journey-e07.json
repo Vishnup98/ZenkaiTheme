@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Too many",
+        "hero_accent": "favorites?",
+        "hero_suffix": "Good.",
+        "hero_body": "You can love the pink ribbons and the charcoal hood. The bright ears and the blue fins. This is a collection for anyone whose favorites refuse to fit into a shortlist.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Keep all your favorites.",
+        "final_body": "One complete set gives every pictured companion a place in your collection.",
+        "moods_title": "Keep every part of your shortlist.",
+        "moods_body": "All eight designs are included, so no favorite loses its place.",
+        "personality_title": "Your taste does not have to pick a lane.",
+        "personality_body": "Mix colors, contrast shapes and arrange the full crew however you like. The collage in the ad celebrates variety; your order contains the eight plushes.",
+        "cta_label": "Bring my favorites home",
+        "journey_id": "evo-journey-e07",
+        "section_order": "moods,personality,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Your taste does not have to pick a lane."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

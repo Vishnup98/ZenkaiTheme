@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "The council",
+        "hero_accent": "says:",
+        "hero_suffix": "all eight.",
+        "hero_body": "Your request for just one has been considered. There are eight very persuasive faces here, and this complete set means you can stop negotiating with your favorites.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Motion carried. Bring the crew home.",
+        "final_body": "The complete set includes all eight members of this very small council.",
+        "moods_title": "Meet the decision makers.",
+        "moods_body": "The vote is unanimous: every pictured companion comes with the set.",
+        "personality_title": "A committee with excellent shelf presence.",
+        "personality_body": "Keep the full council together or assign a few to desk duty. Eight separate plushes give the joke a place in your actual room.",
+        "cta_label": "Approve all eight",
+        "journey_id": "evo-journey-h01",
+        "section_order": "moods,personality,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A committee with excellent shelf presence."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

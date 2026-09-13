@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Skip chance.",
+        "hero_accent": "Take",
+        "hero_suffix": "all eight.",
+        "hero_body": "The fun is in having the whole crew. This complete set includes every pictured design, so there is no random selection and no missing favorite to chase.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Your whole crew. No guessing.",
+        "final_body": "Choose the eight-plush set and start with the collection complete.",
+        "moods_title": "Every favorite is accounted for.",
+        "moods_body": "One of every pictured design comes in the complete set.",
+        "personality_title": "Straight to the part you wanted.",
+        "personality_body": "Instead of wondering which color you will get, start deciding where they will live. A complete lineup is yours to arrange from the start.",
+        "cta_label": "Get all eight",
+        "journey_id": "evo-journey-v05",
+        "section_order": "moods,personality,scale,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Straight to the part you wanted."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

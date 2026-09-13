@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Movie night",
+        "hero_accent": "has a",
+        "hero_suffix": "bigger cast.",
+        "hero_body": "The film is picked. The blanket is ready. Give your favorite night in eight colorful supporting characters, with the full companion set together beside you.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Invite the full cast home.",
+        "final_body": "Eight companions for the corner where your favorite evenings happen.",
+        "moods_title": "Meet your supporting cast.",
+        "moods_body": "All eight companions come in the set; nobody misses the opening scene.",
+        "personality_title": "Give the night-in corner some character.",
+        "personality_body": "Set the crew along the sofa back or on a nearby shelf, then settle into your usual spot. They stay part of the room when the credits finish.",
+        "cta_label": "Bring home the movie crew",
+        "journey_id": "evo-journey-l02",
+        "section_order": "personality,closeup,moods,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Give the night-in corner some character."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

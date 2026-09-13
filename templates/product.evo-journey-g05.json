@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "A softer",
+        "hero_accent": "kind",
+        "hero_suffix": "of hello.",
+        "hero_body": "Some gestures do not need a big occasion. A set of eight soft, colorful companions can be a thoughtful way to say you are thinking of someone.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Say hello with a little company.",
+        "final_body": "Choose the complete eight for someone you would like to keep close in thought.",
+        "moods_title": "A little company in every color.",
+        "moods_body": "Every pictured companion is included in the complete set.",
+        "personality_title": "Keep the gesture simple and personal.",
+        "personality_body": "Choose the crew because it suits the person you have in mind. Add a note in your own words; the plushes are the gift, and your message makes it yours.",
+        "cta_label": "Choose a softer hello",
+        "journey_id": "evo-journey-g05",
+        "section_order": "personality,closeup,moods,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Keep the gesture simple and personal."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

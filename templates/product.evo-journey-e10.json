@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Soft shapes.",
+        "hero_accent": "Eight",
+        "hero_suffix": "small characters.",
+        "hero_body": "If the sculptural lineup caught your eye, look closer at the real collection: eight plush companions with contrasting hoods, ears and colors, made to bring personality to a space.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "The shapes are soft. The details stand out.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. The hoods and ears give each companion a different silhouette in the group.",
+        "final_title": "Make space for softer shapes.",
+        "final_body": "Bring the eight-plush collection into a composition of your own.",
+        "moods_title": "A study in color and silhouette.",
+        "moods_body": "Every pictured design is included as a separate plush.",
+        "personality_title": "From a visual idea to your own shelf.",
+        "personality_body": "Try a clean lineup or a loose group, letting the contrasting shapes do the work. The paper forms and display architecture in the ad are styling props, not part of the set.",
+        "cta_label": "Choose the eight companions",
+        "journey_id": "evo-journey-e10",
+        "section_order": "closeup,moods,personality,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "From a visual idea to your own shelf."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

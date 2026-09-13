@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Your view.",
+        "hero_accent": "Every",
+        "hero_suffix": "day.",
+        "hero_body": "Give the space above your desk something worth looking up for. Eight colorful companions turn an everyday corner into a little expression of what you love.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Make your everyday view yours.",
+        "final_body": "The whole crew is ready for the corner you see most.",
+        "moods_title": "A familiar face in every color.",
+        "moods_body": "The full eight-piece collection comes together.",
+        "personality_title": "A better view between tasks.",
+        "personality_body": "Keep your favorites in your line of sight and the rest nearby. Plan around the approximately eight-inch plushes, allowing room for ears and hoods.",
+        "cta_label": "Bring my desk crew home",
+        "journey_id": "evo-journey-c06",
+        "section_order": "personality,scale,moods,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A better view between tasks."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

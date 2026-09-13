@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Eight companions.",
+        "hero_accent": "One",
+        "hero_suffix": "finished composition.",
+        "hero_body": "A collection of color, shape and small expressive details. With all eight included, you can make a display that feels considered from the first piece to the last.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Make the composition yours.",
+        "final_body": "Choose the complete eight and arrange a collection with your own point of view.",
+        "moods_title": "Eight shapes to compose with.",
+        "moods_body": "Different ears, hoods and colors give every companion a role in the full set.",
+        "personality_title": "Your arrangement is part of the design.",
+        "personality_body": "Try a sweep of color or a symmetrical lineup. Each plush stands apart visually while the brown paws bring the group together. Display stands are not included.",
+        "cta_label": "Get the full composition",
+        "journey_id": "evo-journey-c10",
+        "section_order": "moods,closeup,personality,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Your arrangement is part of the design."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

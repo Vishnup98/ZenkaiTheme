@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Today's forecast:",
+        "hero_accent": "eight",
+        "hero_suffix": "distinct moods.",
+        "hero_body": "Bright yellow energy or charcoal-hood quiet? Your favorite can change with the day. The complete set gives you all eight colorful personalities to choose from.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Bring every forecast home.",
+        "final_body": "Eight companions mean there is room for tomorrow's favorite too.",
+        "moods_title": "Which color fits today?",
+        "moods_body": "Meet every design. They are all part of your set.",
+        "personality_title": "A different favorite, whenever you like.",
+        "personality_body": "Move one to the desk for the day or keep the rainbow together. The moods are playful names for the crew, with plenty of room for your own interpretation.",
+        "cta_label": "Get every mood",
+        "journey_id": "evo-journey-h09",
+        "section_order": "moods,personality,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "A different favorite, whenever you like."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

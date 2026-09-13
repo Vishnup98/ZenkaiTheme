@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "New place.",
+        "hero_accent": "Meet",
+        "hero_suffix": "the crew.",
+        "hero_body": "Blank shelves and unfamiliar corners become a little more personal with things you love. Bring eight colorful companions into the next chapter, whether it is your move or someone else's.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Give the new place some personality.",
+        "final_body": "Bring all eight into the room you are making your own.",
+        "moods_title": "Eight familiar faces for somewhere new.",
+        "moods_body": "The complete set comes with every design pictured.",
+        "personality_title": "The first corner that feels like home.",
+        "personality_body": "A bedside table, a bookcase or a new desk can be the crew's starting point. Arrange them together while the rest of the room comes into focus.",
+        "cta_label": "Welcome the crew home",
+        "journey_id": "evo-journey-g03",
+        "section_order": "personality,scale,moods,closeup",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "The first corner that feels like home."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

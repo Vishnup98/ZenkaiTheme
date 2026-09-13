@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "One gift.",
+        "hero_accent": "The whole",
+        "hero_suffix": "crew.",
+        "hero_body": "You do not have to guess which color to leave out. The complete eight-plush set gives them every pictured companion in one thoughtful choice.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Make it a full-crew gift.",
+        "final_body": "Choose all eight, then give the presentation your own personal touch.",
+        "moods_title": "Every color is part of the gift.",
+        "moods_body": "Eight separate plushes, each with its own hood and personality.",
+        "personality_title": "You choose the finishing touch.",
+        "personality_body": "Keep the set together for the reveal and add your own ribbon or wrapping. The gift presentation shown in the ad is inspiration; wrapping is not included.",
+        "cta_label": "Choose the whole-crew gift",
+        "journey_id": "evo-journey-v08",
+        "section_order": "moods,closeup,personality,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "You choose the finishing touch."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

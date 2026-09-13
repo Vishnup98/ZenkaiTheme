@@ -1,0 +1,31 @@
+{
+  "layout": "evolution-rainbow-paws",
+  "sections": {
+    "main": {
+      "type": "evolution-ad-journey",
+      "settings": {
+        "hero_prefix": "Plot twist:",
+        "hero_accent": "it is",
+        "hero_suffix": "for you.",
+        "hero_body": "You can appreciate a great gift idea and still want it for yourself. Eight colorful companions, one complete set, and no special occasion required.",
+        "shipping_summary": "Usually arrives in 7–10 business days",
+        "detail_title": "Eight designs, down to the details.",
+        "detail_body": "Look closely at the embroidered faces, colorful hoods and little brown paws. Every companion brings its own silhouette to the collection you have been picturing.",
+        "final_title": "Go ahead. Put your name on it.",
+        "final_body": "The complete eight-plush set can be your own next little joy.",
+        "moods_title": "You do not have to pick a favorite.",
+        "moods_body": "All eight are included, even if one is already destined for your bedside.",
+        "personality_title": "Your space. Your little indulgence.",
+        "personality_body": "Maybe you have had a shelf in mind for a while. Maybe you simply like the crew. Make the collection part of a corner you enjoy spending time in.",
+        "cta_label": "Choose my own crew",
+        "journey_id": "evo-journey-g09",
+        "section_order": "personality,moods,closeup,scale",
+        "hand_note": "Eight companions. Every pictured design included.",
+        "personality_eyebrow": "Your space. Your little indulgence."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
