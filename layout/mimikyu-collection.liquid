@@ -11,9 +11,9 @@
       @font-face{font-family:'Little Display';src:url('{{ 'little-impostors-display-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
       @font-face{font-family:'Little Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
     </style>
-    {{ 'evolution-campaign.css' | asset_url | stylesheet_tag }}
-    {{ 'plush-refinements.css' | asset_url | stylesheet_tag }}
-    {{ 'mimikyu-collection.css' | asset_url | stylesheet_tag }}
+    {% render 'landing-critical-mimikyu-collection' %}
+
+
     {% render 'evolution-campaign-app-exclusions' %}
     {{ content_for_header }}
     <meta name="theme-color" content="#30263b">

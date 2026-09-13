@@ -11,7 +11,7 @@
       @font-face{font-family:'Rainbow Display';src:url('{{ 'little-impostors-display-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
       @font-face{font-family:'Rainbow Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
     </style>
-    {{ 'evolution-rainbow-paws.css' | asset_url | stylesheet_tag }}
+    {% render 'landing-critical-evolution-rainbow-paws' %}
     {% render 'evolution-campaign-app-exclusions' %}
     {{ content_for_header }}
     <meta name="theme-color" content="#30263b">
