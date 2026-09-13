@@ -440,7 +440,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-mood-card { border-radius: 18px 18px 9px 9px; box-shadow: 3px 4px 0 color-mix(in srgb, var(--card-accent) 82%, var(--fg-ink)); }
   .fg-mood-card-image { height: clamp(170px, 52vw, 245px); }
   .fg-mood-card footer { min-height: 0; padding: 9px 38px 7px 11px; }
-  .fg-mood-card footer span { color: var(--fg-copy); font-size: 8.5px; font-weight: 850; line-height: 1; letter-spacing: .055em; }
+  .fg-mood-card footer span { color: var(--fg-copy); font-size: 9px; font-weight: 850; line-height: 1; letter-spacing: .055em; }
   .fg-mood-card footer strong { margin-top: 1px; font-size: clamp(15px, 4.7vw, 19px); }
   .fg-card-paw { right: 9px; width: 23px; height: 21px; }
   .fg-moods-note { width: 100%; gap: 6px; padding: 10px 12px; border-radius: 16px; font-size: 10px; line-height: 1.35; }
@@ -474,9 +474,9 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-final-paw--one { width: 18px; height: 17px; }
   .fg-final-paw--two { width: 24px; height: 22px; }
   .fg-final-paw--three { width: 16px; height: 15px; }
-  .fg-sticky { right: 0; bottom: 0; width: 100%; max-width: none; padding: 9px 12px max(9px, env(safe-area-inset-bottom)); border-width: 1px 0 0; border-radius: 0; }
-  .fg-sticky .fg-cta { width: 64%; min-height: 48px; border-radius: 15px 15px 6px 15px; font-size: 15px; }
-  .fg-sticky small { font-size: 10px; font-weight: 720; line-height: 1.05; }
+  .fg-sticky { right: 0; bottom: 0; width: 100%; max-width: none; gap: 10px; padding: 9px 12px max(9px, env(safe-area-inset-bottom)); border-width: 1px 0 0; border-radius: 0; }
+  .fg-sticky .fg-cta { width: 60%; min-height: 48px; border-radius: 15px 15px 6px 15px; font-size: 15px; }
+  .fg-sticky small { font-size: 11px; font-weight: 720; line-height: 1; }
   .fg-footer { padding: 27px 20px 108px; }
   .fg-footer-inner { grid-template-columns: 1fr; padding: 0; }
   .fg-footer nav { gap: 0 17px; }
