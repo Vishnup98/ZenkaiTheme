@@ -465,7 +465,6 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-customer-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; gap: 9px; }
   .fg-customer-grid figure:nth-child(n) { grid-column: span 1; grid-row: span 1; border-radius: 14px; }
   .fg-customer-grid figure:first-child { grid-row: span 2; }
-  .fg-customer-grid figure:last-child { grid-column: span 2; }
   .fg-bg-paw--reviews { top: 38px; right: -58px; width: 180px; height: 164px; }
   .fg-faq h2 { max-width: 14ch; }
   .fg-faq-paw { right: 0; bottom: 10px; }
