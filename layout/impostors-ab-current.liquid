@@ -12,7 +12,7 @@
       @font-face{font-family:'Little Display';src:url('{{ 'little-impostors-display-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
       @font-face{font-family:'Little Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
     </style>
-    {% render 'landing-critical-mimikyu-collection' %}
+    {% render 'impostors-ab-current-styles' %}
 
 
     {% render 'evolution-campaign-app-exclusions' %}
@@ -21,8 +21,9 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
     <meta name="description" content="{{ page_description | default: product.description | strip_html | truncate: 160 | escape }}">
-    <script src="{{ 'evolution-campaign.js' | asset_url }}" defer></script>
+    <script src="{{ 'impostors-ab-purchase.js' | asset_url }}" defer></script>
     {{ 'alia-capture-polish.css' | asset_url | stylesheet_tag }}
+  <meta name="robots" content="noindex,follow">
   </head>
   <body class="ec-body mc-body">
     <a href="#MainContent" class="ec-skip">Skip to the collection</a>

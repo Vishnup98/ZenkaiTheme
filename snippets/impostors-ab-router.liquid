@@ -1,0 +1,48 @@
+{% comment %}Two frozen page templates. Set enabled=false to stop new assignment and tracking. Preview links use ab_preview=1. Do not put a view parameter on campaign URLs.{% endcomment %}
+{% assign impostors_ab_enabled = false %}
+{% if product.id == 9438355751017 and request.design_mode == false %}
+<script>
+(function () {
+  'use strict';
+  var enabled = {{ impostors_ab_enabled | json }};
+  var experiment = 'impostors_design_20260913_v1';
+  var key = 'zk:' + experiment;
+  var names = {original:'impostors-ab-original',current:'impostors-ab-current'};
+  var url = new URL(location.href);
+  var view = url.searchParams.get('view') || '';
+  if (!enabled || url.searchParams.has('preview_theme_id') || url.searchParams.get('ab_preview') === '1') return;
+  if (view && view !== 'mimikyu-collection' && view !== names.original && view !== names.current) return;
+  var assignment;
+  try {
+    assignment = JSON.parse(localStorage.getItem(key) || 'null');
+    if (!assignment || !names[assignment.variant] || !assignment.id || assignment.expires < Date.now()) {
+      // Direct links to an arm without an assignment are previews, not randomized traffic.
+      if (view === names.original || view === names.current) return;
+      var random = new Uint32Array(2); crypto.getRandomValues(random);
+      assignment = {variant:random[0] < 2147483648 ? 'original' : 'current',id:random[0].toString(16)+random[1].toString(16),expires:Date.now()+30*86400000};
+      localStorage.setItem(key,JSON.stringify(assignment));
+      if (!localStorage.getItem(key)) return;
+    }
+  } catch (_) { return; } // Storage unavailable: normal page, excluded from experiment.
+  if (view !== names[assignment.variant] || url.searchParams.get('ab_exp') !== experiment) {
+    url.searchParams.set('view',names[assignment.variant]);
+    url.searchParams.set('ab_exp',experiment);
+    location.replace(url.href);
+    return;
+  }
+  // Real enrolled landings carry both query values into GA's normal page_location.
+  // Native Shopify forms carry the same assignment through line-item properties.
+  window.zenkaiImpostorsExperiment = {experiment:experiment,variant:assignment.variant,assignment:assignment.id};
+  function labelForms() {
+    document.querySelectorAll('form[action*="/cart/add"]').forEach(function (form) {
+      var values = {_zk_ab_experiment:experiment,_zk_ab_variant:assignment.variant,_zk_ab_assignment:assignment.id};
+      Object.keys(values).forEach(function (name) {
+        if (form.querySelector('input[name="properties['+name+']"]')) return;
+        var input = document.createElement('input'); input.type='hidden'; input.name='properties['+name+']'; input.value=values[name]; form.appendChild(input);
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',labelForms,{once:true}); else labelForms();
+})();
+</script>
+{% endif %}
