@@ -134,7 +134,7 @@
 .fg-price > span { display: flex; flex-direction: column; color: var(--fg-ink); font-family: "Rainbow Display", sans-serif; font-size: 18px; font-weight: 740; line-height: 1.12; letter-spacing: -.018em; }
 .fg-price small { margin-top: 4px; color: var(--fg-muted); font-family: "Rainbow Sans", Arial, sans-serif; font-size: 12px; font-weight: 560; line-height: 1.25; letter-spacing: 0; }
 .fg-product-form { margin-top: 14px; }
-.fg-body .fg-cta { width: 100%; min-height: 60px; display: flex; justify-content: center; align-items: center; padding: 13px 18px; border: 2px solid var(--fg-ink); border-radius: 22px 22px 8px 22px; background: var(--fg-mint-action); color: #fff; box-shadow: 0 0 0 3px #78bfa438, inset 0 1px 0 #ffffff70; font-family: "Rainbow Display", "Rainbow Sans", sans-serif; font-size: 21px; font-weight: 800; line-height: 1; letter-spacing: .025em; text-align: center; text-shadow: 0 1px 1px #2f7c68, 0 0 8px #ffffff70; text-transform: uppercase; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.fg-body .fg-cta { width: 100%; min-height: 60px; display: flex; justify-content: center; align-items: center; padding: 13px 18px; border: 2px solid var(--fg-ink); border-radius: 22px 22px 8px 22px; background: var(--fg-mint-action); color: var(--fg-ink); box-shadow: 0 0 0 3px #78bfa438, inset 0 1px 0 #ffffff70; font-family: "Rainbow Display", "Rainbow Sans", sans-serif; font-size: 23px; font-weight: 800; line-height: 1; letter-spacing: .02em; text-align: center; text-shadow: 0 0 8px #ffffffcc, 0 0 15px #ffffff66; text-transform: uppercase; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
 .fg-cta-label { display: block; }
 .fg-cta:hover:not(:disabled) { background: var(--fg-mint-action-hover); transform: translateY(-1px); box-shadow: 0 0 0 4px #78bfa447, inset 0 1px 0 #ffffff4d; }
 .fg-cta:active:not(:disabled) { transform: translateY(1px) scale(.997); box-shadow: 0 0 0 2px #78bfa43d, inset 0 1px 0 #ffffff24; }
@@ -308,7 +308,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-sticky > div { display: flex; flex: 1 0 auto; flex-direction: column; }
 .fg-sticky strong { font-family: "Rainbow Display", sans-serif; font-size: 23px; line-height: 1; }
 .fg-sticky small { margin-top: 1px; color: var(--fg-muted-dark); font-size: 10px; font-weight: 560; white-space: nowrap; }
-.fg-sticky .fg-cta { width: 62%; min-height: 48px; padding: 9px 12px; border-color: var(--fg-ink); border-radius: 16px 16px 6px 16px; background: var(--fg-mint-action); color: #fff; box-shadow: 0 0 0 2px #78bfa43d, inset 0 1px 0 #ffffff70; font-size: 15px; }
+.fg-sticky .fg-cta { width: 62%; min-height: 48px; padding: 9px 12px; border-color: var(--fg-ink); border-radius: 16px 16px 6px 16px; background: var(--fg-mint-action); color: var(--fg-ink); box-shadow: 0 0 0 2px #78bfa43d, inset 0 1px 0 #ffffff70; font-size: 15px; }
 
 .fg-lightbox { width: min(94vw, 1040px); height: auto; max-height: 92vh; padding: 0; overflow: hidden; border: 0; border-radius: 22px; background: var(--fg-paper); color: var(--fg-ink); box-shadow: 0 30px 100px #1d172ccc; }
 .fg-lightbox:has(.ec-lightbox-viewport img[width="1024"][height="687"]) { height: min(92vh, calc(63vw + 94px)); max-height: min(92vh, calc(63vw + 94px)); }
@@ -431,7 +431,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price > span { font-size: 14px; line-height: 1.12; }
   .fg-price small { margin-top: 3px; font-size: 11px; line-height: 1.2; }
   .fg-product-form { margin-top: 13px; }
-  .fg-body .fg-cta { min-height: 60px; padding-inline: 16px; border-radius: 19px 19px 7px 19px; font-size: 20px; }
+  .fg-body .fg-cta { min-height: 60px; padding-inline: 16px; border-radius: 19px 19px 7px 19px; font-size: 22px; }
   .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
   .fg-mini-paw { width: 34px; height: 34px; flex-basis: 34px; }
   .fg-rainbow-rule { height: 8px; }
@@ -499,7 +499,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price { gap: 11px; }
   .fg-price > strong { font-size: 36px; }
   .fg-price > span { font-size: 13px; }
-  .fg-body .fg-cta { font-size: 18px; }
+  .fg-body .fg-cta { font-size: 20px; }
   .fg-sticky .fg-cta { font-size: 14px; letter-spacing: .015em; }
   .fg-mood-card button { height: 164px; }
 }
