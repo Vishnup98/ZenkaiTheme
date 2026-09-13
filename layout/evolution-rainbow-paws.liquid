@@ -1,14 +1,10 @@
+{%- capture landing_page_markup -%}{{ content_for_layout }}{%- endcapture -%}
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#30263b">
-    <link rel="canonical" href="{{ canonical_url }}">
-    <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
-    <meta name="description" content="All eight Evolution Companions plushes in one complete collection. Meet every colorful companion, see real customer photos, and bring the whole set home.">
-    {% render 'evolution-campaign-app-exclusions' %}
-    {{ content_for_header }}
+    {% render 'landing-hero-preload', page_markup: landing_page_markup %}
     {{ 'little-impostors-display-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {{ 'little-impostors-body-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     <style>
@@ -16,6 +12,12 @@
       @font-face{font-family:'Rainbow Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
     </style>
     {{ 'evolution-rainbow-paws.css' | asset_url | stylesheet_tag }}
+    {% render 'evolution-campaign-app-exclusions' %}
+    {{ content_for_header }}
+    <meta name="theme-color" content="#30263b">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
+    <meta name="description" content="All eight Evolution Companions plushes in one complete collection. Meet every colorful companion, see real customer photos, and bring the whole set home.">
     <script src="{{ 'evolution-campaign.js' | asset_url }}" defer></script>
   </head>
   <body class="fg-body">
@@ -25,7 +27,7 @@
       <span class="fg-header-note"><i aria-hidden="true"></i> Free shipping <i aria-hidden="true"></i></span>
       <a class="fg-cart" href="{{ routes.cart_url }}" aria-label="View cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}"><svg aria-hidden="true" focusable="false" viewBox="0 0 32 32" width="27" height="27" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h4l4 18h15l3-13H8"/><circle cx="13" cy="27" r="1.5"/><circle cx="24" cy="27" r="1.5"/></svg>{% if cart.item_count > 0 %}<span class="fg-cart-count" aria-hidden="true">{{ cart.item_count }}</span>{% endif %}</a>
     </header>
-    <main id="MainContent">{{ content_for_layout }}</main>
+    <main id="MainContent">{{ landing_page_markup }}</main>
     <footer class="fg-footer">
       <div class="fg-shell fg-footer-inner">
         <div><strong>ZENKAI</strong><span>Every color has a place here.</span></div>

@@ -1,0 +1,15 @@
+{%- comment -%}
+  Match the first high-priority hero's exact responsive candidates. The page is
+  rendered once by the layout; no hardcoded product or template image mapping.
+{%- endcomment -%}
+{%- assign image_parts = page_markup | split: '<img ' -%}
+{%- for part in image_parts offset: 1 -%}
+  {%- assign image_tag = part | split: '>' | first -%}
+  {%- if image_tag contains 'fetchpriority="high"' -%}
+    {%- assign hero_src = image_tag | split: 'src="' | last | split: '"' | first -%}
+    {%- assign hero_srcset = image_tag | split: 'srcset="' | last | split: '"' | first -%}
+    {%- assign hero_sizes = image_tag | split: 'sizes="' | last | split: '"' | first -%}
+    <link rel="preload" as="image" href="{{ hero_src }}"{% if image_tag contains 'srcset="' %} imagesrcset="{{ hero_srcset }}" imagesizes="{{ hero_sizes }}"{% endif %} fetchpriority="high" data-landing-hero-preload>
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
