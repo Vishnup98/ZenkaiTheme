@@ -197,14 +197,9 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .fg-mood-card--vaporeon { --card-wash: #abd8ee; --card-accent: #418fc2; }
 .fg-mood-card--leafeon { --card-wash: #dce2ad; --card-accent: #78965e; }
 .fg-mood-card--umbreon { --card-wash: #c8c5ca; --card-accent: #57515e; }
-.fg-moods-note { width: max-content; max-width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 30px auto 0 !important; padding: 9px 16px; border: 1.5px solid var(--fg-ink); border-radius: 999px; background: #fffaf1; color: var(--fg-ink) !important; font-size: 12px; font-weight: 800; text-align: center; transform: rotate(-.5deg); }
-.fg-moods-note i { width: 6px; height: 6px; border-radius: 50%; background: var(--fg-pink); }
-.fg-moods-note i:nth-of-type(2) { background: var(--fg-blue); }
-
 .fg-personality { display: grid; grid-template-columns: .82fr 1.18fr; gap: 54px; align-items: center; padding-block: 82px; }
-.fg-personality-copy > p:not(.fg-eyebrow) { max-width: 41ch; margin-top: 22px; color: var(--fg-copy); font-size: 17px; font-weight: 540; line-height: 1.58; letter-spacing: -.006em; text-wrap: pretty; }
-.fg-hand-note { display: flex; align-items: center; gap: 4px; margin-top: 24px; color: #765abc; font-family: "Rainbow Display", sans-serif; font-size: 17px; font-weight: 700; line-height: 1.25; }
-.fg-hand-note svg { width: 78px; height: 44px; flex: 0 0 78px; }
+.fg-personality-copy > p:not(.fg-eyebrow, .fg-hand-note) { max-width: 41ch; margin-top: 22px; color: var(--fg-copy); font-size: 17px; font-weight: 540; line-height: 1.58; letter-spacing: -.006em; text-wrap: pretty; }
+.fg-personality-copy > .fg-hand-note { margin-top: 16px; color: #765abc; font-family: "Rainbow Display", sans-serif; font-size: 17px; font-weight: 700; line-height: 1.25; }
 .fg-lineup-photo { position: relative; padding: 18px; border: 2px solid var(--fg-ink); border-radius: 50% 50% 22px 22px / 28% 28% 22px 22px; background: #d7eef8; box-shadow: 9px 9px 0 var(--fg-yellow); }
 .fg-lineup-photo::before, .fg-lineup-photo::after { content: ""; position: absolute; z-index: -1; border: 2px solid var(--fg-ink); border-radius: 50%; }
 .fg-lineup-photo::before { width: 62px; height: 62px; left: -26px; top: 32px; background: var(--fg-pink); }
@@ -444,11 +439,11 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-mood-card footer span { color: var(--fg-copy); font-size: 9px; font-weight: 850; line-height: 1; letter-spacing: .055em; }
   .fg-mood-card footer strong { margin-top: 1px; font-size: clamp(15px, 4.7vw, 19px); }
   .fg-card-paw { right: 9px; width: 23px; height: 21px; }
-  .fg-moods-note { width: 100%; gap: 6px; padding: 10px 12px; border-radius: 16px; font-size: 10px; line-height: 1.35; }
-  .fg-moods-note i { width: 5px; height: 5px; }
-  .fg-personality { padding-block: 52px; }
-  .fg-hand-note { display: block; font-size: 16px; }
-  .fg-hand-note svg { display: block; margin-bottom: -5px; }
+  .fg-moods { padding-bottom: 20px; }
+  .fg-personality { gap: 16px; padding-top: 24px; padding-bottom: 22px; }
+  .fg-personality .fg-eyebrow { margin-bottom: 6px !important; }
+  .fg-personality-copy > p:not(.fg-eyebrow, .fg-hand-note) { margin-top: 12px; }
+  .fg-personality-copy > .fg-hand-note { margin-top: 10px; font-size: 16px; }
   .fg-face-doodle { width: 132px; height: 68px; }
   .fg-lineup-photo { padding: 10px; border-radius: 36% 36% 14px 14px / 24% 24% 14px 14px; box-shadow: 6px 6px 0 var(--fg-yellow); }
   .fg-lineup-photo button { border-radius: 36% 36% 7px 7px / 23% 23% 7px 7px; }
