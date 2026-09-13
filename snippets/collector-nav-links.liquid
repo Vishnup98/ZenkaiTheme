@@ -13,7 +13,7 @@
   {%- endif -%}
   {%- if collector_nav_show -%}
     <li class="{{ collector_nav_item_class }}">
-      <a class="{{ collector_nav_link_class }} js-no-transition" href="{{ routes.root_url }}{% unless routes.root_url == '/' %}/{% endunless %}products/{{ collector_nav_handle }}{% if collector_nav_index == 1 %}?view=evo-all-eight{% endif %}"{% if product.handle == collector_nav_handle %} aria-current="page"{% endif %}>{{ collector_nav_labels[collector_nav_index] }}</a>
+      <a class="{{ collector_nav_link_class }} js-no-transition" href="{{ routes.root_url }}{% unless routes.root_url == '/' %}/{% endunless %}products/{{ collector_nav_handle }}{% if collector_nav_index == 1 %}?view=evo-rainbow-paws{% endif %}"{% if product.handle == collector_nav_handle %} aria-current="page"{% endif %}>{{ collector_nav_labels[collector_nav_index] }}</a>
     </li>
   {%- endif -%}
 {%- endfor -%}
