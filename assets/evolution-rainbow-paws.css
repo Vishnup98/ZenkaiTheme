@@ -369,14 +369,18 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-closeup h2 { max-width: 16ch; }
   .fg-scale { gap: 36px; padding-block: 58px; }
   .fg-scale-copy { max-width: 680px; }
-  .fg-community { padding-block: 50px 56px; }
+  .fg-community { padding-block: 30px; }
+  .fg-community .fg-section-heading { margin-bottom: 20px; }
+  .fg-community .fg-eyebrow { margin-bottom: 7px !important; }
+  .fg-community .fg-section-heading > p:last-child { margin-top: 12px; }
   .fg-customer-grid { grid-auto-rows: 140px; }
-  .fg-review-heading { display: block; }
-  .fg-review-heading .fg-eyebrow { margin-bottom: 11px !important; }
-  .fg-review-score { width: max-content; margin-top: 20px !important; }
+  .fg-review-heading { display: block; margin-bottom: 20px; }
+  .fg-review-heading .fg-eyebrow { margin-bottom: 7px !important; }
+  .fg-review-score { width: max-content; margin-top: 14px !important; }
   .fg-review-grid { grid-template-columns: 1fr; }
   .fg-review-grid figure { min-height: 0; }
-  .fg-reviews { padding-block: 50px; }
+  .fg-review-source { margin-top: 14px !important; }
+  .fg-reviews { padding-block: 30px; }
   .fg-faq { gap: 30px; padding-block: 58px; }
   .fg-faq-paw { position: absolute; width: 55px; height: 50px; right: 10px; bottom: 0; }
   .fg-faq header { padding-bottom: 12px; }
