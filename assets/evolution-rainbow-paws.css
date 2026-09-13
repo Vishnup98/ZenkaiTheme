@@ -147,12 +147,11 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
 .shopify-payment-button__more-options { margin-top: 8px !important; color: var(--fg-muted) !important; font-size: 12px !important; font-weight: 520 !important; }
 
 .fg-paw-promise { border-block: 1px solid var(--fg-rule); background: #fffdf9; }
-.fg-paw-promise .fg-shell { display: grid; grid-template-columns: repeat(4, 1fr); padding-block: 17px; }
+.fg-paw-promise .fg-shell { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-block: 12px; }
 .fg-paw-promise .fg-shell > div { display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 0; padding-inline: 20px; }
 .fg-paw-promise .fg-shell > div + div { border-left: 1px solid var(--fg-rule); }
-.fg-paw-promise p { display: flex; flex-direction: column; line-height: 1.25; }
-.fg-paw-promise strong { color: var(--fg-ink); font-size: 14px; }
-.fg-paw-promise small { margin-top: 2px; color: var(--fg-muted); font-size: 11px; font-weight: 540; }
+.fg-paw-promise p { line-height: 1.05; }
+.fg-paw-promise strong { color: var(--fg-ink); font-size: 16px; letter-spacing: -.015em; }
 .fg-mini-paw, .fg-review-paw { width: 38px; height: 38px; display: grid; flex: 0 0 38px; place-items: center; border: 1.5px solid var(--fg-ink); border-radius: 50%; color: var(--fg-ink); }
 .fg-paw-icon { width: 20px; height: 19px; }
 .fg-paw--pink { background: var(--fg-pink); }
@@ -340,7 +339,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-stamp-paw { display: none; }
   .fg-hero-paw-trail { left: 26px; bottom: -34px; }
   .fg-paw-promise .fg-shell > div { padding-inline: 12px; }
-  .fg-paw-promise strong { font-size: 13px; }
+  .fg-paw-promise strong { font-size: 15px; }
   .fg-mood-card-image { height: 215px; }
   .fg-mood-grid { gap: 14px; }
   .fg-mood-card footer strong { font-size: 18px; }
@@ -357,8 +356,8 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-hero-copy { width: min(100%, 620px); margin-inline: auto; }
   .fg-identity { font-size: 22px; }
   .fg-lede { margin-top: 17px !important; }
-  .fg-paw-promise .fg-shell { display: flex; overflow-x: auto; justify-content: flex-start; padding: 12px 15px; scrollbar-width: none; scroll-snap-type: x proximity; }
-  .fg-paw-promise .fg-shell > div { min-width: 210px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
+  .fg-paw-promise .fg-shell { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 11px 20px; }
+  .fg-paw-promise .fg-shell > div { min-width: 0; padding-inline: 10px; }
   .fg-paw-promise .fg-shell > div + div { border-left: 0; }
   .fg-section-heading, .fg-section-heading--community { display: block; }
   .fg-section-heading > p:last-child { margin-top: 16px; padding: 0; }
@@ -429,7 +428,9 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price small { margin-top: 3px; font-size: 11px; line-height: 1.2; }
   .fg-product-form { margin-top: 8px; }
   .fg-body .fg-cta { min-height: 60px; padding-inline: 16px; border-radius: 19px 19px 7px 19px; font-size: 22px; }
-  .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
+  .fg-paw-promise .fg-shell { padding: 8px 10px; }
+  .fg-paw-promise .fg-shell > div { gap: 8px; min-width: 0; padding-inline: 4px; }
+  .fg-paw-promise strong { font-size: 15px; line-height: 1.05; }
   .fg-mini-paw { width: 34px; height: 34px; flex-basis: 34px; }
   .fg-rainbow-rule { height: 8px; }
   .fg-moods .fg-shell { padding-top: 20px; }
