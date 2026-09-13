@@ -250,7 +250,7 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-header{height:54px;min-height:54px;gap:8px;padding-inline:18px}
  .mc-body .ec-brand img{width:54px;height:44px}
  .mc-body .ec-header>.ec-header-note{min-height:32px;gap:8px;padding:6px 10px;font-size:11px;letter-spacing:.07em}
- .mc-body .ec-header>.ec-header-note>span{flex-basis:15px;width:15px;height:15px;font-size:15px}
+ .mc-body .ec-header>.ec-header-note>span{flex-basis:16px;width:16px;height:16px;font-size:16px}
  .mc-body .ec-cart{width:40px;height:40px;border:0}
  .mc-body .ec-shell{padding-inline:22px}
  .mc-body .ec-hero{display:block;padding:24px 22px 30px}
