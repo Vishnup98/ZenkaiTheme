@@ -29,7 +29,7 @@ const ADS = prepared.ads.map(a=>({...a,adName:a.name,creativeName:a.name+" | Pla
 const CAMPAIGN_FIELDS =
   "id,account_id,name,status,effective_status,objective,buying_type,daily_budget,lifetime_budget,bid_strategy,special_ad_categories,issues_info";
 const ADSET_FIELDS =
-  "id,name,campaign_id,status,effective_status,start_time,end_time,destination_type,promoted_object,is_dynamic_creative,optimization_goal,billing_event,targeting,attribution_spec,issues_info";
+  "id,name,campaign_id,status,effective_status,bid_amount,start_time,end_time,destination_type,promoted_object,is_dynamic_creative,optimization_goal,billing_event,targeting,attribution_spec,issues_info";
 const AD_FIELDS =
   "id,name,status,effective_status,campaign_id,adset_id,issues_info,ad_review_feedback,creative{id,name,url_tags,object_story_spec,asset_feed_spec}";
 
@@ -95,6 +95,7 @@ function creativePayload(ad, uploads) {
   };
 }
 
+async function sequential(items, fn) { const result=[];for(const item of items){result.push(await fn(item));await new Promise(r=>setTimeout(r,600));}return result;}
 async function preflight(meta, state) {
   const assets = validateAssets();
   const [account, campaign, adset, existingAds, product, pageResults] = await Promise.all([
@@ -105,8 +106,7 @@ async function preflight(meta, state) {
     fetch(`https://zenkaiclothing.com/products/${PRODUCT_HANDLE}.js`, {
       signal: AbortSignal.timeout(30_000),
     }).then((response) => response.json()),
-    Promise.all(
-      ADS.map(async (ad) => {
+    sequential(ADS, async (ad) => {
         const response = await fetch(destination(ad), {
           signal: AbortSignal.timeout(30_000),
           headers: { "user-agent": "ZenkaiEvolutionCreativeLaunch/1.0" },
@@ -118,7 +118,7 @@ async function preflight(meta, state) {
         expect(html.includes('name="return_to" value="/checkout"'), `${ad.id}: checkout form missing`);
         expect(html.includes(VARIANT_ID), `${ad.id}: product variant missing from checkout`);
         return { id: ad.id, url: destination(ad), status: response.status };
-      }),
+      },
     ),
   ]);
 
@@ -131,6 +131,7 @@ async function preflight(meta, state) {
   expect(adset.status === "ACTIVE" && adset.effective_status === "ACTIVE", "Existing ad set is not active");
   expect(adset.promoted_object?.pixel_id === PIXEL_ID && adset.promoted_object?.custom_event_type === "PURCHASE", "Pixel/event mismatch");
   expect(adset.optimization_goal === "OFFSITE_CONVERSIONS" && adset.destination_type === "WEBSITE", "Optimization mismatch");
+  expect(Number(adset.bid_amount) === 5500, "Cost cap changed");
   expect(adset.attribution_spec?.length > 0, "Attribution configuration missing");
   const variant = product.variants.find((row) => String(row.id) === VARIANT_ID);
   expect(variant?.available && Number(variant.price) === 16_000, "The $160 complete-set variant is not available");
@@ -358,7 +359,7 @@ try {
     }
   }
 } catch (error) {
-  console.error(error.message);
+  console.error(error.stack);
   process.exitCode = 1;
 } finally {
   if (locked && fs.existsSync(LOCK_DIR)) fs.rmdirSync(LOCK_DIR);
