@@ -66,6 +66,18 @@
 .mc-body .shopify-payment-button{margin-top:12px;--shopify-accelerated-checkout-button-border-radius:999px;--shopify-accelerated-checkout-button-block-size:48px}
 .mc-body .shopify-payment-button__button{border-radius:999px;min-height:48px}
 .mc-body .shopify-payment-button__more-options{font-size:12px!important;font-weight:520!important;line-height:1.35!important;color:var(--mc-muted)!important;min-height:36px;padding:8px 0 0;margin:0}
+.mc-set-promise{border-block:1px solid var(--mc-line);background:#fffdf9}
+.mc-body .mc-set-promise>.ec-shell{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding-block:12px}
+.mc-body .mc-set-promise>.ec-shell>div{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;padding-inline:20px}
+.mc-body .mc-set-promise>.ec-shell>div+div{border-left:1px solid var(--mc-line)}
+.mc-body .mc-set-promise p{margin:0;line-height:1.05}
+.mc-body .mc-set-promise strong{color:var(--mc-ink);font-size:17px;font-weight:800;letter-spacing:-.015em}
+.mc-promise-face{display:grid;width:42px;height:36px;flex:0 0 42px;place-items:center;border:1.5px solid var(--mc-ink);border-radius:48% 52% 45% 55% / 56% 44% 58% 42%;color:var(--mc-ink);box-shadow:2px 2px 0 #30263b1a}
+.mc-promise-face--pink{background:var(--mc-pink);transform:rotate(-6deg)}
+.mc-promise-face--blue{background:#95d1dc;transform:rotate(5deg)}
+.mc-promise-face svg{display:block;width:28px;height:auto}
+.mc-nine-color-rule{display:grid;grid-template-columns:repeat(9,1fr);height:9px;margin-bottom:26px}
+.mc-nine-color-rule i:nth-child(1){background:#e0a06e}.mc-nine-color-rule i:nth-child(2){background:#95d1dc}.mc-nine-color-rule i:nth-child(3){background:#f7dc72}.mc-nine-color-rule i:nth-child(4){background:#df5e2e}.mc-nine-color-rule i:nth-child(5){background:#d4b5ec}.mc-nine-color-rule i:nth-child(6){background:#4e3f32}.mc-nine-color-rule i:nth-child(7){background:#81d0d1}.mc-nine-color-rule i:nth-child(8){background:#76bce3}.mc-nine-color-rule i:nth-child(9){background:#db717e}
 /* A collection tray, with every thumbnail one tap away. */
 .mc-body .ec-included{position:relative;display:block;width:calc(100% - 48px);max-width:1240px;padding:40px 36px 30px;border:1px solid #6c479519;border-radius:32px;background:var(--mc-lilac)}
 .mc-body .ec-included-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:19px}
@@ -228,6 +240,11 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-price>strong{font-size:34px}.mc-body .ec-price>span{padding-left:11px}.mc-body .ec-price small{font-size:9px}.mc-body .ec-price b{font-size:11.5px}
  .mc-body .ec-cta{font-size:22px;padding:13px 18px;min-height:60px}
  .mc-body .ec-shipping{font-size:11px;margin-top:13px;gap:3px 7px}
+ .mc-body .mc-set-promise>.ec-shell{padding:10px 20px}
+ .mc-body .mc-set-promise>.ec-shell>div{padding-inline:10px}
+ .mc-body .mc-set-promise>.ec-shell>div+div{border-left:0}
+ .mc-body .mc-set-promise strong{font-size:15px}
+ .mc-nine-color-rule{height:8px;margin-bottom:22px}
  .mc-body .ec-included{width:calc(100% - 32px);padding:28px 24px 22px;border-radius:26px}
  .mc-body .ec-included-heading{margin-bottom:17px;gap:18px}
  .mc-body h2,.mc-body .ec-included h2{font-size:38px}
@@ -300,6 +317,12 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-price>span{gap:2px;padding-left:10px}.mc-body .ec-price small{font-size:9px}.mc-body .ec-price b{font-size:11.5px}
  .mc-body .ec-cta{min-height:60px;font-size:24px;padding:13px 16px;border-radius:19px 19px 7px 19px}
  .mc-body .ec-shipping{font-size:11px;margin-block:12px 7px;gap:2px 8px}
+ .mc-body .mc-set-promise>.ec-shell{padding:9px 10px}
+ .mc-body .mc-set-promise>.ec-shell>div{gap:8px;padding-inline:4px}
+ .mc-body .mc-set-promise strong{font-size:15px;line-height:1.05}
+ .mc-promise-face{width:36px;height:31px;flex-basis:36px;box-shadow:1.5px 1.5px 0 #30263b1a}
+ .mc-promise-face svg{width:24px}
+ .mc-nine-color-rule{height:7px;margin-bottom:18px}
  .mc-body .ec-included{width:calc(100% - 24px);padding:27px 20px 16px;border-radius:25px}
  .mc-body .ec-included-heading{display:block;margin-bottom:15px}
  .mc-body .ec-included h2{font-size:36px}
@@ -379,6 +402,8 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-hero-copy>.mc-product-kicker{margin-bottom:5px;font-size:18px}
  .mc-hero-rating,.mc-hero-orders{padding-inline:9px}.mc-hero-rating strong,.mc-hero-orders strong{font-size:17px}.mc-hero-rating small,.mc-hero-orders small{font-size:8.5px;letter-spacing:.025em}.mc-hero-stars{width:19px;height:19px;flex-basis:19px;font-size:11px}.mc-hero-shipping strong{font-size:11.5px}
  .mc-body .ec-price>strong{font-size:32px}.mc-body .ec-cta{font-size:22px;padding-inline:16px}
+ .mc-body .mc-set-promise strong{font-size:14px}
+ .mc-promise-face{width:34px;height:29px;flex-basis:34px}.mc-promise-face svg{width:23px}
  .mc-body .ec-included h2,.mc-body .mc-customer-section h2{font-size:32px}
  .mc-body .ec-sticky .ec-cta{font-size:14px;padding-inline:12px;letter-spacing:.005em}
 }
