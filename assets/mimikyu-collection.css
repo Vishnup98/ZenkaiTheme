@@ -8,7 +8,7 @@
 .mc-body p{color:var(--mc-copy);font-size:17px;font-weight:540;line-height:1.56;letter-spacing:-.006em}
 .mc-body p strong{color:var(--mc-ink)}
 .mc-body .ec-shell{max-width:1240px;padding-inline:32px}
-.mc-body .ec-eyebrow{font-family:'Little Sans',Arial,sans-serif;font-size:11px;letter-spacing:.11em;line-height:1.4;font-weight:800;color:var(--mc-purple);margin-bottom:14px}
+.mc-body .ec-eyebrow{font-family:'Little Sans',Arial,sans-serif;font-size:12px;letter-spacing:.11em;line-height:1.4;font-weight:800;color:var(--mc-purple);margin-bottom:14px}
 .mc-body :focus-visible{outline:3px solid var(--mc-purple);outline-offset:4px}
 .mc-body a,.mc-body button,.mc-body summary{scroll-margin-block:80px 112px}
 .mc-body .ec-header{height:64px;position:relative;min-height:64px;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);background:var(--mc-ink);border:0;padding-inline:max(24px,calc((100vw - 1176px)/2));color:#fffaf3}
@@ -70,7 +70,7 @@
 .mc-body .ec-included-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:19px}
 .mc-body .ec-included .ec-section-heading{margin:0;max-width:none}
 .mc-body .ec-included h2{margin:0}
-.mc-body .ec-included .ec-eyebrow{margin-bottom:4px;font-size:10px}
+.mc-body .ec-included .ec-eyebrow{margin-bottom:4px;font-size:11px}
 .mc-dot{color:#a86e91}
 .mc-body .mc-gallery-intro{font-size:15px;font-weight:560;line-height:1.5;letter-spacing:-.006em;color:var(--mc-copy);text-align:right;margin-bottom:2px}
 .mc-body .ec-collection-media{width:100%;min-width:0;max-width:none}
@@ -156,7 +156,7 @@
 .mc-body .ec-final-grid>figure{background:#f6eee5;padding:10px;border-radius:22px;overflow:hidden}
 .mc-body .ec-final img{max-height:none;width:100%;object-fit:contain;border-radius:14px}
 .mc-body .ec-final-grid>div{padding-right:26px}
-.mc-body .ec-final .ec-eyebrow{color:#d6bee9;font-size:10px}
+.mc-body .ec-final .ec-eyebrow{color:#d6bee9;font-size:11px}
 .mc-body .ec-final h2{font-size:clamp(42px,4.2vw,60px);color:#fffaf3;margin-bottom:20px}
 .mc-body .ec-final p{color:var(--mc-copy-on-dark);font-size:16px;font-weight:560;line-height:1.56;letter-spacing:-.006em}
 .mc-body .ec-final .ec-cta{margin-top:25px}
@@ -277,7 +277,7 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-included{width:calc(100% - 24px);padding:27px 20px 16px;border-radius:25px}
  .mc-body .ec-included-heading{display:block;margin-bottom:15px}
  .mc-body .ec-included h2{font-size:36px}
- .mc-body .ec-included .ec-eyebrow{font-size:9px;margin-bottom:3px}
+ .mc-body .ec-included .ec-eyebrow{font-size:10px;margin-bottom:3px}
  .mc-body .mc-gallery-intro{font-size:14px;text-align:left;margin-top:13px;max-width:29ch}
  .mc-body .ec-portraits{margin-right:-20px;padding-right:20px;scroll-padding-right:20px}
  .mc-body .ec-portraits>figure{flex-basis:88%;max-width:320px}
@@ -289,7 +289,7 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .mc-story-copy{max-width:420px;margin:auto;width:100%}
  .mc-body .mc-story-media{max-width:420px;width:100%;margin:16px auto 0}
  .mc-body .mc-story-grid>figure img{max-height:none}
- .mc-body .ec-eyebrow{font-size:10px;margin-bottom:2px}
+ .mc-body .ec-eyebrow{font-size:11px;margin-bottom:2px}
  .mc-body h2{font-size:36px;line-height:1.06}
  .mc-body .mc-story-copy>p:not(.ec-eyebrow){font-size:16px;margin-top:10px}
  .mc-body .mc-details-grid{grid-template-columns:1fr;gap:18px;padding-inline:14px;padding-bottom:24px}
@@ -313,9 +313,10 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-review-grid figure{padding:19px 20px 19px 48px;border-radius:17px}
  .mc-body .ec-review-grid figure::before{position:absolute;left:17px;top:24px;font-size:37px;margin:0}
  .mc-body .ec-review-grid blockquote{font-size:14px;line-height:1.56}
- .mc-body .ec-faq{grid-template-columns:1fr;gap:14px;padding-block:30px 26px}
+ .mc-body .ec-faq{grid-template-columns:1fr;gap:10px;padding-block:24px 20px}
  .mc-body .ec-faq h2 br{display:none}.mc-body .ec-faq h2{font-size:35px}
- .mc-body .ec-faq summary{font-size:14px;padding-block:21px}
+ .mc-body .ec-faq summary{min-height:54px;font-size:14px;padding-block:15px}
+ .mc-body .ec-faq summary::after{right:8px;width:28px;height:28px;font-size:20px}
  .mc-body .ec-faq details{padding-left:10px}.mc-body .ec-faq details p{font-size:14px}
  .mc-body .ec-final{padding:20px 20px 27px;width:calc(100% - 24px);margin-bottom:28px;border-radius:25px}
  .mc-body .ec-final-grid{grid-template-columns:1fr;gap:20px}
@@ -348,5 +349,5 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
 @media(prefers-reduced-motion:reduce){.mc-body *{scroll-behavior:auto!important;transition:none!important}}
 
 /* Keep small section labels independent of shared paragraph rules. */
-.mc-body .ec-included .ec-section-heading .ec-eyebrow,.mc-body .mc-customer-section .ec-section-heading .ec-eyebrow{font-size:10px;line-height:1.4;letter-spacing:.11em;max-width:none;color:var(--mc-purple)}
+.mc-body .ec-included .ec-section-heading .ec-eyebrow,.mc-body .mc-customer-section .ec-section-heading .ec-eyebrow{font-size:11px;line-height:1.4;letter-spacing:.11em;max-width:none;color:var(--mc-purple)}
 .mc-body .shopify-payment-button>button{border-radius:999px!important;min-height:48px}
