@@ -11,12 +11,12 @@
 .mc-body .ec-eyebrow{font-family:'Little Sans',Arial,sans-serif;font-size:11px;letter-spacing:.11em;line-height:1.4;font-weight:800;color:var(--mc-purple);margin-bottom:14px}
 .mc-body :focus-visible{outline:3px solid var(--mc-purple);outline-offset:4px}
 .mc-body a,.mc-body button,.mc-body summary{scroll-margin-block:80px 112px}
-.mc-body .ec-header{height:64px;position:relative;min-height:64px;background:var(--mc-ink);border:0;padding-inline:max(24px,calc((100vw - 1176px)/2));color:#fffaf3}
-.mc-body .ec-brand{min-height:48px;min-width:60px}
+.mc-body .ec-header{height:64px;position:relative;min-height:64px;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);background:var(--mc-ink);border:0;padding-inline:max(24px,calc((100vw - 1176px)/2));color:#fffaf3}
+.mc-body .ec-brand{min-height:48px;min-width:60px;justify-self:start}
 .mc-body .ec-brand img{width:60px;height:48px;object-fit:contain}
-.mc-body .ec-header-note{display:flex;align-items:center;justify-content:center;gap:14px;font-size:10px;font-weight:800;letter-spacing:.14em}
-.mc-body .ec-header-note>span{color:var(--mc-mint);font-size:15px}
-.mc-body .ec-cart{min-width:44px;min-height:44px;justify-content:center;border:1px solid #fffaf34d;border-radius:50%;position:relative}
+.mc-body .ec-header>.ec-header-note{display:inline-flex;width:max-content;min-height:36px;box-sizing:border-box;align-items:center;justify-content:center;justify-self:center;gap:10px;padding:7px 13px;border:1px solid #bce9d647;border-radius:999px;background:linear-gradient(180deg,#fffaf312,#bce9d60d);box-shadow:inset 0 1px 0 #fffaf314;color:#fffaf3;font-size:12px;font-weight:800;line-height:1;letter-spacing:.09em;white-space:nowrap;text-align:center}
+.mc-body .ec-header>.ec-header-note>span{display:grid;place-items:center;flex:0 0 17px;width:17px;height:17px;color:var(--mc-mint);font-size:17px;font-weight:700;line-height:1;letter-spacing:0}
+.mc-body .ec-cart{min-width:44px;min-height:44px;justify-content:center;justify-self:end;border:1px solid #fffaf34d;border-radius:50%;position:relative}
 .mc-body .ec-cart-count{background:var(--mc-pink);color:var(--mc-ink);font-size:10px;font-weight:800}
 /* The image and type form one deliberate opening composition. */
 .mc-body .ec-hero{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:62px;padding-block:46px 62px;align-items:center}
@@ -247,9 +247,10 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-footer{padding-inline:24px}
 }
 @media(max-width:679px){
- .mc-body .ec-header{height:54px;min-height:54px;padding-inline:18px}
+ .mc-body .ec-header{height:54px;min-height:54px;gap:8px;padding-inline:18px}
  .mc-body .ec-brand img{width:54px;height:44px}
- .mc-body .ec-header-note{font-size:9px;gap:8px;letter-spacing:.1em}
+ .mc-body .ec-header>.ec-header-note{min-height:32px;gap:8px;padding:6px 10px;font-size:11px;letter-spacing:.07em}
+ .mc-body .ec-header>.ec-header-note>span{flex-basis:15px;width:15px;height:15px;font-size:15px}
  .mc-body .ec-cart{width:40px;height:40px;border:0}
  .mc-body .ec-shell{padding-inline:22px}
  .mc-body .ec-hero{display:block;padding:24px 22px 30px}
@@ -342,7 +343,8 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .ec-lightbox-toolbar{gap:6px}.mc-body .ec-lightbox-toolbar>span{font-size:10px;max-width:100px}
 }
 @media(max-width:359px){
- .mc-body .ec-header-note{font-size:8px;gap:6px}.mc-body .ec-header-note>span{font-size:11px}
+ .mc-body .ec-header{gap:6px}
+ .mc-body .ec-header>.ec-header-note{min-height:29px;gap:5px;padding:5px 6px;font-size:10px;letter-spacing:.06em}.mc-body .ec-header>.ec-header-note>span{flex-basis:13px;width:13px;height:13px;font-size:13px}
  .mc-body .ec-hero{padding-inline:20px}.mc-body .ec-hero-media{margin-bottom:18px!important}
  .mc-body .ec-hero-copy>.mc-product-kicker{font-size:9px;gap:7px}.mc-product-kicker>span{font-size:8px;padding-left:7px}
  .mc-hero-rating,.mc-hero-orders{padding-inline:9px}.mc-hero-rating strong,.mc-hero-orders strong{font-size:17px}.mc-hero-rating small,.mc-hero-orders small{font-size:8.5px;letter-spacing:.025em}.mc-hero-stars{width:19px;height:19px;flex-basis:19px;font-size:11px}.mc-hero-shipping strong{font-size:11.5px}
