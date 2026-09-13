@@ -1,0 +1,32 @@
+{% comment %}Shared plush-page recording, using the existing store Clarity project and Shopify consent decisions.{% endcomment %}
+<script>
+(function(w,d){
+  if(w.zenkaiPlushClarity) return;
+  w.zenkaiPlushClarity=true;
+  var loaded=false;
+  function sync(){
+    var p=w.Shopify&&w.Shopify.customerPrivacy;
+    if(!p||typeof p.analyticsProcessingAllowed!=='function') return;
+    var analytics=p.analyticsProcessingAllowed();
+    if(!analytics&&!loaded) return;
+    w.clarity=w.clarity||function(){(w.clarity.q=w.clarity.q||[]).push(arguments);};
+    w.clarity('consentv2',{
+      analytics_Storage:analytics?'granted':'denied',
+      ad_Storage:p.marketingAllowed()&&p.saleOfDataAllowed()?'granted':'denied'
+    });
+    if(!loaded){
+      loaded=true;
+      if(!d.querySelector('script[src*="clarity.ms/tag/rci3r4u57j"]')){
+        var s=d.createElement('script');s.async=true;s.src='https://www.clarity.ms/tag/rci3r4u57j';d.head.appendChild(s);
+      }
+      w.clarity('set','plush_layout',{{ template.suffix | default: 'default-impostors' | json }});
+    }
+  }
+  function init(){
+    d.addEventListener('visitorConsentCollected',sync);
+    if(w.Shopify&&w.Shopify.customerPrivacy){sync();return;}
+    if(w.Shopify&&w.Shopify.loadFeatures) w.Shopify.loadFeatures([{name:'consent-tracking-api',version:'0.1'}],function(error){if(!error)sync();});
+  }
+  if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})(window,document);
+</script>
