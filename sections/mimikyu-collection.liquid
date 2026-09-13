@@ -65,8 +65,9 @@
   </section>
 
   <section class="ec-story"><div class="ec-shell mc-story-grid">
-    <div><p class="ec-eyebrow">Your shelf, but cuter</p><h2>Small gang.<br>Big personality.</h2><p>Claim a shelf. Brighten your desk. Let the whole gang make itself at home.</p><span class="mc-story-note"><svg viewBox="0 0 72 44" fill="none" aria-hidden="true" focusable="false"><path d="M5 8c10 28 32 29 55 10M47 14l16 1-5 15" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Good luck choosing a favorite.</span></div>
-    {% if section.settings.shelf_image != blank %}<figure>{% render 'mimikyu-image', photo: section.settings.shelf_image, alt: 'All nine plushes arranged on a collector shelf in a styled scene' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder"><span>03</span><strong>Shelf image</strong><p>little-impostors-shelf.png</p></div>{% endif %}
+    <div class="mc-story-copy"><p class="ec-eyebrow">Your shelf, but cuter</p><h2>Small gang.<br>Big personality.</h2><p>Claim a shelf. Brighten your desk. Let the whole gang make itself at home.</p></div>
+    {% if section.settings.shelf_image != blank %}<figure class="mc-story-media">{% render 'mimikyu-image', photo: section.settings.shelf_image, alt: 'All nine plushes arranged on a collector shelf in a styled scene' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder mc-story-media"><span>03</span><strong>Shelf image</strong><p>little-impostors-shelf.png</p></div>{% endif %}
+    <span class="mc-story-note"><svg viewBox="0 0 76 54" fill="none" aria-hidden="true" focusable="false"><path d="M69 47C49 46 31 36 18 16M18 16l1 15M18 16l15 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Good luck choosing a favorite.</span></span>
   </div></section>
 
   <div class="mc-details-grid ec-shell">
