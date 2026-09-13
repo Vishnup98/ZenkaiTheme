@@ -1,10 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 const out=path.resolve('output/impostors-30-journeys');
-const journeys=JSON.parse(await fs.readFile(out+'/journeys.json','utf8'));
+const journeys=JSON.parse(await fs.readFile(out+'/journeys.json','utf8')).filter(j=>j.id!=='C05');
 const results=[];
-for(let i=0;i<journeys.length;i+=4){
- results.push(...await Promise.all(journeys.slice(i,i+4).map(async j=>{
+for(let i=0;i<journeys.length;i+=1){
+ results.push(...await Promise.all(journeys.slice(i,i+1).map(async j=>{
   const errors=[];
   try{
    const response=await fetch(j.url,{signal:AbortSignal.timeout(30000)});const html=await response.text();
