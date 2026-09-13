@@ -116,7 +116,7 @@
 .fg-lede { max-width: 42ch; margin-top: 22px !important; color: var(--fg-copy) !important; font-size: 17px; font-weight: 560; line-height: 1.6; letter-spacing: -.008em; text-wrap: pretty; }
 .fg-lede strong { color: var(--fg-ink); font-weight: 740; }
 
-.evo-purchase-proof--hero { --evo-proof-accent: #755bc2; --evo-proof-rule: #30263b3d; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; overflow: hidden; margin: 22px 0; padding: 0; border: 1.5px solid var(--fg-ink); border-radius: 18px 18px 8px 18px; background: #fff; color: var(--fg-ink); box-shadow: 3px 3px 0 #ddd1f1; }
+.evo-purchase-proof--hero { --evo-proof-accent: #755bc2; --evo-proof-rule: #30263b3d; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; overflow: hidden; margin: 22px 0 14px; padding: 0; border: 1.5px solid var(--fg-ink); border-radius: 18px 18px 8px 18px; background: #fff; color: var(--fg-ink); box-shadow: 3px 3px 0 #ddd1f1; }
 .evo-proof-rating, .evo-proof-orders { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 10px 16px; }
 .evo-proof-rating-line { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
 .evo-proof-stars { display: grid; width: 24px; height: 24px; flex: 0 0 24px; place-items: center; border-radius: 50%; background: #eee7fb; color: var(--evo-proof-accent); font-size: 14px; line-height: 1; }
@@ -138,11 +138,11 @@
 .fg-cta-label { display: block; }
 .fg-cta:hover:not(:disabled) { background: var(--fg-mint-action-hover); transform: translateY(-1px); box-shadow: 0 0 0 4px #78bfa447, inset 0 1px 0 #ffffff4d; }
 .fg-cta:active:not(:disabled) { transform: translateY(1px) scale(.997); box-shadow: 0 0 0 2px #78bfa43d, inset 0 1px 0 #ffffff24; }
-.fg-shipping { display: flex; justify-content: center; flex-wrap: wrap; gap: 3px 10px; margin: 15px 0 11px !important; color: var(--fg-muted) !important; font-size: 12px; font-weight: 520; }
-.fg-shipping-check { display: grid; width: 18px; height: 18px; margin-right: -3px; place-items: center; border: 1px solid var(--fg-ink); border-radius: 50%; background: var(--fg-mint); color: var(--fg-ink); }
-.fg-shipping-paw { width: 10px; height: 9px; }
-.fg-shipping strong { color: var(--fg-ink); }
-.shopify-payment-button { margin-top: 15px; }
+.fg-shipping { display: flex; align-items: baseline; justify-content: center; flex-wrap: nowrap; gap: 6px; margin: 8px 0 6px !important; color: var(--fg-muted) !important; font-size: 12px; font-weight: 560; line-height: 1.25; white-space: nowrap; }
+.fg-shipping > * { line-height: inherit; }
+.fg-shipping strong { color: var(--fg-ink); font-weight: 760; }
+.fg-shipping-divider { color: #7b7080; font-weight: 700; }
+.shopify-payment-button { margin-top: 6px; }
 shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size: 50px; --shopify-accelerated-checkout-button-border-radius: 999px; --shopify-accelerated-checkout-button-box-shadow: none; }
 .shopify-payment-button__more-options { margin-top: 8px !important; color: var(--fg-muted) !important; font-size: 12px !important; font-weight: 520 !important; }
 
@@ -417,7 +417,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-identity-paw { width: .76em; height: .7em; }
   .fg-hero h1 { line-height: .94; }
   .fg-lede { margin-top: 12px !important; font-size: 16px; line-height: 1.45; }
-  .evo-purchase-proof--hero { grid-template-columns: 1fr 1fr; margin-block: 13px 10px; padding: 0; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
+  .evo-purchase-proof--hero { grid-template-columns: 1fr 1fr; margin-block: 13px 12px; padding: 0; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
   .evo-proof-rating, .evo-proof-orders { gap: 3px; padding: 7px 12px; }
   .evo-proof-rating-line { gap: 5px; }
   .evo-proof-stars { width: 21px; height: 21px; flex-basis: 21px; font-size: 12px; }
@@ -430,7 +430,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price > strong { font-size: 39px; }
   .fg-price > span { font-size: 14px; line-height: 1.12; }
   .fg-price small { margin-top: 3px; font-size: 11px; line-height: 1.2; }
-  .fg-product-form { margin-top: 13px; }
+  .fg-product-form { margin-top: 12px; }
   .fg-body .fg-cta { min-height: 60px; padding-inline: 16px; border-radius: 19px 19px 7px 19px; font-size: 22px; }
   .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
   .fg-mini-paw { width: 34px; height: 34px; flex-basis: 34px; }
@@ -499,6 +499,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price { gap: 11px; }
   .fg-price > strong { font-size: 36px; }
   .fg-price > span { font-size: 13px; }
+  .fg-shipping { gap: 5px; font-size: 10.5px; }
   .fg-body .fg-cta { font-size: 20px; }
   .fg-sticky .fg-cta { font-size: 14px; letter-spacing: .015em; }
   .fg-mood-card button { height: 164px; }

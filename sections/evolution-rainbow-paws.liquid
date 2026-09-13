@@ -37,7 +37,7 @@
           <input type="hidden" name="return_to" value="/checkout">
           <input type="hidden" name="properties[_zk_landing_view]" value="evo-rainbow-paws">
           <button class="ec-cta fg-cta" type="submit" name="add" data-ec-main-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span class="fg-cta-label">Bring all 8 home</span>{% else %}Sold out{% endif %}</button>
-          <p class="fg-shipping"><span class="fg-shipping-check" aria-hidden="true">{% render 'evolution-paw-mark', class: 'fg-shipping-paw' %}</span><strong>Free shipping</strong><span>{{ section.settings.shipping_summary | escape }}</span></p>
+          <p class="fg-shipping" aria-label="Free shipping. {{ section.settings.shipping_summary | escape }}"><strong>Free shipping</strong><span class="fg-shipping-divider" aria-hidden="true">·</span><span>{{ section.settings.shipping_summary | escape }}</span></p>
           {{ form | payment_button }}
         {%- endform -%}
       </div>
@@ -144,7 +144,7 @@
       <details><summary>Does the price include all eight?<span aria-hidden="true">+</span></summary><p>Yes. {{ v.price | money_without_trailing_zeros }} buys eight separate plush companions, with one of every design pictured. Each plush comes in its own costume; this is not one plush with spare outfits. Display props and gift wrapping are not included.</p></details>
       <details><summary>Can I choose just one color?<span aria-hidden="true">+</span></summary><p>This page is for the complete collection, so all eight pictured colors are included and there is no color selection to make.</p></details>
       <details><summary>How big is each plush?<span aria-hidden="true">+</span></summary><p>Each is approximately 8 × 7 × 6 inches. Hood and ear shapes vary, so allow a little extra room when planning your display.</p></details>
-      <details><summary>Is shipping free, and when will they arrive?<span aria-hidden="true">+</span></summary><p>Shipping is free. Delivery typically takes 5–7 business days, with tracking provided after dispatch. The set may arrive separately from other products in your order.</p></details>
+      <details><summary>Is shipping free, and when will they arrive?<span aria-hidden="true">+</span></summary><p>Shipping is free. Delivery typically takes 7–10 business days, with tracking provided after dispatch. The set may arrive separately from other products in your order.</p></details>
       <details><summary>How should I care for them?<span aria-hidden="true">+</span></summary><p>Spot clean gently and air dry. Keep away from heat and open flames. Not suitable for children under 3 years old.</p></details>
       <details><summary>What if something is wrong with my order?<span aria-hidden="true">+</span></summary><p>If an item is lost in transit, damaged, defective, incorrect, or materially different from its description, contact us with your order number and available photos. <a href="/policies/refund-policy">Read our refund and order-care policy.</a></p></details>
     </div>
@@ -171,7 +171,7 @@
     {"type":"text","id":"hero_accent","label":"Rainbow headline word","default":"color"},
     {"type":"text","id":"hero_suffix","label":"Hero headline ending","default":"comes home."},
     {"type":"textarea","id":"hero_body","label":"Hero introduction","default":"Eight colors. Eight moods. Eight ridiculously cute little companions. The whole rainbow, together in one complete set."},
-    {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Usually arrives in 5–7 business days"},
+    {"type":"text","id":"shipping_summary","label":"Shipping summary","default":"Usually arrives in 7–10 business days"},
     {"type":"text","id":"detail_title","label":"Detail headline","default":"Tiny hood. Tiny paws. Huge personality."},
     {"type":"textarea","id":"detail_body","label":"Detail body","default":"Soft ears, embroidered faces, colorful hoods and those unmistakable little brown paws. Every design has its own silhouette, but the whole crew feels like family."},
     {"type":"text","id":"final_title","label":"Final headline","default":"Bring the whole rainbow home."},
