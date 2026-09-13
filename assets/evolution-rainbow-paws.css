@@ -444,9 +444,12 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-personality .fg-eyebrow { margin-bottom: 6px !important; }
   .fg-personality-copy > p:not(.fg-eyebrow, .fg-hand-note) { margin-top: 12px; }
   .fg-personality-copy > .fg-hand-note { margin-top: 10px; font-size: 16px; }
-  .fg-face-doodle { width: 132px; height: 68px; }
   .fg-lineup-photo { padding: 10px; border-radius: 36% 36% 14px 14px / 24% 24% 14px 14px; box-shadow: 6px 6px 0 var(--fg-yellow); }
   .fg-lineup-photo button { border-radius: 36% 36% 7px 7px / 23% 23% 7px 7px; }
+  .fg-closeup { padding-block: 24px 22px; }
+  .fg-closeup-grid { gap: 16px; }
+  .fg-closeup .fg-eyebrow { margin-bottom: 5px !important; }
+  .fg-face-doodle { width: 96px; height: 49px; margin: 10px 16px -5px auto; transform: rotate(-3deg); }
   .fg-closeup-grid > div > p:not(.fg-eyebrow), .fg-scale-copy > p:not(.fg-eyebrow), .fg-personality-copy > p:not(.fg-eyebrow) { font-size: 16px; }
   .fg-scale dl { grid-template-columns: 1fr; }
   .fg-scale dl > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--fg-rule); }
