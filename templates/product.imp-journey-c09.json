@@ -1,0 +1,109 @@
+{
+  "layout": "mimikyu-collection",
+  "sections": {
+    "main": {
+      "type": "impostors-ad-journey",
+      "settings": {
+        "hero_title": "You kept the story.",
+        "hero_title_accent": "Give it a place.",
+        "purchase_ready": true,
+        "show_placeholders": false,
+        "shipping_heading": "Free shipping",
+        "shipping_summary": "Arrives in 7-10 business days",
+        "delivery_text": "Arrives in 7-10 business days. Shipping is free for this set. This collection may arrive separately from other items in your order.",
+        "eevee_image": "shopify://shop_images/little-impostors-warm-tan-156040f989e6.webp",
+        "vaporeon_image": "shopify://shop_images/little-impostors-aqua-0be6c8aa34b9.webp",
+        "glaceon_image": "shopify://shop_images/little-impostors-icy-blue-8c8e1dfd269c.webp",
+        "sylveon_image": "shopify://shop_images/little-impostors-pink-ribbon-cf2ce7aa38dd.webp",
+        "detail_image": "shopify://shop_images/little-impostors-detail-6e35f1ade5a6.webp",
+        "leafeon_image": "shopify://shop_images/little-impostors-leaf-eared-cream-c126c620e8c0.webp",
+        "shelf_image": "shopify://shop_images/little-impostors-shelf-a99ef76d1e77.webp",
+        "jolteon_image": "shopify://shop_images/little-impostors-bright-yellow-ab4c7773cb57.webp",
+        "collection_image": "shopify://shop_images/little-impostors-collection-f1653763a478.webp",
+        "hero_image": "shopify://shop_images/little-impostors-hero-3cf2b7bbb5b9.webp",
+        "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp",
+        "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp",
+        "flareon_image": "shopify://shop_images/little-impostors-orange-996e6917e5d3.webp",
+        "size_image": "shopify://shop_images/little-impostors-size-guide-5054b2a9639c.png",
+        "hero_body": "Some favorites stay with you. These nine little disguises bring that familiar feeling into the room you have made your own.",
+        "story_title": "A collection that feels like you",
+        "story_body": "A familiar silhouette, a crooked little smile, a color you remember. Display the whole cast alongside the things you never stopped loving.",
+        "story_eyebrow": "Picture them at home",
+        "final_title": "Make room for an old feeling.",
+        "final_body": "Nine new additions to a story that is already yours.",
+        "journey_id": "imp-journey-c09",
+        "section_order": "story,gallery,details",
+        "gallery_eyebrow": "One of every pictured design",
+        "gallery_title": "Meet your nine"
+      },
+      "blocks": {
+        "photo_1": {
+          "type": "customer_photo",
+          "settings": {
+            "image": "shopify://shop_images/little-impostors-customer-bright-yellow-5cde5af88b9a.webp",
+            "caption": "Bright yellow plush in a customer’s home"
+          }
+        },
+        "photo_2": {
+          "type": "customer_photo",
+          "settings": {
+            "image": "shopify://shop_images/little-impostors-customer-leaf-eared-cream-732757905b60.webp",
+            "caption": "Leaf-eared cream plush held in one hand"
+          }
+        },
+        "photo_3": {
+          "type": "customer_photo",
+          "settings": {
+            "image": "shopify://shop_images/little-impostors-customer-charcoal-4ecb851a496f.webp",
+            "caption": "Charcoal plush displayed beside other plushes"
+          }
+        },
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The coloring is a bright yellow. super cute! soft. good size. my friend will adore it!"
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Super duper cute ! Needs a little refluffing in order to stand up but i love it ! ! !"
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I absolutely love love love her! … Should have bought more haha"
+          }
+        },
+        "photo_4": {
+          "type": "customer_photo",
+          "settings": {
+            "image": "shopify://shop_images/little-impostors-customer-aqua-cf688761321e.webp",
+            "caption": "Aqua plush resting against a sofa cushion"
+          }
+        },
+        "photo_5": {
+          "type": "customer_photo",
+          "settings": {
+            "image": "shopify://shop_images/little-impostors-customer-pink-ribbon-6a3e5df40fbb.webp",
+            "caption": "Pink ribbon plush on a collector’s display"
+          }
+        }
+      },
+      "block_order": [
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
