@@ -399,7 +399,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-header-note i { width: 10px; height: 10px; flex-basis: 10px; }
   .fg-header-note i::before { left: -11px; width: 6px; height: 6px; }
   .fg-header-note i::after { right: -12px; width: 7px; height: 7px; }
-  .fg-hero { padding-inline: 17px; padding-top: 20px; }
+  .fg-hero { padding: 20px 17px; }
   .fg-hero-media { padding: 8px; border-radius: 25px 25px 25px 8px; box-shadow: 7px 7px 0 #dacff2; }
   .fg-hero-image { border-radius: 17px 17px 17px 4px; }
   .fg-hero-splash--one { width: 55px; height: 55px; left: -13px; top: -13px; }
@@ -415,7 +415,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-identity-paw { width: .76em; height: .7em; }
   .fg-hero h1 { line-height: .94; }
   .fg-lede { margin-top: 12px !important; font-size: 16px; line-height: 1.45; }
-  .evo-purchase-proof--hero { grid-template-columns: 1fr 1fr; margin-block: 13px 12px; padding: 0; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
+  .evo-purchase-proof--hero { grid-template-columns: 1fr 1fr; margin: 13px 0 16px; padding: 0; border-radius: 16px 16px 7px 16px; box-shadow: 2px 2px 0 #ddd1f1; }
   .evo-proof-rating, .evo-proof-orders { gap: 3px; padding: 7px 12px; }
   .evo-proof-rating-line { gap: 5px; }
   .evo-proof-stars { width: 21px; height: 21px; flex-basis: 21px; font-size: 12px; }
@@ -428,7 +428,7 @@ shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size:
   .fg-price > strong { font-size: 39px; }
   .fg-price > span { font-size: 14px; line-height: 1.12; }
   .fg-price small { margin-top: 3px; font-size: 11px; line-height: 1.2; }
-  .fg-product-form { margin-top: 12px; }
+  .fg-product-form { margin-top: 8px; }
   .fg-body .fg-cta { min-height: 60px; padding-inline: 16px; border-radius: 19px 19px 7px 19px; font-size: 22px; }
   .fg-paw-promise .fg-shell > div { min-width: 190px; justify-content: flex-start; padding-inline: 10px; scroll-snap-align: start; }
   .fg-mini-paw { width: 34px; height: 34px; flex-basis: 34px; }
