@@ -1,0 +1,230 @@
+{
+  "createdAt": "2026-09-15T14:01:32.634Z",
+  "images": [
+    {
+      "filename": "legendary-skies-trio-hero.webp",
+      "alt": "Legendary Skies complete three-plush collector set",
+      "id": "gid://shopify/MediaImage/40167255507049",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-trio-hero.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-hero.webp?v=1789480899",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-trio-lineup.webp",
+      "alt": "Yellow, blue, and orange Legendary Skies plush lineup",
+      "id": "gid://shopify/MediaImage/40167255539817",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-trio-lineup.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-lineup.webp?v=1789480904",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-yellow-portrait.webp",
+      "alt": "Yellow Legendary Skies plush",
+      "id": "gid://shopify/MediaImage/40167255572585",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-yellow-portrait.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-yellow-portrait.webp?v=1789480909",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-blue-portrait.webp",
+      "alt": "Blue Legendary Skies plush",
+      "id": "gid://shopify/MediaImage/40167255605353",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-blue-portrait.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-blue-portrait.webp?v=1789480914",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-orange-portrait.webp",
+      "alt": "Orange Legendary Skies plush",
+      "id": "gid://shopify/MediaImage/40167255638121",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-orange-portrait.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-orange-portrait.webp?v=1789480919",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-trio-lifestyle.webp",
+      "alt": "Legendary Skies plush trio displayed in a warm living space",
+      "id": "gid://shopify/MediaImage/40167255703657",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-trio-lifestyle.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-lifestyle.webp?v=1789480924",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-trio-story.webp",
+      "alt": "Legendary Skies storm, frost, and flame editorial scene",
+      "id": "gid://shopify/MediaImage/40167255769193",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-trio-story.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-story.webp?v=1789480930",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-trio-details.webp",
+      "alt": "Legendary Skies plush embroidery and material details",
+      "id": "gid://shopify/MediaImage/40167255801961",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-trio-details.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-details.webp?v=1789480936",
+      "variantSkus": []
+    },
+    {
+      "filename": "legendary-skies-trio-scale.webp",
+      "alt": "Legendary Skies plush trio beside a book and lamp for scale",
+      "id": "gid://shopify/MediaImage/40167255900265",
+      "source": "/Users/vishnup/Downloads/ZenkaiTheme/assets/legendary-skies-trio-scale.webp",
+      "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-scale.webp?v=1789480941",
+      "variantSkus": []
+    }
+  ],
+  "productId": "gid://shopify/Product/9454244659305",
+  "handle": "legendary-skies-complete-3-plush-collector-set",
+  "variantId": "gid://shopify/ProductVariant/48063213797481",
+  "updatedAt": "2026-09-15T14:03:42.200Z",
+  "lastVerifiedAt": "2026-09-15T14:03:42.200Z",
+  "product": {
+    "id": "gid://shopify/Product/9454244659305",
+    "title": "Legendary Skies — Complete 3-Plush Collector Set",
+    "handle": "legendary-skies-complete-3-plush-collector-set",
+    "status": "UNLISTED",
+    "templateSuffix": "legendary-skies",
+    "onlineStoreUrl": "https://zenkaiclothing.com/products/legendary-skies-complete-3-plush-collector-set",
+    "onlineStorePreviewUrl": "https://zenkaiclothing.com/products/legendary-skies-complete-3-plush-collector-set",
+    "variants": {
+      "nodes": [
+        {
+          "id": "gid://shopify/ProductVariant/48063213797481",
+          "sku": "ZK-PLUSH-LEGENDARY-SKIES-3",
+          "price": "0.00",
+          "availableForSale": false,
+          "inventoryPolicy": "DENY",
+          "inventoryQuantity": 0,
+          "sellableOnlineQuantity": 0,
+          "inventoryItem": {
+            "id": "gid://shopify/InventoryItem/50189651214441",
+            "tracked": true,
+            "requiresShipping": true
+          }
+        }
+      ]
+    },
+    "media": {
+      "nodes": [
+        {
+          "id": "gid://shopify/MediaImage/40167255507049",
+          "alt": "Legendary Skies complete three-plush collector set",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-hero.webp?v=1789480899",
+            "width": 2048,
+            "height": 2048
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255539817",
+          "alt": "Yellow, blue, and orange Legendary Skies plush lineup",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-lineup.webp?v=1789480904",
+            "width": 2528,
+            "height": 1696
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255572585",
+          "alt": "Yellow Legendary Skies plush",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-yellow-portrait.webp?v=1789480909",
+            "width": 2048,
+            "height": 2048
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255605353",
+          "alt": "Blue Legendary Skies plush",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-blue-portrait.webp?v=1789480914",
+            "width": 2048,
+            "height": 2048
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255638121",
+          "alt": "Orange Legendary Skies plush",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-orange-portrait.webp?v=1789480919",
+            "width": 2048,
+            "height": 2048
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255703657",
+          "alt": "Legendary Skies plush trio displayed in a warm living space",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-lifestyle.webp?v=1789480924",
+            "width": 2400,
+            "height": 1792
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255769193",
+          "alt": "Legendary Skies storm, frost, and flame editorial scene",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-story.webp?v=1789480930",
+            "width": 2752,
+            "height": 1536
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255801961",
+          "alt": "Legendary Skies plush embroidery and material details",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-details.webp?v=1789480936",
+            "width": 2528,
+            "height": 1696
+          }
+        },
+        {
+          "id": "gid://shopify/MediaImage/40167255900265",
+          "alt": "Legendary Skies plush trio beside a book and lamp for scale",
+          "status": "READY",
+          "mediaContentType": "IMAGE",
+          "image": {
+            "url": "https://cdn.shopify.com/s/files/1/0625/0577/9305/files/legendary-skies-trio-scale.webp?v=1789480941",
+            "width": 1856,
+            "height": 2304
+          }
+        }
+      ]
+    },
+    "resourcePublications": {
+      "nodes": [
+        {
+          "isPublished": true,
+          "publication": {
+            "id": "gid://shopify/Publication/153815548009",
+            "name": "Microsoft Copilot"
+          }
+        },
+        {
+          "isPublished": true,
+          "publication": {
+            "id": "gid://shopify/Publication/130122350697",
+            "name": "Online Store"
+          }
+        }
+      ]
+    }
+  }
+}

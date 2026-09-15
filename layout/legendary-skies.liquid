@@ -1,0 +1,47 @@
+{%- capture legendary_skies_markup -%}{{ content_for_layout }}{%- endcapture -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#102f2b">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
+    <meta name="description" content="{{ page_description | default: product.description | strip_html | truncate: 160 | escape }}">
+    {{ 'little-impostors-display-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {{ 'little-impostors-body-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    <style>
+      @font-face{font-family:'Zenkai Display';src:url('{{ 'little-impostors-display-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
+      @font-face{font-family:'Zenkai Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
+    </style>
+    {{ 'legendary-skies.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="ls-body">
+    <a class="ls-skip" href="#MainContent">Skip to the collection</a>
+    <header class="ls-header">
+      <a class="ls-brand" href="{{ routes.root_url }}" aria-label="Zenkai Clothing home">
+        <img src="{{ 'zenkai-logo-320.png' | asset_url }}" width="70" height="60" alt="Zenkai Clothing">
+      </a>
+      <p><span aria-hidden="true">✦</span> Free shipping on this set <span aria-hidden="true">✦</span></p>
+      <a class="ls-cart" href="{{ routes.cart_url }}" aria-label="View cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}">
+        <svg aria-hidden="true" viewBox="0 0 32 32" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h4l4 18h15l3-13H8"/><circle cx="13" cy="27" r="1.5"/><circle cx="24" cy="27" r="1.5"/></svg>
+        {% if cart.item_count > 0 %}<span>{{ cart.item_count }}</span>{% endif %}
+      </a>
+    </header>
+    <main id="MainContent">{{ legendary_skies_markup }}</main>
+    <footer class="ls-footer">
+      <div>
+        <strong>ZENKAI CLOTHING</strong>
+        <p>A little more personality. A lot more you.</p>
+      </div>
+      <nav aria-label="Customer support">
+        <a href="/pages/policy">Delivery &amp; returns</a>
+        <a href="mailto:{{ shop.email }}">Contact us</a>
+        {% if shop.privacy_policy.url != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{% endif %}
+      </nav>
+      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }} · Secure checkout with Shopify</small>
+    </footer>
+    <script src="{{ 'legendary-skies.js' | asset_url }}" defer></script>
+  </body>
+</html>

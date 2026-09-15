@@ -1,0 +1,29 @@
+{%- liquid
+  assign image_loading = loading | default: 'lazy'
+  assign image_sizes = sizes | default: '(min-width: 900px) 50vw, 100vw'
+  assign image_width = width | default: 1536
+  assign image_height = height | default: 1536
+-%}
+{%- if photo != blank -%}
+  {{- photo
+    | image_url: width: 1800
+    | image_tag:
+      widths: '360, 540, 720, 960, 1200, 1440, 1800',
+      sizes: image_sizes,
+      loading: image_loading,
+      alt: alt,
+      class: class
+  -}}
+{%- elsif fallback != blank -%}
+  <img
+    src="{{ fallback | asset_url }}"
+    width="{{ image_width }}"
+    height="{{ image_height }}"
+    sizes="{{ image_sizes }}"
+    alt="{{ alt | escape }}"
+    loading="{{ image_loading }}"
+    decoding="async"
+    {% if image_loading == 'eager' %}fetchpriority="high"{% endif %}
+    {% if class != blank %}class="{{ class }}"{% endif %}
+  >
+{%- endif -%}

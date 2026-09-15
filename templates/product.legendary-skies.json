@@ -1,0 +1,32 @@
+{
+  "layout": "legendary-skies",
+  "sections": {
+    "main": {
+      "type": "legendary-skies-product",
+      "settings": {
+        "collection_name": "Legendary Skies",
+        "hero_title": "Three icons.",
+        "hero_title_accent": "One legendary set.",
+        "hero_body": "Storm, frost, and flame land together in one display-ready collection. Three separate plushes. One of every design pictured.",
+        "purchase_ready": false,
+        "show_placeholders": false,
+        "shipping_heading": "Free shipping",
+        "shipping_summary": "Arrives in 7–10 business days",
+        "delivery_text": "Arrives in 7–10 business days. Shipping is free for this set. This collection may arrive separately from other items in your order.",
+        "final_title": "Bring the whole trio home.",
+        "final_body": "Three separate plushes. Every pictured design. One complete collector set."
+      },
+      "blocks": {
+        "photo_1": { "type": "customer_photo", "settings": { "caption": "The plush trio in a customer’s collection" } },
+        "photo_2": { "type": "customer_photo", "settings": { "caption": "The yellow plush in a customer’s display" } },
+        "photo_3": { "type": "customer_photo", "settings": { "caption": "The blue plush in a customer’s display" } },
+        "photo_4": { "type": "customer_photo", "settings": { "caption": "The orange plush in a customer’s display" } },
+        "review_1": { "type": "testimonial", "settings": {} },
+        "review_2": { "type": "testimonial", "settings": {} },
+        "review_3": { "type": "testimonial", "settings": {} }
+      },
+      "block_order": ["photo_1", "photo_2", "photo_3", "photo_4", "review_1", "review_2", "review_3"]
+    }
+  },
+  "order": ["main"]
+}
