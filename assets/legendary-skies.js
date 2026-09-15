@@ -34,7 +34,8 @@
         );
       });
       var lightbox = root.querySelector("[data-ls-lightbox]");
-      sticky.hidden = visibleBuyControl || Boolean(lightbox && lightbox.open);
+      var upsell = root.querySelector('[data-ls-upsell]');
+      sticky.hidden = visibleBuyControl || Boolean(lightbox && lightbox.open) || Boolean(upsell && upsell.open);
     }
 
     function requestStickyUpdate() {

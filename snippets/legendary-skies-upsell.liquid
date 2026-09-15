@@ -1,0 +1,28 @@
+<dialog class="ls-upsell" data-ls-upsell aria-labelledby="ls-upsell-title" aria-describedby="ls-upsell-intro">
+  <header class="ls-upsell__header">
+    <div><p class="ls-upsell__eyebrow">{% render 'legendary-skies-wing-mark' %} The trio is in your cart</p>
+    <h2 id="ls-upsell-title">On your shelf.<br>On your tee.</h2>
+    <p id="ls-upsell-intro">Take the legendary birds with you. Add either tee—or make it both.</p></div>
+    <button type="button" class="ls-upsell__close" data-ls-upsell-close aria-label="Close offer and keep shopping">×</button>
+  </header>
+  <div class="ls-upsell__cards" data-ls-upsell-cards></div>
+  <footer class="ls-upsell__footer">
+    <p class="ls-upsell__status" data-ls-upsell-status role="status" aria-live="polite"></p>
+    <button type="button" class="ls-cta" data-ls-upsell-checkout>Continue to checkout</button>
+    <button type="button" class="ls-upsell__skip" data-ls-upsell-skip>No thanks, just the plush set →</button>
+    <small>Optional extras · Prices shown are for one tee · Shipping calculated at checkout</small>
+  </footer>
+</dialog>
+{%- assign ls_tee_handles = '144-146-trifecta-heavyweight-tee,144-146-the-birds-tee' | split: ',' -%}
+<script type="application/json" data-ls-upsell-config>
+{
+  "root": {{ routes.root_url | json }},
+  "currency": {{ cart.currency.iso_code | default: shop.currency | default: 'USD' | json }},
+  "products": [
+    {%- for handle in ls_tee_handles -%}
+      {%- assign tee = all_products[handle] -%}
+      {"handle": {{ handle | json }}, "product": {% if tee != blank %}{{ tee | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>

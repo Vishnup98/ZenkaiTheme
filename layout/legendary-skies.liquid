@@ -16,6 +16,8 @@
     </style>
     {{ 'legendary-skies.css' | asset_url | stylesheet_tag }}
     {{ 'legendary-skies-identity.css' | asset_url | stylesheet_tag }}
+    {% render 'legendary-skies-cart-guard' %}
+    {{ 'legendary-skies-upsell.css' | asset_url | stylesheet_tag }}
     {{ content_for_header }}
   </head>
   <body class="ls-body">
@@ -48,6 +50,7 @@
       </nav>
       <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }} · Secure checkout with Shopify</small>
     </footer>
+    <script src="{{ 'legendary-skies-upsell.js' | asset_url }}" defer></script>
     <script src="{{ 'legendary-skies.js' | asset_url }}" defer></script>
   </body>
 </html>

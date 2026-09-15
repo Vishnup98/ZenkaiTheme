@@ -287,6 +287,8 @@
       {% render 'legendary-skies-cta', form_id: form_id, compact: true %}
     </aside>
 
+  {% render 'legendary-skies-upsell' %}
+  <p class="ls-cart-error" data-ls-cart-error role="alert" hidden></p>
   <dialog class="ls-lightbox" data-ls-lightbox aria-label="Enlarged product photograph">
     <button type="button" data-ls-close aria-label="Close enlarged image">×</button>
     <img src="{{ 'legendary-skies-trio-hero.webp' | asset_url }}" width="1600" height="1600" alt="" loading="lazy">

@@ -1,0 +1,23 @@
+<script>
+  /* Capture before app embeds wrap requests or attach capture listeners.
+     This layout is used only by Legendary Skies; other store flows are untouched. */
+  window.LegendarySkiesCartFetch = window.fetch.bind(window);
+  (function () {
+    function intercept(event) {
+      if (!window.LegendarySkiesUpsell) return;
+      var button = event.type === 'click' && event.target.closest && event.target.closest('[data-ls-main-cta], [data-ls-inline-cta]');
+      var form = button ? button.form : event.target;
+      if (!form || !form.matches || !form.matches('.ls-product-form')) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      window.LegendarySkiesUpsell(form, button || event.submitter);
+    }
+    window.addEventListener('click', intercept, true);
+    window.addEventListener('submit', intercept, true);
+  })();
+</script>
+<style>
+  #upCart, #UpcartPopup, #CartPopup, #upCartStickyButton,
+  #candyrack-frame, #candyrack-slider-cart, .candyrack-slider-cart,
+  .CandyRack-CartSlider, iframe[src*="candyrack" i] { display:none!important; visibility:hidden!important; }
+</style>
