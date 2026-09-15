@@ -17,10 +17,8 @@
 .ls-upsell__image-window { overflow:hidden; border-radius:7px; }
 .ls-upsell__media--design .ls-upsell__image-window { height:260px; }
 .ls-upsell__media--design img { height:260px; object-fit:contain; transform:scale(2.8); transform-origin:50% 28%; }
-.ls-upsell__media--pair { min-height:322px; align-content:start; }
+.ls-upsell__media--pair { align-content:start; }
 .ls-upsell__media--pair img { height:260px; }
-.ls-upsell__media--design.is-full img { transform:none; object-fit:contain; }
-.ls-body .ls-upsell__zoom { border:0; background:transparent; color:var(--ls-ink); font-size:12px; min-height:32px; text-decoration:underline; cursor:pointer; }
 .ls-upsell__media figcaption { margin-top:5px; text-align:center; font-size:11px; color:var(--ls-muted); }
 .ls-upsell__card h3 { font-size:19px; letter-spacing:-.025em; margin:14px 0 5px; }
 .ls-upsell__price { margin:0 0 12px; font-size:16px; font-weight:750; }
@@ -31,6 +29,8 @@
 .ls-body .ls-upsell__add:disabled { opacity:1; background:#e3eee9; cursor:default; }
 .ls-upsell__footer { position:sticky; bottom:0; padding:12px 28px 18px; background:var(--ls-paper); border-top:1px solid var(--ls-line); text-align:center; }
 .ls-upsell__footer .ls-cta { width:100%; }
+.ls-body .ls-upsell__footer .ls-cta { background:#000; color:#fff; border-color:#000; }
+.ls-body .ls-upsell__footer .ls-cta:hover:not(:disabled) { background:#202020; color:#fff; }
 .ls-body .ls-upsell__continue-note { margin:10px 0; font-size:12px; color:var(--ls-muted); }
 .ls-upsell__footer small { display:block; font-size:11px; color:var(--ls-muted); }
 .ls-upsell__status { margin:0 0 8px; font-size:13px; color:#94341e; }

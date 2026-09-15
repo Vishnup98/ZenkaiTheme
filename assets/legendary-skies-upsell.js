@@ -29,7 +29,8 @@
     img.src = sized(src); img.alt = alt; img.width = 400; img.height = 400;
     var windowEl = element('div', 'ls-upsell__image-window');
     windowEl.append(img);
-    figure.append(windowEl, element('figcaption', '', caption));
+    figure.append(windowEl);
+    if (caption) figure.append(element('figcaption', '', caption));
     return {figure:figure, image:img};
   }
   function updateButton() {
@@ -50,18 +51,10 @@
     // Explicitly named print references stay visible independently of color.
     var front = images.find(function(src) { return /birdsFront_macro/i.test(src); }) || images[0];
     var back = images.find(function(src) { return /birdsBack_macro/i.test(src); });
-    var mainPhoto = photo(front, title + (index === 1 ? ' front print detail' : ''), index === 1 ? 'Front print · Navy shown' : 'Trifecta artwork');
+    var mainPhoto = photo(front, title + (index === 1 ? ' front print detail' : ''), index === 1 ? 'Front print · Navy shown' : '');
     media.append(mainPhoto.figure);
     if (index === 0) {
       media.classList.add('ls-upsell__media--design');
-      var zoom = element('button', 'ls-upsell__zoom', 'View full tee');
-      zoom.type = 'button';
-      zoom.setAttribute('aria-label', 'Toggle Trifecta print close-up and full shirt');
-      zoom.addEventListener('click', function() {
-        var full = media.classList.toggle('is-full');
-        zoom.textContent = full ? 'Zoom in on print' : 'View full tee';
-      });
-      media.append(zoom);
     }
     if (index === 1 && back) media.append(photo(back, title + ' back print detail', 'Back print · Navy shown').figure);
     card.append(media, element('h3', '', title));
