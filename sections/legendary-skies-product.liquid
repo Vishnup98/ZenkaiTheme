@@ -1,7 +1,6 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign form_id = 'LegendarySkiesForm-' | append: section.id
-  assign per_plush = current_variant.price | divided_by: 3.0
   assign show_placeholders = section.settings.show_placeholders
   if request.design_mode
     assign show_placeholders = true
@@ -56,13 +55,7 @@
       <p class="ls-lede">{{ section.settings.hero_body | escape }}</p>
 
       <div class="ls-offer">
-        <div class="ls-price">
-          <strong>{{ current_variant.price | money }}</strong>
-          <span>
-            <small>Complete trio</small>
-            {{ per_plush | money_without_trailing_zeros }} per plush
-          </span>
-        </div>
+        {% render 'legendary-skies-price', variant: current_variant %}
         {%- form 'product', product, id: form_id, class: 'ls-product-form' -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -282,6 +275,7 @@
         <p class="ls-eyebrow">All three · all yours {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
         <h2>{{ section.settings.final_title | escape }}</h2>
         <p>{{ section.settings.final_body | escape }}</p>
+        {% render 'legendary-skies-price', variant: current_variant %}
         {% render 'legendary-skies-cta', form_id: form_id %}
         <small>{{ section.settings.shipping_heading | escape }} · {{ section.settings.shipping_summary | escape }}</small>
       </div>

@@ -9,7 +9,7 @@ engine.registerFilter('asset_url', value => '../../assets/'+value);
 engine.registerFilter('stylesheet_tag', value => `<link rel="stylesheet" href="${value}">`);
 engine.registerFilter('preload_tag', () => '');
 engine.registerFilter('money', value => '$'+(Number(value)/100).toFixed(2));
-engine.registerFilter('money_without_trailing_zeros', value => '$'+(Number(value)/100).toFixed(2));
+engine.registerFilter('money_without_trailing_zeros', value => '$'+(Number(value)/100).toFixed(2).replace(/\.00$/,''));
 const template = JSON.parse(await fs.readFile('templates/product.legendary-skies.json','utf8'));
 const product = await (await fetch('https://zenkaiclothing.com/products/legendary-skies-complete-3-plush-collector-set.js')).json();
 product.selected_or_first_available_variant = product.variants[0];

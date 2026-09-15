@@ -1,0 +1,12 @@
+<div class="ls-price">
+  <div class="ls-price__amounts">
+    <strong aria-label="Price {{ variant.price | money | escape }}">{{ variant.price | money }}</strong>
+    {% if variant.compare_at_price > variant.price %}
+      <s aria-label="Regular price {{ variant.compare_at_price | money | escape }}">{{ variant.compare_at_price | money }}</s>
+    {% endif %}
+  </div>
+  {% if variant.compare_at_price > variant.price %}
+    <span class="ls-price__sale">Launch sale · Save {{ variant.compare_at_price | minus: variant.price | money_without_trailing_zeros }}</span>
+  {% endif %}
+  <span class="ls-price__detail">Complete 3-plush set <span aria-hidden="true">·</span> {{ variant.price | divided_by: 3.0 | money }} per plush</span>
+</div>

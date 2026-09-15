@@ -1,6 +1,6 @@
 /* Legendary Skies: a compact purchase flow and consistent feather artwork. */
 :root {
- --ls-ink:#192a3f; --ls-muted:#596574; --ls-night:#18283c; --ls-cream:#fffaf2; --ls-paper:#fffdf8;
+ --ls-ink:#192a3f; --ls-muted:#485665; --ls-night:#18283c; --ls-cream:#fffaf2; --ls-paper:#fffdf8;
  --ls-line:rgba(25,42,63,.17); --ls-storm:#efc549; --ls-frost:#69bddc; --ls-flame:#e5664d;
  --ls-mint:#91ddcb; --ls-mint-dark:#287b73;
  --ls-elemental:linear-gradient(90deg,var(--ls-flame) 0 33.33%,var(--ls-frost) 33.33% 66.66%,var(--ls-storm) 66.66%);
@@ -11,7 +11,7 @@
 .ls-shell { max-width:1240px; }
 .ls-header { min-height:58px; padding-block:3px; background:var(--ls-night); }
 .ls-header::after { content:""; position:absolute; inset:auto 0 -2px; height:2px; background:var(--ls-elemental); }
-.ls-header>p { display:flex; justify-content:center; align-items:center; gap:12px; color:var(--ls-paper); font-size:10px; }
+.ls-header>p { display:flex; justify-content:center; align-items:center; gap:12px; color:var(--ls-paper); font-size:13px; letter-spacing:.055em; }
 .ls-header>p span { color:inherit; padding:0; }
 .ls-feather-mark { display:block; flex:none; overflow:visible; }
 .ls-feather__body { fill:currentColor; stroke:var(--ls-ink); stroke-width:1.4; stroke-linejoin:round; }
@@ -38,19 +38,22 @@
 .ls-hero__copy h1 span { color:#b9523e; }
 .ls-lede { max-width:460px; font-size:17px; line-height:1.5!important; }
 .ls-offer { margin-top:20px; padding-top:16px; border-top:1px solid var(--ls-line); }
-.ls-price { gap:16px; margin-bottom:12px; }
-.ls-price>strong { font-size:36px; }
-.ls-price>span { font-size:12px; }
-.ls-price small { color:var(--ls-muted); font-size:9px; }
+.ls-price { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin-bottom:14px; }
+.ls-price__amounts { display:flex; align-items:baseline; gap:10px; }
+.ls-price__amounts strong { color:var(--ls-ink); font-size:38px; font-weight:800; line-height:1; letter-spacing:-.045em; }
+.ls-price__amounts s { color:var(--ls-muted); font-size:20px; font-weight:600; text-decoration-thickness:1.5px; }
+.ls-price>.ls-price__sale { padding:6px 9px; border-radius:6px; background:#f9dfbb; color:#72391f; font-size:12px; font-weight:750; line-height:1.2; }
+.ls-price>.ls-price__detail { flex-basis:100%; color:var(--ls-muted); font-size:12px; font-weight:550; line-height:1.4; }
+.ls-price__detail>span { padding-inline:4px; }
 .ls-cta { min-height:52px; padding:12px 16px; border:1.5px solid var(--ls-ink); border-radius:10px; background:var(--ls-mint); box-shadow:3px 3px 0 var(--ls-ink); color:var(--ls-ink); font-size:16px; }
 .ls-body .ls-cta { font-family:"Zenkai Display","Zenkai Sans",sans-serif; font-weight:760; }
 .ls-cta:hover:not(:disabled) { background:#a5ead9; box-shadow:2px 2px 0 var(--ls-ink); transform:translate(1px,1px); }
-.ls-offer__note { margin-top:10px!important; font-size:11px; text-align:center; }
+.ls-offer__note { margin-top:10px!important; color:var(--ls-muted); font-size:12px; font-weight:550; text-align:center; }
 .ls-facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin-top:18px; border:0; border-radius:0; background:none; overflow:visible; }
 .ls-facts>div { display:block; padding:0 12px; border-left:1px solid var(--ls-line); background:none; }
 .ls-facts>div:first-child { padding-left:0; border:0; }
-.ls-facts strong { display:block; font-size:11px; line-height:1.4; }
-.ls-facts span { display:block; margin-top:3px; font-size:10px; line-height:1.4; }
+.ls-facts strong { display:block; font-size:12px; line-height:1.4; }
+.ls-facts span { display:block; margin-top:4px; color:var(--ls-muted); font-size:11px; line-height:1.4; }
 .ls-promise { border-block:1px solid var(--ls-line); background:#f4f0e7; }
 .ls-promise>.ls-shell { padding-block:12px; }
 .ls-promise p { min-height:38px; padding-block:0; }
@@ -135,6 +138,10 @@
 .ls-final figure { border-radius:18px; border:1px solid #678093; padding:5px; box-shadow:none; }
 .ls-final figure img { border-radius:12px; }
 .ls-final small { color:#b8cbd6; }
+.ls-final .ls-price { margin-top:18px; }
+.ls-final .ls-price__amounts strong { color:var(--ls-paper); }
+.ls-final .ls-price__amounts s,.ls-final .ls-price>.ls-price__detail { color:#d3dde6; }
+.ls-final .ls-cta { margin-top:14px; }
 .ls-footer { padding-block:30px 90px; background:#101f30; }
 .ls-footer__feathers { width:52px; height:32px; margin-top:10px; }
 .ls-sticky { background:var(--ls-night); padding-block:10px; padding-bottom:max(10px,env(safe-area-inset-bottom)); }
@@ -160,7 +167,7 @@
  .ls-header { grid-template-columns:58px 1fr 44px; min-height:52px; padding-block:0; }
  .ls-brand { min-height:48px; }
  .ls-brand img { width:50px; }
- .ls-header>p { gap:7px; font-size:8px; letter-spacing:.06em; }
+ .ls-header>p { gap:6px; font-size:11px; letter-spacing:.02em; white-space:nowrap; }
  .ls-header>p span { display:block; }
  .ls-header__feathers { width:29px; height:22px; }
  .ls-shell { padding-inline:20px; }
@@ -177,16 +184,17 @@
  .ls-hero__copy h1 span { display:block; }
  .ls-lede { font-size:14px; line-height:1.45!important; }
  .ls-offer { margin-top:12px; padding-top:12px; }
- .ls-price { margin-bottom:10px; gap:14px; align-items:center; }
- .ls-price>strong { font-size:30px; }
- .ls-price>span { font-size:11px; }
- .ls-price small { font-size:8px; }
+ .ls-price { margin-bottom:12px; gap:7px 12px; align-items:center; }
+ .ls-price__amounts strong { font-size:32px; }
+ .ls-price__amounts s { font-size:18px; }
+ .ls-price>.ls-price__sale { font-size:11px; }
+ .ls-price>.ls-price__detail { font-size:12px; }
  .ls-cta { min-height:49px; font-size:15px; }
- .ls-offer__note { font-size:10px; margin-top:9px!important; }
+ .ls-offer__note { font-size:11px; margin-top:10px!important; }
  .ls-facts { margin-top:14px; gap:0; }
- .ls-facts>div,.ls-facts>div:first-child { min-height:32px; align-items:center; border-top:1px solid var(--ls-line); padding:7px 0; }
- .ls-facts strong { font-size:11px; }
- .ls-facts span { font-size:10px; }
+ .ls-facts>div,.ls-facts>div:first-child { display:grid; grid-template-columns:1fr 1fr; gap:12px; min-height:34px; align-items:baseline; border-top:1px solid var(--ls-line); padding:8px 0; }
+ .ls-facts strong { font-size:12px; }
+ .ls-facts span { margin:0; font-size:11px; text-align:left; }
  .ls-promise>.ls-shell { display:grid; grid-template-columns:1fr 1fr; gap:0; padding:8px 20px; overflow:visible; }
  .ls-promise p { min-width:0; min-height:49px; padding:7px 0!important; border:0!important; }
  .ls-promise strong { font-size:11px; }
