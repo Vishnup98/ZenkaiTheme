@@ -1,0 +1,12 @@
+{%- comment -%}One feather drawing, reused singly or as the red / blue / yellow trio.{%- endcomment -%}
+{%- assign feather_colors = 'red,blue,yellow' | split: ',' -%}
+{%- if color != blank -%}{%- assign feather_colors = color | split: ',' -%}{%- endif -%}
+<svg class="ls-feather-mark {{ class | escape }}" viewBox="{% if color != blank %}0 0 36 60{% else %}0 0 120 64{% endif %}" fill="none" aria-hidden="true" focusable="false">
+  {%- for feather_color in feather_colors -%}
+    <g class="ls-feather ls-feather--{{ feather_color }}"{% if color == blank %} transform="translate({{ forloop.index0 | times: 40 | plus: 2 }} 2)"{% endif %}>
+      <path class="ls-feather__body" d="M12 49C8 45 5 39 6 32L10 34 6 28C8 20 16 9 29 3c3 12 2 23-1 30l-5 2 3 1c-3 7-8 10-14 13Z"/>
+      <path class="ls-feather__shaft" d="M10 57C12 42 19 22 28 7"/>
+      <path class="ls-feather__barbs" d="m13 44-5-5m8-3-8-7m11-2-8-5m12-3-7-4m-2 28 10-4m-7-5 11-5m-8-3 10-6"/>
+    </g>
+  {%- endfor -%}
+</svg>

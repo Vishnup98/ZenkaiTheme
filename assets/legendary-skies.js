@@ -90,7 +90,7 @@
         submitButton = event.submitter;
         if (submitButton && submitButton.classList.contains("ls-cta")) {
           submitHtml = submitButton.innerHTML;
-          submitButton.textContent = "Opening checkout…";
+          submitButton.textContent = "Adding to cart…";
           submitButton.setAttribute("aria-busy", "true");
         }
       });

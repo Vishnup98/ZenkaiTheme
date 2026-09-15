@@ -3,13 +3,6 @@
   type="submit"
   {% if form_id != blank %}form="{{ form_id }}"{% endif %}
   {% if main %}name="add" data-ls-main-cta{% else %}data-ls-inline-cta{% endif %}
-  {% unless ready %}disabled{% endunless %}
 >
-  {% if ready %}
-    <span>Bring the trio home</span><span aria-hidden="true">→</span>
-  {% elsif launch_ready %}
-    Sold out
-  {% else %}
-    Coming soon
-  {% endif %}
+  <span>Add to cart · All 3 plushes</span><span aria-hidden="true">→</span>
 </button>

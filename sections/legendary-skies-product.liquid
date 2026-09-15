@@ -1,10 +1,6 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign form_id = 'LegendarySkiesForm-' | append: section.id
-  assign purchase_ready = false
-  if section.settings.purchase_ready and current_variant.available and current_variant.price > 0
-    assign purchase_ready = true
-  endif
   assign per_plush = current_variant.price | divided_by: 3.0
   assign show_placeholders = section.settings.show_placeholders
   if request.design_mode
@@ -23,12 +19,17 @@
 >
   <section class="ls-hero ls-shell" aria-labelledby="ls-title-{{ section.id }}">
     <div class="ls-hero__media">
+      <span class="ls-hero__orbit ls-hero__orbit--storm" aria-hidden="true"></span>
+      <span class="ls-hero__orbit ls-hero__orbit--frost" aria-hidden="true"></span>
+      <span class="ls-hero__orbit ls-hero__orbit--flame" aria-hidden="true"></span>
       <button
         class="ls-image-button"
         type="button"
         data-ls-zoom="{{ hero_zoom_url }}"
         aria-label="Enlarge the complete three-plush collection"
       >
+        <picture>
+          <source media="(max-width: 699px)" srcset="{% if section.settings.lineup_image != blank %}{{ section.settings.lineup_image | image_url: width: 960 }}{% else %}{{ 'legendary-skies-trio-lineup.webp' | asset_url }}{% endif %}">
         {% render 'legendary-skies-image',
           photo: section.settings.hero_image,
           fallback: 'legendary-skies-trio-hero.webp',
@@ -38,105 +39,97 @@
           sizes: '(max-width: 899px) 100vw, 54vw',
           alt: 'The complete three-plush Legendary Skies collector set'
         %}
+        </picture>
       </button>
-      <span class="ls-hero__badge"><strong>3</strong> included</span>
     </div>
 
     <div class="ls-hero__copy">
-      <p class="ls-eyebrow">{{ section.settings.collection_name | escape }}</p>
+      <div class="ls-identity" aria-label="{{ section.settings.collection_name | escape }}">
+        {% render 'legendary-skies-wing-mark', class: 'ls-identity__mark' %}
+        <p><span>Legendary</span> <strong>Skies</strong></p>
+        <small>The complete three-plush collection</small>
+      </div>
       <h1 id="ls-title-{{ section.id }}">
         {{ section.settings.hero_title | escape }}
         <span>{{ section.settings.hero_title_accent | escape }}</span>
       </h1>
       <p class="ls-lede">{{ section.settings.hero_body | escape }}</p>
 
-      <div class="ls-facts" role="list" aria-label="Collection details">
-        <div role="listitem"><strong>3 separate plushes</strong><span>Every pictured design</span></div>
-        <div role="listitem"><strong>Approx. 12 inches</strong><span>Each plush</span></div>
-        <div role="listitem"><strong>{{ section.settings.shipping_heading | escape }}</strong><span>{{ section.settings.shipping_summary | escape }}</span></div>
-      </div>
-
       <div class="ls-offer">
         <div class="ls-price">
-          <strong>{% if current_variant.price > 0 %}{{ current_variant.price | money }}{% else %}Coming soon{% endif %}</strong>
+          <strong>{{ current_variant.price | money }}</strong>
           <span>
             <small>Complete trio</small>
-            {% if current_variant.price > 0 %}{{ per_plush | money_without_trailing_zeros }} each as a set{% else %}One of each pictured design{% endif %}
+            {{ per_plush | money_without_trailing_zeros }} per plush
           </span>
         </div>
         {%- form 'product', product, id: form_id, class: 'ls-product-form' -%}
           <input type="hidden" name="id" value="{{ current_variant.id }}">
           <input type="hidden" name="quantity" value="1">
           <input type="hidden" name="properties[_zk_landing_view]" value="legendary-skies">
-          {% render 'legendary-skies-cta', ready: purchase_ready, launch_ready: section.settings.purchase_ready, main: true %}
-          <p class="ls-offer__note">Secure checkout · {{ section.settings.shipping_heading | escape | downcase }} · Easy order support</p>
-          {% if purchase_ready %}{{ form | payment_button }}{% endif %}
+          {% render 'legendary-skies-cta', main: true %}
+          <p class="ls-offer__note">{{ section.settings.shipping_heading | escape }} · {{ section.settings.shipping_summary | escape }}</p>
         {%- endform -%}
+      </div>
+      <div class="ls-facts" role="list" aria-label="Collection details">
+        <div role="listitem"><strong>All 3 included</strong><span>One of every design</span></div>
+        <div role="listitem"><strong>Approx. 12 inches</strong><span>Each plush</span></div>
+        <div role="listitem"><strong>Soft plush fabric</strong><span>Embroidered details</span></div>
       </div>
     </div>
   </section>
 
   <section class="ls-promise" aria-label="What is included">
     <div class="ls-shell">
-      <p><i class="ls-dot ls-dot--yellow"></i><strong>Storm</strong><span>Yellow plush</span></p>
-      <p><i class="ls-dot ls-dot--blue"></i><strong>Frost</strong><span>Blue plush</span></p>
-      <p><i class="ls-dot ls-dot--orange"></i><strong>Flame</strong><span>Orange plush</span></p>
-      <p class="ls-promise__complete"><strong>One complete set</strong><span>No selection needed</span></p>
+      <p><i class="ls-seal ls-seal--yellow">01</i><strong>Storm</strong><span>High voltage</span></p>
+      <p><i class="ls-seal ls-seal--blue">02</i><strong>Frost</strong><span>Cold front</span></p>
+      <p><i class="ls-seal ls-seal--orange">03</i><strong>Flame</strong><span>Golden hour</span></p>
+      <p class="ls-promise__complete">{% render 'legendary-skies-wing-mark', class: 'ls-promise__mark' %}<strong>Full forecast</strong><span>All three included</span></p>
     </div>
   </section>
 
-  <section class="ls-included ls-shell" aria-labelledby="ls-included-{{ section.id }}">
+  <section class="ls-included ls-shell" aria-labelledby="ls-included-{{ section.id }}" data-chapter="01 / THE FORECAST">
     <header class="ls-section-heading">
-      <p class="ls-eyebrow">Every favorite is included</p>
-      <h2 id="ls-included-{{ section.id }}">Meet the trio.</h2>
-      <p>Three distinct personalities, designed to look best together and substantial enough to stand out on a shelf.</p>
+      <p class="ls-eyebrow">Every force is included {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
+      <h2 id="ls-included-{{ section.id }}">Pick your weather.</h2>
+      <p>Three unmistakable silhouettes. Three completely different energies. Your set lands with every one.</p>
     </header>
-    <div class="ls-lineup">
-      {% render 'legendary-skies-image',
-        photo: section.settings.lineup_image,
-        fallback: 'legendary-skies-trio-lineup.webp',
-        width: 2528,
-        height: 1696,
-        sizes: '(max-width: 899px) 100vw, 1100px',
-        alt: 'Yellow, blue and orange plushes included in the complete three-piece set'
-      %}
-    </div>
-
     <div class="ls-portraits">
       <article>
         <button type="button" class="ls-image-button" data-ls-zoom="{{ 'legendary-skies-yellow-portrait.webp' | asset_url }}" aria-label="Enlarge the yellow plush">
           {% render 'legendary-skies-image', photo: section.settings.yellow_image, fallback: 'legendary-skies-yellow-portrait.webp', width: 2048, height: 2048, sizes: '(max-width: 699px) 82vw, 32vw', alt: 'Yellow spiky-winged plush included in the set' %}
         </button>
-        <div><strong>Storm</strong><span>Electric yellow · black accents</span></div>
+        <div>{% render 'legendary-skies-wing-mark', class: 'ls-card__feather', color: 'yellow' %}<small>Forecast 01</small><strong>Storm</strong><span>Electric yellow · black accents</span><em>High voltage</em></div>
       </article>
       <article>
         <button type="button" class="ls-image-button" data-ls-zoom="{{ 'legendary-skies-blue-portrait.webp' | asset_url }}" aria-label="Enlarge the blue plush">
           {% render 'legendary-skies-image', photo: section.settings.blue_image, fallback: 'legendary-skies-blue-portrait.webp', width: 2048, height: 2048, sizes: '(max-width: 699px) 82vw, 32vw', alt: 'Blue broad-winged plush included in the set' %}
         </button>
-        <div><strong>Frost</strong><span>Sky blue · soft white chest</span></div>
+        <div>{% render 'legendary-skies-wing-mark', class: 'ls-card__feather', color: 'blue' %}<small>Forecast 02</small><strong>Frost</strong><span>Sky blue · soft white chest</span><em>Cold front</em></div>
       </article>
       <article>
         <button type="button" class="ls-image-button" data-ls-zoom="{{ 'legendary-skies-orange-portrait.webp' | asset_url }}" aria-label="Enlarge the orange plush">
           {% render 'legendary-skies-image', photo: section.settings.orange_image, fallback: 'legendary-skies-orange-portrait.webp', width: 2048, height: 2048, sizes: '(max-width: 699px) 82vw, 32vw', alt: 'Orange and yellow flame-winged plush included in the set' %}
         </button>
-        <div><strong>Flame</strong><span>Golden yellow · red wing details</span></div>
+        <div>{% render 'legendary-skies-wing-mark', class: 'ls-card__feather', color: 'red' %}<small>Forecast 03</small><strong>Flame</strong><span>Golden yellow · red wing details</span><em>Golden hour</em></div>
       </article>
     </div>
+
   </section>
 
   <section class="ls-story">
     <div class="ls-shell ls-story__grid">
       <div class="ls-story__copy">
-        <p class="ls-eyebrow">Three moods. One display.</p>
-        <h2>Built for the good shelf.</h2>
-        <p>Set them together for the full trio, or give each one its own corner. The bright color, wide wings, and unmistakable silhouettes make the set read from across the room.</p>
+        <p class="ls-eyebrow">Grounded, for now {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
+        <h2>A front-row seat to the forecast.</h2>
+        <p>Keep the trio together, or give each one its own corner. Bright colors and unmistakable wings bring a little character to your shelf.</p>
         <ul>
-          <li>Soft-touch plush fabric</li>
-          <li>Embroidered and appliquéd details</li>
-          <li>One of every pictured design</li>
+          <li>{% render 'legendary-skies-wing-mark', class: 'ls-list__feather', color: 'red' %}<span>Soft-touch plush fabric</span></li>
+          <li>{% render 'legendary-skies-wing-mark', class: 'ls-list__feather', color: 'blue' %}<span>Embroidered and appliquéd details</span></li>
+          <li>{% render 'legendary-skies-wing-mark', class: 'ls-list__feather', color: 'yellow' %}<span>One of every pictured design</span></li>
         </ul>
       </div>
-      <figure>
+      <figure data-note="SHELF CONDITIONS · EXCELLENT">
         {% render 'legendary-skies-image',
           photo: section.settings.lifestyle_image,
           fallback: 'legendary-skies-trio-lifestyle.webp',
@@ -152,8 +145,8 @@
   <section class="ls-elements" aria-labelledby="ls-elements-{{ section.id }}">
     <div class="ls-shell">
       <header>
-        <p class="ls-eyebrow">Color tells the story</p>
-        <h2 id="ls-elements-{{ section.id }}">Storm. Frost. Flame.</h2>
+        <div><p class="ls-eyebrow">The elemental field guide {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p><h2 id="ls-elements-{{ section.id }}">Storm. Frost. Flame.</h2></div>
+        <div class="ls-element-key" aria-label="The three elemental personalities"><span><i></i>Storm</span><span><i></i>Frost</span><span><i></i>Flame</span></div>
       </header>
       <figure>
         {% render 'legendary-skies-image',
@@ -169,7 +162,7 @@
   </section>
 
   <section class="ls-material ls-shell" aria-labelledby="ls-material-{{ section.id }}">
-    <figure>
+    <figure data-note="THREE MATERIAL STORIES · ONE FLOCK">
       {% render 'legendary-skies-image',
         photo: section.settings.detail_image,
         fallback: 'legendary-skies-trio-details.webp',
@@ -180,8 +173,8 @@
       %}
     </figure>
     <div>
-      <p class="ls-eyebrow">Look closer</p>
-      <h2 id="ls-material-{{ section.id }}">The details carry the personality.</h2>
+      <p class="ls-eyebrow">Field notes · up close {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
+      <h2 id="ls-material-{{ section.id }}">Made soft.<br>Drawn sharp.</h2>
       <p>From angular wing edges to the soft white chest and layered flame appliqué, each design has its own construction and expression.</p>
       <div class="ls-material__facts">
         <p><strong>Soft feel</strong><span>Velvety plush surfaces</span></p>
@@ -194,12 +187,13 @@
   <section class="ls-size">
     <div class="ls-shell ls-size__grid">
       <div class="ls-size__copy">
-        <p class="ls-eyebrow">A real shelf presence</p>
-        <h2>Approximately<br>12 inches tall.</h2>
+        <p class="ls-eyebrow">Altitude, measured {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
+        <h2>Big enough to<br>own the room.</h2>
         <p>All three are sized as a matching set. They are compact enough for a desk or nightstand and large enough to anchor a collector display.</p>
         <div class="ls-size__measure" aria-label="Approximately 12 inches tall each">
           <span aria-hidden="true"></span><strong>≈ 12 IN</strong><span aria-hidden="true"></span>
         </div>
+        <p class="ls-size__caption">Approx. 12 inches from shelf to crest</p>
         <small>Plush items are soft and measurements may vary slightly depending on how they are positioned.</small>
       </div>
       <figure>
@@ -223,7 +217,7 @@
   {% if has_customer_photos or show_placeholders %}
     <section class="ls-community ls-shell" aria-labelledby="ls-community-{{ section.id }}">
       <header class="ls-section-heading">
-        <p class="ls-eyebrow">At home with collectors</p>
+        <p class="ls-eyebrow">At home with collectors {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
         <h2 id="ls-community-{{ section.id }}">Seen in the wild.</h2>
         <p>Real customer photos of the trio after it lands.</p>
       </header>
@@ -252,7 +246,7 @@
   {% if has_testimonials or show_placeholders %}
     <section class="ls-reviews" aria-labelledby="ls-reviews-{{ section.id }}">
       <div class="ls-shell">
-        <header><p class="ls-eyebrow">From real orders</p><h2 id="ls-reviews-{{ section.id }}">Collector notes.</h2></header>
+        <header><p class="ls-eyebrow">From real orders {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p><h2 id="ls-reviews-{{ section.id }}">Collector notes.</h2></header>
         <div class="ls-reviews__grid">
           {% for block in testimonials %}
             {% if block.settings.quote != blank %}
@@ -267,7 +261,7 @@
   {% endif %}
 
   <section class="ls-faq ls-shell" aria-labelledby="ls-faq-{{ section.id }}">
-    <header><p class="ls-eyebrow">The practical details</p><h2 id="ls-faq-{{ section.id }}">Before they take flight.</h2></header>
+    <header><p class="ls-eyebrow">Arrival briefing</p><h2 id="ls-faq-{{ section.id }}">Before the flock lands.</h2>{% render 'legendary-skies-wing-mark', class: 'ls-faq__mark' %}</header>
     <div>
       <details><summary>Does this include all three plushes?</summary><p>Yes. You receive three separate plushes, one of every design pictured. Display props are not included.</p></details>
       <details><summary>Can I choose just one design?</summary><p>This offer is for the complete three-piece collection, so there is no design selection to make.</p></details>
@@ -279,26 +273,25 @@
   </section>
 
   <section class="ls-final">
+    <span class="ls-final__constellation" aria-hidden="true"></span>
     <div class="ls-shell ls-final__grid">
       <figure>
         {% render 'legendary-skies-image', photo: section.settings.lineup_image, fallback: 'legendary-skies-trio-lineup.webp', width: 2528, height: 1696, sizes: '(max-width: 899px) 100vw, 52vw', alt: 'The complete three-piece Legendary Skies plush set' %}
       </figure>
       <div>
-        <p class="ls-eyebrow">Complete the set</p>
+        <p class="ls-eyebrow">All three · all yours {% render 'legendary-skies-wing-mark', class: 'ls-eyebrow__mark' %}</p>
         <h2>{{ section.settings.final_title | escape }}</h2>
         <p>{{ section.settings.final_body | escape }}</p>
-        {% render 'legendary-skies-cta', ready: purchase_ready, launch_ready: section.settings.purchase_ready, form_id: form_id %}
+        {% render 'legendary-skies-cta', form_id: form_id %}
         <small>{{ section.settings.shipping_heading | escape }} · {{ section.settings.shipping_summary | escape }}</small>
       </div>
     </div>
   </section>
 
-  {% if purchase_ready %}
     <aside class="ls-sticky" data-ls-sticky aria-label="Quick add complete trio" hidden>
       <div><strong>{{ current_variant.price | money }}</strong><span>all 3 plushes</span></div>
-      {% render 'legendary-skies-cta', ready: purchase_ready, launch_ready: section.settings.purchase_ready, form_id: form_id, compact: true %}
+      {% render 'legendary-skies-cta', form_id: form_id, compact: true %}
     </aside>
-  {% endif %}
 
   <dialog class="ls-lightbox" data-ls-lightbox aria-label="Enlarged product photograph">
     <button type="button" data-ls-close aria-label="Close enlarged image">×</button>
@@ -314,7 +307,6 @@
     { "type": "text", "id": "hero_title", "label": "Headline", "default": "Three icons." },
     { "type": "text", "id": "hero_title_accent", "label": "Headline accent", "default": "One legendary set." },
     { "type": "textarea", "id": "hero_body", "label": "Hero body", "default": "Storm, frost, and flame land together in one display-ready collection. Three separate plushes. One of every design pictured." },
-    { "type": "checkbox", "id": "purchase_ready", "label": "Enable purchase buttons", "default": false, "info": "Enable only after product price, inventory, shipping, and fulfillment are confirmed." },
     { "type": "checkbox", "id": "show_placeholders", "label": "Show empty customer proof slots", "default": false, "info": "Empty slots are automatically visible in the theme editor and hidden from shoppers." },
     { "type": "text", "id": "shipping_heading", "label": "Shipping heading", "default": "Free shipping" },
     { "type": "text", "id": "shipping_summary", "label": "Shipping summary", "default": "Arrives in 7–10 business days" },

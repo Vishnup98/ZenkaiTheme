@@ -7,14 +7,13 @@
         "collection_name": "Legendary Skies",
         "hero_title": "Three icons.",
         "hero_title_accent": "One legendary set.",
-        "hero_body": "Storm, frost, and flame land together in one display-ready collection. Three separate plushes. One of every design pictured.",
-        "purchase_ready": false,
+        "hero_body": "Storm, frost, and flame. Bring all three home in one complete plush collection.",
         "show_placeholders": false,
         "shipping_heading": "Free shipping",
         "shipping_summary": "Arrives in 7–10 business days",
         "delivery_text": "Arrives in 7–10 business days. Shipping is free for this set. This collection may arrive separately from other items in your order.",
-        "final_title": "Bring the whole trio home.",
-        "final_body": "Three separate plushes. Every pictured design. One complete collector set."
+        "final_title": "Clear the shelf. The trio is landing.",
+        "final_body": "Storm, frost, and flame. Three separate plushes, one of every pictured design, and no favorite left behind."
       },
       "blocks": {
         "photo_1": { "type": "customer_photo", "settings": { "caption": "The plush trio in a customer’s collection" } },
