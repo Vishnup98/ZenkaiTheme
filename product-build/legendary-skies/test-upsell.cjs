@@ -20,8 +20,8 @@ function setup(responder, preview = false) {
   w.eval(source.replaceAll('window.location.assign(', 'window.__navigate('));
   const find = selector => w.document.querySelector(selector);
   const select = (label,value) => { const el=find('select[aria-label="'+label+'"]'); el.value=value; el.dispatchEvent(new w.Event('change')); };
-  const check = i => { const box=w.document.querySelectorAll('.ls-upsell__choose input')[i]; box.checked=true; box.dispatchEvent(new w.Event('change')); };
-  return {w,calls,navigations,find,select,check,dom};
+  const add = i => w.document.querySelectorAll('[data-ls-tee-add]')[i].click();
+  return {w,calls,navigations,find,select,add,dom};
 }
 (async () => {
   let t = setup();
@@ -34,20 +34,28 @@ function setup(responder, preview = false) {
   assert.equal(t.calls[0].body.items[0].id,48063213797481);
   assert.equal(t.find('img[alt="The Birds Tee front print detail"]').src.includes('birdsFront_macro'),true);
   assert.equal(t.find('img[alt="The Birds Tee back print detail"]').src.includes('birdsBack_macro'),true);
-  t.check(0); t.find('[data-ls-upsell-checkout]').click(); await tick();
+  assert.equal(t.find('input[type="checkbox"]'),null,'no checkbox selection');
+  t.add(0); await tick();
   assert.equal(t.calls.length,1,'missing size cannot add');
   t.select('Trifecta Tee Color','Solid Black'); t.select('Trifecta Tee Size','M');
-  t.select('The Birds Tee Size','L'); t.check(1);
-  t.find('[data-ls-upsell-checkout]').click(); t.find('[data-ls-upsell-checkout]').click(); await tick();
-  assert.equal(t.calls.length,2,'one batch for both tees');
-  assert.equal(t.calls[1].body.items.length,2);
+  t.add(0); t.add(0); await tick();
+  assert.equal(t.calls.length,2,'individual add sends one immediate request');
+  assert.equal(t.calls[1].body.items.length,1);
   assert.equal(t.calls[1].body.items[0].id,42280123072617);
+  assert.equal(t.navigations.length,0,'add stays in offer');
+  assert.equal(t.find('[data-ls-tee-add]').textContent,'✓ Added to cart');
+  t.add(0); await tick(); assert.equal(t.calls.length,2,'added card cannot duplicate');
+  t.select('The Birds Tee Size','L'); t.add(1); await tick();
+  assert.equal(t.calls.length,3,'second tee added independently');
+  assert.equal(t.navigations.length,0);
+  t.find('[data-ls-upsell-checkout]').click(); await tick();
+  assert.equal(t.calls.length,3,'continue never adds anything');
   assert.deepEqual(t.navigations,['/checkout']); t.dom.window.close();
 
   t=setup(); t.find('[data-ls-main-cta]').click(); await tick();
   t.find('[data-ls-upsell-close]').click(); t.find('[data-ls-main-cta]').click(); await tick();
   assert.equal(t.calls.length,1,'close/reopen does not duplicate plush');
-  t.find('[data-ls-upsell-skip]').click(); await tick();
+  t.find('[data-ls-upsell-checkout]').click(); await tick();
   assert.deepEqual(t.navigations,['/checkout']); assert.equal(t.calls.length,1); t.dom.window.close();
 
   t=setup(()=>({ok:false,json:async()=>({description:'Sold out'})}));
@@ -59,14 +67,15 @@ function setup(responder, preview = false) {
   t.find('[data-ls-main-cta]').click(); await tick(); t.find('[data-ls-main-cta]').click(); await tick();
   assert.equal(t.calls.length,1,'uncertain main add cannot be replayed'); t.dom.window.close();
 
-  t=setup(n=>({ok:n===1,json:async()=>n===1?{items:[]}:{description:'Size sold out'}}));
-  t.find('[data-ls-main-cta]').click(); await tick(); t.select('Trifecta Tee Size','M'); t.check(0);
+  t=setup(n=>{ if(n>1) throw new Error('Network interrupted'); return {ok:true,json:async()=>({items:[]})}; });
+  t.find('[data-ls-main-cta]').click(); await tick(); t.select('Trifecta Tee Size','M');
+  t.add(0); await tick(); t.add(0); await tick();
   t.find('[data-ls-upsell-checkout]').click(); await tick();
-  t.find('[data-ls-upsell-checkout]').click(); await tick();
-  assert.equal(t.calls.length,2,'failed batch never replayed'); assert.deepEqual(t.navigations,['/cart']); t.dom.window.close();
+  assert.equal(t.calls.length,2,'uncertain tee request never replayed'); assert.deepEqual(t.navigations,['/cart']); t.dom.window.close();
 
   t=setup(null,true); t.find('[data-ls-main-cta]').click(); await tick();
-  t.find('[data-ls-upsell-skip]').click(); await tick();
+  t.select('Trifecta Tee Size','M'); t.add(0); await tick();
+  t.find('[data-ls-upsell-checkout]').click(); await tick();
   assert.equal(t.calls.length,0); assert.equal(t.navigations.length,0); t.dom.window.close();
-  console.log('PASS: bypass, double clicks, exact variants, front/back prints, size validation, both tees, skip, close/reopen, sold-out and uncertain errors, safe preview.');
+  console.log('PASS: independent immediate adds, no auto-redirect on add, continue-only checkout, no checkboxes, duplicate protection, variants, front/back prints, validation, errors, preview.');
 })().catch(error=>{ console.error(error); process.exitCode=1; });

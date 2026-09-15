@@ -13,7 +13,7 @@
   var status = dialog.querySelector('[data-ls-upsell-status]');
   var checkout = dialog.querySelector('[data-ls-upsell-checkout]');
   var pageError = root.querySelector('[data-ls-cart-error]');
-  var offers = [], busy = false, mainAdded = false, mainUncertain = false, additionsUncertain = false, additionsCommitted = false, trigger;
+  var offers = [], busy = false, mainAdded = false, mainUncertain = false, additionsUncertain = false, trigger;
   var money = new Intl.NumberFormat(document.documentElement.lang || 'en', {style:'currency', currency:config.currency || 'USD'});
   function price(value) { return money.format(Number(value) / 100); }
   function element(tag, cls, text) {
@@ -23,18 +23,22 @@
     return el;
   }
   function imageUrl(value) { return typeof value === 'string' ? value : value && (value.src || value.url); }
-  function sized(src) { return src + (src.indexOf('?') >= 0 ? '&' : '?') + 'width=600'; }
+  function sized(src) { return src + (src.indexOf('?') >= 0 ? '&' : '?') + 'width=1200'; }
   function photo(src, alt, caption) {
     var figure = element('figure'), img = element('img');
     img.src = sized(src); img.alt = alt; img.width = 400; img.height = 400;
-    figure.append(img, element('figcaption', '', caption));
+    var windowEl = element('div', 'ls-upsell__image-window');
+    windowEl.append(img);
+    figure.append(windowEl, element('figcaption', '', caption));
     return {figure:figure, image:img};
   }
   function updateButton() {
     if (busy || additionsUncertain) return;
-    var selected = offers.filter(function(o) { return o.checkbox.checked; });
-    var valid = selected.every(function(o) { return o.variant && o.variant.available; });
-    checkout.textContent = selected.length ? (valid ? 'Add ' + selected.length + (selected.length === 1 ? ' tee' : ' tees') + ' · +' + price(selected.reduce(function(sum,o) { return sum + o.variant.price; },0)) + ' & checkout' : 'Choose sizes to continue') : 'Continue to checkout';
+    checkout.textContent = 'Continue to checkout';
+    offers.forEach(function(o) {
+      o.button.textContent = o.added ? '✓ Added to cart' : 'Add to cart' + (o.variant && o.variant.available ? ' · ' + price(o.variant.price) : '');
+      o.button.disabled = o.added;
+    });
   }
   function build(entry, index) {
     var product = entry.product;
@@ -48,6 +52,17 @@
     var back = images.find(function(src) { return /birdsBack_macro/i.test(src); });
     var mainPhoto = photo(front, title + (index === 1 ? ' front print detail' : ''), index === 1 ? 'Front print · Navy shown' : 'Trifecta artwork');
     media.append(mainPhoto.figure);
+    if (index === 0) {
+      media.classList.add('ls-upsell__media--design');
+      var zoom = element('button', 'ls-upsell__zoom', 'View full tee');
+      zoom.type = 'button';
+      zoom.setAttribute('aria-label', 'Toggle Trifecta print close-up and full shirt');
+      zoom.addEventListener('click', function() {
+        var full = media.classList.toggle('is-full');
+        zoom.textContent = full ? 'Zoom in on print' : 'View full tee';
+      });
+      media.append(zoom);
+    }
     if (index === 1 && back) media.append(photo(back, title + ' back print detail', 'Back print · Navy shown').figure);
     card.append(media, element('h3', '', title));
     var amount = element('p', 'ls-upsell__price'); card.append(amount);
@@ -63,9 +78,10 @@
       label.append(select); options.append(label); selects.push(select);
     });
     card.append(options);
-    var choose = element('label', 'ls-upsell__choose'), checkbox = element('input'); checkbox.type = 'checkbox';
-    choose.append(checkbox, document.createTextNode('Add this tee to my order')); card.append(choose); cards.append(card);
-    var offer = {product:product, selects:selects, checkbox:checkbox, variant:null}; offers.push(offer);
+    var addButton = element('button', 'ls-upsell__add', 'Add to cart');
+    addButton.type = 'button'; addButton.setAttribute('data-ls-tee-add', entry.handle);
+    card.append(addButton); cards.append(card);
+    var offer = {product:product, title:title, selects:selects, button:addButton, card:card, added:false, variant:null}; offers.push(offer);
     function update() {
       offer.variant = product.variants.find(function(v) { return v.options.every(function(value,i) { return value === selects[i].value; }); });
       var matching = product.variants.filter(function(v) { return v.available && v.options.every(function(value,i) { return !selects[i].value || value === selects[i].value; }); });
@@ -80,13 +96,14 @@
       updateButton();
     }
     selects.forEach(function(select) { select.addEventListener('change', update); });
-    checkbox.addEventListener('change', updateButton); update();
+    addButton.addEventListener('click', function() { addOffer(offer); }); update();
   }
   config.products.forEach(build);
   if (!offers.length) cards.append(element('p', '', 'The matching tees are currently unavailable. Your plush set is ready for checkout.'));
   function setBusy(value) {
     busy = value;
     dialog.querySelectorAll('button,select,input').forEach(function(el) { el.disabled = value; });
+    offers.forEach(function(o) { if (o.added) { o.button.disabled = true; o.selects.forEach(function(s) { s.disabled = true; }); } });
     dialog.setAttribute('aria-busy', String(value));
   }
   function showError(message) {
@@ -126,30 +143,34 @@
       if (button) { button.innerHTML = oldLabel; button.removeAttribute('aria-busy'); }
     }
   };
-  async function finish(skip) {
-    if (busy) return;
-    if (additionsCommitted) { window.location.assign(base + 'checkout'); return; }
-    if (additionsUncertain) { window.location.assign(base + 'cart'); return; }
-    var selected = skip ? [] : offers.filter(function(o) { return o.checkbox.checked; });
-    var invalid = selected.find(function(o) { return !o.variant || !o.variant.available; });
-    if (invalid) { status.textContent = 'Choose an available color and size for each selected tee.'; (invalid.selects.find(function(s) { return !s.value; }) || invalid.selects[0]).focus(); return; }
-    if (preview) { status.textContent = 'Preview: ' + (selected.length ? selected.length + ' selected tee(s) would be added, then ' : '') + 'continue directly to checkout. No cart changes made.'; return; }
-    setBusy(true); status.textContent = ''; checkout.textContent = 'Preparing checkout…';
+  async function addOffer(offer) {
+    if (busy || offer.added || additionsUncertain) return;
+    if (!offer.variant || !offer.variant.available) {
+      status.textContent = 'Choose an available color and size for ' + offer.title + '.';
+      (offer.selects.find(function(s) { return !s.value; }) || offer.selects[0]).focus();
+      return;
+    }
+    setBusy(true); status.textContent = ''; offer.button.textContent = 'Adding…';
     try {
-      if (selected.length) {
-        await post({items:selected.map(function(o) { return {id:o.variant.id,quantity:1}; })});
-        additionsCommitted = true;
-      }
-      window.location.assign(base + 'checkout');
+      if (!preview) await post({items:[{id:offer.variant.id,quantity:1}]});
+      offer.added = true; offer.card.classList.add('is-added');
+      status.textContent = (preview ? 'Preview only: ' : '') + offer.title + ' added' + (preview ? ' (simulated).' : ' to your cart.') + ' Add the other tee or continue to checkout.';
     } catch (error) {
-      // Multi-item failures may be partial. Never replay the batch.
-      additionsUncertain = true;
-      status.textContent = error.message + ' Please review your cart before continuing; we will not add these items again.';
-      setBusy(false); checkout.textContent = 'Review cart safely';
+      additionsUncertain = !error.confirmed;
+      status.textContent = error.confirmed ? error.message : 'The connection was interrupted. This tee may already be added. Review your cart before continuing.';
+    } finally {
+      setBusy(false); updateButton();
+      if (additionsUncertain) { offer.button.textContent = 'Check cart before retrying'; offer.button.disabled = true; checkout.textContent = 'Review cart safely'; }
     }
   }
-  checkout.addEventListener('click', function() { finish(false); });
-  dialog.querySelector('[data-ls-upsell-skip]').addEventListener('click', function() { finish(true); });
+  function finish() {
+    if (busy) return;
+    if (additionsUncertain) { window.location.assign(base + 'cart'); return; }
+    if (preview) { status.textContent = 'Preview: continue directly to checkout with the items already added. No real cart changes made.'; return; }
+    setBusy(true); status.textContent = ''; checkout.textContent = 'Preparing checkout…';
+    window.location.assign(base + 'checkout');
+  }
+  checkout.addEventListener('click', finish);
   dialog.querySelector('[data-ls-upsell-close]').addEventListener('click', function() { if (!busy) dialog.close(); });
   dialog.addEventListener('cancel', function(event) { if (busy) event.preventDefault(); });
   dialog.addEventListener('close', function() {
