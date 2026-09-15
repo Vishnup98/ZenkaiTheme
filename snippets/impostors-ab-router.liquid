@@ -1,5 +1,5 @@
-{% comment %}Two frozen page templates. Set enabled=false to stop new assignment and tracking. Preview links use ab_preview=1. Do not put a view parameter on campaign URLs.{% endcomment %}
-{% assign impostors_ab_enabled = true %}
+{% comment %}The old/new design experiment ended September 15, 2026. Clean campaign URLs now render the new/current default page directly. Frozen arm URLs remain available for historical reconciliation and previews.{% endcomment %}
+{% assign impostors_ab_enabled = false %}
 {% if product.id == 9438355751017 and request.design_mode == false %}
 <script>
 (function () {

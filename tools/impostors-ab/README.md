@@ -2,6 +2,8 @@
 
 Experiment: `impostors_design_20260913_v1`.
 
+Status: ended September 15, 2026. New enrollment is disabled and clean campaign URLs render the new/current default page directly, eliminating the experiment routing navigation. The frozen arm templates remain available for historical reconciliation and previews.
+
 Original design: commit25825f50, September13 00:19:51Pacific, before the day's typography/mobile/section polish. Current design: c00c0b20. Both have frozen CSS, sections and CTA snippets. Responsive image delivery and hero preloading are shared technical improvements. Popup behavior is identical to the c00c0b20live layout in both versions. This tests the old vs current design, not old slow asset delivery vs optimized delivery.
 
 ## Routes
