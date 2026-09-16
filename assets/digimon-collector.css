@@ -4,3 +4,4 @@
 @media(prefers-reduced-motion:reduce){.dc *{scroll-behavior:auto!important;transition:none!important}}
 /* This collector page does not inherit unverified apparel dispatch promises. */
 body:has([data-crest-page]) .site-footer__signals>span:nth-child(2){display:none}
+body:has([data-crest-page]) .announcement{display:none}
