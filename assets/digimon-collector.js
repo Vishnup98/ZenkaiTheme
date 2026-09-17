@@ -49,10 +49,11 @@
     });
     const sticky = root.querySelector('[data-crest-sticky]');
     const form = root.querySelector('.dc-form');
+    const finalButton = root.querySelector('.dc-finale [data-crest-add]');
     if (sticky && form) {
       let scheduled = false;
       const update = () => {
-        sticky.hidden = form.getBoundingClientRect().bottom > 0;
+        sticky.hidden = form.getBoundingClientRect().bottom > 0 || Boolean(finalButton && finalButton.getBoundingClientRect().top < window.innerHeight);
         scheduled = false;
       };
       const onScroll = () => {
