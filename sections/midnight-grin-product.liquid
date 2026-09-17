@@ -16,7 +16,7 @@
       <p class="mg-kicker"><span aria-hidden="true"></span> MIDNIGHT GRIN · WASHED BASEBALL CAP</p>
       <h1 id="mg-title">A little trouble.<br><em>Every day.</em></h1>
       <p class="mg-intro">Washed color. An embroidered grin. Not quite innocent.</p>
-      <div class="mg-price"><strong data-mg-price>{{ selected.price | money }}</strong><span>One cap. Your color.</span></div>
+      <div class="mg-price"><strong data-mg-price>{{ selected.price | money }}</strong><span>Free shipping included</span></div>
       {% if section.settings.bonus_heading != blank and section.settings.bonus_copy != blank %}<aside class="mg-bonus"><strong>{{ section.settings.bonus_heading | escape }}</strong><p>{{ section.settings.bonus_copy | escape }}</p></aside>{% endif %}
       {% form 'product', product, id: form_id, class: 'mg-form' %}
         <label class="mg-native-label" for="mg-variant-{{ section.id }}">Choose your color</label>
@@ -35,9 +35,15 @@
         <fieldset class="mg-swatches" hidden><legend>Color: <strong data-mg-color>{{ selected.title | escape }}</strong></legend>
           {% for variant in product.variants %}<button type="button" class="mg-swatch mg-swatch--{{ variant.option1 | handleize }}" data-mg-select="{{ variant.id }}" aria-pressed="{% if variant.id == selected.id %}true{% else %}false{% endif %}" aria-label="{{ variant.title | escape }}{% unless variant.available %}, sold out{% endunless %}"><span aria-hidden="true"></span><span>{{ variant.title | escape }}</span></button>{% endfor %}
         </fieldset>
-        <input type="hidden" name="quantity" value="1">
+        <div class="mg-purchase-row">
+        <div class="mg-quantity"><label for="mg-quantity-{{ section.id }}">Quantity</label><div class="mg-quantity__control">
+          <button type="button" data-mg-quantity-step="-1" data-mg-quantity-minus aria-label="Decrease quantity" hidden>−</button>
+          <input id="mg-quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1" max="99" step="1" inputmode="numeric" required data-mg-quantity>
+          <button type="button" data-mg-quantity-step="1" data-mg-quantity-plus aria-label="Increase quantity" hidden>+</button>
+        </div></div>
         <button class="mg-cta" type="submit" name="add" data-mg-add {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}Add to cart · {{ selected.title | escape }}{% else %}Sold out · {{ selected.title | escape }}{% endif %}<span aria-hidden="true">↗</span></button>
-        <p class="mg-order-note mg-shipping"><strong>Free shipping.</strong> One cap in your chosen color.</p>
+        </div>
+        <p class="mg-order-note mg-shipping"><strong>Free shipping.</strong></p>
       {% endform %}
       <div class="mg-facts"><span>Embroidered design</span><span>Washed finish</span><span>Curved brim</span></div>
     </div>

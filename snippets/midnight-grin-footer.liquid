@@ -1,0 +1,22 @@
+<footer class="mg-store-footer">
+  <div class="mg-store-footer__inner">
+    <div class="mg-store-footer__brand">
+      <a class="mg-store-logo" href="{{ routes.root_url }}" aria-label="Zenkai Clothing home"><img src="{{ 'zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png' | file_url }}" width="64" height="50" alt="Zenkai Clothing" loading="lazy"></a>
+      <div><strong>Zenkai Clothing</strong><p>Original reimaginings of the favorites you grew up with.</p><div class="mg-store-footer__signals"><span>Free shipping</span><span>Secure checkout</span></div></div>
+    </div>
+    <nav class="mg-store-footer__links" aria-label="Customer support">
+      <a href="mailto:{{ shop.email }}">Contact us</a>
+      <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping</a>
+      <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Order care &amp; returns</a>
+      {% for link in linklists.footer.links %}
+        {% unless link.url contains '/pages/policy' or link.url contains '/policies/refund-policy' or link.url contains '/policies/shipping-policy' or link.url contains '/pages/contact' or link.url contains '/policies/privacy-policy' or link.url contains '/policies/terms-of-service' %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endunless %}
+      {% endfor %}
+      {% if shop.privacy_policy.url != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{% endif %}
+      {% if shop.terms_of_service.url != blank %}<a href="{{ shop.terms_of_service.url }}">Terms</a>{% endif %}
+    </nav>
+    <div class="mg-store-footer__bottom">
+      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }} · Secure checkout with Shopify</small>
+      {% if settings.social_instagram_link != blank or settings.social_facebook_link != blank %}<nav class="mg-store-footer__social" aria-label="Social media">{% if settings.social_instagram_link != blank %}<a href="{{ settings.social_instagram_link }}">Instagram</a>{% endif %}{% if settings.social_facebook_link != blank %}<a href="{{ settings.social_facebook_link }}">Facebook</a>{% endif %}</nav>{% endif %}
+    </div>
+  </div>
+</footer>

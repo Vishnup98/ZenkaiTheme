@@ -14,6 +14,8 @@
     const mainAdd = root.querySelector('[data-mg-add]');
     const stickyAdd = root.querySelector('[data-mg-sticky-add]');
     const swatches = root.querySelector('.mg-swatches');
+    const quantity = form.querySelector('[data-mg-quantity]');
+    const decrease = form.querySelector('[data-mg-quantity-minus]');
     let submitting = false;
     function buttonLabel(button, text) {
       if (!button) return;
@@ -25,15 +27,35 @@
     }
     function setImage(url, alt) {
       if (!image || !url) return;
-      if (image.getAttribute('src') !== url && image.src !== url) {
-        image.srcset = [360, 540, 720, 960, 1200].map(width => {
+      // Always replace every responsive candidate: a stale srcset can override src.
+      image.srcset = [360, 540, 720, 960, 1200].map(width => {
           const sized = new URL(url, window.location.href);
           sized.searchParams.set('width', width);
           return `${sized.href} ${width}w`;
         }).join(', ');
-        image.src = url;
-      }
+      image.src = url;
       image.alt = alt;
+    }
+    function syncQuantity() {
+      if (!quantity) return;
+      const value = quantity.valueAsNumber;
+      const valid = Number.isSafeInteger(value) && value >= 1 && value <= 99;
+      quantity.setCustomValidity(valid ? '' : 'Choose a whole number from 1 to 99.');
+      if (decrease) decrease.disabled = !valid || value <= 1;
+      const increase = form.querySelector('[data-mg-quantity-plus]');
+      if (increase) increase.disabled = valid && value >= 99;
+    }
+    if (quantity) {
+      quantity.addEventListener('input', syncQuantity);
+      quantity.addEventListener('change', syncQuantity);
+      form.querySelectorAll('[data-mg-quantity-step]').forEach(button => button.addEventListener('click', () => {
+        const current = Number.isSafeInteger(quantity.valueAsNumber) ? quantity.valueAsNumber : 1;
+        quantity.value = String(Math.min(99, Math.max(1, current + Number(button.dataset.mgQuantityStep))));
+        syncQuantity();
+        quantity.dispatchEvent(new Event('change', { bubbles: true }));
+      }));
+      form.querySelectorAll('[data-mg-quantity-step]').forEach(button => { button.hidden = false; });
+      syncQuantity();
     }
     function update(id, updateUrl = true) {
       const variant = data.variants.find(item => String(item.id) === String(id));
@@ -72,6 +94,8 @@
       root.querySelector('[data-mg-select][aria-pressed="true"]').focus({ preventScroll: true });
     }));
     form.addEventListener('submit', event => {
+      syncQuantity();
+      if (!form.checkValidity()) { event.preventDefault(); form.reportValidity(); return; }
       if (root.dataset.preview === 'true') { event.preventDefault(); return; }
       const variant = data.variants.find(item => String(item.id) === select.value);
       if (submitting || !variant || !variant.available) { event.preventDefault(); return; }

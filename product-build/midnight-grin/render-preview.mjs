@@ -6,6 +6,7 @@ const { Liquid } = require(process.env.LIQUIDJS_PATH || 'liquidjs');
 const escape = value => String(value ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const engine = new Liquid({ root: path.join(process.cwd(), 'snippets'), extname: '.liquid' });
 engine.registerFilter('asset_url', value => '/assets/' + value);
+engine.registerFilter('file_url', value => 'https://cdn.shopify.com/s/files/1/0625/0577/9305/files/' + value);
 engine.registerFilter('stylesheet_tag', value => `<link rel="stylesheet" href="${escape(value)}">`);
 engine.registerFilter('json', value => JSON.stringify(value ?? null));
 // Shopify owns this filter; the local preview cannot validate its production output.
@@ -43,7 +44,7 @@ source = source.replace(/{%-?\s*schema\s*-?%}[\s\S]*?{%-?\s*endschema\s*-?%}/g, 
 const context = {
   product, section: { id: 'preview', settings: template.sections.main.settings, blocks: [] },
   request: { locale: { iso_code: 'en' }, design_mode: false },
-  shop: { name: 'Zenkai Clothing', email: 'support@zenkaiclothing.com', privacy_policy: { url: '/policies/privacy-policy' } },
+  shop: { name: 'Zenkai Clothing', email: 'support@zenkaiclothing.com', privacy_policy: { url: '/policies/privacy-policy' }, shipping_policy: { url: '/policies/shipping-policy' }, refund_policy: { url: '/policies/refund-policy' }, terms_of_service: { url: '/policies/terms-of-service' } },
   routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add' },
   canonical_url: 'https://zenkaiclothing.com/products/' + product.handle,
   cart: { item_count: 0 }

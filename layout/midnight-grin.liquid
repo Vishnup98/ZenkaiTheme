@@ -28,21 +28,14 @@
       @font-face{font-family:'MG Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
     </style>
     {{ 'midnight-grin.css' | asset_url | stylesheet_tag }}
+    {{ 'midnight-grin-shell.css' | asset_url | stylesheet_tag }}
     {{ content_for_header }}
   </head>
   <body class="mg-body">
     <a class="mg-skip" href="#MainContent">Skip to product</a>
-    <header class="mg-header">
-      <a href="{{ routes.root_url }}" class="mg-wordmark" aria-label="Zenkai Clothing home">ZENKAI<span aria-hidden="true">®</span></a>
-      <span class="mg-header__note">{% render 'midnight-grin-mark' %} Free shipping</span>
-      <a href="{{ routes.cart_url }}" class="mg-header__cart">Cart <span>{{ cart.item_count }}</span></a>
-    </header>
+    {% render 'midnight-grin-header' %}
     <main id="MainContent">{{ content_for_layout }}</main>
-    <footer class="mg-footer">
-      <div><a class="mg-wordmark" href="{{ routes.root_url }}">ZENKAI</a><p>A little character goes a long way.</p></div>
-      <nav aria-label="Customer support"><a href="/pages/policy">Delivery &amp; returns</a><a href="mailto:{{ shop.email }}">Contact</a>{% if shop.privacy_policy.url != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{% endif %}</nav>
-      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small>
-    </footer>
+    {% render 'midnight-grin-footer' %}
     <script src="{{ 'midnight-grin.js' | asset_url }}" defer></script>
   </body>
 </html>

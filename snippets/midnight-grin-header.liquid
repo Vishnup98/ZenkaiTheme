@@ -1,0 +1,42 @@
+{% comment %}
+  Isolated version of the Zenkai store shell: actual store logo, forest/mint
+  branding and Shopify main-menu data, without the global product/cart scripts.
+  Native details navigation remains operable if JavaScript is unavailable.
+{% endcomment %}
+<header class="mg-store-header">
+  <div class="mg-store-header__inner">
+    <a class="mg-store-logo" href="{{ routes.root_url }}" aria-label="Zenkai Clothing home"><img src="{{ 'zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png' | file_url }}" width="64" height="50" alt="Zenkai Clothing" fetchpriority="low"></a>
+    <span class="mg-store-shipping"><span aria-hidden="true">✦</span> Free shipping <span aria-hidden="true">✦</span></span>
+    <div class="mg-store-actions">
+      <details class="mg-store-menu">
+        <summary aria-label="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg><span>Menu</span></summary>
+        <nav class="mg-store-menu__panel" aria-label="Main navigation">
+          <a class="mg-store-menu__featured" href="{{ routes.all_products_collection_url | default: '/collections/all' }}">Explore the store <span aria-hidden="true">↗</span></a>
+          {% for link in linklists.main-menu.links %}
+            {% if link.links != blank %}
+              <details class="mg-store-menu__group">
+                <summary>{{ link.title | escape }} <span aria-hidden="true">+</span></summary>
+                <div>
+                  <a href="{{ link.url }}">Shop {{ link.title | escape }}</a>
+                  {% for child_link in link.links %}
+                    <a href="{{ child_link.url }}"{% if child_link.active %} aria-current="page"{% endif %}>{{ child_link.title | escape }}</a>
+                    {% for grandchild_link in child_link.links %}<a class="mg-store-menu__subitem" href="{{ grandchild_link.url }}"{% if grandchild_link.active %} aria-current="page"{% endif %}>{{ grandchild_link.title | escape }}</a>{% endfor %}
+                  {% endfor %}
+                </div>
+              </details>
+            {% else %}
+              <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            {% endif %}
+          {% else %}
+            <a href="{{ routes.root_url }}#collector-plush">Plush sets</a>
+            <a href="{{ routes.root_url }}#collector-pins">Pins &amp; badges</a>
+            <a href="{{ routes.root_url }}#zenkai-apparel">Apparel</a>
+          {% endfor %}
+          <a href="{{ routes.search_url | default: '/search' }}">Search</a>
+          <a href="mailto:{{ shop.email }}">Contact us</a>
+        </nav>
+      </details>
+      <a class="mg-store-cart" href="{{ routes.cart_url }}" aria-label="View cart, {{ cart.item_count }} items"><svg aria-hidden="true" viewBox="0 0 32 32" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h4l4 18h15l3-13H8"/><circle cx="13" cy="27" r="1.5"/><circle cx="24" cy="27" r="1.5"/></svg>{% if cart.item_count > 0 %}<span class="mg-store-cart__count">{{ cart.item_count }}</span>{% endif %}</a>
+    </div>
+  </div>
+</header>

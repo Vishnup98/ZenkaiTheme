@@ -88,3 +88,62 @@
   .mg-final__shipping{font-size:12px;max-width:230px;margin-inline:auto}
   .mg-sticky .mg-cta{width:148px;flex:none}
 }
+
+/* Zenkai purchase controls and compact page rhythm. */
+.mg-body{--mg-mint:#63d6bf;--mg-mint-hover:#82e6cf}
+.mg-body .mg-cta{background:var(--mg-mint);color:var(--mg-ink);border-color:var(--mg-ink)}
+.mg-body .mg-cta:hover{background:var(--mg-mint-hover)}
+.mg-body .mg-cta:disabled{background:#d7d3d9;color:#514b57;border-color:#aaa3ad}
+.mg-purchase-row{display:flex;align-items:end;gap:12px}
+.mg-purchase-row>.mg-cta{flex:1;min-width:0}
+.mg-quantity{flex:none}
+.mg-quantity>label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
+.mg-quantity__control{display:flex;border:1px solid #17141d66;height:54px}
+.mg-quantity__control button{border:0;background:transparent;color:var(--mg-ink);width:34px;padding:0;font-size:20px;min-height:44px}
+.mg-quantity__control button:disabled{opacity:.35;cursor:default}
+.mg-quantity__control input{font:inherit;text-align:center;width:32px;min-width:0;border:0;border-radius:0;background:transparent;color:var(--mg-ink);padding:0;appearance:textfield;-moz-appearance:textfield}
+.mg-quantity__control input::-webkit-inner-spin-button,.mg-quantity__control input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.mg-hero{gap:42px;padding-block:24px 36px}
+.mg-intro{margin-block:16px}
+.mg-price{margin-bottom:16px}
+.mg-swatches{margin-bottom:12px}
+.mg-order-note{margin-block:7px 12px}
+.mg-details{padding-block:48px}
+.mg-details__grid{gap:48px}
+.mg-details dl{margin-top:18px}
+.mg-details dl>div{padding-block:13px}
+.mg-details__signature{margin-top:14px}
+.mg-colors{padding-block:48px}
+.mg-colors>p:not(.mg-kicker){margin-block:14px 22px}
+.mg-color-card>.mg-color-card__mood{min-height:0}
+.mg-faq{gap:48px;padding-block:12px 48px}
+.mg-faq details{padding-block:14px}
+.mg-final{padding-block:40px}
+.mg-final__mark{width:60px;margin-bottom:12px}
+.mg-final .mg-cta{margin-top:20px}
+.mg-final__shipping{margin-top:12px}
+@media(max-width:899px){
+  .mg-hero{gap:24px;padding-block:18px 28px}
+  .mg-purchase-row{flex-wrap:wrap;gap:8px}
+  .mg-purchase-row>.mg-cta{flex-basis:190px}
+  .mg-details__grid,.mg-faq{gap:26px}
+}
+@media(max-width:599px){
+  .mg-hero{gap:14px;padding-block:10px 24px}
+  .mg-intro{margin-block:10px}
+  .mg-price{margin-bottom:12px}
+  .mg-purchase-row{flex-wrap:nowrap;gap:9px}
+  .mg-purchase-row>.mg-cta{flex-basis:auto;padding-inline:12px;font-size:12px;gap:6px}
+  .mg-quantity__control{height:50px}
+  .mg-quantity__control button{width:32px}
+  .mg-quantity__control input{width:28px}
+  .mg-details,.mg-colors{padding-block:30px}
+  .mg-details__grid{gap:20px}
+  .mg-details dl{margin-top:16px}
+  .mg-details dl>div{padding-block:11px}
+  .mg-colors>p:not(.mg-kicker){margin-block:12px 18px}
+  .mg-color-grid{gap:14px 12px}
+  .mg-faq{gap:18px;padding-block:4px 30px}
+  .mg-final{padding-block:30px}
+  .mg-final__mark{width:52px}
+}
