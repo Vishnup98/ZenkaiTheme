@@ -5,11 +5,16 @@
     const main = root.querySelector('[data-crest-main] img');
     const imageNote = root.querySelector('.dc-image-note');
     root.querySelectorAll('[data-crest-thumb]').forEach((button) => {
-      button.addEventListener('click', () => {
+      button.addEventListener('click', (event) => {
         const image = button.querySelector('img');
         main.src = image.src;
         main.srcset = image.srcset;
         main.alt = image.alt;
+        const galleryLabel = root.querySelector('[data-crest-gallery-label]');
+        if (galleryLabel) galleryLabel.textContent = 'Showing: ' + image.alt;
+        if (event.detail > 0 && window.matchMedia('(max-width: 899px)').matches && main.getBoundingClientRect().top < 0) {
+          main.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+        }
         if (imageNote) imageNote.textContent = image.alt;
         root.querySelectorAll('[data-crest-thumb]').forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
       });

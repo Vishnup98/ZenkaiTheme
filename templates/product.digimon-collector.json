@@ -12,7 +12,7 @@
     "main": {
       "type": "digimon-collector",
       "settings": {
-        "delivery_note": "Free U.S. shipping · Estimated delivery: 7–10 business days. Any applicable taxes are calculated at checkout."
+        "delivery_note": "Free U.S. shipping \u00b7 Estimated delivery: 7\u201310 business days"
       },
       "blocks": {
         "collector_1": {
@@ -34,7 +34,8 @@
             "image_width": 384,
             "image_height": 512,
             "quote": "really beautiful and well made.",
-            "attribution": "Product review excerpt"
+            "attribution": "Product review excerpt",
+            "feature_in_hero": true
           }
         },
         "collector_3": {
