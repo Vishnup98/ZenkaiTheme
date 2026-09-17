@@ -2,6 +2,8 @@
   const mount = (root) => {
     if (root.dataset.crestMounted) return;
     root.dataset.crestMounted = 'true';
+    const cleanups = [];
+    root._crestCleanup = () => cleanups.forEach((cleanup) => cleanup());
     const main = root.querySelector('[data-crest-main] img');
     const imageNote = root.querySelector('.dc-image-note');
     root.querySelectorAll('[data-crest-thumb]').forEach((button) => {
@@ -38,6 +40,15 @@
         });
       });
     }
+    root.querySelectorAll('[data-preview-crest]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = explorer?.querySelector('[data-crest-explore="' + button.dataset.previewCrest + '"]');
+        if (!target) return;
+        target.click();
+        target.focus({ preventScroll: true });
+        explorer.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+      });
+    });
     const reviews = root.querySelector('.dc-testimonial-grid');
     if (reviews) {
       const moveReview = (direction) => {
@@ -45,6 +56,27 @@
         if (!card) return;
         reviews.scrollBy({ left: direction * (card.getBoundingClientRect().width + parseFloat(getComputedStyle(reviews).columnGap || 0)), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
       };
+      const prev = root.querySelector('[data-review-prev]');
+      const next = root.querySelector('[data-review-next]');
+      const position = root.querySelector('[data-review-position]');
+      const updateReviews = () => {
+        const cards = [...reviews.querySelectorAll('.dc-testimonial')];
+        const stride = cards[0]?.getBoundingClientRect().width + parseFloat(getComputedStyle(reviews).columnGap || 0);
+        const atEnd = reviews.scrollLeft >= reviews.scrollWidth - reviews.clientWidth - 2;
+        if (prev) prev.disabled = reviews.scrollLeft <= 2;
+        if (next) next.disabled = atEnd;
+        if (position && stride) {
+          const first = Math.min(cards.length, Math.round(reviews.scrollLeft / stride) + 1);
+          const visible = Math.max(1, Math.floor((reviews.clientWidth + 16) / stride));
+          const last = Math.min(cards.length, first + visible - 1);
+          const label = first === last ? `${first} / ${cards.length}` : `${first}–${last} / ${cards.length}`;
+          if (position.textContent !== label) position.textContent = label;
+        }
+      };
+      reviews.addEventListener('scroll', updateReviews, { passive: true });
+      window.addEventListener('resize', updateReviews, { passive: true });
+      cleanups.push(() => { reviews.removeEventListener('scroll', updateReviews); window.removeEventListener('resize', updateReviews); });
+      updateReviews();
       root.querySelector('[data-review-prev]')?.addEventListener('click', () => moveReview(-1));
       root.querySelector('[data-review-next]')?.addEventListener('click', () => moveReview(1));
     }
@@ -76,10 +108,10 @@
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
-      root._crestCleanup = () => {
+      cleanups.push(() => {
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', onScroll);
-      };
+      });
       update();
     }
   };

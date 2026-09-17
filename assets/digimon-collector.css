@@ -180,3 +180,24 @@
 @media(min-width:600px) and (max-width:899px){.dc-testimonial-grid{grid-auto-columns:46%}.dc-box h2{font-size:44px}}
 .dc-accessories{display:flex;flex-wrap:wrap;gap:4px 14px}.dc-accessories>span{white-space:nowrap}.dc-accessories>span:before{content:'·';margin-right:8px;color:#949990}
 .dc-accessories>span:first-child:before{content:none}
+
+/* Collection identity: jewel accents, useful exploration and deliberate chapter contrast. */
+.dc-opening{background:radial-gradient(ellipse at 8% 40%,#f6dfbb 0,transparent 48%),radial-gradient(ellipse at 100% 0,#e5e9f8 0,transparent 45%),#faf7f0}
+.dc h1 em{color:#934722}.dc-price-line>span:last-child{padding:8px 12px;border:1px solid #d4bc91;background:#fff7e6;max-width:180px;border-radius:3px}
+.dc-explore-jump{display:flex;align-items:center;justify-content:space-between;min-height:44px;margin-top:10px;border-bottom:1px solid #b5c1ce;color:#315875!important;font-size:14px;font-weight:700;text-decoration:none}
+.dc-explore-jump span{font-size:20px}.dc-explore-jump:hover{color:#59367e!important}
+.dc-switch-chapter{background:#eee9f6;border-bottom:1px solid #d4c9e6}.dc-switch-chapter .dc-eyebrow{color:#67428f}.dc-switch-chapter h2 em{color:#67428f}.dc-switch-chapter .dc-feature>figure{border-bottom:4px solid #9574bb}.dc-switch-chapter .dc-fitting-notes{border-color:#cdbedd}.dc-switch-chapter .dc-fitting-notes li{border-color:#cdbedd;color:#514960}.dc-switch-chapter .dc-fitting-notes li:before{color:#67428f}
+.dc-testimonials{background:#f5f7f2}.dc-testimonials .dc-eyebrow{color:#3d674f}.dc-review-controls button{border-color:#93ad9d;background:#e2ede4}.dc-review-controls button:hover:not(:disabled){background:#c9e1d1}.dc-review-controls button:disabled{opacity:.35;cursor:default}.dc-review-position{font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap;color:#3d674f;align-self:center;margin-right:5px}
+.dc-box{background:#f5f6fb}.dc-box .dc-feature{align-items:center}.dc-box .dc-feature>figure{background:#fff;border:1px solid #d3d8e4}.dc-box .dc-eyebrow{color:#46587e}.dc-box h2 em{color:#48568d}
+.dc-box .dc-feature>div>.dc-contents-prompt{font-size:11px;font-weight:650;color:#59627b;line-height:1.5;margin-top:22px;max-width:none}
+.dc-contents-crests{gap:9px;margin:10px 0 18px}.dc-contents-crests li{border:0;padding:0;min-width:0}
+.dc-contents-crests button{display:flex;align-items:center;justify-content:space-between;gap:4px;width:100%;min-height:44px;padding:10px;border:1px solid color-mix(in srgb,var(--crest-swatch) 42%,white);border-left:3px solid var(--crest-swatch);border-radius:3px;background:color-mix(in srgb,var(--crest-swatch) 13%,white);color:#252e3c;text-align:left;font-size:12px;font-weight:650;cursor:pointer;transition:background .15s,transform .15s}
+.dc-contents-crests button:hover{background:color-mix(in srgb,var(--crest-swatch) 24%,white);transform:translateY(-1px)}.dc-contents-crests button span{font-size:12px;color:#626a6c}
+.dc-box .dc-feature>div>.dc-accessories{color:#515b73;border-color:#cdd3e2}
+.dc-questions summary:after{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border:1px solid #b6c6d6;border-radius:50%;font-size:20px;background:#e8eef5;color:#3b5e80}.dc-questions details[open]{border-color:#7795b7}.dc-questions details[open] summary{color:#315a85}
+.dc-finale{background:radial-gradient(ellipse at 0% 0%,#374864 0,transparent 58%),radial-gradient(ellipse at 100% 100%,#453758 0,transparent 58%),#202830}
+.dc-finale h2 em{color:#f3c979}.dc-finale .dc-cta{box-shadow:0 4px 0 #8c591b,0 10px 35px -16px #efb35d}
+@media(max-width:899px){.dc-price-line>span:last-child{font-size:11px;max-width:155px;padding:7px 10px}.dc-contents-crests{gap:8px}.dc-contents-crests button{padding:9px 7px;font-size:12px}.dc-review-controls>div{align-items:center}.dc-box .dc-feature>div>.dc-contents-prompt{margin-top:18px}.dc-explore-jump{font-size:13px}}
+@media(max-width:359px){.dc-contents-crests{grid-template-columns:repeat(2,minmax(0,1fr))}.dc-contents-crests button{font-size:12px}.dc-review-controls{align-items:start;flex-wrap:wrap}.dc-review-controls>div{margin-left:auto}.dc-price-line>span:last-child{max-width:132px}}
+.dc-keep{white-space:nowrap}
+@media(max-width:359px){.dc-switch-chapter h2{font-size:30px}}
