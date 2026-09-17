@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#232a2d">
     <link rel="canonical" href="{{ canonical_url }}">
-    <title>{{ page_title | escape }}{% unless page_title contains shop.name %} | {{ shop.name | escape }}{% endunless %}</title>
+    <title>{{ page_title | escape }}{% unless page_title contains 'Zenkai' %} | {{ shop.name | escape }}{% endunless %}</title>
     {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
     {{ 'collector-home-dm-sans-latin-v1.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     <style>@font-face{font-family:'Crest Sans';src:url('{{ 'collector-home-dm-sans-latin-v1.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:100 1000;font-display:swap}</style>
