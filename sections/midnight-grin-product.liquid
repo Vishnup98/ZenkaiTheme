@@ -1,0 +1,88 @@
+{%- liquid
+  assign selected = product.selected_or_first_available_variant
+  assign hero_image = selected.featured_image | default: product.featured_image
+  assign form_id = 'MidnightGrinForm-' | append: section.id
+-%}
+<article class="mg-product" data-mg-product data-section-id="{{ section.id }}">
+  <section class="mg-hero mg-wrap" aria-labelledby="mg-title">
+    <div class="mg-gallery">
+      <div class="mg-gallery__stage">
+        <span class="mg-edition">MIDNIGHT GRIN / DAILY ROTATION</span>
+        {% if hero_image %}{{ hero_image | image_url: width: 1200 | image_tag: class: 'mg-hero-image', widths: '360, 540, 720, 960, 1200', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: product.title }}{% endif %}
+        <span class="mg-gallery__caption">WASHED FINISH / STITCHED GRIN</span>
+      </div>
+    </div>
+    <div class="mg-buy">
+      <p class="mg-kicker"><span aria-hidden="true"></span> MIDNIGHT GRIN · WASHED BASEBALL CAP</p>
+      <h1 id="mg-title">A little trouble.<br><em>Every day.</em></h1>
+      <p class="mg-intro">Washed color. An embroidered grin. Not quite innocent.</p>
+      <div class="mg-price"><strong data-mg-price>{{ selected.price | money }}</strong><span>One cap. Your color.</span></div>
+      {% if section.settings.bonus_heading != blank and section.settings.bonus_copy != blank %}<aside class="mg-bonus"><strong>{{ section.settings.bonus_heading | escape }}</strong><p>{{ section.settings.bonus_copy | escape }}</p></aside>{% endif %}
+      {% form 'product', product, id: form_id, class: 'mg-form' %}
+        <label class="mg-native-label" for="mg-variant-{{ section.id }}">Choose your color</label>
+        <select id="mg-variant-{{ section.id }}" name="id" data-mg-variant>
+          {% for variant in product.variants %}<option value="{{ variant.id }}" {% if variant.id == selected.id %}selected{% endif %}>{{ variant.title | escape }} — {{ variant.price | money }}{% unless variant.available %} — Sold out{% endunless %}</option>{% endfor %}
+        </select>
+        <noscript>
+          <style>.mg-native-label,[data-mg-variant]{display:none!important}</style>
+          <p class="mg-order-note">Choose a color to load its photo, price, and availability:</p>
+          <nav class="mg-noscript-colors" aria-label="Choose cap color">
+            {% for variant in product.variants %}
+              <a href="{{ product.url }}?view=midnight-grin&amp;variant={{ variant.id }}#mg-title" {% if variant.id == selected.id %}aria-current="true"{% endif %}>{{ variant.title | escape }} · {{ variant.price | money }}{% unless variant.available %} · Sold out{% endunless %}</a>
+            {% endfor %}
+          </nav>
+        </noscript>
+        <fieldset class="mg-swatches" hidden><legend>Color: <strong data-mg-color>{{ selected.title | escape }}</strong></legend>
+          {% for variant in product.variants %}<button type="button" class="mg-swatch mg-swatch--{{ variant.option1 | handleize }}" data-mg-select="{{ variant.id }}" aria-pressed="{% if variant.id == selected.id %}true{% else %}false{% endif %}" aria-label="{{ variant.title | escape }}{% unless variant.available %}, sold out{% endunless %}"><span aria-hidden="true"></span><span>{{ variant.title | escape }}</span></button>{% endfor %}
+        </fieldset>
+        <input type="hidden" name="quantity" value="1">
+        <button class="mg-cta" type="submit" name="add" data-mg-add {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}Add to cart · {{ selected.title | escape }}{% else %}Sold out · {{ selected.title | escape }}{% endif %}<span aria-hidden="true">↗</span></button>
+        <p class="mg-order-note mg-shipping"><strong>Free shipping.</strong> One cap in your chosen color.</p>
+      {% endform %}
+      <div class="mg-facts"><span>Embroidered design</span><span>Washed finish</span><span>Curved brim</span></div>
+    </div>
+  </section>
+  <div class="mg-stripe" aria-hidden="true"><span>EMBROIDERED GRIN</span><span>WASHED FINISH</span><span>SHIPS FREE</span></div>
+  <section class="mg-details" aria-labelledby="mg-details-title"><div class="mg-wrap mg-details__grid">
+    <div class="mg-details__image">{% if section.settings.show_detail_image %}<img src="{{ 'midnight-grin-detail.webp' | asset_url }}" width="1448" height="1086" loading="lazy" alt="Close-up of the embroidered red eyes and white grin on the washed cap">{% else %}{{ hero_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: 'Embroidered Midnight Grin design on the washed cap' }}{% endif %}</div>
+    <div class="mg-details__copy"><p class="mg-kicker">IT’S IN THE DETAILS</p><h2 id="mg-details-title">Stitched<br><em>with character.</em></h2><dl><div><dt><span>01</span> The signature grin</dt><dd>Red eyes. White grin. Embroidered right up front.</dd></div><div><dt><span>02</span> The washed finish</dt><dd>A washed-in look. A face that stands out.</dd></div><div><dt><span>03</span> The curved brim</dt><dd>Classic cap shape. The grin does the rest.</dd></div></dl><span class="mg-details__signature" aria-hidden="true">{% render 'midnight-grin-mark' %}<span>GOOD CAP. BAD INFLUENCE.</span></span></div>
+  </div></section>
+  <section class="mg-colors mg-wrap" aria-labelledby="mg-colors-title">
+    <p class="mg-kicker">SAME GRIN. DIFFERENT MOOD.</p>
+    <h2 id="mg-colors-title">Four colors.<br><em>Choose your trouble.</em></h2>
+    <p>One cap, one color. Pick the one that feels like you.</p>
+    <div class="mg-color-grid">
+      {% for variant in product.variants %}
+        {% assign color_image = variant.featured_image | default: product.featured_image %}
+        {% assign color_mood = 'Your everyday mischief.' %}
+        {% case variant.option1 %}
+          {% when 'Black' %}{% assign color_mood = 'Quiet trouble.' %}
+          {% when 'Purple' %}{% assign color_mood = 'After-hours energy.' %}
+          {% when 'Green' %}{% assign color_mood = 'A little offbeat.' %}
+          {% when 'Rose Pink' %}{% assign color_mood = 'Sweet color. Sharp grin.' %}
+        {% endcase %}
+        <a href="{{ product.url }}?view=midnight-grin&amp;variant={{ variant.id }}#mg-title" class="mg-color-card mg-color-card--{{ variant.option1 | handleize }}" data-mg-color-link="{{ variant.id }}" {% if variant.id == selected.id %}aria-current="true"{% endif %} aria-label="Choose {{ variant.title | escape }} cap{% unless variant.available %}, sold out{% endunless %}">
+          <div class="mg-color-card__photo">{{ color_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: variant.title }}<span class="mg-color-card__number" aria-hidden="true">0{{ forloop.index }}</span></div>
+          <span class="mg-color-card__label"><strong><i aria-hidden="true"></i>{{ variant.title | escape }}</strong><span aria-hidden="true">↗</span></span>
+          <span class="mg-color-card__mood">{{ color_mood }}</span>
+          <span class="mg-color-card__state" data-mg-card-state>{% unless variant.available %}Sold out{% else %}{% if variant.id == selected.id %}Selected{% else %}Choose color{% endif %}{% endunless %}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="mg-faq mg-wrap" aria-labelledby="mg-faq-title"><div><p class="mg-kicker">BEFORE YOU MAKE IT YOURS</p><h2 id="mg-faq-title">A few<br><em>straight answers.</em></h2></div><div><details open><summary>What’s included?</summary><p>One Midnight Grin washed baseball cap in your selected color. The other colors shown are separate options, not a four-cap set.</p>{% if section.settings.bonus_heading != blank and section.settings.bonus_copy != blank %}<p><strong>{{ section.settings.bonus_heading | escape }}</strong><br>{{ section.settings.bonus_copy | escape }}</p>{% endif %}</details><details><summary>Is the design embroidered?</summary><p>Yes. The red eyes and white grin are embroidered on the front of the cap.</p></details><details><summary>Which colors can I choose?</summary><p>Black, Purple, Green, and Rose Pink. Select a color above to see its photo and current availability.</p></details><details><summary>Is shipping free?</summary><p>Yes. Free shipping is included with your cap. Read our <a href="/pages/policy">delivery and returns policy</a>, or <a href="mailto:{{ shop.email }}">contact us</a> if you have a question before ordering.</p></details></div></section>
+  <section class="mg-final">{% render 'midnight-grin-mark', class: 'mg-final__mark' %}<p class="mg-kicker">YOUR NEXT EVERYDAY CAP</p><h2>Good cap.<br><em>Bad influence.</em></h2><a class="mg-cta" href="#mg-title">Choose your color <span aria-hidden="true">↗</span></a><p class="mg-final__shipping">One cap. All that attitude. <strong>Free shipping.</strong></p></section>
+  <div class="mg-sticky" data-mg-sticky hidden><div><strong>Midnight Grin</strong><span data-mg-sticky-label>{{ selected.title | escape }} · {{ selected.price | money }} · Ships free</span></div><button type="submit" form="{{ form_id }}" class="mg-cta" data-mg-sticky-add {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}Add to cart{% else %}Sold out{% endif %}<span aria-hidden="true">↗</span></button></div>
+  <script type="application/json" data-mg-data>{"variants":[{% for variant in product.variants %}{"id":{{ variant.id | json }},"title":{{ variant.title | json }},"available":{{ variant.available | json }},"price":{{ variant.price | money | json }},"image":{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 | json }}{% else %}{{ hero_image | image_url: width: 1200 | json }}{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>
+</article>
+{% schema %}
+{
+  "name": "Midnight Grin product",
+  "settings": [
+    {"type":"checkbox","id":"show_detail_image","label":"Show campaign detail image","default":false,"info":"Enable only after the detail image asset is installed and verified."},
+    {"type":"text","id":"bonus_heading","label":"Verified bonus heading","info":"Leave blank until the bonus and fulfillment are confirmed."},
+    {"type":"textarea","id":"bonus_copy","label":"Verified bonus explanation","info":"Enable only after confirming bonus fulfillment. Both fields required; this text does not add gifts."}
+  ],
+  "presets": [{"name":"Midnight Grin product"}]
+}
+{% endschema %}

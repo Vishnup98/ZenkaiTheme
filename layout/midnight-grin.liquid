@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#17141d">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
+    <meta name="description" content="{{ page_description | default: product.description | strip_html | truncate: 160 | escape }}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="{{ shop.name | escape }}">
+    <meta property="og:title" content="{{ product.title | escape }}">
+    <meta property="og:url" content="{{ canonical_url | escape }}">
+    <meta property="og:description" content="{{ page_description | default: product.description | strip_html | truncate: 200 | escape }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ product.title | escape }}">
+    {% if product.featured_image %}
+      {% assign share_image = product.featured_image | image_url: width: 1200 %}
+      {% assign share_prefix = share_image | slice: 0, 2 %}
+      {% if share_prefix == '//' %}{% assign share_image = share_image | prepend: 'https:' %}{% endif %}
+      <meta property="og:image" content="{{ share_image | escape }}">
+      <meta property="og:image:alt" content="{{ product.title | escape }}">
+      <meta name="twitter:image" content="{{ share_image | escape }}">
+    {% endif %}
+    <script type="application/ld+json">{{ product | structured_data }}</script>
+    <style>
+      @font-face{font-family:'MG Display';src:url('{{ 'little-impostors-display-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
+      @font-face{font-family:'MG Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
+    </style>
+    {{ 'midnight-grin.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="mg-body">
+    <a class="mg-skip" href="#MainContent">Skip to product</a>
+    <header class="mg-header">
+      <a href="{{ routes.root_url }}" class="mg-wordmark" aria-label="Zenkai Clothing home">ZENKAI<span aria-hidden="true">®</span></a>
+      <span class="mg-header__note">{% render 'midnight-grin-mark' %} Free shipping</span>
+      <a href="{{ routes.cart_url }}" class="mg-header__cart">Cart <span>{{ cart.item_count }}</span></a>
+    </header>
+    <main id="MainContent">{{ content_for_layout }}</main>
+    <footer class="mg-footer">
+      <div><a class="mg-wordmark" href="{{ routes.root_url }}">ZENKAI</a><p>A little character goes a long way.</p></div>
+      <nav aria-label="Customer support"><a href="/pages/policy">Delivery &amp; returns</a><a href="mailto:{{ shop.email }}">Contact</a>{% if shop.privacy_policy.url != blank %}<a href="{{ shop.privacy_policy.url }}">Privacy</a>{% endif %}</nav>
+      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small>
+    </footer>
+    <script src="{{ 'midnight-grin.js' | asset_url }}" defer></script>
+  </body>
+</html>

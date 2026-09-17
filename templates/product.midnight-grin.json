@@ -1,0 +1,10 @@
+{
+  "layout": "midnight-grin",
+  "sections": {
+    "main": {
+      "type": "midnight-grin-product",
+      "settings": { "show_detail_image": true }
+    }
+  },
+  "order": ["main"]
+}
