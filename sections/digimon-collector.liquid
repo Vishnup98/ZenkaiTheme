@@ -4,6 +4,12 @@
   assign current_variant = product.selected_or_first_available_variant
   assign collector_form = 'CrestForm-' | append: section.id
 -%}
+  {%- assign has_customer_evidence = false -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'testimonial' -%}
+      {%- if block.settings.quote != blank or block.settings.image != blank or block.settings.image_asset != blank -%}{%- assign has_customer_evidence = true -%}{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
 <div class="dc" data-crest-page>
   <nav class="dc-nav dc-wrap" aria-label="Collection navigation"><span>ZENKAI <i>/</i> THE COLLECTOR SERIES</span><a href="#CrestContents-{{ section.id }}">What’s included <span aria-hidden="true">↗</span></a></nav>
   <section class="dc-hero dc-wrap" aria-labelledby="CrestTitle-{{ section.id }}">
@@ -26,7 +32,7 @@
         {% endfor %}
       </div>
       <p class="dc-caption">All 11 crests pictured are included. Tap a thumbnail to see another view.</p>
-      {% if section.blocks.size > 0 %}<p class="dc-caption"><a href="#CrestReviews-{{ section.id }}">See collector photos &amp; reviews ↗</a></p>{% endif %}
+      {% if has_customer_evidence %}<p class="dc-caption"><a href="#CrestReviews-{{ section.id }}">See collector photos &amp; reviews ↗</a></p>{% endif %}
     </div>
     <div class="dc-buy" id="CrestBuy-{{ section.id }}">
       <div class="dc-price-line"><span data-crest-price>{{ current_variant.price | money_with_currency }}</span><span>The complete boxed set</span></div>
@@ -51,19 +57,13 @@
   <section class="dc-feature dc-wrap" id="CrestDetails-{{ section.id }}"><figure>{% render 'digimon-collector-image', name: 'craft', alt: 'Gold-tone tag housing showing the channel for interchangeable crest inserts' %}</figure><div><p class="dc-eyebrow">ONE TAG. YOUR CREST.</p><h2>Eleven crests.<br><em>One interchangeable tag.</em></h2><p>Choose the crest you want in your tag, then keep the others together in the box. Every design is included, so you can change your choice without buying another set.</p><ol class="dc-steps"><li><span>01</span>Choose from eleven crest designs.</li><li><span>02</span>Fit your chosen crest using the included instructions.</li><li><span>03</span>Return the others to their individual display slots.</li></ol></div></section>
   {% if section.settings.show_exploded_image %}<section class="dc-exploded dc-wrap"><figure>{% render 'digimon-collector-image', name: 'mix', alt: 'Illustrative exploded view with a partially inserted crest and alternate colored inserts' %}<figcaption>Illustrative arrangement of the interchangeable collection.</figcaption></figure></section>{% endif %}
   <section class="dc-box" id="CrestContents-{{ section.id }}"><div class="dc-wrap dc-feature"><div><p class="dc-eyebrow">WHAT ARRIVES IN THE BOX</p><h2>The complete collection.<br><em>All in one box.</em></h2><p>The tag sits at the center, with a place for each crest. Keep the set together for display, or give the complete collection to someone who remembers every adventure.</p><dl><div><dt>11</dt><dd>Interchangeable crest plates</dd></div><div><dt>1</dt><dd>Gold-tone metal tag</dd></div><div><dt>1</dt><dd>Black necklace cord</dd></div><div><dt>1</dt><dd>Presentation box</dd></div></dl>{% if section.settings.bonus_title != blank %}<div class="dc-bonus"><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<p>{{ section.settings.bonus_details | escape }}</p>{% endif %}</div>{% endif %}</div><figure>{% render 'digimon-collector-image', name: 'box', alt: 'Open presentation box containing the complete eleven-crest collection and tag' %}</figure></div></section>
-  {%- assign has_customer_evidence = false -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'testimonial' -%}
-      {%- if block.settings.quote != blank or block.settings.image != blank -%}{%- assign has_customer_evidence = true -%}{%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
   {% if has_customer_evidence %}
     <section class="dc-testimonials dc-wrap" id="CrestReviews-{{ section.id }}" aria-labelledby="CrestCustomers-{{ section.id }}">
       <div class="dc-section-head"><div><p class="dc-eyebrow">FROM THE COLLECTOR COMMUNITY</p><h2 id="CrestCustomers-{{ section.id }}">In their<br><em>own words.</em></h2></div></div>
       <div class="dc-testimonial-grid">
         {% for block in section.blocks %}
           {% if block.type == 'testimonial' %}
-            {% if block.settings.quote != blank or block.settings.image != blank %}
+            {% if block.settings.quote != blank or block.settings.image != blank or block.settings.image_asset != blank %}
               <figure class="dc-testimonial" {{ block.shopify_attributes }}>
                 {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320, 480, 720, 1000', sizes: '(min-width: 900px) 33vw, 90vw' }}{% elsif block.settings.image_asset != blank %}<img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.image_alt | escape }}" width="{{ block.settings.image_width }}" height="{{ block.settings.image_height }}" loading="lazy">{% endif %}
                 {% if block.settings.quote != blank %}<blockquote><p>{{ block.settings.quote | escape | newline_to_br }}</p></blockquote>{% endif %}
