@@ -117,3 +117,38 @@
  .dc-hero-proof{border-left:3px solid #62966b}.dc-main-image{padding:0}.dc-gallery-details{padding-top:4px}
 }
 @media(max-width:359px){.dc-explorer-options button{font-size:11px}.dc-explorer-options button span:before{width:4px;height:4px;margin-right:3px}.dc-explorer-copy{padding-inline:0}}
+
+/* Gallery and spacing audit: photos own their controls; remove stacked empty bands. */
+.dc-hero{gap:18px 5%;padding-block:32px;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.dc-gallery{align-self:start}.dc-main-image{width:100%;max-width:none}
+.dc-gallery-details{padding-top:0;position:relative}
+.dc-gallery-label{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.dc-gallery-details .dc-thumbs{width:100%;max-width:none;margin-top:10px;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.dc-thumbs button{padding:2px;min-height:44px}.dc-thumbs img{margin:0}
+.dc-dark{padding-block:48px}.dc-section-head{margin-bottom:22px}
+.dc-feature{padding-block:48px;gap:5%}.dc-feature>div>p:not(.dc-eyebrow){margin-top:16px}
+.dc-steps{margin-top:18px}.dc-steps li{padding-block:12px}.dc-steps li:last-child{padding-bottom:0}
+.dc-testimonials{padding-block:44px}.dc-testimonial-grid{gap:18px}.dc-testimonial blockquote{padding:14px 8px 10px}.dc-testimonial figcaption{padding:0 8px 8px}
+.dc-box dl{margin-top:18px}.dc-box dl>div{padding-block:12px}
+.dc-faq{padding-block:44px}.dc-questions details{padding-block:12px}.dc-questions summary{min-height:44px}
+.dc-finale{padding-bottom:44px}.dc-finale:before{margin-bottom:44px}.dc-final-grid{gap:5%}.dc-final-grid>figure{width:100%;max-width:none}
+.dc-site-footer{padding-block:28px 40px}
+@media(max-width:899px){
+ .dc-hero{gap:14px;padding-block:18px 22px}.dc-gallery{display:block;order:1;width:100%;max-width:none}
+ .dc-main-image{width:100%;max-width:none}.dc-gallery-details .dc-thumbs{margin-top:8px;gap:6px}
+ .dc h1{font-size:clamp(29px,8.4vw,44px);line-height:1.08}.dc h1 br{display:none}.dc h1 em{margin-left:.16em}
+ .dc-intro .dc-eyebrow{margin-bottom:6px!important}.dc-lede{margin-top:8px!important}
+ .dc-inclusions{margin-top:12px!important}.dc-hero-proof{margin-top:12px}.dc-policy-links{margin-top:0}
+ .dc-statbar>.dc-wrap{padding-block:12px}.dc-statbar p{gap:3px}
+ .dc-dark{padding-block:30px}.dc-section-head{margin-bottom:18px}.dc-section-head>p{margin-top:10px}
+ .dc-crest-explorer{padding:10px;gap:16px}.dc-explorer-media{max-width:none}.dc-explorer-copy{padding:0 2px 2px}.dc-explorer-options{margin-top:16px}.dc-explorer-note{margin-top:16px!important}
+ .dc-feature{padding-block:30px;gap:22px}.dc-feature>div>p:not(.dc-eyebrow){margin-top:14px}.dc-steps{margin-top:16px}.dc-steps li{padding-block:11px}.dc-steps li:last-child{padding-bottom:0}
+ .dc-testimonials{padding-block:30px}.dc-testimonial-grid{gap:16px}.dc-testimonial{padding:9px}.dc-testimonial blockquote{padding:12px 5px 8px}.dc-testimonial figcaption{padding:0 5px 5px}
+ .dc-box dl{margin-top:16px}.dc-box dl>div{padding-block:10px}.dc-box .dc-feature{gap:22px}
+ .dc-faq{padding-block:30px;gap:18px}.dc-questions details{padding-block:10px}
+ .dc-finale{padding-bottom:30px}.dc-finale:before{margin-bottom:30px}.dc-final-grid{gap:22px}.dc-final-grid>figure{max-width:none}
+ .dc-finale-copy{margin-top:14px!important}.dc-finale-price{margin-top:16px!important}.dc-finale .dc-cta{margin-top:14px}
+ .dc-site-footer{gap:14px;padding-block:24px 32px}
+}
+@media(max-width:359px){.dc-gallery-details .dc-thumbs{gap:4px}.dc-thumbs button{padding:1px}.dc h1{font-size:29px}}
+@media(min-width:1200px){.dc-explorer-options{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.dc-explorer-options button{font-size:11px}.dc-explorer-options button span:before{width:5px;height:5px;margin-right:3px}.dc-explorer-copy{padding-right:0}}

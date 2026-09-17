@@ -19,10 +19,17 @@
     </div>
     <div class="dc-gallery">
       <div class="dc-main-image" data-crest-main>
-        {% render 'digimon-collector-image', name: 'single-courage', loading: 'eager', alt: 'Orange Courage crest fitted in the gold-tone tag; all eleven interchangeable crests are included' %}
-        <span class="dc-display-seal"><b>11</b><span>CRESTS INCLUDED</span></span>
+        {% render 'digimon-collector-image', name: 'mix', loading: 'eager', alt: 'One tag. Your crest. Mix. Match. Make it yours. Colorful crest inserts arranged around the open gold-tone tag' %}
       </div>
-
+    <div class="dc-gallery-details"><p class="dc-gallery-label" aria-live="polite" data-crest-gallery-label>Mix-and-match collection — select a photo</p>
+      <div class="dc-thumbs" role="group" aria-label="Product images">
+        {%- assign gallery_names = 'mix,box,single-courage,single-sincerity,single-knowledge,craft' | split: ',' -%}
+        {%- assign gallery_labels = 'Mix-and-match collection,Complete boxed collection,Orange Courage crest,Green Sincerity crest,Purple Knowledge crest,Empty tag housing detail' | split: ',' -%}
+        {% for image_name in gallery_names %}
+          <button type="button" data-crest-thumb="{{ image_name }}" aria-label="Show {{ gallery_labels[forloop.index0] }}" aria-pressed="{% if image_name == 'mix' %}true{% else %}false{% endif %}">{% render 'digimon-collector-image', name: image_name, sizes: '100px', alt: gallery_labels[forloop.index0] %}</button>
+        {% endfor %}
+      </div>
+    </div>
     </div>
     <div class="dc-buy" id="CrestBuy-{{ section.id }}">
 
@@ -45,15 +52,7 @@
       <div class="dc-policy-links">{% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Shipping details</a>{% endif %}{% if shop.refund_policy != blank %}<a href="{{ shop.refund_policy.url }}">Returns policy</a>{% endif %}</div>
 
     </div>
-    <div class="dc-gallery-details"><p class="dc-gallery-label" aria-live="polite" data-crest-gallery-label>See the boxed set and details</p>
-      <div class="dc-thumbs" role="group" aria-label="Product images">
-        {%- assign gallery_names = 'box,single-courage,single-sincerity,single-knowledge,craft' | split: ',' -%}
-        {%- assign gallery_labels = 'Complete boxed collection,Orange Courage crest,Green Sincerity crest,Purple Knowledge crest,Empty tag housing detail' | split: ',' -%}
-        {% for image_name in gallery_names %}
-          <button type="button" data-crest-thumb="{{ image_name }}" aria-label="Show {{ gallery_labels[forloop.index0] }}" aria-pressed="{% if image_name == 'single-courage' %}true{% else %}false{% endif %}">{% render 'digimon-collector-image', name: image_name, sizes: '100px', alt: gallery_labels[forloop.index0] %}</button>
-        {% endfor %}
-      </div>
-    </div>
+
   </section>
   </div>
   <div class="dc-statbar"><div class="dc-wrap"><p><b>11</b><span>Iconic crests</span></p><p><b>1</b><span>Interchangeable tag</span></p><p><b>1</b><span>Presentation box</span></p></div></div>
