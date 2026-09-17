@@ -14,6 +14,25 @@
         root.querySelectorAll('[data-crest-thumb]').forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
       });
     });
+    const explorer = root.querySelector('[data-crest-explorer]');
+    if (explorer) {
+      const display = explorer.querySelector('[data-crest-explorer-image] img');
+      explorer.querySelectorAll('[data-crest-explore]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const image = button.querySelector('img');
+          display.src = image.src;
+          display.srcset = image.srcset;
+          display.alt = image.alt;
+          explorer.dataset.selected = button.dataset.crestExplore;
+          if (window.matchMedia('(max-width: 899px)').matches && display.getBoundingClientRect().top < 0) {
+            display.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+          }
+          explorer.querySelector('[data-crest-explorer-name]').textContent = button.dataset.crestName;
+          explorer.querySelector('[data-crest-explorer-line]').textContent = button.dataset.crestLine;
+          explorer.querySelectorAll('[data-crest-explore]').forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        });
+      });
+    }
     const select = root.querySelector('[data-crest-variant]');
     select?.addEventListener('change', () => {
       const option = select.selectedOptions[0];

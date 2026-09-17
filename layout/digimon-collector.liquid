@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#232a2d">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <title>{{ page_title | escape }}{% unless page_title contains shop.name %} | {{ shop.name | escape }}{% endunless %}</title>
+    {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+    {{ 'collector-home-dm-sans-latin-v1.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    <style>@font-face{font-family:'Crest Sans';src:url('{{ 'collector-home-dm-sans-latin-v1.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:100 1000;font-display:swap}</style>
+    {{ 'digimon-collector.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="dc-body">
+    <a class="dc-skip" href="#MainContent">Skip to the collection</a>
+    <header class="dc-site-header">
+      <a class="dc-site-brand" href="{{ routes.root_url }}" aria-label="Zenkai Clothing home"><img src="{{ 'zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png' | file_url }}?width=144" width="72" height="54" alt="Zenkai Clothing"></a>
+      <span class="dc-site-note">THE CREST COLLECTION</span>
+      <a class="dc-site-cart" href="{{ routes.cart_url }}">Cart{% if cart.item_count > 0 %} <span>({{ cart.item_count }})</span>{% endif %} <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="MainContent">{{ content_for_layout }}</main>
+    <footer class="dc-site-footer">
+      <div><strong>ZENKAI</strong><p>Keep a little of that world close.</p></div>
+      <nav aria-label="Customer support"><a href="{{ shop.shipping_policy.url }}">Shipping</a><a href="{{ shop.refund_policy.url }}">Returns &amp; order care</a><a href="mailto:{{ shop.email }}">Contact us</a><a href="{{ shop.privacy_policy.url }}">Privacy</a></nav>
+      <small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }} · Secure checkout with Shopify</small>
+    </footer>
+  </body>
+</html>
