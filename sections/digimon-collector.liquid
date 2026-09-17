@@ -26,6 +26,7 @@
         {% endfor %}
       </div>
       <p class="dc-caption">All 11 crests pictured are included. Tap a thumbnail to see another view.</p>
+      {% if section.blocks.size > 0 %}<p class="dc-caption"><a href="#CrestReviews-{{ section.id }}">See collector photos &amp; reviews ↗</a></p>{% endif %}
     </div>
     <div class="dc-buy" id="CrestBuy-{{ section.id }}">
       <div class="dc-price-line"><span data-crest-price>{{ current_variant.price | money_with_currency }}</span><span>The complete boxed set</span></div>
@@ -57,14 +58,14 @@
     {%- endif -%}
   {%- endfor -%}
   {% if has_customer_evidence %}
-    <section class="dc-testimonials dc-wrap" aria-labelledby="CrestCustomers-{{ section.id }}">
+    <section class="dc-testimonials dc-wrap" id="CrestReviews-{{ section.id }}" aria-labelledby="CrestCustomers-{{ section.id }}">
       <div class="dc-section-head"><div><p class="dc-eyebrow">FROM THE COLLECTOR COMMUNITY</p><h2 id="CrestCustomers-{{ section.id }}">In their<br><em>own words.</em></h2></div></div>
       <div class="dc-testimonial-grid">
         {% for block in section.blocks %}
           {% if block.type == 'testimonial' %}
             {% if block.settings.quote != blank or block.settings.image != blank %}
               <figure class="dc-testimonial" {{ block.shopify_attributes }}>
-                {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320, 480, 720, 1000', sizes: '(min-width: 900px) 33vw, 90vw' }}{% endif %}
+                {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320, 480, 720, 1000', sizes: '(min-width: 900px) 33vw, 90vw' }}{% elsif block.settings.image_asset != blank %}<img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.image_alt | escape }}" width="{{ block.settings.image_width }}" height="{{ block.settings.image_height }}" loading="lazy">{% endif %}
                 {% if block.settings.quote != blank %}<blockquote><p>{{ block.settings.quote | escape | newline_to_br }}</p></blockquote>{% endif %}
                 {% if block.settings.attribution != blank or block.settings.source_url != blank %}<figcaption>{% if block.settings.attribution != blank %}<span>{{ block.settings.attribution | escape }}</span>{% endif %}{% if block.settings.source_url != blank %}<a href="{{ block.settings.source_url | escape }}">View original source</a>{% endif %}</figcaption>{% endif %}
               </figure>
@@ -126,6 +127,28 @@
           "type": "image_picker",
           "id": "image",
           "label": "Actual customer photo"
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Customer photo theme asset"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Customer photo description"
+        },
+        {
+          "type": "number",
+          "id": "image_width",
+          "label": "Photo width",
+          "default": 720
+        },
+        {
+          "type": "number",
+          "id": "image_height",
+          "label": "Photo height",
+          "default": 960
         },
         {
           "type": "textarea",

@@ -9,7 +9,54 @@
  */
 {
   "sections": {
-    "main": { "type": "digimon-collector", "settings": {} }
+    "main": {
+      "type": "digimon-collector",
+      "settings": {
+        "delivery_note": "Free U.S. shipping · Estimated delivery: 7–10 business days. Any applicable taxes are calculated at checkout."
+      },
+      "blocks": {
+        "collector_1": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "digimon-customer-1.webp",
+            "image_alt": "Collector photo of the eleven crests and tag in the open presentation box",
+            "image_width": 720,
+            "image_height": 960,
+            "quote": "To say that this set is gorgeous would be an understatement",
+            "attribution": "Product review excerpt"
+          }
+        },
+        "collector_2": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "digimon-customer-2.webp",
+            "image_alt": "Collector photo of the Courage crest fitted in the tag",
+            "image_width": 384,
+            "image_height": 512,
+            "quote": "really beautiful and well made.",
+            "attribution": "Product review excerpt"
+          }
+        },
+        "collector_3": {
+          "type": "testimonial",
+          "settings": {
+            "image_asset": "digimon-customer-3.webp",
+            "image_alt": "Collector close-up of the gold-tone tag and colored crest plates",
+            "image_width": 1000,
+            "image_height": 1000,
+            "quote": "The box is so beautifully detailed and I honestly love displaying it.",
+            "attribution": "Product review excerpt"
+          }
+        }
+      },
+      "block_order": [
+        "collector_1",
+        "collector_2",
+        "collector_3"
+      ]
+    }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
