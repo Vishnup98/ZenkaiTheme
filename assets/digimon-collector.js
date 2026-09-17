@@ -38,6 +38,16 @@
         });
       });
     }
+    const reviews = root.querySelector('.dc-testimonial-grid');
+    if (reviews) {
+      const moveReview = (direction) => {
+        const card = reviews.querySelector('.dc-testimonial');
+        if (!card) return;
+        reviews.scrollBy({ left: direction * (card.getBoundingClientRect().width + parseFloat(getComputedStyle(reviews).columnGap || 0)), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+      };
+      root.querySelector('[data-review-prev]')?.addEventListener('click', () => moveReview(-1));
+      root.querySelector('[data-review-next]')?.addEventListener('click', () => moveReview(1));
+    }
     const select = root.querySelector('[data-crest-variant]');
     select?.addEventListener('change', () => {
       const option = select.selectedOptions[0];
