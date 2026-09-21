@@ -24,10 +24,9 @@
         "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp",
         "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp",
         "flareon_image": "shopify://shop_images/little-impostors-orange-996e6917e5d3.webp",
-        "size_image": "shopify://shop_images/little-impostors-size-guide-5054b2a9639c.png",
         "hero_body": "One of every pictured design. Nine separate plushes. A clear, complete offer for the collection you came to see.",
         "story_title": "See exactly what is included",
-        "story_body": "Explore every design in the gallery. Check the size, see the customer photos, and picture the full group in your own space.",
+        "story_body": "Explore every design in the gallery, see the customer photos, and picture the full group in your own space.",
         "story_eyebrow": "Picture them at home",
         "final_title": "Bring the complete set home.",
         "final_body": "All nine designs, with free shipping for this set.",
@@ -61,7 +60,7 @@
         "review_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "The coloring is a bright yellow. super cute! soft. good size. my friend will adore it!"
+            "quote": "The coloring is a bright yellow. super cute! soft. my friend will adore it!"
           }
         },
         "review_2": {

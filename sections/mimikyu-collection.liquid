@@ -76,19 +76,7 @@
     {% if section.settings.shelf_image != blank %}<figure class="mc-story-media">{% render 'mimikyu-image', photo: section.settings.shelf_image, alt: 'All nine plushes arranged on a collector shelf in a styled scene' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder mc-story-media"><span>03</span><strong>Shelf image</strong><p>little-impostors-shelf.png</p></div>{% endif %}
   </div></section>
 
-  <div class="mc-details-grid ec-shell">
-  {%- assign has_in_hand_photos = false -%}
-  {%- if section.settings.handheld_espeon_image != blank or section.settings.handheld_sylveon_image != blank -%}{%- assign has_in_hand_photos = true -%}{%- endif -%}
-  {%- assign has_size_media = has_in_hand_photos -%}
-  {%- if section.settings.size_image != blank -%}{%- assign has_size_media = true -%}{%- endif -%}
-  <section class="ec-size{% unless has_size_media or show_placeholders %} mc-size-text-only{% endunless %}"><div class="ec-size-copy"><p class="ec-eyebrow">Made for your little corners</p><h2>Little enough<br>to keep close.</h2><p>A desk buddy. A nightstand regular. A little company for your reading spot.</p><p class="ec-dimensions"><strong>About 8 inches tall</strong><span>Approximately 20 cm</span></p></div>
-    {% if section.settings.size_image != blank %}<figure class="mc-size-guide">{% render 'mimikyu-image', photo: section.settings.size_image, alt: 'Little Impostors plush with a height guide showing 8 inches', sizes: '(min-width: 900px) 55vw, 92vw' %}</figure>
-    {% elsif has_in_hand_photos or show_placeholders %}<div class="ec-size-photos">
-      {% assign handhelds = 'handheld_espeon,handheld_sylveon' | split: ',' %}{% for name in handhelds %}{% assign image_key = name | append: '_image' %}{% assign photo = section.settings[image_key] %}
-      {% if photo != blank %}<figure>{% render 'mimikyu-image', photo: photo, alt: 'A Little Impostors plush held in a hand', sizes: '(min-width: 900px) 25vw, 45vw' %}</figure>{% elsif show_placeholders %}<div class="mc-image-placeholder mc-image-placeholder--portrait"><strong>In-hand image</strong><p>Reserved for your manually supplied photo</p></div>{% endif %}{% endfor %}
-    </div>{% endif %}
-  </section>
-
+  <div class="mc-details-grid mc-details-grid--single ec-shell">
   {% if section.settings.detail_image != blank or show_placeholders %}<section class="ec-proof"><div class="ec-proof-lead"><figure class="ec-detail-photo">{% if section.settings.detail_image != blank %}{% render 'mimikyu-image', photo: section.settings.detail_image, alt: 'Close-up of the charcoal plush with its scribbled eyes, stitched zigzag mouth and yellow details' %}{% else %}<div class="mc-image-placeholder"><strong>Face and stitching detail</strong><p>little-impostors-detail.png</p></div>{% endif %}</figure><div class="ec-proof-copy"><p class="ec-eyebrow">Suspiciously adorable</p><h2>That face.<br>That little face.</h2><p>Scribbled eyes. A wonky smile. Pink cheeks. A whole lot of charm in the tiniest details.</p><span class="mc-face-doodle" aria-hidden="true"><svg viewBox="0 0 76 30" fill="none" focusable="false"><ellipse cx="15" cy="10" rx="3" ry="6" fill="currentColor"/><ellipse cx="61" cy="8" rx="3" ry="6" fill="currentColor"/><path d="m5 23 9 3 11-7 12 8 12-9 12 7 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div></section>{% endif %}
   </div>
 
@@ -104,14 +92,13 @@
   {% if has_reviews or show_placeholders %}<section class="ec-reviews" aria-labelledby="mc-reviews-{{ section.id }}"><span class="mc-review-bg-face" aria-hidden="true"><svg viewBox="0 0 28 19" focusable="false"><use href="#mc-page-face-{{ section.id }}"/></svg></span><div class="ec-shell">
     <div class="mc-review-heading"><div><p class="ec-eyebrow">Loved from shelf to shelf</p><h2 id="mc-reviews-{{ section.id }}">The happy little reviews are in.</h2></div><p class="mc-review-score" aria-label="Rated 4.8 out of 5 from 98 Shop reviews"><span aria-hidden="true">★★★★★</span><strong>4.8/5</strong><small>98 Shop reviews</small></p></div>
     <div class="ec-review-grid">
-      {% for block in testimonials %}{% if block.settings.quote != blank %}{%- assign review_quote = block.settings.quote | escape -%}{%- case forloop.index -%}{%- when 1 -%}{%- assign review_quote = review_quote | replace: 'my friend will adore it!', '<strong class="mc-review-highlight">my friend will adore it!</strong>' -%}{%- when 2 -%}{%- assign review_quote = review_quote | replace: 'Super duper cute', '<strong class="mc-review-highlight">Super duper cute</strong>' | replace: 'i love it ! ! !', '<strong class="mc-review-highlight">i love it ! ! !</strong>' -%}{%- when 3 -%}{%- assign review_quote = review_quote | replace: 'I absolutely love love love her!', '<strong class="mc-review-highlight">I absolutely love love love her!</strong>' -%}{%- endcase -%}<figure {{ block.shopify_attributes }}><span class="mc-review-face" aria-hidden="true"><svg viewBox="0 0 28 19" focusable="false"><use href="#mc-page-face-{{ section.id }}"/></svg></span><blockquote>“{{ review_quote }}”</blockquote>{% if block.settings.attribution != blank %}<figcaption>{{ block.settings.attribution | escape }}</figcaption>{% endif %}</figure>{% elsif show_placeholders %}<figure class="mc-review-placeholder" {{ block.shopify_attributes }}><span class="mc-review-face" aria-hidden="true"><svg viewBox="0 0 28 19" focusable="false"><use href="#mc-page-face-{{ section.id }}"/></svg></span><p>Testimonial {{ forloop.index }}</p><figcaption>Reserved for a real customer quote</figcaption></figure>{% endif %}{% endfor %}
+      {% for block in testimonials %}{% if block.settings.quote != blank %}{%- assign review_quote = block.settings.quote | escape | replace: ' good size.', '' -%}{%- case forloop.index -%}{%- when 1 -%}{%- assign review_quote = review_quote | replace: 'my friend will adore it!', '<strong class="mc-review-highlight">my friend will adore it!</strong>' -%}{%- when 2 -%}{%- assign review_quote = review_quote | replace: 'Super duper cute', '<strong class="mc-review-highlight">Super duper cute</strong>' | replace: 'i love it ! ! !', '<strong class="mc-review-highlight">i love it ! ! !</strong>' -%}{%- when 3 -%}{%- assign review_quote = review_quote | replace: 'I absolutely love love love her!', '<strong class="mc-review-highlight">I absolutely love love love her!</strong>' -%}{%- endcase -%}<figure {{ block.shopify_attributes }}><span class="mc-review-face" aria-hidden="true"><svg viewBox="0 0 28 19" focusable="false"><use href="#mc-page-face-{{ section.id }}"/></svg></span><blockquote>“{{ review_quote }}”</blockquote>{% if block.settings.attribution != blank %}<figcaption>{{ block.settings.attribution | escape }}</figcaption>{% endif %}</figure>{% elsif show_placeholders %}<figure class="mc-review-placeholder" {{ block.shopify_attributes }}><span class="mc-review-face" aria-hidden="true"><svg viewBox="0 0 28 19" focusable="false"><use href="#mc-page-face-{{ section.id }}"/></svg></span><p>Testimonial {{ forloop.index }}</p><figcaption>Reserved for a real customer quote</figcaption></figure>{% endif %}{% endfor %}
     </div>
   </div></section>{% endif %}
 
   <section class="ec-faq ec-shell" aria-labelledby="mc-faq-{{ section.id }}"><div class="mc-faq-heading"><p class="ec-eyebrow">Curious little questions</p><h2 id="mc-faq-{{ section.id }}">A few<br> little details.</h2></div><div class="mc-faq-list">
     <details><summary>Does this include all nine plushes?</summary><p>Yes. You receive nine separate plushes, one of every pictured design. Display props and gift wrapping are not included.</p></details>
     <details><summary>Can I choose individual colors?</summary><p>This offer is for the full collection. One of every pictured design is included, so there is no color selection to make.</p></details>
-    <details><summary>How big are they?</summary><p>Approximately 8 inches (20 cm) tall.</p></details>
     <details><summary>When will my set arrive?</summary><p>{{ section.settings.delivery_text | escape }}</p></details>
     <details><summary>How should I care for them?</summary><p>Gently spot clean and allow to air dry. Keep away from heat and open flames. Follow any care instructions supplied with the product.</p></details>
     <details><summary>What if something is wrong with my order?</summary><p>Contact us with your order number and any relevant photos. <a href="/pages/policy">Read the store’s delivery and returns policy.</a></p></details>
@@ -146,8 +133,6 @@
     {"type":"image_picker","id":"glaceon_image","label":"Icy blue portrait"},
     {"type":"image_picker","id":"sylveon_image","label":"Pink ribbon portrait"},
     {"type":"image_picker","id":"detail_image","label":"Face and stitching detail"},
-    {"type":"header","content":"Size guide"},
-    {"type":"image_picker","id":"size_image","label":"Size guide image"},
     {"type":"header","content":"Manually supplied in-hand photos"},
     {"type":"image_picker","id":"handheld_espeon_image","label":"Lavender in-hand image"},
     {"type":"image_picker","id":"handheld_sylveon_image","label":"Pink ribbon in-hand image"}

@@ -24,7 +24,6 @@
         "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp",
         "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp",
         "flareon_image": "shopify://shop_images/little-impostors-orange-996e6917e5d3.webp",
-        "size_image": "shopify://shop_images/little-impostors-size-guide-5054b2a9639c.png",
         "hero_body": "Nine distinctive silhouettes. Soft textures. A collection with enough character to hold your attention without asking for it.",
         "story_title": "Let the details set the tone",
         "story_body": "Arrange the colors together or give each silhouette room to stand out. The collection brings a playful contrast to a considered space.",
@@ -61,7 +60,7 @@
         "review_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "The coloring is a bright yellow. super cute! soft. good size. my friend will adore it!"
+            "quote": "The coloring is a bright yellow. super cute! soft. my friend will adore it!"
           }
         },
         "review_2": {

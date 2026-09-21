@@ -24,7 +24,6 @@
         "umbreon_image": "shopify://shop_images/little-impostors-charcoal-22b3982bd86b.webp",
         "espeon_image": "shopify://shop_images/little-impostors-lavender-fdbe2abc85df.webp",
         "flareon_image": "shopify://shop_images/little-impostors-orange-996e6917e5d3.webp",
-        "size_image": "shopify://shop_images/little-impostors-size-guide-5054b2a9639c.png",
         "hero_body": "Warm neutrals, bright accents, or a moodier corner. One complete collection gives you nine little personalities to arrange around your own style.",
         "story_title": "Start with the colors already around you",
         "story_body": "Try warm tan near wood, lavender beside a favorite print, or charcoal in a darker nook. Keep the gang together or create little moments around the room.",
@@ -61,7 +60,7 @@
         "review_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "The coloring is a bright yellow. super cute! soft. good size. my friend will adore it!"
+            "quote": "The coloring is a bright yellow. super cute! soft. my friend will adore it!"
           }
         },
         "review_2": {
