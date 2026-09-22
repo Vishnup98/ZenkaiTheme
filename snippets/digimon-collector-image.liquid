@@ -1,6 +1,7 @@
 {%- assign image_base = 'digimon-crest-' | append: name -%}
 {%- assign image_small = image_base | append: '-640.webp' -%}
+{%- assign image_medium = image_base | append: '-960.webp' -%}
 {%- assign image_large = image_base | append: '-1254.webp' -%}
 {%- assign image_thumb = image_base | append: '-200.webp' -%}
 {%- assign image_thumb_retina = image_base | append: '-320.webp' -%}
-<img src="{{ image_large | asset_url }}" srcset="{% if sizes == '100px' %}{{ image_thumb | asset_url }} 200w, {{ image_thumb_retina | asset_url }} 320w, {% endif %}{{ image_small | asset_url }} 640w, {{ image_large | asset_url }} 1254w" sizes="{{ sizes | default: '(max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, (max-width: 1199px) 54vw, (max-width: 1415px) 53vw, 730px' }}" width="1254" height="1254" alt="{{ alt | escape }}" loading="{{ loading | default: 'lazy' }}" {% if loading == 'eager' %}fetchpriority="high"{% endif %}>
+<img src="{{ image_large | asset_url }}" srcset="{% if sizes == '100px' %}{{ image_thumb | asset_url }} 200w, {{ image_thumb_retina | asset_url }} 320w, {% endif %}{{ image_small | asset_url }} 640w, {{ image_medium | asset_url }} 960w, {{ image_large | asset_url }} 1254w" sizes="{{ sizes | default: '(max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, (max-width: 1199px) 54vw, (max-width: 1415px) 53vw, 730px' }}" width="1254" height="1254" alt="{{ alt | escape }}" loading="{{ loading | default: 'lazy' }}" {% if loading == 'eager' %}fetchpriority="high"{% endif %}>

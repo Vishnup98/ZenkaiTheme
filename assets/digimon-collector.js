@@ -38,13 +38,14 @@
       observer.observe(element);
       cleanups.push(() => observer.disconnect());
     };
-    // Keep decoded display-size candidates: tiny thumbnails must never determine the full photo's size.
+    // Keep display-size candidates: tiny thumbnails must never determine the full photo's size.
     const imageSwapper = (display, container, status) => {
       const cache = new Map();
       let sequence = 0;
       let loadingTimer;
       let activeEntry;
-      let warmKeys = new Set();
+      let warmSources = [];
+      let intentSource;
       const clearLoading = () => {
         clearTimeout(loadingTimer);
         loadingTimer = undefined;
@@ -54,6 +55,7 @@
       const keyFor = (source) => JSON.stringify([
         source.src, source.srcset, display.sizes || '100vw', window.innerWidth, window.devicePixelRatio || 1
       ]);
+      const isDisplayed = (source) => display && source.src === display.src && display.complete && display.naturalWidth > 0;
       const candidateFor = (source, priority) => {
         const key = keyFor(source);
         const cached = cache.get(key);
@@ -67,46 +69,90 @@
         image.fetchPriority = priority;
         cache.set(key, entry);
         entry.promise = new Promise((resolve) => {
+          let loadTimer;
+          let decodeTimer;
+          const valid = () => image.complete && image.naturalWidth > 0;
           const finish = (loaded) => {
             if (entry.settled) return;
             entry.settled = true;
             entry.ready = loaded;
+            clearTimeout(loadTimer);
+            clearTimeout(decodeTimer);
             image.onload = null;
             image.onerror = null;
-            if (!loaded && cache.get(key) === entry) cache.delete(key);
+            if (!loaded) {
+              if (cache.get(key) === entry) cache.delete(key);
+              image.removeAttribute('srcset');
+              image.removeAttribute('src');
+            }
             resolve(loaded);
           };
-          entry.cancel = () => {
+          entry.cancel = () => finish(false);
+          image.onload = () => {
             if (entry.settled) return;
-            finish(false);
-            image.removeAttribute('srcset');
-            image.removeAttribute('src');
-          };
-          image.onload = async () => {
+            clearTimeout(loadTimer);
+            if (!valid() || disposed) { finish(false); return; }
+            if (!image.decode) { finish(true); return; }
+            // A usable loaded image must not wait indefinitely for an optional decode promise.
+            decodeTimer = setTimeout(() => finish(!disposed && valid()), 250);
             try {
-              if (image.decode) await image.decode();
-              finish(!disposed);
+              Promise.resolve(image.decode()).then(
+                () => finish(!disposed && valid()),
+                () => finish(!disposed && valid())
+              );
             } catch {
-              finish(false);
+              finish(!disposed && valid());
             }
           };
           image.onerror = () => finish(false);
+          loadTimer = setTimeout(() => finish(false), 15000);
           image.sizes = display.sizes || '100vw';
           image.srcset = source.srcset;
           image.src = source.src;
         });
         return entry;
       };
+      const prepareSpeculation = () => {
+        if (!display || disposed || !canWarmImages()) return;
+        const prepared = [];
+        const keys = new Set();
+        let pending = 0;
+        // Explicit pointer/keyboard intent takes one of the two speculative slots before neighbors.
+        [intentSource, ...warmSources].filter(Boolean).forEach((source) => {
+          if (isDisplayed(source)) return;
+          const key = keyFor(source);
+          if (keys.has(key) || activeEntry?.key === key) return;
+          const entry = cache.get(key);
+          if (!entry?.ready && pending >= 2) return;
+          keys.add(key);
+          if (!entry?.ready) pending += 1;
+          prepared.push({ source, priority: source === intentSource ? 'high' : 'low' });
+        });
+        cache.forEach((entry) => {
+          if (!entry.ready && entry !== activeEntry && !keys.has(entry.key)) entry.cancel();
+        });
+        prepared.forEach(({ source, priority }) => candidateFor(source, priority));
+      };
       const swap = async (source, label, commit) => {
         if (!display || !source || disposed) return false;
         const request = ++sequence;
         const nextKey = keyFor(source);
-        if (activeEntry && activeEntry.key !== nextKey && !warmKeys.has(activeEntry.key)) activeEntry.cancel();
+        if (activeEntry && activeEntry.key !== nextKey) activeEntry.cancel();
         clearLoading();
-        container?.setAttribute('aria-busy', 'true');
         if (status) status.textContent = '';
+        intentSource = undefined;
+        // Re-selecting the already-rendered photo needs neither a request nor another decode.
+        if (isDisplayed(source)) {
+          activeEntry = undefined;
+          display.alt = source.alt;
+          commit();
+          prepareSpeculation();
+          return true;
+        }
+        container?.setAttribute('aria-busy', 'true');
         const candidate = candidateFor(source, 'high');
         activeEntry = candidate;
+        prepareSpeculation();
         if (!candidate.ready) {
           loadingTimer = setTimeout(() => {
             if (!disposed && request === sequence && !candidate.ready) container?.setAttribute('data-loading-visible', 'true');
@@ -135,13 +181,13 @@
       };
       swap.warm = (sources) => {
         if (!display || disposed || !canWarmImages()) return;
-        const neighbors = sources.filter(Boolean).slice(0, 2);
-        warmKeys = new Set(neighbors.map(keyFor));
-        // Stop obsolete speculative work instead of downloading the whole collection on quick navigation.
-        cache.forEach((entry) => {
-          if (!entry.ready && entry !== activeEntry && !warmKeys.has(entry.key)) entry.cancel();
-        });
-        neighbors.forEach((source) => candidateFor(source, 'low'));
+        warmSources = sources.filter(Boolean).slice(0, 2);
+        prepareSpeculation();
+      };
+      swap.prime = (source) => {
+        if (!display || !source || disposed || !canWarmImages()) return;
+        intentSource = source;
+        prepareSpeculation();
       };
       cleanups.push(() => {
         sequence += 1;
@@ -163,11 +209,13 @@
       if (!galleryNear || galleryOptions.length < 2) return;
       swapGallery.warm([
         galleryOptions[(galleryIndex + 1) % galleryOptions.length].querySelector('img'),
-        galleryOptions[(galleryIndex + galleryOptions.length - 1) % galleryOptions.length].querySelector('img')
+        galleryOptions[(galleryIndex === 0 ? 2 : galleryIndex + galleryOptions.length - 1) % galleryOptions.length].querySelector('img')
       ]);
     };
     warmWhenNear(gallery, () => { galleryNear = true; warmGallery(); });
     galleryOptions.forEach((button, index) => {
+      const prime = () => swapGallery.prime(button.querySelector('img'));
+      ['pointerenter', 'focus', 'pointerdown'].forEach((event) => listen(button, event, prime));
       listen(button, 'click', (event) => {
         const image = button.querySelector('img');
         swapGallery(image, image.alt, () => {
@@ -200,7 +248,7 @@
         if (!explorerNear || options.length < 2) return;
         swapExplorer.warm([
           options[(selectedIndex + 1) % options.length].querySelector('img'),
-          options[(selectedIndex + options.length - 1) % options.length].querySelector('img')
+          options[(selectedIndex === 0 ? 2 : selectedIndex + options.length - 1) % options.length].querySelector('img')
         ]);
       };
       warmWhenNear(media, () => { explorerNear = true; warmExplorer(); });
@@ -236,6 +284,8 @@
         if (!committed && choice === selectionSequence) requestedIndex = selectedIndex;
       };
       options.forEach((button, index) => {
+        const prime = () => swapExplorer.prime(button.querySelector('img'));
+        ['pointerenter', 'focus', 'pointerdown'].forEach((event) => listen(button, event, prime));
         listen(button, 'click', () => chooseCrest(index));
         listen(button, 'keydown', (event) => {
           if (event.altKey || event.ctrlKey || event.metaKey) return;
