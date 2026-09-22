@@ -19,7 +19,8 @@
     const productVideo = root.querySelector('[data-crest-product-video]');
     if (videoDetails && productVideo) {
       listen(videoDetails, 'toggle', () => {
-        if (!videoDetails.open) productVideo.pause();
+        if (videoDetails.open) productVideo.play()?.catch(() => {});
+        else productVideo.pause();
       });
       listen(window, 'pagehide', () => productVideo.pause());
       cleanups.push(() => productVideo.pause());

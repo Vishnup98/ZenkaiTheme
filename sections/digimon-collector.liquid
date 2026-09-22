@@ -30,10 +30,10 @@
           <button type="button" data-crest-thumb="{{ image_name }}" aria-label="Show {{ gallery_labels[forloop.index0] }}" aria-pressed="{% if image_name == 'mixclean' %}true{% else %}false{% endif %}">{% render 'digimon-collector-image', name: image_name, sizes: '100px', alt: gallery_labels[forloop.index0] %}</button>
         {% endfor %}
       </div>
-      <details class="dc-product-video" data-crest-video-details>
+      <details class="dc-product-video" data-crest-video-details open>
         <summary><span class="dc-product-video-icon" aria-hidden="true">▶</span><span>Watch product video</span><span class="dc-product-video-duration">15 sec</span></summary>
         <div class="dc-product-video-player">
-          <video controls playsinline muted preload="none" width="720" height="1280" poster="{{ 'digimon-collector-product-video-poster.webp' | asset_url }}" aria-label="Product video showing the tag and crest collector set" data-crest-product-video>
+          <video controls autoplay loop playsinline muted preload="metadata" width="720" height="1280" poster="{{ 'digimon-collector-product-video-poster.webp' | asset_url }}" aria-label="Product video showing the tag and crest collector set" data-crest-product-video>
             <source src="{{ 'digimon-collector-product-video.mp4' | asset_url }}" type="video/mp4">
             Your browser does not support embedded video. <a href="{{ 'digimon-collector-product-video.mp4' | asset_url }}">Watch the product video</a>.
           </video>
