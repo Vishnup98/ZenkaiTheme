@@ -201,3 +201,37 @@
 @media(max-width:359px){.dc-contents-crests{grid-template-columns:repeat(2,minmax(0,1fr))}.dc-contents-crests button{font-size:12px}.dc-review-controls{align-items:start;flex-wrap:wrap}.dc-review-controls>div{margin-left:auto}.dc-price-line>span:last-child{max-width:132px}}
 .dc-keep{white-space:nowrap}
 @media(max-width:359px){.dc-switch-chapter h2{font-size:30px}}
+
+/* Browse the whole collection without separating the photo from its controls. */
+.dc-explorer-media,.dc-main-image{position:relative}
+.dc-explorer-media[aria-busy=true]:after,.dc-main-image[aria-busy=true]:after{content:'Loading photo…';position:absolute;bottom:12px;left:12px;padding:6px 10px;background:#172129e8;color:#fff;border-radius:3px;font-size:12px;line-height:1.5}
+.dc-image-status{font-size:12px;line-height:1.5;margin-top:8px!important}
+.dc-image-status:empty{display:none}
+.dc-dark .dc-image-status{color:#f1d2a5}
+.dc-explorer-selection{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.dc-explorer-selection>div:first-child{min-width:0}
+.dc-explorer-copy [data-crest-explorer-line]{font-size:15px;line-height:1.5;margin-top:8px;min-height:1.5em;color:#cad1d7}
+.dc-crest-controls{flex:0 0 auto;text-align:center}
+.dc-crest-controls>span{display:block;margin-bottom:8px;font-size:11px;font-variant-numeric:tabular-nums;letter-spacing:.1em;color:#bdc8d1}
+.dc-crest-controls>div{display:flex;gap:6px}
+.dc-crest-controls button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #62727e;border-radius:50%;background:transparent;color:var(--dc-accent);font-size:22px;cursor:pointer;transition:background .15s,border-color .15s}
+.dc-crest-controls button:hover{background:#34424d;border-color:var(--dc-accent)}
+.dc-explorer-note strong{color:#f1f3f4;font-weight:650}
+.dc-hero-proof small{font-size:11px;letter-spacing:0;text-transform:none}
+.dc-switch-chapter .dc-feature>div>p:not(.dc-eyebrow){max-width:35ch;line-height:1.7;color:#5c5268}
+.dc-box .dc-feature>div>p:not(.dc-eyebrow):not(.dc-contents-prompt):not(.dc-accessories){max-width:34ch;color:#59627b;line-height:1.7}
+@media(max-width:899px){
+ .dc-explorer-selection{gap:12px;align-items:start}
+ .dc-explorer-copy h3{font-size:clamp(28px,8.3vw,42px);line-height:1.1}
+ .dc-explorer-copy [data-crest-explorer-line]{font-size:13px;line-height:1.45;min-height:2.9em;margin-top:5px;max-width:28ch}
+ .dc-crest-controls>span{margin-bottom:6px;font-size:10px}
+ .dc-explorer-options{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#697985 transparent;margin-top:14px;padding:3px 3px 10px}
+ .dc-explorer-options button{flex:0 0 88px;scroll-snap-align:center;font-size:11px;padding:5px}
+ .dc-explorer-options button[aria-pressed=true]{padding:4px}
+ .dc-explorer-options button:focus-visible{outline-offset:1px}
+ .dc-explorer-options img{margin-bottom:3px}
+ .dc-explorer-options button span:before{width:5px;height:5px;margin-right:3px}
+ .dc-explorer-note{margin-top:12px!important;line-height:1.6}
+ .dc-switch-chapter .dc-feature{gap:24px}
+ .dc-switch-chapter h2{font-size:clamp(32px,8.5vw,44px)}
+}
