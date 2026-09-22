@@ -124,7 +124,7 @@
 .dc-dark :focus-visible{outline-color:#e0d4a9}
 .dc-image-status{font-size:12px;margin-top:8px!important;line-height:1.5}
 .dc-image-status:empty{display:none}
-.dc-explorer-media[aria-busy=true]:after,.dc-main-image[aria-busy=true]:after{content:'Loading photo…';position:absolute;top:12px;left:12px;background:#172129e8;color:#fff;padding:6px 12px;border-radius:20px;font-size:11px}
+.dc-explorer-media[data-loading-visible]:after,.dc-main-image[data-loading-visible]:after{content:'Loading photo…';position:absolute;top:12px;left:12px;background:#172129e8;color:#fff;padding:6px 12px;border-radius:20px;font-size:11px}
 /* A tactile macro and two wearable looks connect mechanism to the collection. */
 .dc-switch-chapter{background:#e9e5f1;padding:48px 0}
 .dc-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:44px}

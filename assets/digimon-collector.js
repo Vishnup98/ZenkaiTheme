@@ -15,47 +15,102 @@
       cleanups.push(() => element.removeEventListener(type, handler));
     };
     const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
-    // Decode the correctly sized source before changing the visible image or its labels.
+    const canWarmImages = () => {
+      const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      return !connection?.saveData && !/(^|-)2g$/.test(connection?.effectiveType || '');
+    };
+    const warmWhenNear = (element, warm) => {
+      if (!element || !canWarmImages() || !('IntersectionObserver' in window)) return;
+      const observer = new IntersectionObserver((entries) => {
+        if (disposed || !entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        if (canWarmImages()) warm();
+      }, { rootMargin: '300px' });
+      observer.observe(element);
+      cleanups.push(() => observer.disconnect());
+    };
+    // Keep decoded display-size candidates: tiny thumbnails must never determine the full photo's size.
     const imageSwapper = (display, container, status) => {
+      const cache = new Map();
       let sequence = 0;
-      let cancelPending;
-      cleanups.push(() => {
-        sequence += 1;
-        cancelPending?.();
+      let loadingTimer;
+      let activeEntry;
+      let warmKeys = new Set();
+      const clearLoading = () => {
+        clearTimeout(loadingTimer);
+        loadingTimer = undefined;
         container?.removeAttribute('aria-busy');
-        if (status) status.textContent = '';
-      });
-      return async (source, label, commit) => {
+        container?.removeAttribute('data-loading-visible');
+      };
+      const keyFor = (source) => JSON.stringify([
+        source.src, source.srcset, display.sizes || '100vw', window.innerWidth, window.devicePixelRatio || 1
+      ]);
+      const candidateFor = (source, priority) => {
+        const key = keyFor(source);
+        const cached = cache.get(key);
+        if (cached) {
+          if (priority === 'high') cached.image.fetchPriority = 'high';
+          return cached;
+        }
+        const image = new Image();
+        const entry = { key, image, ready: false, settled: false };
+        image.decoding = 'async';
+        image.fetchPriority = priority;
+        cache.set(key, entry);
+        entry.promise = new Promise((resolve) => {
+          const finish = (loaded) => {
+            if (entry.settled) return;
+            entry.settled = true;
+            entry.ready = loaded;
+            image.onload = null;
+            image.onerror = null;
+            if (!loaded && cache.get(key) === entry) cache.delete(key);
+            resolve(loaded);
+          };
+          entry.cancel = () => {
+            if (entry.settled) return;
+            finish(false);
+            image.removeAttribute('srcset');
+            image.removeAttribute('src');
+          };
+          image.onload = async () => {
+            try {
+              if (image.decode) await image.decode();
+              finish(!disposed);
+            } catch {
+              finish(false);
+            }
+          };
+          image.onerror = () => finish(false);
+          image.sizes = display.sizes || '100vw';
+          image.srcset = source.srcset;
+          image.src = source.src;
+        });
+        return entry;
+      };
+      const swap = async (source, label, commit) => {
         if (!display || !source || disposed) return false;
         const request = ++sequence;
-        cancelPending?.();
+        const nextKey = keyFor(source);
+        if (activeEntry && activeEntry.key !== nextKey && !warmKeys.has(activeEntry.key)) activeEntry.cancel();
+        clearLoading();
         container?.setAttribute('aria-busy', 'true');
         if (status) status.textContent = '';
-        const candidate = new Image();
-        candidate.decoding = 'async';
+        const candidate = candidateFor(source, 'high');
+        activeEntry = candidate;
+        if (!candidate.ready) {
+          loadingTimer = setTimeout(() => {
+            if (!disposed && request === sequence && !candidate.ready) container?.setAttribute('data-loading-visible', 'true');
+          }, 220);
+        }
         try {
-          const loaded = await new Promise((resolve) => {
-            cancelPending = () => {
-              candidate.onload = null;
-              candidate.onerror = null;
-              candidate.removeAttribute('srcset');
-              candidate.removeAttribute('src');
-              resolve(false);
-            };
-            candidate.onload = () => resolve(true);
-            candidate.onerror = () => resolve(false);
-            candidate.sizes = display.sizes || '100vw';
-            candidate.srcset = source.srcset;
-            candidate.src = source.src;
-          });
-          if (!loaded) throw new Error('Image unavailable');
-          if (candidate.decode) await candidate.decode();
+          const loaded = candidate.ready || await candidate.promise;
           if (disposed || request !== sequence) return false;
-          display.srcset = candidate.srcset;
-          display.src = candidate.src;
+          if (!loaded) throw new Error('Image unavailable');
+          display.srcset = candidate.image.srcset;
+          display.src = candidate.image.src;
           display.alt = source.alt;
           commit();
-          if (status) status.textContent = '';
           return true;
         } catch {
           if (!disposed && request === sequence && status) {
@@ -63,26 +118,56 @@
           }
           return false;
         } finally {
-          candidate.onload = null;
-          candidate.onerror = null;
           if (request === sequence) {
-            cancelPending = undefined;
-            container?.removeAttribute('aria-busy');
+            activeEntry = undefined;
+            clearLoading();
           }
         }
       };
+      swap.warm = (sources) => {
+        if (!display || disposed || !canWarmImages()) return;
+        const neighbors = sources.filter(Boolean).slice(0, 2);
+        warmKeys = new Set(neighbors.map(keyFor));
+        // Stop obsolete speculative work instead of downloading the whole collection on quick navigation.
+        cache.forEach((entry) => {
+          if (!entry.ready && entry !== activeEntry && !warmKeys.has(entry.key)) entry.cancel();
+        });
+        neighbors.forEach((source) => candidateFor(source, 'low'));
+      };
+      cleanups.push(() => {
+        sequence += 1;
+        clearLoading();
+        cache.forEach((entry) => entry.cancel());
+        cache.clear();
+        if (status) status.textContent = '';
+      });
+      return swap;
     };
     const main = root.querySelector('[data-crest-main] img');
+    const gallery = root.querySelector('[data-crest-main]');
+    const galleryOptions = [...root.querySelectorAll('[data-crest-thumb]')];
     const imageNote = root.querySelector('.dc-image-note');
-    const swapGallery = imageSwapper(main, root.querySelector('[data-crest-main]'), root.querySelector('[data-crest-gallery-status]'));
-    root.querySelectorAll('[data-crest-thumb]').forEach((button) => {
+    const swapGallery = imageSwapper(main, gallery, root.querySelector('[data-crest-gallery-status]'));
+    let galleryIndex = Math.max(0, galleryOptions.findIndex((button) => button.getAttribute('aria-pressed') === 'true'));
+    let galleryNear = false;
+    const warmGallery = () => {
+      if (!galleryNear || galleryOptions.length < 2) return;
+      swapGallery.warm([
+        galleryOptions[(galleryIndex + 1) % galleryOptions.length].querySelector('img'),
+        galleryOptions[(galleryIndex + galleryOptions.length - 1) % galleryOptions.length].querySelector('img')
+      ]);
+    };
+    warmWhenNear(gallery, () => { galleryNear = true; warmGallery(); });
+    galleryOptions.forEach((button, index) => {
       listen(button, 'click', (event) => {
         const image = button.querySelector('img');
         swapGallery(image, image.alt, () => {
+          galleryIndex = index;
           const galleryLabel = root.querySelector('[data-crest-gallery-label]');
           if (galleryLabel) galleryLabel.textContent = 'Showing: ' + image.alt;
           if (imageNote) imageNote.textContent = image.alt;
-          root.querySelectorAll('[data-crest-thumb]').forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+          galleryOptions.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+          warmGallery();
         });
         if (event.detail > 0 && window.matchMedia('(max-width: 899px)').matches && main.getBoundingClientRect().top < 0) {
           main.scrollIntoView({ block: 'start', behavior: motion() });
@@ -101,6 +186,15 @@
       let selectedIndex = Math.max(0, options.findIndex((button) => button.getAttribute('aria-pressed') === 'true'));
       let requestedIndex = selectedIndex;
       let selectionSequence = 0;
+      let explorerNear = false;
+      const warmExplorer = () => {
+        if (!explorerNear || options.length < 2) return;
+        swapExplorer.warm([
+          options[(selectedIndex + 1) % options.length].querySelector('img'),
+          options[(selectedIndex + options.length - 1) % options.length].querySelector('img')
+        ]);
+      };
+      warmWhenNear(media, () => { explorerNear = true; warmExplorer(); });
       const revealOption = (button) => {
         if (!rail || rail.scrollWidth <= rail.clientWidth + 1) return;
         const frame = rail.getBoundingClientRect();
@@ -128,6 +222,7 @@
             position.textContent = `${nextIndex + 1} / ${options.length}`;
             position.setAttribute('aria-label', `Crest ${nextIndex + 1} of ${options.length}`);
           }
+          warmExplorer();
         });
         if (!committed && choice === selectionSequence) requestedIndex = selectedIndex;
       };
