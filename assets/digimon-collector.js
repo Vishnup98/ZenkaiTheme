@@ -18,11 +18,19 @@
     const videoDetails = root.querySelector('[data-crest-video-details]');
     const productVideo = root.querySelector('[data-crest-product-video]');
     if (videoDetails && productVideo) {
+      let resumeVideoOnReturn = false;
       listen(videoDetails, 'toggle', () => {
         if (videoDetails.open) productVideo.play()?.catch(() => {});
         else productVideo.pause();
       });
-      listen(window, 'pagehide', () => productVideo.pause());
+      listen(window, 'pagehide', () => {
+        resumeVideoOnReturn = videoDetails.open && !productVideo.paused;
+        productVideo.pause();
+      });
+      listen(window, 'pageshow', () => {
+        if (resumeVideoOnReturn && videoDetails.open) productVideo.play()?.catch(() => {});
+        resumeVideoOnReturn = false;
+      });
       cleanups.push(() => productVideo.pause());
     }
     const canWarmImages = () => {
