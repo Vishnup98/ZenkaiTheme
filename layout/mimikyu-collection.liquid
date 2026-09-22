@@ -13,6 +13,8 @@
       @font-face{font-family:'Little Sans';src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:400 800;font-display:swap}
     </style>
     {% render 'landing-critical-mimikyu-collection' %}
+    {{ 'collector-compare-price.css' | asset_url | stylesheet_tag }}
+    {{ 'collector-mobile-offer.css' | asset_url | stylesheet_tag }}
 
 
     {% render 'evolution-campaign-app-exclusions' %}

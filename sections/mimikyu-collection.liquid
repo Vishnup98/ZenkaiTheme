@@ -24,7 +24,7 @@
         <div class="mc-hero-shipping"><span class="mc-hero-shipping-badge" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none" focusable="false"><circle cx="6" cy="5" r="1.6" fill="currentColor"/><circle cx="18" cy="5" r="1.6" fill="currentColor"/><path d="m3 11 4 2.5 5-4 5 4 4-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><strong>Ships Free</strong></div>
       </div>
       <div class="ec-offer">
-        <div class="ec-price"><strong>{% if v.price > 0 %}{{ v.price | money }}{% else %}Coming soon{% endif %}</strong><span><small>Complete collection</small><b>{% if v.price > 0 %}9 plushes <i aria-hidden="true">·</i> {{ per_plush | money_without_trailing_zeros }} each{% else %}One of every pictured design{% endif %}</b></span></div>
+        <div class="ec-price">{% render 'collector-compare-price', variant: v %}<strong>{% if v.price > 0 %}{{ v.price | money }}{% else %}Coming soon{% endif %}</strong>{% render 'collector-compare-price', variant: v, part: 'savings' %}<span><small>Complete collection</small><b>{% if v.price > 0 %}9 plushes <i aria-hidden="true">·</i> {{ per_plush | money_without_trailing_zeros }} each{% else %}One of every pictured design{% endif %}</b></span></div>
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -105,7 +105,7 @@
   </div></section>
 
   <section class="ec-final ec-shell"><div class="ec-final-grid"><figure>{% render 'mimikyu-image', photo: section.settings.collection_image, fallback: 'mimikyu-source-lineup', alt: 'All nine Little Impostors plush designs included in the complete set' %}</figure><div><p class="ec-eyebrow">Nine little reasons to smile</p><h2>Your shelf<br>called dibs.</h2><p>Every color. Every little disguise.<br>The whole gang is coming home with you.</p>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id, show_price: true %}<p class="mc-final-delivery">{{ section.settings.shipping_heading }} · {{ section.settings.shipping_summary }}</p></div></div></section>
-  {% if ready %}<aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete collection" hidden><div><strong>{{ v.price | money }}</strong><small>all 9 plushes</small></div>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id %}</aside>{% endif %}
+  {% if ready %}<aside class="ec-sticky" data-ec-sticky aria-label="Quick add complete collection" hidden><div>{% render 'collector-compare-price', variant: v, context: 'sticky' %}<strong>{{ v.price | money }}</strong><small>all 9 plushes</small></div>{% render 'mimikyu-cta', ready: ready, launch_ready: section.settings.purchase_ready, variant: v, form_id: form_id %}</aside>{% endif %}
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged product photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0"><img width="960" height="960" alt="Enlarged collection photo"></div></dialog>
 </div>
 {% schema %}

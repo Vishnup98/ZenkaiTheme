@@ -28,7 +28,7 @@
       <p class="ec-lede">{{ section.settings.hero_body }}</p>
       {% render 'evolution-purchase-proof', placement: 'hero' %}
       <div class="ec-offer" id="ec-offer-{{ section.id }}">
-        <div class="ec-price"><strong>{{ v.price | money_without_trailing_zeros }}</strong><span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} per plush · one of every design</small></span></div>
+        <div class="ec-price">{% render 'collector-compare-price', variant: v, compact: true %}<strong>{{ v.price | money_without_trailing_zeros }}</strong>{% render 'collector-compare-price', variant: v, compact: true, part: 'savings' %}<span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} per plush · one of every design</small></span></div>
         {%- form 'product', product, id: form_id, class: 'ec-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -122,7 +122,7 @@
 
   <section class="ec-final"><div class="ec-shell ec-final-grid"><img src="{{ lineup | asset_url }}" width="960" height="285" loading="lazy" alt="The eight plush companions included in the complete set"><div><p class="ec-eyebrow">{% if is_gift_journey %}Their complete collection{% else %}Your complete collection{% endif %}</p><h2>{{ section.settings.final_title }}</h2><p>{{ section.settings.final_body }}</p><button class="ec-cta" type="submit" form="{{ form_id }}" data-ec-inline-cta {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }} <span aria-hidden="true">—</span> {{ v.price | money_without_trailing_zeros }}{% else %}Sold out{% endif %}</button>{% render 'evolution-purchase-proof' %}<p class="ec-final-delivery">Free U.S. shipping · typically 5–7 business days</p></div></div></section>
 
-  <aside class="ec-sticky" data-ec-sticky hidden aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky" data-ec-sticky hidden aria-label="Quick add complete set"><div>{% render 'collector-compare-price', variant: v, compact: true, context: 'sticky' %}<strong>{{ v.price | money_without_trailing_zeros }}</strong><small>all 8 plushes</small></div><button class="ec-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}{{ purchase_label }}{% else %}Sold out{% endif %}</button></aside>
   <dialog class="ec-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="960" height="960" alt="Enlarged plush collection photo"></div></dialog>
 </div>
 {% schema %}

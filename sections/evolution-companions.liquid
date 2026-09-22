@@ -18,10 +18,10 @@
   {%- endif -%}
 {%- endfor -%}
 {%- assign lineup_media = lineup_media | default: hero_media -%}
-{%- assign savings = current_variant.compare_at_price | minus: current_variant.price -%}
-
 {{ 'evolution-companions.css' | asset_url | stylesheet_tag }}
 {{ 'evolution-purchase-details.css' | asset_url | stylesheet_tag }}
+{{ 'collector-compare-price.css' | asset_url | stylesheet_tag }}
+{{ 'collector-mobile-offer.css' | asset_url | stylesheet_tag }}
 
 <div
   id="ProductSection-{{ product.id }}"
@@ -91,11 +91,9 @@
         <p class="evo-plush-offer__lede">Eight colorful costumes, one complete plush collection. Your first favorite gets the best spot. The others won’t be far away.</p>
 
         <div class="evo-plush-price" aria-label="Sale price">
-          {%- if current_variant.compare_at_price > current_variant.price -%}
-            <s>{{ current_variant.compare_at_price | money }}</s>
-          {%- endif -%}
+          {% render 'collector-compare-price', variant: current_variant %}
           <strong>{{ current_variant.price | money }}</strong>
-          {%- if savings > 0 -%}<span>Save {{ savings | money }}</span>{%- endif -%}
+          {% render 'collector-compare-price', variant: current_variant, part: 'savings' %}
         </div>
 
         <div class="evo-plush-palette" aria-label="Eight costume colors included">
@@ -263,6 +261,7 @@
   <div class="evo-plush-sticky" data-evo-plush-sticky aria-hidden="true">
     <div class="evo-plush-sticky__inner">
       <div>
+        {% render 'collector-compare-price', variant: current_variant, context: 'sticky' %}
         <strong>{{ current_variant.price | money }}</strong>
         <span>Complete 8-Plush Set</span>
       </div>

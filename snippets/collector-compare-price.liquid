@@ -1,0 +1,34 @@
+{%- comment -%}
+  Renders a compare-at price only when Shopify provides a genuine markdown.
+
+  Required:
+  - variant: the selected product variant
+
+  Optional:
+  - compact: use money_without_trailing_zeros
+  - context: "hero" (default) or "sticky"
+  - part: "compare" (default) or "savings"
+{%- endcomment -%}
+{%- if variant != blank and variant.compare_at_price > variant.price -%}
+  {%- assign compare_context = context | default: 'hero' -%}
+  {%- assign display_part = part | default: 'compare' -%}
+  {%- assign savings_amount = variant.compare_at_price | minus: variant.price -%}
+  {%- if compact -%}
+    {%- assign formatted_compare_price = variant.compare_at_price | money_without_trailing_zeros -%}
+  {%- else -%}
+    {%- assign formatted_compare_price = variant.compare_at_price | money -%}
+  {%- endif -%}
+  {%- assign formatted_savings = savings_amount | money_without_trailing_zeros -%}
+  {%- if display_part == 'savings' -%}
+    {%- unless compare_context == 'sticky' -%}
+    <span
+      class="zk-savings-note"
+    ><span class="zk-savings-note__lead">Buy today<span class="zk-savings-note__separator"> — </span></span> <span class="zk-savings-note__saving">save <span class="zk-savings-note__amount">{{ formatted_savings }}</span></span></span>
+    {%- endunless -%}
+  {%- else -%}
+    <s
+      class="zk-compare-price zk-compare-price--{{ compare_context | escape }}"
+      aria-label="Regular price {{ formatted_compare_price | escape }}"
+    >{{ formatted_compare_price }}</s>
+  {%- endif -%}
+{%- endif -%}

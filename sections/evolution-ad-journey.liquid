@@ -30,7 +30,7 @@
       </div>
 
       <div class="fg-offer">
-        <div class="fg-price"><strong>{{ v.price | money_without_trailing_zeros }}</strong><span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} each · every color included</small></span></div>
+        <div class="fg-price">{% render 'collector-compare-price', variant: v, compact: true %}<strong>{{ v.price | money_without_trailing_zeros }}</strong>{% render 'collector-compare-price', variant: v, compact: true, part: 'savings' %}<span>Complete 8-plush set<small>{{ per_plush | money_without_trailing_zeros }} each · every color included</small></span></div>
         {%- form 'product', product, id: form_id, class: 'ec-product-form fg-product-form' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -162,7 +162,7 @@
     </div>
   </section>
 
-  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div><strong>{{ v.price | money_without_trailing_zeros }}</strong><small><span>Complete Collection</span><span>Ships free</span></small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span class="fg-cta-label">{{ section.settings.cta_label | escape }}</span>{% else %}Sold out{% endif %}</button></aside>
+  <aside class="ec-sticky fg-sticky" data-ec-sticky aria-label="Quick add complete set"><div>{% render 'collector-compare-price', variant: v, compact: true, context: 'sticky' %}<strong>{{ v.price | money_without_trailing_zeros }}</strong><small><span>Complete Collection</span><span>Ships free</span></small></div><button class="ec-cta fg-cta" type="submit" form="{{ form_id }}" {% unless v.available %}disabled{% endunless %}>{% if v.available %}<span class="fg-cta-label">{{ section.settings.cta_label | escape }}</span>{% else %}Sold out{% endif %}</button></aside>
 
   <dialog class="ec-lightbox fg-lightbox" data-ec-lightbox aria-label="Enlarged collection photo"><div class="ec-lightbox-toolbar"><button type="button" data-ec-zoom-toggle aria-pressed="false">Zoom in</button><span>Swipe or scroll to explore</span><button type="button" data-ec-close aria-label="Close photo" autofocus>×</button></div><div class="ec-lightbox-viewport" tabindex="0" aria-label="Product photo; scroll to explore when enlarged"><img width="1024" height="1024" alt="Enlarged companion plush photo"></div></dialog>
 </div>

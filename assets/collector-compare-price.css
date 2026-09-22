@@ -1,0 +1,208 @@
+.zk-compare-price {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--muted, #77727f);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 760;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  opacity: 0.9;
+  text-decoration-color: currentColor;
+  text-decoration-line: line-through;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: 2px;
+  white-space: nowrap;
+}
+
+.zk-savings-note {
+  display: inline-flex;
+  align-items: baseline;
+  flex: 0 0 auto;
+  gap: 0.28em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--accent, #3b6158);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.zk-savings-note__amount {
+  color: inherit;
+  font: inherit;
+  font-size: 1.08em;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.ec-price > .zk-compare-price,
+.fg-price > .zk-compare-price {
+  order: 1;
+  align-self: center;
+  margin-right: -6px;
+}
+
+.ec-price > strong,
+.fg-price > strong,
+.evo-plush-price > strong {
+  order: 2;
+}
+
+.ec-price > .zk-savings-note,
+.fg-price > .zk-savings-note,
+.evo-plush-price > .zk-savings-note {
+  order: 3;
+  align-self: center;
+  margin-left: -5px;
+}
+
+.ec-price > span:not(.zk-savings-note),
+.fg-price > span:not(.zk-savings-note) {
+  order: 4;
+}
+
+.ec-price,
+.fg-price {
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+.ec-price > span:not(.zk-savings-note),
+.fg-price > span:not(.zk-savings-note) {
+  flex: 1 1 180px;
+  min-width: min(180px, 100%);
+  max-width: none;
+  margin-top: 0;
+}
+
+.mc-body .ec-price > .zk-compare-price {
+  color: var(--mc-purple, #675077);
+  font-family: "Little Sans", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 780;
+}
+
+.mc-body .ec-price > .zk-savings-note {
+  color: var(--mc-purple, #6c4795);
+  font-family: "Little Sans", Arial, sans-serif;
+}
+
+.mc-body .ec-price > .zk-savings-note .zk-savings-note__amount {
+  color: inherit;
+}
+
+.fg-price > .zk-compare-price {
+  color: var(--fg-ink, #30263b);
+  font-family: "Rainbow Sans", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 780;
+}
+
+.fg-price > .zk-savings-note {
+  color: #755bc2;
+  font-family: "Rainbow Sans", Arial, sans-serif;
+}
+
+.fg-price > .zk-savings-note .zk-savings-note__amount {
+  color: inherit;
+}
+
+.mc-body .ec-price > .zk-savings-note,
+.ec-personality .ec-price > .zk-savings-note,
+.fg-price > .zk-savings-note,
+.evo-plush-price > .zk-savings-note {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.28em;
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.ec-sticky .zk-compare-price--sticky,
+.fg-sticky .zk-compare-price--sticky,
+.evo-plush-sticky .zk-compare-price--sticky {
+  color: inherit;
+  font-size: 13px;
+  font-weight: 760;
+  opacity: 0.88;
+  text-decoration-thickness: 1.5px;
+}
+
+.mc-body .ec-sticky .zk-compare-price--sticky,
+.fg-sticky .zk-compare-price--sticky,
+.evo-plush-sticky .zk-compare-price--sticky {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.evo-plush-price > .zk-compare-price {
+  order: 1;
+  color: var(--ep-muted, #706b73);
+  font-size: 18px;
+  font-weight: 720;
+}
+
+.evo-plush-price > .zk-savings-note {
+  color: #176b5b;
+}
+
+@media (max-width: 599px) {
+  .fg-price {
+    column-gap: 12px;
+  }
+
+  .ec-price > span:not(.zk-savings-note),
+  .fg-price > span:not(.zk-savings-note) {
+    flex: 1 0 100%;
+  }
+}
+
+@media (max-width: 479px) {
+  .ec-price > .zk-compare-price,
+  .fg-price > .zk-compare-price {
+    margin-right: -4px;
+    font-size: 16px;
+  }
+
+  .ec-price > .zk-savings-note,
+  .fg-price > .zk-savings-note,
+  .evo-plush-price > .zk-savings-note {
+    margin-left: -2px;
+  }
+
+  .ec-sticky .zk-compare-price--sticky,
+  .fg-sticky .zk-compare-price--sticky,
+  .evo-plush-sticky .zk-compare-price--sticky {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 359px) {
+  .mc-body .ec-price > .zk-savings-note,
+  .ec-personality .ec-price > .zk-savings-note,
+  .fg-price > .zk-savings-note,
+  .evo-plush-price > .zk-savings-note {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}

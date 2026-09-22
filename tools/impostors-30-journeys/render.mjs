@@ -44,7 +44,8 @@ for(const filename of templates){
     for(const [key,value] of Object.entries(section.settings))if(typeof value==='string'&&value.startsWith('shopify://'))section.settings[key]=await imageObject(value);
     for(const block of section.blocks)if(block.settings.image)block.settings.image=await imageObject(block.settings.image);
   }
-  const product={id:isNine?9438355751017:0,handle:isNine?'little-impostors-complete-9-plush-collector-set':'evolution-companions-complete-8-plush-collector-set',title:isNine?'Little Impostors — Complete 9-Plush Collector Set':'Evolution Companions — Complete 8-Plush Collector Set',selected_or_first_available_variant:{id:isNine?'48008090976361':'47968551764073',price:isNine?13500:16000,available:true}};
+  const compareAtPrice=isNine?16000:20000;
+  const product={id:isNine?9438355751017:0,handle:isNine?'little-impostors-complete-9-plush-collector-set':'evolution-companions-complete-8-plush-collector-set',title:isNine?'Little Impostors — Complete 9-Plush Collector Set':'Evolution Companions — Complete 8-Plush Collector Set',selected_or_first_available_variant:{id:isNine?'48008090976361':'47968551764073',price:isNine?13500:16000,compare_at_price:compareAtPrice,available:true}};
   if(isOriginal){
     product.id=9428268515433;
     product.selected_or_first_available_variant={...product.selected_or_first_available_variant,inventory_policy:'continue',compare_at_price:20000,title:'Complete 8-Plush Set'};
@@ -53,8 +54,11 @@ for(const filename of templates){
     product.media=await Promise.all(manifest.images.map(async entry=>{const file=path.join(root,'catalog-products/evolution-companions-8-plush-set',entry.source);const metadata=await sharp(file).metadata();return {media_type:'image',alt:entry.alt,preview_image:{src:'/'+path.relative(root,file),width:metadata.width,height:metadata.height}};}));
   }
   const context={section,product,template:{suffix},request:{page_type:'product',locale:{iso_code:'en'},design_mode:false},shop:{name:'Zenkai Clothing',email:'admin@zenkaiclothing.com',privacy_policy:{url:'https://zenkaiclothing.com/policies/privacy-policy'}},cart:{item_count:0},routes:{root_url:'/',cart_url:'/cart'},canonical_url:'https://zenkaiclothing.com/products/'+product.handle,content_for_header:'',form:{}};
-  let source=raw.replace(/{% schema %}[\s\S]*?{% endschema %}/,'').replace(/{%- form 'product',[\s\S]*?-%}/,'<form action="/cart/add" method="post" id="{{ form_id }}" class="ec-product-form">').replace(/{%- endform -%}/,'</form>').replace('data-ec-page','data-preview="true" data-ec-page');
-  if(isOriginal)source=source.replace('class="ec-product-form"','class="product-single__form evo-plush-form"').replace('id="{{ form_id }}"','id="EvolutionCompanionsForm"');
+  let source=raw.replace(/{% schema %}[\s\S]*?{% endschema %}/,'').replace(/{%- form 'product',[\s\S]*?-%}/,tag=>{
+    const classes=tag.match(/class:\s*'([^']+)'/)?.[1]||'ec-product-form';
+    const id=tag.match(/id:\s*'([^']+)'/)?.[1]||'{{ form_id }}';
+    return `<form action="/cart/add" method="post" id="${id}" class="${classes}">`;
+  }).replace(/{%- endform -%}/,'</form>').replace('data-ec-page','data-preview="true" data-ec-page');
   const body=await engine.parseAndRender(source,context);
   const layout=isOriginal?'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0}figure{margin:0}</style></head><body><main>{{ content_for_layout }}</main></body></html>':(await fs.readFile(path.join(root,'layout',template.layout+'.liquid'),'utf8')).replace(/{% render 'evolution-campaign-app-exclusions' %}/g,'').replace(/{% render 'zenkai-welcome' %}/g,'');
   let html=await engine.parseAndRender(layout,{...context,content_for_layout:body}); html=html.replace('</body>', '<script>document.addEventListener("submit",e=>{e.preventDefault();alert("Local review only. Checkout is disabled.")},true)</script></body>');
