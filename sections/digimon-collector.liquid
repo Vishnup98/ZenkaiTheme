@@ -2,75 +2,100 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign collector_form = 'CrestForm-' | append: section.id
+  assign has_customer_evidence = false
+  assign evidence_count = 0
+  for block in section.blocks
+    if block.type == 'testimonial'
+      if block.settings.quote != blank or block.settings.image != blank or block.settings.image_asset != blank
+        assign has_customer_evidence = true
+        assign evidence_count = evidence_count | plus: 1
+      endif
+    endif
+  endfor
+  assign crest_keys = 'courage,friendship,love,sincerity,knowledge,reliability,hope,light,kindness,miracles,destiny' | split: ','
+  assign crest_names = 'Courage,Friendship,Love,Sincerity,Knowledge,Reliability,Hope,Light,Kindness,Miracles,Destiny' | split: ','
+  assign crest_lines = 'For taking the first step.|For the people beside you.|For what matters most.|For staying true to yourself.|For always asking why.|For showing up.|For looking ahead.|For finding your way.|For the care you give.|For believing in possibility.|For the path you make.' | split: '|'
 -%}
-  {%- assign has_customer_evidence = false -%}
-  {%- for block in section.blocks -%}
-    {%- if block.type == 'testimonial' -%}
-      {%- if block.settings.quote != blank or block.settings.image != blank or block.settings.image_asset != blank -%}{%- assign has_customer_evidence = true -%}{%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-<div class="dc" data-crest-page>
+<div class="dc" data-crest-page data-crest-product-id="{{ product.id }}" data-crest-available="{{ current_variant.available }}">
   <div class="dc-opening">
-  <section class="dc-hero dc-wrap" aria-labelledby="CrestTitle-{{ section.id }}">
-    <div class="dc-intro">
-      <p class="dc-eyebrow"><span class="dc-edition-dot" aria-hidden="true"></span> THE TAG &amp; CREST COLLECTION</p>
-      <h1 id="CrestTitle-{{ section.id }}">One tag.<br> <em>All eleven crests.</em></h1>
-      <p class="dc-lede"><strong>Eleven crests to wear in rotation.</strong> One gold-tone metal tag, with the whole collection boxed together.</p>
-
-    </div>
-    <div class="dc-gallery">
-      <div class="dc-main-image" data-crest-main>
-        {% render 'digimon-collector-image', name: 'mixclean', loading: 'eager', alt: 'Interchangeable colored crest inserts around an open gold-tone tag, with the orange crest partially inserted' %}
+    <section class="dc-hero dc-wrap" aria-labelledby="CrestTitle-{{ section.id }}">
+      <div class="dc-mobile-identity">
+        <div><span>THE TAG &amp; CREST COLLECTION</span><p>All eleven. One complete set.</p></div>
+        <strong data-crest-price>{{ current_variant.price | money_with_currency }}</strong>
       </div>
-    <div class="dc-gallery-details"><p class="dc-gallery-label" aria-live="polite" data-crest-gallery-label>Collection photos — all eleven crests included</p><p class="dc-image-status" role="status" data-crest-gallery-status></p>
-      <div class="dc-thumbs" role="group" aria-label="Product images">
-        {%- assign gallery_names = 'mixclean,box,single-courage,single-sincerity,single-knowledge,craft' | split: ',' -%}
-        {%- assign gallery_labels = 'Mix-and-match collection,Complete boxed collection,Orange Courage crest,Green Sincerity crest,Purple Knowledge crest,Empty tag housing detail' | split: ',' -%}
-        {% for image_name in gallery_names %}
-          <button type="button" data-crest-thumb="{{ image_name }}" aria-label="Show {{ gallery_labels[forloop.index0] }}" aria-pressed="{% if image_name == 'mixclean' %}true{% else %}false{% endif %}">{% render 'digimon-collector-image', name: image_name, sizes: '100px', alt: gallery_labels[forloop.index0] %}</button>
-        {% endfor %}
+      <div class="dc-intro">
+        <p class="dc-eyebrow">THE TAG &amp; CREST COLLECTION</p>
+        <h1 id="CrestTitle-{{ section.id }}">{{ section.settings.hero_heading | escape }}<br><em>{{ section.settings.hero_heading_accent | escape }}</em></h1>
+        <p class="dc-lede">{{ section.settings.hero_emotional_line | escape }} <span>{{ section.settings.hero_support | escape }}</span></p>
       </div>
-    </div>
-    </div>
-    <div class="dc-buy" id="CrestBuy-{{ section.id }}">
-
-      <div class="dc-purchase-card">
-      <p class="dc-buy-label">THE COMPLETE COLLECTOR SET</p>
-      <div class="dc-palette" aria-hidden="true">{% for i in (1..11) %}<i></i>{% endfor %}</div>
-      <div class="dc-price-line"><span data-crest-price>{{ current_variant.price | money_with_currency }}</span><span>All 11 crests<br>included</span></div>
-
-
-      {% if section.settings.bonus_title != blank %}<div class="dc-bonus"><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<p>{{ section.settings.bonus_details | escape }}</p>{% endif %}</div>{% endif %}
-      {%- form 'product', product, id: collector_form, class: 'dc-form' -%}
-        {% if product.variants.size > 1 %}
-          <label for="CrestVariant-{{ section.id }}">Collection</label>
-          <select id="CrestVariant-{{ section.id }}" name="id" data-crest-variant>{% for variant in product.variants %}<option value="{{ variant.id }}" data-price="{{ variant.price | money_with_currency | escape }}" data-available="{{ variant.available }}" {% if variant.id == current_variant.id %}selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} — Sold out{% endunless %}</option>{% endfor %}</select>
-        {% else %}<input type="hidden" name="id" value="{{ current_variant.id }}">{% endif %}
-        <input type="hidden" name="quantity" value="1">
-        <button class="dc-cta" type="submit" name="add" data-crest-add {% unless current_variant.available %}disabled{% endunless %}><span>{% if current_variant.available %}Add to cart{% else %}Currently unavailable{% endif %}</span></button>
-        {{ form.errors | default_errors }}
-      {%- endform -%}
-      <p class="dc-checkout-note">{{ section.settings.delivery_note | escape }}</p>
-      <ul class="dc-inclusions"><li>11 interchangeable crest plates</li><li>1 gold-tone metal tag</li><li>1 black necklace cord</li><li>1 presentation box</li></ul>
+      <div class="dc-gallery">
+        <div class="dc-main-image" data-crest-main>
+          {% render 'digimon-collector-image', name: 'archive-hero', loading: 'eager', alt: 'Styled view of the complete tag and eleven-crest collection with its presentation box' %}
+          <button class="dc-zoom-trigger" type="button" data-crest-zoom="gallery" aria-label="Expand collection images"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg><span>Closer look</span></button>
+        </div>
+        <div class="dc-gallery-details">
+          <p class="dc-visually-hidden" aria-live="polite" data-crest-gallery-label>Complete set — all eleven crests included</p>
+          <p class="dc-image-status" role="status" data-crest-gallery-status></p>
+          <div class="dc-thumbs" role="group" aria-label="Explore the collection images">
+            {%- assign gallery_names = 'archive-hero,archive-worn,archive-hand,archive-detail,archive-display,archive-contents' | split: ',' -%}
+            {%- assign gallery_labels = 'Complete set,Worn,In hand,The details,On display,What is included' | split: ',' -%}
+            {%- assign gallery_alts = 'Styled complete collection with its presentation box|Styled view of the tag worn on its black necklace cord|Styled in-hand view of the gold-tone tag|Styled close-up of the tag and crest insert|Styled presentation box on a shelf|Styled arrangement of the tag, eleven crest plates, cord and presentation box' | split: '|' -%}
+            {% for image_name in gallery_names %}
+              <button type="button" data-crest-thumb="{{ image_name }}" aria-label="Show {{ gallery_labels[forloop.index0] | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{% render 'digimon-collector-image', name: image_name, sizes: '100px', alt: gallery_alts[forloop.index0] %}<span>{{ gallery_labels[forloop.index0] }}</span></button>
+            {% endfor %}
+          </div>
+          <p class="dc-imagery-note">Styled product imagery{% if has_customer_evidence %} · <a href="#CrestReviews-{{ section.id }}">View collector photos</a>{% endif %}</p>
+        </div>
       </div>
-      {% for block in section.blocks %}{% if block.type == 'testimonial' and block.settings.feature_in_hero and block.settings.quote != blank %}<a class="dc-hero-proof" href="#CrestReviews-{{ section.id }}"><span>“{{ block.settings.quote | escape }}”</span><small>Review excerpt · See collector photos ↗</small></a>{% break %}{% endif %}{% endfor %}
-      <a class="dc-explore-jump" href="#CrestGuide-{{ section.id }}">Try all eleven in the tag <span aria-hidden="true">↓</span></a><div class="dc-policy-links">{% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Shipping details</a>{% endif %}{% if shop.refund_policy != blank %}<a href="{{ shop.refund_policy.url }}">Returns policy</a>{% endif %}</div>
-
-    </div>
-
-  </section>
+      <div class="dc-buy" id="CrestBuy-{{ section.id }}">
+        <div class="dc-purchase-card">
+          <div class="dc-price-line"><span data-crest-price>{{ current_variant.price | money_with_currency }}</span><span>Complete boxed set<br>All eleven crests included</span></div>
+          {% if section.settings.bonus_title != blank %}<div class="dc-bonus"><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<p>{{ section.settings.bonus_details | escape }}</p>{% endif %}</div>{% endif %}
+          {%- form 'product', product, id: collector_form, class: 'dc-form', data-crest-checkout-form: '' -%}
+            {% if product.variants.size > 1 %}
+              <label for="CrestVariant-{{ section.id }}">Collection</label>
+              <select id="CrestVariant-{{ section.id }}" name="id" data-crest-variant>{% for variant in product.variants %}<option value="{{ variant.id }}" data-price="{{ variant.price | money_with_currency | escape }}" data-available="{{ variant.available }}" {% if variant.id == current_variant.id %}selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} — Sold out{% endunless %}</option>{% endfor %}</select>
+            {% else %}<input type="hidden" name="id" value="{{ current_variant.id }}">{% endif %}
+            <input type="hidden" name="quantity" value="1">
+            <input type="hidden" name="return_to" value="{{ routes.root_url }}checkout">
+            <button class="dc-cta" type="button" form="{{ collector_form }}" data-crest-checkout hidden data-crest-label="Buy the complete set" {% unless current_variant.available %}disabled{% endunless %}><span data-crest-checkout-label>{% if current_variant.available %}Buy the complete set{% else %}Currently unavailable{% endif %}</span><span class="dc-cta-arrow" aria-hidden="true">↗</span></button>
+            <noscript><button class="dc-cta dc-noscript-buy" type="submit" name="add" {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}Continue to checkout{% else %}Currently unavailable{% endif %}</button></noscript>
+            {{ form.errors | default_errors }}
+          {%- endform -%}
+          <p class="dc-checkout-status" id="CrestCheckoutStatus-{{ section.id }}" data-crest-checkout-status role="status" tabindex="-1"></p>
+          <a class="dc-cart-recovery" data-crest-cart-recovery href="{{ routes.cart_url }}" hidden>Review your cart</a>
+          <p class="dc-checkout-note">{{ section.settings.delivery_note | escape }}</p>
+          <ul class="dc-inclusions"><li><strong>11</strong> interchangeable crests</li><li><strong>1</strong> gold-tone metal tag</li><li><strong>1</strong> black necklace cord</li><li><strong>1</strong> presentation box</li></ul>
+        </div>
+        <a class="dc-explore-jump" href="#CrestGuide-{{ section.id }}">Find the crest that feels like you <span aria-hidden="true">↓</span></a>
+        <div class="dc-policy-links">{% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Shipping details</a>{% endif %}{% if shop.refund_policy != blank %}<a href="{{ shop.refund_policy.url }}">Order care &amp; returns</a>{% endif %}</div>
+      </div>
+    </section>
   </div>
 
-  <section class="dc-dark" id="CrestGuide-{{ section.id }}" data-crest-stage data-selected="courage"><div class="dc-wrap">
-    <div class="dc-section-head"><div><p class="dc-eyebrow">ONE SET. ELEVEN INTERCHANGEABLE CRESTS.</p><h2>All eleven crests.<br><em>Yours to wear.</em></h2></div><p>Wear Courage today. Friendship tomorrow. Every crest fits the same tag.</p></div>
+  <section class="dc-object-chapter" id="CrestDetails-{{ section.id }}" aria-labelledby="CrestObjectTitle-{{ section.id }}">
+    <div class="dc-wrap">
+      <div class="dc-section-head"><div><p class="dc-eyebrow">SOMETHING FAMILIAR. SOMETHING TO KEEP.</p><h2 id="CrestObjectTitle-{{ section.id }}">{{ section.settings.object_heading | escape }}</h2></div><p>{{ section.settings.object_support | escape }}</p></div>
+      <div class="dc-object-grid">
+        <figure class="dc-worn-image">{% render 'digimon-collector-image', name: 'archive-worn', alt: 'Styled neckline view of the crest tag on its black cord', sizes: '(max-width: 899px) calc(100vw - 40px), 48vw' %}<figcaption><span>01 / WEAR IT</span><p>A familiar symbol, close to you.</p></figcaption></figure>
+        <div class="dc-object-details">
+          <div class="dc-detail-pair"><figure>{% render 'digimon-collector-image', name: 'archive-hand', alt: 'Styled in-hand view of the gold-tone tag', sizes: '(max-width: 899px) 43vw, 24vw' %}<figcaption>THE GOLD-TONE TAG</figcaption></figure><figure class="dc-film"><video controls playsinline preload="none" width="720" height="720" poster="{{ 'digimon-crest-archive-film-poster.webp' | asset_url }}" aria-label="Styled product film: one tag, eleven possibilities"><source src="{{ 'digimon-crest-archive-film.mp4' | asset_url }}" type="video/mp4"><a href="{{ 'digimon-crest-archive-film.mp4' | asset_url }}">Watch the collection film</a></video><figcaption>ONE TAG. ELEVEN POSSIBILITIES.<span>Styled product film</span></figcaption></figure></div>
+          <div class="dc-mechanism-copy"><p class="dc-eyebrow">ELEVEN WAYS TO MAKE IT YOURS</p><h3>A different crest.<br>The same tag.</h3><p>Each crest plate fits the same gold-tone tag. Follow the included instructions to change your crest, then keep the others together in the presentation box.</p><a class="dc-text-link" href="#CrestGuide-{{ section.id }}">Explore every crest <span aria-hidden="true">↓</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dc-dark" id="CrestGuide-{{ section.id }}" data-crest-stage data-selected="courage" aria-labelledby="CrestGuideTitle-{{ section.id }}"><div class="dc-wrap">
+    <div class="dc-section-head"><div><p class="dc-eyebrow">YOUR CREST. YOUR MEANING.</p><h2 id="CrestGuideTitle-{{ section.id }}">Which one<br><em>feels like you?</em></h2></div><p>Pick a crest to see it in the tag.<br>All eleven come with your set.</p></div>
     <div class="dc-crest-explorer" data-selected="courage" data-crest-explorer>
-      <figure class="dc-explorer-media" data-crest-explorer-image tabindex="-1" aria-label="Preview of an included crest">{% render 'digimon-collector-image', name: 'single-courage', alt: 'Orange Courage crest in the gold-tone tag', sizes: '(max-width: 659px) calc(100vw - 40px), (max-width: 899px) 620px, (max-width: 1415px) 47vw, 654px' %}</figure>
+      <figure class="dc-explorer-media" data-crest-explorer-image tabindex="-1" aria-label="Preview of an included crest">
+        {% render 'digimon-collector-image', name: 'single-courage', alt: 'Orange Courage crest in the gold-tone tag', sizes: '(max-width: 899px) min(76vw, 380px), (max-width: 1415px) 47vw, 654px' %}
+        <button class="dc-zoom-trigger" type="button" data-crest-zoom="explorer" aria-label="Expand selected crest image"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4" stroke="currentColor" stroke-width="1.5"/></svg><span>Closer look</span></button>
+      </figure>
       <div class="dc-explorer-copy">
         <div class="dc-explorer-selection"><div aria-live="polite" aria-atomic="true"><h3 data-crest-explorer-name>Courage</h3><p data-crest-explorer-line>For taking the first step.</p></div><div class="dc-crest-controls"><button type="button" data-crest-prev aria-label="Previous crest">←</button><span data-crest-position aria-label="Crest 1 of 11">1 / 11</span><button type="button" data-crest-next aria-label="Next crest">→</button></div></div>
         <p class="dc-image-status" role="status" data-crest-explorer-status></p>
-        {%- assign crest_keys = 'courage,friendship,love,sincerity,knowledge,reliability,hope,light,kindness,miracles,destiny' | split: ',' -%}
-        {%- assign crest_names = 'Courage,Friendship,Love,Sincerity,Knowledge,Reliability,Hope,Light,Kindness,Miracles,Destiny' | split: ',' -%}
-        {%- assign crest_lines = 'For taking the first step.|For the people beside you.|For what matters most.|For staying true to yourself.|For always asking why.|For showing up.|For looking ahead.|For finding your way.|For the care you give.|For believing in possibility.|For the path you make.' | split: '|' -%}
         <div class="dc-explorer-options" role="group" aria-label="Explore all eleven included crests">
           {% for crest_key in crest_keys %}
             {%- assign crest_photo = 'single-' | append: crest_key -%}
@@ -78,24 +103,23 @@
             <button type="button" aria-label="View {{ crest_names[forloop.index0] }}" data-crest-explore="{{ crest_key }}" data-crest-name="{{ crest_names[forloop.index0] }}" data-crest-line="{{ crest_lines[forloop.index0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{% render 'digimon-collector-image', name: crest_photo, sizes: '100px', alt: crest_alt %}<span>{{ crest_names[forloop.index0] }}</span></button>
           {% endfor %}
         </div>
-        <div class="dc-explorer-footer"><p class="dc-explorer-note">Every crest is included.</p><a class="dc-explorer-shop" href="#CrestBuy-{{ section.id }}">Get the complete set <span aria-hidden="true">↗</span></a></div>
+        <div class="dc-explorer-footer"><p class="dc-explorer-note">No need to choose. All eleven are yours.</p><a class="dc-explorer-shop" href="#CrestBuy-{{ section.id }}">The complete set <span aria-hidden="true">↗</span></a></div>
       </div>
     </div>
-
   </div></section>
-  <div class="dc-switch-chapter"><section class="dc-feature dc-wrap" id="CrestDetails-{{ section.id }}"><figure>{% render 'digimon-collector-image', name: 'craft', alt: 'Gold-tone tag housing showing the channel for interchangeable crest inserts' %}</figure><div><p class="dc-eyebrow">THE INTERCHANGEABLE TAG</p><h2>One tag.<br><em>A different crest.</em></h2><p>Each crest brings its own symbol and meaning to the same gold-tone tag. Switch from Friendship to Sincerity, then reach for another tomorrow.</p><div class="dc-rotation-pair"><figure>{% render 'digimon-collector-image', name: 'single-friendship', sizes: '(max-width: 599px) 44vw, 260px', alt: 'Blue Friendship crest fitted in the interchangeable tag' %}<figcaption><span class="dc-color-dot dc-blue"></span>Friendship</figcaption></figure><figure>{% render 'digimon-collector-image', name: 'single-sincerity', sizes: '(max-width: 599px) 44vw, 260px', alt: 'Green Sincerity crest fitted in the same tag' %}<figcaption><span class="dc-color-dot dc-green"></span>Sincerity</figcaption></figure></div></div></section></div>
-  {% if section.settings.show_exploded_image %}<section class="dc-exploded dc-wrap"><figure>{% render 'digimon-collector-image', name: 'mixclean', alt: 'Illustrative exploded view with a partially inserted crest and alternate colored inserts' %}<figcaption>Illustrative arrangement of the interchangeable collection.</figcaption></figure></section>{% endif %}
+
   {% if has_customer_evidence %}
     <section class="dc-testimonials dc-wrap" id="CrestReviews-{{ section.id }}" aria-labelledby="CrestCustomers-{{ section.id }}">
-      <div class="dc-section-head"><div><p class="dc-eyebrow">FROM OTHER COLLECTORS</p><h2 id="CrestCustomers-{{ section.id }}">In collectors’<br><em>hands.</em></h2></div><p>The photos. The little details.<br>The joy of opening the box.</p></div>
-      <div class="dc-review-controls"><span>Customer photos &amp; review excerpts</span><div><span class="dc-review-position" data-review-position aria-live="polite">1 / 3</span><button type="button" data-review-prev aria-label="Previous customer photo">←</button><button type="button" data-review-next aria-label="Next customer photo">→</button></div></div><div class="dc-testimonial-grid" tabindex="0" role="region" aria-label="Customer photos and reviews; scroll to see more">
+      <div class="dc-section-head"><div><p class="dc-eyebrow">THE COLLECTION, IN REAL LIFE</p><h2 id="CrestCustomers-{{ section.id }}">In collectors’ hands.</h2></div><p>Product-owner photos and<br>excerpts from product reviews.</p></div>
+      <div class="dc-review-controls"><span>Collector photos &amp; review excerpts</span><div><span class="dc-review-position" data-review-position aria-live="polite">1 / {{ evidence_count }}</span><button type="button" data-review-prev aria-label="Previous collector photo">←</button><button type="button" data-review-next aria-label="Next collector photo">→</button></div></div>
+      <div class="dc-testimonial-grid" tabindex="0" role="region" aria-label="Collector photos and reviews; scroll to see more">
         {% for block in section.blocks %}
           {% if block.type == 'testimonial' %}
             {% if block.settings.quote != blank or block.settings.image != blank or block.settings.image_asset != blank %}
               <figure class="dc-testimonial" {{ block.shopify_attributes }}>
-                {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320, 480, 720, 1000', sizes: '(min-width: 900px) 33vw, 90vw' }}{% elsif block.settings.image_asset != blank %}<img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.image_alt | escape }}" width="{{ block.settings.image_width }}" height="{{ block.settings.image_height }}" loading="lazy">{% endif %}
-                {% if block.settings.quote != blank %}<blockquote><p>{{ block.settings.quote | escape | newline_to_br }}</p></blockquote>{% endif %}
-                {% if block.settings.attribution != blank or block.settings.source_url != blank %}<figcaption>{% if block.settings.attribution != blank %}<span>{{ block.settings.attribution | escape }}</span>{% endif %}{% if block.settings.source_url != blank %}<a href="{{ block.settings.source_url | escape }}">View original source</a>{% endif %}</figcaption>{% endif %}
+                {% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320, 480, 720, 1000', sizes: '(min-width: 900px) 33vw, 85vw' }}{% elsif block.settings.image_asset != blank %}<img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.image_alt | escape }}" width="{{ block.settings.image_width }}" height="{{ block.settings.image_height }}" loading="lazy">{% endif %}
+                {% if block.settings.quote != blank %}<blockquote><p>“{{ block.settings.quote | escape | newline_to_br }}”</p></blockquote>{% endif %}
+                {% if block.settings.attribution != blank or block.settings.source_url != blank %}<figcaption>{% if block.settings.attribution != blank %}<span>{{ block.settings.attribution | escape }}</span>{% endif %}{% if block.settings.source_url != blank %}<a href="{{ block.settings.source_url | escape }}">View original source ↗</a>{% endif %}</figcaption>{% endif %}
               </figure>
             {% endif %}
           {% endif %}
@@ -103,94 +127,87 @@
       </div>
     </section>
   {% endif %}
-  <section class="dc-box" id="CrestContents-{{ section.id }}"><div class="dc-wrap dc-feature"><figure>{% render 'digimon-collector-image', name: 'box', alt: 'All eleven crest plates, gold-tone tag and necklace cord arranged in the presentation box' %}<figcaption>A place for every crest.</figcaption></figure><div class="dc-display-copy"><p class="dc-eyebrow">A COLLECTION WORTH KEEPING ON SHOW</p><h2>Wear one.<br><em>Display the rest.</em></h2><p>The crests you’re not wearing have a place in the presentation box, each arranged in its own slot. Keep it open on a shelf or desk and let the whole collection be part of your room.</p><p class="dc-contents-label">THE COMPLETE SET</p><ul class="dc-set-contents"><li><strong>11</strong><span>Interchangeable crest plates</span></li><li><strong>1</strong><span>Gold-tone metal tag</span></li><li><strong>1</strong><span>Black necklace cord</span></li><li><strong>1</strong><span>Presentation box</span></li></ul></div></div></section>
-  <section class="dc-faq dc-wrap" id="CrestFaq-{{ section.id }}"><h2>The <em>details.</em></h2><div class="dc-questions"><details><summary>Does the set include every crest?</summary><p>Yes. Every set includes all eleven crest plates, one gold-tone metal tag, a black necklace cord and the presentation box shown. You do not need to choose a crest when ordering.</p></details><details><summary>Can I change the crest in the tag?</summary><p>Yes. All eleven crest plates are interchangeable and fit the same tag. The other crests can stay together in their individual slots in the presentation box.</p></details><details><summary>How should I look after it?</summary><p>Keep the inserts in their slots when not in use. Use a soft, dry cloth and avoid abrasive cleaners, moisture, and contact with hard surfaces.</p></details>{% if section.settings.bonus_title != blank %}<details><summary>What bonus is included?</summary><p><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<br>{{ section.settings.bonus_details | escape }}{% endif %}</p></details>{% endif %}<details><summary>What about delivery and returns?</summary><p>{{ section.settings.delivery_note | escape }} {% if shop.shipping_policy != blank %}<a href="{{ shop.shipping_policy.url }}">Read our shipping policy.</a>{% endif %} {% if shop.refund_policy != blank %}<a href="{{ shop.refund_policy.url }}">Read our returns policy.</a>{% endif %}</p></details></div></section>
-  <section class="dc-finale" id="CrestFinal-{{ section.id }}"><div class="dc-wrap dc-final-grid"><div class="dc-final-art" aria-hidden="true">{% render 'digimon-collector-image', name: 'single-courage', sizes: '(max-width: 899px) 40vw, 340px', alt: '' %}{% render 'digimon-collector-image', name: 'single-knowledge', sizes: '(max-width: 899px) 40vw, 340px', alt: '' %}</div><div><p class="dc-eyebrow">ALL ELEVEN. ONE COMPLETE SET.</p><h2>A collection<br>to <em>keep close.</em></h2><p class="dc-finale-copy">11 interchangeable crests. One gold-tone metal tag.<br>Black necklace cord and presentation box included.</p><p class="dc-finale-price"><span data-crest-price>{{ current_variant.price | money_with_currency }}</span> · Complete boxed set</p>{% if section.settings.bonus_title != blank %}<div class="dc-bonus"><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<p>{{ section.settings.bonus_details | escape }}</p>{% endif %}</div>{% endif %}<button class="dc-cta" type="submit" name="add" form="{{ collector_form }}" data-crest-add {% unless current_variant.available %}disabled{% endunless %}><span>{% if current_variant.available %}Add to cart{% else %}Currently unavailable{% endif %}</span></button><p class="dc-checkout-note">{{ section.settings.delivery_note | escape }}</p></div></div></section>
-  <div class="dc-sticky" data-crest-sticky hidden><div><strong>Complete set · All 11 crests</strong><span data-crest-price>{{ current_variant.price | money_with_currency }}</span></div><button type="submit" form="{{ collector_form }}" data-crest-add {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}Add to cart{% else %}Unavailable{% endif %}</button></div>
+
+  <section class="dc-box" id="CrestContents-{{ section.id }}" aria-labelledby="CrestDisplayTitle-{{ section.id }}"><div class="dc-wrap dc-feature">
+    <figure>{% render 'digimon-collector-image', name: 'archive-display', alt: 'Styled display of the crest collection in its presentation box on a shelf' %}</figure>
+    <div class="dc-display-copy"><p class="dc-eyebrow">A PLACE FOR EVERY CREST</p><h2 id="CrestDisplayTitle-{{ section.id }}">Wear one.<br><em>Display the rest.</em></h2><p>{{ section.settings.display_support | escape }}</p>
+      <div class="dc-gift-note"><span aria-hidden="true">↗</span><div><h3>{{ section.settings.gift_heading | escape }}</h3><p>Every crest is included. No favorite to guess.</p></div></div>
+      <p class="dc-contents-label">INSIDE YOUR COMPLETE SET</p><ul class="dc-set-contents"><li><strong>11</strong><span>Interchangeable crest plates</span></li><li><strong>1</strong><span>Gold-tone metal tag</span></li><li><strong>1</strong><span>Black necklace cord</span></li><li><strong>1</strong><span>Presentation box</span></li></ul>
+    </div>
+  </div></section>
+
+  <section class="dc-faq dc-wrap" id="CrestFaq-{{ section.id }}" aria-labelledby="CrestFaqTitle-{{ section.id }}">
+    <div class="dc-faq-intro"><p class="dc-eyebrow">BEFORE IT’S YOURS</p><h2 id="CrestFaqTitle-{{ section.id }}">The little details.</h2><p>A few useful things to know<br>about your collection.</p></div>
+    <div class="dc-questions">
+      <details><summary>Does the set include every crest?</summary><div><p>Yes. Your set includes all eleven interchangeable crest plates, one gold-tone metal tag, a black necklace cord and a presentation box. Exploring the crests on this page does not change what is included.</p></div></details>
+      <details><summary>How do I change the crest?</summary><div><p>All eleven crest plates fit the same tag. Follow the included instructions when changing them. Keep the plates you are not using in their places in the presentation box.</p></div></details>
+      <details><summary>What should I know before using it?</summary><div><p>{{ section.settings.first_use | escape }}</p></div></details>
+      {% if section.settings.tag_dimensions != blank or section.settings.material_details != blank or section.settings.cord_details != blank %}<details><summary>What are the size and materials?</summary><div><dl class="dc-specs">{% if section.settings.tag_dimensions != blank %}<div><dt>Tag dimensions</dt><dd>{{ section.settings.tag_dimensions | escape }}</dd></div>{% endif %}{% if section.settings.material_details != blank %}<div><dt>Materials &amp; finish</dt><dd>{{ section.settings.material_details | escape }}</dd></div>{% endif %}{% if section.settings.cord_details != blank %}<div><dt>Necklace cord</dt><dd>{{ section.settings.cord_details | escape }}</dd></div>{% endif %}</dl></div></details>{% endif %}
+      <details><summary>Is this a piece for everyday wear?</summary><div><p>Treat it as a collector’s piece. Wear it with care and keep it in its presentation box between outings.</p></div></details>
+      <details><summary>How should I look after the collection?</summary><div><p>{{ section.settings.care_details | escape }}</p></div></details>
+      <details><summary>Is it a good gift if I don’t know their favorite?</summary><div><p>Every crest is included, so there is no favorite to choose at checkout. The full collection comes together with its presentation box.</p></div></details>
+      {% if section.settings.bonus_title != blank %}<details><summary>What bonus is included?</summary><div><p><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<br>{{ section.settings.bonus_details | escape }}{% endif %}</p></div></details>{% endif %}
+      <details><summary>When will my order arrive?</summary><div><p>{{ section.settings.delivery_note | escape }}{% if shop.shipping_policy != blank %} <a href="{{ shop.shipping_policy.url }}">Read our shipping policy.</a>{% endif %}</p></div></details>
+      <details><summary>What if something is wrong with my order?</summary><div><p>{{ section.settings.order_care | escape }}{% if shop.refund_policy != blank %} <a href="{{ shop.refund_policy.url }}">Read the full policy.</a>{% endif %}</p></div></details>
+      {% for block in section.blocks %}{% if block.type == 'faq' and block.settings.question != blank and block.settings.answer != blank %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.question | escape }}</summary><div>{{ block.settings.answer }}</div></details>{% endif %}{% endfor %}
+    </div>
+  </section>
+
+  <section class="dc-finale" id="CrestFinal-{{ section.id }}" aria-labelledby="CrestFinalTitle-{{ section.id }}"><div class="dc-wrap dc-final-grid">
+    <figure class="dc-final-art">{% render 'digimon-collector-image', name: 'archive-contents', alt: 'Styled arrangement of the complete collection: eleven crests, one tag, black cord and presentation box' %}</figure>
+    <div><p class="dc-eyebrow">SOME SYMBOLS STAY WITH YOU.</p><h2 id="CrestFinalTitle-{{ section.id }}">Bring the complete<br><em>collection home.</em></h2><p class="dc-finale-copy">Eleven interchangeable crests. One gold-tone metal tag.<br>Black cord and presentation box included.</p><p class="dc-finale-price"><span data-crest-price>{{ current_variant.price | money_with_currency }}</span><span>Complete boxed set</span></p>
+      {% if section.settings.bonus_title != blank %}<div class="dc-bonus"><strong>{{ section.settings.bonus_title | escape }}</strong>{% if section.settings.bonus_details != blank %}<p>{{ section.settings.bonus_details | escape }}</p>{% endif %}</div>{% endif %}
+      <button class="dc-cta" type="button" form="{{ collector_form }}" data-crest-checkout hidden data-crest-label="Buy the complete set" {% unless current_variant.available %}disabled{% endunless %}><span data-crest-checkout-label>{% if current_variant.available %}Buy the complete set{% else %}Currently unavailable{% endif %}</span><span class="dc-cta-arrow" aria-hidden="true">↗</span></button>
+      <p class="dc-checkout-status" id="CrestCheckoutFinalStatus-{{ section.id }}" data-crest-checkout-status role="status" tabindex="-1"></p><a class="dc-cart-recovery" data-crest-cart-recovery href="{{ routes.cart_url }}" hidden>Review your cart</a>
+      <p class="dc-checkout-note">{{ section.settings.delivery_note | escape }}</p>
+    </div>
+  </div></section>
+  <div class="dc-sticky" data-crest-sticky hidden><div class="dc-sticky-info"><strong>Complete set · All 11 crests</strong><span data-crest-price>{{ current_variant.price | money_with_currency }}</span></div><button type="button" form="{{ collector_form }}" data-crest-checkout hidden data-crest-label="Buy the complete set" {% unless current_variant.available %}disabled{% endunless %}><span data-crest-checkout-label>{% if current_variant.available %}Buy the complete set{% else %}Unavailable{% endif %}</span></button><p class="dc-checkout-status" id="CrestCheckoutStickyStatus-{{ section.id }}" data-crest-checkout-status role="status" tabindex="-1"></p><a class="dc-cart-recovery" data-crest-cart-recovery href="{{ routes.cart_url }}" hidden>Review your cart</a></div>
+  {% render 'digimon-collector-detail' %}
 </div>
 <script type="application/ld+json">{{ product | structured_data }}</script>
 {% schema %}
 {
-  "name": "Digimon collector",
+  "name": "Crest collector archive",
   "settings": [
-    {
-      "type": "text",
-      "id": "delivery_note",
-      "label": "Delivery note",
-      "default": "Free U.S. shipping. Any applicable taxes are calculated at checkout."
-    },
-    {
-      "type": "text",
-      "id": "bonus_title",
-      "label": "Confirmed bonus title",
-      "info": "Leave blank to hide the bonus. Publish only a verified offer that will be fulfilled."
-    },
-    {
-      "type": "textarea",
-      "id": "bonus_details",
-      "label": "Bonus contents and terms",
-      "info": "Explain the exact item, quantity, eligibility and how the customer receives it."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_exploded_image",
-      "label": "Show exploded illustration after verifying the opening mechanism",
-      "default": false
-    }
+    {"type":"header","content":"Opening offer"},
+    {"type":"text","id":"hero_heading","label":"Headline, first line","default":"One tag."},
+    {"type":"text","id":"hero_heading_accent","label":"Headline, second line","default":"All eleven crests."},
+    {"type":"text","id":"hero_emotional_line","label":"Emotional introduction","default":"For the symbols that still mean something."},
+    {"type":"textarea","id":"hero_support","label":"Desktop introduction detail","default":"Wear your favorite in the gold-tone tag and keep the full collection together in its presentation box."},
+    {"type":"text","id":"delivery_note","label":"Delivery note","default":"Free U.S. shipping. Any applicable taxes are calculated at checkout."},
+    {"type":"header","content":"Product story"},
+    {"type":"text","id":"object_heading","label":"Object story headline","default":"Keep that world close."},
+    {"type":"textarea","id":"object_support","label":"Object story introduction","default":"A symbol you recognize. A meaning that is yours. Choose the crest that speaks to you and carry a little of that world with you."},
+    {"type":"textarea","id":"display_support","label":"Display introduction","default":"One in the tag. The rest in their place. Keep the collection together in its presentation box, ready for a shelf, a desk, or your next favorite crest."},
+    {"type":"text","id":"gift_heading","label":"Gift headline","default":"For the person who still knows every symbol."},
+    {"type":"header","content":"Verified product details"},
+    {"type":"text","id":"tag_dimensions","label":"Tag dimensions","info":"Leave blank until dimensions have been verified for the supplied product."},
+    {"type":"textarea","id":"material_details","label":"Materials and finish","info":"Leave blank until the exact materials have been verified. Gold-tone describes color, not gold content."},
+    {"type":"text","id":"cord_details","label":"Cord dimensions and fit","info":"Leave blank until cord length and adjustability have been verified."},
+    {"type":"textarea","id":"first_use","label":"First-use guidance","default":"Read the instructions supplied with your set before first use, including which protective layers to remove and how to change crests."},
+    {"type":"textarea","id":"care_details","label":"Care guidance","default":"Handle the tag and crest plates with care, and return unused plates to the presentation box. Follow the care and changing instructions supplied with your collection."},
+    {"type":"textarea","id":"order_care","label":"Order care and returns","default":"If your order arrives damaged, defective, incorrect or incomplete, contact us so we can review it and arrange the appropriate resolution. We do not accept change-of-mind refunds, returns or exchanges."},
+    {"type":"header","content":"Optional verified offer"},
+    {"type":"text","id":"bonus_title","label":"Confirmed bonus title","info":"Leave blank to hide. Publish only an offer that will be fulfilled."},
+    {"type":"textarea","id":"bonus_details","label":"Bonus contents and terms","info":"Explain the exact item, quantity, eligibility and how the customer receives it."}
   ],
   "blocks": [
-    {
-      "type": "testimonial",
-      "name": "Customer evidence",
-      "settings": [
-        {"type":"checkbox","id":"feature_in_hero","label":"Feature this quote beneath the main purchase button","default":false},
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Actual customer photo"
-        },
-        {
-          "type": "text",
-          "id": "image_asset",
-          "label": "Customer photo theme asset"
-        },
-        {
-          "type": "text",
-          "id": "image_alt",
-          "label": "Customer photo description"
-        },
-        {
-          "type": "number",
-          "id": "image_width",
-          "label": "Photo width",
-          "default": 720
-        },
-        {
-          "type": "number",
-          "id": "image_height",
-          "label": "Photo height",
-          "default": 960
-        },
-        {
-          "type": "textarea",
-          "id": "quote",
-          "label": "Original customer quotation",
-          "info": "Use authentic supplied words. Do not invent reviews, ratings or purchase verification."
-        },
-        {
-          "type": "text",
-          "id": "attribution",
-          "label": "Accurate attribution",
-          "info": "Identify the source accurately, including a supplier review origin when applicable."
-        },
-        {
-          "type": "url",
-          "id": "source_url",
-          "label": "Original source URL"
-        }
-      ]
-    }
+    {"type":"testimonial","name":"Collector evidence","settings":[
+      {"type":"image_picker","id":"image","label":"Original collector photo"},
+      {"type":"text","id":"image_asset","label":"Collector photo theme asset"},
+      {"type":"text","id":"image_alt","label":"Collector photo description"},
+      {"type":"number","id":"image_width","label":"Photo width","default":720},
+      {"type":"number","id":"image_height","label":"Photo height","default":960},
+      {"type":"textarea","id":"quote","label":"Original quotation","info":"Use authentic supplied words. Do not invent reviews, ratings or purchase verification."},
+      {"type":"text","id":"attribution","label":"Accurate attribution","info":"Identify the original source accurately. Do not imply a verified Zenkai purchase without evidence."},
+      {"type":"url","id":"source_url","label":"Original source URL"}
+    ]},
+    {"type":"faq","name":"Practical answer","settings":[
+      {"type":"text","id":"question","label":"Question"},
+      {"type":"richtext","id":"answer","label":"Verified answer"}
+    ]}
   ],
-  "max_blocks": 8
+  "max_blocks": 12
 }
 {% endschema %}
