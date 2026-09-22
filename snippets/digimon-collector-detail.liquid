@@ -1,0 +1,41 @@
+<dialog class="dc-detail" data-crest-detail aria-label="Collection photo viewer">
+  <div class="dc-detail-shell">
+    <header class="dc-detail-header">
+      <div><p class="dc-detail-kicker">A CLOSER LOOK</p><h2 data-detail-title>Collection photography</h2></div>
+      <button class="dc-detail-close" type="button" data-detail-close aria-label="Close photo viewer" autofocus><span aria-hidden="true">×</span></button>
+    </header>
+    <div class="dc-detail-stage" data-detail-stage tabindex="0" role="region" aria-label="Enlarged product photograph; scroll to inspect when zoomed">
+      <img data-detail-image alt="" hidden>
+    </div>
+    <footer class="dc-detail-footer">
+      <div class="dc-detail-navigation" role="group" aria-label="Browse collection photos">
+        <button type="button" data-detail-prev aria-label="Previous photo"><span aria-hidden="true">←</span></button>
+        <span class="dc-detail-count" data-detail-count aria-live="polite" aria-atomic="true"></span>
+        <button type="button" data-detail-next aria-label="Next photo"><span aria-hidden="true">→</span></button>
+      </div>
+      <button class="dc-detail-zoom" type="button" data-detail-zoom aria-pressed="false" disabled><span aria-hidden="true">＋</span> <span data-detail-zoom-label>Zoom in</span></button>
+    </footer>
+    <p class="dc-detail-status" data-detail-status role="status"></p>
+  </div>
+</dialog>
+<style>
+  .dc-detail{box-sizing:border-box;position:fixed;inset:0;width:min(1180px,calc(100vw - 48px));height:min(940px,calc(100dvh - 48px));max-width:none;max-height:none;margin:auto;padding:0;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:#171b1d;color:#f6f5ef;box-shadow:0 24px 90px #0008;overflow:hidden;font-family:inherit}
+  .dc-detail::backdrop{background:rgba(12,15,17,.84);backdrop-filter:blur(7px)}
+  .dc-detail[open]{display:block}.dc-detail *{box-sizing:border-box}.dc-detail-shell{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;height:100%;min-height:0}
+  .dc-detail-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:19px 24px 17px;border-bottom:1px solid #ffffff24}
+  .dc-detail .dc-detail-kicker{margin:0 0 5px;color:#d3bb7e;font-size:10px;font-weight:700;letter-spacing:.16em;line-height:1.4}
+  .dc-detail .dc-detail-header h2{margin:0;color:inherit;font-size:20px;font-weight:600;line-height:1.25;letter-spacing:-.025em}
+  .dc-detail button{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:8px 12px;border:1px solid #ffffff40;border-radius:5px;background:transparent;color:inherit;font:inherit;cursor:pointer;transition:background .15s,border-color .15s}
+  .dc-detail button:hover{background:#ffffff16;border-color:#ffffff80}.dc-detail button:focus-visible,.dc-detail-stage:focus-visible{outline:2px solid #e5c877;outline-offset:-3px}.dc-detail button:disabled{opacity:.4;cursor:default}.dc-detail button:disabled:hover{background:transparent}
+  .dc-detail .dc-detail-close{flex:none;font-size:28px;font-weight:300;line-height:1;border:0}
+  .dc-detail-stage{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0;padding:12px;overflow:auto;overscroll-behavior:contain;background:#131824;scrollbar-color:#657086 #202638}
+  .dc-detail-stage img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;flex:none;transition:opacity .15s}.dc-detail-stage img[hidden]{display:none}.dc-detail-stage[aria-busy="true"] img{opacity:.45}
+  .dc-detail-stage.is-zoomed{display:block;padding:0}.dc-detail-stage.is-zoomed img{width:var(--detail-native-width,1254px);height:auto;max-width:none;max-height:none;margin:auto;object-fit:initial}
+  .dc-detail-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px 10px;border-top:1px solid #ffffff24}
+  .dc-detail-navigation{display:flex;align-items:center;gap:12px}.dc-detail-count{min-width:54px;text-align:center;font-size:13px;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+  .dc-detail .dc-detail-zoom{gap:7px;font-size:13px;font-weight:600;padding-inline:14px}.dc-detail-zoom[aria-pressed="true"]{background:#f0d690;color:#1b2022;border-color:#f0d690}
+  .dc-detail .dc-detail-status{min-height:24px;margin:0;padding:0 24px 9px;color:#d0d2d1;font-size:11px;line-height:1.4;text-align:right}
+  @media(max-width:659px){.dc-detail{width:100%;height:100dvh;border:0;border-radius:0}.dc-detail-header{padding:calc(13px + env(safe-area-inset-top)) 16px 13px}.dc-detail .dc-detail-header h2{font-size:18px}.dc-detail-stage{padding:0}.dc-detail-footer{padding:12px 16px 8px;gap:8px}.dc-detail-navigation{gap:8px}.dc-detail .dc-detail-status{padding:0 16px calc(10px + env(safe-area-inset-bottom));min-height:25px}.dc-detail .dc-detail-zoom{padding-inline:11px}}
+  @media(prefers-reduced-motion:reduce){.dc-detail button,.dc-detail-stage img{transition:none}}
+</style>
+<script src="{{ 'digimon-collector-detail.js' | asset_url }}" defer></script>
