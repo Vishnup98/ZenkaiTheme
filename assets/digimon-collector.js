@@ -90,6 +90,7 @@
       });
     });
     const explorer = root.querySelector('[data-crest-explorer]');
+    const explorerStage = root.querySelector('[data-crest-stage]');
     if (explorer) {
       const media = explorer.querySelector('[data-crest-explorer-image]');
       const display = explorer.querySelector('[data-crest-explorer-image] img');
@@ -119,6 +120,7 @@
         const committed = await swapExplorer(button.querySelector('img'), button.dataset.crestName, () => {
           selectedIndex = nextIndex;
           explorer.dataset.selected = button.dataset.crestExplore;
+          if (explorerStage) explorerStage.dataset.selected = button.dataset.crestExplore;
           explorer.querySelector('[data-crest-explorer-name]').textContent = button.dataset.crestName;
           explorer.querySelector('[data-crest-explorer-line]').textContent = button.dataset.crestLine;
           options.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
