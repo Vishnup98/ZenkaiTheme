@@ -64,7 +64,7 @@
       candidate.decoding = 'async';
       stage.setAttribute('aria-busy', 'true');
       zoom.disabled = true;
-      status.textContent = 'Loading full-size image…';
+      status.textContent = 'Loading full-size photo…';
       try {
         const loaded = await new Promise((resolve) => {
           cancelPending = () => {
@@ -78,7 +78,7 @@
           // The thumbnail src is the full 1254px master; its currentSrc is only the small responsive version.
           candidate.src = source.src;
         });
-        if (!loaded) throw new Error('Image unavailable');
+        if (!loaded) throw new Error('Photo unavailable');
         if (candidate.decode) await candidate.decode();
         if (disposed || request !== sequence || !dialog.open) return;
         image.src = candidate.src;
@@ -87,14 +87,14 @@
         stage.style.setProperty('--detail-native-width', `${candidate.naturalWidth}px`);
         title.textContent = source.label;
         count.textContent = `${nextIndex + 1} / ${photos.length}`;
-        count.setAttribute('aria-label', `Image ${nextIndex + 1} of ${photos.length}`);
+        count.setAttribute('aria-label', `Photo ${nextIndex + 1} of ${photos.length}`);
         displayedIndex = nextIndex;
         setZoom(false);
         status.textContent = '';
       } catch {
         if (disposed || request !== sequence || !dialog.open) return;
         requestedIndex = displayedIndex;
-        status.textContent = 'This image couldn’t load. Please try another image, or close and reopen the viewer.';
+        status.textContent = 'This photo couldn’t load. Please try another photo, or close and reopen the viewer.';
       } finally {
         candidate.onload = null;
         candidate.onerror = null;
@@ -131,7 +131,7 @@
         image.removeAttribute('src');
         title.textContent = photos[requestedIndex].label;
         count.textContent = `${requestedIndex + 1} / ${photos.length}`;
-        count.setAttribute('aria-label', `Image ${requestedIndex + 1} of ${photos.length}`);
+        count.setAttribute('aria-label', `Photo ${requestedIndex + 1} of ${photos.length}`);
         setZoom(false);
         unlock = lockPage();
         dialog.showModal();

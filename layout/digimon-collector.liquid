@@ -3,17 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#182238">
+    <meta name="theme-color" content="#1d2233">
     <link rel="canonical" href="{{ canonical_url }}">
     <title>{{ page_title | escape }}{% unless page_title contains 'Zenkai' %} | {{ shop.name | escape }}{% endunless %}</title>
     {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
     {{ 'collector-home-dm-sans-latin-v1.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     <style>@font-face{font-family:'Crest Sans';src:url('{{ 'collector-home-dm-sans-latin-v1.woff2' | asset_url }}') format('woff2');font-style:normal;font-weight:100 1000;font-display:swap}</style>
     {{ 'digimon-collector.css' | asset_url | stylesheet_tag }}
-    {% comment %}Install the checkout capture handler before app scripts can attach cart interceptors.{% endcomment %}
-    {% # theme-check-disable ParserBlockingScript %}
-    <script src="{{ 'digimon-collector-checkout.js' | asset_url }}"></script>
-    {% # theme-check-enable ParserBlockingScript %}
     {{ content_for_header }}
   </head>
   <body class="dc-body">

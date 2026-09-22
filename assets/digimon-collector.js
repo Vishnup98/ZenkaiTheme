@@ -15,13 +15,6 @@
       cleanups.push(() => element.removeEventListener(type, handler));
     };
     const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
-    const track = (event, detail = {}) => {
-      // Custom interaction signals complement Shopify's purchase events without duplicating them.
-      try {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event, product_id: root.dataset.crestProductId, ...detail });
-      } catch { /* Optional analytics must not interfere with browsing. */ }
-    };
     const canWarmImages = () => {
       const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
       return !connection?.saveData && !/(^|-)2g$/.test(connection?.effectiveType || '');
@@ -174,7 +167,6 @@
           if (galleryLabel) galleryLabel.textContent = 'Showing: ' + image.alt;
           if (imageNote) imageNote.textContent = image.alt;
           galleryOptions.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
-          track('crest_gallery_view', { media: button.dataset.crestThumb });
           warmGallery();
         });
         if (event.detail > 0 && window.matchMedia('(max-width: 899px)').matches && main.getBoundingClientRect().top < 0) {
@@ -226,7 +218,6 @@
           explorer.querySelector('[data-crest-explorer-name]').textContent = button.dataset.crestName;
           explorer.querySelector('[data-crest-explorer-line]').textContent = button.dataset.crestLine;
           options.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
-          track('crest_explore', { crest: button.dataset.crestExplore, position: nextIndex + 1 });
           if (position) {
             position.textContent = `${nextIndex + 1} / ${options.length}`;
             position.setAttribute('aria-label', `Crest ${nextIndex + 1} of ${options.length}`);
@@ -289,30 +280,15 @@
       window.addEventListener('resize', updateReviews, { passive: true });
       cleanups.push(() => { reviews.removeEventListener('scroll', updateReviews); window.removeEventListener('resize', updateReviews); });
       updateReviews();
-      listen(root.querySelector('[data-review-prev]'), 'click', () => moveReview(-1));
-      listen(root.querySelector('[data-review-next]'), 'click', () => moveReview(1));
+      root.querySelector('[data-review-prev]')?.addEventListener('click', () => moveReview(-1));
+      root.querySelector('[data-review-next]')?.addEventListener('click', () => moveReview(1));
     }
-    root.querySelectorAll('[data-crest-zoom]').forEach((button) => {
-      listen(button, 'click', () => track('crest_detail_open', { source: button.dataset.crestZoom }));
-    });
-    root.querySelectorAll('.dc-questions details').forEach((detail) => {
-      listen(detail, 'toggle', () => {
-        if (detail.open) track('crest_faq_open', { topic: detail.querySelector('summary')?.textContent.trim() });
-      });
-    });
-    root.querySelectorAll('video').forEach((video) => {
-      let tracked = false;
-      listen(video, 'play', () => {
-        if (!tracked) { tracked = true; track('crest_film_play'); }
-      });
-    });
     const select = root.querySelector('[data-crest-variant]');
     select?.addEventListener('change', () => {
       const option = select.selectedOptions[0];
       const available = option.dataset.available === 'true';
       root.querySelectorAll('[data-crest-price]').forEach((price) => { price.textContent = option.dataset.price; });
-      root.dataset.crestAvailable = String(available);
-      root.querySelectorAll('[data-crest-add]:not([data-crest-checkout])').forEach((button) => {
+      root.querySelectorAll('[data-crest-add]').forEach((button) => {
         button.disabled = !available;
         const label = button.querySelector('span') || button;
         label.textContent = available ? 'Add to cart' : 'Currently unavailable';
@@ -323,7 +299,7 @@
     });
     const sticky = root.querySelector('[data-crest-sticky]');
     const form = root.querySelector('.dc-form');
-    const finalButton = root.querySelector('.dc-finale [data-crest-checkout]');
+    const finalButton = root.querySelector('.dc-finale [data-crest-add]');
     if (sticky && form) {
       let scheduled = false;
       const update = () => {
