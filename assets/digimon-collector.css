@@ -52,6 +52,15 @@
 .dc-thumbs button[aria-pressed=true],.dc-thumbs button:hover{opacity:1;border-color:#5b5eb5}
 .dc-thumbs button[aria-pressed=true]{outline:2px solid #5b5eb5;outline-offset:3px}
 .dc-thumbs img{aspect-ratio:1;object-fit:cover}
+.dc-product-video{margin-top:16px;border:1px solid #d5cec4}
+.dc-product-video summary{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 14px;list-style:none;cursor:pointer;font-size:13px;font-weight:600}
+.dc-product-video summary::-webkit-details-marker{display:none}
+.dc-product-video-icon{font-size:11px;color:#5b5eb5}
+.dc-product-video-duration{margin-left:auto;font-size:11px;font-weight:400;color:#626670}
+.dc-product-video summary::after{content:'+';font-size:20px;font-weight:400;line-height:1}
+.dc-product-video[open] summary::after{content:'−'}
+.dc-product-video-player{padding:16px;background:#1d2233}
+.dc-product-video video{display:block;width:min(100%,360px);height:auto;max-height:70svh;aspect-ratio:9/16;object-fit:contain;margin:auto;background:#1d2233}
 .dc-buy{grid-column:2;grid-row:2;min-width:0}.dc-purchase-card{padding:24px;background:#202538;color:#fbf8f0;border-radius:8px}
 .dc-buy-label{font-size:10px;letter-spacing:.15em;font-weight:650;margin-bottom:10px!important;color:#cbd0e2}
 .dc-palette{display:flex;gap:4px;margin-bottom:14px}

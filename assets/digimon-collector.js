@@ -15,6 +15,15 @@
       cleanups.push(() => element.removeEventListener(type, handler));
     };
     const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    const videoDetails = root.querySelector('[data-crest-video-details]');
+    const productVideo = root.querySelector('[data-crest-product-video]');
+    if (videoDetails && productVideo) {
+      listen(videoDetails, 'toggle', () => {
+        if (!videoDetails.open) productVideo.pause();
+      });
+      listen(window, 'pagehide', () => productVideo.pause());
+      cleanups.push(() => productVideo.pause());
+    }
     const canWarmImages = () => {
       const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
       return !connection?.saveData && !/(^|-)2g$/.test(connection?.effectiveType || '');
