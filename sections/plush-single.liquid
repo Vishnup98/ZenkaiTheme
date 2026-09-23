@@ -18,7 +18,7 @@
       <fieldset class="ps-types"><legend>Choose your type <span data-selected-type>{{ selected.title | escape }}</span></legend>
         <div class="ps-type-grid">{% for variant in product.variants %}
           <label class="ps-type" title="{{ variant.title | escape }}">
-            <input type="radio" name="id" value="{{ variant.id }}" {% if variant.id == selected.id %}checked{% endif %} {% unless variant.available %}disabled{% endunless %}>
+            <input type="radio" name="id" value="{{ variant.id }}" {% if variant.id == selected.id %}checked{% endif %}>
             <span>{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 180 | image_tag: widths: '90,180', sizes: '76px', loading: 'lazy', alt: variant.title }}{% endif %}<b>{{ variant.title | escape }}</b></span>
           </label>
         {% endfor %}</div>
