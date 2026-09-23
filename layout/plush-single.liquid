@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf7f1">
+  <title>{{ product.title | escape }} | {{ shop.name | escape }}</title>
+  <meta name="description" content="{{ page_description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {{ content_for_header }}
+  <style>
+    @font-face{font-family:PlushDisplay;src:url('{{ 'little-impostors-display-latin.woff2' | asset_url }}') format('woff2');font-weight:400 800;font-display:swap}
+    @font-face{font-family:PlushBody;src:url('{{ 'little-impostors-body-latin.woff2' | asset_url }}') format('woff2');font-weight:400 800;font-display:swap}
+  </style>
+  {{ 'plush-single.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'plush-single.js' | asset_url }}" defer></script>
+</head>
+<body class="ps-body">
+  <a class="ps-skip" href="#MainContent">Skip to product</a>
+  <header class="ps-header">
+    <a href="{{ routes.root_url }}" aria-label="Zenkai Clothing home"><img src="{{ 'zenkai_logo_1f3d003f-4bea-4a78-af5e-cde5e350c279.png' | file_url }}?width=160" width="80" height="60" alt="Zenkai Clothing"></a>
+    <span>A little joy. Your favorite type.</span>
+    <a href="{{ routes.cart_url }}">Bag{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</a>
+  </header>
+  <main id="MainContent">{{ content_for_layout }}</main>
+  <footer class="ps-footer"><a href="{{ routes.root_url }}">ZENKAI</a><nav aria-label="Customer support"><a href="{{ shop.shipping_policy.url }}">Shipping</a><a href="{{ shop.refund_policy.url }}">Returns &amp; order care</a><a href="mailto:{{ shop.email }}">Contact</a><a href="{{ shop.privacy_policy.url }}">Privacy</a></nav><small>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</small></footer>
+</body>
+</html>

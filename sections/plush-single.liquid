@@ -1,0 +1,37 @@
+{%- assign selected = product.selected_or_first_available_variant -%}
+{%- assign hero = selected.featured_image | default: product.featured_image -%}
+{%- assign is_impostor = false -%}
+{%- if product.handle contains 'impostors' -%}{%- assign is_impostor = true -%}{%- endif -%}
+<section class="ps-product" data-plush-single>
+  <div class="ps-gallery">
+    <div class="ps-photo"><span class="ps-photo-note">ONE LITTLE FAVORITE</span>{{ hero | image_url: width: 1200 | image_tag: widths: '400,600,800,1000,1200', sizes: '(min-width: 900px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', id: 'PlushSingleHero' }}<span class="ps-photo-type" data-photo-type>{{ selected.title | escape }}</span></div>
+    <p class="ps-gallery-caption">The one you keep coming back to. Now on its own.</p>
+  </div>
+  <div class="ps-details">
+    <p class="ps-eyebrow">{% if is_impostor %}LITTLE IMPOSTORS{% else %}EVOLUTION COMPANIONS{% endif %} · SINGLES</p>
+    <h1>Your favorite.<br><span>Just one.</span></h1>
+    <p class="ps-product-name">{{ product.title | escape }}</p>
+    <p class="ps-intro">{% if is_impostor %}A familiar disguise. A wonderfully wonky face. Pick the little impostor that feels like you.{% else %}One cozy companion, dressed in your favorite type. Pick the little personality that feels like you.{% endif %}</p>
+    <div class="ps-price"><strong data-price>{{ selected.price | money_with_currency }}</strong><span>each · one plush included</span></div>
+    {% form 'product', product, id: 'PlushSingleForm' %}
+      <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+      <fieldset class="ps-types"><legend>Choose your type <span data-selected-type>{{ selected.title | escape }}</span></legend>
+        <div class="ps-type-grid">{% for variant in product.variants %}
+          <label class="ps-type" title="{{ variant.title | escape }}">
+            <input type="radio" name="id" value="{{ variant.id }}" {% if variant.id == selected.id %}checked{% endif %} {% unless variant.available %}disabled{% endunless %}>
+            <span>{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 180 | image_tag: widths: '90,180', sizes: '76px', loading: 'lazy', alt: variant.title }}{% endif %}<b>{{ variant.title | escape }}</b></span>
+          </label>
+        {% endfor %}</div>
+      </fieldset>
+      <div class="ps-purchase"><label class="ps-quantity">Quantity<input type="number" name="quantity" min="1" value="1" inputmode="numeric" required aria-label="Quantity"></label><button type="submit" class="ps-add" data-add {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}Add to bag{% else %}Sold out{% endif %}</button></div>
+      <p class="ps-checkout-note">Shipping and taxes calculated at checkout.</p>
+      <p class="ps-announcement" data-selection-message role="status" aria-live="polite"></p>
+    {% endform %}
+    <div class="ps-info"><details open><summary>One plush. Your chosen type.</summary><div>{{ product.description }}</div></details><details><summary>Want the whole little gang?</summary><p>{% if is_impostor %}Meet all nine Little Impostors in the <a href="/products/little-impostors-complete-9-plush-collector-set">complete collector set</a>.{% else %}Meet all eight Evolution Companions in the <a href="/products/evolution-companions-complete-8-plush-collector-set">complete collector set</a>.{% endif %}</p></details></div>
+  </div>
+  <script type="application/json" data-variants>[{% for variant in product.variants %}{"id":{{ variant.id | json }},"title":{{ variant.title | json }},"available":{{ variant.available | json }},"price":{{ variant.price | money_with_currency | json }},"image":{{ variant.featured_image | image_url: width: 1200 | json }},"width":{{ variant.featured_image.width | json }},"height":{{ variant.featured_image.height | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+  <script type="application/ld+json">{{ product | structured_data }}</script>
+</section>
+{% schema %}
+{"name":"Single plush product","settings":[]}
+{% endschema %}

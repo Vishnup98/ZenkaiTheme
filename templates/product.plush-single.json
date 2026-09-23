@@ -1,0 +1,5 @@
+{
+  "layout": "plush-single",
+  "sections": {"main": {"type": "plush-single", "settings": {}}},
+  "order": ["main"]
+}
