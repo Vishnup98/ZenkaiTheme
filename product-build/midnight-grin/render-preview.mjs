@@ -36,7 +36,8 @@ product.variants.forEach(v => {
   if (v.featured_image) v.featured_image = { ...v.featured_image, src: v.featured_image.src };
 });
 product.selected_or_first_available_variant = product.variants.find(v => v.available) || product.variants[0];
-const template = JSON.parse(await fs.readFile('templates/product.midnight-grin.json', 'utf8'));
+const templateSource = await fs.readFile('templates/product.midnight-grin.json', 'utf8');
+const template = JSON.parse(templateSource.replace(/^\s*\/\*[\s\S]*?\*\/\s*/, ''));
 let source = await fs.readFile('sections/midnight-grin-product.liquid', 'utf8');
 source = source.replace(/{%-?\s*schema\s*-?%}[\s\S]*?{%-?\s*endschema\s*-?%}/g, '')
   .replace(/{%-?\s*form 'product',[\s\S]*?%}/g, '<form action="/cart/add" method="post" id="{{ form_id }}" class="mg-form">')
@@ -44,7 +45,7 @@ source = source.replace(/{%-?\s*schema\s*-?%}[\s\S]*?{%-?\s*endschema\s*-?%}/g, 
 const context = {
   product, section: { id: 'preview', settings: template.sections.main.settings, blocks: [] },
   request: { locale: { iso_code: 'en' }, design_mode: false },
-  shop: { name: 'Zenkai Clothing', email: 'support@zenkaiclothing.com', privacy_policy: { url: '/policies/privacy-policy' }, shipping_policy: { url: '/policies/shipping-policy' }, refund_policy: { url: '/policies/refund-policy' }, terms_of_service: { url: '/policies/terms-of-service' } },
+  shop: { name: 'Zenkai Clothing', currency: 'USD', email: 'support@zenkaiclothing.com', privacy_policy: { url: '/policies/privacy-policy' }, shipping_policy: { url: '/policies/shipping-policy' }, refund_policy: { url: '/policies/refund-policy' }, terms_of_service: { url: '/policies/terms-of-service' } },
   routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add' },
   canonical_url: 'https://zenkaiclothing.com/products/' + product.handle,
   cart: { item_count: 0 }
