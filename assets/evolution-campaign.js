@@ -5,16 +5,22 @@
     root.dataset.ecReady = "true";
     var sticky = root.querySelector("[data-ec-sticky]");
     var isLittleImpostors = root.classList.contains("mc-page");
+    var documentSticky = isLittleImpostors && new URLSearchParams(location.search).get("sticky_layer") === "page";
     var stickyAnchor;
     // iPhone Safari reports fixed bottom bars as visible while failing to paint
     // them during downward scrolling. Keep this bar in the page's sticky layer.
-    if (isLittleImpostors && sticky) {
+    if (documentSticky && sticky) {
+      // Diagnostic: bypass viewport-constrained compositing, retaining the same
+      // button and native form association. Only enabled by sticky_layer=page.
+      sticky.classList.add("mc-document-sticky");
+      document.body.appendChild(sticky);
+    } else if (isLittleImpostors && sticky) {
       stickyAnchor = document.createElement("div");
       stickyAnchor.className = "mc-sticky-anchor";
       root.insertBefore(stickyAnchor, root.firstChild);
       stickyAnchor.appendChild(sticky);
     }
-    var iphoneSticky = isLittleImpostors && /iPhone|iPod/.test(navigator.userAgent) && !document.documentElement.classList.contains("mc-cover-test");
+    var iphoneSticky = isLittleImpostors && !documentSticky && /iPhone|iPod/.test(navigator.userAgent) && !document.documentElement.classList.contains("mc-cover-test");
     var initialViewport = window.visualViewport;
     var chromeBaselineHeight = initialViewport ? initialViewport.height : window.innerHeight;
     var chromeBaselineWidth = initialViewport ? initialViewport.width : window.innerWidth;
@@ -68,6 +74,15 @@
       var shouldHide =
         usable || !!(root.querySelector("[data-ec-lightbox]") || {}).open;
       if (sticky.hidden !== shouldHide) sticky.hidden = shouldHide;
+      if (documentSticky && !shouldHide) {
+        // Read document height before moving the bar so it cannot extend the
+        // scrollable page at the footer or during rubber-band overscroll.
+        var barHeight = sticky.getBoundingClientRect().height;
+        var maxTop = Math.max(0, document.documentElement.scrollHeight - barHeight);
+        var pageBottom = window.scrollY + bottom;
+        var pageTop = Math.max(0, Math.min(maxTop, pageBottom - barHeight));
+        sticky.style.top = Math.round(pageTop) + "px";
+      }
     }
     function requestStickyUpdate() {
       if (stickyFrame) return;
@@ -106,6 +121,8 @@
         var bounds = sticky && sticky.getBoundingClientRect();
         var button = sticky && sticky.querySelector("button");
         var buttonStyle = button && getComputedStyle(button);
+        var buttonBounds = button && button.getBoundingClientRect();
+        var hit = buttonBounds && document.elementFromPoint(buttonBounds.left + buttonBounds.width / 2, buttonBounds.top + buttonBounds.height / 2);
         stickyDebug.textContent =
           "scroll " + Math.round(scrollY) + " screen " + screen.height + " inner " + innerHeight +
           " vv " + (viewport ? Math.round(viewport.height) : "-") +
@@ -114,7 +131,10 @@
           " hidden " + !!(sticky && sticky.hidden) +
           " display " + (sticky ? getComputedStyle(sticky).display : "-") + "\n" +
           "button " + (buttonStyle ? buttonStyle.display + "/" + buttonStyle.visibility + "/" + buttonStyle.opacity : "-") +
-          " gap " + chromeGap;
+          " gap " + chromeGap + "\n" +
+          "layer " + (documentSticky ? "page-v1" : "sticky") +
+          " hit " + (button && hit && button.contains(hit) ? "button" : hit ? hit.tagName.toLowerCase() : "outside") +
+          " scale " + (viewport ? viewport.scale : 1);
         stickyDebugFrame = requestAnimationFrame(paintStickyDebug);
       }
       paintStickyDebug();
@@ -443,6 +463,7 @@
       if (stickyDebugFrame) cancelAnimationFrame(stickyDebugFrame);
       if (stickyDebug) stickyDebug.remove();
       if (stickyAnchor) stickyAnchor.remove();
+      if (documentSticky && sticky) sticky.remove();
     };
   }
   function boot() {

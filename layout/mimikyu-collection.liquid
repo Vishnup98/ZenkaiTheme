@@ -6,7 +6,7 @@
     {% render 'impostors-ab-router' %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-      if (new URLSearchParams(location.search).has('sticky_cover')) {
+      if (new URLSearchParams(location.search).has('sticky_cover') || new URLSearchParams(location.search).get('sticky_layer') === 'page') {
         document.querySelector('meta[name="viewport"]').content = 'width=device-width, initial-scale=1, viewport-fit=cover';
         document.documentElement.classList.add('mc-cover-test');
       }

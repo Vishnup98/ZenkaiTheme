@@ -2049,6 +2049,13 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  html.mc-cover-test .mc-body .mc-sticky-anchor .ec-sticky .ec-cta{width:65%;flex:0 0 65%;min-height:47px;padding:11px 15px;border-radius:22px 22px 8px 22px;font-size:14px}
 }
 
+/* Query-gated document-layer comparison for Safari viewport clipping. */
+.mc-body .ec-sticky.mc-document-sticky{position:absolute;top:0;bottom:auto;transform:none;transition:none;left:0;right:0;width:100%;border-radius:0;z-index:1000}
+@media(max-width:679px){
+ .mc-body .ec-sticky.mc-document-sticky{gap:12px;padding:11px 16px;padding-bottom:max(11px,env(safe-area-inset-bottom))}
+ .mc-body .ec-sticky.mc-document-sticky .ec-cta{flex:1;width:auto;min-width:0;min-height:47px;padding:11px 12px;font-size:14px}
+}
+
 /* Keep small section labels independent of shared paragraph rules. */
 .mc-body .ec-included .ec-section-heading .ec-eyebrow,.mc-body .mc-customer-section .ec-section-heading .ec-eyebrow{font-size:11px;line-height:1.4;letter-spacing:.11em;max-width:none;color:var(--mc-purple)}
 .mc-body .shopify-payment-button>button{border-radius:999px!important;min-height:48px}
