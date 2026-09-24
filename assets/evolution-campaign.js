@@ -72,6 +72,31 @@
     paymentObserver.observe(root, { childList: true, subtree: true });
     updateSticky();
 
+    var stickyDebug;
+    var stickyDebugFrame;
+    if (isLittleImpostors && new URLSearchParams(location.search).has("sticky_debug")) {
+      stickyDebug = document.createElement("output");
+      stickyDebug.setAttribute("aria-label", "Sticky cart diagnostics");
+      stickyDebug.style.cssText = "position:fixed;z-index:2147483647;top:110px;left:8px;max-width:calc(100vw - 16px);padding:8px;background:#ffffd8;color:#111;font:12px/1.3 monospace;white-space:pre;pointer-events:none;border:1px solid #111";
+      document.body.appendChild(stickyDebug);
+      function paintStickyDebug() {
+        var viewport = window.visualViewport;
+        var bounds = sticky && sticky.getBoundingClientRect();
+        var button = sticky && sticky.querySelector("button");
+        var buttonStyle = button && getComputedStyle(button);
+        stickyDebug.textContent =
+          "scroll " + Math.round(scrollY) + " inner " + innerHeight +
+          " vv " + (viewport ? Math.round(viewport.height) : "-") +
+          " offset " + (viewport ? Math.round(viewport.offsetTop) : "-") + "\n" +
+          "bar " + (bounds ? Math.round(bounds.top) + ".." + Math.round(bounds.bottom) : "-") +
+          " hidden " + !!(sticky && sticky.hidden) +
+          " display " + (sticky ? getComputedStyle(sticky).display : "-") + "\n" +
+          "button " + (buttonStyle ? buttonStyle.display + "/" + buttonStyle.visibility + "/" + buttonStyle.opacity : "-");
+        stickyDebugFrame = requestAnimationFrame(paintStickyDebug);
+      }
+      paintStickyDebug();
+    }
+
     var galleryCleanups = [];
     root.querySelectorAll("[data-ec-gallery]").forEach(function (gallery) {
       var stage = gallery.closest(".ec-gallery-stage") || gallery.closest(".ec-included");
@@ -392,6 +417,8 @@
       if (sizeObserver) sizeObserver.disconnect();
       galleryCleanups.forEach(function (cleanup) { cleanup(); });
       paymentObserver.disconnect();
+      if (stickyDebugFrame) cancelAnimationFrame(stickyDebugFrame);
+      if (stickyDebug) stickyDebug.remove();
       if (isLittleImpostors && sticky) sticky.remove();
     };
   }
