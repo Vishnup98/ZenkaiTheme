@@ -2029,6 +2029,13 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
 }
 @media(prefers-reduced-motion:reduce){.mc-body *{scroll-behavior:auto!important;transition:none!important}}
 
+/* iPhone Safari can paint bottom-anchored fixed bars under its collapsing chrome. */
+@media(max-width:679px){
+ @supports(height:100dvh){
+  .mc-body .ec-sticky{top:100dvh;bottom:auto;transform:translateY(-100%)}
+ }
+}
+
 /* Keep small section labels independent of shared paragraph rules. */
 .mc-body .ec-included .ec-section-heading .ec-eyebrow,.mc-body .mc-customer-section .ec-section-heading .ec-eyebrow{font-size:11px;line-height:1.4;letter-spacing:.11em;max-width:none;color:var(--mc-purple)}
 .mc-body .shopify-payment-button>button{border-radius:999px!important;min-height:48px}
