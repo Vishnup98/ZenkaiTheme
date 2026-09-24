@@ -417,6 +417,12 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
  .mc-body .mc-sticky-anchor{top:calc(100vh - 21px)}
  @supports(height:100dvh){.mc-body .mc-sticky-anchor{top:calc(100dvh - 21px)}}
 }
+@media(max-width:679px){
+ .mc-body .mc-sticky-anchor .ec-sticky{left:12px;right:12px;width:auto;gap:10px;padding:8px 10px;border:1px solid var(--mc-line);border-radius:18px;box-shadow:0 8px 26px #30263b24}
+ .mc-body .mc-sticky-anchor .ec-sticky>div{min-width:78px}
+ .mc-body .mc-sticky-anchor .ec-sticky strong{font-size:21px}
+ .mc-body .mc-sticky-anchor .ec-sticky .ec-cta{flex:1;width:auto;min-height:46px;padding:9px 10px;border-radius:14px;font-size:13px}
+}
 
 /* Keep small section labels independent of shared paragraph rules. */
 .mc-body .ec-included .ec-section-heading .ec-eyebrow,.mc-body .mc-customer-section .ec-section-heading .ec-eyebrow{font-size:11px;line-height:1.4;letter-spacing:.11em;max-width:none;color:var(--mc-purple)}
