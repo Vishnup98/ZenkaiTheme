@@ -25,7 +25,9 @@ function setup({ preview = true, soldout = false, variant = '' } = {}) {
     node.textContent = JSON.stringify(data);
     root.querySelectorAll('[data-mg-slot] option').forEach(option => { if (option.value === String(data.variants[1].id)) option.disabled = true; });
   }
+  window.fetch = (...args) => window.testFetch(...args);
   window.eval(script);
+  window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
   return { window, document: window.document, root, observations };
 }
 const variants = JSON.parse(new JSDOM(html).window.document.querySelector('[data-mg-data]').textContent).variants;
@@ -117,14 +119,14 @@ liveSlots[3].value = String(variants[2].id);
 liveSlots[3].dispatchEvent(new liveWindow.Event('change', { bubbles: true }));
 let calls = [];
 let finish;
-liveWindow.fetch = (url, options) => { calls.push({ url, options }); return new Promise(resolve => { finish = resolve; }); };
+liveWindow.testFetch = (url, options) => { calls.push({ url, options }); return new Promise(resolve => { finish = resolve; }); };
 const first = new liveWindow.Event('submit', { bubbles: true, cancelable: true });
 liveDoc.querySelector('form').dispatchEvent(first);
 liveDoc.querySelector('form').dispatchEvent(new liveWindow.Event('submit', { bubbles: true, cancelable: true }));
 assert.equal(first.defaultPrevented, true);
 assert.equal(calls.length, 1, 'duplicate submit is ignored');
 assert.equal(liveDoc.querySelector('[data-mg-bundle-add]').disabled, true);
-assert.equal(calls[0].url, '/cart/add.js');
+assert.equal(calls[0].url, '/cart/add.js?upcart=1&opens_cart=never');
 assert.deepEqual(JSON.parse(calls[0].options.body).items, [
   { id: variants[0].id, quantity: 1 },
   { id: variants[1].id, quantity: 2 },
@@ -137,3 +139,22 @@ assert.equal(liveDoc.querySelector('[data-mg-error]').hidden, false);
 liveWindow.dispatchEvent(new liveWindow.Event('pageshow'));
 assert.equal(liveDoc.querySelector('[data-mg-bundle-add]').disabled, false);
 console.log('PASS: Midnight Grin tier prices, mixed colors, fallback, sync, availability, and cart payload.');
+
+const guarded = setup({ preview: false });
+const guardedTier = guarded.document.querySelector('[data-mg-tier][value="4"]');
+guardedTier.checked = true;
+guardedTier.dispatchEvent(new guarded.window.Event('change', { bubbles: true }));
+let intercepted = 0;
+let guardedCalls = [];
+guarded.window.addEventListener('click', () => { intercepted++; }, true);
+guarded.document.addEventListener('submit', () => { intercepted++; }, true);
+guarded.window.fetch = () => { throw new Error('App fetch wrapper should be bypassed'); };
+guarded.window.testFetch = (url, options) => { guardedCalls.push(JSON.parse(options.body)); return new Promise(() => {}); };
+guarded.document.querySelector('[data-mg-bundle-add]').click();
+guarded.document.querySelector('[data-mg-sticky-add]').click();
+assert.equal(intercepted, 0, 'app click and submit interception blocked');
+assert.equal(guardedCalls.length, 1, 'main and sticky purchase cannot double add');
+assert.equal(guardedCalls[0].items.length, 4, 'four distinct colors submitted');
+assert.equal(guardedCalls[0].items.reduce((sum,item) => sum + item.quantity, 0), 4);
+assert(script.includes("+ 'checkout'"), 'success routes directly to checkout');
+console.log('PASS: app interception bypass and four-color main/sticky purchase.');

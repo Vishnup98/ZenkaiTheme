@@ -20,6 +20,7 @@
       <div class="mg-price"><strong data-mg-price>{{ selected.price | money }}</strong></div>
       {% if section.settings.bonus_heading != blank and section.settings.bonus_copy != blank %}<aside class="mg-bonus"><strong>{{ section.settings.bonus_heading | escape }}</strong><p>{{ section.settings.bonus_copy | escape }}</p></aside>{% endif %}
       {% form 'product', product, id: form_id, class: 'mg-form' %}
+        <input type="hidden" name="return_to" value="/checkout">
         <div class="mg-native-purchase" data-mg-native>
         <label class="mg-native-label" for="mg-variant-{{ section.id }}">Choose your color</label>
         <select id="mg-variant-{{ section.id }}" name="id" data-mg-variant>

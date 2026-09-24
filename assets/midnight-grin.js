@@ -1,5 +1,21 @@
 (() => {
   'use strict';
+  // Load before app embeds so their delegated clicks and fetch wrappers cannot
+  // replace the selected bundle with the native form's single variant.
+  const shopifyFetch = window.fetch.bind(window);
+  function interceptPurchase(event) {
+    const target = event.target instanceof Element ? event.target : null;
+    const trigger = event.type === 'click'
+      ? target?.closest('[data-mg-bundle-add], [data-mg-sticky-add]')
+      : target?.closest('.mg-form');
+    const root = trigger?.closest('[data-mg-product]');
+    if (!root || root.dataset.mgReady !== 'true') return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    root.dispatchEvent(new CustomEvent('mg:purchase'));
+  }
+  window.addEventListener('click', interceptPurchase, true);
+  window.addEventListener('submit', interceptPurchase, true);
   function initialize(root) {
     if (root.dataset.mgReady) return;
     const payload = root.querySelector('[data-mg-data]');
@@ -175,8 +191,7 @@
       root.querySelector('.mg-buy').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
       activeSlots()[0].focus({ preventScroll: true });
     }));
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
+    root.addEventListener('mg:purchase', async () => {
       if (submitting || root.dataset.preview === 'true') return;
       const slots = activeSlots();
       if (!slots.every(slot => variantFor(slot.value)?.available)) { setError('Choose an available color for every cap.'); return; }
@@ -185,18 +200,35 @@
       submitting = true;
       setError('');
       syncButtons();
+      let rejected = false;
       try {
-        const response = await fetch(data.cartAddUrl || '/cart/add.js', {
+        const response = await shopifyFetch((data.cartAddUrl || '/cart/add.js') + '?upcart=1&opens_cart=never', {
           method: 'POST', credentials: 'same-origin',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ items: [...quantities].map(([id, count]) => ({ id: Number(id), quantity: count })) })
         });
-        if (!response.ok) throw new Error('Cart add failed');
-        window.location.assign(data.cartUrl || '/cart');
+        if (!response.ok) { rejected = true; throw new Error('Cart add failed'); }
+        const added = await response.json();
+        const returned = new Map();
+        (added.items || []).forEach(item => {
+          const id = String(item.variant_id || item.id);
+          returned.set(id, (returned.get(id) || 0) + item.quantity);
+        });
+        if (![...quantities].every(([id, count]) => returned.get(id) >= count)) throw new Error('Incomplete bundle response');
+        window.location.assign((window.Shopify?.routes?.root || '/') + 'checkout');
       } catch (_) {
-        submitting = false;
+        submitting = !rejected;
         syncButtons();
-        setError('We could not add those caps. Please check the colors and try again.');
+        if (rejected) setError('We could not add those caps. Please check the colors and try again.');
+        else {
+          buttonLabel(bundleAdd, 'Check your cart');
+          buttonLabel(stickyAdd, 'Check your cart');
+          setError('We could not confirm the full selection. Check your cart before trying again. ');
+          const link = document.createElement('a');
+          link.href = data.cartUrl || '/cart';
+          link.textContent = 'View cart';
+          error.append(link);
+        }
       }
     });
     window.addEventListener('pageshow', () => { submitting = false; syncButtons(); });
@@ -216,6 +248,8 @@
     const initialVariant = data.variants.some(item => String(item.id) === requestedVariant) ? requestedVariant : select.value;
     update(initialVariant, false);
   }
-  document.querySelectorAll('[data-mg-product]').forEach(initialize);
+  const boot = () => document.querySelectorAll('[data-mg-product]').forEach(initialize);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+  else boot();
   document.addEventListener('shopify:section:load', event => event.target.querySelectorAll('[data-mg-product]').forEach(initialize));
 })();

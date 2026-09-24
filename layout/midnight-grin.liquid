@@ -29,6 +29,7 @@
     </style>
     {{ 'midnight-grin.css' | asset_url | stylesheet_tag }}
     {{ 'midnight-grin-shell.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'midnight-grin.js' | asset_url }}"></script>
     {{ content_for_header }}
   </head>
   <body class="mg-body">
@@ -36,6 +37,5 @@
     {% render 'midnight-grin-header' %}
     <main id="MainContent">{{ content_for_layout }}</main>
     {% render 'midnight-grin-footer' %}
-    <script src="{{ 'midnight-grin.js' | asset_url }}" defer></script>
   </body>
 </html>
