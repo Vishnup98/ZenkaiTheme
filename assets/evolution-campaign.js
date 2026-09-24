@@ -5,9 +5,15 @@
     root.dataset.ecReady = "true";
     var sticky = root.querySelector("[data-ec-sticky]");
     var isLittleImpostors = root.classList.contains("mc-page");
-    // WebKit can stop painting descendants of a fixed bar inside a long
-    // Shopify section during momentum scrolling. Give this bar a body layer.
-    if (isLittleImpostors && sticky) document.body.appendChild(sticky);
+    var stickyAnchor;
+    // iPhone Safari reports fixed bottom bars as visible while failing to paint
+    // them during downward scrolling. Keep this bar in the page's sticky layer.
+    if (isLittleImpostors && sticky) {
+      stickyAnchor = document.createElement("div");
+      stickyAnchor.className = "mc-sticky-anchor";
+      root.insertBefore(stickyAnchor, root.firstChild);
+      stickyAnchor.appendChild(sticky);
+    }
     var header = document.querySelector(".ec-header");
     var stickyFrame;
     function updateSticky() {
@@ -419,7 +425,7 @@
       paymentObserver.disconnect();
       if (stickyDebugFrame) cancelAnimationFrame(stickyDebugFrame);
       if (stickyDebug) stickyDebug.remove();
-      if (isLittleImpostors && sticky) sticky.remove();
+      if (stickyAnchor) stickyAnchor.remove();
     };
   }
   function boot() {
