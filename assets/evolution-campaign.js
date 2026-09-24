@@ -5,42 +5,37 @@
     root.dataset.ecReady = "true";
     var sticky = root.querySelector("[data-ec-sticky]");
     var isLittleImpostors = root.classList.contains("mc-page");
-    var documentSticky = isLittleImpostors && new URLSearchParams(location.search).get("sticky_layer") === "page";
-    var stickyAnchor;
-    // iPhone Safari reports fixed bottom bars as visible while failing to paint
-    // them during downward scrolling. Keep this bar in the page's sticky layer.
-    if (documentSticky && sticky) {
-      // Diagnostic: bypass viewport-constrained compositing, retaining the same
-      // button and native form association. Only enabled by sticky_layer=page.
-      sticky.classList.add("mc-document-sticky");
-      document.body.appendChild(sticky);
-    } else if (isLittleImpostors && sticky) {
-      stickyAnchor = document.createElement("div");
-      stickyAnchor.className = "mc-sticky-anchor";
-      root.insertBefore(stickyAnchor, root.firstChild);
-      stickyAnchor.appendChild(sticky);
+    var stickyParams = new URLSearchParams(location.search);
+    var scrollTimeline = typeof CSS !== "undefined" && CSS.supports("animation-timeline", "scroll(root block)");
+    var documentSticky = isLittleImpostors && (
+      (/iPhone|iPod/.test(navigator.userAgent) && scrollTimeline) || stickyParams.get("sticky_layer") === "page"
+    );
+    var stickyLayer;
+    var stickyLayoutDirty = true;
+    var stickyViewportBottom;
+    var stickyDocumentHeight;
+    var stickyScrollDistance;
+    // On affected iPhones, viewport-constrained layers disappear as Safari's
+    // chrome retracts. A document layer stays visible (verified on-device).
+    // Let the browser's scroll timeline cancel page scrolling, avoiding the
+    // one-frame lag of writing scrollY into top on every scroll event.
+    if (isLittleImpostors && sticky) {
+      if (documentSticky) {
+        stickyLayer = document.createElement("div");
+        stickyLayer.className = "mc-document-layer";
+        document.body.appendChild(stickyLayer);
+        stickyLayer.appendChild(sticky);
+        sticky.classList.add("mc-document-sticky");
+        if (scrollTimeline) sticky.classList.add("mc-scroll-timeline");
+      } else {
+        document.body.appendChild(sticky);
+      }
     }
-    var iphoneSticky = isLittleImpostors && !documentSticky && /iPhone|iPod/.test(navigator.userAgent) && !document.documentElement.classList.contains("mc-cover-test");
-    var initialViewport = window.visualViewport;
-    var chromeBaselineHeight = initialViewport ? initialViewport.height : window.innerHeight;
-    var chromeBaselineWidth = initialViewport ? initialViewport.width : window.innerWidth;
-    var chromeGap = 0;
     var header = document.querySelector(".ec-header");
     var stickyFrame;
     function updateSticky() {
       if (!sticky) return;
       var viewport = window.visualViewport;
-      if (iphoneSticky && stickyAnchor && viewport) {
-        if (Math.abs(viewport.width - chromeBaselineWidth) > 2) {
-          chromeBaselineWidth = viewport.width;
-          chromeBaselineHeight = viewport.height;
-        }
-        var nextChromeGap = Math.max(0, Math.round(viewport.height - chromeBaselineHeight));
-        if (nextChromeGap !== chromeGap) {
-          chromeGap = nextChromeGap;
-          stickyAnchor.style.setProperty("--mc-sticky-chrome-gap", chromeGap + "px");
-        }
-      }
       var visibleTop = viewport ? viewport.offsetTop : 0;
       var left = viewport ? viewport.offsetLeft : 0;
       var right = left + (viewport ? viewport.width : window.innerWidth);
@@ -75,14 +70,43 @@
         usable || !!(root.querySelector("[data-ec-lightbox]") || {}).open;
       if (sticky.hidden !== shouldHide) sticky.hidden = shouldHide;
       if (documentSticky && !shouldHide) {
-        // Read document height before moving the bar so it cannot extend the
-        // scrollable page at the footer or during rubber-band overscroll.
-        var barHeight = sticky.getBoundingClientRect().height;
-        var maxTop = Math.max(0, document.documentElement.scrollHeight - barHeight);
-        var pageBottom = window.scrollY + bottom;
-        var pageTop = Math.max(0, Math.min(maxTop, pageBottom - barHeight));
-        sticky.style.top = Math.round(pageTop) + "px";
+        if (bottom !== stickyViewportBottom) {
+          stickyViewportBottom = bottom;
+          sticky.style.setProperty("--mc-viewport-bottom", bottom + "px");
+          stickyLayoutDirty = true;
+        }
+        if (stickyLayoutDirty) {
+          // Clip the layer to in-flow document content, preventing its animated
+          // child from increasing the scroll range at the footer or on resize.
+          var documentHeight = Math.ceil(document.body.getBoundingClientRect().height);
+          if (documentHeight !== stickyDocumentHeight) {
+            stickyDocumentHeight = documentHeight;
+            stickyLayer.style.height = documentHeight + "px";
+          }
+          var scroller = document.scrollingElement || document.documentElement;
+          var distance = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+          if (distance !== stickyScrollDistance) {
+            stickyScrollDistance = distance;
+            sticky.style.setProperty("--mc-scroll-distance", distance + "px");
+          }
+          stickyLayoutDirty = false;
+        }
+        // Only the explicitly requested diagnostic needs this legacy fallback.
+        // Browsers without scroll timelines use the normal fixed bar by default.
+        if (!scrollTimeline) {
+          var barHeight = sticky.getBoundingClientRect().height;
+          var pageTop = Math.max(0, Math.min(stickyDocumentHeight - barHeight, window.scrollY + bottom - barHeight));
+          sticky.style.top = pageTop + "px";
+        }
       }
+      if (stickyDebug) {
+        cancelAnimationFrame(stickyDebugFrame);
+        stickyDebugFrame = requestAnimationFrame(paintStickyDebug);
+      }
+    }
+    function requestStickyLayout() {
+      stickyLayoutDirty = true;
+      requestStickyUpdate();
     }
     function requestStickyUpdate() {
       if (stickyFrame) return;
@@ -92,17 +116,19 @@
       });
     }
     window.addEventListener("scroll", requestStickyUpdate, { passive: true });
-    window.addEventListener("resize", requestStickyUpdate);
+    window.addEventListener("resize", requestStickyLayout);
+    window.addEventListener("pageshow", requestStickyLayout);
     if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", requestStickyUpdate);
+      window.visualViewport.addEventListener("resize", requestStickyLayout);
       window.visualViewport.addEventListener("scroll", requestStickyUpdate);
     }
     var sizeObserver =
       typeof ResizeObserver === "function"
-        ? new ResizeObserver(requestStickyUpdate)
+        ? new ResizeObserver(requestStickyLayout)
         : null;
     if (sizeObserver) {
       sizeObserver.observe(root);
+      if (documentSticky) sizeObserver.observe(document.body);
       if (header) sizeObserver.observe(header);
     }
     var paymentObserver = new MutationObserver(requestStickyUpdate);
@@ -111,12 +137,13 @@
 
     var stickyDebug;
     var stickyDebugFrame;
+    var paintStickyDebug;
     if (isLittleImpostors && new URLSearchParams(location.search).has("sticky_debug")) {
       stickyDebug = document.createElement("output");
       stickyDebug.setAttribute("aria-label", "Sticky cart diagnostics");
       stickyDebug.style.cssText = "position:fixed;z-index:2147483647;top:110px;left:8px;max-width:calc(100vw - 16px);padding:8px;background:#ffffd8;color:#111;font:12px/1.3 monospace;white-space:pre;pointer-events:none;border:1px solid #111";
       document.body.appendChild(stickyDebug);
-      function paintStickyDebug() {
+      paintStickyDebug = function () {
         var viewport = window.visualViewport;
         var bounds = sticky && sticky.getBoundingClientRect();
         var button = sticky && sticky.querySelector("button");
@@ -131,12 +158,10 @@
           " hidden " + !!(sticky && sticky.hidden) +
           " display " + (sticky ? getComputedStyle(sticky).display : "-") + "\n" +
           "button " + (buttonStyle ? buttonStyle.display + "/" + buttonStyle.visibility + "/" + buttonStyle.opacity : "-") +
-          " gap " + chromeGap + "\n" +
-          "layer " + (documentSticky ? "page-v1" : "sticky") +
+          "\nlayer " + (documentSticky ? (scrollTimeline ? "page-v2-css" : "page-v2-js") : "fixed") +
           " hit " + (button && hit && button.contains(hit) ? "button" : hit ? hit.tagName.toLowerCase() : "outside") +
           " scale " + (viewport ? viewport.scale : 1);
-        stickyDebugFrame = requestAnimationFrame(paintStickyDebug);
-      }
+      };
       paintStickyDebug();
     }
 
@@ -445,11 +470,12 @@
     }
     root._ecCleanup = function () {
       window.removeEventListener("scroll", requestStickyUpdate);
-      window.removeEventListener("resize", requestStickyUpdate);
+      window.removeEventListener("resize", requestStickyLayout);
+      window.removeEventListener("pageshow", requestStickyLayout);
       if (window.visualViewport) {
         window.visualViewport.removeEventListener(
           "resize",
-          requestStickyUpdate,
+          requestStickyLayout,
         );
         window.visualViewport.removeEventListener(
           "scroll",
@@ -462,8 +488,8 @@
       paymentObserver.disconnect();
       if (stickyDebugFrame) cancelAnimationFrame(stickyDebugFrame);
       if (stickyDebug) stickyDebug.remove();
-      if (stickyAnchor) stickyAnchor.remove();
-      if (documentSticky && sticky) sticky.remove();
+      if (stickyLayer) stickyLayer.remove();
+      if (isLittleImpostors && sticky) sticky.remove();
     };
   }
   function boot() {
