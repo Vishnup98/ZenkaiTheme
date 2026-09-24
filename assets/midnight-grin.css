@@ -254,3 +254,4 @@
  .mg-body .mg-bundle__add{font-size:17px;min-height:60px}
 }
 @media(prefers-reduced-motion:reduce){.mg-bundle__tier{transition:none}.mg-bundle__tier:hover{transform:none}}
+.mg-bundle__aside{display:block;margin-top:2px;font-size:11px;color:#786e80;font-style:italic;line-height:1.35}
