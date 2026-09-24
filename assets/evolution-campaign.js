@@ -5,6 +5,7 @@
     root.dataset.ecReady = "true";
     var sticky = root.querySelector("[data-ec-sticky]");
     var isLittleImpostors = root.classList.contains("mc-page");
+    if (isLittleImpostors) root.dataset.mcStickyRelease = "native-scroll-v2";
     var stickyParams = new URLSearchParams(location.search);
     var scrollTimeline = typeof CSS !== "undefined" && CSS.supports("animation-timeline", "scroll(root block)");
     var documentSticky = isLittleImpostors && (
