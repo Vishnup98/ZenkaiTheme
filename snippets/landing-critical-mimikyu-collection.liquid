@@ -1620,7 +1620,7 @@
 @media(prefers-reduced-motion:reduce) { .ec-body * { scroll-behavior:auto !important; transition:none !important; } }
 
 /* Little Impostors: soft shapes, expressive type, a little mischief. */
-.mc-body{--mc-sticky-release:native-scroll-v2;--mc-ink:#30263b;--mc-copy:#514758;--mc-muted:#5e5364;--mc-copy-on-dark:#f2ecf3;--mc-muted-on-dark:#dcd2e1;--mc-cream:#fffaf3;--mc-purple:#6c4795;--mc-lilac:#eee6f7;--mc-mint:#bce9d6;--mc-pink:#f3b9c3;--mc-line:#30263b24;background:var(--mc-cream);color:var(--mc-ink);font-family:'Little Sans',Arial,sans-serif;font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased}
+.mc-body{--mc-sticky-release:native-scroll-v3;--mc-ink:#30263b;--mc-copy:#514758;--mc-muted:#5e5364;--mc-copy-on-dark:#f2ecf3;--mc-muted-on-dark:#dcd2e1;--mc-cream:#fffaf3;--mc-purple:#6c4795;--mc-lilac:#eee6f7;--mc-mint:#bce9d6;--mc-pink:#f3b9c3;--mc-line:#30263b24;background:var(--mc-cream);color:var(--mc-ink);font-family:'Little Sans',Arial,sans-serif;font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased}
 .mc-body .mc-page{--wash:var(--mc-cream);--tint:var(--mc-lilac);--accent:var(--mc-purple);--ink:var(--mc-ink);--body-muted:var(--mc-muted);background:var(--mc-cream)}
 .mc-body ::selection{background:#ddc8ed;color:var(--mc-ink)}
 .mc-body h1,.mc-body h2,.mc-body h3,.mc-body .ec-included h2,.mc-body .ec-reviews h2{font-family:'Little Display',Arial,sans-serif;font-weight:800;letter-spacing:-.035em;line-height:1.03;color:var(--mc-ink)}
@@ -2030,10 +2030,11 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
 @media(prefers-reduced-motion:reduce){.mc-body *{scroll-behavior:auto!important;transition:none!important}}
 
 /* Keep iPhone cart content in the document's painting layer. The root scroll
-   timeline offsets scrolling without JavaScript moving the bar each frame. */
+   timeline offsets scrolling without JavaScript moving the bar each frame.
+   Match its explicit pixel range to the translation to prevent viewport drift. */
 .mc-body .mc-document-layer{position:absolute;top:0;left:0;width:100%;height:0;overflow:clip;pointer-events:none;z-index:40}
 .mc-body .ec-sticky.mc-document-sticky{position:absolute;top:var(--mc-viewport-bottom,100vh);bottom:auto;left:0;right:0;width:100%;border-radius:0;pointer-events:auto;transition:none}
-.mc-body .ec-sticky.mc-scroll-timeline{animation:mc-follow-page linear both;animation-timeline:scroll(root block);will-change:transform}
+.mc-body .ec-sticky.mc-scroll-timeline{animation:mc-follow-page linear both;animation-timeline:scroll(root block);animation-range:0px var(--mc-scroll-distance,1px);will-change:transform}
 @keyframes mc-follow-page{
  from{transform:translate3d(0,-100%,0)}
  to{transform:translate3d(0,calc(var(--mc-scroll-distance,0px) - 100%),0)}

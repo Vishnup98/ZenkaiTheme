@@ -5,9 +5,9 @@
     root.dataset.ecReady = "true";
     var sticky = root.querySelector("[data-ec-sticky]");
     var isLittleImpostors = root.classList.contains("mc-page");
-    if (isLittleImpostors) root.dataset.mcStickyRelease = "native-scroll-v2";
+    if (isLittleImpostors) root.dataset.mcStickyRelease = "native-scroll-v3";
     var stickyParams = new URLSearchParams(location.search);
-    var scrollTimeline = typeof CSS !== "undefined" && CSS.supports("animation-timeline", "scroll(root block)");
+    var scrollTimeline = typeof CSS !== "undefined" && CSS.supports("animation-timeline", "scroll(root block)") && CSS.supports("animation-range", "0px 1px");
     var documentSticky = isLittleImpostors && (
       (/iPhone|iPod/.test(navigator.userAgent) && scrollTimeline) || stickyParams.get("sticky_layer") === "page"
     );
@@ -85,7 +85,12 @@
             stickyLayer.style.height = documentHeight + "px";
           }
           var scroller = document.scrollingElement || document.documentElement;
-          var distance = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+          // Use this same pixel distance for the animation range AND translation.
+          // Safari's timeline scrollport can differ from clientHeight when its
+          // toolbar retracts; a default percentage range would accumulate drift.
+          // Put the endpoint beyond the maximum scroll offset so the animation
+          // never clamps early when browser controls change viewport height.
+          var distance = Math.max(1, scroller.scrollHeight);
           if (distance !== stickyScrollDistance) {
             stickyScrollDistance = distance;
             sticky.style.setProperty("--mc-scroll-distance", distance + "px");
@@ -159,9 +164,11 @@
           " hidden " + !!(sticky && sticky.hidden) +
           " display " + (sticky ? getComputedStyle(sticky).display : "-") + "\n" +
           "button " + (buttonStyle ? buttonStyle.display + "/" + buttonStyle.visibility + "/" + buttonStyle.opacity : "-") +
-          "\nlayer " + (documentSticky ? (scrollTimeline ? "page-v2-css" : "page-v2-js") : "fixed") +
+          "\nlayer " + (documentSticky ? (scrollTimeline ? "page-v3-css" : "page-v3-js") : "fixed") +
           " hit " + (button && hit && button.contains(hit) ? "button" : hit ? hit.tagName.toLowerCase() : "outside") +
-          " scale " + (viewport ? viewport.scale : 1);
+          " scale " + (viewport ? viewport.scale : 1) +
+          "\ndrift " + (bounds ? Math.round(bounds.bottom - ((viewport ? viewport.offsetTop + viewport.height : innerHeight))) : "-") +
+          "px range " + (stickyScrollDistance || "-");
       };
       paintStickyDebug();
     }
