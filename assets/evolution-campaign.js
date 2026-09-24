@@ -4,6 +4,10 @@
     if (!root || root.dataset.ecReady) return;
     root.dataset.ecReady = "true";
     var sticky = root.querySelector("[data-ec-sticky]");
+    var isLittleImpostors = root.classList.contains("mc-page");
+    // WebKit can stop painting descendants of a fixed bar inside a long
+    // Shopify section during momentum scrolling. Give this bar a body layer.
+    if (isLittleImpostors && sticky) document.body.appendChild(sticky);
     var header = document.querySelector(".ec-header");
     var stickyFrame;
     function updateSticky() {
@@ -19,9 +23,9 @@
         headerRect && headerRect.bottom > visibleTop && headerRect.top < bottom
           ? Math.max(visibleTop, headerRect.bottom)
           : visibleTop;
-      var inline = root.querySelectorAll(
-        "[data-ec-main-cta], [data-ec-inline-cta], .shopify-payment-button shopify-accelerated-checkout, .shopify-payment-button button, .shopify-payment-button iframe",
-      );
+      var inline = root.querySelectorAll(isLittleImpostors
+        ? "[data-ec-main-cta], [data-ec-inline-cta]"
+        : "[data-ec-main-cta], [data-ec-inline-cta], .shopify-payment-button shopify-accelerated-checkout, .shopify-payment-button button, .shopify-payment-button iframe");
       var usable = Array.from(inline).some(function (button) {
         var rect = button.getBoundingClientRect(),
           style = window.getComputedStyle(button);
@@ -39,8 +43,9 @@
           rect.right <= right
         );
       });
-      sticky.hidden =
+      var shouldHide =
         usable || !!(root.querySelector("[data-ec-lightbox]") || {}).open;
+      if (sticky.hidden !== shouldHide) sticky.hidden = shouldHide;
     }
     function requestStickyUpdate() {
       if (stickyFrame) return;
@@ -387,6 +392,7 @@
       if (sizeObserver) sizeObserver.disconnect();
       galleryCleanups.forEach(function (cleanup) { cleanup(); });
       paymentObserver.disconnect();
+      if (isLittleImpostors && sticky) sticky.remove();
     };
   }
   function boot() {
