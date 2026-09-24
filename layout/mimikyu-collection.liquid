@@ -5,6 +5,12 @@
     <meta charset="utf-8">
     {% render 'impostors-ab-router' %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      if (new URLSearchParams(location.search).has('sticky_cover')) {
+        document.querySelector('meta[name="viewport"]').content = 'width=device-width, initial-scale=1, viewport-fit=cover';
+        document.documentElement.classList.add('mc-cover-test');
+      }
+    </script>
     {% render 'landing-hero-preload', page_markup: landing_page_markup %}
     {{ 'little-impostors-display-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {{ 'little-impostors-body-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}

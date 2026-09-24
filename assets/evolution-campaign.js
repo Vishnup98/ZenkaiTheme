@@ -14,7 +14,7 @@
       root.insertBefore(stickyAnchor, root.firstChild);
       stickyAnchor.appendChild(sticky);
     }
-    var iphoneSticky = isLittleImpostors && /iPhone|iPod/.test(navigator.userAgent);
+    var iphoneSticky = isLittleImpostors && /iPhone|iPod/.test(navigator.userAgent) && !document.documentElement.classList.contains("mc-cover-test");
     var initialViewport = window.visualViewport;
     var chromeBaselineHeight = initialViewport ? initialViewport.height : window.innerHeight;
     var chromeBaselineWidth = initialViewport ? initialViewport.width : window.innerWidth;
@@ -107,7 +107,7 @@
         var button = sticky && sticky.querySelector("button");
         var buttonStyle = button && getComputedStyle(button);
         stickyDebug.textContent =
-          "scroll " + Math.round(scrollY) + " inner " + innerHeight +
+          "scroll " + Math.round(scrollY) + " screen " + screen.height + " inner " + innerHeight +
           " vv " + (viewport ? Math.round(viewport.height) : "-") +
           " offset " + (viewport ? Math.round(viewport.offsetTop) : "-") + "\n" +
           "bar " + (bounds ? Math.round(bounds.top) + ".." + Math.round(bounds.bottom) : "-") +
