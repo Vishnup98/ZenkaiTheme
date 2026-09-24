@@ -14,11 +14,27 @@
       root.insertBefore(stickyAnchor, root.firstChild);
       stickyAnchor.appendChild(sticky);
     }
+    var iphoneSticky = isLittleImpostors && /iPhone|iPod/.test(navigator.userAgent);
+    var initialViewport = window.visualViewport;
+    var chromeBaselineHeight = initialViewport ? initialViewport.height : window.innerHeight;
+    var chromeBaselineWidth = initialViewport ? initialViewport.width : window.innerWidth;
+    var chromeGap = 0;
     var header = document.querySelector(".ec-header");
     var stickyFrame;
     function updateSticky() {
       if (!sticky) return;
       var viewport = window.visualViewport;
+      if (iphoneSticky && stickyAnchor && viewport) {
+        if (Math.abs(viewport.width - chromeBaselineWidth) > 2) {
+          chromeBaselineWidth = viewport.width;
+          chromeBaselineHeight = viewport.height;
+        }
+        var nextChromeGap = Math.max(0, Math.round(viewport.height - chromeBaselineHeight));
+        if (nextChromeGap !== chromeGap) {
+          chromeGap = nextChromeGap;
+          stickyAnchor.style.setProperty("--mc-sticky-chrome-gap", chromeGap + "px");
+        }
+      }
       var visibleTop = viewport ? viewport.offsetTop : 0;
       var left = viewport ? viewport.offsetLeft : 0;
       var right = left + (viewport ? viewport.width : window.innerWidth);
@@ -97,7 +113,8 @@
           "bar " + (bounds ? Math.round(bounds.top) + ".." + Math.round(bounds.bottom) : "-") +
           " hidden " + !!(sticky && sticky.hidden) +
           " display " + (sticky ? getComputedStyle(sticky).display : "-") + "\n" +
-          "button " + (buttonStyle ? buttonStyle.display + "/" + buttonStyle.visibility + "/" + buttonStyle.opacity : "-");
+          "button " + (buttonStyle ? buttonStyle.display + "/" + buttonStyle.visibility + "/" + buttonStyle.opacity : "-") +
+          " gap " + chromeGap;
         stickyDebugFrame = requestAnimationFrame(paintStickyDebug);
       }
       paintStickyDebug();

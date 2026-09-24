@@ -410,9 +410,9 @@ html:has(.mc-body .ec-lightbox[open]),.mc-body:has(.ec-lightbox[open]){overflow:
 @media(prefers-reduced-motion:reduce){.mc-body *{scroll-behavior:auto!important;transition:none!important}}
 
 /* Anchor the mobile cart to page scroll instead of Safari's fixed layer. */
-.mc-body .mc-sticky-anchor{position:sticky;top:calc(100vh - 1px);height:1px;margin-bottom:-1px;z-index:40;pointer-events:none}
+.mc-body .mc-sticky-anchor{position:sticky;top:calc(100vh - var(--mc-sticky-chrome-gap, 0px) - 1px);height:1px;margin-bottom:-1px;z-index:40;pointer-events:none}
 .mc-body .mc-sticky-anchor .ec-sticky{position:absolute;top:auto;bottom:0;transform:none;pointer-events:auto}
-@supports(height:100dvh){.mc-body .mc-sticky-anchor{top:calc(100dvh - 1px)}}
+@supports(height:100dvh){.mc-body .mc-sticky-anchor{top:calc(100dvh - var(--mc-sticky-chrome-gap, 0px) - 1px)}}
 @media(min-width:900px){
  .mc-body .mc-sticky-anchor{top:calc(100vh - 21px)}
  @supports(height:100dvh){.mc-body .mc-sticky-anchor{top:calc(100dvh - 21px)}}
