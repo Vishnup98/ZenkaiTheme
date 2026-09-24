@@ -1810,7 +1810,8 @@
     padding: 0.75rem 0.85rem;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(22, 49, 45, 0.94);
+    background-color: #16312d;
+    isolation: isolate;
     box-shadow: 0 20px 36px rgba(0, 0, 0, 0.24);
   }
 
@@ -3586,6 +3587,17 @@
       }
 
       if (sticky && stickySentinel) {
+        // Mobile Safari can miss an observer update while its browser chrome resizes.
+        // Keep visibility tied to the sentinel's actual viewport position on scroll.
+        var stickyScrollFrame = null;
+        window.addEventListener('scroll', function() {
+          if (stickyScrollFrame !== null) return;
+          stickyScrollFrame = window.requestAnimationFrame(function() {
+            stickyScrollFrame = null;
+            syncStickyVisibility();
+          });
+        }, { passive: true });
+
         if ('IntersectionObserver' in window) {
           var observer = new IntersectionObserver(function(entries) {
             syncStickyVisibility(entries[0]);
@@ -3599,12 +3611,9 @@
             syncStickyVisibility();
           });
         } else {
-          var onScroll = function() {
+          window.addEventListener('resize', function() {
             syncStickyVisibility();
-          };
-
-          window.addEventListener('scroll', onScroll, { passive: true });
-          window.addEventListener('resize', onScroll);
+          });
           syncStickyVisibility();
         }
       }

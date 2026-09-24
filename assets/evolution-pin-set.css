@@ -897,13 +897,13 @@
   padding: 12px 24px calc(12px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: #fff;
-  background: rgba(22, 49, 45, 0.96);
+  background-color: #16312d;
+  isolation: isolate;
   box-shadow: 0 -12px 34px rgba(0, 0, 0, 0.18);
   opacity: 0;
   pointer-events: none;
   transform: translateY(100%);
   transition: opacity 180ms ease, transform 180ms ease;
-  backdrop-filter: blur(14px);
 }
 
 .evo-pin-sticky.is-visible {
