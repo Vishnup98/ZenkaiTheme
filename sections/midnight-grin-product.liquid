@@ -47,7 +47,7 @@
         </div>
         </div>
         <div class="mg-bundle" data-mg-bundle hidden>
-          <div class="mg-bundle__intro"><div><span class="mg-bundle__eyebrow">GOOD CAPS. BAD INFLUENCE.</span><strong>How much trouble?</strong></div><span>Pick your pack.<br>Make it yours.</span></div>
+          <div class="mg-bundle__intro"><div><span class="mg-bundle__eyebrow">BUNDLE &amp; SAVE</span><strong>Pick your caps.</strong></div></div>
           <fieldset class="mg-bundle__tiers"><legend class="mg-visually-hidden">Number of caps</legend>
             {% for tier_count in (1..4) %}
               {% assign tier_regular = selected.price | times: tier_count %}
@@ -59,12 +59,12 @@
                 <label class="mg-bundle__choice" for="mg-tier-{{ section.id }}-{{ tier_count }}">
                   <input type="radio" id="mg-tier-{{ section.id }}-{{ tier_count }}" name="mg-tier" value="{{ tier_count }}" data-mg-tier {% if tier_count == 1 %}checked{% endif %}>
                   <span class="mg-bundle__radio" aria-hidden="true"></span>
-                  <span class="mg-bundle__choice-copy"><span class="mg-bundle__pack-name">{% case tier_count %}{% when 1 %}The solo act{% when 2 %}Double trouble{% when 3 %}The trouble trio{% when 4 %}The whole crew{% endcase %}</span><strong>{{ tier_count }} {% if tier_count == 1 %}cap{% else %}caps{% endif %}</strong><small>{% case tier_count %}{% when 1 %}Your new everyday accomplice.{% when 2 %}One for you. One for a friend.{% when 3 %}Three colors. Three kinds of trouble.{% when 4 %}Complete your color collection.{% endcase %}</small></span>
+                  <span class="mg-bundle__choice-copy"><span class="mg-bundle__pack-name">{% case tier_count %}{% when 1 %}Everyday favorite{% when 2 %}One to share{% when 3 %}Mix it up{% when 4 %}Complete set{% endcase %}</span><strong>{{ tier_count }} {% if tier_count == 1 %}cap{% else %}caps{% endif %}</strong><small>{% case tier_count %}{% when 1 %}Pick your favorite color.{% when 2 %}One for you. One for a friend.{% when 3 %}Rotate your three favorite colors.{% when 4 %}Get all four colors.{% endcase %}</small></span>
                   <span class="mg-bundle__prices"><strong data-mg-estimate>{{ tier_estimate | money }}</strong>{% if tier_count > 1 %}<del data-mg-regular>{{ tier_regular | money }}</del>{% endif %}</span>
                   {% if tier_saving > 0 %}<span class="mg-bundle__badge">{% if tier_count == 4 %}BEST VALUE · {% endif %}SAVE ${{ tier_saving }}</span>{% endif %}
                 </label>
                 <div class="mg-bundle__details" data-mg-tier-details hidden>
-                  <p class="mg-bundle__picker-heading">{% if tier_count == 1 %}Choose your trouble{% else %}Make the crew yours{% endif %}<span>Pick {% if tier_count == 1 %}a color{% else %}each color{% endif %} ↓</span></p>
+                  <p class="mg-bundle__picker-heading">Choose your {% if tier_count == 1 %}color{% else %}colors{% endif %}</p>
                   {% for slot in (1..tier_count) %}
                     <div class="mg-bundle__slot">
                       <span class="mg-bundle__slot-image" aria-hidden="true"><img src="{{ hero_image | image_url: width: 120 }}" width="56" height="56" loading="lazy" alt="" data-mg-slot-image></span>
@@ -74,7 +74,7 @@
                       </select>
                     </div>
                   {% endfor %}
-                  {% if tier_count > 1 %}<div class="mg-bundle__reward"><span aria-hidden="true">✦</span><strong>${{ tier_saving }} OFF UNLOCKED</strong><span>{% if tier_count == 4 %}Full crew. Maximum savings.{% else %}More grins for less.{% endif %}</span></div>{% endif %}
+                  {% if tier_count > 1 %}<div class="mg-bundle__reward"><span aria-hidden="true">✦</span><strong>Save ${{ tier_saving }} on this order</strong></div>{% endif %}
                 </div>
               </div>
             {% endfor %}
@@ -93,7 +93,7 @@
   <section class="mg-colors mg-wrap" aria-labelledby="mg-colors-title">
     <p class="mg-kicker">SAME GRIN. DIFFERENT MOOD.</p>
     <h2 id="mg-colors-title">Four colors.<br><em>Choose your trouble.</em></h2>
-    <p>Start with the color that feels like you. Mix more colors in the cap lineup above.</p>
+    <p>Choose from Purple, Black, Green, and Rose Pink.</p>
     <div class="mg-color-grid">
       {% for variant in product.variants %}
         {% assign color_image = variant.featured_image | default: product.featured_image %}
@@ -114,7 +114,7 @@
     </div>
   </section>
   <section class="mg-faq mg-wrap" aria-labelledby="mg-faq-title"><div><p class="mg-kicker">BEFORE YOU MAKE IT YOURS</p><h2 id="mg-faq-title">A few<br><em>straight answers.</em></h2></div><div><details open><summary>What’s included?</summary><p>Choose one to four Midnight Grin washed baseball caps above. Each cap comes in the color you select for it; the other colors shown are options, not included unless selected.</p>{% if section.settings.bonus_heading != blank and section.settings.bonus_copy != blank %}<p><strong>{{ section.settings.bonus_heading | escape }}</strong><br>{{ section.settings.bonus_copy | escape }}</p>{% endif %}</details><details><summary>Is the design embroidered?</summary><p>Yes. The red eyes and white grin are embroidered on the front of the cap.</p></details><details><summary>Which colors can I choose?</summary><p>Black, Purple, Green, and Rose Pink. You can mix available colors when adding multiple caps. The first color you choose controls the main photo.</p></details><details><summary>How do the multi-item savings work?</summary><p>Qualifying carts with any 2 eligible items get ${{ bundle_tier_2_save }} off, 3 get ${{ bundle_tier_3_save }} off, and 4 or more get ${{ bundle_tier_4_save }} off. The estimated cap totals above assume only those caps are in your cart; checkout confirms the final discount.</p></details><details><summary>Is shipping free?</summary><p>Yes. Free shipping is included with your cap. Read our <a href="/pages/policy">delivery and returns policy</a>, or <a href="mailto:{{ shop.email }}">contact us</a> if you have a question before ordering.</p></details></div></section>
-  <section class="mg-final">{% render 'midnight-grin-mark', class: 'mg-final__mark' %}<p class="mg-kicker">YOUR NEXT EVERYDAY CAP</p><h2>Good cap.<br><em>Bad influence.</em></h2><a class="mg-cta" href="#mg-title">Build your lineup</a><p class="mg-final__shipping">Your colors. All that attitude.</p></section>
+  <section class="mg-final">{% render 'midnight-grin-mark', class: 'mg-final__mark' %}<p class="mg-kicker">YOUR NEXT EVERYDAY CAP</p><h2>Good cap.<br><em>Bad influence.</em></h2><a class="mg-cta" href="#mg-title">Choose your caps</a><p class="mg-final__shipping">Your colors. All that attitude.</p></section>
   <div class="mg-sticky" data-mg-sticky hidden><div><strong>Midnight Grin</strong><span data-mg-sticky-label>{{ selected.title | escape }} · {{ selected.price | money }}</span></div><button type="submit" form="{{ form_id }}" class="mg-cta" data-mg-sticky-add {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}Add to cart{% else %}Sold out{% endif %}</button></div>
   <script type="application/json" data-mg-data>{"currency":{{ shop.currency | json }},"locale":{{ request.locale.iso_code | json }},"cartAddUrl":{{ routes.cart_add_url | append: '.js' | json }},"cartUrl":{{ routes.cart_url | json }},"savings":{"2":{{ bundle_tier_2_save | times: 100 }},"3":{{ bundle_tier_3_save | times: 100 }},"4":{{ bundle_tier_4_save | times: 100 }}},"variants":[{% for variant in product.variants %}{"id":{{ variant.id | json }},"title":{{ variant.title | json }},"available":{{ variant.available | json }},"price":{{ variant.price | money | json }},"priceCents":{{ variant.price | json }},"image":{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1200 | json }}{% else %}{{ hero_image | image_url: width: 1200 | json }}{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>
 </article>
